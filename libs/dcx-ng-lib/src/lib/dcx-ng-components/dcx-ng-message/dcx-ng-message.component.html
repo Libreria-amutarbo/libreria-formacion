@@ -1,0 +1,26 @@
+<div
+  [ngClass]="['message__container', messageData().role]"
+  [attr.aria-role]="messageData().role"
+>
+  @if (icon()) {
+    <!-- TODO: Waiting until we have the icon component -->
+    <img class="icon__container" />
+  }
+
+  <div class="message__container__body">
+    @if (title()) {
+      <h2 class="message__container__title">{{ title() }}</h2>
+    }
+
+    <p class="message__container__paragraph">{{ body() }}</p>
+
+    @if (link()) {
+      <a [href]="link()">{{link()}}</a>
+    }
+  </div>
+
+  @if (showClose()) {
+    <!-- TODO: Waiting until we have the icon component -->
+    <img class="icon__container__close" />
+  }
+</div>

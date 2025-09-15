@@ -1,0 +1,11 @@
+<h2>Toggle Demo</h2>
+
+<dcx-ng-toggle
+  [checked]="isDarkMode"
+  label="Dark mode"
+  size="medium"
+  color="#0056b3"
+  (toggled)="handleToggle($event)"
+></dcx-ng-toggle>
+
+<p>Dark mode is {{ isDarkMode ? 'ON' : 'OFF' }}</p>

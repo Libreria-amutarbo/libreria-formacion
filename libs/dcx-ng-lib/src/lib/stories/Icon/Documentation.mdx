@@ -1,0 +1,35 @@
+import { Meta, Canvas, ArgTypes, Story } from '@storybook/blocks';
+import * as IconClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Icon/Documentation" />
+
+# Icon
+
+The Icon component is a UI/UX-agnostic element designed for flexibility and reuse.  
+You can find the name of your icon on the Google Icons site (https://fonts.google.com/icons).
+
+---
+
+## Example
+
+<Canvas of={IconClassBasedStories.MediumCompact} />
+
+You can customize:
+
+- name: the icon name
+- color: the icon color
+- size: s, m, l, xl
+- spacing: none, compact, spacious
+
+---
+
+## Usage Example
+
+```html
+<dcx-ng-icon
+  [name]="'search'"
+  [color]="'green'"
+  [size]="'medium'"
+  [spacing]="'spacious'"
+>
+</dcx-ng-icon>

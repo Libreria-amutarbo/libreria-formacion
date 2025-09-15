@@ -1,0 +1,20 @@
+<div
+  [class]="sizeClasses"
+  [class.disabled]="disabled"
+  role="switch"
+  [attr.aria-checked]="checked"
+  [attr.aria-label]="ariaLabelBinding"
+  [attr.tabindex]="disabled ? -1 : 0"
+  (click)="toggle()"
+>
+  <div
+    class="dcx-ng-toggle__track"
+    [ngStyle]="{ backgroundColor: checked ? color : '#ccc' }"
+  >
+    <div class="dcx-ng-toggle__thumb" [class.checked]="checked"></div>
+  </div>
+
+  @if (label) {
+    <span class="dcx-ng-toggle__label">{{ label }}</span>
+  }
+</div>

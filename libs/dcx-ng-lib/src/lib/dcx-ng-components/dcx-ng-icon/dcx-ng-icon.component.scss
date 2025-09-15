@@ -1,0 +1,28 @@
+.material-icons {
+  font-family: 'Material Icons';
+  vertical-align: middle;
+
+  &--s {
+    font-size: 0.75rem;
+  }
+
+  &--m {
+    font-size: 1.5rem;
+  }
+
+  &--l {
+    font-size: 3rem;
+  }
+
+  &--xl {
+    font-size: 6rem;
+  }
+
+  &--compact {
+    margin: 0.25rem;
+  }
+
+  &--spacious {
+    margin: 0.75rem;
+  }
+}

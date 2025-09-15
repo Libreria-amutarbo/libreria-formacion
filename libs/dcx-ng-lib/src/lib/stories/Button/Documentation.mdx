@@ -1,0 +1,51 @@
+import { Meta, Canvas, ArgTypes, Story } from '@storybook/blocks';
+import * as ButtonUnstyledStories from './UnStyled.stories';
+import * as ButtonClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Button/Documentation" />
+
+# Button
+
+The `dcx-ng-button` component is a UI/UX-agnostic element designed for flexibility and reuse.  
+It supports both unstyled and class-based variations. You can pass a label or use content projection via ng-content.
+
+---
+
+## Unstyled Version
+
+Use this version when you want full control over appearance.  
+No styles are applied by default. You’re responsible for all visual presentation.
+
+<Canvas of={ButtonUnstyledStories.Unstyled} />
+
+---
+
+## Class-Based Version
+
+The class-based button uses minimal default styles built with BEM naming convention and SCSS.  
+It leverages CSS variables for flexibility and can be easily extended.
+
+<Canvas of={ButtonClassBasedStories.Primary} />
+
+You can customize:
+
+- variant: primary, secondary, link, icon
+- size: small, medium, large, block
+- disabled: disables the button
+- icon: optional icon class
+- label: button text
+
+---
+
+## Usage Example
+
+```html
+<dcx-ng-button
+  [label]="'Start Now'"
+  [type]="'submit'"
+  [variant]="'primary'"
+  [size]="'medium'"
+  [disabled]="false"
+  (click)="onClick()"
+>
+</dcx-ng-button>

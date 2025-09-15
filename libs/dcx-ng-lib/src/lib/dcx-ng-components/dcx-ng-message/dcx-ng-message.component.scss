@@ -1,0 +1,30 @@
+@mixin message-type($color) {
+  border: 1px solid $color;
+  color: $color;
+}
+
+.message__container {
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  .__title {
+    font-weight: 600;
+  }
+}
+
+.error {
+  @include message-type(var(--dcx-ng-error));
+}
+
+.warning {
+  @include message-type(var(--dcx-ng-warning));
+}
+
+.notification {
+  @include message-type(var(--dcx-ng-notification));
+}
+
+.success {
+  @include message-type(var(--dcx-ng-success));
+}

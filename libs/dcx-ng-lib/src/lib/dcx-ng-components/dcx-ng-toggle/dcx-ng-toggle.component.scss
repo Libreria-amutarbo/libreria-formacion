@@ -1,0 +1,66 @@
+:host {
+  display: inline-flex;
+  cursor: pointer;
+
+  --toggle-width: 2.5rem;
+  --toggle-height: 1.5rem;
+  --thumb-size: 1.5rem;
+}
+
+.dcx-ng-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &--small {
+    --toggle-width: 2.5rem;
+    --toggle-height: 1rem;
+    --thumb-size: 0.65rem;
+  }
+
+  &--medium {
+    --toggle-width: 4rem;
+    --toggle-height: 1.75rem;
+    --thumb-size: 1rem;
+  }
+
+  &--large {
+    --toggle-width: 6rem;
+    --toggle-height: 2.5rem;
+    --thumb-size: 1.75rem;
+  }
+
+  &__track {
+    width: var(--toggle-width);
+    height: var(--toggle-height);
+    background-color: #ccc;
+    border-radius: 999px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+
+  &__thumb {
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 0.125rem;
+    transform: translateY(-50%);
+    transition: left 0.3s;
+
+    &.checked {
+      left: calc(100% - var(--thumb-size) - 0.125rem);
+    }
+  }
+
+  &__label {
+    font-size: 1rem;
+  }
+}

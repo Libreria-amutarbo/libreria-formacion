@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      @for (header of data?.headers; track header?.name) {
+        <th>{{ header?.name }}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (val of data?.body?.value; track val?.name) {
+      <tr>
+        @for (header of data?.headers; track header?.name) {
+          <td>{{ val[header?.name?.toLowerCase() || ''] }}</td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>

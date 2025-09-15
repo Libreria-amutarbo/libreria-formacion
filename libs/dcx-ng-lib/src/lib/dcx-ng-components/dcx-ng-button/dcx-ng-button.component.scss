@@ -1,0 +1,59 @@
+:host {
+  --dcx-button-padding: 0.5rem 1rem;
+  --dcx-button-font-size: 1rem;
+  --dcx-button-bg: transparent;
+  --dcx-button-color: inherit;
+  --dcx-button-border: 1px solid currentColor;
+
+  display: inline-block;
+}
+
+.dcx-ng-button {
+  padding: var(--dcx-button-padding);
+  font-size: var(--dcx-button-font-size);
+  background-color: var(--dcx-button-bg);
+  color: var(--dcx-button-color);
+  border: var(--dcx-button-border);
+  cursor: pointer;
+  border-radius: 4px;
+
+  &--primary {
+    --dcx-button-bg: #0056b3;
+    --dcx-button-color: #fff;
+  }
+
+  &--secondary {
+    --dcx-button-bg: #6c757d;
+    --dcx-button-color: #fff;
+  }
+
+  &--link {
+    --dcx-button-bg: transparent;
+    --dcx-button-color: #0056b3;
+    border: none;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: var(--button-disabled-bg, #e0e0e0);
+    color: var(--button-disabled-text, #a0a0a0);
+    border-color: var(--button-disabled-border, #cccccc);
+  }
+
+  &--small {
+    --dcx-button-padding: 0.25rem 0.5rem;
+    --dcx-button-font-size: 0.875rem;
+  }
+
+  &--medium {
+    --dcx-button-padding: 0.5rem 1rem;
+    --dcx-button-font-size: 1rem;
+  }
+
+  &--large {
+    --dcx-button-padding: 0.75rem 1.25rem;
+    --dcx-button-font-size: 1.125rem;
+  }
+}

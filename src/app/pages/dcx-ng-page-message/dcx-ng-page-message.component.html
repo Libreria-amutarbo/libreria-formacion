@@ -1,0 +1,37 @@
+<div class="message-page">
+  <div class="message-test-container">
+    <h4>Simple message</h4>
+    <dcx-ng-message [body]="'Lorem Test Ipsum'"></dcx-ng-message>
+  </div>
+
+  <div class="message-test-container">
+    <h4>Message with title</h4>
+    <dcx-ng-message
+      body="Lorem Test Ipsum"
+      title="Titulo prueba"
+    ></dcx-ng-message>
+  </div>
+
+  <div class="message-test-container">
+    <h4>Message success</h4>
+    <dcx-ng-message body="Lorem Test Ipsum" type="success"></dcx-ng-message>
+  </div>
+
+  <div class="message-test-container">
+    <h4>Message warning</h4>
+    <dcx-ng-message body="Lorem Test Ipsum" type="warning"></dcx-ng-message>
+  </div>
+
+  <div class="message-test-container">
+    <h4>Message error</h4>
+    <dcx-ng-message body="Lorem Test Ipsum" type="error"></dcx-ng-message>
+  </div>
+
+  <div class="message-test-container">
+    <h4>Message with link</h4>
+    <dcx-ng-message
+      body="Lorem Test Ipsum"
+      link="https://www.google.com/"
+    ></dcx-ng-message>
+  </div>
+</div>

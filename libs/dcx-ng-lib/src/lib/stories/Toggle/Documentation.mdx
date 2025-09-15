@@ -1,0 +1,81 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ToggleClassBasedStories from './ClassBased.stories';
+import * as ToggleUnstyledStories from './UnStyled.stories';
+
+<Meta title="DCXLibrary/Toggle/Documentation" />
+
+# Toggle
+
+The `dcx-ng-toggle` is a flexible and accessible switch component used to represent on/off states.  
+It is designed for easy customization and can be styled or left unstyled based on project needs.
+
+---
+
+## Unstyled Version
+
+Use this version when you want full control over the visual appearance.  
+No default styles are applied — only the structure and behavior remain.
+
+<Canvas of={ToggleUnstyledStories.DefaultToggle} />
+
+---
+
+## Class-Based Version
+
+This version includes default styling using BEM-based classes and minimal SCSS.  
+It supports customization through size and color inputs.
+
+<Canvas of={ToggleClassBasedStories.DefaultToggle} />
+<Canvas of={ToggleClassBasedStories.CheckedByDefault} />
+
+---
+
+### Available Properties
+
+- **checked**: Whether the toggle is in the "on" state  
+- **disabled**: Disables the toggle interaction if `true`  
+- **label**: Optional label text shown next to the toggle  
+- **ariaLabel**: Used for accessibility when no visible label is provided  
+- **size**: `'small' | 'medium' | 'large'` — controls the size of the toggle  
+- **color**: Any valid CSS color — controls the active background when checked  
+- **(toggled)**: Event emitted with the new `checked` value whenever the toggle is clicked or toggled with keyboard
+
+---
+
+## Custom Sizes
+
+You can pass a `size` to modify the appearance:
+
+<Canvas of={ToggleClassBasedStories.SmallToggle} /> 
+<Canvas of={ToggleClassBasedStories.MediumToggle} /> 
+<Canvas of={ToggleClassBasedStories.LargeToggle} />
+
+---
+
+## Custom Colors
+
+You can pass a `color` value to change the background when the toggle is checked:
+
+<Canvas of={ToggleClassBasedStories.ColorToggle} />
+
+---
+
+## Manual Usage Example
+
+The toggle works with basic property binding and event handling:
+
+```html
+file.HTML 
+<dcx-ng-toggle
+  [checked]="featureEnabled"
+  label="Enable Feature"
+  size="medium"
+  color="#0056b3"
+  (toggled)="handleToggle($event)"
+></dcx-ng-toggle>
+
+
+file.TS 
+handleToggle(value: boolean) {
+    this.featureEnabled = value;
+  }

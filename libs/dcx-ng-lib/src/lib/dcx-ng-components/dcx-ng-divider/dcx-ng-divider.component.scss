@@ -1,0 +1,35 @@
+:host {
+  --dcx-divider-color: #ff0000;
+  --dcx-divider-thickness: 1px;
+  --dcx-divider-size: 100px;
+  display: block;
+}
+
+.dcx-ng-divider {
+  background-color: var(--dcx-divider-color);
+  margin: 0;
+  border: none;
+  display: block;
+
+  &--horizontal {
+    height: var(--dcx-divider-thickness);
+    width: var(--dcx-divider-size);
+  }
+
+  &--vertical {
+    width: var(--dcx-divider-thickness);
+    height: var(--dcx-divider-size);
+  }
+
+  &--small {
+    --dcx-divider-size: 5rem;
+  }
+
+  &--medium {
+    --dcx-divider-size: 15rem;
+  }
+
+  &--large {
+    --dcx-divider-size: 30rem;
+  }
+}

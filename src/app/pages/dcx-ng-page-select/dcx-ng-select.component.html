@@ -1,0 +1,12 @@
+<h2>Select Example</h2>
+
+<dcx-ng-select
+  [options]="selectOptions"
+  placeholder="Choose an option"
+  [disabled]="false"
+  ariaLabel="Select an option"
+  [(ngModel)]="selectedValue"
+  (selectionChange)="onValueChange($event)"
+></dcx-ng-select>
+
+<p>You selected: {{ selectedValue || 'None' }}</p>

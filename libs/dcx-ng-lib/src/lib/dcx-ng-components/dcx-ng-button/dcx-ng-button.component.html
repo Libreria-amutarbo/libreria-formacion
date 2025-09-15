@@ -1,0 +1,16 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  [ngClass]="buttonClasses"
+  (click)="onClick()"
+  [attr.aria-label]="ariaLabelBinding"
+  [attr.aria-disabled]="disabled ? true : null"
+>
+  @if (icon) {
+    <i [class]="icon" role="img" aria-hidden="true"></i>
+  }
+
+  @if (label) {
+    <span> {{ label }}</span>
+  }
+</button>

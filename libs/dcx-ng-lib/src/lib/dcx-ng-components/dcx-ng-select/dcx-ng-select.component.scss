@@ -1,0 +1,34 @@
+:host {
+  --dcx-select-padding: 0.5rem 1rem;
+  --dcx-select-font-size: 1rem;
+  --dcx-select-bg: white;
+  --dcx-select-color: #333;
+  --dcx-select-border: 2px solid #0056b3;
+
+  display: inline-block;
+}
+
+.dcx-ng-select {
+  padding: var(--dcx-select-padding);
+  font-size: var(--dcx-select-font-size);
+  background-color: var(--dcx-select-bg);
+  color: var(--dcx-select-color);
+  border: var(--dcx-select-border);
+  width: 100%;
+
+  cursor: pointer;
+  appearance: none;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    outline: 2px solid #0056b3;
+    outline-offset: 2px;
+    border-color: #cccccc;
+    box-shadow: 0 0 10px rgba(0, 89, 179, 0.2);
+    background-color: #f4f5f8;
+  }
+}
