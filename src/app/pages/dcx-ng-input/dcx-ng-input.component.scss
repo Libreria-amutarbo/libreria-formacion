@@ -1,0 +1,120 @@
+:host {
+  display: inline-block;
+
+  --dcx-input-bg: white;
+  --dcx-input-color: #0056b3;
+  --dcx-input-border: 2px solid #0056b3;
+  --dcx-input-padding: 0.5rem 1rem;
+  --dcx-input-font-size: 1rem;
+
+  --dcx-label-font-size: 1rem;
+  --dcx-label-font-size-small: 0.75rem;
+  --dcx-label-top: 0.40rem;
+  --dcx-label-top-small: 0.2rem;
+  --dcx-label-left: 1rem;
+  --dcx-label-left-small: 0.8rem;
+  --dcx-input-padding-top: 1.25rem;
+}
+
+.dcx-ng-input {
+  background-color: var(--dcx-input-bg);
+  color: var(--dcx-input-color);
+  border: var(--dcx-input-border);
+  padding: var(--dcx-input-padding);
+  font-size: var(--dcx-input-font-size);
+  transition: border-color 0.3s;
+  outline: none;
+  width: 100%;
+
+  &::placeholder {
+    color: #999;
+    opacity: 1;
+    font-size: var(--dcx-input-font-size);
+  }
+
+  &:focus {
+    border-color: #cccccc;
+  }
+
+  &--s {
+    --dcx-input-padding: 0.25rem 0.5rem;
+    --dcx-input-font-size: 0.5rem;
+    --dcx-label-font-size: 0.75rem;
+    --dcx-label-font-size-small: 0.6rem;
+    --dcx-label-top: 0.3rem;
+    --dcx-label-top-small: 0.1rem;
+    --dcx-label-left: 0.75rem;
+    --dcx-label-left-small: 0.6rem;
+    --dcx-input-padding-top: 1rem;
+  }
+
+  &--m {
+    --dcx-input-padding: 0.5rem 1rem;
+    --dcx-input-font-size: 1rem;
+    --dcx-label-font-size: 1rem;
+    --dcx-label-font-size-small: 0.75rem;
+    --dcx-label-top: 0.4rem;
+    --dcx-label-top-small: 0.2rem;
+    --dcx-label-left: 1rem;
+    --dcx-label-left-small: 0.8rem;
+    --dcx-input-padding-top: 1.25rem;
+  }
+
+  &--l {
+    --dcx-input-padding: 1rem 1.5rem;
+    --dcx-input-font-size: 1.5rem;
+    --dcx-label-font-size: 1.25rem;
+    --dcx-label-font-size-small: 1rem;
+    --dcx-label-top: 0.5rem;
+    --dcx-label-top-small: 0.3rem;
+    --dcx-label-left: 1.25rem;
+    --dcx-label-left-small: 1rem;
+    --dcx-input-padding-top: 1.5rem;
+  }
+
+  &--xl {
+    --dcx-input-padding: 1.5rem 2rem;
+    --dcx-input-font-size: 2rem;
+    --dcx-label-font-size: 1.5rem;
+    --dcx-label-font-size-small: 1.25rem;
+    --dcx-label-top: 0.6rem;
+    --dcx-label-top-small: 0.4rem;
+    --dcx-label-left: 1.5rem;
+    --dcx-label-left-small: 1.25rem;
+    --dcx-input-padding-top: 1.75rem;
+  }
+}
+
+.dcx-ng-error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.dcx-ng-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  .dcx-ng-input {
+    padding-top: var(--dcx-input-padding-top);
+  }
+
+  .dcx-ng-floating-label {
+    position: absolute;
+    top: var(--dcx-label-top);
+    left: var(--dcx-label-left);
+    font-size: var(--dcx-label-font-size);
+    color: #0056b3;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+
+  &.has-value .dcx-ng-floating-label,
+  &.is-focused .dcx-ng-floating-label {
+    top: var(--dcx-label-top-small);
+    left: var(--dcx-label-left-small);
+    font-size: var(--dcx-label-font-size-small);
+    color: #0056b3;
+  }
+}

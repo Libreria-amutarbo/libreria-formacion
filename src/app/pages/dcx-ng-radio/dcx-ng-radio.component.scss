@@ -1,0 +1,46 @@
+:host {
+  display: inline-block;
+}
+
+.dcx-ng-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  font-size: var(--dcx-radio-font-size, 1rem);
+  padding: var(--dcx-radio-padding, 0.5rem);
+
+  color: #0056b3;
+
+  input[type='radio'] {
+    width: var(--dcx-radio-size, 1rem);
+    height: var(--dcx-radio-size, 1rem);
+    accent-color: #0056b3;
+  }
+
+  &--s {
+    --dcx-radio-font-size: 0.75rem;
+    --dcx-radio-padding: 0.25rem;
+    --dcx-radio-size: 0.75rem;
+  }
+
+  &--m {
+    --dcx-radio-font-size: 1.25rem;
+    --dcx-radio-padding: 0.75rem;
+    --dcx-radio-size: 1.25rem;
+  }
+
+  &--l {
+    --dcx-radio-font-size: 1.75rem;
+    --dcx-radio-padding: 0.1rem;
+    --dcx-radio-size: 1.5rem;
+  }
+
+  &.unstyled {
+    color: gray;
+
+    input[type='radio'] {
+      accent-color: gray;
+    }
+  }
+}

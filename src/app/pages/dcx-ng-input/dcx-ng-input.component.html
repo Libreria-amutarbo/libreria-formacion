@@ -1,0 +1,21 @@
+<div class="dcx-ng-input-wrapper" [ngClass]="{ 'has-value': value, 'is-focused': isFocused }">
+  <label class="dcx-ng-floating-label">{{ label }}</label>
+  <input
+    class="dcx-ng-input"
+    [type]="type"
+    [value]="value"
+    [ngClass]="sizeClass"
+    [attr.placeholder]="placeholder"
+    [attr.aria-label]="ariaLabel || label || 'Input field'"
+    [required]="required"
+    [disabled]="disabled"
+    (input)="handleInput($event)"
+    (focus)="isFocused = true"
+    (blur)="isFocused = false; markAsTouched()"
+    role="textbox"
+  />
+</div>
+
+@if (errorMessage) {
+  <div class="dcx-ng-error">{{ errorMessage }}</div>
+}

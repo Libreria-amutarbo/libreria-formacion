@@ -1,0 +1,113 @@
+@if (isVisible) {
+  <div
+    class="dcx-ng-spinner"
+    [ngStyle]="{ 'color': color(),  'background-color': wrapper() ? backgroundColor() : 'transparent' }"
+    role="status"
+    aria-live="assertive"
+    [attr.aria-label]="label()"
+  >
+    <div [ngClass]="getSpinnerSizeClass()" class="center-spinner">
+      @switch (type()) {
+        @case ('ring') {
+          <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        }
+        @case ('dual-ring') {
+          <div class="lds-dual-ring"></div>
+        }
+        @case ('facebook') {
+          <div class="lds-facebook">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        }
+        @case ('heart') {
+          <div class="lds-heart"><div></div></div>
+        }
+        @case ('circle') {
+          <div class="lds-circle"><div></div></div>
+        }
+        @case ('roller') {
+          <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        }
+        @case ('hourglass') {
+          <div class="lds-hourglass"></div>
+        }
+        @case ('ellipsis') {
+          <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        }
+        @case ('grid') {
+          <div class="lds-grid">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        }
+        @case ('ripple') {
+          <div class="lds-ripple">
+            <div></div>
+            <div></div>
+          </div>
+        }
+        @case ('spinner') {
+          <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        }
+        @default {
+          <div class="lds-default">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        }
+      }
+    </div>
+    <p [ngClass]="getSpinnerFontSizeClass()" class="label">{{label()}}</p>
+  </div>
+}
