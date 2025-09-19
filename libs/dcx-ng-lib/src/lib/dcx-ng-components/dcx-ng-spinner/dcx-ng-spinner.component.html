@@ -1,0 +1,24 @@
+<div
+  class="dcx-ng-spinner dcx-ng-spinner--{{ size }}"
+  [class.dcx-ng-spinner--wrapper]="wrapper"
+  *ngIf="isVisible"
+  role="status"
+  [attr.aria-label]="label || 'loading'"
+>
+  <!-- Spinner standalone -->
+  <ng-container *ngIf="!wrapper">
+    <div class="dcx-ng-spinner__circle"></div>
+    <span *ngIf="label" class="dcx-ng-spinner__label">
+      {{ label }}
+    </span>
+  </ng-container>
+
+  <!-- Spinner como overlay sobre contenido proyectado -->
+  <ng-content *ngIf="wrapper"></ng-content>
+  <div *ngIf="wrapper" class="dcx-ng-spinner__overlay">
+    <div class="dcx-ng-spinner__circle"></div>
+    <span *ngIf="label" class="dcx-ng-spinner__label">
+      {{ label }}
+    </span>
+  </div>
+</div>
