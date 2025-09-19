@@ -1,41 +1,40 @@
-
-// Convertir fuentes a variables CSS
-@each $name, $value in $fonts {
-  --font-family-#{$name}: #{$value};
-}
-
-// Convertir pesos de fuente a variables CSS
-@each $name, $value in $weight {
-  --font-weight-#{$name}: #{$value};
-}
-
-// Convertir tamaños de fuente a variables CSS
-@each $name, $value in $font-size {
-  --font-size-#{$name}: #{$value};
-}
-
-// Convertir altura de línea a variables CSS
-@each $name, $value in $line-height {
-  --line-height-#{$name}: #{$value};
-}
-
-// Convertir espaciado entre letras a variables CSS
-@each $name, $value in $letter-spacing {
-  --letter-spacing-#{$name}: #{$value};
-}
-
-// Convertir colores a variables CSS
-@each $name, $value in $color {
-  --color-#{$name}: #{$value};
-}
-
-// Convertir espaciados a variables CSS
-@each $name, $value in $spacing {
-  --spacing-#{$name}: #{$value};
-}
-
 // Variables raíz del sistema de diseño
 :root {
+  // Convertir fuentes a variables CSS
+  @each $name, $value in $fonts {
+    --font-family-#{$name}: #{$value};
+  }
+
+  // Convertir pesos de fuente a variables CSS
+  @each $name, $value in $weight {
+    --font-weight-#{$name}: #{$value};
+  }
+
+  // Convertir tamaños de fuente a variables CSS
+  @each $name, $value in $font-size {
+    --font-size-#{$name}: #{$value};
+  }
+
+  // Convertir altura de línea a variables CSS
+  @each $name, $value in $line-height {
+    --line-height-#{$name}: #{$value};
+  }
+
+  // Convertir espaciado entre letras a variables CSS
+  @each $name, $value in $letter-spacing {
+    --letter-spacing-#{$name}: #{$value};
+  }
+
+  // Convertir colores a variables CSS
+  @each $name, $value in $color {
+    --color-#{$name}: #{$value};
+  }
+
+  // Convertir espaciados a variables CSS
+  @each $name, $value in $spacing {
+    --spacing-#{$name}: #{$value};
+  }
+
   // Fuentes base
   --font-family-base: var(--font-family-primary);
   --font-size-base: var(--font-size-body);
@@ -45,10 +44,10 @@
   // Colores base del sistema
   --color-base: var(--color-text-primary);
   --color-background-base: var(--color-background);
-  
+
   // Espaciado base
   --spacing-base: var(--spacing-base);
-  
+
   // Radio de bordes
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
@@ -57,8 +56,10 @@
 
   // Sombras
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
   // Transiciones
   --transition-fast: 150ms;

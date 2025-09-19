@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@dcx-ng-components/dcx-ng-lib": ["libs/dcx-ng-lib/src/index.ts"]
+      "@dcx-ng-components/dcx-ng-lib": ["libs/dcx-ng-lib/src/index.ts"],
+      "@styles/*": ["libs/dcx-ng-lib/src/scss/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
