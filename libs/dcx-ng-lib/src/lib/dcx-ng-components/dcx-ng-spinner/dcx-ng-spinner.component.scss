@@ -1,18 +1,20 @@
+@use '../../../scss/main' as *;
+
 .dcx-ng-spinner {
   display: inline-flex;
   align-items: center;
 
-  &--xs { font-size: 0.75rem; }
-  &--s  { font-size: 1rem; }
-  &--m  { font-size: 1.25rem; }
-  &--l  { font-size: 1.5rem; }
-  &--xl { font-size: 2rem; }
+  &--xs { font-size: var(--spacing-xs); }  // 0.5rem - 8px
+  &--s  { font-size: var(--spacing-s); }   // 1rem - 16px
+  &--m  { font-size: var(--spacing-m); }   // 1.5rem - 24px
+  &--l  { font-size: var(--spacing-l); }   // 2rem - 32px
+  &--xl { font-size: var(--spacing-xl); }  // 3rem - 48px
 
   &__circle {
     width: 1em;
     height: 1em;
-    border: 0.2em solid #0070AD;
-    border-top-color: #12ABDB;
+    border: 0.2em solid var(--color-primary);
+    border-top-color: var(--color-accent);
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
   }
@@ -34,7 +36,8 @@
     .dcx-ng-spinner__overlay {
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0.6);
+      background-color: var(--color-gray-lighter);
+      opacity: 0.9;
       display: flex;
       align-items: center;
       justify-content: center;
