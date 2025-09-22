@@ -1,0 +1,15 @@
+<p>{{ label }} <span class="required-icon" *ngIf="required">*</span></p>
+
+<input 
+  class="input"
+  [class.focus]="isFocused"
+  [class.disabled]="disabled"
+  [type]="type" 
+  [placeholder]="placeholder" 
+  [formControl]="inputControl"
+  [ngClass]="'input-size--' + size"
+  (focus)="clickInput()"
+  (blur)="clickInput()"
+  [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
+  [class.invalid]="inputControl.invalid && inputControl.touched"
+/>
