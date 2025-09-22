@@ -1,0 +1,25 @@
+.container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.demo-section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+}
