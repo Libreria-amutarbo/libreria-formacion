@@ -1,15 +1,15 @@
-<p>{{ label }} <span class="required-icon" *ngIf="required">*</span></p>
+<div class="input-container">
+  <label [for]="inputId" class="input-label" *ngIf="label">
+    {{ label }}
+    <span class="required-icon" *ngIf="required" aria-hidden="true">*</span>
+    <span class="visually-hidden" *ngIf="required">(required)</span>
+  </label>
 
-<input 
-  class="input"
-  [class.focus]="isFocused"
-  [class.disabled]="disabled"
-  [type]="type" 
-  [placeholder]="placeholder" 
-  [formControl]="inputControl"
-  [ngClass]="'input-size--' + size"
-  (focus)="clickInput()"
-  (blur)="clickInput()"
-  [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
-  [class.invalid]="inputControl.invalid && inputControl.touched"
-/>
+  <input [id]="inputId" class="input" [class.disabled]="disabled" [type]="type" [placeholder]="placeholder"
+    [formControl]="inputControl" [ngClass]="'input-size--' + size"
+    [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
+    [class.invalid]="inputControl.invalid && inputControl.touched" [attr.aria-required]="required"
+    [attr.aria-invalid]="inputControl.invalid && inputControl.touched" [attr.aria-label]="label || placeholder" />
+    
+  <span class="invalid-message" *ngIf="inputControl.invalid && inputControl.touched">{{ getErrorMessage() }}</span>
+</div>

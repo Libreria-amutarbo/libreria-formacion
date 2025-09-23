@@ -13,7 +13,7 @@ export type InputSize = 's' | 'm' | 'l' | 'xl';
   styleUrls: ['./dcx-ng-input.component.scss'],
 })
 export class DcxNgInputComponent implements OnInit, OnChanges {
-  
+
   @Input() type: InputType = 'text';
   @Input() placeholder: string | null = null;
   @Input() size: InputSize = 'm';
@@ -30,13 +30,18 @@ export class DcxNgInputComponent implements OnInit, OnChanges {
 
   inputControl: FormControl = new FormControl('');
   isFocused: boolean = false;
+  inputId: string;
+
+  constructor() {
+    this.inputId = `dcx-input-${Math.random().toString(36).substr(2, 9)}`;
+  }
 
   ngOnInit() {
     this.setupFormControl();
     this.setupValueChanges();
   }
 
-  private setupFormControl() {
+  setupFormControl() {
     const validators = [];
     if (this.required) {
       validators.push(Validators.required);
@@ -45,11 +50,11 @@ export class DcxNgInputComponent implements OnInit, OnChanges {
       validators.push(Validators.email);
     }
     if (this.type === 'number') {
-      validators.push(Validators.pattern(/^-?[0-9]\\d*$/));
+      validators.push(Validators.pattern(/^-?\d*\.?\d*$/));
     }
 
     this.inputControl = new FormControl('', validators);
-    
+
     if (this.disabled) {
       this.inputControl.disable();
     }
@@ -61,13 +66,22 @@ export class DcxNgInputComponent implements OnInit, OnChanges {
     });
   }
 
-  clickInput() {
-    this.isFocused = !this.isFocused;
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['required'] || changes['type'] || changes['disabled']) {
       this.setupFormControl();
     }
+  }
+
+  getErrorMessage(): string | null {
+    if (this.inputControl.hasError('required')) {
+      return 'Campo obligatorio';
+    }
+    if (this.inputControl.hasError('email')) {
+      return 'Formato correo inválido';
+    }
+    if (this.inputControl.hasError('pattern') && this.type === 'number') {
+      return 'Formato numérico inválido';
+    }
+    return null;
   }
 }

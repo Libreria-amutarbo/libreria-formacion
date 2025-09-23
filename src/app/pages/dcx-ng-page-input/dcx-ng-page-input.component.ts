@@ -9,4 +9,9 @@ import { DcxNgInputComponent } from '@dcx-ng-components/dcx-ng-lib';
   templateUrl: './dcx-ng-page-input.component.html',
   styleUrls: ['./dcx-ng-page-input.component.scss'],
 })
-export class DcxNgPageInputComponent {}
+export class DcxNgPageInputComponent {
+
+  showValue() {
+    console.log('Valor cambiado');
+  }
+}
