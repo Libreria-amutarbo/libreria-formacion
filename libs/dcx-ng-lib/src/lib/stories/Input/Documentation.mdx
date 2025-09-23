@@ -1,0 +1,46 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as InputClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Input/Documentation" />
+
+# Input
+
+The `dcx-ng-input` component is a form utility used to register input from the user.  
+It supports both unstyled and class-based variations for flexibility and design control.
+
+---
+
+## Unstyled Version
+
+Use this version when you want full control over appearance.  
+No styles are applied by default. You are responsible for setting properties such as color, thickness, and orientation.
+
+---
+
+## Class-Based Version
+
+The class-based input uses minimal default styles built with the BEM naming convention and SCSS.  
+It leverages CSS variables for flexibility and can be easily extended or themed.
+
+<Canvas of={InputClassBasedStories.TextSmall} />
+<Canvas of={InputClassBasedStories.NumberMedium} />
+<Canvas of={InputClassBasedStories.EmailLargeRequired} />
+
+You can customize:
+
+- **type**: text, number, email, password, date, search, tel, url
+- **size**: small (s), medium (m), large (l), extra large (xl)
+- **placeholder**: any text
+- **disabled**: defines if the case is disabled
+- **required**: defines if the completion is required
+- **label**: name for the case
+- **value**: default value
+
+---
+
+## Usage Example
+
+```html
+<dcx-ng-input [label]="'tamaño s'" [placeholder]="'Escriba algo...'" [disabled]="false" [required]="true"
+        [type]="'text'" [size]="'s'" (valueChange)="showValue()"></dcx-ng-input>
+```
