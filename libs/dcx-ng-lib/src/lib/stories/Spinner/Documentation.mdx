@@ -1,0 +1,89 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as SpinnerClassBasedStories from './ClassBased.stories';
+import * as SpinnerUnstyledStories from './UnStyled.stories';
+
+<Meta title="DCXLibrary/Spinner/Documentation" />
+
+# Spinner
+
+The `dcx-ng-spinner` component is a flexible and accessible loading indicator that displays a circular loading animation.
+It is designed to be easily customizable and can be used both standalone and as an overlay on content.
+
+---
+
+## Unstyled Version
+
+This version provides the base functionality without predefined styles, allowing complete customization.
+
+<Canvas of={SpinnerUnstyledStories.DefaultSpinner} />
+
+---
+
+## Class-Based Version
+
+This version includes default styling using BEM-based classes and SCSS.
+Supports customization through size, delay, and wrapper mode inputs.
+
+<Canvas of={SpinnerClassBasedStories.SpinnerShowcase} />
+
+---
+
+### Available Properties
+
+- **size**: `'xs' | 's' | 'm' | 'l' | 'xl'` — Controls the spinner size (default: 'm')
+- **wrapper**: `boolean` — Enables overlay mode over projected content (default: false)
+- **delay**: `number` — Milliseconds to wait before showing the spinner (default: 100)
+- **label**: `string | null` — Descriptive text accompanying the spinner (default: null)
+
+---
+
+## Size Variations
+
+The spinner comes with five predefined sizes that adapt to different needs:
+- Extra small (xs): For very compact spaces
+- Small (s): For secondary indicators
+- Medium (m): Standard size
+- Large (l): For primary indicators
+- Extra large (xl): For full-page loading screens
+
+---
+
+## Wrapper Mode
+
+The wrapper mode allows displaying the spinner as an overlay on any content:
+
+```html
+<dcx-ng-spinner [wrapper]="true" label="Loading data...">
+  <div class="content">
+    <!-- Your content here -->
+  </div>
+</dcx-ng-spinner>
+```
+
+---
+
+## Usage Example
+
+The spinner can be used in its basic form or with all its properties:
+
+```html
+<!-- Basic usage -->
+<dcx-ng-spinner></dcx-ng-spinner>
+
+<!-- Full usage -->
+<dcx-ng-spinner
+  size="l"
+  [wrapper]="true"
+  [delay]="200"
+  label="Loading data..."
+>
+  <div>Content that will be covered by the overlay</div>
+</dcx-ng-spinner>
+```
+
+## Accessibility
+
+The component includes:
+- "Status" role to announce loading state
+- Aria-label attribute using the label text or "loading" by default
+- Screen reader support
