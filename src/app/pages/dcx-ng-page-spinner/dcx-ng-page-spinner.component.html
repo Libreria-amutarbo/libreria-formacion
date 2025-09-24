@@ -1,0 +1,41 @@
+<h2>Spinner Showcase</h2>
+
+<div class="spinner-container">
+  <h3>Available Sizes</h3>
+  <div class="size-examples">
+    <div>
+      <p>Extra small</p>
+      <dcx-ng-spinner size="xs"></dcx-ng-spinner>
+    </div>
+    <div>
+      <p>Small</p>
+      <dcx-ng-spinner size="s"></dcx-ng-spinner>
+    </div>
+    <div>
+      <p>Medium (default)</p>
+      <dcx-ng-spinner size="m"></dcx-ng-spinner>
+    </div>
+    <div>
+      <p>Large</p>
+      <dcx-ng-spinner size="l"></dcx-ng-spinner>
+    </div>
+    <div>
+      <p>Extra large</p>
+      <dcx-ng-spinner size="xl"></dcx-ng-spinner>
+    </div>
+  </div>
+
+  <h3>With custom delay (1000ms)</h3>
+  <dcx-ng-spinner [delay]="1000" label="Loading with delay..."></dcx-ng-spinner>
+  
+  <div class="wrapper-example">
+    <h3>Wrapper mode (content with overlay)</h3>
+    <dcx-ng-spinner [wrapper]="true" label="Loading content...">
+      <div class="content-box">
+        <h4>Wrapper Content</h4>
+        <p>This is an example of content displayed below the spinner when in wrapper mode.</p>
+        <p>The spinner will be shown as an overlay on this content.</p>
+      </div>
+    </dcx-ng-spinner>
+  </div>
+</div>
