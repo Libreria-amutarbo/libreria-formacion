@@ -1,0 +1,26 @@
+<div style="max-width: 600px; margin: 2rem auto; padding: 2rem; border: 1px solid #eee; border-radius: 8px;">
+  <h2>Ejemplo de paginador</h2>
+  
+  <label for="variantSelect" style="margin-bottom: 1rem; display: block;">
+    Modo de paginación:
+    <select id="variantSelect" [(ngModel)]="variant">
+      <option value="expand">Expand</option>
+      <option value="small">Small</option>
+    </select>
+  </label>
+
+  <dcx-ng-paginator
+    [itemsPerPage]="itemsPerPage"
+    [currentPage]="currentPage"
+    [totalItems]="totalItems"
+    [variant]="variant"
+    [itemsPerPageOptions]="[5, 10, 25, 50]"
+    [showItemsPerPage]="true"
+    [showTotalItems]="true"
+    (pageChange)="onPageChange($event)"
+    (itemsPerPageChange)="onItemsPerPageChange($event)"
+    (onNextPage)="onNextPage()"
+    (onPrevPage)="onPrevPage()"
+    style="margin-top: 2rem;"
+  ></dcx-ng-paginator>
+</div>
