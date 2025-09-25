@@ -1,1 +1,88 @@
-<p>dcx-ng-page-radio works!</p>,
+<h2>Formulario de ejemplo avanzado</h2>
+<form formulario="ngForm">
+  <fieldset>
+    <legend>Elige tu tamaño de radio favorito</legend>
+    <dcx-ng-radio
+      name="tamanos"
+      value="pequeño"
+      label="Pequeño"
+      size="s"
+      [(ngModel)]="tamanioSeleccionado"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="tamanos"
+      value="mediano"
+      label="Mediano"
+      size="m"
+      [(ngModel)]="tamanioSeleccionado"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="tamanos"
+      value="grande"
+      label="Grande"
+      size="l"
+      [(ngModel)]="tamanioSeleccionado"
+    ></dcx-ng-radio>
+  </fieldset>
+
+  <fieldset>
+    <legend>Elige tu color favorito</legend>
+    <dcx-ng-radio
+      name="colores"
+      value="azul"
+      label="Azul"
+      size="m"
+      [(ngModel)]="colorSeleccionado"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="colores"
+      value="rojo"
+      label="Rojo"
+      size="m"
+      [(ngModel)]="colorSeleccionado"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="colores"
+      value="verde"
+      label="Verde"
+      size="m"
+      [(ngModel)]="colorSeleccionado"
+    ></dcx-ng-radio>
+  </fieldset>
+
+  <fieldset>
+    <legend>¿Prefieres café o té?</legend>
+    <dcx-ng-radio
+      name="bebida"
+      value="cafe"
+      label="Café"
+      size="m"
+      [(ngModel)]="bebidaSeleccionada"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="bebida"
+      value="te"
+      label="Té"
+      size="m"
+      [(ngModel)]="bebidaSeleccionada"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="bebida"
+      value="ninguno"
+      label="Ninguno"
+      size="m"
+      [(ngModel)]="bebidaSeleccionada"
+    ></dcx-ng-radio>
+  </fieldset>
+
+  <button type="button" (click)="mostrarResumen()">Enviar</button>
+</form>
+
+<div *ngIf="resumen">
+  <h3>Resumen de selección</h3>
+  <ul>
+    <li><strong>Tamaño:</strong> {{ tamanioSeleccionado }}</li>
+    <li><strong>Color:</strong> {{ colorSeleccionado }}</li>
+    <li><strong>Bebida:</strong> {{ bebidaSeleccionada }}</li>
+  </ul>
+</div>

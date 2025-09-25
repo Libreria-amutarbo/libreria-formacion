@@ -1,6 +1,4 @@
-@use '../../../scss/base/color' as *;
-@use '../../../scss/utils/mixins' as *;
-@use '../../../scss/utils/variables' as *;
+@use '../../../scss/main' as *;
 
 :host { display: inline-block; }
 
@@ -9,18 +7,21 @@
   align-items: center;
   gap: 0.3rem;
   cursor: pointer;
-  color: map-get($color, "primary");
   @include body-text;
 
   input[type='radio'] {
     width: var(--dcx-radio-size, 1rem);
     height: var(--dcx-radio-size, 1rem);
-    accent-color: currentColor;
+    accent-color: map-get($color, "primary"); 
     
     &:disabled { 
       cursor: not-allowed;
       opacity: 0.6;
     }
+  }
+
+  &.unstyled input[type='radio'] {
+    accent-color: map-get($color, "gray");
   }
 
   &--s { --dcx-radio-size: 0.875rem; }

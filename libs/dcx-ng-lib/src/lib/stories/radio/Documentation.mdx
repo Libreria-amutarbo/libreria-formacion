@@ -1,0 +1,76 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as RadioClassBasedStories from './ClassBased.stories';
+import * as RadioUnstyledStories from './UnStyled.stories';
+ 
+<Meta title="DCXLibrary/Radio/Documentation" />
+ 
+# Radio
+ 
+The `dcx-ng-radio` component is a customizable and accessible radio button.  
+It implements `ControlValueAccessor` to integrate smoothly with Angular Reactive Forms and Template-Driven Forms.
+ 
+---
+ 
+## Unstyled Version
+ 
+Use this version when you want full control over the appearance.  
+No styles are applied beyond native HTML input behavior, which makes it ideal for custom theming.
+ 
+<Canvas of={RadioUnstyledStories.Unstyled} />
+ 
+## Class-Based Version
+ 
+This version includes minimal styling using CSS custom properties.  
+It supports different sizes, focus styles, and keyboard navigation.
+ 
+<Canvas of={RadioClassBasedStories.Basico} />
+<Canvas of={RadioClassBasedStories.Tamaños} />
+ 
+---
+ 
+### Available Properties
+ 
+- **name**: The radio group name (string)
+- **value**: The value of this radio button (string)
+- **label**: The text displayed next to the radio (string)
+- **size**: `'s' | 'm' | 'l'` — Visual size of the radio
+- **disabled**: Disables the radio if `true`
+- **ariaLabel**: Provides screen reader context for accessibility
+- **unstyled**: If `true`, removes all custom styles
+ 
+---
+ 
+ 
+## Usage in Reactive Forms
+ 
+This example shows how to use the radio within a reactive form.
+ 
+```html
+<!-- file.HTML -->
+<dcx-ng-radio
+  name="exampleGroup"
+  value="option1"
+  label="Option 1"
+  size="m"
+  [(ngModel)]="selectedRadio"
+  ariaLabel="Radio option 1"
+></dcx-ng-radio>
+<dcx-ng-radio
+  name="exampleGroup"
+  value="option2"
+  label="Option 2"
+  size="m"
+  [(ngModel)]="selectedRadio"
+  ariaLabel="Radio option 2"
+></dcx-ng-radio>
+```
+ 
+## Additional Examples
+ 
+### Long label
+Demonstrates how the radio behaves with a long text label.
+<Canvas of={RadioClassBasedStories.LabelLargo} />
+ 
+### No label
+Example of a radio without text, only the circle.
+<Canvas of={RadioClassBasedStories.SinLabel} />

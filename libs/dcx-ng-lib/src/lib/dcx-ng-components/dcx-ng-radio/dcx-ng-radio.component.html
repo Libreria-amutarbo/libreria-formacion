@@ -1,4 +1,10 @@
-<label class="dcx-ng-radio" [ngClass]="[sizeClass, unstyled ? 'unstyled' : '']">
+<label
+  class="dcx-ng-radio"
+  [ngClass]="sizeClass"
+  [class.unstyled]="unstyled"
+  [attr.aria-label]="ariaLabelBinding"
+  [attr.aria-disabled]="disabled"
+>
   <input
     type="radio"
     [name]="name"
@@ -6,7 +12,6 @@
     [checked]="isChecked"
     [disabled]="disabled"
     (change)="onInputChange()"
-    [attr.aria-label]="ariaLabelBinding"
   />
-  {{ label }}
+  <span *ngIf="label">{{ label }}</span>
 </label>
