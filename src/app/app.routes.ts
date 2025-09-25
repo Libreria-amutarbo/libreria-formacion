@@ -43,7 +43,8 @@ export const appRoutes: Route[] = [
     path: 'input',
     component: DcxNgPageInputComponent
   },
+  {
     path: 'spinner',
     component: DcxNgPageSpinnerComponent,
-  },
+  }
 ];
