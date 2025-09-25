@@ -1,0 +1,142 @@
+@import '@styles/main.scss';
+
+.dcx-ng-tooltip {
+  // Variables locales del tooltip
+  --tooltip-bg-color: var(--color-gray-dark, #333);
+  --tooltip-text-color: var(--color-background, #fff);
+  --tooltip-padding: var(--spacing-inset-s, 8px) var(--spacing-inset-m, 12px);
+  --tooltip-border-radius: var(--border-radius-sm, 4px);
+  --tooltip-font-size: var(--font-size-body-small, 12px);
+  --tooltip-z-index: 1000;
+  --tooltip-arrow-size: 6px;
+  --tooltip-max-width: 250px;
+  --tooltip-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  position: absolute;
+  display: inline-block;
+  background-color: var(--tooltip-bg-color);
+  color: var(--tooltip-text-color);
+  border-radius: var(--tooltip-border-radius);
+  padding: var(--tooltip-padding);
+  font-size: var(--tooltip-font-size);
+  max-width: var(--tooltip-max-width);
+  word-wrap: break-word;
+  z-index: var(--tooltip-z-index);
+  box-shadow: var(--tooltip-box-shadow);
+  pointer-events: none;
+
+  // Animación de entrada
+  animation: tooltipFadeIn 0.2s ease-in-out;
+
+  // Estrategia fixed
+  &--fixed {
+    position: fixed;
+  }
+
+  // Estrategia absolute
+  &--absolute {
+    position: absolute;
+  }
+
+  // Estado deshabilitado
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  // POSICIONES
+  // Posición TOP
+  &--top {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: var(--tooltip-arrow-size);
+  }
+
+  // Posición BOTTOM
+  &--bottom {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: var(--tooltip-arrow-size);
+  }
+
+  // Posición LEFT
+  &--left {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: var(--tooltip-arrow-size);
+  }
+
+  // Posición RIGHT
+  &--right {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: var(--tooltip-arrow-size);
+  }
+
+  // CONTENIDO
+  &__content {
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  // FLECHA
+  &__arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+
+    // Flecha para posición TOP
+    &[data-position="top"] {
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size);
+      border-color: var(--tooltip-bg-color) transparent transparent transparent;
+    }
+
+    // Flecha para posición BOTTOM
+    &[data-position="bottom"] {
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size);
+      border-color: transparent transparent var(--tooltip-bg-color) transparent;
+    }
+
+    // Flecha para posición LEFT
+    &[data-position="left"] {
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size);
+      border-color: transparent transparent transparent var(--tooltip-bg-color);
+    }
+
+    // Flecha para posición RIGHT
+    &[data-position="right"] {
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0;
+      border-color: transparent var(--tooltip-bg-color) transparent transparent;
+    }
+  }
+
+  // Estados de hover para mejor UX
+  &:hover {
+    opacity: 0.95;
+  }
+}
+
+// RESPONSIVE
+@media (max-width: 768px) {
+  .dcx-ng-tooltip {
+    --tooltip-max-width: 200px;
+    --tooltip-font-size: var(--font-size-body-small, 11px);
+  }
+}

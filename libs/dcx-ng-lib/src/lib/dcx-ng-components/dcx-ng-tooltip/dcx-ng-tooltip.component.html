@@ -1,1 +1,14 @@
-<p>dcx-ng-tooltip works!</p>
+<div 
+  *ngIf="visible && content && !disabled" 
+  [class]="getTooltipClasses()"
+  [attr.data-position]="position"
+  [attr.data-strategy]="strategy"
+  role="tooltip"
+  [attr.aria-hidden]="!visible"
+  [attr.aria-live]="'polite'"
+>
+  <div class="dcx-ng-tooltip__content">
+    {{ content }}
+  </div>
+  <div class="dcx-ng-tooltip__arrow" [attr.data-position]="position"></div>
+</div>

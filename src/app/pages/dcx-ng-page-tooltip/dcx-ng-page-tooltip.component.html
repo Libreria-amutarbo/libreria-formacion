@@ -1,1 +1,14 @@
-<dcx-ng-tooltip [content]="'Esto es un tooltip'" [position]="'bottom'" [hideTooltipOnClick]="true" [strategy]="'fixed'"></dcx-ng-tooltip>
+<dcx-ng-tooltip 
+  [visible]="true" 
+  content="Este es mi tooltip" 
+  [position]="TooltipPosition.TOP">
+</dcx-ng-tooltip>
+
+<!-- Con todas las opciones -->
+<dcx-ng-tooltip 
+  content="Tooltip personalizado" 
+  [position]="TooltipPosition.RIGHT"
+  [strategy]="TooltipStrategy.FIXED"
+  [hideTooltipOnClick]="true"
+  [disabled]="false">
+</dcx-ng-tooltip>
