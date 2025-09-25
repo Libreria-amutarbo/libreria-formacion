@@ -12,11 +12,11 @@ import { InputSize, InputType } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng
 })
 export class DcxNgPageInputComponent {
   valor = '';
-  
+
   // Exponemos los enums para uso en el template
   readonly InputType = InputType;
   readonly InputSize = InputSize;
-  
+
   showValue(value: string | null) {
     this.valor = value || '';
   }

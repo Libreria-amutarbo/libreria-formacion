@@ -1,22 +1,30 @@
 <div class="input-container">
-  @if(label){
-  <label [for]="inputId" class="input-label">
-    {{ label }}
-    @if(required) {
-    <span class="required-icon" aria-hidden="true">*</span>
-    <span class="visually-hidden">(required)</span>
-    }
-  </label>
+  @if (label) {
+    <label [for]="inputId" class="input-label">
+      {{ label }}
+      @if (required) {
+        <span class="required-icon" aria-hidden="true">*</span>
+        <span class="visually-hidden">(required)</span>
+      }
+    </label>
   }
 
-
-  <input [id]="inputId" class="input" [class.disabled]="disabled" [type]="type" [placeholder]="placeholder"
-    [formControl]="inputControl" [ngClass]="'input-size--' + size"
+  <input
+    [id]="inputId"
+    class="input"
+    [class.disabled]="disabled"
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="inputControl"
+    [ngClass]="'input-size--' + size"
     [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
-    [class.invalid]="inputControl.invalid && inputControl.touched" [attr.aria-required]="required"
-    [attr.aria-invalid]="inputControl.invalid && inputControl.touched" [attr.aria-label]="label || placeholder" />
+    [class.invalid]="inputControl.invalid && inputControl.touched"
+    [attr.aria-required]="required"
+    [attr.aria-invalid]="inputControl.invalid && inputControl.touched"
+    [attr.aria-label]="label || placeholder"
+  />
 
-  @if(inputControl.invalid && inputControl.touched) {
-  <span class="invalid-message">{{ getErrorMessage() }}</span>
+  @if (inputControl.invalid && inputControl.touched) {
+    <span class="invalid-message">{{ getErrorMessage() }}</span>
   }
 </div>
