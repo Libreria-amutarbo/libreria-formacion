@@ -1,11 +1,14 @@
 <div class="input-container">
-  <label [for]="inputId" class="input-label" *ngIf="label">
+  @if(label){
+  <label [for]="inputId" class="input-label">
     {{ label }}
     @if(required) {
-    <span class="required-icon" *ngIf="required" aria-hidden="true">*</span>
-    <span class="visually-hidden" *ngIf="required">(required)</span>
+    <span class="required-icon" aria-hidden="true">*</span>
+    <span class="visually-hidden">(required)</span>
     }
   </label>
+  }
+
 
   <input [id]="inputId" class="input" [class.disabled]="disabled" [type]="type" [placeholder]="placeholder"
     [formControl]="inputControl" [ngClass]="'input-size--' + size"
@@ -14,6 +17,6 @@
     [attr.aria-invalid]="inputControl.invalid && inputControl.touched" [attr.aria-label]="label || placeholder" />
 
   @if(inputControl.invalid && inputControl.touched) {
-  <span class="invalid-message" *ngIf="inputControl.invalid && inputControl.touched">{{ getErrorMessage() }}</span>
+  <span class="invalid-message">{{ getErrorMessage() }}</span>
   }
 </div>
