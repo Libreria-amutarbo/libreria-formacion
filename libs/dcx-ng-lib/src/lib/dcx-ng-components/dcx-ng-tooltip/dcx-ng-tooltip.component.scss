@@ -1,56 +1,46 @@
-@import '@styles/main.scss';
+@use '../../../scss/main' as *;
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
 
 .dcx-ng-tooltip {
-  // Variables locales del tooltip
-  --tooltip-bg-color: var(--color-gray-dark, #333);
-  --tooltip-text-color: var(--color-background, #fff);
-  --tooltip-padding: var(--spacing-inset-s, 8px) var(--spacing-inset-m, 12px);
-  --tooltip-border-radius: var(--border-radius-sm, 4px);
-  --tooltip-font-size: var(--font-size-body-small, 12px);
-  --tooltip-z-index: 1000;
+  --tooltip-bg-color: var(--color-primary-light);
+  --tooltip-text-color: var(--color-text-primary);
+  --tooltip-padding: var(--spacing-inset-s) var(--spacing-inset-m);
+  --tooltip-border-radius: var(--border-radius-sm);
+  --tooltip-font-size: var(--font-size-body-small);
   --tooltip-arrow-size: 6px;
   --tooltip-max-width: 250px;
-  --tooltip-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
-  position: absolute;
-  display: inline-block;
   background-color: var(--tooltip-bg-color);
   color: var(--tooltip-text-color);
   border-radius: var(--tooltip-border-radius);
   padding: var(--tooltip-padding);
   font-size: var(--tooltip-font-size);
   max-width: var(--tooltip-max-width);
+  width: max-content;
   word-wrap: break-word;
-  z-index: var(--tooltip-z-index);
-  box-shadow: var(--tooltip-box-shadow);
-  pointer-events: none;
+  position: absolute;
+  z-index: 1000;
+  animation: fade-in linear 0.2s;
 
-  // Animación de entrada
-  animation: tooltipFadeIn 0.2s ease-in-out;
-
-  // Estrategia fixed
-  &--fixed {
-    position: fixed;
-  }
-
-  // Estrategia absolute
-  &--absolute {
-    position: absolute;
-  }
-
-  // Estado deshabilitado
-  &--disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  // POSICIONES
   // Posición TOP
   &--top {
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
     margin-bottom: var(--tooltip-arrow-size);
+    position: absolute;
+
+    .tooltip-arrow {
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 4px 4px 0 4px;
+      border-color: var(--tooltip-bg-color) transparent transparent transparent;
+    }
   }
 
   // Posición BOTTOM
@@ -59,6 +49,14 @@
     left: 50%;
     transform: translateX(-50%);
     margin-top: var(--tooltip-arrow-size);
+
+    .tooltip-arrow {
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%) rotateX(180deg);
+      border-width: 4px 4px 0 4px;
+      border-color: var(--tooltip-bg-color) transparent transparent transparent;
+    }
   }
 
   // Posición LEFT
@@ -67,6 +65,14 @@
     top: 50%;
     transform: translateY(-50%);
     margin-right: var(--tooltip-arrow-size);
+
+    .tooltip-arrow {
+      right: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 4px 0 4px 4px;
+      border-color: transparent transparent transparent var(--tooltip-bg-color);
+    }
   }
 
   // Posición RIGHT
@@ -75,62 +81,24 @@
     top: 50%;
     transform: translateY(-50%);
     margin-left: var(--tooltip-arrow-size);
-  }
 
-  // CONTENIDO
-  &__content {
-    line-height: 1.4;
-    text-align: center;
-  }
-
-  // FLECHA
-  &__arrow {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-
-    // Flecha para posición TOP
-    &[data-position="top"] {
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size);
-      border-color: var(--tooltip-bg-color) transparent transparent transparent;
-    }
-
-    // Flecha para posición BOTTOM
-    &[data-position="bottom"] {
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size);
-      border-color: transparent transparent var(--tooltip-bg-color) transparent;
-    }
-
-    // Flecha para posición LEFT
-    &[data-position="left"] {
-      left: 100%;
+    .tooltip-arrow {
+      left: -4px;
       top: 50%;
       transform: translateY(-50%);
-      border-width: var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size);
-      border-color: transparent transparent transparent var(--tooltip-bg-color);
-    }
-
-    // Flecha para posición RIGHT
-    &[data-position="right"] {
-      right: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0;
+      border-width: 4px 4px 4px 0;
       border-color: transparent var(--tooltip-bg-color) transparent transparent;
     }
   }
+}
 
-  // Estados de hover para mejor UX
-  &:hover {
-    opacity: 0.95;
-  }
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  content: '';
+  display: block;
 }
 
 // RESPONSIVE
@@ -138,5 +106,15 @@
   .dcx-ng-tooltip {
     --tooltip-max-width: 200px;
     --tooltip-font-size: var(--font-size-body-small, 11px);
+  }
+} 
+
+// ANIMACIONES
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

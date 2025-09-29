@@ -1,14 +1,15 @@
-<div 
-  *ngIf="visible && content && !disabled" 
-  [class]="getTooltipClasses()"
-  [attr.data-position]="position"
-  [attr.data-strategy]="strategy"
-  role="tooltip"
-  [attr.aria-hidden]="!visible"
-  [attr.aria-live]="'polite'"
->
-  <div class="dcx-ng-tooltip__content">
-    {{ content }}
-  </div>
-  <div class="dcx-ng-tooltip__arrow" [attr.data-position]="position"></div>
+<div class="tooltip-container">
+  <ng-content></ng-content>
+  @if (visible && content) {
+    <div
+      [class]="getTooltipClasses()"
+      [attr.data-position]="position"
+      role="tooltip"
+      [attr.aria-hidden]="!visible"
+      [attr.aria-live]="'polite'"
+    >
+      {{ content }}
+      <div class="tooltip-arrow"></div>
+    </div>
+  }
 </div>

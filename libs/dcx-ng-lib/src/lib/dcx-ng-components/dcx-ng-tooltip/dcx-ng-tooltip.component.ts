@@ -8,11 +8,6 @@ export enum TooltipPosition {
   RIGHT = 'right'
 }
 
-export enum TooltipStrategy {
-  ABSOLUTE = 'absolute',
-  FIXED = 'fixed'
-}
-
 @Component({
   selector: 'dcx-ng-tooltip',
   standalone: true,
@@ -23,66 +18,50 @@ export enum TooltipStrategy {
 export class DcxNgTooltipComponent implements OnInit, OnDestroy {
   @Input() position: TooltipPosition = TooltipPosition.TOP;
   @Input() hideTooltipOnClick: boolean = false;
-  @Input() strategy: TooltipStrategy = TooltipStrategy.FIXED;
   @Input() content: string = '';
-  @Input() visible: boolean = false;
-  @Input() disabled: boolean = false;
+
+  visible: boolean = true;
+  delay: number = 100;
+  private timeout: any;
 
   private documentClickListener: (() => void) | null = null;
 
-  constructor(private elementRef: ElementRef) {}
-
   ngOnInit() {
     if (this.hideTooltipOnClick) {
-      this.setupClickListener();
+      this.documentClickListener = () => {
+        this.visible = false;
+      };
+      document.addEventListener('click', this.documentClickListener);
     }
   }
 
   ngOnDestroy() {
-    this.removeClickListener();
-  }
-
-  private setupClickListener(): void {
-    this.documentClickListener = () => {
-      this.hide();
-    };
-    document.addEventListener('click', this.documentClickListener);
-  }
-
-  private removeClickListener(): void {
     if (this.documentClickListener) {
       document.removeEventListener('click', this.documentClickListener);
       this.documentClickListener = null;
     }
   }
 
-  @HostListener('click', ['$event'])
-  onTooltipClick(event: Event): void {
-    if (this.hideTooltipOnClick) {
-      event.stopPropagation();
-    }
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.timeout = setTimeout(() => {
+      this.visible = true;
+    }, this.delay);
   }
+
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.visible = false;
+  }
+
 
   getTooltipClasses(): string {
     const baseClass = 'dcx-ng-tooltip';
     const positionClass = `${baseClass}--${this.position}`;
-    const strategyClass = `${baseClass}--${this.strategy}`;
-    const disabledClass = this.disabled ? `${baseClass}--disabled` : '';
-    
-    return `${baseClass} ${positionClass} ${strategyClass} ${disabledClass}`.trim();
-  }
 
-  show(): void {
-    if (!this.disabled) {
-      this.visible = true;
-    }
-  }
-
-  hide(): void {
-    this.visible = false;
-  }
-
-  toggle(): void {
-    this.visible ? this.hide() : this.show();
+    return `${baseClass} ${positionClass}`.trim();
   }
 }

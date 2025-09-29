@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxNgTooltipComponent, TooltipPosition, TooltipStrategy } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
+import { Component } from '@angular/core';
+import { DcxNgTooltipComponent, TooltipPosition } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-tooltip',
@@ -11,15 +11,4 @@ import { DcxNgTooltipComponent, TooltipPosition, TooltipStrategy } from '../../.
 })
 export class DcxNgPageTooltipComponent {
   readonly TooltipPosition = TooltipPosition;
-  readonly TooltipStrategy = TooltipStrategy;
-
-  @ViewChild(DcxNgTooltipComponent) tooltip!: DcxNgTooltipComponent;
-
-  showTooltip() {
-    this.tooltip.show();
-  }
-
-  hideTooltip() {
-    this.tooltip.hide();
-  }
 }
