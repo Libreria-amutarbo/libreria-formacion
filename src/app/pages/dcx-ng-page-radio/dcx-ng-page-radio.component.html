@@ -1,5 +1,5 @@
 <h2>Formulario de ejemplo avanzado</h2>
-<form formulario="ngForm">
+<form [formGroup]="formulario">
   <fieldset>
     <legend>Elige tu tamaño de radio favorito</legend>
     <dcx-ng-radio
@@ -7,21 +7,21 @@
       value="pequeño"
       label="Pequeño"
       size="s"
-      [(ngModel)]="tamanioSeleccionado"
+     [formControl]="tamanioControl"
     ></dcx-ng-radio>
     <dcx-ng-radio
       name="tamanos"
       value="mediano"
       label="Mediano"
       size="m"
-      [(ngModel)]="tamanioSeleccionado"
+     [formControl]="tamanioControl"
     ></dcx-ng-radio>
     <dcx-ng-radio
       name="tamanos"
       value="grande"
       label="Grande"
       size="l"
-      [(ngModel)]="tamanioSeleccionado"
+     [formControl]="tamanioControl"
     ></dcx-ng-radio>
   </fieldset>
 
@@ -32,21 +32,21 @@
       value="azul"
       label="Azul"
       size="m"
-      [(ngModel)]="colorSeleccionado"
+      [formControl]="colorControl"
     ></dcx-ng-radio>
     <dcx-ng-radio
       name="colores"
       value="rojo"
       label="Rojo"
       size="m"
-      [(ngModel)]="colorSeleccionado"
+     [formControl]="colorControl"
     ></dcx-ng-radio>
     <dcx-ng-radio
       name="colores"
       value="verde"
       label="Verde"
       size="m"
-      [(ngModel)]="colorSeleccionado"
+      [formControl]="colorControl"
     ></dcx-ng-radio>
   </fieldset>
 
@@ -57,21 +57,21 @@
       value="cafe"
       label="Café"
       size="m"
-      [(ngModel)]="bebidaSeleccionada"
+      [formControl]="bebidaControl"
     ></dcx-ng-radio>
     <dcx-ng-radio
       name="bebida"
       value="te"
       label="Té"
       size="m"
-      [(ngModel)]="bebidaSeleccionada"
+      [formControl]="bebidaControl"
     ></dcx-ng-radio>
     <dcx-ng-radio
       name="bebida"
       value="ninguno"
       label="Ninguno"
       size="m"
-      [(ngModel)]="bebidaSeleccionada"
+      [formControl]="bebidaControl"
     ></dcx-ng-radio>
   </fieldset>
 
@@ -81,8 +81,8 @@
 <div *ngIf="resumen">
   <h3>Resumen de selección</h3>
   <ul>
-    <li><strong>Tamaño:</strong> {{ tamanioSeleccionado }}</li>
-    <li><strong>Color:</strong> {{ colorSeleccionado }}</li>
-    <li><strong>Bebida:</strong> {{ bebidaSeleccionada }}</li>
+    <li><strong>Tamaño:</strong> {{ formulario.get('tamanioControl')?.value }}</li>
+    <li><strong>Color:</strong> {{ formulario.get('colorControl')?.value }}</li>
+    <li><strong>Bebida:</strong> {{ formulario.get('bebidaControl')?.value }}</li>
   </ul>
 </div>

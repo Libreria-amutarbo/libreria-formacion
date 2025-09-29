@@ -1,10 +1,7 @@
 import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 type RadioSize = 's' | 'm' | 'l';
 
@@ -31,12 +28,12 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   @Input() ariaLabel = '';
   @Input() unstyled = false;
 
-  private currentValue: string | null = null;
+  private innerValue: string | null = null;
   private onChange: (value: string | null) => void = () => {};
   private onTouched: () => void = () => {};
 
   get isChecked(): boolean {
-    return this.currentValue === this.value;
+    return this.innerValue === this.value;
   }
 
   get sizeClass(): string {
@@ -49,14 +46,14 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   onInputChange(): void {
     if (!this.disabled) {
-      this.currentValue = this.value;
+      this.innerValue = this.value;
       this.onChange(this.value);
       this.onTouched();
     }
   }
 
   writeValue(value: string | null): void {
-    this.currentValue = value;
+    this.innerValue = value;
   }
 
   registerOnChange(fn: (value: string | null) => void): void {
@@ -70,4 +67,5 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
+
 }
