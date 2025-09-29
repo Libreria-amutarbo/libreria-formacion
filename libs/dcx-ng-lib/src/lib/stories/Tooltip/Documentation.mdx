@@ -1,0 +1,38 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as DividerClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Divider/Documentation" />
+
+# Divider
+
+The `dcx-ng-tooltip` component is a helper utility used to visually hidden messages when passed through another component.  
+
+---
+
+## Class-Based Version
+
+The class-based tooltip uses minimal default styles built with the BEM naming convention and SCSS.  
+It leverages CSS variables for flexibility and can be easily extended or themed.
+
+<Canvas of={TooltipClassBasedStories.DefaultTooltip} />
+<Canvas of={TooltipClassBasedStories.LeftTooltip} />
+<Canvas of={TooltipClassBasedStories.RightTooltip} />
+<Canvas of={TooltipClassBasedStories.TopTooltip} />
+<Canvas of={TooltipClassBasedStories.BottomTooltip} />
+<Canvas of={TooltipClassBasedStories.HideOnClickTooltip} />
+
+You can customize:
+
+- **position**: top, bottom, left, right
+- **content**: any text to show inside the tooltip
+- **hideOnClick**: boolean to hide the tooltip when clicked
+
+---
+
+## Usage Example
+
+```html
+<dcx-ng-tooltip content="This is my tooltip">
+  <button>Default</button>
+</dcx-ng-tooltip>
+```
