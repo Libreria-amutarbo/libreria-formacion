@@ -20,9 +20,7 @@ export class DcxNgTooltipComponent implements OnInit, OnDestroy {
   @Input() hideTooltipOnClick: boolean = false;
   @Input() content: string = '';
 
-  visible: boolean = true;
-  delay: number = 100;
-  private timeout: any;
+  visible: boolean = false;
 
   private documentClickListener: (() => void) | null = null;
 
@@ -44,16 +42,11 @@ export class DcxNgTooltipComponent implements OnInit, OnDestroy {
 
   @HostListener('mouseenter')
   onMouseEnter() {
-    this.timeout = setTimeout(() => {
-      this.visible = true;
-    }, this.delay);
+    this.visible = true;
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
     this.visible = false;
   }
 

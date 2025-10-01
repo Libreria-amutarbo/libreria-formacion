@@ -29,19 +29,18 @@ type Story = StoryObj<DcxNgTooltipComponent>;
 
 const styles = `
   <style>
-  @use '../../../scss/main' as *;
-
 .tooltip-container {
   position: relative;
   display: inline-block;
+  background-color: red;
 }
 
 .dcx-ng-tooltip {
-  --tooltip-bg-color: var(--color-primary-light);
-  --tooltip-text-color: var(--color-text-primary);
-  --tooltip-padding: var(--spacing-inset-s) var(--spacing-inset-m);
-  --tooltip-border-radius: var(--border-radius-sm);
-  --tooltip-font-size: var(--font-size-body-small);
+  --tooltip-bg-color: black;
+  --tooltip-text-color: white;
+  --tooltip-padding: 8px 12px;
+  --tooltip-border-radius: 4px;
+  --tooltip-font-size: 12px;
   --tooltip-arrow-size: 6px;
   --tooltip-max-width: 250px;
 
@@ -136,7 +135,7 @@ const styles = `
 @media (max-width: 768px) {
   .dcx-ng-tooltip {
     --tooltip-max-width: 200px;
-    --tooltip-font-size: var(--font-size-body-small, 11px);
+    --tooltip-font-size: 11px;
   }
 } 
 
@@ -155,6 +154,7 @@ const styles = `
 
 export const DefaultTooltip: Story = {
   args: {
+    content: 'This is a tooltip',
   },
 };
 export const LeftTooltip: Story = {
