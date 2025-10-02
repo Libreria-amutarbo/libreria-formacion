@@ -45,6 +45,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'spinner',
-    component: DcxNgPageSpinnerComponent
+    component: DcxNgPageSpinnerComponent,
   }
 ];
