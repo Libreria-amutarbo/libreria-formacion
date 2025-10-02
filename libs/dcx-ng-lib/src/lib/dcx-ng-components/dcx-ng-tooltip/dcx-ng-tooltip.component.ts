@@ -15,30 +15,12 @@ export enum TooltipPosition {
   templateUrl: './dcx-ng-tooltip.component.html',
   styleUrls: ['./dcx-ng-tooltip.component.scss'],
 })
-export class DcxNgTooltipComponent implements OnInit, OnDestroy {
+export class DcxNgTooltipComponent {
   @Input() position: TooltipPosition = TooltipPosition.TOP;
-  @Input() hideTooltipOnClick: boolean = false;
-  @Input() content: string = '';
+  @Input() hideTooltipOnClick = false;
+  @Input() content = '';
 
-  visible: boolean = false;
-
-  private documentClickListener: (() => void) | null = null;
-
-  ngOnInit() {
-    if (this.hideTooltipOnClick) {
-      this.documentClickListener = () => {
-        this.visible = false;
-      };
-      document.addEventListener('click', this.documentClickListener);
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.documentClickListener) {
-      document.removeEventListener('click', this.documentClickListener);
-      this.documentClickListener = null;
-    }
-  }
+  visible = false;
 
   @HostListener('mouseenter')
   onMouseEnter() {
@@ -50,6 +32,17 @@ export class DcxNgTooltipComponent implements OnInit, OnDestroy {
     this.visible = false;
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    if (this.hideTooltipOnClick) {
+      const clickedInside = this.elementRef.nativeElement.contains(event.target);
+      if (clickedInside) {
+        this.visible = false;
+      }
+    }
+  }
+
+  constructor(private elementRef: ElementRef) {}
 
   getTooltipClasses(): string {
     const baseClass = 'dcx-ng-tooltip';
