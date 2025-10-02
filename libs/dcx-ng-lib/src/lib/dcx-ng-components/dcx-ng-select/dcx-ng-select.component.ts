@@ -55,7 +55,7 @@ export class DcxNgSelectComponent implements ControlValueAccessor {
   handleChange(event: Event) {
     const select = event.target as HTMLSelectElement;
     const raw = select.value;
-    const newValue = raw === '' ? null : raw;
+    const newValue = raw ?? null;
     this.value = newValue;
     this.onChange(this.value);
   }
