@@ -37,7 +37,7 @@ export class DcxNgSelectComponent implements ControlValueAccessor {
   private onTouched: () => void = () => {};
 
   writeValue(value: any): void {
-    this.value = value === undefined ? null : value;
+    this.value = value ?? null;
   }
 
   registerOnChange(fn: any): void {
