@@ -178,7 +178,7 @@ describe('DcxNgTooltipComponent', () => {
       expect(component.visible).toBe(true);
     });
 
-    it('should not hide tooltip when document is clicked outside component and hideTooltipOnClick is true', () => 
+    it('should not hide tooltip when document is clicked outside component and hideTooltipOnClick is true', () => {
       component.hideTooltipOnClick = true;
       const mockEvent = {
         target: document.body // Elemento fuera del componente
@@ -187,7 +187,7 @@ describe('DcxNgTooltipComponent', () => {
       // Simular clic fuera del componente
       component.onDocumentClick(mockEvent);
       expect(component.visible).toBe(true); // No debería ocultarse según la lógica actual
-    );
+  });
 
     it('should call onDocumentClick when document click event is triggered', () => {
       const spy = jest.spyOn(component, 'onDocumentClick');
