@@ -8,7 +8,7 @@ const meta: Meta<DcxNgSelectComponent> = {
   argTypes: {
     disabled: { control: 'boolean' },
     placeholder: { control: 'text' },
-    ariaLabel: { control: 'text' },
+    areaLabel: { control: 'text' },
     options: {
       control: 'object',
     },
@@ -22,7 +22,7 @@ export const DefaultSelect: Story = {
   args: {
     disabled: false,
     placeholder: 'Choose an option',
-    ariaLabel: 'Select input',
+    areaLabel: 'Select input',
     options: [
       { value: '1', label: 'Option 1' },
       { value: '2', label: 'Option 2' },
@@ -35,7 +35,7 @@ export const DisabledSelect: Story = {
   args: {
     disabled: true,
     placeholder: 'Disabled',
-    ariaLabel: 'Select Disabled',
+    areaLabel: 'Select Disabled',
     options: [
       { value: '1', label: 'Disabled 1' },
       { value: '2', label: 'Disabled 2' },
@@ -46,7 +46,7 @@ export const DisabledSelect: Story = {
 export const SelectWithoutPlaceholder: Story = {
   args: {
     disabled: false,
-    ariaLabel: 'Without placeholder',
+    areaLabel: 'Without placeholder',
     options: [
       { value: 'a', label: 'Item A' },
       { value: 'b', label: 'Item B' },

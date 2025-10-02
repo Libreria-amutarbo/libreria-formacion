@@ -1,0 +1,55 @@
+<h2>Select Examples</h2>
+
+<form [formGroup]="form">
+  <div class="examples-container">
+    <section class="example-section">
+      <h3>Basic Select</h3>
+      <dcx-ng-select
+        formControlName="basic"
+        [options]="optionList"
+        areaLabel="Basic select"
+      ></dcx-ng-select>
+    </section>
+
+    <section class="example-section">
+      <h3>Select with Placeholder</h3>
+      <dcx-ng-select
+        formControlName="withPlaceholder"
+        [options]="optionList"
+        placeholder="Please choose an option"
+        areaLabel="Select with placeholder"
+      ></dcx-ng-select>
+    </section>
+
+    <section class="example-section">
+      <h3>Disabled Select</h3>
+      <dcx-ng-select
+        formControlName="disabled"
+        [options]="optionList"
+        placeholder="This select is disabled"
+        areaLabel="Disabled select"
+      ></dcx-ng-select>
+    </section>
+
+    <section class="example-section">
+      <h3>Select with Form Control Binding</h3>
+      <dcx-ng-select
+        formControlName="preselected"
+        [options]="optionList"
+        placeholder="Select with form control binding"
+        areaLabel="Select with form control"
+      ></dcx-ng-select>
+    </section>
+
+    <section class="example-section">
+      <h3>Select with Change Event</h3>
+      <dcx-ng-select
+        formControlName="withChange"
+        [options]="optionList"
+        placeholder="Select to trigger change event"
+        areaLabel="Select with change event"
+      ></dcx-ng-select>
+      <p class="selected-value">Check the console for change events</p>
+    </section>
+  </div>
+</form>

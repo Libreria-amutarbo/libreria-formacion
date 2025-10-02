@@ -1,34 +1,42 @@
 :host {
-  --dcx-select-padding: 0.5rem 1rem;
-  --dcx-select-font-size: 1rem;
-  --dcx-select-bg: white;
-  --dcx-select-color: #333;
-  --dcx-select-border: 2px solid #0056b3;
-
   display: inline-block;
+  width: 100%;
 }
 
 .dcx-ng-select {
-  padding: var(--dcx-select-padding);
-  font-size: var(--dcx-select-font-size);
-  background-color: var(--dcx-select-bg);
-  color: var(--dcx-select-color);
-  border: var(--dcx-select-border);
   width: 100%;
-
+  padding: var(--spacing-inset-m);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
   cursor: pointer;
   appearance: none;
+
+  &:hover:not(:disabled) {
+    border-color: var(--color-primary);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary-light);
+  }
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background-color: var(--color-gray-lighter);
+    color: var(--color-text-disabled);
   }
 
-  &:focus {
-    outline: 2px solid #0056b3;
-    outline-offset: 2px;
-    border-color: #cccccc;
-    box-shadow: 0 0 10px rgba(0, 89, 179, 0.2);
-    background-color: #f4f5f8;
+  option {
+    padding: var(--spacing-inset-s);
+    
+    &:disabled {
+      color: var(--color-text-disabled);
+    }
   }
 }
