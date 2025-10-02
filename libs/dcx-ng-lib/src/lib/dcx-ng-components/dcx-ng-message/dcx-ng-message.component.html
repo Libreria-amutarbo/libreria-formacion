@@ -3,8 +3,12 @@
   [attr.aria-role]="messageData().role"
 >
   @if (icon()) {
-    <!-- TODO: Waiting until we have the icon component -->
-    <img class="icon__container" />
+    <dcx-ng-icon
+      class="icon__container"
+      [name]="messageData().icon || 'info'"
+      size="m"
+      color="inherit"
+    ></dcx-ng-icon>
   }
 
   <div class="message__container__body">
@@ -20,7 +24,8 @@
   </div>
 
   @if (showClose()) {
-    <!-- TODO: Waiting until we have the icon component -->
-    <img class="icon__container__close" />
+    <button class="icon__container__close" type="button">
+      <dcx-ng-icon name="close" size="m" color="inherit"></dcx-ng-icon>
+    </button>
   }
 </div>
