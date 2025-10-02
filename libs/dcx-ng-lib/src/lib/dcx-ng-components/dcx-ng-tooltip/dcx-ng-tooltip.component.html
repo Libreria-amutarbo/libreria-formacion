@@ -1,0 +1,15 @@
+<div class="tooltip-container">
+  <ng-content></ng-content>
+  @if (visible && content) {
+    <div
+      [class]="getTooltipClasses()"
+      [attr.data-position]="position"
+      role="tooltip"
+      [attr.aria-hidden]="!visible"
+      [attr.aria-live]="'polite'"
+    >
+      {{ content }}
+      <div class="tooltip-arrow"></div>
+    </div>
+  }
+</div>

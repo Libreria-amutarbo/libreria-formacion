@@ -1,0 +1,86 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as TooltipClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Tooltip/Documentation" />
+
+# Tooltip
+
+The `dcx-ng-tooltip` component is a versatile utility designed to display contextual information through interactive tooltips. It provides accessible, customizable hover messages that enhance user experience by offering helpful hints and additional context without cluttering the interface.
+
+---
+
+## Features
+
+### 🎯 **Core Functionality**
+- **Interactive Display**: Shows/hides on mouse hover with smooth transitions
+- **Content Projection**: Supports any HTML content as trigger element via `ng-content`
+- **Flexible Positioning**: Four directional options with automatic arrow placement
+- **Click-to-Hide**: Optional functionality to dismiss tooltip on document click
+- **Accessibility Ready**: Full ARIA support for screen readers and assistive technologies
+
+### 🎨 **Styling & Theming**
+- **CSS Variables**: Highly customizable using SCSS variables
+- **BEM Methodology**: Clean, maintainable class structure
+- **Responsive Design**: Adapts to different screen sizes
+
+### 🛠 **Technical Highlights**
+- **Standalone Component**: No external dependencies required
+- **TypeScript Enums**: Type-safe position configuration
+- **Performance Optimized**: Efficient event handling and DOM manipulation
+- **Angular Best Practices**: Follows Angular coding standards and conventions
+
+---
+
+## Configuration Options
+
+### **Position Values**
+Determines where the tooltip appears relative to the trigger element
+- **`top`**: Tooltip appears above the trigger element
+<Canvas of={TooltipClassBasedStories.TopTooltip} />
+- **`bottom`**: Tooltip appears below the trigger element  
+<Canvas of={TooltipClassBasedStories.BottomTooltip} />
+- **`left`**: Tooltip appears to the left of the trigger element
+<Canvas of={TooltipClassBasedStories.LeftTooltip} />
+- **`right`**: Tooltip appears to the right of the trigger element
+<Canvas of={TooltipClassBasedStories.RightTooltip} />
+
+### **Accessibility Features**
+- **ARIA Attributes**: Includes `role="tooltip"`, `aria-hidden`, and `aria-live`
+- **Keyboard Navigation**: Compatible with screen readers and keyboard navigation
+- **Screen Reader Support**: Provides appropriate context for assistive technologies
+- **Focus Management**: Proper focus handling for interactive elements
+
+### **Event Handling**
+- **Mouse Enter**: Shows tooltip after a brief delay
+- **Mouse Leave**: Hides tooltip immediately
+<Canvas of={TooltipClassBasedStories.DefaultTooltip} />
+- **Document Click**: Optionally hides tooltip when `hideTooltipOnClick` is enabled
+<Canvas of={TooltipClassBasedStories.HideOnClickTooltip} />
+- **Responsive Behavior**: Adapts to touch devices and mobile interactions
+
+---
+
+## Usage Example
+
+```html
+<dcx-ng-tooltip content="This is my tooltip" position="top" [hideTooltipOnClick]="false">
+  <button>Default</button>
+</dcx-ng-tooltip>
+```
+
+### **Advanced Usage Examples**
+
+```html
+<!-- Tooltip with different positions -->
+<dcx-ng-tooltip content="Appears on the right" position="right">
+  <span>Hover me</span>
+</dcx-ng-tooltip>
+
+<!-- Tooltip that hides on click -->
+<dcx-ng-tooltip 
+  content="Click inside to hide" 
+  position="bottom" 
+  [hideTooltipOnClick]="true">
+  <button>Information</button>
+</dcx-ng-tooltip>
+```
