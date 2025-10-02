@@ -2,39 +2,44 @@ import { Meta, Canvas } from '@storybook/blocks';
 import * as SelectClassBasedStories from './ClassBased.stories';
 import * as SelectUnstyledStories from './UnStyled.stories';
 
-
 <Meta title="DCXLibrary/Select/Documentation" />
 
 # Select
 
-The `dcx-ng-select` component is a customizable and accessible dropdown field.  
+The `dcx-ng-select` component is a customizable and accessible dropdown field.
 It implements `ControlValueAccessor` to integrate smoothly with Angular Reactive Forms and Template-Driven Forms.
 
 ---
 ## Unstyled Version
 
-Use this version when you want full control over the appearance.  
+Use this version when you want full control over the appearance.
 No styles are applied beyond native HTML input behavior, which makes it ideal for custom theming.
 
 <Canvas of={SelectUnstyledStories.UnstyleSelect} />
 
-
 ## Class-Based Version
 
-This version includes minimal styling using CSS custom properties.  
+This version includes minimal styling using CSS custom properties.
 It supports focus styles, keyboard navigation, and optional placeholder behavior.
 
 <Canvas of={SelectClassBasedStories.DefaultSelect} />
 
 ---
 
+### Usage page example
+
+The following story demonstrates multiple selects used inside a reactive form, mirroring the page implementation: placeholder handling, disabled control state, preselected value via FormControl and change-event logging.
+
+<Canvas of={SelectClassBasedStories.UsagePageExample} />
+
+---
+
 ### Available Properties
 
-- **options**: An array of `{ value: string; label: string }` objects used to populate the dropdown
-- **selected**: The currently selected value
+- **options**: An array of `{ value: any; label: string }` objects used to populate the dropdown
 - **placeholder**: Optional placeholder text shown when no value is selected
 - **disabled**: Disables the dropdown if `true`
-- **ariaLabel**: Provides screen reader context for accessibility
+- **areaLabel**: Provides screen reader context for accessibility
 
 ---
 
@@ -55,28 +60,6 @@ These behaviors follow the native HTML `<select>` pattern, ensuring accessibilit
 This example shows how to use the select within a reactive form.
 
 ```html
-file.HTML
-
-  <dcx-ng-select
-  [options]="selectOptions"
-  placeholder="Choose an option"
-  [disabled]="false"
-  ariaLabel="Select an option"
-  [(ngModel)]="selectedValue"
-  (selectionChange)="onValueChange($event)"
->
-</dcx-ng-select>
-
-file.TS
-
-    selectOptions = [
-    { value: '1', label: 'Option 1' },
-    { value: '2', label: 'Option 2' },
-    { value: '3', label: 'Option 3' },
-  ];
-
-  selectedValue: string | null = null;
-
-  onValueChange(value: string) {
-    this.selectedValue = value;
-  }
+<form [formGroup]="form">
+  <dcx-ng-select formControlName="basic" [options]="selectOptions" placeholder="Choose an option" areaLabel="Select an option"></dcx-ng-select>
+</form>
