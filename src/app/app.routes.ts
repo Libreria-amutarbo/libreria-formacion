@@ -8,6 +8,7 @@ import { DcxNgPageDividerComponent } from './pages/dcx-ng-page-divider/dcx-ng-pa
 import { DcxNgPageToggleComponent } from './pages/dcx-ng-page-toggle/dcx-ng-page-toggle.component';
 import { DcxNgPageInputComponent } from './pages/dcx-ng-page-input/dcx-ng-page-input.component';
 import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component';
+import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 
 
 export const appRoutes: Route[] = [
@@ -46,5 +47,9 @@ export const appRoutes: Route[] = [
   {
     path: 'spinner',
     component: DcxNgPageSpinnerComponent,
+  },
+  {
+    path: 'chip',
+    component: DcxNgPageChipComponent,
   }
 ];

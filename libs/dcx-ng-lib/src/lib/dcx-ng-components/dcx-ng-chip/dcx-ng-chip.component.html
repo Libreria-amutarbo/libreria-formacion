@@ -1,0 +1,38 @@
+<div 
+  class="dcx-ng-chip"
+  [class]="'dcx-ng-chip--' + color()"
+  [attr.data-chip-type]="chipType()">
+  
+  @if (chipType() === 'with-image' && image()) {
+    <img 
+      class="dcx-ng-chip__image" 
+      [src]="image()" 
+      [alt]="label() || 'Chip image'"
+      loading="lazy">
+  }
+  
+  @if (chipType() === 'with-icon' && icon()) {
+    <dcx-ng-icon 
+      class="dcx-ng-chip__icon" 
+      [name]="icon()" 
+      size="s">
+    </dcx-ng-icon>
+  }
+  
+  @if (label()) {
+    <span class="dcx-ng-chip__label">{{ label() }}</span>
+  }
+
+  @if (removable()) {
+    <button 
+      type="button"
+      class="dcx-ng-chip__remove-btn"
+      [attr.aria-label]="'Remover ' + label()"
+      (click)="handleRemove($event)">
+      <dcx-ng-icon 
+        name="close" 
+        size="s">
+      </dcx-ng-icon>
+    </button>
+  }
+</div>
