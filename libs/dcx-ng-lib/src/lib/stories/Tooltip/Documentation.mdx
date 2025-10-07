@@ -63,24 +63,10 @@ Determines where the tooltip appears relative to the trigger element
 ## Usage Example
 
 ```html
-<dcx-ng-tooltip content="This is my tooltip" position="top" [hideTooltipOnClick]="false">
-  <button>Default</button>
-</dcx-ng-tooltip>
-```
-
-### **Advanced Usage Examples**
-
-```html
-<!-- Tooltip with different positions -->
-<dcx-ng-tooltip content="Appears on the right" position="right">
-  <span>Hover me</span>
-</dcx-ng-tooltip>
-
-<!-- Tooltip that hides on click -->
 <dcx-ng-tooltip 
-  content="Click inside to hide" 
-  position="bottom" 
-  [hideTooltipOnClick]="true">
-  <button>Information</button>
+    content="This is my tooltip" 
+    position="top" 
+    [hideTooltipOnClick]="false">
+  <button>Default</button>
 </dcx-ng-tooltip>
 ```

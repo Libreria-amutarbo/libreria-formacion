@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgTooltipComponent, TooltipPosition } from '../../dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
-import { TelDisabled } from '../Input/ClassBased.stories';
 
 const meta: Meta<DcxNgTooltipComponent> = {
   title: 'DCXLibrary/Tooltip/ClassBased',
@@ -21,7 +20,6 @@ const meta: Meta<DcxNgTooltipComponent> = {
       description: 'Whether the tooltip should hide when clicking',
       defaultValue: false,
     },
-
   },
 };
 
@@ -31,12 +29,14 @@ type Story = StoryObj<DcxNgTooltipComponent>;
 export const DefaultTooltip: Story = {
   args: {
     content: 'Default tooltip',
+    position: TooltipPosition.TOP,
+    hideTooltipOnClick: false,
   },
   render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; display: flex;">
-      <dcx-ng-tooltip [content]="content">
+      <dcx-ng-tooltip [content]="content" [position]="position" [hideTooltipOnClick]="hideTooltipOnClick">
         <button>Hover me</button>
       </dcx-ng-tooltip>
     </div>
