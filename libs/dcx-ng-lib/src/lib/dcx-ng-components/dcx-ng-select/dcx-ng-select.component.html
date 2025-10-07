@@ -1,7 +1,11 @@
+@if (ariaLabel) {
+  <label class="dcx-ng-select__label">{{ ariaLabel }}</label>
+}
+
 <select
   class="dcx-ng-select"
   [disabled]="disabled"
-  [attr.aria-label]="areaLabel"
+  [attr.aria-label]="ariaLabel"
   (change)="handleChange($event)"
   (blur)="handleBlur()"
 >

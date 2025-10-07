@@ -13,7 +13,6 @@ export class DcxNgPageSelectComponent {
   form = new FormGroup({
     basic: new FormControl(null),
     withPlaceholder: new FormControl(null),
-    // define disabled control via FormControl state so the custom component receives disabled
     disabled: new FormControl({ value: null, disabled: true }),
     preselected: new FormControl('2'),
     withChange: new FormControl(null),
@@ -29,7 +28,6 @@ export class DcxNgPageSelectComponent {
   selectedValue: any = null;
 
   constructor() {
-    // listen to changes for demo purposes
     this.form.get('withChange')?.valueChanges.subscribe((v) => {
       this.onValueChange(v);
     });
