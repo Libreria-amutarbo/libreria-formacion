@@ -11,12 +11,12 @@
 
   <input
     [id]="inputId"
-    class="input"
+    class="dcx-ng-input"
     [class.disabled]="disabled"
     [type]="type"
     [placeholder]="placeholder"
     [formControl]="inputControl"
-    [ngClass]="'input-size--' + size"
+    [ngClass]="'dcx-ng-input-size--' + size"
     [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
     [class.invalid]="inputControl.invalid && inputControl.touched"
     [attr.aria-required]="required"
