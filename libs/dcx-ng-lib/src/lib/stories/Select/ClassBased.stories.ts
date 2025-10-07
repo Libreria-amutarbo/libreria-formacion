@@ -26,30 +26,24 @@ const meta: Meta<DcxNgSelectComponent> = {
   argTypes: {
     options: { control: 'object' },
     placeholder: { control: 'text' },
-    areaLabel: { control: 'text' },
+    ariaLabel: { control: 'text' },
     disabled: { control: 'boolean' },
   },
   args: {
     options: optionList,
     placeholder: 'Please choose an option',
-    areaLabel: 'Select',
+    ariaLabel: 'Select',
     disabled: false,
   },
   decorators: [
     moduleMetadata({
-      imports: [ReactiveFormsModule, DcxNgSelectComponent], // componente standalone importado
+      imports: [ReactiveFormsModule, DcxNgSelectComponent],
     }),
   ],
 };
 
 export default meta;
 type Story = StoryObj<DcxSelectInputs>;
-
-/*
-  Default: interactive story. Controls (panel Controls) affect only this story.
-  SelectShowcase: contains all static examples (Basic, Placeholder, Disabled, Binding, ChangeEvent)
-  using fixed literals / optionList so they are not affected by the Controls.
-*/
 
 export const Default: Story = {
   render: (args) => {
@@ -82,7 +76,6 @@ export const Default: Story = {
 
 export const SelectShowcase: Story = {
   render: (args) => {
-    // showcase stories use fixed data (optionList, literal placeholders) so Controls do NOT affect them
     const form1 = new FormGroup({ basic: new FormControl(null) });
     const form2 = new FormGroup({ withPlaceholder: new FormControl(null) });
     const form3 = new FormGroup({ disabled: new FormControl({ value: null, disabled: true }) });
@@ -90,7 +83,6 @@ export const SelectShowcase: Story = {
     const form5 = new FormGroup({ withChange: new FormControl(null) });
 
     form5.get('withChange')?.valueChanges.subscribe((v) => {
-      // eslint-disable-next-line no-console
       console.log('New value selected (showcase): ', v);
     });
 
