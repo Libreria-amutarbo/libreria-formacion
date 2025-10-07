@@ -28,7 +28,7 @@ interface SelectOptions {
 export class DcxNgSelectComponent implements ControlValueAccessor {
   @Input() options: SelectOptions[] = [];
   @Input() placeholder = '';
-  @Input() areaLabel = '';
+  @Input() ariaLabel = '';
 
   disabled = false;
   value: any = null; // store the current value as the same type used by options
