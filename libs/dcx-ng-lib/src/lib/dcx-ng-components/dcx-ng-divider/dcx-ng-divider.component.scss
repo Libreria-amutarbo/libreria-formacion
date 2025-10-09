@@ -1,6 +1,6 @@
 :host {
   --dcx-divider-color: #ff0000;
-  --dcx-divider-thickness: 1px;
+  --dcx-divider-thickness: 0.6px;
   --dcx-divider-size: 100px;
   display: block;
 }
@@ -31,5 +31,15 @@
 
   &--large {
     --dcx-divider-size: 30rem;
+  }
+
+  &--auto {
+    &.dcx-ng-divider--horizontal {
+      width: 100%;
+    }
+    
+    &.dcx-ng-divider--vertical {
+      height: 100%;
+    }
   }
 }
