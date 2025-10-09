@@ -6,3 +6,4 @@ export * from './lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
 export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 export * from './lib/dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
 export * from './lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
+export * from './lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';

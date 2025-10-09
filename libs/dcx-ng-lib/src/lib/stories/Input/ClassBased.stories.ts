@@ -32,10 +32,6 @@ const meta: Meta<DcxNgInputComponent> = {
     label: {
       control: 'text',
       defaultValue: null,
-    },
-    value: {
-      control: 'text',
-      defaultValue: null,
     }
   },
 };
@@ -51,7 +47,6 @@ export const TextSmall: Story = {
     disabled: false,
     required: false,
     label: 'Input Label',
-    value: '',
   },
 };
 
@@ -63,7 +58,6 @@ export const NumberMedium: Story = {
     disabled: false,
     required: false,
     label: 'Input Label',
-    value: '',
   },
 };
 
@@ -75,7 +69,6 @@ export const EmailLargeRequired: Story = {
     disabled: false,
     required: true,
     label: 'Input Label',
-    value: '',
   },
 };
 
@@ -87,7 +80,6 @@ export const PasswordExtraLarge: Story = {
     disabled: false,
     required: false,
     label: 'Input Label',
-    value: '',
   },
 };
 
@@ -99,7 +91,6 @@ export const DateSmallRequired: Story = {
     disabled: false,
     required: true,
     label: 'Date Input',
-    value: '',
   },
 };
 
@@ -107,8 +98,7 @@ export const SearchDefault: Story = {
   args: {
     type: InputType.SEARCH,
     placeholder: 'Search...',
-    label: 'Search Input',
-    value: '',
+    label: 'Search Input'
   },
 };
 
@@ -120,6 +110,5 @@ export const TelDisabled: Story = {
     disabled: true,
     required: false,
     label: 'Phone Input',
-    value: '',
   },
 };
