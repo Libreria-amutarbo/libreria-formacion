@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgChipComponent, ThemeColors } from '../../dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
+import { DcxNgChipComponent, ThemeColors, ThemeColorsType } from '../../dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
 import { moduleMetadata } from '@storybook/angular';
 import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 
@@ -302,34 +302,6 @@ El componente mantiene todas sus características de accesibilidad:
 - Navegación por teclado funcional
 
 Inspecciona el DOM para verificar los atributos de accesibilidad.
-        `,
-      },
-    },
-  },
-};
-
-export const PlaygroundUnstyled: Story = {
-  args: {
-    label: 'Chip personalizable sin estilos',
-    color: 'primary',
-    icon: '',
-    image: '',
-    removable: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-**Playground sin estilos**
-
-Experimenta con todas las propiedades del componente sin la interferencia visual de los estilos.
-Perfecto para:
-- Testing de funcionalidad
-- Desarrollo de estilos personalizados
-- Verificación de comportamiento base
-- Implementaciones headless
-
-Usa los controles para modificar las propiedades y observar cómo cambia la estructura del DOM.
         `,
       },
     },

@@ -3,7 +3,7 @@
   [class]="'dcx-ng-chip--' + color()"
   [attr.data-chip-type]="chipType()">
   
-  @if (chipType() === 'with-image' && image()) {
+  @if (chipType() === ChipTypeValues.WITH_IMAGE && image()) {
     <img 
       class="dcx-ng-chip__image" 
       [src]="image()" 
@@ -11,7 +11,7 @@
       loading="lazy">
   }
   
-  @if (chipType() === 'with-icon' && icon()) {
+  @if (chipType() === ChipTypeValues.WITH_ICON && icon()) {
     <dcx-ng-icon 
       class="dcx-ng-chip__icon" 
       [name]="icon()" 

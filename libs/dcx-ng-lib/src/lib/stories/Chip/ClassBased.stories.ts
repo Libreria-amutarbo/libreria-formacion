@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgChipComponent, ThemeColors } from '../../dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
+import { DcxNgChipComponent, ThemeColors, ThemeColorsType } from '../../dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
 import { moduleMetadata } from '@storybook/angular';
 import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 
@@ -62,14 +62,11 @@ Soporta diferentes colores, iconos, imágenes y funcionalidad de eliminación.
     },
     color: {
       control: { type: 'select' },
-      options: [
-        'primary', 'secondary', 'success', 'warning', 'error', 
-        'info', 'gray', 'gray-light'
-      ] as ThemeColors[],
+      options: Object.values(ThemeColors),
       description: 'Color del chip según el sistema de diseño',
       table: {
         type: { summary: 'ThemeColors' },
-        defaultValue: { summary: 'gray' },
+        defaultValue: { summary: ThemeColors.GRAY },
       },
     },
     removable: {
@@ -106,7 +103,7 @@ Soporta diferentes colores, iconos, imágenes y funcionalidad de eliminación.
   },
   args: {
     label: 'Chip de ejemplo',
-    color: 'primary',
+    color: ThemeColors.PRIMARY,
     removable: false,
     icon: '',
     image: '',
@@ -119,14 +116,14 @@ type Story = StoryObj<DcxNgChipComponent>;
 export const Default: Story = {
   args: {
     label: 'Chip por defecto',
-    color: 'gray',
+    color: ThemeColors.GRAY,
   },
 };
 
 export const Primary: Story = {
   args: {
     label: 'Chip primario',
-    color: 'primary',
+    color: ThemeColors.PRIMARY,
   },
 };
 
@@ -134,7 +131,7 @@ export const WithIcon: Story = {
   args: {
     label: 'Con icono',
     icon: 'home',
-    color: 'primary',
+    color: ThemeColors.PRIMARY,
   },
 };
 
@@ -142,14 +139,14 @@ export const WithImage: Story = {
   args: {
     label: 'Con imagen',
     image: 'https://via.placeholder.com/32x32/0070AD/FFFFFF?text=U',
-    color: 'secondary',
+    color: ThemeColors.SECONDARY,
   },
 };
 
 export const Removable: Story = {
   args: {
     label: 'Removible',
-    color: 'warning',
+    color: ThemeColors.WARNING,
     removable: true,
   },
 };
@@ -158,7 +155,7 @@ export const RemovableWithIcon: Story = {
   args: {
     label: 'Angular',
     icon: 'code',
-    color: 'error',
+    color: ThemeColors.ERROR,
     removable: true,
   },
 };
@@ -167,7 +164,7 @@ export const RemovableWithImage: Story = {
   args: {
     label: 'Usuario',
     image: 'https://via.placeholder.com/32x32/00A76F/FFFFFF?text=A',
-    color: 'success',
+    color: ThemeColors.SUCCESS,
     removable: true,
   },
 };
@@ -330,35 +327,6 @@ export const TechnologyTags: Story = {
     docs: {
       description: {
         story: 'Ejemplo de uso como etiquetas de tecnología con iconos y funcionalidad de eliminación.',
-      },
-    },
-  },
-};
-
-export const Playground: Story = {
-  args: {
-    label: 'Chip personalizable',
-    color: 'primary',
-    icon: 'star',
-    image: '',
-    removable: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-Experimenta con todas las propiedades del componente Chip.
-Usa los controles del panel inferior para modificar las propiedades y ver 
-cómo cambia el componente en tiempo real.
-
-**Propiedades disponibles:**
-- **label**: Texto del chip (obligatorio)
-- **color**: Color según el sistema de diseño
-- **icon**: Icono Material opcional
-- **image**: URL de imagen opcional
-- **removable**: Mostrar botón X
-- **onRemove**: Evento de eliminación
-        `,
       },
     },
   },

@@ -1,19 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, computed, input, Signal } from '@angular/core';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-export type ThemeColors = 
-  | 'primary' | 'secondary' | 'accent' 
-  | 'primary-light' | 'primary-dark'
-  | 'success' | 'warning' | 'error'
-  | 'gray' | 'gray-light'
-  | 'text-default' | 'text-secondary' | 'text-disabled' | 'text-inverse'
-  | 'border' | 'border-light';
+
+export enum ThemeColors {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  ERROR = 'error',
+  INFO = 'info',
+  GRAY = 'gray',
+  GRAY_LIGHT = 'gray-light'
+}
 
 export type ChipType = 'label-only' | 'with-icon' | 'with-image';
 
+export type ThemeColorsType = `${ThemeColors}`;
+
 interface DcxNgChipComponentInputs {
   label: Signal<string>;
-  color: Signal<ThemeColors>;
+  color: Signal<ThemeColorsType>;
   removable: Signal<boolean>;
   icon: Signal<string>;
   image: Signal<string>;
@@ -29,7 +35,7 @@ interface DcxNgChipComponentInputs {
 })
 export class DcxNgChipComponent implements DcxNgChipComponentInputs {
   label = input<string>('');
-  color = input<ThemeColors>('gray');
+  color = input<ThemeColorsType>(ThemeColors.PRIMARY);
   removable = input<boolean>(false);
   icon = input<string>('');
   image = input<string>('');
@@ -41,6 +47,12 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
     if (this.icon()) return 'with-icon';
     return 'label-only';
   });
+
+  readonly ThemeColors = ThemeColors;
+  readonly ChipTypeValues = {
+    WITH_ICON: 'with-icon' as const,
+    WITH_IMAGE: 'with-image' as const
+  };
 
   handleRemove(event: Event): void {
     event.stopPropagation();
