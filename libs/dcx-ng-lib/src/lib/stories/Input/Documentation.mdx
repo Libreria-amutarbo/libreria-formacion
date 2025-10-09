@@ -3,44 +3,94 @@ import * as InputClassBasedStories from './ClassBased.stories';
 
 <Meta title="DCXLibrary/Input/Documentation" />
 
-# Input
+# Input Component
 
-The `dcx-ng-input` component is a form utility used to register input from the user.  
-It supports both unstyled and class-based variations for flexibility and design control.
+The `dcx-ng-input` component is a versatile form utility designed to capture user input with comprehensive validation and styling options. 
+
+## Overview
+
+This component provides a complete input solution with:
+- Multiple input types support
+- Size variations
+- Validation states
+- Accessibility features
+- Customizable styling
+
+---
+### Class-Based Version
+
+The class-based input implements a design system built with:
+- **BEM methodology** for consistent naming conventions
+- **SCSS** for maintainable styles
+- **CSS custom properties** for flexible theming
+- **Responsive design** principles
 
 ---
 
-## Unstyled Version
+## Examples
 
-Use this version when you want full control over appearance.  
-No styles are applied by default. You are responsible for setting properties such as color, thickness, and orientation.
-
----
-
-## Class-Based Version
-
-The class-based input uses minimal default styles built with the BEM naming convention and SCSS.  
-It leverages CSS variables for flexibility and can be easily extended or themed.
-
+### Basic Text Input (Small)
 <Canvas of={InputClassBasedStories.TextSmall} />
+
+### Number Input (Medium)
 <Canvas of={InputClassBasedStories.NumberMedium} />
+
+### Email Input with Validation (Large)
 <Canvas of={InputClassBasedStories.EmailLargeRequired} />
 
-You can customize:
+---
 
-- **type**: text, number, email, password, date, search, tel, url
-- **size**: small (s), medium (m), large (l), extra large (xl)
-- **placeholder**: any text
-- **disabled**: defines if the case is disabled
-- **required**: defines if the completion is required
-- **label**: name for the case
-- **value**: default value
+## Properties
+
+### Input Types
+- **text**: Standard text input
+- **number**: Numeric input with validation
+- **email**: Email input with format validation
+- **password**: Password input with hidden characters
+- **date**: Date picker input
+- **search**: Search input with enhanced styling
+- **tel**: Telephone number input
+- **url**: URL input with validation
+
+### Sizes
+- **small (s)**: Compact size for dense layouts
+- **medium (m)**: Standard size for most use cases
+- **large (l)**: Larger size for better accessibility
+- **extra large (xl)**: Maximum size for prominence
+
+### States
+- **disabled**: Prevents user interaction
+- **required**: Indicates mandatory field completion
+
+### Content
+- **placeholder**: Hint text displayed when empty
+- **label**: Descriptive text for the input field
 
 ---
 
-## Usage Example
+## Accessibility
 
+The component includes built-in accessibility features:
+- Proper ARIA labels and descriptions
+- Keyboard navigation support
+- Screen reader compatibility
+- Focus management
+- Error state announcements
+
+---
+
+## Usage
+
+### Basic Implementation
 ```html
-<dcx-ng-input label="tamaño s" placeholder="Escriba algo..." [disabled]="false" [required]="true"
-        [type]="'text'" [size]="'s'" (valueChange)="showValue()"></dcx-ng-input>
+<dcx-ng-input 
+  label="User Name" 
+  placeholder="Enter your name..." 
+  [disabled]="false" 
+  [required]="true"
+  [type]="'text'" 
+  [size]="'m'" 
+  (valueChange)="onValueChange($event)">
+</dcx-ng-input>
 ```
+

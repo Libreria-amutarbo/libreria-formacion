@@ -1,8 +1,24 @@
+@import '../../../scss/main.scss';
+ 
 @mixin message-type($color) {
   border: 1px solid $color;
   color: $color;
+ 
+  .icon__container__close {
+    color: $color;
+   
+    &:hover {
+      background: rgba($color, 0.1);
+      color: $color;
+    }
+   
+    &:active {
+      background: rgba($color, 0.2);
+      color: $color;
+    }
+  }
 }
-
+ 
 .message__container {
   border-radius: 0.25rem;
   padding: 0.5rem;
@@ -12,19 +28,33 @@
     font-weight: 600;
   }
 }
-
-.error {
-  @include message-type(var(--dcx-ng-error));
+ 
+.error { @include message-type(map-get($color, "error")); }
+.warning { @include message-type(map-get($color, "warning")); }
+.notification { @include message-type(map-get($color, "info")); }
+.success { @include message-type(map-get($color, "success")); }
+ 
+.icon__container {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  margin-right: var(--spacing-s);
+ 
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--spacing-s);
+    height: var(--spacing-s);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin-left: var(--spacing-m);
+    @include transition-base;
+   
+    &:focus { outline: 2px solid currentColor; outline-offset: 2px; }
+  }
 }
-
-.warning {
-  @include message-type(var(--dcx-ng-warning));
-}
-
-.notification {
-  @include message-type(var(--dcx-ng-notification));
-}
-
-.success {
-  @include message-type(var(--dcx-ng-success));
-}
+ 
