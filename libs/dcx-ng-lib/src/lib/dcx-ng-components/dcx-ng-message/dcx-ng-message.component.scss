@@ -18,15 +18,32 @@
     }
   }
 }
- 
+.message__container__link {
+  text-decoration: underline;
+  font-size:  0.7rem;
+}
 .message__container {
   border-radius: 0.25rem;
   padding: 0.5rem;
   display: flex;
-  gap: 1rem;
-  .__title {
+  gap: 0.5rem;
+  align-items: flex-start;
+  
+  &__title {
     font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    font-size: 0.875rem;
   }
+  
+  &__paragraph {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+  
+  &__body {
+    flex: 1;
+  } 
 }
  
 .error { @include message-type(map-get($color, "error")); }
@@ -38,23 +55,21 @@
   display: flex;
   align-items: flex-start;
   flex-shrink: 0;
-  margin-right: var(--spacing-s);
+  margin-top: 0.125rem;
+  padding: 0.125rem;
+  border-radius: 0.25rem;
  
   &__close {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--spacing-s);
-    height: var(--spacing-s);
+    width: 1.5rem;
+    height: 3rem;
     border: none;
-    border-radius: var(--border-radius-sm);
+    border-radius: 0.25rem;
     background: transparent;
-    cursor: pointer;
     padding: 0;
-    margin-left: var(--spacing-m);
-    @include transition-base;
-   
-    &:focus { outline: 2px solid currentColor; outline-offset: 2px; }
+    margin-left: auto;
   }
 }
  
