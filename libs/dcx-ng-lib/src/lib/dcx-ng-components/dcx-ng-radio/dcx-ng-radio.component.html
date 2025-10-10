@@ -9,9 +9,9 @@
     type="radio"
     [name]="name"
     [value]="value"
-    [checked]="isChecked"
+    [formControl]="formControl"
     [disabled]="disabled"
-    (change)="onInputChange()"
+    (blur)="onTouched()"
   />
   
   @if (label) {
