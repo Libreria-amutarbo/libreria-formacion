@@ -1,8 +1,8 @@
-import { Component, Input, forwardRef, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, forwardRef, ChangeDetectorRef, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type RadioSize = 's' | 'm' | 'l';
 
@@ -20,7 +20,7 @@ type RadioSize = 's' | 'm' | 'l';
     },
   ],
 })
-export class DcxNgRadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class DcxNgRadioComponent implements ControlValueAccessor {
   @Input() name: string = '';
   @Input() value: string | null = null;
   @Input() label: string | null = null;
@@ -30,21 +30,18 @@ export class DcxNgRadioComponent implements ControlValueAccessor, OnInit, OnDest
   @Input() unstyled = false;
 
   formControl = new FormControl<string | null>(null);
-  private subscription?: Subscription;
 
   onChange: (value: string | null) => void = () => {};
   onTouched: () => void = () => {};
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  private cdr = inject(ChangeDetectorRef);
 
-  ngOnInit(): void {
-    this.subscription = this.formControl.valueChanges.subscribe(value => {
-      this.onChange(value);
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+  constructor() {
+    this.formControl.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(value => {
+        this.onChange(value);
+      });
   }
 
   get isChecked(): boolean {
@@ -80,11 +77,7 @@ export class DcxNgRadioComponent implements ControlValueAccessor, OnInit, OnDest
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    if (isDisabled) {
-      this.formControl.disable({ emitEvent: false });
-    } else {
-      this.formControl.enable({ emitEvent: false });
-    }
+    isDisabled ? this.formControl.disable({ emitEvent: false }) :     this.formControl.enable({ emitEvent: false });
     this.cdr.markForCheck();
   }
 
