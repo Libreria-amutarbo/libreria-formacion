@@ -42,7 +42,6 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
 
   @Output() onRemove = new EventEmitter<void>();
 
-  // Exponer enums y constantes para usar en template
   readonly ThemeColors = ThemeColors;
   readonly ChipTypeValues = {
     LABEL_ONLY: 'label-only' as const,
