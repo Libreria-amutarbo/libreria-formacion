@@ -1,4 +1,7 @@
-<div class="dcx-ng-chip" [class]="'dcx-ng-chip--' + color()" [attr.data-chip-type]="chipType()">
+<div 
+  class="dcx-ng-chip" 
+  [ngClass]="chipClasses" 
+  [attr.data-chip-type]="chipType()">
 
     @if (chipType() === ChipTypeValues.WITH_IMAGE && image()) {
     <img class="dcx-ng-chip__image" [src]="image()" [alt]="label() || 'Chip image'" loading="lazy">
@@ -21,3 +24,4 @@
     </button>
     }
 </div>
+

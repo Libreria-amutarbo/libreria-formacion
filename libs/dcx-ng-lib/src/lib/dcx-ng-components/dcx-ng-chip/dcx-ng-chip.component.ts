@@ -42,17 +42,23 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
 
   @Output() onRemove = new EventEmitter<void>();
 
-  chipType = computed((): ChipType => {
-    if (this.image()) return 'with-image';
-    if (this.icon()) return 'with-icon';
-    return 'label-only';
-  });
-
+  // Exponer enums y constantes para usar en template
   readonly ThemeColors = ThemeColors;
   readonly ChipTypeValues = {
+    LABEL_ONLY: 'label-only' as const,
     WITH_ICON: 'with-icon' as const,
     WITH_IMAGE: 'with-image' as const
   };
+
+  chipType = computed((): ChipType => {
+    if (this.image()) return this.ChipTypeValues.WITH_IMAGE;
+    if (this.icon()) return this.ChipTypeValues.WITH_ICON;
+    return this.ChipTypeValues.LABEL_ONLY;
+  });
+
+  get chipClasses(): string {
+    return `dcx-ng-chip--${this.color()}`;
+  }
 
   handleRemove(event: Event): void {
     event.stopPropagation();
