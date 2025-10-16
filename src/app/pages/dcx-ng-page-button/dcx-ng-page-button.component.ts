@@ -24,6 +24,5 @@ export class DcxNgPageButtonComponent {
 
   onReset(_event: Event) {
     this.log('Form reset');
-    alert('Form reset');
   }
 }
