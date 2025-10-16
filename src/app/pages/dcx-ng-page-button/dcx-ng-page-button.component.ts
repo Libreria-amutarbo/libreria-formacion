@@ -20,11 +20,9 @@ export class DcxNgPageButtonComponent {
   onSubmit(event: Event) {
     event.preventDefault();
     this.log('Form submit');
-    alert('Form submit');
   }
 
   onReset(_event: Event) {
     this.log('Form reset');
-    alert('Form reset');
   }
 }
