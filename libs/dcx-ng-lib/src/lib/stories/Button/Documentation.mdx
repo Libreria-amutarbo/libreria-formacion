@@ -1,4 +1,4 @@
-import { Meta, Canvas, ArgTypes, Story } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/blocks';
 import * as ButtonUnstyledStories from './UnStyled.stories';
 import * as ButtonClassBasedStories from './ClassBased.stories';
 
@@ -6,15 +6,14 @@ import * as ButtonClassBasedStories from './ClassBased.stories';
 
 # Button
 
-The `dcx-ng-button` component is a UI/UX-agnostic element designed for flexibility and reuse.  
-It supports both unstyled and class-based variations. You can pass a label or use content projection via ng-content.
+The `dcx-ng-button` component is a flexible, accessible button that supports labels, icons, multiple variants and sizes, and native button types.
 
 ---
 
 ## Unstyled Version
 
-Use this version when you want full control over appearance.  
-No styles are applied by default. You’re responsible for all visual presentation.
+Use this version when you want full control over the appearance.  
+(For demo purposes, this story uses the same component with minimal configuration.)
 
 <Canvas of={ButtonUnstyledStories.Unstyled} />
 
@@ -22,30 +21,40 @@ No styles are applied by default. You’re responsible for all visual presentati
 
 ## Class-Based Version
 
-The class-based button uses minimal default styles built with BEM naming convention and SCSS.  
-It leverages CSS variables for flexibility and can be easily extended.
+The class-based button uses minimal default styles with CSS variables, BEM naming, and SCSS.
 
 <Canvas of={ButtonClassBasedStories.Primary} />
 
 You can customize:
 
-- variant: primary, secondary, link, icon
-- size: small, medium, large, block
-- disabled: disables the button
-- icon: optional icon class
-- label: button text
+- **variant**: `primary`, `secondary`, `link`, `icon`
+- **size**: `small`, `medium`, `large`, `block`
+- **disabled**: disables the button
+- **label / ariaLabel**: visible text or accessible name for icon-only buttons
+- **iconName**: Material Icons name (e.g., `"save"`, `"settings"`)
+- **iconPosition**: `start` | `end`
+- **iconSize**: `s` | `m` | `l` | `xl`
+- **iconSpacing**: `none` | `compact` | `spacious`
+- **iconColor**: hex or CSS color
 
 ---
 
 ## Usage Example
 
 ```html
+<!-- Label + start icon -->
 <dcx-ng-button
-  [label]="'Start Now'"
-  [type]="'submit'"
-  [variant]="'primary'"
-  [size]="'medium'"
-  [disabled]="false"
-  (click)="onClick()"
->
+  label="Start Now"
+  type="submit"
+  variant="primary"
+  size="medium"
+  iconName="arrow_forward"
+  iconPosition="start">
+</dcx-ng-button>
+
+<!-- Icon-only (accessible) -->
+<dcx-ng-button
+  ariaLabel="Open settings"
+  variant="icon"
+  iconName="settings">
 </dcx-ng-button>

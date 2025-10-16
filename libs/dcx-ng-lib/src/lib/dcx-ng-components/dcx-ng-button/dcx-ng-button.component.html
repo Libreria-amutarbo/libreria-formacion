@@ -3,14 +3,34 @@
   [disabled]="disabled"
   [ngClass]="buttonClasses"
   (click)="onClick()"
-  [attr.aria-label]="ariaLabelBinding"
-  [attr.aria-disabled]="disabled ? true : null"
+  [attr.aria-label]="computedAriaLabel"
 >
-  @if (icon) {
-    <i [class]="icon" role="img" aria-hidden="true"></i>
+  @if (iconName && iconPosition === 'start') {
+    <dcx-ng-icon
+      class="dcx-ng-button__icon dcx-ng-button__icon--start"
+      [name]="iconName"
+      [size]="effectiveIconSize"
+      [spacing]="iconSpacing"
+      [color]="iconColor"
+      aria-hidden="true"
+    ></dcx-ng-icon>
   }
 
   @if (label) {
-    <span> {{ label }}</span>
+    <span class="dcx-ng-button__label">{{ label }}</span>
   }
+
+  @if (iconName && iconPosition === 'end') {
+    <dcx-ng-icon
+      class="dcx-ng-button__icon dcx-ng-button__icon--end"
+      [name]="iconName"
+      [size]="effectiveIconSize"
+      [spacing]="iconSpacing"
+      [color]="iconColor"
+      aria-hidden="true"
+    ></dcx-ng-icon>
+  }
+
+  <ng-content select="dcx-ng-icon"></ng-content>
+  <ng-content select="[button-trailing]"></ng-content>
 </button>

@@ -9,6 +9,10 @@
 }
 
 .dcx-ng-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   padding: var(--dcx-button-padding);
   font-size: var(--dcx-button-font-size);
   background-color: var(--dcx-button-bg);
@@ -16,6 +20,7 @@
   border: var(--dcx-button-border);
   cursor: pointer;
   border-radius: 4px;
+  line-height: 1;
 
   &--primary {
     --dcx-button-bg: #0056b3;
@@ -56,4 +61,20 @@
     --dcx-button-padding: 0.75rem 1.25rem;
     --dcx-button-font-size: 1.125rem;
   }
+
+  &--icon-only {
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+    padding: 0.5rem;
+
+    .dcx-ng-button__label {
+      display: none;
+    }
+  }
+}
+
+.dcx-ng-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
