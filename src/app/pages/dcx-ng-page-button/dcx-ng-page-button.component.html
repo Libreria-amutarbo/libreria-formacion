@@ -28,9 +28,21 @@
   <section class="example-section">
     <h3>Sizes</h3>
     <div class="row">
-      <dcx-ng-button label="Small"   size="small"  variant="primary"></dcx-ng-button>
-      <dcx-ng-button label="Medium"  size="medium" variant="primary"></dcx-ng-button>
-      <dcx-ng-button label="Large"   size="large"  variant="primary"></dcx-ng-button>
+      <dcx-ng-button 
+        label="Small"   
+        size="small"  
+        variant="primary">
+      </dcx-ng-button>
+      <dcx-ng-button 
+        abel="Medium"  
+        size="medium" 
+        variant="primary">
+      </dcx-ng-button>
+      <dcx-ng-button 
+        label="Large"   
+        size="large"  
+        variant="primary">
+      </dcx-ng-button>
     </div>
   </section>
 
@@ -54,9 +66,21 @@
   <section class="example-section">
     <h3>Disabled state</h3>
     <div class="row">
-      <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
-      <dcx-ng-button label="Disabled" variant="secondary" [disabled]="true"></dcx-ng-button>
-      <dcx-ng-button label="Disabled link" variant="link" [disabled]="true"></dcx-ng-button>
+      <dcx-ng-button 
+        label="Disabled" 
+        variant="primary" 
+        [disabled]="true">
+      </dcx-ng-button>
+      <dcx-ng-button 
+        label="Disabled" 
+        variant="secondary" 
+        [disabled]="true">
+      </dcx-ng-button>
+      <dcx-ng-button 
+        label="Disabled link" 
+        variant="link" 
+        [disabled]="true">
+      </dcx-ng-button>
     </div>
   </section>
 
@@ -115,9 +139,22 @@
     <h3>Button types (submit / reset)</h3>
     <form (submit)="onSubmit($event)" (reset)="onReset($event)" class="stack">
       <div class="row">
-        <dcx-ng-button label="Submit" type="submit" variant="primary"></dcx-ng-button>
-        <dcx-ng-button label="Reset"  type="reset"  variant="secondary"></dcx-ng-button>
-        <dcx-ng-button label="Button" type="button" variant="link" (buttonClick)="log('Type=button clicked')"></dcx-ng-button>
+        <dcx-ng-button 
+          label="Submit" 
+          type="submit" 
+          variant="primary">
+        </dcx-ng-button>
+        <dcx-ng-button 
+          label="Reset" 
+          type="reset" 
+          variant="secondary">
+        </dcx-ng-button>
+        <dcx-ng-button 
+          label="Button" 
+          type="button" 
+          variant="link" 
+          (buttonClick)="log('Type=button clicked')">
+        </dcx-ng-button>
       </div>
     </form>
   </section>

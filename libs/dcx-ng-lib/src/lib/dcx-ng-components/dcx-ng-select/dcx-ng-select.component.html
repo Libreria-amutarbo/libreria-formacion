@@ -11,7 +11,7 @@
     [disabled]="disabled"
     (change)="handleChange($event)"
     (blur)="handleBlur()"
-    [attr.aria-label]="!label ? ariaLabel || null : null"
+    [attr.aria-label]="ariaLabel || null"
   >
     @if (placeholder) {
       <option value="" disabled hidden [selected]="value === null">

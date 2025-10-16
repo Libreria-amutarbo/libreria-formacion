@@ -7,11 +7,18 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+
 type ButtonType = 'button' | 'submit' | 'reset';
 type ButtonVariant = 'primary' | 'secondary' | 'link' | 'icon';
 type ButtonSize = 'small' | 'medium' | 'large' | 'block';
 type IconSize = 's' | 'm' | 'l' | 'xl';
 type IconSpacing = 'none' | 'compact' | 'spacious';
+
+export const ICON_POSITION = {
+  start: 'start',
+  end: 'end',
+} as const;
+export type IconPosition = typeof ICON_POSITION[keyof typeof ICON_POSITION];
 
 @Component({
   selector: 'dcx-ng-button',
@@ -30,35 +37,40 @@ export class DcxNgButtonComponent {
 
   @Input() variant?: ButtonVariant;
   @Input() size: ButtonSize = 'medium';
+
   @Input() class = '';
 
   @Input() iconName?: string;
-  @Input() iconPosition: 'start' | 'end' = 'start';
+
+  @Input() iconPosition: IconPosition = ICON_POSITION.start;
+
   @Input() iconSize?: IconSize;
   @Input() iconSpacing: IconSpacing = 'none';
   @Input() iconColor = '';
 
-  @Input() set icon(_legacy: string) {
-  }
+  @Input() set icon(_legacy: string) {}
 
   @Output() buttonClick = new EventEmitter<{ clicked: boolean }>();
+
+  readonly IconPos = ICON_POSITION;
 
   get computedAriaLabel(): string | null {
     if (this.label) return null;
     return this.ariaLabel ? this.ariaLabel : 'Button';
   }
 
-  get effectiveIconSize(): IconSize {
-    if (this.iconSize) return this.iconSize;
-    switch (this.size) {
-      case 'small':
-        return 's';
-      case 'large':
-        return 'l';
-      default:
-        return 'm';
-    }
-  }
+  
+private readonly sizeToIconMap: Record<ButtonSize, IconSize> = {
+  small: 's',
+  medium: 'm',
+  large: 'l',
+  block: 'm',
+};
+
+get effectiveIconSize(): IconSize {
+  return this.iconSize || this.sizeToIconMap[this.size];
+}
+
 
   get buttonClasses(): string {
     return [
