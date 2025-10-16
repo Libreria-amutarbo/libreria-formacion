@@ -1,11 +1,24 @@
 :host {
   display: inline-block;
   width: 100%;
+  color: var(--color-text-primary);
 }
 
+.dcx-ng-select__label {
+  display: inline-block;
+  margin-bottom: var(--spacing-inset-xs, 4px);
+  /* (opcional) tipografía del label */
+}
+
+.dcx-ng-select__wrapper {
+  position: relative; /* ancla del chevron */
+}
+
+/* SELECT */
 .dcx-ng-select {
   width: 100%;
   padding: var(--spacing-inset-m);
+  padding-right: calc(var(--spacing-inset-m) * 2 + 20px);
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
   color: var(--color-text-primary);
@@ -14,29 +27,41 @@
   border-radius: 4px;
   cursor: pointer;
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 12px center; /* por si usas bg-image en el select */
+  background-size: 12px;
+}
 
-  &:hover:not(:disabled) {
-    border-color: var(--color-primary);
-  }
+.dcx-ng-select:hover:not(:disabled) { border-color: var(--color-primary); }
+.dcx-ng-select:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary-light); }
+.dcx-ng-select:disabled { opacity: 0.5; cursor: not-allowed; background-color: var(--color-gray-lighter); color: var(--color-text-disabled); }
 
-  &:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px var(--color-primary-light);
-  }
+/* CHEVRON centrado respecto al wrapper (que sólo contiene el select) */
+.dcx-ng-select__wrapper::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-position: center center;
+  opacity: 0.95;
+}
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: var(--color-gray-lighter);
-    color: var(--color-text-disabled);
-  }
+/* Estado disabled (sin :has) usando una clase */
+.dcx-ng-select__wrapper.is-disabled::after {
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
 
-  option {
-    padding: var(--spacing-inset-s);
-    
-    &:disabled {
-      color: var(--color-text-disabled);
-    }
-  }
+/* Modo oscuro: cambia el trazo del SVG */
+:host(.theme-dark) .dcx-ng-select__wrapper::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
 }

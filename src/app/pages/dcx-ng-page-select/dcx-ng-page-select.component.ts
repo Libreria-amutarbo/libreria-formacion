@@ -11,11 +11,12 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class DcxNgPageSelectComponent {
   form = new FormGroup({
-    basic: new FormControl(null),
-    withPlaceholder: new FormControl(null),
-    disabled: new FormControl({ value: null, disabled: true }),
-    preselected: new FormControl('2'),
-    withChange: new FormControl(null),
+    basic: new FormControl<string | null>(null),
+    withPlaceholder: new FormControl<string | null>(null),
+    disabled: new FormControl<string | null>({ value: null, disabled: true }),
+    preselected: new FormControl<string>('2'),
+    withChange: new FormControl<string | null>(null),
+    noLabelAria: new FormControl<string | null>(null),
   });
 
   optionList = [

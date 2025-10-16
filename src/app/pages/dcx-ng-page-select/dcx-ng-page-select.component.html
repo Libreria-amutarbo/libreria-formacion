@@ -6,7 +6,7 @@
       <dcx-ng-select
         formControlName="basic"
         [options]="optionList"
-        ariaLabel="Basic select"
+        label="Basic select"
       ></dcx-ng-select>
     </section>
 
@@ -14,8 +14,8 @@
       <dcx-ng-select
         formControlName="withPlaceholder"
         [options]="optionList"
+        label="Select with placeholder"
         placeholder="Please choose an option"
-        ariaLabel="Select with placeholder"
       ></dcx-ng-select>
     </section>
 
@@ -23,8 +23,8 @@
       <dcx-ng-select
         formControlName="disabled"
         [options]="optionList"
+        label="Disabled select"
         placeholder="This select is disabled"
-        ariaLabel="Disabled select"
       ></dcx-ng-select>
     </section>
 
@@ -32,8 +32,8 @@
       <dcx-ng-select
         formControlName="preselected"
         [options]="optionList"
+        label="Select with form control"
         placeholder="Select with form control binding"
-        ariaLabel="Select with form control"
       ></dcx-ng-select>
     </section>
 
@@ -41,10 +41,24 @@
       <dcx-ng-select
         formControlName="withChange"
         [options]="optionList"
+        label="Select with change event"
         placeholder="Select to trigger change event"
-        ariaLabel="Select with change event"
       ></dcx-ng-select>
-      <p class="selected-value">Check the console for change events</p>
+      <p class="selected-value">
+        Selected value: {{ selectedValue ?? '—' }} (revisa la consola)
+      </p>
+    </section>
+
+    <section class="example-section">
+      <dcx-ng-select
+        formControlName="noLabelAria"
+        [options]="optionList"
+        ariaLabel="Accessible only select"
+        placeholder="This select has no visible label"
+      ></dcx-ng-select>
+      <p class="selected-value">
+        Este ejemplo no muestra label, pero es accesible via <code>aria-label</code>.
+      </p>
     </section>
   </div>
 </form>
