@@ -1,11 +1,43 @@
-<h2>Toggle Demo</h2>
+<h1>Toggle Demo</h1>
 
+<h2>Text Bottom</h2>
 <dcx-ng-toggle
   [checked]="isDarkMode"
   label="Dark mode"
   size="medium"
   color="#0056b3"
   (toggled)="handleToggle($event)"
+  [textPosition]="TogglePosition.BOTTOM"
+></dcx-ng-toggle>
+
+<h2>Text Top</h2>
+<dcx-ng-toggle
+  [checked]="isDarkMode"
+  label="Dark mode"
+  size="medium"
+  color="#0056b3"
+  (toggled)="handleToggle($event)"
+  [textPosition]="TogglePosition.TOP"
+></dcx-ng-toggle>
+
+<h2>Text Left</h2>
+<dcx-ng-toggle
+  [checked]="isDarkMode"
+  label="Dark mode"
+  size="medium"
+  color="#0056b3"
+  (toggled)="handleToggle($event)"
+  [textPosition]="TogglePosition.LEFT"
+></dcx-ng-toggle>
+
+<h2>Text Right</h2>
+<dcx-ng-toggle
+  [checked]="isDarkMode"
+  label="Dark mode"
+  size="medium"
+  color="#0056b3"
+  (toggled)="handleToggle($event)"
+  [textPosition]="TogglePosition.RIGHT"
 ></dcx-ng-toggle>
 
 <p>Dark mode is {{ isDarkMode ? 'ON' : 'OFF' }}</p>

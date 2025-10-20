@@ -9,6 +9,12 @@ import {
 import { CommonModule } from '@angular/common';
 
 type ToggleSize = 'small' | 'medium' | 'large';
+export enum TogglePosition {
+  TOP = 'top',
+  BOTTOM = 'bottom',
+  LEFT = 'left',
+  RIGHT = 'right'
+}
 
 @Component({
   selector: 'dcx-ng-toggle',
@@ -24,6 +30,7 @@ export class DcxNgToggleComponent {
   @Input() size: ToggleSize = 'medium';
   @Input() color = '#000';
   @Input() ariaLabel = '';
+  @Input() textPosition: TogglePosition = TogglePosition.RIGHT;
 
   @Output() toggled = new EventEmitter<boolean>();
 
@@ -35,6 +42,7 @@ export class DcxNgToggleComponent {
     return [
       'dcx-ng-toggle',
       this.size ? `dcx-ng-toggle--${this.size}` : '',
+      `dcx-ng-toggle--${this.textPosition}`
     ].join(' ');
   }
 
