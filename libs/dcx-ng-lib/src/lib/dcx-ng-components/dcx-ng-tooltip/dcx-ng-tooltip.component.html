@@ -2,8 +2,9 @@
   <ng-content></ng-content>
   @if (visible && content) {
     <div
+      #tooltipElement
       [class]="getTooltipClasses()"
-      [attr.data-position]="position"
+      [attr.data-position]="actualPosition"
       role="tooltip"
       [attr.aria-hidden]="!visible"
       [attr.aria-live]="'polite'"
