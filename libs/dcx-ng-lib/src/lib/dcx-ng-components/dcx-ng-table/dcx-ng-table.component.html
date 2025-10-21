@@ -1,18 +1,83 @@
-<table>
-  <thead>
-    <tr>
-      @for (header of data?.headers; track header?.name) {
-        <th>{{ header?.name }}</th>
-      }
-    </tr>
-  </thead>
-  <tbody>
-    @for (val of data?.body?.value; track val?.name) {
+<div
+  class="table-wrapper"
+  [class.scroll]="scroll"
+  [style.max-height]="scroll ? scrollHeight : null"
+>
+  <table [class.grid]="showGrid" [class.striped]="showStripped">
+    <thead>
       <tr>
-        @for (header of data?.headers; track header?.name) {
-          <td>{{ val[header?.name?.toLowerCase() || ''] }}</td>
+        @for (header of headersNormalized; track header.key) {
+          <th
+            scope="col"
+            (click)="onHeaderClick(header)"
+            (keydown.enter)="onHeaderClick(header)"
+            (keydown.space)="onHeaderClick(header); $event.preventDefault()"
+            [class.sortable]="header.sortable"
+            [attr.aria-sort]="ariaSort(header)"
+            [attr.tabindex]="header.sortable ? 0 : null"
+          >
+            <ng-container
+              *ngTemplateOutlet="headerTemplate || defaultHeaderTpl; context: { $implicit: header }"
+            ></ng-container>
+          </th>
         }
+
+        <th class="menu-col" scope="col"></th>
       </tr>
-    }
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      @if (sortedRows().length === 0) {
+        <tr>
+          <td [attr.colspan]="headersNormalized.length + 1" class="empty-cell">
+            No hay datos
+          </td>
+        </tr>
+      } @else {
+        @for (row of sortedRows(); track trackRow) {
+          <tr class="table-row">
+            @for (header of headersNormalized; track header.key) {
+              <td>
+                <ng-container
+                  *ngTemplateOutlet="cellTemplate || defaultCellTpl; context: { $implicit: row, key: header.key }"
+                ></ng-container>
+              </td>
+            }
+            <td class="menu-col">
+              <ng-container
+                *ngTemplateOutlet="menuCellTemplate || defaultMenuCellTpl; context: { $implicit: row, index: $index }"
+              ></ng-container>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+<ng-template #defaultHeaderTpl let-header>
+  <strong>{{ header.name }}</strong>
+  @if (header.sortable) {
+    <span class="sort-indicator" aria-hidden="true">
+      @if (ariaSort(header) === 'ascending') { ▲ }
+      @else if (ariaSort(header) === 'descending') { ▼ }
+      @else { ↕ }
+    </span>
+  }
+</ng-template>
+
+<ng-template #defaultCellTpl let-row let-key="key">
+  {{ row?.[key] }}
+</ng-template>
+
+<ng-template #defaultMenuCellTpl>
+  <button
+    type="button"
+    class="btn icon"
+    title="Context menu (TODO)"
+    disabled
+    aria-disabled="true"
+  >
+    ⋮
+  </button>
+</ng-template>
