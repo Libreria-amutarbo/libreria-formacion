@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DcxNgToggleComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { TogglePosition } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-toggle',
@@ -11,6 +12,7 @@ import { DcxNgToggleComponent } from '@dcx-ng-components/dcx-ng-lib';
 })
 export class DcxNgPageToggleComponent {
   isDarkMode = false;
+  readonly TogglePosition = TogglePosition; 
 
   handleToggle(value: boolean) {
     this.isDarkMode = value;
