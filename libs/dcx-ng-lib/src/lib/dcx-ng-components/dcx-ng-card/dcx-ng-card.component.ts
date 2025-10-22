@@ -10,11 +10,11 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgCardComponent {
-  @Input() header: string = '';
-  @Input() subheader: string = '';
-  @Input() iconClass: string = '';
-  @Input() closable: boolean = false;
-  @Input() visible: boolean = true;
+  @Input() header = '';
+  @Input() subheader = '';
+  @Input() iconClass = '';
+  @Input() closable = false;
+  @Input() visible = true;
 
   @Output() onClose = new EventEmitter<void>();
   @Output() onAccept = new EventEmitter<void>();
