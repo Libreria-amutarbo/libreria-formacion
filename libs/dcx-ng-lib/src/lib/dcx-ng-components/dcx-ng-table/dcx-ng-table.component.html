@@ -34,7 +34,7 @@
           </td>
         </tr>
       } @else {
-        @for (row of sortedRows(); track trackRow) {
+        @for (row of sortedRows(); track row.id) {
           <tr class="table-row">
             @for (header of headersNormalized; track header.key) {
               <td>
@@ -59,9 +59,13 @@
   <strong>{{ header.name }}</strong>
   @if (header.sortable) {
     <span class="sort-indicator" aria-hidden="true">
-      @if (ariaSort(header) === 'ascending') { ▲ }
-      @else if (ariaSort(header) === 'descending') { ▼ }
-      @else { ↕ }
+      @if (ariaSort(header) === 'ascending') {
+        ▲
+      } @else if (ariaSort(header) === 'descending') {
+        ▼
+      } @else {
+        ↕
+      }
     </span>
   }
 </ng-template>

@@ -1,26 +1,27 @@
 <section>
-    <h2>Ejemplo 1 — Striped + Sort</h2>
+  <h2>Ejemplo 1 — Striped + Sort</h2>
 
-    <dcx-ng-table 
-        [headers]="headers1" 
-        [value]="rows1" 
-        [showStripped]="true" 
-        [scroll]="false" 
-        scrollHeight="220px"
-        (sortChange)="onSort($event, 'ex1')">
-    </dcx-ng-table>
+  <dcx-ng-table
+    [headers]="headers1"
+    [rows]="rows1"
+    [showStripped]="true"
+    [scroll]="false"
+    scrollHeight="220px"
+    (sortChange)="onSort($event, 'ex1')"
+  >
+  </dcx-ng-table>
 </section>
 
 <hr />
 
 <section>
-    <h2>Ejemplo 2 — Grid + Scroll + Sort</h2>
-    <dcx-ng-table
-        [headers]="headers2"
-        [value]="rows2"
-        [showGrid]="true"
-        [scroll]="true"
-        scrollHeight="240px"
-        (sortChange)="onSort($event, 'ex2')"
-></dcx-ng-table>
+  <h2>Ejemplo 2 — Grid + Scroll + Sort</h2>
+  <dcx-ng-table
+    [headers]="headers2"
+    [rows]="rows2"
+    [showGrid]="true"
+    [scroll]="true"
+    scrollHeight="240px"
+    (sortChange)="onSort($event, 'ex2')"
+  ></dcx-ng-table>
 </section>
