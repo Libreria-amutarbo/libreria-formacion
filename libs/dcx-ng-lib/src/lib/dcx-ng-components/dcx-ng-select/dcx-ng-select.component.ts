@@ -24,11 +24,22 @@ interface SelectOptions {
       multi: true,
     },
   ],
+  host: {
+    '[attr.disabled]': 'disabled ? "" : null',
+  },
 })
 export class DcxNgSelectComponent implements ControlValueAccessor {
   @Input() options: SelectOptions[] = [];
   @Input() placeholder = '';
+
+  /** Texto visible encima del select */
+  @Input() label = '';
+
+  /** Nombre accesible (solo si NO hay label visible) */
   @Input() ariaLabel = '';
+
+  /** id único para asociar <label for> con <select id> */
+  selectId = `dcx-select-${Math.random().toString(36).slice(2)}`;
 
   disabled = false;
   value: any = null;
