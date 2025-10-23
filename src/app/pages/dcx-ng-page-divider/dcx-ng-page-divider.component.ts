@@ -8,4 +8,4 @@ import { DcxNgDividerComponent } from '@dcx-ng-components/dcx-ng-lib';
   templateUrl: './dcx-ng-page-divider.component.html',
   styleUrl: './dcx-ng-page-divider.component.scss',
 })
-export class DcxNgPageDividerComponent {}
+export class DcxNgPageDividerComponent { }

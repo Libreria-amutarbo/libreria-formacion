@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgInputComponent } from './dcx-ng-input.component';
+import { Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { FormControl, Validators } from '@angular/forms';
+import { DcxNgInputComponent, InputType } from './dcx-ng-input.component';
 
 describe('DcxNgInputComponent', () => {
   let component: DcxNgInputComponent;
@@ -100,7 +100,7 @@ describe('DcxNgInputComponent', () => {
     });
 
     it('should validate email type', () => {
-      component.type = 'email';
+      component.type = InputType.EMAIL;
       component.ngOnInit();
       fixture.detectChanges();
 
@@ -112,7 +112,7 @@ describe('DcxNgInputComponent', () => {
     });
 
     it('should validate number type', () => {
-      component.type = 'number';
+      component.type = InputType.NUMBER;
       component.ngOnInit();
       fixture.detectChanges();
 

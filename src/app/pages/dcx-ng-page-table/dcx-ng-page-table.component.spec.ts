@@ -10,7 +10,7 @@ describe('DcxNgPageTableComponent', () => {
     await TestBed.configureTestingModule({
       imports: [DcxNgPageTableComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DcxNgPageTableComponent);
     component = fixture.componentInstance;

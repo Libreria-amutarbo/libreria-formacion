@@ -1,4 +1,4 @@
-import { DcxNgInputComponent, InputSize, InputType } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgInputComponent, InputSize, InputType } from '../../dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
 import { Meta, StoryObj } from '@storybook/angular';
 
 

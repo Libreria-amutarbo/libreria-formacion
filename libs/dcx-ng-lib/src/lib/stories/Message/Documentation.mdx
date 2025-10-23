@@ -44,19 +44,27 @@ Supports customization through type, title, icon, and interactive elements.
 The component supports four distinct message types for different scenarios:
 
 ### Notification
+
 For general information and system updates.
+
 <Canvas of={MessageClassBasedStories.Notification} />
 
 ### Error
+
 For validation errors and system failures.
+
 <Canvas of={MessageClassBasedStories.Error} />
 
 ### Warning
+
 For important alerts and irreversible actions.
+
 <Canvas of={MessageClassBasedStories.Warning} />
 
 ### Success
+
 For positive feedback and successful operations.
+
 <Canvas of={MessageClassBasedStories.Success} />
 
 ---
@@ -94,6 +102,7 @@ The message component can be used in various configurations:
 ## Accessibility
 
 The component includes comprehensive accessibility features:
+
 - **ARIA roles**: Each message type has appropriate semantic roles (notification, error, warning, success)
 - **Keyboard navigation**: Close button is accessible via keyboard
 - **Semantic structure**: Uses `<h2>` for titles and proper HTML hierarchy

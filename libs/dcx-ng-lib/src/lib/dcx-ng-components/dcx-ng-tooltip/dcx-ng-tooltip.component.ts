@@ -1,4 +1,4 @@
-import { Component, Input, HostListener, ElementRef, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, HostListener, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export enum TooltipPosition {
@@ -22,7 +22,7 @@ export class DcxNgTooltipComponent implements AfterViewInit {
 
   visible = false;
   actualPosition: TooltipPosition = TooltipPosition.TOP;
-  
+
   @ViewChild('tooltipElement') tooltipElement?: ElementRef;
 
   @HostListener('mouseenter')
@@ -46,7 +46,7 @@ export class DcxNgTooltipComponent implements AfterViewInit {
     }
   }
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef) { }
 
   ngAfterViewInit() {
     this.actualPosition = this.position;
@@ -56,7 +56,7 @@ export class DcxNgTooltipComponent implements AfterViewInit {
     setTimeout(() => {
       const tooltipEl = this.tooltipElement!.nativeElement;
       const hostEl = this.elementRef.nativeElement;
-      
+
       // Get viewport dimensions
       const viewport = {
         width: window.innerWidth,
@@ -65,7 +65,7 @@ export class DcxNgTooltipComponent implements AfterViewInit {
 
       // Get host element position and dimensions
       const hostRect = hostEl.getBoundingClientRect();
-      
+
       // Get tooltip dimensions
       const tooltipRect = tooltipEl.getBoundingClientRect();
 
@@ -139,10 +139,10 @@ export class DcxNgTooltipComponent implements AfterViewInit {
 
     // Return the position with the most space that fits
     for (const alt of alternatives) {
-      const requiredSpace = (alt.position === TooltipPosition.LEFT || alt.position === TooltipPosition.RIGHT) 
-        ? tooltipWidth + margin 
+      const requiredSpace = (alt.position === TooltipPosition.LEFT || alt.position === TooltipPosition.RIGHT)
+        ? tooltipWidth + margin
         : tooltipHeight + margin;
-      
+
       if (alt.space >= requiredSpace) {
         return alt.position;
       }

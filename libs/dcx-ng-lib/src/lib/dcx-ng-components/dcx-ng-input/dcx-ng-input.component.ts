@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -39,8 +39,8 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
   @Input() type: InputType = InputType.TEXT;
   @Input() placeholder: string | null = null;
   @Input() size: InputSize = InputSize.MEDIUM;
-  @Input() disabled: boolean = false;
-  @Input() required: boolean = false;
+  @Input() disabled = false;
+  @Input() required = false;
   @Input() label: string | null = null;
   @Input() errorMessages: ErrorMessage[] = [];
   set value(val: string) {
@@ -52,7 +52,7 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
   @Output() valueChange = new EventEmitter<string | null>();
 
   inputControl: FormControl = new FormControl('');
-  isFocused: boolean = false;
+  isFocused = false;
   inputId: string;
   private destroy$ = new Subject<void>();
 
@@ -72,7 +72,7 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
 
   setupFormControl() {
     const validators = [];
-    
+
     // Agregar validadores de formato primero para que tengan prioridad
     if (this.type === InputType.EMAIL) {
       validators.push(Validators.email);
@@ -81,7 +81,7 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
       // Patrón más estricto que no permite números terminados en punto decimal
       validators.push(Validators.pattern(/^-?(?:\d+(?:\.\d+)?|\.\d+)$/));
     }
-    
+
     // Agregar required al final para que los errores de formato tengan prioridad
     if (this.required) {
       validators.push(Validators.required);
@@ -114,7 +114,7 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     const value = this.inputControl.value;
-    
+
     // Si hay contenido pero es inválido, priorizar errores de formato
     if (value && value.trim() !== '') {
       console.log(value);
@@ -125,12 +125,12 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
         return this.errorMessages.find(msg => msg.type === 'email')?.message || 'Formato correo inválido';
       }
     }
-    
+
     // Si está vacío o solo tiene espacios, mostrar error required
     if (this.inputControl.hasError('required')) {
       return this.errorMessages.find(msg => msg.type === 'required')?.message || 'Campo obligatorio';
     }
-    
+
     return null;
   }
 }

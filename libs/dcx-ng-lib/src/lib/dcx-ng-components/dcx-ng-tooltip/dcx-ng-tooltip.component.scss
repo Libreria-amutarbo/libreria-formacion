@@ -36,7 +36,7 @@
     position: absolute;
 
     // Prevent overflow on the left
-    &[data-position="top"] {
+    &[data-position='top'] {
       left: max(8px, min(50%, calc(100vw - var(--tooltip-max-width) - 8px)));
       transform: translateX(max(-50%, calc(-50vw + 8px)));
     }
@@ -58,7 +58,7 @@
     margin-top: var(--tooltip-arrow-size);
 
     // Prevent overflow on the left and right
-    &[data-position="bottom"] {
+    &[data-position='bottom'] {
       left: max(8px, min(50%, calc(100vw - var(--tooltip-max-width) - 8px)));
       transform: translateX(max(-50%, calc(-50vw + 8px)));
     }
@@ -80,7 +80,7 @@
     margin-right: var(--tooltip-arrow-size);
 
     // Prevent overflow on the top and bottom
-    &[data-position="left"] {
+    &[data-position='left'] {
       top: max(8px, min(50%, calc(100vh - 60px)));
       transform: translateY(max(-50%, -45vh));
     }
@@ -102,7 +102,7 @@
     margin-left: var(--tooltip-arrow-size);
 
     // Prevent overflow on the top and bottom
-    &[data-position="right"] {
+    &[data-position='right'] {
       top: max(8px, min(50%, calc(100vh - 60px)));
       transform: translateY(max(-50%, -45vh));
     }
@@ -139,7 +139,7 @@
     --tooltip-max-width: 200px;
     --tooltip-font-size: var(--font-size-body-small, 11px);
   }
-} 
+}
 
 // ANIMACIONES
 @keyframes fade-in {

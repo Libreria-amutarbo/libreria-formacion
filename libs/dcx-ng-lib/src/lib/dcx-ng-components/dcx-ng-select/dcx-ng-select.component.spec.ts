@@ -39,7 +39,7 @@ describe('DcxNgSelectComponent', () => {
   });
 
   it('should set aria-label correctly', () => {
-    component.areaLabel = 'Test Select';
+    component.ariaLabel = 'Test Select';
     fixture.detectChanges();
 
     const select = fixture.debugElement.query(By.css('select')).nativeElement;
