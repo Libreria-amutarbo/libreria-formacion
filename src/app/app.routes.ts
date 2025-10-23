@@ -9,6 +9,7 @@ import { DcxNgPageToggleComponent } from './pages/dcx-ng-page-toggle/dcx-ng-page
 import { DcxNgPageRadioComponent } from './pages/dcx-ng-page-radio/dcx-ng-page-radio.component';
 import { DcxNgPageInputComponent } from './pages/dcx-ng-page-input/dcx-ng-page-input.component';
 import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component';
+import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 
 
@@ -53,6 +54,9 @@ export const appRoutes: Route[] = [
     component: DcxNgPageSpinnerComponent,
   },
   {
+    path: 'chip',
+    component: DcxNgPageChipComponent,
+  }
     path: 'tooltip',
     component: DcxNgPageTooltipComponent,
   },
