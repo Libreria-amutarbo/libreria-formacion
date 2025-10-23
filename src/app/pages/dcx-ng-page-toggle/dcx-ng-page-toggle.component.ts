@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DcxNgToggleComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TogglePosition } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-toggle',
   standalone: true,
-  imports: [CommonModule, DcxNgToggleComponent],
+  imports: [CommonModule, ReactiveFormsModule, DcxNgToggleComponent],
   templateUrl: './dcx-ng-page-toggle.component.html',
   styleUrl: './dcx-ng-page-toggle.component.scss',
 })

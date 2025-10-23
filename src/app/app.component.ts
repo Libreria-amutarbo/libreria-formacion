@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DcxNgTableComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   standalone: true,
