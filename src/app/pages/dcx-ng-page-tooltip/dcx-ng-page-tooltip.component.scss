@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  width: 150px;
+  background-color: var(--color-primary-light);
+  border: 2px solid var(--color-primary-dark);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}

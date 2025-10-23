@@ -1,0 +1,23 @@
+.examples-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-stack-l);
+  padding: var(--spacing-inset-l);
+}
+
+.example-section {
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: var(--spacing-inset-m);
+
+  h3 {
+    margin: 0 0 var(--spacing-stack-m);
+    color: var(--color-text-primary);
+  }
+
+  .selected-value {
+    margin-top: var(--spacing-stack-s);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+  }
+}

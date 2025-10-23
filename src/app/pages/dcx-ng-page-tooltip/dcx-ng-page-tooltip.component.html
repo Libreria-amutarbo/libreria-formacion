@@ -1,0 +1,35 @@
+<h2>Default component</h2>
+<dcx-ng-tooltip
+  content="Este es mi tooltip, como no cabe arriba se pone abajo automáticamente"
+>
+  <button>Default</button>
+</dcx-ng-tooltip>
+
+<dcx-ng-tooltip content="Este es mi tooltip">
+  <button>Default</button>
+</dcx-ng-tooltip>
+
+<h2>Tooltip positions</h2>
+<dcx-ng-tooltip
+  content="Este es mi tooltip, muy largo para que se divida en varias lineas"
+  [position]="TooltipPosition.LEFT"
+>
+  <button>LEFT</button>
+</dcx-ng-tooltip>
+<dcx-ng-tooltip content="Este es mi tooltip" [position]="TooltipPosition.RIGHT">
+  <button>RIGHT</button>
+</dcx-ng-tooltip>
+<dcx-ng-tooltip content="Este es mi tooltip" [position]="TooltipPosition.TOP">
+  <button>TOP</button>
+</dcx-ng-tooltip>
+<dcx-ng-tooltip
+  content="Este es mi tooltip"
+  [position]="TooltipPosition.BOTTOM"
+>
+  <button>BOTTOM</button>
+</dcx-ng-tooltip>
+
+<h2>Hide on click</h2>
+<dcx-ng-tooltip content="Este es mi tooltip" [hideTooltipOnClick]="true">
+  <button>Hide on click</button>
+</dcx-ng-tooltip>

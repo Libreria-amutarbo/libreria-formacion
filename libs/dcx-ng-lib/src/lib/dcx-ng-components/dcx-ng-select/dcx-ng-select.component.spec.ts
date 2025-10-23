@@ -18,72 +18,68 @@ describe('DcxNgSelectComponent', () => {
       { value: '1', label: 'Option 1' },
       { value: '2', label: 'Option 2' },
     ];
+    component.placeholder = 'Select an option';
+    fixture.detectChanges();
   });
 
   it('should create the component', () => {
-    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  it('should show a placeholder when provided', () => {
-    component.placeholder = 'Please select';
-    fixture.detectChanges();
+  it('should render all options including placeholder', () => {
+    const options = fixture.debugElement.queryAll(By.css('option'));
+    expect(options.length).toBe(3); // 2 options + 1 placeholder
 
-    const optionElements = fixture.debugElement.queryAll(By.css('option'));
-    expect(optionElements[0].nativeElement.textContent.trim()).toBe(
-      'Please select',
-    );
-    expect(optionElements[0].nativeElement.disabled).toBe(true);
-    expect(optionElements[0].nativeElement.hidden).toBe(true);
+    expect(options[0].nativeElement.textContent.trim()).toBe('Select an option');
+    expect(options[0].nativeElement.disabled).toBe(true);
+    expect(options[0].nativeElement.hidden).toBe(true);
+
+    expect(options[1].nativeElement.textContent.trim()).toBe('Option 1');
+    expect(options[2].nativeElement.textContent.trim()).toBe('Option 2');
   });
 
-  it('should list all options', () => {
+  it('should set aria-label correctly', () => {
+    component.ariaLabel = 'Test Select';
     fixture.detectChanges();
 
-    const optionElements = fixture.debugElement.queryAll(By.css('option'));
-    expect(optionElements.length).toBe(2);
-    expect(optionElements[0].nativeElement.textContent).toContain('Option 1');
-    expect(optionElements[1].nativeElement.textContent).toContain('Option 2');
+    const select = fixture.debugElement.query(By.css('select')).nativeElement;
+    expect(select.getAttribute('aria-label')).toBe('Test Select');
   });
 
-  it('should be disabled when disabled is true', async () => {
-    component.setDisabledState(true);
+  it('should reflect selected value in the DOM', () => {
+    component.writeValue('2');
     fixture.detectChanges();
-    await fixture.whenStable();
 
-    const selectElement: HTMLSelectElement = fixture.debugElement.query(
-      By.css('select'),
-    ).nativeElement;
-    expect(selectElement.disabled).toBe(true);
+    const select = fixture.debugElement.query(By.css('select')).nativeElement;
+    expect(select.value).toBe('2');
   });
 
-  it('should emit event when a value is selected', () => {
-    const spy = jest.fn();
-    component.registerOnChange(spy);
+  it('should call onChange when value changes', () => {
+    const select = fixture.debugElement.query(By.css('select')).nativeElement;
+    const spy = jest.spyOn(component as any, 'onChange');
 
+    select.value = '1';
+    select.dispatchEvent(new Event('change'));
     fixture.detectChanges();
-
-    const selectElement: HTMLSelectElement = fixture.debugElement.query(
-      By.css('select'),
-    ).nativeElement;
-
-    selectElement.value = '1';
-    selectElement.dispatchEvent(new Event('change'));
 
     expect(spy).toHaveBeenCalledWith('1');
   });
 
-  it('should call onTouched when blurred', () => {
-    const touchedSpy = jest.fn();
-    component.registerOnTouched(touchedSpy);
+  it('should call onTouched on blur', () => {
+    const select = fixture.debugElement.query(By.css('select')).nativeElement;
+    const spy = jest.spyOn(component as any, 'onTouched');
 
+    select.dispatchEvent(new Event('blur'));
     fixture.detectChanges();
 
-    const selectElement: HTMLSelectElement = fixture.debugElement.query(
-      By.css('select'),
-    ).nativeElement;
-    selectElement.dispatchEvent(new Event('blur'));
+    expect(spy).toHaveBeenCalled();
+  });
 
-    expect(touchedSpy).toHaveBeenCalled();
+  it('should disable the select when disabled input is true', () => {
+    component.setDisabledState?.(true);
+    fixture.detectChanges();
+
+    const select = fixture.debugElement.query(By.css('select')).nativeElement;
+    expect(select.disabled).toBe(true);
   });
 });

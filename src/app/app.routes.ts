@@ -3,10 +3,13 @@ import { DcxNgPageTableComponent } from './pages/dcx-ng-page-table/dcx-ng-page-t
 import { DcxNgPageButtonComponent } from './pages/dcx-ng-page-button/dcx-ng-page-button.component';
 import { DcxNgPageMessageComponent } from './pages/dcx-ng-page-message/dcx-ng-page-message.component';
 import { DcxNgPageIconComponent } from './pages/dcx-ng-page-icon/dcx-ng-page-icon.component';
-import { DcxNgPageSelectComponent } from './pages/dcx-ng-page-select/dcx-ng-select.component';
+import { DcxNgPageSelectComponent } from './pages/dcx-ng-page-select/dcx-ng-page-select.component';
 import { DcxNgPageDividerComponent } from './pages/dcx-ng-page-divider/dcx-ng-page-divider.component';
 import { DcxNgPageToggleComponent } from './pages/dcx-ng-page-toggle/dcx-ng-page-toggle.component';
 import { DcxNgPageRadioComponent } from './pages/dcx-ng-page-radio/dcx-ng-page-radio.component';
+import { DcxNgPageInputComponent } from './pages/dcx-ng-page-input/dcx-ng-page-input.component';
+import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component';
+import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 
 
 export const appRoutes: Route[] = [
@@ -26,7 +29,7 @@ export const appRoutes: Route[] = [
     path: 'icon',
     component: DcxNgPageIconComponent,
   },
-   {
+  {
     path: 'select',
     component: DcxNgPageSelectComponent,
   },
@@ -42,4 +45,15 @@ export const appRoutes: Route[] = [
     path: 'radio',
     component: DcxNgPageRadioComponent,
   }
+    path: 'input',
+    component: DcxNgPageInputComponent
+  },
+  {
+    path: 'spinner',
+    component: DcxNgPageSpinnerComponent,
+  },
+  {
+    path: 'tooltip',
+    component: DcxNgPageTooltipComponent,
+  },
 ];
