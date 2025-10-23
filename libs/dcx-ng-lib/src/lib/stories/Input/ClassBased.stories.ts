@@ -1,4 +1,4 @@
-import { DcxNgInputComponent, InputSize, InputType } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgInputComponent, InputSize, InputType } from '../../dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
 import { Meta, StoryObj } from '@storybook/angular';
 
 
@@ -9,7 +9,7 @@ const meta: Meta<DcxNgInputComponent> = {
   argTypes: {
     type: {
       control: 'select',
-      options: [InputType.TEXT, InputType.NUMBER, InputType.EMAIL, InputType.PASSWORD, InputType.DATE, InputType.SEARCH, InputType.TEL, InputType.URL],
+      options: [InputType.TEXT, InputType.NUMBER, InputType.EMAIL, InputType.PASSWORD, InputType.SEARCH, InputType.TEL, InputType.URL],
       defaultValue: InputType.TEXT,
     },
     size: {
@@ -83,15 +83,31 @@ export const PasswordExtraLarge: Story = {
   },
 };
 
-export const DateSmallRequired: Story = {
+export const AutoRequired: Story = {
   args: {
-    type: InputType.DATE,
-    size: InputSize.SMALL,
-    placeholder: 'Select date...',
+    type: InputType.TEXT,
+    size: InputSize.AUTO,
+    placeholder: 'Enter data auto size...',
     disabled: false,
     required: true,
     label: 'Date Input',
   },
+  render: (args) => ({
+    props: args,
+    template: `
+    <div style="width: 200px;">
+      <dcx-ng-input 
+  [label]="label" 
+  [placeholder]="placeholder" 
+  [disabled]="disabled" 
+  [required]="required"
+  [type]="type" 
+  [size]="size" 
+  (valueChange)="onValueChange($event)">
+</dcx-ng-input>
+    </div>
+    `,
+  }),
 };
 
 export const SearchDefault: Story = {

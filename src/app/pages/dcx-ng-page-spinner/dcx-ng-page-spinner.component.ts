@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxNgSpinnerComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component';
+import { DcxNgSpinnerComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 
 @Component({
@@ -10,4 +10,4 @@ import { DcxNgSpinnerComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-n
   templateUrl: './dcx-ng-page-spinner.component.html',
   styleUrl: './dcx-ng-page-spinner.component.scss',
 })
-export class DcxNgPageSpinnerComponent {}
+export class DcxNgPageSpinnerComponent { }
