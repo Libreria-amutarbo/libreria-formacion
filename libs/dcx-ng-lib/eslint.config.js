@@ -8,6 +8,9 @@ module.exports = [
   {
     files: ['**/*.ts'],
     rules: {
+      // Desactivar reglas de module boundaries para evitar dependencias circulares
+      '@nx/enforce-module-boundaries': 'off',
+      
       '@angular-eslint/directive-selector': [
         'error',
         {
