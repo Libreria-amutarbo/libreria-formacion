@@ -4,6 +4,8 @@ export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 export * from './lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component';
 export * from './lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 export * from './lib/dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
+export * from './lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
+export * from './lib/dcx-ng-components/dcx-ng-card/dcx-ng-card.component';
 export * from './lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
 export * from './lib/dcx-ng-components/dcx-ng-message/dcx-ng-message.component';
 export * from './lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component';

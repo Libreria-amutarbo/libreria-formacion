@@ -11,6 +11,7 @@ import { DcxNgPageInputComponent } from './pages/dcx-ng-page-input/dcx-ng-page-i
 import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component';
 import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
+import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
 
 
 export const appRoutes: Route[] = [
@@ -60,4 +61,8 @@ export const appRoutes: Route[] = [
     path: 'tooltip',
     component: DcxNgPageTooltipComponent,
   },
+  {
+    path: 'card',
+    component: DcxNgPageCardComponent
+  }
 ];
