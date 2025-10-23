@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DcxNgInputComponent } from '@dcx-ng-components/dcx-ng-lib';
-import { InputSize, InputType } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
+import { InputSize, InputType } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-input',

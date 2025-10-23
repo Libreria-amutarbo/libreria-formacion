@@ -10,7 +10,7 @@ describe('DcxNgTableComponent', () => {
     await TestBed.configureTestingModule({
       imports: [DcxNgTableComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DcxNgTableComponent);
     component = fixture.componentInstance;

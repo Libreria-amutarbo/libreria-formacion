@@ -4,7 +4,7 @@ import { DcxNgTableComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   standalone: true,
-  imports: [ RouterModule],
+  imports: [RouterModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
