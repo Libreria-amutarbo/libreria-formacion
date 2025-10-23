@@ -32,12 +32,12 @@ It supports customization through size and color inputs.
 
 ### Available Properties
 
-- **checked**: Whether the toggle is in the "on" state  
-- **disabled**: Disables the toggle interaction if `true`  
-- **label**: Optional label text shown next to the toggle  
-- **ariaLabel**: Used for accessibility when no visible label is provided  
-- **size**: `'small' | 'medium' | 'large'` — controls the size of the toggle  
-- **color**: Any valid CSS color — controls the active background when checked  
+- **checked**: Whether the toggle is in the "on" state
+- **disabled**: Disables the toggle interaction if `true`
+- **label**: Optional label text shown next to the toggle
+- **ariaLabel**: Used for accessibility when no visible label is provided
+- **size**: `'small' | 'medium' | 'large'` — controls the size of the toggle
+- **color**: Any valid CSS color — controls the active background when checked
 - **(toggled)**: Event emitted with the new `checked` value whenever the toggle is clicked or toggled with keyboard
 
 ---
@@ -65,7 +65,7 @@ You can pass a `color` value to change the background when the toggle is checked
 The toggle works with basic property binding and event handling:
 
 ```html
-file.HTML 
+file.HTML
 <dcx-ng-toggle
   [checked]="featureEnabled"
   label="Enable Feature"
@@ -75,7 +75,8 @@ file.HTML
 ></dcx-ng-toggle>
 
 
-file.TS 
+file.TS
 handleToggle(value: boolean) {
     this.featureEnabled = value;
   }
+```

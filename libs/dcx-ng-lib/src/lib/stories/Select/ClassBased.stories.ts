@@ -76,10 +76,10 @@ export const Default: Story = {
 
 export const SelectShowcase: Story = {
   render: (args) => {
-    const form1 = new FormGroup({ basic: new FormControl(null) });
-    const form2 = new FormGroup({ withPlaceholder: new FormControl(null) });
-    const form3 = new FormGroup({ disabled: new FormControl({ value: null, disabled: true }) });
-    const form4 = new FormGroup({ preselected: new FormControl('2') });
+    const _form1 = new FormGroup({ basic: new FormControl(null) });
+    const _form2 = new FormGroup({ withPlaceholder: new FormControl(null) });
+    const _form3 = new FormGroup({ disabled: new FormControl({ value: null, disabled: true }) });
+    const _form4 = new FormGroup({ preselected: new FormControl('2') });
     const form5 = new FormGroup({ withChange: new FormControl(null) });
 
     form5.get('withChange')?.valueChanges.subscribe((v) => {

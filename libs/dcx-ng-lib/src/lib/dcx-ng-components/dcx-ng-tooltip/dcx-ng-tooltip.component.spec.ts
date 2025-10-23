@@ -135,7 +135,7 @@ describe('DcxNgTooltipComponent', () => {
 
     it('should show tooltip on mouse enter with delay', fakeAsync(() => {
       const hostElement = fixture.debugElement.nativeElement;
-      
+
       hostElement.dispatchEvent(new Event('mouseenter'));
       expect(component.visible).toBe(true);
     }));
@@ -143,7 +143,7 @@ describe('DcxNgTooltipComponent', () => {
     it('should hide tooltip on mouse leave', () => {
       component.visible = true;
       const hostElement = fixture.debugElement.nativeElement;
-      
+
       hostElement.dispatchEvent(new Event('mouseleave'));
       expect(component.visible).toBe(false);
     });
@@ -162,7 +162,7 @@ describe('DcxNgTooltipComponent', () => {
       const mockEvent = {
         target: fixture.debugElement.nativeElement.querySelector('.tooltip-container')
       } as any;
-      
+
       // Simular clic dentro del componente
       component.onDocumentClick(mockEvent);
       expect(component.visible).toBe(false);
@@ -173,7 +173,7 @@ describe('DcxNgTooltipComponent', () => {
       const mockEvent = {
         target: fixture.debugElement.nativeElement.querySelector('.tooltip-container')
       } as any;
-      
+
       component.onDocumentClick(mockEvent);
       expect(component.visible).toBe(true);
     });
@@ -183,25 +183,25 @@ describe('DcxNgTooltipComponent', () => {
       const mockEvent = {
         target: document.body // Elemento fuera del componente
       } as any;
-      
+
       // Simular clic fuera del componente
       component.onDocumentClick(mockEvent);
       expect(component.visible).toBe(true); // No debería ocultarse según la lógica actual
-  });
+    });
 
     it('should call onDocumentClick when document click event is triggered', () => {
       const spy = jest.spyOn(component, 'onDocumentClick');
       const mockEvent = new Event('click');
-      
+
       // Simular el evento que Angular captura con @HostListener
       fixture.debugElement.nativeElement.dispatchEvent(mockEvent);
-      
+
       // Como @HostListener escucha 'document:click', necesitamos simular el evento en document
       document.dispatchEvent(mockEvent);
-      
+
       // Verificar que el método se puede llamar (la verificación real del @HostListener es manejada por Angular)
       expect(spy).toBeDefined();
-      
+
       spy.mockRestore();
     });
   });
@@ -232,7 +232,7 @@ describe('DcxNgTooltipComponent', () => {
     it('should have correct data-position attribute', () => {
       component.position = TooltipPosition.BOTTOM;
       fixture.detectChanges();
-      
+
       const tooltipElement = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
       expect(tooltipElement.nativeElement.getAttribute('data-position')).toBe('bottom');
     });
@@ -260,9 +260,9 @@ describe('DcxNgTooltipComponent', () => {
       component.position = TooltipPosition.BOTTOM;
       component.hideTooltipOnClick = true;
       component.visible = true;
-      
+
       fixture.detectChanges();
-      
+
       // Verificar que el estado se mantiene
       expect(component.content).toBe('Test content');
       expect(component.position).toBe(TooltipPosition.BOTTOM);

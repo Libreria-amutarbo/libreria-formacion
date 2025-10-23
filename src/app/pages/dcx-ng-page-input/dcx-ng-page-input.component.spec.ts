@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgInputComponent } from './dcx-ng-page-input.component';
+import { DcxNgPageInputComponent } from './dcx-ng-page-input.component';
 
-describe('DcxNgInputComponent', () => {
-  let component: DcxNgInputComponent;
-  let fixture: ComponentFixture<DcxNgInputComponent>;
+describe('DcxNgPageInputComponent', () => {
+  let component: DcxNgPageInputComponent;
+  let fixture: ComponentFixture<DcxNgPageInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgInputComponent],
+      imports: [DcxNgPageInputComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DcxNgInputComponent);
+    fixture = TestBed.createComponent(DcxNgPageInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
