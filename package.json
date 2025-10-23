@@ -6,7 +6,9 @@
     "start": "nx serve",
     "start-storybook": "npx nx storybook dcx-ng-lib",
     "build": "nx build",
-    "test": "nx run-many --target=test --all -- --coverage --coverageDirectory='coverage/libs'"
+    "test": "nx run-many --target=test --all -- --coverage --coverageDirectory='coverage/libs'",
+    "lint": "eslint libs/dcx-ng-lib --ext .ts,.html",
+    "lint-fix": "eslint libs/dcx-ng-lib --ext .ts,.html --fix"
   },
   "private": true,
   "dependencies": {
