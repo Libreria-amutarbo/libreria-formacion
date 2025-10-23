@@ -1,4 +1,4 @@
-import { Component, Input, HostListener, ElementRef, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, HostListener, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export enum TooltipPosition {
