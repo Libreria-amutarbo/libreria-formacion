@@ -36,7 +36,7 @@ export const HorizontalSmall: Story = {
   args: {
     orientation: 'horizontal',
     size: 'small',
-    thickness: 1,
+    thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Horizontal Divider Small',
   },
@@ -46,7 +46,7 @@ export const HorizontalMedium: Story = {
   args: {
     orientation: 'horizontal',
     size: 'medium',
-    thickness: 1,
+    thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Horizontal Divider Medium',
   },
@@ -56,7 +56,7 @@ export const HorizontalLarge: Story = {
   args: {
     orientation: 'horizontal',
     size: 'large',
-    thickness: 1,
+    thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Horizontal Divider Large',
   },
@@ -66,7 +66,7 @@ export const VerticalSmall: Story = {
   args: {
     orientation: 'vertical',
     size: 'small',
-    thickness: 1,
+    thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Vertical Divider Small',
   },
@@ -76,7 +76,7 @@ export const VerticalMedium: Story = {
   args: {
     orientation: 'vertical',
     size: 'medium',
-    thickness: 1,
+    thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Vertical Divider Medium',
   },
@@ -86,7 +86,7 @@ export const VerticalLarge: Story = {
   args: {
     orientation: 'vertical',
     size: 'large',
-    thickness: 1,
+    thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Vertical Divider Large',
   },

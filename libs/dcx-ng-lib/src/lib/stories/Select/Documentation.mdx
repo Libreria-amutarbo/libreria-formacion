@@ -11,11 +11,19 @@ It implements `ControlValueAccessor` to integrate smoothly with Angular Reactive
 
 ---
 
+# <<<<<<< HEAD
+
 ## Unstyled Version
+
+> > > > > > > main
+
+## Unstyled Version
+
 Use this version when you want full control over the appearance.
 No styles are applied beyond native HTML input behavior, which makes it ideal for custom theming.
 
-{/** Ajusta el nombre si tu story por defecto en UnStyled.stories.ts no es 'Default' */}
+{/* * Ajusta el nombre si tu story por defecto en UnStyled.stories.ts no es 'Default' */}
+
 <Canvas of={SelectUnstyledStories.Default} />
 
 ## Class-Based Version
@@ -28,6 +36,7 @@ It supports focus styles, keyboard navigation, and optional placeholder behavior
 ---
 
 ### Usage page example
+
 The following story demonstrates multiple selects used inside a reactive form, mirroring the page implementation: placeholder handling, disabled control state, preselected value via FormControl and change-event logging.
 
 <Canvas of={SelectClassBasedStories.SelectShowcase} />
@@ -58,6 +67,7 @@ These behaviors follow the native HTML `<select>` pattern, ensuring accessibilit
 ## Usage in Reactive Forms
 
 This example shows how to use the select within a reactive form.
+
 ```html
 <form [formGroup]="form">
   <!-- With visible label (recommended) -->
@@ -76,3 +86,4 @@ This example shows how to use the select within a reactive form.
     ariaLabel="Select an option">
   </dcx-ng-select>
 </form>
+```

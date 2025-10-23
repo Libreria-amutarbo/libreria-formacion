@@ -1,0 +1,78 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as DividerUnstyledStories from './UnStyled.stories';
+import * as DividerClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Chip/Documentation" />
+
+# Chip Component
+
+The Chip component provides a compact way to display information, labels, or selectable elements with built-in theming and interactive capabilities.
+
+## Features
+
+- **Theme colors** - Supports 8 predefined colors from the design system
+- **Icons** - Optional Material Design icons
+- **Removable** - Optional delete functionality with event handling
+- **Accessible** - ARIA labels and keyboard navigation support
+
+## Basic Usage
+
+```html
+<dcx-ng-chip label="Basic Chip"></dcx-ng-chip>
+```
+
+## With Icon
+
+```html
+<dcx-ng-chip 
+  label="Settings" 
+  icon="settings" 
+  color="primary">
+</dcx-ng-chip>
+```
+
+## Removable Chip
+
+```html
+<dcx-ng-chip 
+  label="Removable Tag" 
+  color="warning" 
+  [removable]="true"
+  (onRemove)="handleChipRemove()">
+</dcx-ng-chip>
+```
+
+### Theme Colors
+
+Available color options: `primary`, `secondary`, `success`, `warning`, `error`, `info`, `gray`, `gray-light`
+
+## Component Structure
+
+The component automatically determines its type based on inputs:
+- **Text only** - Basic chip with label
+- **With icon** - Icon + label combination  
+- **Removable** - Includes delete button (×)
+- **Icon + Removable** - Full-featured chip
+
+## Accessibility
+
+- Uses appropriate `aria-label` attributes
+- Delete button includes descriptive text for screen readers
+- Proper semantic HTML structure
+- Keyboard navigation support
+
+## Examples
+
+### Technology Tags
+```html
+<dcx-ng-chip label="Angular" icon="code" color="error" [removable]="true"></dcx-ng-chip>
+<dcx-ng-chip label="TypeScript" icon="terminal" color="primary" [removable]="true"></dcx-ng-chip>
+<dcx-ng-chip label="SCSS" icon="palette" color="secondary" [removable]="true"></dcx-ng-chip>
+```
+
+### Status Indicators
+```html
+<dcx-ng-chip label="Active" color="success"></dcx-ng-chip>
+<dcx-ng-chip label="Pending" color="warning"></dcx-ng-chip>
+<dcx-ng-chip label="Error" color="error"></dcx-ng-chip>
+```

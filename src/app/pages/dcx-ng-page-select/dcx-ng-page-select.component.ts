@@ -31,7 +31,7 @@ export class DcxNgPageSelectComponent {
       noLabelAria: this.fb.control<string | null>(null),
     });
 
-    this.form.get('withChange')?.valueChanges.subscribe((v) => {
+    this.form.get('withChange')?.valueChanges.subscribe(v => {
       this.onValueChange(v);
     });
   }

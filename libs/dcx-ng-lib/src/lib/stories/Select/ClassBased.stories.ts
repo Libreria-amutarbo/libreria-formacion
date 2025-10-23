@@ -26,7 +26,10 @@ const meta: Meta<DcxNgSelectComponent> = {
   component: DcxNgSelectComponent,
   tags: ['autodocs'],
   argTypes: {
-    options: { control: 'object', description: 'Listado de opciones { value, label }' },
+    options: {
+      control: 'object',
+      description: 'Listado de opciones { value, label }',
+    },
     placeholder: { control: 'text' },
     label: { control: 'text', description: 'Texto visible del label' },
     ariaLabel: {
@@ -71,7 +74,7 @@ export const Default: Story = {
       table: { category: 'Story only' },
     },
   },
-  render: (args) => {
+  render: args => {
     const form = new FormGroup({
       interactive: new FormControl<string | null>({
         value: args.initialValue ?? null,
@@ -100,15 +103,21 @@ export const Default: Story = {
 
 export const SelectShowcase: Story = {
   render: () => {
-    const form1 = new FormGroup({ basic: new FormControl<string | null>(null) });
-    const form2 = new FormGroup({ withPlaceholder: new FormControl<string | null>(null) });
+    const form1 = new FormGroup({
+      basic: new FormControl<string | null>(null),
+    });
+    const form2 = new FormGroup({
+      withPlaceholder: new FormControl<string | null>(null),
+    });
     const form3 = new FormGroup({
       disabled: new FormControl<string | null>({ value: null, disabled: true }),
     });
     const form4 = new FormGroup({ preselected: new FormControl<string>('2') });
-    const form5 = new FormGroup({ withChange: new FormControl<string | null>(null) });
+    const form5 = new FormGroup({
+      withChange: new FormControl<string | null>(null),
+    });
 
-    form5.get('withChange')?.valueChanges.subscribe((v) => {
+    form5.get('withChange')?.valueChanges.subscribe(v => {
       console.log('New value selected (showcase): ', v);
     });
 

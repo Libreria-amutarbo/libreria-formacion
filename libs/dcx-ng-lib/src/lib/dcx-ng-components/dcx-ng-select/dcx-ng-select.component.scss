@@ -34,13 +34,24 @@
   background-size: 12px;
 }
 
-.dcx-ng-select:hover:not(:disabled) { border-color: var(--color-primary); }
-.dcx-ng-select:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary-light); }
-.dcx-ng-select:disabled { opacity: 0.5; cursor: not-allowed; background-color: var(--color-gray-lighter); color: var(--color-text-disabled); }
+.dcx-ng-select:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+.dcx-ng-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+.dcx-ng-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-gray-lighter);
+  color: var(--color-text-disabled);
+}
 
 /* CHEVRON centrado respecto al wrapper (que sólo contiene el select) */
 .dcx-ng-select__wrapper::after {
-  content: "";
+  content: '';
   pointer-events: none;
   position: absolute;
   top: 50%;
