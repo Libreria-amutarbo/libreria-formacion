@@ -6,7 +6,7 @@
   <table [class.grid]="showGrid" [class.striped]="showStripped">
     <thead>
       <tr>
-        @for (header of headersNormalized; track header.key) {
+        @for (header of headers; track header.key) {
           <th
             scope="col"
             (click)="onHeaderClick(header)"
@@ -29,14 +29,14 @@
     <tbody>
       @if (sortedRows().length === 0) {
         <tr>
-          <td [attr.colspan]="headersNormalized.length + 1" class="empty-cell">
+          <td [attr.colspan]="headers.length + 1" class="empty-cell">
             No hay datos
           </td>
         </tr>
       } @else {
         @for (row of sortedRows(); track row.id) {
           <tr class="table-row">
-            @for (header of headersNormalized; track header.key) {
+            @for (header of headers; track header.key) {
               <td>
                 <ng-container
                   *ngTemplateOutlet="cellTemplate || defaultCellTpl; context: { $implicit: row, key: header.key }"

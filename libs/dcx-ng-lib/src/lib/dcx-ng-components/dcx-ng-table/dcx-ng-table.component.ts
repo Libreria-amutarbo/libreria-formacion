@@ -12,6 +12,12 @@ import {
 
 type SortDirection = 'asc' | 'desc' | null;
 
+export enum SortType {
+  Ascending = 'ascending',
+  Descending = 'descending',
+  None = 'none',
+}
+
 export interface HeaderData {
   name: string;
   key?: string;
@@ -25,7 +31,6 @@ interface Sort {
   dir: SortDirection;
 }
 
-
 @Component({
   selector: 'dcx-ng-table',
   standalone: true,
@@ -35,7 +40,6 @@ interface Sort {
 })
 export class DcxNgTableComponent implements OnInit {
   @Input({ required: true }) headers!: HeaderData[];
-  // TODO: Tiene que haber siempre un id por row o en su defecto estableces el id como el numero de posicion en el array
   @Input({ required: true }) rows!: any[];
 
   @Input() showGrid = false;
@@ -49,28 +53,10 @@ export class DcxNgTableComponent implements OnInit {
 
   @Output() sortChange = new EventEmitter<Sort>();
 
-  sort = signal<Sort>({ key: null, dir: null, });
-
-  // TODO: La interfaz que has definido manda, es el usuario el que tiene que apañarse para adaptarse. 
-  // TODO: no deberias de tener que hacer esto.
-  get headersNormalized(): HeaderData[] {
-    return this.headers.map((_header) => ({
-      ..._header,
-      key: _header.key ?? this.normalizeKey(_header.name),
-      sortable: _header.sortable ?? true,
-    }));
-  }
+  sort = signal<Sort>({ key: null, dir: null });
 
   ngOnInit(): void {
-    // TODO: No es necesario esto. Por defecto: Tu tabla muestra en el orden que entran las cosas
-    // TODO: SOLO si sortable y con un click del user deberia ordenarte.
-    const s = this.sort();
-    if (!s.key && !s.dir) {
-      const withDefault = this.headersNormalized.find(h => !!h.defaultSort);
-      if (withDefault?.key && withDefault.defaultSort) {
-        this.sort.set({ key: withDefault.key, dir: withDefault.defaultSort });
-      }
-    }
+    this.ensureRowIds();
   }
 
   sortedRows(): any[] {
@@ -78,7 +64,7 @@ export class DcxNgTableComponent implements OnInit {
     const { key, dir } = this.sort();
     if (!key || !dir) return _rows;
 
-    const header = this.headersNormalized.find(h => h.key === key);
+    const header = this.headers.find(h => h.key === key);
     const type = header?.type ?? this.inferType(_rows, key);
 
     _rows.sort((a, b) => this.compare(a?.[key], b?.[key], type));
@@ -90,30 +76,40 @@ export class DcxNgTableComponent implements OnInit {
   onHeaderClick(header: HeaderData) {
     if (!header.sortable) return;
 
-    let dir: SortDirection = 'asc';
-    if (this.sort().key === header.key) {
-      // TODO: Anidar ternarios complica mucho  la lectura. Revisalo y puede que
-      dir = this.sort().dir === 'asc' ? 'desc' : this.sort().dir === 'desc' ? null : 'asc';
+    let nextDirection: SortDirection;
+
+    if (this.sort().key !== header.key) {
+      nextDirection = 'asc';
+    } else {
+      switch (this.sort().dir) {
+        case 'asc':
+          nextDirection = 'desc';
+          break;
+        case 'desc':
+          nextDirection = null;
+          break;
+        default:
+          nextDirection = 'asc';
+      }
     }
 
-    this.sort.set({ key: header.key ?? null, dir });
+    this.sort.set({ key: header.key ?? null, dir: nextDirection });
     this.sortChange.emit(this.sort());
   }
 
-  // TODO: Define tipado para: 'ascending' | 'descending' | 'none'
-  // TODO: Vas a trabajar con SortType.Ascending
-  ariaSort(header: HeaderData): 'ascending' | 'descending' | 'none' {
-    const s = this.sort();
-    if (s.key !== header.key || !s.dir) return 'none';
-    return s.dir === 'asc' ? 'ascending' : 'descending';
+  ariaSort(header: HeaderData): SortType {
+    const currentSort = this.sort();
+    if (currentSort.key !== header.key || !currentSort.dir)
+      return SortType.None;
+    return currentSort.dir === 'asc' ? SortType.Ascending : SortType.Descending;
   }
 
-  private normalizeKey(name: string): string {
-    return (name ?? '')
-      .normalize('NFD')
-      .replace(/\p{Diacritic}/gu, '')
-      .replace(/\s+/g, '_')
-      .toLowerCase();
+  private ensureRowIds(): void {
+    this.rows.forEach((row, index) => {
+      if (row.id === undefined || row.id === null) {
+        row.id = index;
+      }
+    });
   }
 
   private inferType(rows: any[], key: string): 'number' | 'string' {
@@ -123,20 +119,36 @@ export class DcxNgTableComponent implements OnInit {
     return typeof first === 'number' ? 'number' : 'string';
   }
 
-  // TODO: revisa
-  private compare(a: any, b: any, type: 'string' | 'number'): number {
-    const an = a === null || a === undefined;
-    const bn = b === null || b === undefined;
-    if (an && bn) return 0;
-    if (an) return 1;
-    if (bn) return -1;
+  private compare(
+    leftValue: any,
+    rightValue: any,
+    valueType: 'string' | 'number',
+  ): number {
+    const leftIsNull = leftValue === null || leftValue === undefined;
+    const rightIsNull = rightValue === null || rightValue === undefined;
 
-    if (type === 'number') {
-      const na = Number(a),
-        nb = Number(b);
-      return na === nb ? 0 : na < nb ? -1 : 1;
+    if (leftIsNull && rightIsNull) return 0;
+    if (leftIsNull) return 1;
+    if (rightIsNull) return -1;
+
+    if (valueType === 'number') {
+      const leftNumber = Number(leftValue);
+      const rightNumber = Number(rightValue);
+      const leftIsNaN = Number.isNaN(leftNumber);
+      const rightIsNaN = Number.isNaN(rightNumber);
+
+      if (leftIsNaN && rightIsNaN) return 0;
+      if (leftIsNaN) return 1;
+      if (rightIsNaN) return -1;
+
+      if (leftNumber === rightNumber) return 0;
+      return leftNumber < rightNumber ? -1 : 1;
     }
-    return String(a).localeCompare(String(b), undefined, {
+
+    const leftText = String(leftValue);
+    const rightText = String(rightValue);
+
+    return leftText.localeCompare(rightText, undefined, {
       sensitivity: 'base',
       numeric: true,
     });
