@@ -9,6 +9,7 @@ import { DcxNgPageToggleComponent } from './pages/dcx-ng-page-toggle/dcx-ng-page
 import { DcxNgPageInputComponent } from './pages/dcx-ng-page-input/dcx-ng-page-input.component';
 import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
+import { DcxNgPageCheckboxComponent } from './pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component';
 
 
 export const appRoutes: Route[] = [
@@ -52,4 +53,8 @@ export const appRoutes: Route[] = [
     path: 'tooltip',
     component: DcxNgPageTooltipComponent,
   },
+  {
+    path: 'checkbox',
+    component: DcxNgPageCheckboxComponent,
+  }
 ];
