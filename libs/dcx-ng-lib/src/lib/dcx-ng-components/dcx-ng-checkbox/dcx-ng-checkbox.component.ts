@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class DcxNgCheckbox {
   @Input() label: string = '';
   @Input() formControlName: string = '';
-  @Input() color: 'primary' | 'accent' | 'warn' = 'primary';
+  @Input() color: 'primary' | 'accent' | 'error' = 'primary';
   @Input() checked: boolean = false;
   @Input() disabled: boolean = false;
   @Input() errorMessage: string = '';

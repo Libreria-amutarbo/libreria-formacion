@@ -30,7 +30,7 @@ export const Accent: Story = {
 export const Error: Story = {
     args: {
         label: 'Campo con error',
-        color: 'warn',
+        color: 'error',
         checked: false,
         errorMessage: 'Debes marcar esta opción',
     },
