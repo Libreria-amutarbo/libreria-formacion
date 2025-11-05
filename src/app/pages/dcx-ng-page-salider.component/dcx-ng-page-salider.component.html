@@ -1,0 +1,12 @@
+<h2>Slider demo</h2>
+<div style="display: flex; align-items: flex-start; gap: 48px;">
+  <div>
+    <app-dcx-ng-slider [value]="sliderValue" [step]="1" (valueChange)="sliderValue = $event"></app-dcx-ng-slider>
+    <p>Slider Value: {{ sliderValue }}</p>
+  </div>
+  <div>
+    <app-dcx-ng-slider [value]="verticalValue" [step]="5" [vertical]="true"
+      (valueChange)="verticalValue = $event"></app-dcx-ng-slider>
+    <p>Vertical Value: {{ verticalValue }}</p>
+  </div>
+</div>

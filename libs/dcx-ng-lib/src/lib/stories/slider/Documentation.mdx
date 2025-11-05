@@ -1,0 +1,50 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as SliderClassBasedStories from './ClassBased.stories';
+import * as SliderUnstyledStories from './UnStyled.stories';
+
+<Meta title="DCXLibrary/Slider/Dcomentation" />
+
+# Slider
+
+El componente `dcx-ng-slider` permite seleccionar valores numéricos de forma visual, tanto en orientación horizontal como vertical. Es compatible con formularios y soporta personalización de paso, valor inicial y orientación.
+
+---
+
+## Versión Class Based
+
+Incluye estilos visuales modernos y personalizados, con soporte para orientación vertical y horizontal, y animaciones en el thumb.
+
+<Canvas of={SliderClassBasedStories.Default} />
+
+---
+
+## Ejemplo vertical
+
+<Canvas of={SliderClassBasedStories.Vertical} />
+
+---
+
+## Props
+
+value (number): Valor actual del slider. Por defecto es 0.
+
+step (number): Incremento entre valores. Por defecto es 1.
+
+vertical (boolean): Si es true, el slider se muestra en vertical. Por defecto es false.
+
+formControlName (string): Permite la integración con formularios reactivos.
+
+## Eventos
+
+valueChange (number): Se emite cuando el valor del slider cambia.
+
+---
+
+## Accesibilidad
+
+- Soporta navegación por teclado.
+
+## Buenas prácticas
+
+- Usa el slider para rangos numéricos continuos.
+- Para valores discretos o etiquetas, considera un select o radio.
