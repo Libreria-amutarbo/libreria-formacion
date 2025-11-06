@@ -31,10 +31,10 @@ describe('DcxNgSpinnerComponent', () => {
     component.delay = 200;
     component.ngOnInit();
     expect(component.isVisible).toBe(false);
-    
+
     tick(199);
     expect(component.isVisible).toBe(false);
-    
+
     tick(1);
     expect(component.isVisible).toBe(true);
   }));

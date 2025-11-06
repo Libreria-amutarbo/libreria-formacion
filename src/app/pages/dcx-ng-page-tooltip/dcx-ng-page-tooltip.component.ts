@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { DcxNgTooltipComponent, TooltipPosition } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
+import { DcxNgTooltipComponent, TooltipPosition } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-tooltip',

@@ -1,0 +1,25 @@
+.chip-test-container,
+.chip-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.chip-test-container h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.chip-page {
+  padding: 1rem;
+  max-width: 800px;
+}

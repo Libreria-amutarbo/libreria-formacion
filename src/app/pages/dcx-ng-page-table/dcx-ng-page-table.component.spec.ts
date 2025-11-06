@@ -68,10 +68,13 @@ describe('DcxNgPageTableComponent (Página de ejemplo)', () => {
 
     expect(priceTh.getAttribute('aria-sort')).toBe('ascending');
 
-    const firstRowTds = ex2.queryAll(By.css('tbody tr:first-child td'))
+    const firstRowTds = ex2
+      .queryAll(By.css('tbody tr:first-child td'))
       .map(de => de.nativeElement as HTMLTableCellElement);
 
-    const priceIndex = ths.findIndex(de => (de.nativeElement as HTMLElement).textContent?.includes('Precio'));
+    const priceIndex = ths.findIndex(de =>
+      (de.nativeElement as HTMLElement).textContent?.includes('Precio'),
+    );
     expect(priceIndex).toBeGreaterThanOrEqual(0);
 
     const priceCell = firstRowTds[priceIndex];

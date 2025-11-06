@@ -20,7 +20,7 @@ const config: StorybookConfig = {
       },
     },
   },
-  webpackFinal: async (config, { configType }) => {
+  webpackFinal: async (config, { configType: _configType }) => {
     // Configure CSS and SCSS loaders ONLY for global files, not component files
     config.module = config.module || {};
     config.module.rules = config.module.rules || [];

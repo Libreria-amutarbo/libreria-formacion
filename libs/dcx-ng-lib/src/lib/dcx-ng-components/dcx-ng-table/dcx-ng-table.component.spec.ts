@@ -24,7 +24,7 @@ describe('DcxNgTableComponent', () => {
     scrollHeight = '320px',
   }: any) {
     component.headers = headers;
-    component.value = value;
+    component.rows = value;
     component.showGrid = showGrid;
     component.showStripped = showStripped;
     component.scroll = scroll;
@@ -66,12 +66,14 @@ describe('DcxNgTableComponent', () => {
       value: [{ id: 3 }, { id: 1 }, { id: 2 }],
     });
 
-    const th = fixture.debugElement.query(By.css('thead th')).nativeElement as HTMLElement;
+    const th = fixture.debugElement.query(By.css('thead th'))
+      .nativeElement as HTMLElement;
     th.click();
     fixture.detectChanges();
 
-    const firstCell = fixture.debugElement.query(By.css('tbody tr:first-child td:first-child'))
-      .nativeElement as HTMLElement;
+    const firstCell = fixture.debugElement.query(
+      By.css('tbody tr:first-child td:first-child'),
+    ).nativeElement as HTMLElement;
 
     expect(firstCell.textContent?.trim()).toBe('1');
   });
@@ -86,11 +88,13 @@ describe('DcxNgTableComponent', () => {
       scrollHeight: '200px',
     });
 
-    const table = fixture.debugElement.query(By.css('table')).nativeElement as HTMLTableElement;
+    const table = fixture.debugElement.query(By.css('table'))
+      .nativeElement as HTMLTableElement;
     expect(table.classList.contains('grid')).toBe(true);
     expect(table.classList.contains('striped')).toBe(true);
 
-    const wrapper = fixture.debugElement.query(By.css('.table-wrapper')).nativeElement as HTMLElement;
+    const wrapper = fixture.debugElement.query(By.css('.table-wrapper'))
+      .nativeElement as HTMLElement;
     expect(wrapper.classList.contains('scroll')).toBe(true);
     expect(wrapper.style.maxHeight).toBe('200px');
   });
@@ -98,7 +102,13 @@ describe('DcxNgTableComponent', () => {
   it('debe respetar defaultSort al iniciar', () => {
     setInputs({
       headers: [
-        { name: 'Nombre', key: 'name', type: 'string', sortable: true, defaultSort: 'asc' },
+        {
+          name: 'Nombre',
+          key: 'name',
+          type: 'string',
+          sortable: true,
+          defaultSort: 'asc',
+        },
         { name: 'Estado', key: 'status', sortable: true },
       ],
       value: [{ name: 'Z' }, { name: 'A' }],
@@ -108,8 +118,9 @@ describe('DcxNgTableComponent', () => {
     const nameTh = ths[0].nativeElement as HTMLElement;
     expect(nameTh.getAttribute('aria-sort')).toBe('ascending');
 
-    const firstCell = fixture.debugElement.query(By.css('tbody tr:first-child td:first-child'))
-      .nativeElement as HTMLElement;
+    const firstCell = fixture.debugElement.query(
+      By.css('tbody tr:first-child td:first-child'),
+    ).nativeElement as HTMLElement;
     expect(firstCell.textContent?.trim()).toBe('A');
   });
 });

@@ -1,0 +1,66 @@
+<div class="dcx-card" [class.dcx-card--hidden]="!visible">
+  @if (visible) {
+    <div class="dcx-card-header">
+      @if (header || closable) {
+        <div class="dcx-card-header__content">
+          @if (iconClass) {
+            <div class="dcx-card-header__icon">
+              <i [class]="iconClass" aria-hidden="true"></i>
+            </div>
+          }
+
+          <div class="dcx-card-header__titles">
+            @if (header) {
+              <h3 class="dcx-card-header__title">{{ header }}</h3>
+            }
+            @if (subheader) {
+              <h4 class="dcx-card-header__subtitle">{{ subheader }}</h4>
+            }
+          </div>
+        </div>
+
+        @if (closable) {
+          <button
+            type="button"
+            class="dcx-card-header__close-btn"
+            (click)="handleClose()"
+            aria-label="Cerrar"
+          >
+            <i class="dcx-icon-close" aria-hidden="true">✕</i>
+          </button>
+        }
+      }
+    </div>
+
+    <div class="dcx-card-body">
+      @if (cardBodyTemplate) {
+        <ng-container *ngTemplateOutlet="cardBodyTemplate"></ng-container>
+      } @else {
+        <ng-content></ng-content>
+      }
+    </div>
+
+    @if (cardFooterTemplate) {
+      <div class="dcx-card-footer">
+        <ng-container *ngTemplateOutlet="cardFooterTemplate"></ng-container>
+      </div>
+    } @else {
+      <div class="dcx-card-footer dcx-card-footer--default">
+        <button
+          type="button"
+          class="dcx-btn dcx-btn--secondary dcx-card-footer__btn"
+          (click)="handleCancel()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="dcx-btn dcx-btn--primary dcx-card-footer__btn"
+          (click)="handleAccept()"
+        >
+          Aceptar
+        </button>
+      </div>
+    }
+  }
+</div>
