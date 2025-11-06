@@ -1,6 +1,6 @@
+// UnStyled.stories.ts
 import { Meta, StoryObj } from '@storybook/angular';
-import { fn } from '@storybook/test';
-// Ajusta esta ruta si tu estructura difiere
+import { fn, userEvent, within, expect } from '@storybook/test';
 import { DcxNgTableComponent } from '../../dcx-ng-components/dcx-ng-table/dcx-ng-table.component';
 
 const ActionsData = {
@@ -16,9 +16,8 @@ const meta: Meta<DcxNgTableComponent> = {
     showStripped: { control: 'boolean' },
     scroll: { control: 'boolean' },
     scrollHeight: { control: 'text' },
-    // Los complejos mejor sin control directo
     headers: { control: false },
-    value: { control: false },
+    rows: { control: false },
     sortChange: { action: 'sortChange' },
   },
 };
@@ -26,7 +25,7 @@ const meta: Meta<DcxNgTableComponent> = {
 export default meta;
 type Story = StoryObj<DcxNgTableComponent>;
 
-/** Striped + Sort (sin defaultSort, el 1er click pone ascendente) */
+/** Striped + Sort (sin defaultSort; el 1er click pone ascendente) */
 export const Striped: Story = {
   args: {
     headers: [
@@ -34,7 +33,7 @@ export const Striped: Story = {
       { name: 'Nombre', key: 'name', type: 'string', sortable: true },
       { name: 'Estado', key: 'status', sortable: true },
     ],
-    value: [
+    rows: [
       { id: 3, name: 'Litio', status: 'ok' },
       { id: 1, name: 'Hidrógeno', status: 'ok' },
       { id: 2, name: 'Helio', status: 'pendiente' },
@@ -47,6 +46,22 @@ export const Striped: Story = {
     scrollHeight: '220px',
     sortChange: ActionsData.sortChange,
   },
+  // Test opcional: verifica accesibilidad del aria-sort en "Nombre"
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const nameHeader = await canvas.findByRole('columnheader', {
+      name: /Nombre/i,
+    });
+
+    await userEvent.click(nameHeader);
+    await expect(nameHeader).toHaveAttribute('aria-sort', 'ascending');
+
+    await userEvent.click(nameHeader);
+    await expect(nameHeader).toHaveAttribute('aria-sort', 'descending');
+
+    await userEvent.click(nameHeader);
+    await expect(nameHeader).toHaveAttribute('aria-sort', 'none');
+  },
 };
 
 /** Empty State */
@@ -56,7 +71,7 @@ export const Empty: Story = {
       { name: 'ID', key: 'id', type: 'number' },
       { name: 'Nombre', key: 'name', type: 'string' },
     ],
-    value: [],
+    rows: [],
     showStripped: true,
     scroll: false,
     sortChange: ActionsData.sortChange,

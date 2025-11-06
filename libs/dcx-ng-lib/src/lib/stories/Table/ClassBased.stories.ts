@@ -1,5 +1,6 @@
+// ClassBased.stories.ts
 import { Meta, StoryObj } from '@storybook/angular';
-import { fn } from '@storybook/test';
+import { fn, userEvent, within, expect } from '@storybook/test';
 import { DcxNgTableComponent } from '../../dcx-ng-components/dcx-ng-table/dcx-ng-table.component';
 
 const ActionsData = {
@@ -18,12 +19,18 @@ const meta: Meta<DcxNgTableComponent> = {
     scrollHeight: { control: 'text' },
 
     headers: { control: false },
-    value: { control: false },
+    rows: { control: false },
     headerTemplate: { control: false },
     cellTemplate: { control: false },
     menuCellTemplate: { control: false },
 
     sortChange: { action: 'sortChange' },
+  },
+  args: {
+    showGrid: true,
+    showStripped: false,
+    scroll: true,
+    scrollHeight: '240px',
   },
 };
 
@@ -31,7 +38,7 @@ export default meta;
 type Story = StoryObj<DcxNgTableComponent>;
 
 export const GridScroll: Story = {
-  render: (args) => ({
+  render: args => ({
     props: {
       ...args,
       onSort: ActionsData.sortChange,
@@ -54,7 +61,7 @@ export const GridScroll: Story = {
 
       <dcx-ng-table
         [headers]="headers"
-        [value]="value"
+        [rows]="rows"
         [showGrid]="showGrid"
         [showStripped]="showStripped"
         [scroll]="scroll"
@@ -69,22 +76,49 @@ export const GridScroll: Story = {
     headers: [
       { name: 'Producto', key: 'product', type: 'string', sortable: true },
       { name: 'Categoría', key: 'category', type: 'string', sortable: true },
-      { name: 'Precio', key: 'price', type: 'number', sortable: true, defaultSort: 'asc' },
+      {
+        name: 'Precio',
+        key: 'price',
+        type: 'number',
+        sortable: true,
+        defaultSort: 'asc',
+      },
       { name: 'Stock', key: 'stock', type: 'number', sortable: true },
     ],
-    value: [
+    rows: [
       { product: 'Teclado', category: 'Periféricos', price: 29.99, stock: 120 },
       { product: 'Ratón', category: 'Periféricos', price: 14.5, stock: 340 },
-      { product: 'Monitor 24"', category: 'Pantallas', price: 139.0, stock: 45 },
-      { product: 'Monitor 27"', category: 'Pantallas', price: 219.0, stock: 18 },
+      {
+        product: 'Monitor 24"',
+        category: 'Pantallas',
+        price: 139.0,
+        stock: 45,
+      },
+      {
+        product: 'Monitor 27"',
+        category: 'Pantallas',
+        price: 219.0,
+        stock: 18,
+      },
       { product: 'Portátil 14"', category: 'Equipos', price: 799.0, stock: 12 },
       { product: 'Portátil 16"', category: 'Equipos', price: 1199.0, stock: 5 },
       { product: 'Dock USB-C', category: 'Accesorios', price: 69.9, stock: 64 },
       { product: 'Hub USB', category: 'Accesorios', price: 19.9, stock: 0 },
     ],
-    showGrid: true,
-    showStripped: false,
-    scroll: true,
-    scrollHeight: '240px',
+  },
+  // Test opcional: ordenación por "Precio" con clics (requiere @storybook/test)
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const priceHeader = await canvas.findByRole('columnheader', {
+      name: /Precio/i,
+    });
+
+    // Primer click -> ascending
+    await userEvent.click(priceHeader);
+    await expect(priceHeader).toHaveAttribute('aria-sort', 'ascending');
+
+    // Segundo click -> descending
+    await userEvent.click(priceHeader);
+    await expect(priceHeader).toHaveAttribute('aria-sort', 'descending');
   },
 };
