@@ -1,0 +1,70 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as TableUnstyledStories from './UnStyled.stories';
+import * as TableClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Table/Documentation" />
+
+# Table
+
+El componente `dcx-ng-table` es una tabla **genérica** con:
+
+- **Sort** (asc/desc/none) accesible vía `aria-sort`.
+- **Header** en negrita y línea divisoria con sticky cuando hay scroll.
+- **Hover** de fila, **striped** y **grid** opcionales.
+- Última columna reservada para un futuro **context menu** (personalizable con `menuCellTemplate`).
+- Personalizable con `ng-template` para **celdas** y **columna de menú** (se recomienda dejar el header por defecto para mantener el indicador dinámico).
+
+---
+
+## Unstyled Version
+
+Versión básica, ideal para ver el comportamiento por defecto (sin plantillas custom).
+
+<Canvas of={TableUnstyledStories.Striped} />
+
+---
+
+## Class-Based Version
+
+Ejemplo con `grid`, `scroll` y plantillas custom para **celdas** y **columna de menú**.
+
+<Canvas of={TableClassBasedStories.GridScroll} />
+
+---
+
+## Props
+
+- `headers: HeaderData[]` — definición de columnas (`name`, `key`, `sortable`, `type?`, `defaultSort?`).
+- `rows: any[]` — filas.
+- `showGrid?: boolean` (default: `false`) — bordes en toda la tabla.
+- `showStripped?: boolean` (default: `false`) — zebra (fila sí/no).
+- `scroll?: boolean` (default: `false`) — activa scroll con `scrollHeight`.
+- `scrollHeight?: string` (default: `'320px'`) — alto máximo de la tabla.
+- `headerTemplate?: TemplateRef` (opcional).
+- `cellTemplate?: TemplateRef` (opcional).
+- `menuCellTemplate?: TemplateRef` (opcional).
+- `sortChange: Output<{ key: string | null; dir: 'asc' | 'desc' | null }>`.
+
+> **Nota**: `defaultSort` está definido en `HeaderData`, pero el componente no aplica un orden inicial automáticamente.  
+> Si quieres que el orden inicial se configure a partir de `defaultSort`, habría que añadir esa lógica en `ngOnInit` (puedo darte el snippet).
+
+---
+
+## Usage Example
+
+```html
+<dcx-ng-table
+  [headers]="[
+    { name: 'ID', key: 'id', type: 'number', sortable: true },
+    { name: 'Nombre', key: 'name', type: 'string', sortable: true },
+    { name: 'Estado', key: 'status', sortable: true }
+  ]"
+  [rows]="[
+    { id: 3, name: 'Litio', status: 'ok' },
+    { id: 1, name: 'Hidrógeno', status: 'ok' },
+    { id: 2, name: 'Helio', status: 'pendiente' }
+  ]"
+  [showStripped]="true"
+  (sortChange)="onSort($event)"
+></dcx-ng-table>
+```

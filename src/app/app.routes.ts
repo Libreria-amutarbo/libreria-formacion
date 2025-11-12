@@ -46,7 +46,8 @@ export const appRoutes: Route[] = [
   {
     path: 'radio',
     component: DcxNgPageRadioComponent,
-  }
+  },
+  {
     path: 'input',
     component: DcxNgPageInputComponent
   },
@@ -57,7 +58,8 @@ export const appRoutes: Route[] = [
   {
     path: 'chip',
     component: DcxNgPageChipComponent,
-  }
+  },
+  {
     path: 'tooltip',
     component: DcxNgPageTooltipComponent,
   },
