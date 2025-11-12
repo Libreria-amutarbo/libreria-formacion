@@ -1,0 +1,27 @@
+.context-menu {
+    position: fixed;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    z-index: 1000;
+    min-width: 160px;
+    padding: 6px 0;
+}
+
+.context-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.context-menu li {
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #374151;
+    /* gris oscuro */
+    cursor: pointer;
+}
+
+.context-menu li+li {
+    border-top: 1px solid #f3f4f6;
+}

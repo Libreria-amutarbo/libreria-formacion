@@ -1,0 +1,16 @@
+  <button
+    type="button"
+    class="btn icon"
+    title="Context menu (TODO)"
+    (click)="openMenu($event, rowData)"
+  >
+    ⋮
+  </button>
+
+<dcx-ng-context-menu
+  [items]="menuItems"
+  [visible]="menuVisible"
+  [position]="menuPosition"
+  (closed)="menuVisible = false"
+>
+</dcx-ng-context-menu>

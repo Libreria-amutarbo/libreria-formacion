@@ -12,6 +12,7 @@ import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-pa
 import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
+import { ContextMenuComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 
 export const appRoutes: Route[] = [
@@ -66,5 +67,9 @@ export const appRoutes: Route[] = [
   {
     path: 'card',
     component: DcxNgPageCardComponent
+  },
+  {
+    path: 'contextMenu',
+    component: ContextMenuComponent
   }
 ];
