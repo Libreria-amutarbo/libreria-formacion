@@ -13,7 +13,6 @@ import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chi
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
 
-
 export const appRoutes: Route[] = [
   {
     path: 'table',
@@ -46,9 +45,10 @@ export const appRoutes: Route[] = [
   {
     path: 'radio',
     component: DcxNgPageRadioComponent,
-  }
+  },
+  {
     path: 'input',
-    component: DcxNgPageInputComponent
+    component: DcxNgPageInputComponent,
   },
   {
     path: 'spinner',
@@ -57,12 +57,13 @@ export const appRoutes: Route[] = [
   {
     path: 'chip',
     component: DcxNgPageChipComponent,
-  }
+  },
+  {
     path: 'tooltip',
     component: DcxNgPageTooltipComponent,
   },
   {
     path: 'card',
-    component: DcxNgPageCardComponent
-  }
+    component: DcxNgPageCardComponent,
+  },
 ];
