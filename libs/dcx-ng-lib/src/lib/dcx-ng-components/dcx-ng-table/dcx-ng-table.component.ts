@@ -139,10 +139,12 @@ export class DcxNgTableComponent implements OnInit {
 
   onEdit(rowData: any) {
     console.log('Editar:', rowData);
+    this.menuVisible = false;
   }
 
   onDelete(rowData: any) {
     console.log('Eliminar:', rowData);
+    this.menuVisible = false;
   }
 
   private ensureRowIds(): void {
