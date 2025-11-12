@@ -35,6 +35,24 @@
     --thumb-size: 1.75rem;
   }
 
+  &--top {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  &--bottom {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &--left {
+    flex-direction: row-reverse;
+  }
+
+  &--right {
+    flex-direction: row;
+  }
+
   &__track {
     width: var(--toggle-width);
     height: var(--toggle-height);

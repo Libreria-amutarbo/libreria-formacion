@@ -1,0 +1,162 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/Card/Documentation" />
+
+# Card Component
+
+## Descripción
+
+El componente `DcxNgCardComponent` es una tarjeta versátil y reutilizable que proporciona una estructura consistente para mostrar contenido con un header opcional, body personalizable y footer con botones de acción.
+
+## Características
+
+- **Header personalizable** con título, subtítulo e icono opcional
+- **Botón de cerrar** configurable en el header
+- **Contenido flexible** mediante proyección de contenido (ng-content)
+- **Footer con botones** de acción predeterminados (Aceptar/Cancelar)
+- **Visibilidad controlable** programáticamente
+- **Eventos personalizados** para interacciones del usuario
+
+## Instalación
+
+```typescript
+import { DcxNgCardComponent } from '@dcx-ng-components/dcx-ng-lib';
+
+@Component({
+  imports: [DcxNgCardComponent]
+})
+export class MyComponent {}
+```
+## Uso Básico
+
+### Tarjeta Simple
+
+```html
+<dcx-ng-card>
+  <p>Contenido básico de la tarjeta</p>
+</dcx-ng-card>
+```
+
+### Tarjeta con Header
+
+```html
+<dcx-ng-card 
+  header="Título de la Tarjeta"
+  subheader="Subtítulo descriptivo">
+  <p>Contenido de la tarjeta con header y subheader.</p>
+</dcx-ng-card>
+```
+
+### Tarjeta con Icono
+
+```html
+<dcx-ng-card 
+  header="Configuración"
+  subheader="Ajustes del sistema"
+  iconClass="fas fa-cog">
+  <p>Esta tarjeta incluye un icono en el header.</p>
+  <p><strong>Nota:</strong> Requiere Font Awesome para mostrar iconos.</p>
+</dcx-ng-card>
+```
+
+### Tarjeta Cerrable
+
+```html
+<dcx-ng-card 
+  header="Notificación"
+  subheader="Mensaje importante"
+  [closable]="true"
+  (onClose)="handleClose()">
+  <p>Esta tarjeta se puede cerrar usando el botón X.</p>
+</dcx-ng-card>
+```
+
+### Tarjeta con Eventos
+
+```html
+<dcx-ng-card 
+  header="Confirmar Acción"
+  [closable]="true"
+  (onClose)="handleClose()"
+  (onAccept)="handleAccept()"
+  (onCancel)="handleCancel()">
+  <p>¿Estás seguro de que quieres continuar?</p>
+</dcx-ng-card>
+```
+
+```typescript
+export class MyComponent {
+  handleClose() {
+    console.log('Tarjeta cerrada');
+  }
+
+  handleAccept() {
+    console.log('Acción aceptada');
+  }
+
+  handleCancel() {
+    console.log('Acción cancelada');
+  }
+}
+```
+
+
+
+## Comportamiento
+
+
+## Casos de Uso Comunes
+
+### Modal de Confirmación
+
+```html
+<dcx-ng-card 
+  header="Confirmar Eliminación"
+  subheader="Esta acción no se puede deshacer"
+  iconClass="fas fa-exclamation-triangle"
+  [closable]="true"
+  (onAccept)="confirmDelete()"
+  (onCancel)="cancelDelete()">
+  <p>¿Estás seguro de que quieres eliminar este elemento?</p>
+</dcx-ng-card>
+```
+
+### Tarjeta de Información
+
+```html
+<dcx-ng-card 
+  header="Estadísticas del Proyecto"
+  iconClass="fas fa-chart-bar">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <h3>2,543</h3>
+      <p>Usuarios</p>
+    </div>
+    <div class="stat-item">
+      <h3>95.2%</h3>
+      <p>Uptime</p>
+    </div>
+  </div>
+</dcx-ng-card>
+```
+
+### Notificación
+
+```html
+<dcx-ng-card 
+  header="Éxito"
+  subheader="Operación completada"
+  iconClass="fas fa-check-circle"
+  [closable]="true"
+  (onClose)="dismissNotification()">
+  <p>El archivo se ha guardado correctamente.</p>
+</dcx-ng-card>
+```
+
+## Notas de Implementación
+
+- El header solo se renderiza si al menos una de las propiedades `header`, `subheader`, `iconClass` o `closable` está definida
+- Los iconos requieren una librería externa como Font Awesome
+- El componente es standalone y no requiere módulos adicionales
+- Los eventos se emiten antes de realizar las acciones (ej: ocultar la tarjeta)
+- La visibilidad se controla mediante `*ngIf` y clase CSS

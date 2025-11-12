@@ -3,6 +3,7 @@
 .tooltip-container {
   position: relative;
   display: inline-block;
+  margin: var(--spacing-inset-s);
 }
 
 .dcx-ng-tooltip {
@@ -34,6 +35,12 @@
     margin-bottom: var(--tooltip-arrow-size);
     position: absolute;
 
+    // Prevent overflow on the left
+    &[data-position='top'] {
+      left: max(8px, min(50%, calc(100vw - var(--tooltip-max-width) - 8px)));
+      transform: translateX(max(-50%, calc(-50vw + 8px)));
+    }
+
     .tooltip-arrow {
       bottom: -3px;
       left: 50%;
@@ -49,6 +56,12 @@
     left: 50%;
     transform: translateX(-50%);
     margin-top: var(--tooltip-arrow-size);
+
+    // Prevent overflow on the left and right
+    &[data-position='bottom'] {
+      left: max(8px, min(50%, calc(100vw - var(--tooltip-max-width) - 8px)));
+      transform: translateX(max(-50%, calc(-50vw + 8px)));
+    }
 
     .tooltip-arrow {
       top: -3.5px;
@@ -66,6 +79,12 @@
     transform: translateY(-50%);
     margin-right: var(--tooltip-arrow-size);
 
+    // Prevent overflow on the top and bottom
+    &[data-position='left'] {
+      top: max(8px, min(50%, calc(100vh - 60px)));
+      transform: translateY(max(-50%, -45vh));
+    }
+
     .tooltip-arrow {
       right: -3.5px;
       top: 50%;
@@ -81,6 +100,12 @@
     top: 50%;
     transform: translateY(-50%);
     margin-left: var(--tooltip-arrow-size);
+
+    // Prevent overflow on the top and bottom
+    &[data-position='right'] {
+      top: max(8px, min(50%, calc(100vh - 60px)));
+      transform: translateY(max(-50%, -45vh));
+    }
 
     .tooltip-arrow {
       left: -3.5px;
@@ -114,7 +139,7 @@
     --tooltip-max-width: 200px;
     --tooltip-font-size: var(--font-size-body-small, 11px);
   }
-} 
+}
 
 // ANIMACIONES
 @keyframes fade-in {

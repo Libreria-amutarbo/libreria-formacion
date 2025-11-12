@@ -4,11 +4,21 @@
   display: inline-flex;
   align-items: center;
 
-  &--xs { font-size: var(--spacing-xs); }  // 0.5rem - 8px
-  &--s  { font-size: var(--spacing-s); }   // 1rem - 16px
-  &--m  { font-size: var(--spacing-m); }   // 1.5rem - 24px
-  &--l  { font-size: var(--spacing-l); }   // 2rem - 32px
-  &--xl { font-size: var(--spacing-xl); }  // 3rem - 48px
+  &--xs {
+    font-size: var(--spacing-xs);
+  } // 0.5rem - 8px
+  &--s {
+    font-size: var(--spacing-s);
+  } // 1rem - 16px
+  &--m {
+    font-size: var(--spacing-m);
+  } // 1.5rem - 24px
+  &--l {
+    font-size: var(--spacing-l);
+  } // 2rem - 32px
+  &--xl {
+    font-size: var(--spacing-xl);
+  } // 3rem - 48px
 
   &__circle {
     width: 1em;
@@ -25,7 +35,9 @@
   }
 
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   /* Estilos para wrapper (overlay sobre contenido) */

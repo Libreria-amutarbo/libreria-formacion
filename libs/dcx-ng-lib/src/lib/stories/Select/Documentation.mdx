@@ -10,19 +10,22 @@ The `dcx-ng-select` component is a customizable and accessible dropdown field.
 It implements `ControlValueAccessor` to integrate smoothly with Angular Reactive Forms and Template-Driven Forms.
 
 ---
+
 ## Unstyled Version
 
 Use this version when you want full control over the appearance.
 No styles are applied beyond native HTML input behavior, which makes it ideal for custom theming.
 
-<Canvas of={SelectUnstyledStories.UnstyleSelect} />
+{/* * Ajusta el nombre si tu story por defecto en UnStyled.stories.ts no es 'Default' */}
+
+<Canvas of={SelectUnstyledStories.Default} />
 
 ## Class-Based Version
 
 This version includes minimal styling using CSS custom properties.
 It supports focus styles, keyboard navigation, and optional placeholder behavior.
 
-<Canvas of={SelectClassBasedStories.DefaultSelect} />
+<Canvas of={SelectClassBasedStories.Default} />
 
 ---
 
@@ -30,7 +33,7 @@ It supports focus styles, keyboard navigation, and optional placeholder behavior
 
 The following story demonstrates multiple selects used inside a reactive form, mirroring the page implementation: placeholder handling, disabled control state, preselected value via FormControl and change-event logging.
 
-<Canvas of={SelectClassBasedStories.UsagePageExample} />
+<Canvas of={SelectClassBasedStories.SelectShowcase} />
 
 ---
 
@@ -38,8 +41,8 @@ The following story demonstrates multiple selects used inside a reactive form, m
 
 - **options**: An array of `{ value: any; label: string }` objects used to populate the dropdown
 - **placeholder**: Optional placeholder text shown when no value is selected
-- **disabled**: Disables the dropdown if `true`
-- **ariaLabel**: Provides screen reader context for accessibility
+- **label**: Visible label text rendered above the select
+- **ariaLabel**: Accessible name used **only when no visible label is provided**
 
 ---
 
@@ -61,5 +64,20 @@ This example shows how to use the select within a reactive form.
 
 ```html
 <form [formGroup]="form">
-  <dcx-ng-select formControlName="basic" [options]="selectOptions" placeholder="Choose an option" areaLabel="Select an option"></dcx-ng-select>
+  <!-- With visible label (recommended) -->
+  <dcx-ng-select
+    formControlName="basic"
+    [options]="selectOptions"
+    placeholder="Choose an option"
+    label="Select an option">
+  </dcx-ng-select>
+
+  <!-- No visible label (use ariaLabel for accessibility) -->
+  <dcx-ng-select
+    formControlName="basicNoLabel"
+    [options]="selectOptions"
+    placeholder="Choose an option"
+    ariaLabel="Select an option">
+  </dcx-ng-select>
 </form>
+```

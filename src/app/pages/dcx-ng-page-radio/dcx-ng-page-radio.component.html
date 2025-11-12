@@ -1,0 +1,88 @@
+<h2>Formulario de ejemplo avanzado</h2>
+<form [formGroup]="formulario">
+  <fieldset>
+    <legend>Elige tu tamaño de radio favorito</legend>
+    <dcx-ng-radio
+      name="tamanos"
+      value="pequeño"
+      label="Pequeño"
+      size="s"
+     [formControl]="tamanioControl"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="tamanos"
+      value="mediano"
+      label="Mediano"
+      size="m"
+     [formControl]="tamanioControl"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="tamanos"
+      value="grande"
+      label="Grande"
+      size="l"
+     [formControl]="tamanioControl"
+    ></dcx-ng-radio>
+  </fieldset>
+
+  <fieldset>
+    <legend>Elige tu color favorito</legend>
+    <dcx-ng-radio
+      name="colores"
+      value="azul"
+      label="Azul"
+      size="m"
+      [formControl]="colorControl"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="colores"
+      value="rojo"
+      label="Rojo"
+      size="m"
+     [formControl]="colorControl"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="colores"
+      value="verde"
+      label="Verde"
+      size="m"
+      [formControl]="colorControl"
+    ></dcx-ng-radio>
+  </fieldset>
+
+  <fieldset>
+    <legend>¿Prefieres café o té?</legend>
+    <dcx-ng-radio
+      name="bebida"
+      value="cafe"
+      label="Café"
+      size="m"
+      [formControl]="bebidaControl"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="bebida"
+      value="te"
+      label="Té"
+      size="m"
+      [formControl]="bebidaControl"
+    ></dcx-ng-radio>
+    <dcx-ng-radio
+      name="bebida"
+      value="ninguno"
+      label="Ninguno"
+      size="m"
+      [formControl]="bebidaControl"
+    ></dcx-ng-radio>
+  </fieldset>
+
+  <button type="button" (click)="mostrarResumen()">Enviar</button>
+</form>
+
+<div *ngIf="resumen">
+  <h3>Resumen de selección</h3>
+  <ul>
+    <li><strong>Tamaño:</strong> {{ formulario.get('tamanioControl')?.value }}</li>
+    <li><strong>Color:</strong> {{ formulario.get('colorControl')?.value }}</li>
+    <li><strong>Bebida:</strong> {{ formulario.get('bebidaControl')?.value }}</li>
+  </ul>
+</div>
