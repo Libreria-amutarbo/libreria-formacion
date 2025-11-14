@@ -9,7 +9,7 @@ import { DcxNgSliderComponent } from 'libs/dcx-ng-lib/src/lib/dcx-ng-components/
   styleUrls: ['./dcx-ng-page-salider.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DcxNgPageSaliderComponent {
+export class DcxNgPageSliderComponent {
   sliderValue = 0;
   verticalValue = 0;
 }
