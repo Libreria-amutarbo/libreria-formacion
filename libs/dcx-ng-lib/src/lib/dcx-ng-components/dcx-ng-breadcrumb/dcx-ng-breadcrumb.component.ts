@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 export interface BreadcrumbItem {
   label: string;
-  href?: string | null;
+  href?: string;
 }
 
 @Component({
