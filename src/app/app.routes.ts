@@ -14,7 +14,6 @@ import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-pa
 import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
 import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component';
 
-
 export const appRoutes: Route[] = [
   {
     path: 'table',
@@ -50,7 +49,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'input',
-    component: DcxNgPageInputComponent
+    component: DcxNgPageInputComponent,
   },
   {
     path: 'spinner',
