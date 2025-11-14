@@ -13,3 +13,4 @@ export * from './lib/dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component';
 export * from './lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component';
 export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 export * from './lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
+export * from './lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component';

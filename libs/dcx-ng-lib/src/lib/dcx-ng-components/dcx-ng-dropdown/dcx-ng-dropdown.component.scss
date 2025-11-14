@@ -1,0 +1,137 @@
+:host {
+  display: inline-block;
+  position: relative;
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    Arial,
+    'Noto Sans',
+    sans-serif;
+  --dcx-border: #d0d7de;
+  --dcx-border-hover: #b6bec8;
+  --dcx-bg: #ffffff;
+  --dcx-bg-hover: #f6f8fa;
+  --dcx-bg-active: #eef2f6;
+  --dcx-text: #24292f;
+  --dcx-muted: #6e7781;
+  --dcx-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --dcx-radius: 8px;
+}
+
+.dcx-dropdown {
+  position: relative;
+  min-width: 180px;
+
+  &.dcx-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.dcx-trigger {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--dcx-bg);
+  color: var(--dcx-text);
+  border: 1px solid var(--dcx-border);
+  border-radius: var(--dcx-radius);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+
+  &:hover {
+    background: var(--dcx-bg-hover);
+    border-color: var(--dcx-border-hover);
+  }
+
+  &:active {
+    background: var(--dcx-bg-active);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  .dcx-trigger__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    text-align: left;
+  }
+
+  .dcx-trigger__chevron {
+    transition: transform 150ms ease;
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.dcx-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  background: var(--dcx-bg);
+  border: 1px solid var(--dcx-border);
+  border-radius: var(--dcx-radius);
+  box-shadow: var(--dcx-shadow);
+  overflow: hidden;
+}
+
+.dcx-list {
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.dcx-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--dcx-text);
+
+  &:hover {
+    background: var(--dcx-bg-hover);
+  }
+
+  &.selected {
+    background: var(--dcx-bg-active);
+    font-weight: 600;
+  }
+
+  .dcx-item__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .dcx-item__check {
+    color: var(--dcx-muted);
+  }
+}
+
+.dcx-empty {
+  padding: 10px;
+  color: var(--dcx-muted);
+  text-align: center;
+}

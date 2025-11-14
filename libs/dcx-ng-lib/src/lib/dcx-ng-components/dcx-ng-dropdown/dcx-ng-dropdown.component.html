@@ -1,0 +1,35 @@
+<div class="dcx-dropdown" [class.dcx-disabled]="disabled">
+  <button
+    type="button"
+    class="dcx-trigger"
+    (click)="toggle()"
+    [disabled]="disabled"
+    [attr.aria-expanded]="_open()"
+  >
+    <span class="dcx-trigger__label">{{ displayLabel() }}</span>
+    <span class="dcx-trigger__chevron" [class.open]="_open()">▾</span>
+  </button>
+
+  @if (_open()) {
+    <div class="dcx-panel">
+      <ul class="dcx-list">
+        @for (item of dropdownOptions; track item.key) {
+          <li
+            class="dcx-item"
+            (click)="select(item)"
+            [class.selected]="isSelected(item)"
+          >
+            <span class="dcx-item__label">{{ valueToString(item.value) }}</span>
+            @if (isSelected(item)) {
+              <span class="dcx-item__check">✓</span>
+            }
+          </li>
+        }
+
+        @if (!dropdownOptions.length) {
+          <li class="dcx-empty">(Sin opciones)</li>
+        }
+      </ul>
+    </div>
+  }
+</div>
