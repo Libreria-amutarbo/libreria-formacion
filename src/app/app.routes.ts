@@ -12,7 +12,7 @@ import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-pa
 import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
-import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/dcx-ng-page-salider.component';
+import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component';
 
 
 export const appRoutes: Route[] = [

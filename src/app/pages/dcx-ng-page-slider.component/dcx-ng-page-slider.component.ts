@@ -5,8 +5,8 @@ import { DcxNgSliderComponent } from 'libs/dcx-ng-lib/src/lib/dcx-ng-components/
   selector: 'app-dcx-ng-page-salider.component',
   standalone: true,
   imports: [DcxNgSliderComponent],
-  templateUrl: './dcx-ng-page-salider.component.html',
-  styleUrls: ['./dcx-ng-page-salider.component.scss'],
+  templateUrl: './dcx-ng-page-slider.component.html',
+  styleUrls: ['./dcx-ng-page-slider.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageSliderComponent {
