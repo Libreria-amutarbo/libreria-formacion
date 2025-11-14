@@ -1,0 +1,105 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as IconFieldClassBasedStories from './ClassBased.stories';
+import * as IconFieldUnstyledStories from './UnStyled.stories';
+
+<Meta title="DCXLibrary/IconField/Documentation" />
+
+# IconField
+
+El componente `dcx-ng-icon-field` es un campo de entrada con iconos integrados que funciona igual que un input normal pero permite añadir iconos a la izquierda y/o derecha del texto.
+
+---
+
+## Versión Class Based
+
+Incluye estilos visuales modernos y personalizados, con efectos de focus, transiciones suaves y un diseño profesional.
+
+<Canvas of={IconFieldClassBasedStories.IconLeft} />
+
+---
+
+## Ejemplos de uso
+
+### Campo con icono izquierdo
+
+<Canvas of={IconFieldClassBasedStories.IconLeft} />
+
+### Campo con icono derecho
+
+<Canvas of={IconFieldClassBasedStories.IconRight} />
+
+### Campo con ambos iconos
+
+<Canvas of={IconFieldClassBasedStories.BothIcons} />
+
+### Diferentes tamaños de iconos
+
+<Canvas of={IconFieldClassBasedStories.SizeLarge} />
+
+---
+
+## Propiedades
+
+**placeholder** (string): Texto placeholder que se muestra cuando el campo está vacío. Por defecto es una cadena vacía.
+
+**iconLeft** (string): Nombre del icono de Material Icons que se muestra a la izquierda del input. Por defecto es una cadena vacía.
+
+**iconRight** (string): Nombre del icono de Material Icons que se muestra a la derecha del input. Por defecto es una cadena vacía.
+
+**iconSize** (IconSize): Tamaño de los iconos. Valores disponibles: 's', 'm', 'l', 'xl'. Por defecto es 'm'.
+
+**disabled** (boolean): Estado deshabilitado del campo. Cuando es true, el usuario no puede interactuar con el campo. Por defecto es false.
+
+**value** (string): Valor actual del campo. Se puede usar para establecer un valor inicial o leer el valor actual. Por defecto es una cadena vacía.
+
+## Eventos
+
+**valueChange** (string): Se emite cada vez que el usuario cambia el valor del campo.
+
+**focus** (void): Se emite cuando el campo recibe el focus.
+
+**blur** (void): Se emite cuando el campo pierde el focus.
+
+---
+
+## Accesibilidad
+
+- El componente mantiene todas las características de accesibilidad de un input nativo.
+- Los iconos son decorativos y no interfieren con lectores de pantalla.
+- Soporta navegación por teclado estándar (Tab, Shift+Tab).
+- El placeholder proporciona información contextual sobre el propósito del campo.
+
+## Casos de uso comunes
+
+**Campo de búsqueda**: Usa `iconLeft="search"` para crear un campo de búsqueda intuitivo.
+
+**Campo con limpiar**: Usa `iconRight="close"` o `iconRight="clear"` para permitir al usuario limpiar el campo fácilmente.
+
+**Campo de usuario**: Usa `iconLeft="person"` para campos relacionados con información de usuario.
+
+**Campo de contraseña**: Combina `iconLeft="lock"` con `iconRight="visibility"` para campos de contraseña con opción de mostrar/ocultar.
+
+---
+
+## Integración con formularios
+
+El componente se integra perfectamente con Angular Reactive Forms:
+
+```html
+<form [formGroup]="miFormulario">
+  <dcx-ng-icon-field
+    formControlName="busqueda"
+    placeholder="Buscar productos..."
+    iconLeft="search"
+    iconRight="close">
+  </dcx-ng-icon-field>
+</form>
+```
+
+---
+
+## Personalización
+
+La versión **Class Based** viene con estilos predefinidos que puedes personalizar mediante CSS custom properties o clases.
+
+La versión **UnStyled** te permite aplicar tus propios estilos completamente desde cero, manteniendo solo la funcionalidad básica.
