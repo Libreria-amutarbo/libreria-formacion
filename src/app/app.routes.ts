@@ -13,6 +13,7 @@ import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chi
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCheckboxComponent } from './pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component';
 import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
+import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
 
 export const appRoutes: Route[] = [
   {
@@ -70,5 +71,9 @@ export const appRoutes: Route[] = [
   {
     path: 'card',
     component: DcxNgPageCardComponent,
+  },
+  {
+    path: 'list',
+    component: DcxNgPageListComponent,
   },
 ];
