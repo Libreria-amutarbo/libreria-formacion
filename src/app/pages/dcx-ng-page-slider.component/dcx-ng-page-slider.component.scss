@@ -1,3 +1,9 @@
 :host {
   display: block;
 }
+
+.slider-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+}

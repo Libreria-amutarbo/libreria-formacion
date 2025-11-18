@@ -28,6 +28,10 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
   private onTouched: () => void = () => { };
   private isDisabled = false;
 
+  get orientAttribute(): string | null {
+    return this.vertical ? 'vertical' : null;
+  }
+
   onInput(event: Event) {
     const input = event.target as HTMLInputElement;
     const newValue = Number(input.value);

@@ -1,15 +1,38 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DcxNgSliderComponent } from 'libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component';
 
+interface SliderConfig {
+  label: string;
+  value: number;
+  step: number;
+  vertical: boolean;
+}
+
 @Component({
-  selector: 'app-dcx-ng-page-salider.component',
+  selector: 'app-dcx-ng-page-slider',
   standalone: true,
   imports: [DcxNgSliderComponent],
   templateUrl: './dcx-ng-page-slider.component.html',
-  styleUrls: ['./dcx-ng-page-slider.component.scss'],
+  styleUrl: './dcx-ng-page-slider.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageSliderComponent {
-  sliderValue = 0;
-  verticalValue = 0;
+  sliders: SliderConfig[] = [
+    {
+      label: 'Horizontal Slider',
+      value: 0,
+      step: 1,
+      vertical: false
+    },
+    {
+      label: 'Vertical Slider',
+      value: 0,
+      step: 5,
+      vertical: true
+    }
+  ];
+
+  onSliderValueChange(index: number, value: number): void {
+    this.sliders[index].value = value;
+  }
 }
