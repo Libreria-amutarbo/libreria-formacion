@@ -14,3 +14,4 @@ export * from './lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component';
 export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 export * from './lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
 export * from './lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component';
+export * from './lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component';
