@@ -56,6 +56,7 @@ export class DcxNgDropdownComponent {
 
   toggle(): void {
     if (this.disabled) return;
+    
     this._open.set(!this._open());
   }
 
