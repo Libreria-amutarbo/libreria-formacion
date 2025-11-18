@@ -63,6 +63,7 @@ export class DcxNgDropdownComponent {
 
   select(item: DropdownOptions): void {
     if (this.disabled) return;
+    
     this._selectedKey.set(item.key);
     this.selectedKeyChange.emit(item.key);
     this._open.set(false);
