@@ -77,7 +77,7 @@ export const appRoutes: Route[] = [
   {
     path: 'icon-field',
     component: DcxNgPageIconFieldComponent
-  }
+  },
   {
     path: 'list',
     component: DcxNgPageListComponent,
