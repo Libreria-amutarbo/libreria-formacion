@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwar
 import { ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-dcx-ng-slider',
+  selector: 'dcx-ng-slider',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './dcx-ng-slider.component.html',
@@ -28,7 +28,7 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
   private onTouched: () => void = () => { };
   private isDisabled = false;
 
-  get orientAttribute(): string | null {
+  get getOrientAttribute(): string | null {
     return this.vertical ? 'vertical' : null;
   }
 
