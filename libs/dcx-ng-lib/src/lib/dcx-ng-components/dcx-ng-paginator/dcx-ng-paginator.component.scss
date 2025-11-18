@@ -1,0 +1,35 @@
+@import '../../../scss/main.scss';
+
+:host {
+  display: block;
+}
+
+.dcx-paginator {
+  @include flex-center;
+  gap: var(--spacing-xs);
+}
+
+.dcx-paginator__button,
+.dcx-paginator__page {
+  @include button-base;
+  @include padding-horizontal('inset-s');
+  @include padding-vertical('inset-xs');
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--color-background-alt);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.dcx-paginator__page--active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}

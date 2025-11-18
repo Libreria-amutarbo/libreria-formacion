@@ -1,26 +1,55 @@
-<div style="max-width: 600px; margin: 2rem auto; padding: 2rem; border: 1px solid #eee; border-radius: 8px;">
-  <h2>Ejemplo de paginador</h2>
-  
-  <label for="variantSelect" style="margin-bottom: 1rem; display: block;">
-    Modo de paginación:
-    <select id="variantSelect" [(ngModel)]="variant">
-      <option value="expand">Expand</option>
-      <option value="small">Small</option>
-    </select>
-  </label>
+<div class="paginator-demo">
+  <div class="demo-card">
+    <h2>Demo del Componente Paginator</h2>
 
-  <dcx-ng-paginator
-    [itemsPerPage]="itemsPerPage"
-    [currentPage]="currentPage"
-    [totalItems]="totalItems"
-    [variant]="variant"
-    [itemsPerPageOptions]="[5, 10, 25, 50]"
-    [showItemsPerPage]="true"
-    [showTotalItems]="true"
-    (pageChange)="onPageChange($event)"
-    (itemsPerPageChange)="onItemsPerPageChange($event)"
-    (onNextPage)="onNextPage()"
-    (onPrevPage)="onPrevPage()"
-    style="margin-top: 2rem;"
-  ></dcx-ng-paginator>
+    <div class="demo-controls">
+      <div class="control-group">
+        <label>Items por página:</label>
+        <input type="number" [(ngModel)]="itemsPerPage" min="1" max="100">
+      </div>
+
+      <div class="control-group">
+        <label>Total de páginas:</label>
+        <input type="number" [(ngModel)]="totalPages" min="1" max="50">
+      </div>
+
+      <div class="control-group">
+        <label>Texto botón anterior:</label>
+        <input type="text" [(ngModel)]="prevButton">
+      </div>
+
+      <div class="control-group">
+        <label>Texto botón siguiente:</label>
+        <input type="text" [(ngModel)]="nextButton">
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="prevButtonDisabled">
+          Deshabilitar botón anterior
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input type="checkbox" [checked]="!!nextButtonDisabled" (change)="toggleNextDisabled()">
+          Deshabilitar botón siguiente
+        </label>
+      </div>
+    </div>
+
+    <div class="paginator-container">
+      <dcx-ng-paginator [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" [pageSelected]="pageSelected"
+        [totalPages]="totalPages" [nextButton]="nextButton" [nextButtonDisabled]="nextButtonDisabled"
+        [prevButton]="prevButton" [prevButtonDisabled]="prevButtonDisabled" [disabled]="disabled"
+        (pageChange)="onPageChange($event)" (onNextPage)="onNextPage()" (onPrevPage)="onPrevPage()">
+      </dcx-ng-paginator>
+    </div>
+
+    <div class="demo-status">
+      <p><strong>Página actual:</strong> {{ currentPage }}</p>
+      <p><strong>Página seleccionada:</strong> {{ pageSelected }}</p>
+      <p><strong>Items por página:</strong> {{ itemsPerPage }}</p>
+    </div>
+  </div>
 </div>
