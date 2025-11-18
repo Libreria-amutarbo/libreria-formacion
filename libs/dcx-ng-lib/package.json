@@ -1,0 +1,36 @@
+{
+  "name": "@dcx-ng-components/source",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~18.2.0",
+    "@angular/cdk": "^18.2.8",
+    "@angular/common": "~18.2.0",
+    "@angular/compiler": "~18.2.0",
+    "@angular/core": "~18.2.0",
+    "@angular/forms": "~18.2.0",
+    "@angular/platform-browser": "~18.2.0",
+    "@angular/platform-browser-dynamic": "~18.2.0",
+    "@angular/router": "~18.2.0",
+    "@storybook/blocks": "^8.6.12",
+    "rxjs": "~7.8.0",
+    "zone.js": "~0.14.3",
+    "tslib": "^2.3.0"
+  },
+  "nx": {},
+  "module": "fesm2022/dcx-ng-components-source.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/dcx-ng-components-source.mjs",
+      "esm": "./esm2022/dcx-ng-components-source.mjs",
+      "default": "./fesm2022/dcx-ng-components-source.mjs"
+    }
+  },
+  "sideEffects": false
+}
