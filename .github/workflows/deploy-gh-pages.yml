@@ -24,7 +24,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build Storybook
-        run: npx nx build-storybook dcx-ng-lib
+        run: npx nx build-storybook dcx-ng-lib --no-cloud
 
       - name: Deploy to GitHub Pages
         run: npm run deploy
