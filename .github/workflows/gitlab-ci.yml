@@ -1,0 +1,22 @@
+stages:
+  - build
+  - deploy
+
+build_storybook:
+  image: node:18
+  stage: build
+  script:
+    - npm ci
+    - npx nx build-storybook dcx-ng-lib
+  artifacts:
+    paths:
+      - dist/storybook/dcx-ng-lib
+
+deploy_storybook:
+  image: node:18
+  stage: deploy
+  script:
+    - npm install -g gh-pages
+    - gh-pages -d dist/storybook/dcx-ng-lib -r https://oauth2:${CI_JOB_TOKEN}@gitlab.com/<tu-repo>.git
+  only:
+    - main
