@@ -84,6 +84,7 @@ export class DcxNgDropdownComponent {
   @HostListener('document:click', ['$event'])
   onDocumentClick(ev: MouseEvent): void {
     if (!this._open()) return;
+    
     const root = this.host.nativeElement;
     const target = ev.target as Node | null;
     if (target && !root.contains(target)) {
