@@ -1,0 +1,39 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as CheckboxUnstyledStories from './UnStyled.stories';
+import * as CheckboxClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Checkbox/Documentation" />
+
+# Checkbox
+
+The `dcx-ng-checkbox` component allows you to select boolean values in forms and views, displaying a checkmark (✔) using SCSS styles.
+
+## Class-Based Version
+
+The class-based version uses minimal styles and CSS variables for flexibility and customization.
+
+<Canvas of={CheckboxClassBasedStories.Primary} />
+<Canvas of={CheckboxClassBasedStories.Accent} />
+<Canvas of={CheckboxClassBasedStories.Error} />
+
+You can customize:
+
+- **label**: text shown next to the checkbox
+- **color**: primary, accent, warn
+- **checked**: checked/unchecked state
+- **disabled**: disables interaction
+- **errorMessage**: custom error message
+
+---
+
+## Usage Example
+
+```html
+<app-dcx-ng-checkbox
+  label="I accept the terms"
+  color="primary"
+  [checked]="checked"
+  (checkedChange)="checked = $event"
+  errorMessage="This field is required"
+></app-dcx-ng-checkbox>
+```

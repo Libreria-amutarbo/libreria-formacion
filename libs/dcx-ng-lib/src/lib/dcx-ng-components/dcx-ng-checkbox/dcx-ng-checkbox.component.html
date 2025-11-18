@@ -1,0 +1,21 @@
+<label class="dcx-checkbox-label" [class.disabled]="disabled">
+  <span
+    class="dcx-checkbox-container"
+    [class.checked]="checked"
+    [class.disabled]="disabled"
+    [class]="'color-' + color"
+    (click)="onToggle()"
+  >
+    <span class="dcx-checkbox-box">
+      @if (checked) {
+        <span class="dcx-checkbox-check"></span>
+      }
+    </span>
+  </span>
+  <span class="dcx-checkbox-text">{{ label }}</span>
+</label>
+@if (errorMessage && !checked) {
+  <div class="dcx-checkbox-error">
+    {{ errorMessage }}
+  </div>
+}
