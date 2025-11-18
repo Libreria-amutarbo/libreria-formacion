@@ -48,6 +48,7 @@ export class DcxNgDropdownComponent {
   protected displayLabel: Signal<string> = computed(() => {
     const key = this._selectedKey();
     if (!key) return this.placeholder;
+    
     const opt = this.findByKey(key);
     return opt ? this.valueToString(opt.value) : this.placeholder;
   });
