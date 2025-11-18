@@ -26,6 +26,11 @@ jobs:
       - name: Build Storybook
         run: npx nx build-storybook dcx-ng-lib --no-cloud
 
+      - name: Configure Git user
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Actions"
+
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:
