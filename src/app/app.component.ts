@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { APP_ROUTES } from './core/constants/app-routes';
+
 
 @Component({
   standalone: true,
@@ -9,5 +11,6 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  paths = Object.values(APP_ROUTES);
   title = 'dcx-ng-components';
 }

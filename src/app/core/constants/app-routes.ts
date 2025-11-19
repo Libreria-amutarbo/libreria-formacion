@@ -1,0 +1,20 @@
+export const APP_ROUTES = {
+    TABLE: 'table',
+BUTTON: 'button',
+  MESSAGE: 'message',
+  ICON: 'icon',
+  SELECT: 'select',
+  DIVIDER: 'divider',
+  TOGGLE: 'toggle',
+  RADIO: 'radio',
+  INPUT: 'input',
+  SPINNER: 'spinner',
+  CHIP: 'chip',
+  TOOLTIP: 'tooltip',
+  CHECKBOX: 'checkbox',
+  DROPDOWN: 'dropdown',
+  CARD: 'card',
+  ICON_FIELD: 'icon-field',
+  LIST: 'list',
+
+}

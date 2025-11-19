@@ -17,74 +17,75 @@ import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
 
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
+import { APP_ROUTES } from './core/constants/app-routes';
 
 export const appRoutes: Route[] = [
   {
-    path: 'table',
+    path: APP_ROUTES.TABLE,
     component: DcxNgPageTableComponent,
   },
   {
-    path: 'button',
+    path: APP_ROUTES.BUTTON,
     component: DcxNgPageButtonComponent,
   },
   {
-    path: 'message',
+    path: APP_ROUTES.MESSAGE,
     component: DcxNgPageMessageComponent,
   },
   {
-    path: 'icon',
+    path: APP_ROUTES.ICON,
     component: DcxNgPageIconComponent,
   },
   {
-    path: 'select',
+    path: APP_ROUTES.SELECT,
     component: DcxNgPageSelectComponent,
   },
   {
-    path: 'divider',
+    path: APP_ROUTES.DIVIDER,
     component: DcxNgPageDividerComponent,
   },
   {
-    path: 'toggle',
+    path: APP_ROUTES.TOGGLE,
     component: DcxNgPageToggleComponent,
   },
   {
-    path: 'radio',
+    path: APP_ROUTES.RADIO,
     component: DcxNgPageRadioComponent,
   },
   {
-    path: 'input',
+    path: APP_ROUTES.INPUT,
     component: DcxNgPageInputComponent,
   },
   {
-    path: 'spinner',
+    path: APP_ROUTES.SPINNER,
     component: DcxNgPageSpinnerComponent,
   },
   {
-    path: 'chip',
+    path: APP_ROUTES.CHIP,
     component: DcxNgPageChipComponent,
   },
   {
-    path: 'tooltip',
+    path: APP_ROUTES.TOOLTIP,
     component: DcxNgPageTooltipComponent,
   },
   {
-    path: 'checkbox',
+    path: APP_ROUTES.CHECKBOX,
     component: DcxNgPageCheckboxComponent,
   },
   {
-    path: 'dropdown',
+    path: APP_ROUTES.DROPDOWN,
     component: DcxNgPageDropdownComponent,
   },
   {
-    path: 'card',
+    path: APP_ROUTES.CARD,
     component: DcxNgPageCardComponent,
   },
   {
-    path: 'icon-field',
+    path: APP_ROUTES.ICON_FIELD,
     component: DcxNgPageIconFieldComponent,
   },
   {
-    path: 'list',
+    path: APP_ROUTES.LIST,
     component: DcxNgPageListComponent,
   },
 ];

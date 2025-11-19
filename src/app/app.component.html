@@ -1,1 +1,12 @@
+
+<ul>
+  @for (item of paths; track item) {
+    <li>
+      <a [routerLink]="item">{{ item  }}</a>
+    </li>
+  }
+</ul>
+
+
+
 <router-outlet></router-outlet>
