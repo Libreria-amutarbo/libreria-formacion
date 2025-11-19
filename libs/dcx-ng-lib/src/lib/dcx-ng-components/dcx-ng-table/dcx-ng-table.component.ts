@@ -196,5 +196,4 @@ export class DcxNgTableComponent implements OnInit {
       numeric: true,
     });
   }
-
 }

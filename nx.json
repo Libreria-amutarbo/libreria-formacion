@@ -45,6 +45,10 @@
           "codeCoverage": true
         }
       }
+    },
+    "build-storybook": {
+      "cache": true,
+      "inputs": ["default", "^production"]
     }
   },
   "generators": {

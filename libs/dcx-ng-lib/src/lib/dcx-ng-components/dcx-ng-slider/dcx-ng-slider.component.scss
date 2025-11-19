@@ -1,0 +1,40 @@
+:host {
+  display: block;
+}
+
+.dcx-slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dcx-slider-bar {
+  width: 180px;
+  accent-color: #1976d2;
+}
+
+/* Vertical layout */
+.dcx-slider-wrapper.vertical {
+  flex-direction: column;
+  align-items: center;
+  min-height: 220px;
+  justify-content: center;
+}
+.dcx-slider-wrapper.vertical .dcx-slider-bar {
+  writing-mode: bt-lr;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  width: 180px;
+  height: 8px;
+  display: block;
+  margin: 0 auto 16px auto;
+}
+.dcx-slider-wrapper.vertical .dcx-slider-value {
+  margin-top: 8px;
+}
+
+.dcx-slider-value {
+  font-size: 15px;
+  min-width: 32px;
+  text-align: center;
+}
