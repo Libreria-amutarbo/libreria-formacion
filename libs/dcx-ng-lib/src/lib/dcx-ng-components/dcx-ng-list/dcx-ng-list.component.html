@@ -1,5 +1,5 @@
 <ul aria-label="Lista de elementos">
-  @for (item of items; track index) {
-    <li>{{ item }}</li>
+  @for (item of items; track $index) {
+  <li>{{ item }}</li>
   }
 </ul>

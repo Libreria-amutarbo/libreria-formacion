@@ -87,7 +87,7 @@ export const appRoutes: Route[] = [
     component: DcxNgPageIconFieldComponent
   },
   {
-    path: 'list',
-    component: DcxNgPageListComponent,
-  },
+    path: 'slider',
+    component: DcxNgPageSliderComponent
+  }
 ];
