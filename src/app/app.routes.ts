@@ -13,6 +13,7 @@ import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chi
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCheckboxComponent } from './pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component';
 import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
+import { ContextMenuComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component';
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
 
@@ -77,7 +78,11 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'card',
-    component: DcxNgPageCardComponent,
+    component: DcxNgPageCardComponent
+  },
+  {
+    path: 'contextMenu',
+    component: ContextMenuComponent
   },
   {
     path: 'icon-field',

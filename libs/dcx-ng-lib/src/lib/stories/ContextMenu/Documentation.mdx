@@ -1,0 +1,101 @@
+````plaintext
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ContextMenuUnstyledStories from './UnStyled.stories';
+import * as ContextMenuClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/ContextMenu/Documentation" />
+
+# Context Menu
+
+The `dcx-ng-context-menu` component provides a customizable context menu that appears at a specified position.  
+It supports both unstyled and class-based variations, allowing you to control the appearance and behavior.
+
+---
+
+## Unstyled Version
+
+Use this version when you want full control over the styling and appearance.  
+No styles are applied by default. You are responsible for styling the menu container and items.
+
+<Canvas of={ContextMenuUnstyledStories.UnstyledBasic} />
+<Canvas of={ContextMenuUnstyledStories.UnstyledTopLeft} />
+
+---
+
+## Class-Based Version
+
+The class-based context menu uses minimal default styles built with the BEM naming convention and SCSS.  
+It provides a professional look out of the box while remaining customizable.
+
+<Canvas of={ContextMenuClassBasedStories.Default} style={{ minHeight: '400px', overflow: 'hidden' }} />
+<Canvas of={ContextMenuClassBasedStories.ManyItems} style={{ minHeight: '400px', overflow: 'hidden' }} />
+
+You can customize:
+
+- **items**: Array of menu items with label and action callback
+- **visible**: Toggle menu visibility
+- **position**: X and Y coordinates for menu placement
+- **closed**: Event emitted when menu is closed
+
+---
+
+## Features
+
+- **Click Outside Detection**: Menu automatically closes when clicking outside
+- **Item Actions**: Each item has an associated action callback
+- **Flexible Positioning**: Position the menu anywhere on the screen
+- **Accessibility**: Built with semantic HTML for better accessibility
+
+---
+
+## Usage Example
+
+```typescript
+import { Component } from '@angular/core';
+import { ContextMenuComponent, ContextMenuItem } from 'your-library';
+
+@Component({
+  selector: 'app-example',
+  template: `
+    <div (contextmenu)="onContextMenu($event)">
+      Right-click me
+    </div>
+    <dcx-ng-context-menu
+      [items]="menuItems"
+      [visible]="menuVisible"
+      [position]="menuPosition"
+      (closed)="menuVisible = false"
+    ></dcx-ng-context-menu>
+  `,
+})
+export class ExampleComponent {
+  menuVisible = false;
+  menuPosition = { x: 0, y: 0 };
+
+  menuItems: ContextMenuItem[] = [
+    { label: 'Edit', action: () => this.edit() },
+    { label: 'Delete', action: () => this.delete() },
+    { label: 'Share', action: () => this.share() },
+  ];
+
+  onContextMenu(event: MouseEvent) {
+    event.preventDefault();
+    this.menuPosition = { x: event.clientX, y: event.clientY };
+    this.menuVisible = true;
+  }
+
+  edit() {
+    console.log('Edit action');
+  }
+
+  delete() {
+    console.log('Delete action');
+  }
+
+  share() {
+    console.log('Share action');
+  }
+}
+```
+
+````
