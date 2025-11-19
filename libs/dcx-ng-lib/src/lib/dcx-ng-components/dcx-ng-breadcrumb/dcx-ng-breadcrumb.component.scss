@@ -1,0 +1,55 @@
+:host {
+  display: block;
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    Arial,
+    'Noto Sans',
+    sans-serif;
+  --dcx-text: #24292f;
+  --dcx-muted: #6e7781;
+}
+
+.dcx-bc {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--dcx-text);
+}
+
+.dcx-bc__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dcx-bc__link {
+  color: #0969da;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.dcx-bc__text {
+  color: var(--dcx-text);
+}
+
+.dcx-bc__current {
+  color: var(--dcx-muted);
+  font-weight: 600;
+}
+
+.dcx-bc__sep {
+  color: var(--dcx-muted);
+  user-select: none;
+}
