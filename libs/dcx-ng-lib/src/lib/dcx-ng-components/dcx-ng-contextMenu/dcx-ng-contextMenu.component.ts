@@ -1,6 +1,10 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+export interface Position {
+  x: number;
+  y: number;
+}
 
 export interface ContextMenuItem {
   label: string;
@@ -17,7 +21,7 @@ export interface ContextMenuItem {
 export class ContextMenuComponent {
   @Input() items: ContextMenuItem[] = [];
   @Input() visible = false;
-  @Input() position = { x: 0, y: 0 };
+  @Input() position: Position = { x: 0, y: 0 };
 
   @Output() closed = new EventEmitter<void>();
 

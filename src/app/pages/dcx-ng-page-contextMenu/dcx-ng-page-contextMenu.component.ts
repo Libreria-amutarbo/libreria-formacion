@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContextMenuComponent, ContextMenuItem } from '@dcx-ng-components/dcx-ng-lib';
+import { ContextMenuComponent, ContextMenuItem, Position } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-page-context-menu',
@@ -12,7 +12,9 @@ import { ContextMenuComponent, ContextMenuItem } from '@dcx-ng-components/dcx-ng
 export class PageContextMenuComponent {
   menuItems: ContextMenuItem[] = [];
   menuVisible = false;
-  menuPosition = { x: 0, y: 0 };
+  menuPosition: Position = { x: 0, y: 0 };
+  currentRow: any;
+  rowActions: ((row: any) => ContextMenuItem[]) | null = null;
 
   openMenu(event: MouseEvent, rowData: any) {
     event.stopPropagation();
@@ -26,7 +28,6 @@ export class PageContextMenuComponent {
       y: rect.top + window.scrollY
     };
 
-    this.menuVisible = true;
     this.menuItems = this.rowActions
       ? this.rowActions(rowData)
       : [
@@ -35,5 +36,13 @@ export class PageContextMenuComponent {
       ];
 
     this.menuVisible = true;
+  }
+
+  onEdit(rowData: any) {
+    this.menuVisible = false;
+  }
+
+  onDelete(rowData: any) {
+    this.menuVisible = false;
   }
 }
