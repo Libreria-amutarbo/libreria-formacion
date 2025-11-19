@@ -22,7 +22,7 @@ import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
     standalone: true,
     imports: [DcxNgSliderComponent, ReactiveFormsModule]
 })
-class TestHostComponent {
+export class TestHostComponent {
     form = new FormGroup({ slider: new FormControl(0) });
     value = 0;
     step = 1;

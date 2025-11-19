@@ -1,5 +1,4 @@
-@use '../../../scss/main' as *;
-
+@import '../../../scss/main.scss';
 :host { display: inline-block; }
 
 .dcx-ng-radio {
@@ -7,7 +6,6 @@
   align-items: center;
   gap: 0.3rem;
   cursor: pointer;
-  @include body-text;
 
   input[type='radio'] {
     width: var(--dcx-radio-size, 1rem);
