@@ -85,9 +85,6 @@ export const appRoutes: Route[] = [
     component: ContextMenuComponent
   },
   {
-    component: DcxNgPageCardComponent,
-  },
-  {
     path: 'icon-field',
     component: DcxNgPageIconFieldComponent,
   },
