@@ -1,14 +1,16 @@
 <div class="dcx-dropdown" [class.dcx-disabled]="disabled">
-  <button
+  <dcx-ng-button
     type="button"
     class="dcx-trigger"
-    (click)="toggle()"
     [disabled]="disabled"
+    [variant]="'icon'"
+    [size]="'medium'"
+    [label]="displayLabel()"
+    [iconName]="'expand_more'"
+    iconPosition="end"
     [attr.aria-expanded]="_open()"
-  >
-    <span class="dcx-trigger__label">{{ displayLabel() }}</span>
-    <span class="dcx-trigger__chevron" [class.open]="_open()">▾</span>
-  </button>
+    (buttonClick)="toggle()"
+  ></dcx-ng-button>
 
   @if (_open()) {
     <div class="dcx-panel">

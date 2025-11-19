@@ -11,6 +11,7 @@ import {
   computed,
   signal,
 } from '@angular/core';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 export interface DropdownOptions {
   key: string;
@@ -20,7 +21,7 @@ export interface DropdownOptions {
 @Component({
   selector: 'dcx-ng-dropdown',
   standalone: true,
-  imports: [],
+  imports: [DcxNgButtonComponent],
   templateUrl: './dcx-ng-dropdown.component.html',
   styleUrls: ['./dcx-ng-dropdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,23 +33,31 @@ export class DcxNgDropdownComponent {
   @Input() set selectedKey(key: string | null | undefined) {
     this._selectedKey.set(key ?? null);
   }
-  
+
   @Output() selectedKeyChange = new EventEmitter<string | null>();
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(ev: MouseEvent): void {
+    if (!this._open()) return;
+
+    const root = this.host.nativeElement;
+    const target = ev.target as Node | null;
+    if (target && !root.contains(target)) {
+      this._open.set(false);
+    }
+  }
 
   get selectedKey(): string | null {
     return this._selectedKey();
   }
 
+  _open: WritableSignal<boolean> = signal(false);
+  _selectedKey: WritableSignal<string | null> = signal<string | null>(null);
 
-  protected _open: WritableSignal<boolean> = signal(false);
-  protected _selectedKey: WritableSignal<string | null> = signal<string | null>(
-    null,
-  );
-
-  protected displayLabel: Signal<string> = computed(() => {
+  displayLabel: Signal<string> = computed(() => {
     const key = this._selectedKey();
     if (!key) return this.placeholder;
-    
+
     const opt = this.findByKey(key);
     return opt ? this.valueToString(opt.value) : this.placeholder;
   });
@@ -57,38 +66,27 @@ export class DcxNgDropdownComponent {
 
   toggle(): void {
     if (this.disabled) return;
-    
+
     this._open.set(!this._open());
   }
 
   select(item: DropdownOptions): void {
     if (this.disabled) return;
-    
+
     this._selectedKey.set(item.key);
     this.selectedKeyChange.emit(item.key);
     this._open.set(false);
   }
 
-  protected findByKey(key: string): DropdownOptions | undefined {
+  findByKey(key: string): DropdownOptions | undefined {
     return this.dropdownOptions.find(o => o.key === key);
   }
 
-  protected isSelected(item: DropdownOptions): boolean {
+  isSelected(item: DropdownOptions): boolean {
     return this._selectedKey() === item.key;
   }
 
-  protected valueToString(v: string | number): string {
+  valueToString(v: string | number): string {
     return String(v);
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(ev: MouseEvent): void {
-    if (!this._open()) return;
-    
-    const root = this.host.nativeElement;
-    const target = ev.target as Node | null;
-    if (target && !root.contains(target)) {
-      this._open.set(false);
-    }
   }
 }
