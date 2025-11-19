@@ -1,0 +1,43 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ListUnstyled from './UnStyled.stories';
+import * as ListClass from './ClassBased.stories';
+
+<Meta title="DCXLibrary/List/Documentation" />
+
+# List
+
+`dcx-ng-list` es un componente **mínimo** para renderizar una lista a partir de un array.
+
+- API: un único `@Input() items: Array<string | number>`.
+- Render: usa el nuevo control flow de Angular con `@for`.
+- Sin selección, sin eventos, sin estilos complejos.
+
+---
+
+## Unstyled
+
+Versión básica con Controls para editar el array `items`.
+
+<Canvas of={ListUnstyled.Basic} />
+
+---
+
+## Class-Based
+
+Ejemplo que muestra también un pequeño resumen del total de elementos.
+
+<Canvas of={ListClass.ClassBasedDemo} />
+
+---
+
+## Props
+
+- `items: Array<string | number>` — elementos a mostrar.
+
+---
+
+## Uso básico
+
+```html
+<dcx-ng-list [items]="['Alpha', 'Beta', 'Gamma']"></dcx-ng-list>
+```
