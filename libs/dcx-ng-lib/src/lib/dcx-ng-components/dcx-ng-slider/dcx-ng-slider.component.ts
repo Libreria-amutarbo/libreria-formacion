@@ -28,7 +28,7 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
   private onTouched: () => void = () => { };
   private isDisabled = false;
 
-  get getOrientAttribute(): string | null {
+  get orientAttribute(): string | null {
     return this.vertical ? 'vertical' : null;
   }
 
