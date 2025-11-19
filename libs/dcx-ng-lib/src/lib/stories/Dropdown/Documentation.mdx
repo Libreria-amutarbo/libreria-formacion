@@ -1,0 +1,49 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as DropdownClassStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Dropdown/Documentation" />
+
+# Dropdown
+
+El componente `dcx-ng-dropdown` es un selector **simple** controlado por `key`, con:
+
+- **Placeholder** personalizable cuando no hay selección.
+- Lista de opciones con **marca** para el elemento seleccionado.
+- **Deshabilitable**.
+- Emite `(selectedKeyChange)` al hacer clic en una opción.
+- Cierra el panel al hacer clic fuera (comportamiento integrado en el componente).
+
+---
+
+## Class-Based Demo
+
+Ejemplo con controles integrados en la plantilla del story (toggle de disabled, edición de placeholder y botones para fijar/limpiar la selección).
+
+<Canvas of={DropdownClassStories.ClassBasedDemo} />
+
+---
+
+## Props
+
+- `dropdownOptions: { key: string; value: string | number }[]` — opciones.
+- `selectedKey: string | null` — key actualmente seleccionada.
+- `placeholder?: string` — texto a mostrar si no hay selección.
+- `disabled?: boolean` — estado deshabilitado.
+- `selectedKeyChange: Output<string | null>` — evento al seleccionar.
+
+---
+
+## Uso básico
+
+```html
+<dcx-ng-dropdown
+  [dropdownOptions]="[
+    { key: 'red', value: 'Rojo' },
+    { key: 'green', value: 'Verde' },
+    { key: 'blue', value: 'Azul' }
+  ]"
+  [placeholder]="'Selecciona color'"
+  [selectedKey]="selectedKey"
+  (selectedKeyChange)="selectedKey = $event"
+></dcx-ng-dropdown>
+```
