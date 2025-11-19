@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwar
 import { ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-dcx-ng-slider',
+  selector: 'dcx-ng-slider',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './dcx-ng-slider.component.html',

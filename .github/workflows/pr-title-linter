@@ -1,0 +1,24 @@
+
+name: Validate PR Title
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  check-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR title format
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = context.payload.pull_request.title;
+            const regex = /^(feat|fix|test): [A-Z]+-\d+ .+/;
+
+            if (!regex.test(title)) {
+              core.setFailed(`❌ Invalid PR title format: "${title}"
+              Expected format: Feat|fix|test: LC-Numero Titulo`);
+            } else {
+              console.log(`✅ PR title is valid: "${title}"`);
+            }
