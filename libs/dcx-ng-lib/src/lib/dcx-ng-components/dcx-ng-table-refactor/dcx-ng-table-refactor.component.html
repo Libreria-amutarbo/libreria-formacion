@@ -1,0 +1,218 @@
+<div
+  class="table-wrapper"
+  [class.scroll]="scroll()"
+  [style.max-height]="scroll() ? scrollHeight() : null"
+>
+  <table [class.grid]="showGrid()" [class.striped]="showStripped()">
+    <thead>
+      <tr>
+        @for (header of headers(); track header.key) {
+          <th
+            scope="col"
+            (click)="onHeaderClick(header)"
+            (keydown.enter)="onHeaderClick(header)"
+            (keydown.space)="onHeaderClick(header); $event.preventDefault()"
+            [class.sortable]="header.sortable"
+            [attr.aria-sort]="ariaSort(header)"
+            [attr.tabindex]="header.sortable ? 0 : null"
+          >
+            <div class="th-content">
+              <ng-container
+                [ngTemplateOutlet]="getHeaderTemplate(header)"
+                [ngTemplateOutletContext]="{ $implicit: header }"
+              ></ng-container>
+            </div>
+
+            <!-- Input de filtro si la columna es filterable -->
+            @if (header.filterable && header.key) {
+              <div class="filter-input-wrapper">
+                <input
+                  type="text"
+                  class="filter-input"
+                  [placeholder]="'Filtrar ' + header.name"
+                  [value]="getFilterValue(header.key)"
+                  (click)="$event.stopPropagation()"
+                  (input)="onFilterChange(header.key, $any($event.target).value)"
+                />
+              </div>
+            }
+          </th>
+        }
+
+        <th class="menu-col" scope="col">
+          <!-- Cabecera para la columna de menu (si se quiere sobreescribir) -->
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @if (sortedRows().length === 0) {
+        <tr>
+          <td [attr.colspan]="headers().length + 1" class="empty-cell">
+            <ng-container
+              [ngTemplateOutlet]="getEmptyTemplate()"
+              [ngTemplateOutletContext]="{ headers: headers() }"
+            ></ng-container>
+          </td>
+        </tr>
+      } @else {
+        @for (row of paginatedRows(); track row.id; let rowIndex = $index) {
+          <tr class="table-row">
+            @for (header of headers(); track header.key) {
+              <td
+                [class.editable]="header.editable"
+                (dblclick)="onCellDblClick(rowIndex, header.key || '', header)"
+              >
+                @if (isEditing(rowIndex, header.key || '')) {
+                  <input
+                    #editInput
+                    type="text"
+                    class="cell-edit-input"
+                    [value]="row[header.key || '']"
+                    (blur)="onCellEditComplete(row, header.key || '', editInput.value, rowIndex)"
+                    (keydown.enter)="onCellEditComplete(row, header.key || '', editInput.value, rowIndex)"
+                    (keydown.escape)="onCellEditCancel()"
+                  />
+                } @else {
+                  <ng-container
+                    [ngTemplateOutlet]="getCellTemplate(header)"
+                    [ngTemplateOutletContext]="{ $implicit: row, row: row, key: header.key, header: header }"
+                  ></ng-container>
+                }
+              </td>
+            }
+            <td class="menu-col">
+              <ng-container
+                [ngTemplateOutlet]="getMenuTemplate()"
+                [ngTemplateOutletContext]="{ $implicit: row, row: row, index: $index }"
+              ></ng-container>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (paginator() && sortedRows().length > 0) {
+  <div class="paginator">
+    <div class="paginator-left">
+      <button
+        type="button"
+        class="paginator-nav"
+        (click)="goToPage(0)"
+        [disabled]="pageIndex() === 0"
+        aria-label="Primera pagina"
+      >
+        <dcx-ng-icon name="keyboard_double_arrow_left" size="s" />
+      </button>
+      <button
+        type="button"
+        class="paginator-nav"
+        (click)="goToPage(pageIndex() - 1)"
+        [disabled]="pageIndex() === 0"
+        aria-label="Pagina anterior"
+      >
+        <dcx-ng-icon name="chevron_left" size="s" />
+      </button>
+
+      <div class="page-buttons">
+        @for (page of pages(); track page) {
+          <button
+            type="button"
+            class="paginator-page"
+            [class.paginator-page--active]="pageIndex() === page"
+            (click)="goToPage(page)"
+            [attr.aria-current]="pageIndex() === page ? 'page' : null"
+          >
+            {{ page + 1 }}
+          </button>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="paginator-nav"
+        (click)="goToPage(pageIndex() + 1)"
+        [disabled]="pageIndex() >= totalPages() - 1"
+        aria-label="Pagina siguiente"
+      >
+        <dcx-ng-icon name="chevron_right" size="s" />
+      </button>
+
+      <button
+        type="button"
+        class="paginator-nav"
+        (click)="goToPage(totalPages() - 1)"
+        [disabled]="pageIndex() >= totalPages() - 1"
+        aria-label="Ultima pagina"
+      >
+        <dcx-ng-icon name="keyboard_double_arrow_right" size="s" />
+      </button>
+    </div>
+
+    <div class="paginator-right">
+      <span class="range">
+        {{ pageStart() }} - {{ pageEnd() }} de {{ sortedRows().length }}
+      </span>
+      <label class="rows-per-page">
+        Filas:
+        <dcx-ng-select
+          [options]="rowsPerPageOptionsFormatted()"
+          (valueChange)="onRowsPerPageChange($event)"
+        />
+        <!-- SFP: Deprecated Review y eliminar si todo ok -->
+        <!-- <select
+            [value]="pageSize()"
+            (change)="onRowsPerPageChange($any($event.target).value)"
+          >
+            @for (option of rowsPerPageOptions(); track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select> -->
+      </label>
+    </div>
+  </div>
+}
+
+<!-- Templates internos por defecto -->
+
+<ng-template #defaultHeaderTpl let-header>
+  <strong>{{ header.name }}</strong>
+
+  @if (header.sortable) {
+    <span class="sort-indicator" aria-hidden="true">
+      <dcx-ng-icon [name]="getSortIcon(header)" size="s" />
+    </span>
+  }
+</ng-template>
+
+<ng-template #defaultCellTpl let-row let-key="key" let-header="header">
+  @if (header.renderFn) {
+    {{ header.renderFn(row, key) }}
+  } @else {
+    {{ row?.[key] }}
+  }
+</ng-template>
+
+<!-- Template genérico incorporado: fecha con formato configurable -->
+
+<ng-template #builtInDateTpl let-row let-key="key" let-header="header">
+  <span style="color: #666;">
+    {{ row?.[key] | date: (header.dateConfig?.dateFormat || 'dd/MM/yyyy HH:mm') }}
+  </span>
+</ng-template>
+
+<ng-template #defaultMenuCellTpl let-row="row" let-index="index">
+  <button
+    type="button"
+    class="btn icon"
+    title="Menú contextual"
+    disabled
+    aria-disabled="true"
+  >
+    <dcx-ng-icon name="more_vert" size="m" />
+  </button>
+</ng-template>
+
+<ng-template #defaultEmptyTpl> No hay datos </ng-template>

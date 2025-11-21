@@ -1,0 +1,164 @@
+<section>
+  <h2>Ejemplo 1 �?" Striped + Sort (Componente Refactorizado)</h2>
+
+  <dcx-ng-table-refactor
+    [headers]="headers1"
+    [rows]="rows1"
+    [showStripped]="true"
+    [scroll]="false"
+    scrollHeight="220px"
+    (sortChange)="onSort($event, 'ex1')"
+  >
+  </dcx-ng-table-refactor>
+</section>
+
+<hr />
+
+<section>
+  <h2>Ejemplo 2 �?" Grid + Scroll + Sort</h2>
+  <dcx-ng-table-refactor
+    [headers]="headers2"
+    [rows]="rows2"
+    [showGrid]="true"
+    [scroll]="true"
+    scrollHeight="240px"
+    (sortChange)="onSort($event, 'ex2')"
+  ></dcx-ng-table-refactor>
+</section>
+
+<hr />
+
+<section>
+  <h2>Ejemplo 3 — Paginación + tamaño de página</h2>
+  <dcx-ng-table-refactor
+    [headers]="headers3"
+    [rows]="rows3"
+    [paginator]="true"
+    [rowsPerPage]="rowsPerPageEx3"
+    [rowsPerPageOptions]="[5, 10, 15]"
+    (sortChange)="onSort($event, 'ex3')"
+    (rowsPerPageChange)="onRowsPerPageChange($event)"
+    (pageChange)="onPageChange($event)"
+  ></dcx-ng-table-refactor>
+</section>
+
+<hr />
+
+<section>
+  <h2>Ejemplo 4 — Templates Personalizados (Fecha, Imagen, Precio, Badge)</h2>
+  <dcx-ng-table-refactor
+    [headers]="headers4"
+    [rows]="rows4"
+    [showStripped]="true"
+    [paginator]="false"
+  >
+    <!-- Template para usuario con avatar -->
+    <ng-template dcxNgTableTemplateRefactor="userTemplate" let-row>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img
+          [src]="row.avatar"
+          [alt]="row.user"
+          style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;"
+        />
+        <span style="font-weight: 500;">{{ row.user }}</span>
+      </div>
+    </ng-template>
+
+    <!-- Template para fecha formateada -->
+    <ng-template dcxNgTableTemplateRefactor="dateTemplate" let-row>
+      <span style="color: #666;">
+        {{ row.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+      </span>
+    </ng-template>
+
+    <!-- Template para precio con formato moneda -->
+    <ng-template dcxNgTableTemplateRefactor="priceTemplate" let-row>
+      <span style="font-weight: 600; color: #2d5a27;">
+        {{ row.amount | currency: 'EUR':'symbol':'1.2-2':'es' }}
+      </span>
+    </ng-template>
+
+    <!-- Template para estado con badge -->
+    <ng-template dcxNgTableTemplateRefactor="statusTemplate" let-row>
+      <span
+        [style.background-color]="
+          row.status === 'active' ? '#d4edda' :
+          row.status === 'pending' ? '#fff3cd' :
+          '#f8d7da'
+        "
+        [style.color]="
+          row.status === 'active' ? '#155724' :
+          row.status === 'pending' ? '#856404' :
+          '#721c24'
+        "
+        style="padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 500; text-transform: capitalize;"
+      >
+        {{ 
+          row.status === 'active' ? 'Activo' :
+          row.status === 'pending' ? 'Pendiente' :
+          'Inactivo'
+        }}
+      </span>
+    </ng-template>
+  </dcx-ng-table-refactor>
+</section>
+
+<hr />
+
+<section>
+  <h2>Ejemplo 5 — Template Genérico de Fecha y Funciones de Renderizado</h2>
+  <p style="color: #666; margin-bottom: 16px;">
+    Este ejemplo muestra el uso del
+    <strong>template genérico de fecha</strong> incorporado (con formato
+    configurable), y <strong>funciones de renderizado</strong> personalizadas
+    para moneda y otros valores.
+  </p>
+  <dcx-ng-table-refactor
+    [headers]="headers5"
+    [rows]="rows5"
+    [showStripped]="true"
+    [paginator]="false"
+  >
+    <!-- Reutilizamos el template de estado del ejemplo 4 -->
+    <ng-template dcxNgTableTemplateRefactor="statusTemplate" let-row>
+      <span
+        [style.background-color]="
+          row.status === 'active' ? '#d4edda' :
+          row.status === 'pending' ? '#fff3cd' :
+          '#f8d7da'
+        "
+        [style.color]="
+          row.status === 'active' ? '#155724' :
+          row.status === 'pending' ? '#856404' :
+          '#721c24'
+        "
+        style="padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 500; text-transform: capitalize;"
+      >
+        {{ 
+          row.status === 'active' ? 'Activo' :
+          row.status === 'pending' ? 'Pendiente' :
+          'Inactivo'
+        }}
+      </span>
+    </ng-template>
+  </dcx-ng-table-refactor>
+</section>
+
+<hr />
+
+<section>
+  <h2>Ejemplo 6  Filtrado por Columna y Celdas Editables</h2>
+  <p style="color: #666; margin-bottom: 16px;">
+    Las columnas <strong>Producto</strong> y <strong>Categoría</strong> tienen filtrado (escribe en los inputs).
+    Las columnas <strong>Precio</strong> y <strong>Stock</strong> son editables (doble click para editar).
+  </p>
+  <dcx-ng-table-refactor
+    [headers]="headers6"
+    [rows]="rows6"
+    [showGrid]="true"
+    [paginator]="true"
+    [rowsPerPage]="5"
+    (cellEdit)="onCellEdit($event)"
+  >
+  </dcx-ng-table-refactor>
+</section>
