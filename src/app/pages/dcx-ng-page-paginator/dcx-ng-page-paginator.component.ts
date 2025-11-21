@@ -21,17 +21,14 @@ export class DcxNgPagePaginatorComponent {
     disabled: boolean = false;
 
     onPageChange(page: number) {
-        console.log('Página cambiada a:', page);
         this.currentPage = page;
         this.pageSelected = page;
     }
 
     onNextPage() {
-        console.log('Botón siguiente presionado');
     }
 
     onPrevPage() {
-        console.log('Botón anterior presionado');
     }
 
     togglePrevDisabled() {
