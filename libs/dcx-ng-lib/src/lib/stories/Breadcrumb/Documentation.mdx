@@ -1,0 +1,40 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as BCUn from './UnStyled.stories';
+import * as BCClass from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Breadcrumb/Documentation" />
+
+# Breadcrumb
+
+`dcx-ng-breadcrumb` muestra la ruta de navegación desde la raíz hasta la página actual.
+
+- **API mínima**: `@Input() items: { label: string; href?: string }[]`
+- Último ítem se marca como **actual** (`aria-current="page"`).
+- Separador por defecto: `/`.
+- Semántica accesible: `<nav aria-label="Breadcrumb">` + `<ol role="list">`.
+
+---
+
+## Unstyled
+
+<Canvas of={BCUn.Basic} />
+
+---
+
+## Class-Based
+
+<Canvas of={BCClass.ClassBasedDemo} />
+
+---
+
+## Uso
+
+```html
+<dcx-ng-breadcrumb
+  [items]="[
+    { label: 'Home', href: '/' },
+    { label: 'Library', href: '/library' },
+    { label: 'Data' }
+  ]">
+</dcx-ng-breadcrumb>
+```

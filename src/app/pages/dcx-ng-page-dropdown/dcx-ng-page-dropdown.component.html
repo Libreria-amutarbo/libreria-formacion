@@ -1,0 +1,43 @@
+<section class="demo">
+  <article class="card">
+    <dcx-ng-dropdown
+      [dropdownOptions]="colors"
+      [selectedKey]="selectedColorKey()"
+      (selectedKeyChange)="selectedColorKey.set($event); log('Normal', $event)"
+    >
+    </dcx-ng-dropdown>
+
+    <div class="text">
+      Key seleccionada: <strong>{{ selectedColorKey() ?? '(ninguna)' }}</strong>
+    </div>
+  </article>
+
+  <article class="card">
+    <dcx-ng-dropdown
+      [dropdownOptions]="sizes"
+      [disabled]="isDisabled()"
+      [selectedKey]="selectedSizeKey()"
+      (selectedKeyChange)="selectedSizeKey.set($event); log('Disabled', $event)"
+    >
+    </dcx-ng-dropdown>
+
+    <div class="text">
+      Key seleccionada: <strong>{{ selectedSizeKey() ?? '(ninguna)' }}</strong>
+    </div>
+  </article>
+
+  <article class="card">
+    <dcx-ng-dropdown
+      [dropdownOptions]="versions"
+      [placeholder]="placeholderText"
+      [selectedKey]="selectedVersionKey()"
+      (selectedKeyChange)="selectedVersionKey.set($event); log('Placeholder', $event)"
+    >
+    </dcx-ng-dropdown>
+
+    <div class="text">
+      Key seleccionada:
+      <strong>{{ selectedVersionKey() ?? '(ninguna)' }}</strong>
+    </div>
+  </article>
+</section>
