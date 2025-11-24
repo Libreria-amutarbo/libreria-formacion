@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -7,7 +13,7 @@ import {
 } from '@angular/forms';
 
 interface SelectOptions {
-  value: any;
+  value: string | number;
   label: string;
 }
 
@@ -38,24 +44,27 @@ export class DcxNgSelectComponent implements ControlValueAccessor {
   /** Nombre accesible (solo si NO hay label visible) */
   @Input() ariaLabel = '';
 
+  /** Emite el valor cuando cambia */
+  @Output() valueChange = new EventEmitter<string | number | null>();
+
   /** id único para asociar <label for> con <select id> */
   selectId = `dcx-select-${Math.random().toString(36).slice(2)}`;
 
   disabled = false;
-  value: any = null;
+  value: string | number | null = null;
 
-  private onChange: (value: any) => void = () => { };
-  private onTouched: () => void = () => { };
+  private onChange: (value: string | number | null) => void = () => {};
+  private onTouched: () => void = () => {};
 
-  writeValue(value: any): void {
+  writeValue(value: string | number | null): void {
     this.value = value ?? null;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string | number | null) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
@@ -69,6 +78,7 @@ export class DcxNgSelectComponent implements ControlValueAccessor {
     const newValue = raw ?? null;
     this.value = newValue;
     this.onChange(this.value);
+    this.valueChange.emit(this.value);
   }
 
   handleBlur() {
