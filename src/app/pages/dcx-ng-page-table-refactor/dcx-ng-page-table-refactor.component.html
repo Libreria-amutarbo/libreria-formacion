@@ -147,17 +147,19 @@
 <hr />
 
 <section>
-  <h2>Ejemplo 6  Filtrado por Columna y Celdas Editables</h2>
+  <h2>Ejemplo 6 Filtrado por Columna y Celdas Editables</h2>
   <p style="color: #666; margin-bottom: 16px;">
-    Las columnas <strong>Producto</strong> y <strong>Categoría</strong> tienen filtrado (escribe en los inputs).
-    Las columnas <strong>Precio</strong> y <strong>Stock</strong> son editables (doble click para editar).
+    Las columnas <strong>Producto</strong> y <strong>Categoría</strong> tienen
+    filtrado (escribe en los inputs). Las columnas <strong>Precio</strong> y
+    <strong>Stock</strong> son editables (doble click para editar).
   </p>
   <dcx-ng-table-refactor
     [headers]="headers6"
     [rows]="rows6"
     [showGrid]="true"
     [paginator]="true"
-    [rowsPerPage]="5"
+    [rowsPerPage]="rowsPerPageEx6"
+    (rowsPerPageChange)="onRowsPerPageChange($event)"
     (cellEdit)="onCellEdit($event)"
   >
   </dcx-ng-table-refactor>

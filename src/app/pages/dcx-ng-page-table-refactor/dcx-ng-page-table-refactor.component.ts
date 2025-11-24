@@ -20,6 +20,7 @@ import {
 })
 export class DcxNgPageTableRefactorComponent {
   rowsPerPageEx3 = 5;
+  rowsPerPageEx6 = 5;
   headers1: HeaderData[] = [
     {
       name: 'ID',
@@ -104,6 +105,7 @@ export class DcxNgPageTableRefactorComponent {
   onRowsPerPageChange(newSize: number) {
     console.log('Rows per page changed:', newSize);
     this.rowsPerPageEx3 = newSize;
+    this.rowsPerPageEx6 = newSize;
   }
 
   onPageChange(newPage: number) {
