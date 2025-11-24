@@ -1,0 +1,37 @@
+@import '../../../scss/main.scss';
+:host { display: inline-block; }
+
+.dcx-ng-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+
+  input[type='radio'] {
+    width: var(--dcx-radio-size, 1rem);
+    height: var(--dcx-radio-size, 1rem);
+    accent-color: map-get($color, "primary"); 
+    
+    &:disabled { 
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  &.unstyled input[type='radio'] {
+    accent-color: map-get($color, "gray");
+  }
+
+  &--s { --dcx-radio-size: 0.875rem; }
+  &--m { --dcx-radio-size: 1rem; }
+  &--l { --dcx-radio-size: 1.25rem; }
+
+  &.unstyled { 
+    color: map-get($color, "gray");
+  }
+
+  &:has(input:disabled) {
+    cursor: not-allowed;
+    color: map-get($color, "gray-light");
+  }
+}

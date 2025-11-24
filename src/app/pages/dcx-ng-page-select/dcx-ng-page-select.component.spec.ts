@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgPageSelectComponent } from './dcx-ng-select.component';
+import { DcxNgPageSelectComponent } from './dcx-ng-page-select.component';
 
 describe('DcxNgPageSelectComponent', () => {
   let component: DcxNgPageSelectComponent;

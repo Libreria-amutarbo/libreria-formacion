@@ -9,4 +9,4 @@ import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
   templateUrl: './dcx-ng-page-icon.component.html',
   styleUrl: './dcx-ng-page-icon.component.scss',
 })
-export class DcxNgPageIconComponent {}
+export class DcxNgPageIconComponent { }

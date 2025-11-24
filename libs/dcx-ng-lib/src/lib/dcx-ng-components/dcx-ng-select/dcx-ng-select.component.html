@@ -1,24 +1,28 @@
-<select
-  class="dcx-ng-select"
-  [disabled]="disabled"
-  [attr.aria-label]="ariaLabel"
-  [ngModel]="selected"
-  (ngModelChange)="onSelect($event)"
-  (blur)="onTouched()"
-  role="select"
->
-  @if (placeholder) {
-    <option [ngValue]="null" disabled hidden>
-      {{ placeholder }}
-    </option>
-  }
+@if (label) {
+  <label class="dcx-ng-select__label" [attr.for]="selectId">
+    {{ label }}
+  </label>
+}
 
-  @for (option of options; track option.value) {
-    <option
-      [value]="option.value"
-      [attr.aria-selected]="selected === option.value"
-    >
-      {{ option.label }}
-    </option>
-  }
-</select>
+<div class="dcx-ng-select__wrapper" [class.is-disabled]="disabled">
+  <select
+    [id]="selectId"
+    class="dcx-ng-select"
+    [disabled]="disabled"
+    (change)="handleChange($event)"
+    (blur)="handleBlur()"
+    [attr.aria-label]="ariaLabel || null"
+  >
+    @if (placeholder) {
+      <option value="" disabled hidden [selected]="value === null">
+        {{ placeholder }}
+      </option>
+    }
+
+    @for (option of options; track option.value) {
+      <option [value]="option.value" [selected]="option.value === value">
+        {{ option.label }}
+      </option>
+    }
+  </select>
+</div>

@@ -1,24 +1,22 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  forwardRef,
-  HostBinding,
-} from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
-  FormsModule,
   NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
 } from '@angular/forms';
+
+interface SelectOptions {
+  value: any;
+  label: string;
+}
 
 @Component({
   selector: 'dcx-ng-select',
+  standalone: true,
   templateUrl: './dcx-ng-select.component.html',
   styleUrls: ['./dcx-ng-select.component.scss'],
-  standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -26,26 +24,31 @@ import {
       multi: true,
     },
   ],
+  host: {
+    '[attr.disabled]': 'disabled ? "" : null',
+  },
 })
 export class DcxNgSelectComponent implements ControlValueAccessor {
-  @Input() options: { value: string; label: string }[] = [];
-  @Input() disabled = false;
-  @Input() placeholder: string | null = null;
+  @Input() options: SelectOptions[] = [];
+  @Input() placeholder = '';
+
+  /** Texto visible encima del select */
+  @Input() label = '';
+
+  /** Nombre accesible (solo si NO hay label visible) */
   @Input() ariaLabel = '';
 
-  @Output() selectionChange = new EventEmitter<string>();
+  /** id único para asociar <label for> con <select id> */
+  selectId = `dcx-select-${Math.random().toString(36).slice(2)}`;
 
-  selected: string | null = null;
+  disabled = false;
+  value: any = null;
 
-  @HostBinding('attr.aria-label') get ariaLabelBinding() {
-    return this.ariaLabel || 'Select field';
-  }
+  private onChange: (value: any) => void = () => { };
+  private onTouched: () => void = () => { };
 
-  onChange = (value: any) => {};
-  onTouched = () => {};
-
-  writeValue(value: string | null): void {
-    this.selected = value;
+  writeValue(value: any): void {
+    this.value = value ?? null;
   }
 
   registerOnChange(fn: any): void {
@@ -56,13 +59,23 @@ export class DcxNgSelectComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  onSelect(value: string) {
-    this.selected = value;
-    this.onChange(value);
-    this.selectionChange.emit(value);
+  handleChange(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const raw = select.value;
+    const newValue = raw ?? null;
+    this.value = newValue;
+    this.onChange(this.value);
+  }
+
+  handleBlur() {
+    this.onTouched();
+  }
+
+  trackByValue(_index: number, option: SelectOptions) {
+    return option.value;
   }
 }

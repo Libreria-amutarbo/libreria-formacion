@@ -1,0 +1,76 @@
+@import '../../../scss/main.scss';
+
+:host {
+  display: inline-flex;
+}
+
+.dcx-ng-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: default;
+  
+  &--primary { background-color: map-get($color, "primary"); color: map-get($color, "text-inverse"); }
+  &--secondary { background-color: map-get($color, "secondary"); color: map-get($color, "text-inverse"); }
+  &--success { background-color: map-get($color, "success"); color: map-get($color, "text-inverse"); }
+  &--warning { background-color: map-get($color, "warning"); color: map-get($color, "text-primary"); }
+  &--error { background-color: map-get($color, "error"); color: map-get($color, "text-inverse"); }
+  &--info { background-color: map-get($color, "info"); color: map-get($color, "text-inverse"); }
+  &--gray { background-color: map-get($color, "gray"); color: map-get($color, "text-inverse"); }
+  &--gray-light { background-color: map-get($color, "gray-light"); color: map-get($color, "text-primary"); }
+
+  &__image {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__remove-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    color: #000000;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    margin-left: 0.25rem;
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    line-height: 1;
+    transform: translateY(-0.2rem);
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      opacity: 0.5;
+    }
+  }
+}

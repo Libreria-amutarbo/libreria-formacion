@@ -1,0 +1,21 @@
+<label
+  class="dcx-ng-radio"
+  [ngClass]="sizeClass"
+  [class.unstyled]="unstyled"
+  [attr.aria-label]="ariaLabelBinding"
+  [attr.aria-disabled]="disabled"
+>
+  <input
+    type="radio"
+    [name]="name"
+    [value]="value"
+    [formControl]="formControl"
+    [disabled]="disabled"
+    (blur)="onTouched()"
+  />
+  
+  @if (label) {
+    <span>{{ label }}</span>
+  }
+  
+</label>

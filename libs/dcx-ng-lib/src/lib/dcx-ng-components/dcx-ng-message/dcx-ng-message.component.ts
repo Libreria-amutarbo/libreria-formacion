@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { Component, computed, input, Signal } from '@angular/core';
 
 export type MessageType = 'notification' | 'error' | 'warning' | 'success';
@@ -14,7 +15,7 @@ interface DcxNgMessageComponentInputs {
 @Component({
   selector: 'dcx-ng-message',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DcxNgIconComponent],
   templateUrl: './dcx-ng-message.component.html',
   styleUrl: './dcx-ng-message.component.scss',
 })

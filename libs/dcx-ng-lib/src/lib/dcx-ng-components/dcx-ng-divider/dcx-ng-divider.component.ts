@@ -2,7 +2,7 @@ import { Component, HostBinding, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 type DividerOrientation = 'horizontal' | 'vertical';
-type DividerSize = 'small' | 'medium' | 'large';
+type DividerSize = 'small' | 'medium' | 'large' | 'auto';
 
 @Component({
   selector: 'dcx-ng-divider',
@@ -13,9 +13,9 @@ type DividerSize = 'small' | 'medium' | 'large';
 })
 export class DcxNgDividerComponent {
   @Input() color = '#ff0000';
-  @Input() size: DividerSize = 'medium';
+  @Input() size: DividerSize = 'auto';
   @Input() orientation: DividerOrientation = 'horizontal';
-  @Input() thickness = 1;
+  @Input() thickness = 0.25;
   @Input() ariaLabel = '';
 
   @HostBinding('style.--dcx-divider-color') get dividerColor() {

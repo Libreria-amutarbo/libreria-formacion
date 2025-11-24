@@ -1,0 +1,115 @@
+p {
+  font-size: var(--font-size-body-large);
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-m);
+}
+
+.dcx-ng-input {
+  box-sizing: content-box;
+  --input-height: var(--spacing-s);
+  --input-width: var(--spacing-m);
+  --input-font-size: var(--font-size-body);
+  --input-padding-vertical: var(--spacing-inset-xs);
+  --input-padding-horizontal: var(--spacing-inset-m);
+
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-background);
+  border: 2px solid var(--color-primary-light);
+  color: var(--color-text-primary);
+
+  height: var(--input-height);
+  width: calc(var(--input-width) * 5);
+  font-size: var(--input-font-size);
+  padding: var(--input-padding-vertical) var(--input-padding-horizontal);
+
+  &-size--s {
+    --input-height: var(--spacing-xs);
+    --input-width: var(--spacing-s);
+    --input-font-size: var(--font-size-body-small);
+    --input-padding-vertical: var(--spacing-inset-xs);
+    --input-padding-horizontal: var(--spacing-inset-s);
+  }
+  &-size--m {
+    --input-height: var(--spacing-xs);
+    --input-width: var(--spacing-m);
+    --input-font-size: var(--font-size-body);
+    --input-padding-vertical: var(--spacing-inset-xs);
+    --input-padding-horizontal: var(--spacing-inset-m);
+  }
+  &-size--l {
+    --input-height: var(--spacing-s);
+    --input-width: var(--spacing-l);
+    --input-font-size: var(--font-size-body);
+    --input-padding-vertical: var(--spacing-inset-s);
+    --input-padding-horizontal: var(--spacing-inset-m);
+  }
+  &-size--xl {
+    --input-height: var(--spacing-s);
+    --input-width: var(--spacing-xl);
+    --input-font-size: var(--font-size-body-large);
+    --input-padding-vertical: var(--spacing-inset-s);
+    --input-padding-horizontal: var(--spacing-inset-m);
+  }
+  &-size--auto {
+    --input-height: var(--spacing-s);
+    --input-font-size: var(--font-size-body-large);
+    --input-padding-vertical: var(--spacing-inset-s);
+    --input-padding-horizontal: var(--spacing-inset-m);
+    width: calc(100% - var(--input-padding-horizontal) * 2);
+  }
+
+  &--no-styles {
+    background-color: transparent;
+    border: 2px solid black;
+    color: black;
+  }
+
+  &:focus {
+    border: 2px solid var(--color-primary);
+    background-color: var(--color-gray-lighter);
+    outline: none;
+  }
+}
+
+.required {
+  border: 2px solid var(--color-error);
+}
+
+.required-icon {
+  color: var(--color-error);
+  font-size: var(--font-size-body-small);
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.disabled {
+  background-color: var(--color-gray-light);
+  border: 2px solid var(--color-primary-light);
+  color: var(--color-text-disabled);
+  pointer-events: none;
+}
+
+.invalid {
+  border: 2px solid var(--color-error);
+  color: var(--color-error);
+}
+
+.invalid-message {
+  width: auto;
+  color: var(--color-error);
+  font-size: var(--font-size-body-small);
+}

@@ -1,0 +1,90 @@
+@import '../../../scss/main.scss';
+
+:host {
+  display: block;
+}
+
+.dcx-icon-field-wrapper {
+  @include flex-column;
+  width: 100%;
+}
+
+.dcx-icon-field-container {
+  position: relative;
+  @include flex-row;
+  align-items: center;
+  width: 100%;
+}
+
+.dcx-icon-field-input {
+  flex: 1;
+  @include body-text;
+  @include padding-horizontal('inset-m');
+  @include padding-vertical('inset-s');
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-body-small);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  outline: none;
+  @include transition-base;
+
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 112, 173, 0.1);
+  }
+
+  &:disabled {
+    background-color: var(--color-background-alt);
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: var(--color-text-secondary);
+  }
+}
+
+.dcx-icon-left {
+  position: absolute;
+  left: var(--spacing-inset-s);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: var(--color-text-secondary);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 20px;
+
+  ~ .dcx-icon-field-input {
+    padding-left: calc(var(--spacing-inset-m) + var(--spacing-l));
+  }
+}
+
+.dcx-icon-right {
+  position: absolute;
+  right: var(--spacing-inset-s);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: var(--color-text-secondary);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 20px;
+
+  ~ .dcx-icon-field-input,
+  + .dcx-icon-field-input {
+    padding-right: calc(var(--spacing-inset-m) + var(--spacing-l));
+  }
+}
+
+.dcx-icon-left ~ .dcx-icon-field-input {
+  &:has(~ .dcx-icon-right) {
+    padding-left: calc(var(--spacing-inset-m) + var(--spacing-l));
+    padding-right: calc(var(--spacing-inset-m) + var(--spacing-l));
+  }
+}

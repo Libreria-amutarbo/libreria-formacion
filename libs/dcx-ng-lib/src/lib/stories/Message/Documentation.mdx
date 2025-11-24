@@ -1,0 +1,109 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as MessageClassBasedStories from './ClassBased.stories';
+import * as MessageUnstyledStories from './UnStyled.stories';
+
+<Meta title="DCXLibrary/Message/Documentation" />
+
+# Message
+
+The `dcx-ng-message` component is a flexible and accessible messaging system that displays different types of notifications to users.
+It supports multiple message types with customizable content, icons, and interactive elements.
+
+---
+
+## Unstyled Version
+
+This version provides the base HTML structure without predefined styles, allowing complete customization.
+
+<Canvas of={MessageUnstyledStories.BasicStructure} />
+
+---
+
+## Class-Based Version
+
+This version includes default styling using BEM-based classes and SCSS.
+Supports customization through type, title, icon, and interactive elements.
+
+<Canvas of={MessageClassBasedStories.Playground} />
+
+---
+
+### Available Properties
+
+- **body**: `string` — Main message content (required)
+- **type**: `'notification' | 'error' | 'warning' | 'success'` — Message type that determines styling and ARIA role (default: 'notification')
+- **title**: `string | undefined` — Optional heading displayed above the message content
+- **link**: `string | undefined` — Optional URL that appears as a link below the message
+- **icon**: `boolean` — Controls whether to display an icon (default: false)
+- **showClose**: `boolean` — Controls whether to display a close button (default: false)
+
+---
+
+## Message Types
+
+The component supports four distinct message types for different scenarios:
+
+### Notification
+
+For general information and system updates.
+
+<Canvas of={MessageClassBasedStories.Notification} />
+
+### Error
+
+For validation errors and system failures.
+
+<Canvas of={MessageClassBasedStories.Error} />
+
+### Warning
+
+For important alerts and irreversible actions.
+
+<Canvas of={MessageClassBasedStories.Warning} />
+
+### Success
+
+For positive feedback and successful operations.
+
+<Canvas of={MessageClassBasedStories.Success} />
+
+---
+
+## Usage Examples
+
+The message component can be used in various configurations:
+
+```html
+<!-- Basic usage -->
+<dcx-ng-message body="Operation completed successfully"></dcx-ng-message>
+
+<!-- Complete usage -->
+<dcx-ng-message
+  body="Configuration issue detected"
+  type="warning"
+  title="Attention Required"
+  link="https://docs.example.com/config"
+  [icon]="true"
+  [showClose]="true">
+</dcx-ng-message>
+
+<!-- Programmatic usage -->
+<dcx-ng-message
+  [body]="messageConfig.body"
+  [type]="messageConfig.type"
+  [title]="messageConfig.title"
+  [icon]="messageConfig.icon"
+  [showClose]="messageConfig.showClose">
+</dcx-ng-message>
+```
+
+---
+
+## Accessibility
+
+The component includes comprehensive accessibility features:
+
+- **ARIA roles**: Each message type has appropriate semantic roles (notification, error, warning, success)
+- **Keyboard navigation**: Close button is accessible via keyboard
+- **Semantic structure**: Uses `<h2>` for titles and proper HTML hierarchy
+- **Descriptive links**: URLs are accessible with proper context
