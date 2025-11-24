@@ -1,4 +1,8 @@
 export * from './lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
+export * from './lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
+export * from './lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
+export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
+export * from './lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component';
 export * from './lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
 export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 export * from './lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component';
@@ -14,6 +18,8 @@ export * from './lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component';
 export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 export * from './lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
 export * from './lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+export * from './lib/dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component';
+export * from './lib/dcx-ng-components/dcx-ng-breadcrumb/dcx-ng-breadcrumb.component';
 export * from './lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component';
 export * from './lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component';
 export * from './lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component';

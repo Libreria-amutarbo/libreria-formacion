@@ -3,7 +3,7 @@ import { DcxNgSliderComponent } from '../../dcx-ng-components/dcx-ng-slider/dcx-
 import { moduleMetadata } from '@storybook/angular';
 
 const meta: Meta<DcxNgSliderComponent> = {
-  title: 'DCXLibrary/Slider/Class based',
+  title: 'DCXLibrary/Slider/ClassBased',
   component: DcxNgSliderComponent,
   decorators: [
     moduleMetadata({
@@ -20,12 +20,12 @@ Soporta personalización de paso, orientación y muestra el valor en tiempo real
 
 ### Uso básico
 \`\`\`html
-<app-dcx-ng-slider [value]="10" [step]="1"></app-dcx-ng-slider>
+<dcx-ng-slider [value]="10" [step]="1"></dcx-ng-slider>
 \`\`\`
 
 ### Vertical
 \`\`\`html
-<app-dcx-ng-slider [value]="50" [step]="5" [vertical]="true"></app-dcx-ng-slider>
+<dcx-ng-slider [value]="50" [step]="5" [vertical]="true"></dcx-ng-slider>
 \`\`\`
         `,
       },
