@@ -1,6 +1,14 @@
-.material-icons {
-  font-family: 'Material Icons';
+.bi {
+  display: inline-block;
   vertical-align: middle;
+  font-family: 'bootstrap-icons' !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   &--s {
     font-size: 0.75rem;

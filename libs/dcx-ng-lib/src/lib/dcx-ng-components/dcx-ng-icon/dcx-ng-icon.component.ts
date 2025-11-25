@@ -18,9 +18,9 @@ export class DcxNgIconComponent {
   @Input() name = '';
 
   @HostBinding('class') get iconClass() {
-    const base = ['material-icons', `material-icons--${this.size}`];
+    const base = ['bi', `bi-${this.name}`, `bi--${this.size}`];
     if (this.spacing !== 'none') {
-      base.push(`material-icons--${this.spacing}`);
+      base.push(`bi--${this.spacing}`);
     }
 
     return base.join(' ');
