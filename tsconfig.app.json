@@ -10,7 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-"types": ["node", "@storybook/jest", "@storybook/testing-library"],
+"types": ["node"],
 
   },
   "files": ["src/main.ts"],

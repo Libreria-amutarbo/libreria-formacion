@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgCardComponent } from './dcx-ng-card.component';
 
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { within, expect } from '@storybook/test';
 
 const meta: Meta<DcxNgCardComponent> = {
   component: DcxNgCardComponent,

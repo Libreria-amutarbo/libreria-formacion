@@ -1,6 +1,5 @@
 @use "sass:map";
-@use '../base' as base;
-
+@use '../base' as *;
 // Mixins útiles para tipografía
 @mixin heading-1 {
   font-family: map.get($fonts, "primary");

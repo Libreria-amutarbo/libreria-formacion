@@ -21,7 +21,7 @@
     
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "types": ["node", "@storybook/jest", "@storybook/testing-library"],
+    "types": ["node", "jest"]
 
   },
   "exclude": ["node_modules", "tmp"]

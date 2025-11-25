@@ -33,7 +33,7 @@ export const DefaultTooltip: Story = {
     position: TooltipPosition.TOP,
     hideTooltipOnClick: false,
   },
-  render: (args: NxArgs) => ({
+  render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; display: flex;">
@@ -49,7 +49,7 @@ export const LeftTooltip: Story = {
     position: TooltipPosition.LEFT,
     content: 'Tooltip on the left',
   },
-  render: (args: NxArgs) => ({
+  render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; display: flex;">
@@ -65,7 +65,7 @@ export const RightTooltip: Story = {
     position: TooltipPosition.RIGHT,
     content: 'Tooltip on the right',
   },
-  render: (args: NxArgs) => ({
+  render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; display: flex;">
@@ -81,7 +81,7 @@ export const BottomTooltip: Story = {
     position: TooltipPosition.BOTTOM,
     content: 'Tooltip on the bottom',
   },
-  render: (args: NxArgs) => ({
+  render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; display: flex;">
@@ -97,7 +97,7 @@ export const TopTooltip: Story = {
     position: TooltipPosition.TOP,
     content: 'Tooltip on the top',
   },
-  render: (args: NxArgs) => ({
+  render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; display: flex;">
@@ -113,7 +113,7 @@ export const HideOnClickTooltip: Story = {
     content: 'Tooltip on the top',
     hideTooltipOnClick: true,
   },
-  render: (args: NxArgs) => ({
+  render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; display: flex;">
@@ -130,7 +130,7 @@ export const ViewportEdgePositioning: Story = {
     content: 'This tooltip intelligently adjusts its position to stay within the viewport boundaries',
     position: TooltipPosition.TOP,
   },
-  render: (args: NxArgs) => ({
+  render: (args) => ({
     props: args,
     template: `
     <div style="height: 600px; width: 10s00px; position: relative;">
@@ -192,7 +192,7 @@ export const LongContentTooltip: Story = {
     content: 'This is a very long tooltip content that should wrap properly and test the intelligent positioning system with longer text that might cause issues with viewport boundaries when positioned near edges.',
     position: TooltipPosition.LEFT,
   },
-  render: (args: NxArgs) => ({
+  render: (args) => ({
     props: args,
     template: `
     <div style="height: 200px; position: relative; padding: 20px;">

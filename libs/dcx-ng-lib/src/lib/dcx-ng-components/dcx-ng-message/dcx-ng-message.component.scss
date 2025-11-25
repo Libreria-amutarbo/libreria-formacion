@@ -1,6 +1,6 @@
-@use '../../../scss/main.scss';
 @use 'sass:map';
 @use 'sass:color';
+@use '../../../scss/main' as *;
 
 @mixin message-type($color) {
   border: 1px solid $color;
@@ -20,10 +20,12 @@
     }
   }
 }
+
 .message__container__link {
   text-decoration: underline;
   font-size: 0.7rem;
 }
+
 .message__container {
   border-radius: 0.25rem;
   padding: 0.5rem;
@@ -49,16 +51,16 @@
 }
 
 .error {
-  @include message-type(map.get(main.$color, 'error'));
+  @include message-type(map.get($color, 'error'));
 }
 .warning {
-  @include message-type(map.get(main.$color, 'warning'));
+  @include message-type(map.get($color, 'warning'));
 }
 .notification {
-  @include message-type(map.get(main.$color, 'info'));
+  @include message-type(map.get($color, 'info'));
 }
 .success {
-  @include message-type(map.get(main.$color, 'success'));
+  @include message-type(map.get($color, 'success'));
 }
 
 .icon__container {

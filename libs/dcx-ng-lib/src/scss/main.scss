@@ -1,4 +1,7 @@
 
+@forward './base';
+@forward './utils';
+
 @use './base' as base;
 @use './utils' as utils;
 @use 'sass:map';
