@@ -8,9 +8,9 @@ export enum SortType {
 
 /**
  * Configuración para el template genérico de fecha
+ /** Formato de fecha para DatePipe. Ej: 'dd/MM/yyyy', 'dd/MM/yyyy HH:mm', 'dd/MM/yy', 'MM/dd/yyyy hh:mm:ss a' 
  */
 export interface DateTemplateConfig {
-  /** Formato de fecha para DatePipe. Ej: 'dd/MM/yyyy', 'dd/MM/yyyy HH:mm', 'dd/MM/yy', 'MM/dd/yyyy hh:mm:ss a' */
   dateFormat?: string;
 }
 
@@ -31,16 +31,8 @@ export interface HeaderData {
   sortable?: boolean;
   type?: 'string' | 'number';
   defaultSort?: Exclude<SortDirection, null>;
-  /**
-   * Nombre del template de celda a usar para esta columna.
-   * Si no se indica, se usará el template por defecto.
-   */
-  template?: string;
-  /**
-   * Nombre del template de cabecera a usar para esta columna.
-   * Si no se indica, se usará el template por defecto.
-   */
-  headerTemplate?: string;
+  template?: string; // Nombre del template de celda para columna. Sino se indica, se usa el por defecto.
+  headerTemplate?: string; // Nombre del template de cabecera para columna. Sino se indica, se usa el por defecto.
   /**
    * Función personalizada para renderizar el valor de la celda.
    * Tiene prioridad sobre template y builtInTemplate.
@@ -58,16 +50,13 @@ export interface HeaderData {
    * Configuración para el template genérico de fecha.
    */
   dateConfig?: DateTemplateConfig;
-  /**
-   * Habilita el filtrado por columna.
-   * Muestra un input de búsqueda en la cabecera.
-   */
-  filterable?: boolean;
-  /**
-   * Permite editar el valor de la celda con doble click.
-   * Solo funciona en celdas sin template personalizado.
-   */
-  editable?: boolean;
+  filterable?: boolean; // Habilita el filtrado por columna. Muestra un input de búsqueda en la cabecera.
+  editable?: boolean; // Permite editar celdas con doble click. Solo funciona en celdas sin template personalizado.
+  frozen?: 'left' | 'right' | null;
+ 
+  minWidth?: string;
+  maxWidth?: string;
+  width?: string;
 }
 
 export interface Sort {

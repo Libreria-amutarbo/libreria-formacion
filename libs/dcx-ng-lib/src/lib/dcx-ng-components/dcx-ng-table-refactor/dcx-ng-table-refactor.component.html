@@ -7,10 +7,20 @@
     <!-- ==================== HEADER ==================== -->
     <thead>
       <tr>
-        @for (header of headers(); track header.key) {
+        @for (header of displayHeaders(); track header.key; let colIndex = $index) {
           <th
+            #headerCell
             scope="col"
             [class.sortable]="header.sortable"
+            [class.frozen-left]="frozenMeta()[colIndex].left !== null"
+            [class.frozen-right]="frozenMeta()[colIndex].right !== null"
+            [class.frozen-separator-left]="frozenMeta()[colIndex].separatorLeft"
+            [class.frozen-separator-right]="frozenMeta()[colIndex].separatorRight"
+            [style.left.px]="frozenMeta()[colIndex].left"
+            [style.right.px]="frozenMeta()[colIndex].right"
+            [style.min-width]="header.minWidth || null"
+            [style.max-width]="header.maxWidth || null"
+            [style.width]="header.width || null"
             [attr.aria-sort]="ariaSort(header)"
             [attr.tabindex]="header.sortable ? 0 : null"
             (click)="onHeaderClick(header)"
@@ -46,19 +56,28 @@
     <tbody>
       @if (sortedRows().length === 0) {
         <tr>
-          <td [attr.colspan]="headers().length + 1" class="empty-cell">
+          <td [attr.colspan]="displayHeaders().length + 1" class="empty-cell">
             <ng-container
               [ngTemplateOutlet]="getEmptyTemplate()"
-              [ngTemplateOutletContext]="{ headers: headers() }"
+              [ngTemplateOutletContext]="{ headers: displayHeaders() }"
             />
           </td>
         </tr>
       } @else {
         @for (row of paginatedRows(); track row.id; let rowIndex = $index) {
           <tr class="table-row">
-            @for (header of headers(); track header.key) {
+            @for (header of displayHeaders(); track header.key; let colIndex = $index) {
               <td
                 [class.editable]="header.editable"
+                [class.frozen-left]="frozenMeta()[colIndex].left !== null"
+                [class.frozen-right]="frozenMeta()[colIndex].right !== null"
+                [class.frozen-separator-left]="frozenMeta()[colIndex].separatorLeft"
+                [class.frozen-separator-right]="frozenMeta()[colIndex].separatorRight"
+                [style.left.px]="frozenMeta()[colIndex].left"
+                [style.right.px]="frozenMeta()[colIndex].right"
+                [style.min-width]="header.minWidth || null"
+                [style.max-width]="header.maxWidth || null"
+                [style.width]="header.width || null"
                 (dblclick)="onCellDblClick(rowIndex, header.key || '', header)"
               >
                 @if (isEditing(rowIndex, header.key || '')) {
@@ -97,79 +116,16 @@
   </table>
 </div>
 
-<!-- ==================== PAGINATOR ==================== -->
-@if (paginator() && sortedRows().length > 0) {
-  <div class="paginator">
-    <div class="paginator-left">
-      <button
-        type="button"
-        class="paginator-nav"
-        [disabled]="pageIndex() === 0"
-        (click)="goToPage(0)"
-        aria-label="Primera página"
-      >
-        <dcx-ng-icon name="keyboard_double_arrow_left" size="s" />
-      </button>
-
-      <button
-        type="button"
-        class="paginator-nav"
-        [disabled]="pageIndex() === 0"
-        (click)="goToPage(pageIndex() - 1)"
-        aria-label="Página anterior"
-      >
-        <dcx-ng-icon name="chevron_left" size="s" />
-      </button>
-
-      <div class="page-buttons">
-        @for (page of pages(); track page) {
-          <button
-            type="button"
-            class="paginator-page"
-            [class.paginator-page--active]="pageIndex() === page"
-            [attr.aria-current]="pageIndex() === page ? 'page' : null"
-            (click)="goToPage(page)"
-          >
-            {{ page + 1 }}
-          </button>
-        }
-      </div>
-
-      <button
-        type="button"
-        class="paginator-nav"
-        [disabled]="pageIndex() >= totalPages() - 1"
-        (click)="goToPage(pageIndex() + 1)"
-        aria-label="Página siguiente"
-      >
-        <dcx-ng-icon name="chevron_right" size="s" />
-      </button>
-
-      <button
-        type="button"
-        class="paginator-nav"
-        [disabled]="pageIndex() >= totalPages() - 1"
-        (click)="goToPage(totalPages() - 1)"
-        aria-label="Última página"
-      >
-        <dcx-ng-icon name="keyboard_double_arrow_right" size="s" />
-      </button>
-    </div>
-
-    <div class="paginator-right">
-      <span class="range">
-        {{ pageStart() }} - {{ pageEnd() }} de {{ sortedRows().length }}
-      </span>
-
-      <label class="rows-per-page">
-        Filas:
-        <dcx-ng-select
-          [options]="rowsPerPageOptionsFormatted()"
-          (valueChange)="onRowsPerPageChange($event)"
-        />
-      </label>
-    </div>
-  </div>
+<!-- ==================== PAGINADOR ==================== -->
+@if (paginator()) {
+  <dcx-ng-table-paginator
+    [length]="sortedRows().length"
+    [pageIndex]="pageIndex()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="rowsPerPageOptions()"
+    (pageChange)="goToPage($event)"
+    (rowsPerPageChange)="onRowsPerPageChange($event)"
+  />
 }
 
 <!-- ==================== DEFAULT TEMPLATES ==================== -->

@@ -183,6 +183,8 @@ export class DcxNgPageTableRefactorComponent {
       sortable: true,
       // Función de renderizado personalizada
       renderFn: row => `👤 ${(row['user'] as string).toUpperCase()}`,
+      frozen: 'left',
+      minWidth: '280px',
     },
     {
       name: 'Fecha Corta',
@@ -190,8 +192,9 @@ export class DcxNgPageTableRefactorComponent {
       sortable: true,
       // Template genérico de fecha con formato corto
       builtInTemplate: 'date',
+      frozen: 'left',
       dateConfig: {
-        dateFormat: 'dd/MM/yy HH:mm',
+      dateFormat: 'dd/MM/yy HH:mm',
       },
     },
     {
@@ -231,6 +234,7 @@ export class DcxNgPageTableRefactorComponent {
       name: 'Estado',
       key: 'status',
       sortable: true,
+       frozen: 'left',
       // Template personalizado (ver HTML)
       template: 'statusTemplate',
     },
@@ -246,6 +250,7 @@ export class DcxNgPageTableRefactorComponent {
       key: 'product',
       sortable: true,
       filterable: true, // Input de filtro en la cabecera
+      minWidth: '80px',
     },
     {
       name: 'Categoría',

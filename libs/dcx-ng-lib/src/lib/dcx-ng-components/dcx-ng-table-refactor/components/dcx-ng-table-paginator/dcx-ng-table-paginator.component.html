@@ -1,0 +1,73 @@
+@if (show() && length() > 0) {
+  <div class="paginator">
+    <div class="paginator-left">
+      <button
+        type="button"
+        class="paginator-nav"
+        [disabled]="pageIndex() === 0"
+        (click)="goToPage(0)"
+        aria-label="Primera página"
+      >
+        <dcx-ng-icon name="keyboard_double_arrow_left" size="s" />
+      </button>
+
+      <button
+        type="button"
+        class="paginator-nav"
+        [disabled]="pageIndex() === 0"
+        (click)="goToPage(pageIndex() - 1)"
+        aria-label="Página anterior"
+      >
+        <dcx-ng-icon name="chevron_left" size="s" />
+      </button>
+
+      <div class="page-buttons">
+        @for (page of pages(); track page) {
+          <button
+            type="button"
+            class="paginator-page"
+            [class.paginator-page--active]="pageIndex() === page"
+            [attr.aria-current]="pageIndex() === page ? 'page' : null"
+            (click)="goToPage(page)"
+          >
+            {{ page + 1 }}
+          </button>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="paginator-nav"
+        [disabled]="pageIndex() >= totalPages() - 1"
+        (click)="goToPage(pageIndex() + 1)"
+        aria-label="Página siguiente"
+      >
+        <dcx-ng-icon name="chevron_right" size="s" />
+      </button>
+
+      <button
+        type="button"
+        class="paginator-nav"
+        [disabled]="pageIndex() >= totalPages() - 1"
+        (click)="goToPage(totalPages() - 1)"
+        aria-label="Última página"
+      >
+        <dcx-ng-icon name="keyboard_double_arrow_right" size="s" />
+      </button>
+    </div>
+
+    <div class="paginator-right">
+      <span class="range">
+        {{ pageStart() }} - {{ pageEnd() }} de {{ length() }}
+      </span>
+
+      <label class="rows-per-page">
+        {{ rowsPerPageLabel() }}
+        <dcx-ng-select
+          [options]="rowsPerPageOptionsFormatted()"
+          (valueChange)="onRowsPerPageSelect($event)"
+        />
+      </label>
+    </div>
+  </div>
+}

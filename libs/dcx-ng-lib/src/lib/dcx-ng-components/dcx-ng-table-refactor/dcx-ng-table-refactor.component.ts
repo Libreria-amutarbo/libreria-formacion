@@ -1,17 +1,18 @@
-import { CommonModule } from '@angular/common';
 import {
   Component,
+  ElementRef,
   TemplateRef,
+  afterNextRender,
   computed,
   contentChildren,
   input,
   output,
   signal,
   viewChild,
+  viewChildren,
 } from '@angular/core';
 
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { DcxNgSelectComponent } from '../dcx-ng-select/dcx-ng-select.component';
 import {
   CellEditEvent,
   HeaderData,
@@ -20,13 +21,15 @@ import {
   SortType,
 } from './dcx-ng-table-refactor.models';
 import { DcxNgTableTemplateRefactorDirective } from './dcx-ng-table-template-refactor.directive';
+import { DcxNgTablePaginatorComponent } from './components/dcx-ng-table-paginator/dcx-ng-table-paginator.component';
+import { DatePipe, NgTemplateOutlet } from '@angular/common';
 
 export type TableRow = { id?: number } & Record<string, unknown>;
 
 @Component({
   selector: 'dcx-ng-table-refactor',
   standalone: true,
-  imports: [CommonModule, DcxNgIconComponent, DcxNgSelectComponent],
+  imports: [DcxNgIconComponent, DcxNgTablePaginatorComponent, DatePipe, NgTemplateOutlet],
   templateUrl: './dcx-ng-table-refactor.component.html',
   styleUrls: ['./dcx-ng-table-refactor.component.scss'],
 })
@@ -41,6 +44,10 @@ export class DcxNgTableRefactorComponent {
   readonly paginator = input(false);
   readonly rowsPerPage = input(10);
   readonly rowsPerPageOptions = input<readonly number[]>([5, 10, 20]);
+
+  // separadores de grupos frozen
+  readonly frozenLeftSeparator = input(false);
+  readonly frozenRightSeparator = input(false);
 
   // ==================== OUTPUTS ====================
   readonly sortChange = output<Sort>();
@@ -60,6 +67,11 @@ export class DcxNgTableRefactorComponent {
   private readonly builtInDateTpl =
     viewChild.required<TemplateRef<unknown>>('builtInDateTpl');
 
+  /** Celdas de cabecera para calcular anchos y offsets de columnas frozen */
+  private readonly headerCells = viewChildren<ElementRef<HTMLTableCellElement>>(
+    'headerCell',
+  );
+
   // ==================== CONTENT CHILDREN ====================
   private readonly externalTemplates = contentChildren(
     DcxNgTableTemplateRefactorDirective,
@@ -73,12 +85,37 @@ export class DcxNgTableRefactorComponent {
     key: string;
   } | null>(null);
   private readonly _rawPageIndex = signal(0);
+  private readonly _columnWidths = signal<number[]>([]);
+
+
+  // ==================== CONSTRUCTOR ====================
+  constructor() {
+    // Medimos anchos de columnas una vez tras el primer render
+    afterNextRender(() => {
+      this.measureColumnWidths();
+    });
+  }
 
   // ==================== COMPUTED - Template Cache ====================
   private readonly templateCache = computed(() => {
     const cache = new Map<string, TemplateRef<unknown>>();
     this.externalTemplates().forEach(dir => cache.set(dir.type, dir.template));
     return cache;
+  });
+
+   // ==================== COMPUTED - Headers de visualización ====================
+  /**
+   * Orden de columnas en la tabla:
+   *  1. Todas las frozen='left' (en el orden del array original)
+   *  2. Las que no son frozen
+   *  3. Las frozen='right'
+   */
+  readonly displayHeaders = computed<readonly HeaderData[]>(() => {
+    const headers = this.headers();
+    const left = headers.filter(h => h.frozen === 'left');
+    const right = headers.filter(h => h.frozen === 'right');
+    const middle = headers.filter(h => !h.frozen);
+    return [...left, ...middle, ...right];
   });
 
   // ==================== COMPUTED - Sort ====================
@@ -136,17 +173,7 @@ export class DcxNgTableRefactorComponent {
     return Number.isFinite(value) && value > 0 ? value : 10;
   });
 
-  readonly totalPages = computed(() => {
-    if (!this.paginator()) return 1;
-    const total = this.sortedRows().length;
-    return Math.max(1, Math.ceil(total / this.pageSize()));
-  });
-
-  readonly pageIndex = computed(() => {
-    const raw = this._rawPageIndex();
-    const maxPage = this.totalPages() - 1;
-    return Math.min(raw, Math.max(0, maxPage));
-  });
+  readonly pageIndex = computed(() => this._rawPageIndex());
 
   readonly paginatedRows = computed<readonly TableRow[]>(() => {
     if (!this.paginator()) return this.sortedRows();
@@ -155,25 +182,72 @@ export class DcxNgTableRefactorComponent {
     return this.sortedRows().slice(start, start + this.pageSize());
   });
 
-  readonly pages = computed(() =>
-    Array.from({ length: this.totalPages() }, (_, i) => i),
-  );
+ // ==================== COMPUTED - Frozen Meta ====================
+  /**
+   * Info derivada para columnas frozen:
+   * - left/right: offset en px desde el borde correspondiente
+   * - separatorLeft: dibujar border-right (borde derecho de grupo frozen-left)
+   * - separatorRight: dibujar border-left (borde izquierdo de grupo frozen-right)
+   *
+   * Se calcula sobre displayHeaders() para que coincida con el orden visual.
+   */
+  readonly frozenMeta = computed(() => {
+    const headers = this.displayHeaders();
+    const widths = this._columnWidths();
 
-  readonly rowsPerPageOptionsFormatted = computed(() =>
-    this.rowsPerPageOptions().map(value => ({ value, label: String(value) })),
-  );
+    type Meta = {
+      left: number | null;
+      right: number | null;
+      separatorLeft: boolean;
+      separatorRight: boolean;
+    };
 
-  readonly pageStart = computed(() => {
-    const total = this.sortedRows().length;
-    return total ? this.pageIndex() * this.pageSize() + 1 : 0;
+    const meta: Meta[] = headers.map(() => ({
+      left: null,
+      right: null,
+      separatorLeft: false,
+      separatorRight: false,
+    }));
+
+    // --- Frozen LEFT ---
+    let leftOffset = 0;
+    const leftIndices: number[] = [];
+
+    headers.forEach((h, idx) => {
+      if (h.frozen === 'left') {
+        meta[idx].left = leftOffset;
+        leftOffset += widths[idx] ?? 0;
+        leftIndices.push(idx);
+      }
+    });
+
+    // --- Frozen RIGHT ---
+    let rightOffset = 0;
+    const rightIndices: number[] = [];
+
+    for (let i = headers.length - 1; i >= 0; i--) {
+      const h = headers[i];
+      if (h.frozen === 'right') {
+        meta[i].right = rightOffset;
+        rightOffset += widths[i] ?? 0;
+        rightIndices.push(i);
+      }
+    }
+
+    // --- Separadores ---
+    if (this.frozenLeftSeparator() && leftIndices.length > 0) {
+      const lastLeftIdx = leftIndices[leftIndices.length - 1];
+      meta[lastLeftIdx].separatorLeft = true; // => border-right
+    }
+
+    if (this.frozenRightSeparator() && rightIndices.length > 0) {
+      const leftMostRightIdx = rightIndices[rightIndices.length - 1];
+      meta[leftMostRightIdx].separatorRight = true; // => border-left
+    }
+
+    return meta;
   });
 
-  readonly pageEnd = computed(() => {
-    const total = this.sortedRows().length;
-    return total
-      ? Math.min((this.pageIndex() + 1) * this.pageSize(), total)
-      : 0;
-  });
 
   // ==================== SORT HANDLERS ====================
   onHeaderClick(header: HeaderData): void {
@@ -210,6 +284,11 @@ export class DcxNgTableRefactorComponent {
   }
 
   // ==================== PAGINATION HANDLERS ====================
+  /**
+   * Cambia el tamaño de página.
+   * - Emite el evento hacia fuera.
+   * - Resetea el índice de página interno a 0.
+   */
   onRowsPerPageChange(size: number | string | null): void {
     if (size === null) return;
     const parsed = Number(size);
@@ -218,11 +297,14 @@ export class DcxNgTableRefactorComponent {
     this._rawPageIndex.set(0);
   }
 
+  /**
+   * Actualiza el índice de página cuando el paginator emite (pageChange).
+   * El paginator ya se encarga de hacer clamp, aquí solo reflejamos el valor.
+   */
   goToPage(page: number): void {
-    const clamped = Math.max(0, Math.min(page, this.totalPages() - 1));
-    if (clamped === this.pageIndex()) return;
-    this._rawPageIndex.set(clamped);
-    this.pageChange.emit(clamped);
+    if (page === this.pageIndex()) return;
+    this._rawPageIndex.set(page);
+    this.pageChange.emit(page);
   }
 
   // ==================== FILTER HANDLERS ====================
@@ -345,5 +427,18 @@ export class DcxNgTableRefactorComponent {
       sensitivity: 'base',
       numeric: true,
     });
+  }
+
+   private measureColumnWidths(): void {
+    const cells = this.headerCells();
+    if (!cells || cells.length === 0) {
+      this._columnWidths.set([]);
+      return;
+    }
+
+    const widths = cells.map(cell =>
+      cell.nativeElement.getBoundingClientRect().width,
+    );
+    this._columnWidths.set(widths);
   }
 }
