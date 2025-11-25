@@ -7,6 +7,13 @@
     <!-- ==================== HEADER ==================== -->
     <thead>
       <tr>
+         @if (showRowIndex()) {
+          <th scope="col" class="row-index-header">
+            {{ rowIndexLabel() }}
+          </th>
+
+        }
+
         @for (header of displayHeaders(); track header.key; let colIndex = $index) {
           <th
             #headerCell
@@ -56,7 +63,8 @@
     <tbody>
       @if (sortedRows().length === 0) {
         <tr>
-          <td [attr.colspan]="displayHeaders().length + 1" class="empty-cell">
+          <td [attr.colspan]="displayHeaders().length + 1 + (showRowIndex() ? 1 : 0)"
+          class="empty-cell">
             <ng-container
               [ngTemplateOutlet]="getEmptyTemplate()"
               [ngTemplateOutletContext]="{ headers: displayHeaders() }"
@@ -66,6 +74,13 @@
       } @else {
         @for (row of paginatedRows(); track row.id; let rowIndex = $index) {
           <tr class="table-row">
+
+            @if (showRowIndex()) {
+              <td class="row-index-cell">
+                {{ getRowDisplayIndex(rowIndex) }}
+              </td>
+            }
+
             @for (header of displayHeaders(); track header.key; let colIndex = $index) {
               <td
                 [class.editable]="header.editable"

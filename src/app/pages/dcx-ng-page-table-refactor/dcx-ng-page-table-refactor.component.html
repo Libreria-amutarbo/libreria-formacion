@@ -120,6 +120,7 @@
     [paginator]="false"
     [frozenLeftSeparator]="true"
     [frozenRightSeparator]="true"
+    [showRowIndex]="true"
   >
     <!-- Reutilizamos el template de estado del ejemplo 4 -->
     <ng-template dcxNgTableTemplateRefactor="statusTemplate" let-row>
@@ -164,9 +165,10 @@
     [rowsPerPage]="rowsPerPageEx6"
     (rowsPerPageChange)="onRowsPerPageChange($event)"
     (cellEdit)="onCellEdit($event)"
-     [frozenLeftSeparator]="true"
-  [frozenRightSeparator]="true"
+    [frozenLeftSeparator]="true"
+    [frozenRightSeparator]="true"
     [rowsPerPageOptions]="[10, 20, 50]"
+    [showRowIndex]="true"
   >
   </dcx-ng-table-refactor>
 </section>

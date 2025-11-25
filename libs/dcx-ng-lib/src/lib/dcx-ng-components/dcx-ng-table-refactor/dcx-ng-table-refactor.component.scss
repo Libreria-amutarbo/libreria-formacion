@@ -165,3 +165,22 @@ thead th.frozen-separator-right,
 tbody td.frozen-separator-right {
   border-left: 2px solid var(--table-divider-strong, #cbd5e1);
 }
+
+.row-index-header,
+.row-index-cell {
+  width: 3rem;
+  min-width: 3rem;
+  text-align: center;       /* ← centrado */
+  padding: 0.5rem 0.25rem;  /* igual que el resto de celdas */
+  color: #6b7280;           /* gris suave */
+  font-variant-numeric: tabular-nums; /* números alineados */
+  background: var(--surface, #fff);
+}
+.row-index-header {
+  font-weight: 600;
+  border-bottom: 2px solid var(--table-divider, #e3e3e3);
+}
+
+.row-index-cell {
+  border-bottom: 1px solid var(--table-border, #e3e3e3);
+}

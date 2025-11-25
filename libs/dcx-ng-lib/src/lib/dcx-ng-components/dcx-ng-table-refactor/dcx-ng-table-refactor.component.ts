@@ -46,6 +46,9 @@ export class DcxNgTableRefactorComponent {
   readonly rowsPerPage = input(10);
   readonly rowsPerPageOptions = input<readonly number[]>([5, 10, 20]);
 
+  readonly showRowIndex = input(false);
+  readonly rowIndexLabel = input('#');
+
   // separadores de grupos frozen
   readonly frozenLeftSeparator = input(false);
   readonly frozenRightSeparator = input(false);
@@ -77,6 +80,13 @@ export class DcxNgTableRefactorComponent {
   private readonly externalTemplates = contentChildren(
     DcxNgTableTemplateRefactorDirective,
   );
+
+  // Mapa declarativo de tipo de orden → icono material
+  private readonly sortTypeIcon: Record<SortType, string> = {
+    [SortType.NONE]: 'swap_vert',
+    [SortType.ASCENDING]: 'arrow_upward',
+    [SortType.DESCENDING]: 'arrow_downward',
+  };
 
   // ==================== STATE ====================
   private readonly _manualSort = signal<Sort>({ key: null, dir: null });
@@ -264,18 +274,16 @@ export class DcxNgTableRefactorComponent {
 
   ariaSort(header: HeaderData): SortType {
     const { key, dir } = this.sort();
-    if (key !== header.key || !dir) return SortType.NONE;
+    if (key !== header.key || !dir) {
+      return SortType.NONE;
+    }
     return dir === 'asc' ? SortType.ASCENDING : SortType.DESCENDING;
   }
 
-  getSortIcon(header: HeaderData): string {
-    const aria = this.ariaSort(header);
-    return aria === 'ascending'
-      ? 'arrow_upward'
-      : aria === 'descending'
-        ? 'arrow_downward'
-        : 'swap_vert';
-  }
+ getSortIcon(header: HeaderData): string {
+    const ariaType = this.ariaSort(header);
+    return this.sortTypeIcon[ariaType];
+}
 
   // ==================== PAGINATION HANDLERS ====================
   /**
@@ -434,5 +442,9 @@ export class DcxNgTableRefactorComponent {
       cell.nativeElement.getBoundingClientRect().width,
     );
     this._columnWidths.set(widths);
+  }
+
+   getRowDisplayIndex(rowIndex: number): number {
+    return this.pageIndex() * this.pageSize() + rowIndex + 1;
   }
 }
