@@ -15,6 +15,7 @@ import {
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import {
   CellEditEvent,
+  FrozenColumnMeta,
   HeaderData,
   Sort,
   SortDirection,
@@ -195,14 +196,7 @@ export class DcxNgTableRefactorComponent {
     const headers = this.displayHeaders();
     const widths = this._columnWidths();
 
-    type Meta = {
-      left: number | null;
-      right: number | null;
-      separatorLeft: boolean;
-      separatorRight: boolean;
-    };
-
-    const meta: Meta[] = headers.map(() => ({
+    const meta: FrozenColumnMeta[] = headers.map(() => ({
       left: null,
       right: null,
       separatorLeft: false,
@@ -270,8 +264,8 @@ export class DcxNgTableRefactorComponent {
 
   ariaSort(header: HeaderData): SortType {
     const { key, dir } = this.sort();
-    if (key !== header.key || !dir) return SortType.None;
-    return dir === 'asc' ? SortType.Ascending : SortType.Descending;
+    if (key !== header.key || !dir) return SortType.NONE;
+    return dir === 'asc' ? SortType.ASCENDING : SortType.DESCENDING;
   }
 
   getSortIcon(header: HeaderData): string {

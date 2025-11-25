@@ -1,9 +1,9 @@
 export type SortDirection = 'asc' | 'desc' | null;
 
 export enum SortType {
-  Ascending = 'ascending',
-  Descending = 'descending',
-  None = 'none',
+  ASCENDING = 'ascending',
+  DESCENDING = 'descending',
+  NONE = 'none',
 }
 
 /**
@@ -73,4 +73,18 @@ export interface CellEditEvent {
   oldValue: unknown;
   newValue: unknown;
   rowIndex: number;
+}
+
+/**
+ * Metadatos calculados para cada columna en relación para comportamiento frozen.
+ */
+export interface FrozenColumnMeta {
+  /** Offset desde el borde izquierdo cuando la columna está congelada a la izquierda */
+  left: number | null;
+  /** Offset desde el borde derecho cuando la columna está congelada a la derecha */
+  right: number | null;
+  /** Marca la columna que dibuja el separador derecho del grupo frozen-left */
+  separatorLeft: boolean;
+  /** Marca la columna que dibuja el separador izquierdo del grupo frozen-right */
+  separatorRight: boolean;
 }
