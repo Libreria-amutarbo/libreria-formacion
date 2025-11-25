@@ -1,6 +1,5 @@
-// 1. Primero los archivos base que definen los maps
-@import './base/typography', './base/color', './base/spacing';
-// 2. Luego las utilidades que usan esos maps
-@import './utils/mixins', './utils/variables';
-// 3. Finalmente el reset que puede usar las variables CSS generadas
-@import './base/reset';
+
+@use './base' as base;
+@use './utils' as utils;
+@use 'sass:map';
+

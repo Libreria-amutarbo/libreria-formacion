@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular/';
 import { DcxNgButtonComponent, ICON_POSITION } from './dcx-ng-button.component';
 
 import { within } from '@storybook/testing-library';

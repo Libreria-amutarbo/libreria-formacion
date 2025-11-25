@@ -1,4 +1,6 @@
-@import '../../../scss/main.scss';
+
+@use '../../../scss/utils/mixins' as *;
+
 
 :host {
   display: block;

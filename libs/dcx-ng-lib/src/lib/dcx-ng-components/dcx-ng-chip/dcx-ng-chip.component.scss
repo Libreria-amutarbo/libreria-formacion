@@ -1,4 +1,6 @@
-@import '../../../scss/main.scss';
+@use '../../../scss/main.scss';
+@use 'sass:map';
+@use 'sass:color';
 
 :host {
   display: inline-flex;
@@ -16,14 +18,14 @@
   border: 1px solid transparent;
   cursor: default;
   
-  &--primary { background-color: map-get($color, "primary"); color: map-get($color, "text-inverse"); }
-  &--secondary { background-color: map-get($color, "secondary"); color: map-get($color, "text-inverse"); }
-  &--success { background-color: map-get($color, "success"); color: map-get($color, "text-inverse"); }
-  &--warning { background-color: map-get($color, "warning"); color: map-get($color, "text-primary"); }
-  &--error { background-color: map-get($color, "error"); color: map-get($color, "text-inverse"); }
-  &--info { background-color: map-get($color, "info"); color: map-get($color, "text-inverse"); }
-  &--gray { background-color: map-get($color, "gray"); color: map-get($color, "text-inverse"); }
-  &--gray-light { background-color: map-get($color, "gray-light"); color: map-get($color, "text-primary"); }
+  &--primary { background-color: map.get(main.$color, "primary"); color: map.get(main.$color, "text-inverse"); }
+  &--secondary { background-color: map.get(main.$color, "secondary"); color: map.get(main.$color, "text-inverse"); }
+  &--success { background-color: map.get(main.$color, "success"); color: map.get(main.$color, "text-inverse"); }
+  &--warning { background-color: map.get(main.$color, "warning"); color: map.get(main.$color, "text-primary"); }
+  &--error { background-color: map.get(main.$color, "error"); color: map.get(main.$color, "text-inverse"); }
+  &--info { background-color: map.get(main.$color, "info"); color: map.get(main.$color, "text-inverse"); }
+  &--gray { background-color: map.get(main.$color, "gray"); color: map.get(main.$color, "text-inverse"); }
+  &--gray-light { background-color: map.get(main.$color, "gray-light"); color: map.get(main.$color, "text-primary"); }
 
   &__image {
     width: 1.5rem;

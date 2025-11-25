@@ -1,4 +1,6 @@
-@import '../../../scss/main.scss';
+@use '../../../scss/main.scss';
+@use 'sass:map';
+@use 'sass:color';
 
 @mixin message-type($color) {
   border: 1px solid $color;
@@ -47,16 +49,16 @@
 }
 
 .error {
-  @include message-type(map-get($color, 'error'));
+  @include message-type(map.get(main.$color, 'error'));
 }
 .warning {
-  @include message-type(map-get($color, 'warning'));
+  @include message-type(map.get(main.$color, 'warning'));
 }
 .notification {
-  @include message-type(map-get($color, 'info'));
+  @include message-type(map.get(main.$color, 'info'));
 }
 .success {
-  @include message-type(map-get($color, 'success'));
+  @include message-type(map.get(main.$color, 'success'));
 }
 
 .icon__container {
