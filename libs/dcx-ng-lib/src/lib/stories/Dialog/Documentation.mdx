@@ -1,0 +1,40 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as DialogUn from './UnStyled.stories';
+import * as DialogClass from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Dialog/Documentation" />
+
+# Dialog
+
+`dcx-ng-dialog` muestra un cuadro modal con título, contenido y pie opcional.
+
+- **Inputs**:
+  - `title: string`
+  - `visible: boolean`
+- **Outputs**:
+  - `(onClose): void`
+
+---
+
+## Unstyled
+
+<Canvas of={DialogUn.Basic} />
+
+---
+
+## Class-Based
+
+<Canvas of={DialogClass.ClassBasedDemo} />
+
+---
+
+## Uso
+
+```html
+<dcx-ng-dialog [title]="'Título'" [visible]="true" (onClose)="handleClose()">
+  <div dialog-body>Contenido</div>
+  <div dialog-footer>
+    <button (click)="handleClose()">Cerrar</button>
+  </div>
+</dcx-ng-dialog>
+```
