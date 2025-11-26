@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgTooltipComponent, TooltipPosition } from './dcx-ng-tooltip.component';
 
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { within, expect } from '@storybook/test';
 
 const meta: Meta<DcxNgTooltipComponent> = {
   component: DcxNgTooltipComponent,
