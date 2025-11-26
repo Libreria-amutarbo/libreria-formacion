@@ -1,34 +1,36 @@
+@use "sass:map";
+@use '../base' as *;
 // Mixins útiles para tipografía
 @mixin heading-1 {
-  font-family: map-get($fonts, "primary");
-  font-size: map-get($font-size, "h1");
-  font-weight: map-get($weight, "bold");
-  line-height: map-get($line-height, "tight");
-  letter-spacing: map-get($letter-spacing, "tight");
+  font-family: map.get($fonts, "primary");
+  font-size: map.get($font-size, "h1");
+  font-weight: map.get($weight, "bold");
+  line-height: map.get($line-height, "tight");
+  letter-spacing: map.get($letter-spacing, "tight");
 }
 
 @mixin heading-2 {
-  font-family: map-get($fonts, "primary");
-  font-size: map-get($font-size, "h2");
-  font-weight: map-get($weight, "bold");
-  line-height: map-get($line-height, "tight");
-  letter-spacing: map-get($letter-spacing, "tight");
+  font-family: map.get($fonts, "primary");
+  font-size: map.get($font-size, "h2");
+  font-weight: map.get($weight, "bold");
+  line-height: map.get($line-height, "tight");
+  letter-spacing: map.get($letter-spacing, "tight");
 }
 
 @mixin body-text {
-  font-family: map-get($fonts, "primary");
-  font-size: map-get($font-size, "body");
-  font-weight: map-get($weight, "regular");
-  line-height: map-get($line-height, "normal");
-  letter-spacing: map-get($letter-spacing, "normal");
+  font-family: map.get($fonts, "primary");
+  font-size: map.get($font-size, "body");
+  font-weight: map.get($weight, "regular");
+  line-height: map.get($line-height, "normal");
+  letter-spacing: map.get($letter-spacing, "normal");
 }
 
 @mixin caption-text {
-  font-family: map-get($fonts, "primary");
-  font-size: map-get($font-size, "caption");
-  font-weight: map-get($weight, "regular");
-  line-height: map-get($line-height, "normal");
-  letter-spacing: map-get($letter-spacing, "wide");
+  font-family: map.get($fonts, "primary");
+  font-size: map.get($font-size, "caption");
+  font-weight: map.get($weight, "regular");
+  line-height: map.get($line-height, "normal");
+  letter-spacing: map.get($letter-spacing, "wide");
 }
 
 // Mixins de utilidad para usar las variables CSS
@@ -46,31 +48,31 @@
 
 // Mixins útiles para espaciado
 @mixin margin($size) {
-  margin: map-get($spacing, $size);
+  margin: map.get($spacing, $size);
 }
 
 @mixin padding($size) {
-  padding: map-get($spacing, $size);
+  padding: map.get($spacing, $size);
 }
 
 @mixin margin-vertical($size) {
-  margin-top: map-get($spacing, $size);
-  margin-bottom: map-get($spacing, $size);
+  margin-top: map.get($spacing, $size);
+  margin-bottom: map.get($spacing, $size);
 }
 
 @mixin margin-horizontal($size) {
-  margin-left: map-get($spacing, $size);
-  margin-right: map-get($spacing, $size);
+  margin-left: map.get($spacing, $size);
+  margin-right: map.get($spacing, $size);
 }
 
 @mixin padding-vertical($size) {
-  padding-top: map-get($spacing, $size);
-  padding-bottom: map-get($spacing, $size);
+  padding-top: map.get($spacing, $size);
+  padding-bottom: map.get($spacing, $size);
 }
 
 @mixin padding-horizontal($size) {
-  padding-left: map-get($spacing, $size);
-  padding-right: map-get($spacing, $size);
+  padding-left: map.get($spacing, $size);
+  padding-right: map.get($spacing, $size);
 }
 
 // Mixins de Flexbox
@@ -119,7 +121,7 @@ $breakpoints: (
 
 @mixin respond-to($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
       @content;
     }
   }
