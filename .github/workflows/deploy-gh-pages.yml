@@ -1,12 +1,7 @@
-name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
-
-permissions:
-  contents: write
-  pages: write
+    branches: [ main, develop ]
 
 jobs:
   build-and-deploy:
@@ -34,6 +29,6 @@ jobs:
       - name: Deploy to GitHub Pages
         run: |
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npm run deploy
+          if [ "${GITHUB_REF##*/}" = "main" ]; then npm run deploy:main; else npm run deploy:develop; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

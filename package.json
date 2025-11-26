@@ -9,7 +9,10 @@
     "test": "nx run-many --target=test --all -- --coverage --coverageDirectory='coverage/libs'",
     "lint": "nx lint dcx-ng-lib",
     "lint-fix": "nx lint dcx-ng-lib --fix",
-    "deploy": "gh-pages -d dist/storybook/dcx-ng-lib"
+    
+ "deploy:main": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy main' -b gh-pages -r origin --dest main",
+  "deploy:develop": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy develop' -b gh-pages -r origin --dest develop"
+
   },
   "private": true,
   "dependencies": {
