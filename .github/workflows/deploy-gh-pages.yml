@@ -27,7 +27,9 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build Storybook
-        run: npx nx build-storybook dcx-ng-lib --no-cloud
+        run: |
+          export NODE_OPTIONS="--experimental-vm-modules"
+          npx nx build-storybook dcx-ng-lib --no-cloud
 
       - name: Configure Git user
         run: |
