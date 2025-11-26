@@ -1,0 +1,649 @@
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:39.652Z - Started listening on: \\.\pipe\nx\C:\Users\lgarci16\AppData\Local\Temp\92c62428f62dc2f93b82\d.sock
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:39.657Z - [WATCHER]: Subscribed to changes within: C:\Users\lgarci16\Desktop\libreria-formacion (native)
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:39.663Z - Established a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:39.666Z - Closed a connection. Number of open connections: 0
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:39.667Z - Established a connection. Number of open connections: 1
+Time for 'plugin worker 26632 code loading' 11.374199999999998
+Time for 'plugin worker 25768 code loading' 11.2393
+Time for 'plugin worker 1920 code loading' 11.530700000000003
+Time for 'plugin worker 26620 code loading' 11.023699999999998
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:40.628Z - Time taken for 'Load Nx Plugin: C:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\src\plugins\package-json' 855.848ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:40.654Z - Time taken for 'Load Nx Plugin: C:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\src\plugins\js' 883.2551ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:40.662Z - Time taken for 'loadDefaultNxPlugins' 891.3609999999999ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:40.951Z - Received raw message of length 32
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:40.951Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:40.952Z - [REQUEST]: Client Request for Project Graph Received
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:41.483Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:41.483Z - [REQUEST]: 
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:41.483Z - [REQUEST]: 
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:41.485Z - Reusing in-memory cached project graph because no files changed.
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.1615999999999076
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:41.488Z - Time taken for 'loadSpecifiedNxPlugins' 1708.3183ms
+Time for 'nx/core/project-json:createNodes' 1.320600000000013
+Time for 'nx/core/package-json:createNodes' 11.339300000000094
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:41.563Z - Time taken for 'build-project-configs' 53.441299999999956ms
+Time for 'build typescript dependencies' 864.4717999999998
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.434Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.459Z - Wrote project graph cache to C:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\project-graph.json
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.459Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.459Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.459Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.460Z - Time taken for 'total for creating and serializing project graph' 1507.2932999999998ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.460Z - Done responding to the client project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.460Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 1507. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.467Z - Received raw message of length 1993
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.467Z - Received json message of type PRE_TASKS_EXECUTION
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.468Z - Serializing response for PRE_TASKS_EXECUTION message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.468Z - Responding to PRE_TASKS_EXECUTION message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.468Z - [REQUEST]: Responding to the client. handleRunPreTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.469Z - Time taken for 'preTasksExecution' 1.1196999999997388ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.469Z - Done responding to the client handleRunPreTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.469Z - Handled json message PRE_TASKS_EXECUTION. Handling time: 1. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.560Z - Received raw message of length 9955
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.561Z - Received json message of type HASH_TASKS
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.562Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.585Z - Wrote project graph cache to C:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\project-graph.json
+DEBUG nx::native::tasks::hash_planner: get_plans_internal COMPLETED in 89µs - processed 1 tasks (setup: 17.9µs, parallel_planning: 65.8µs)
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key="nx.json,.gitignore,.nxignore"}: Adding "53023160234122244" (".gitignore") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key="nx.json,.gitignore,.nxignore"}: Adding "11302365117951060169" ("nx.json") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key="nx.json,.gitignore,.nxignore"}: Hash Value: "11971680413361502463"
+DEBUG nx::native::tasks::task_hasher: hash_plans COMPLETED in 1.1122ms - processed 1 plans (setup: 23.5µs, hashing: 1.0858ms, assembly: 54.7µs)
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.590Z - Serializing response for HASH_TASKS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.590Z - Responding to HASH_TASKS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.590Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.591Z - Time taken for 'write cache' 23.097999999999956ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.591Z - Done responding to the client handleHashTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:42.591Z - Handled json message HASH_TASKS. Handling time: 29. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:43.464Z - Received raw message of length 95
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:43.464Z - Received json message of type GET_ESTIMATED_TASK_TIMINGS
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:43.480Z - Serializing response for GET_ESTIMATED_TASK_TIMINGS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:43.480Z - Responding to GET_ESTIMATED_TASK_TIMINGS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:43.480Z - [REQUEST]: Responding to the client. handleGetEstimatedTaskTimings
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:43.480Z - Done responding to the client handleGetEstimatedTaskTimings
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:43.481Z - Handled json message GET_ESTIMATED_TASK_TIMINGS. Handling time: 16. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:45.554Z - Established a connection. Number of open connections: 2
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:45.555Z - Closed a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:45.557Z - Established a connection. Number of open connections: 2
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.548Z - Received raw message of length 32
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.548Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.548Z - [REQUEST]: Client Request for Project Graph Received
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.549Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.569Z - Wrote project graph cache to C:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\project-graph.json
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.569Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.569Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.569Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.569Z - Time taken for 'total for creating and serializing project graph' 20.69760000000042ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.570Z - Done responding to the client project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:46.570Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 21. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.039Z - Closed a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.096Z - Received raw message of length 81
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.096Z - Received json message of type RECORD_OUTPUTS_HASH
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.096Z - Serializing response for RECORD_OUTPUTS_HASH message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.096Z - Responding to RECORD_OUTPUTS_HASH message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.096Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.096Z - Done responding to the client recordOutputsHash
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.096Z - Handled json message RECORD_OUTPUTS_HASH. Handling time: 0. Response time: 0.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.117Z - Received raw message of length 196
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.118Z - Received json message of type RECORD_TASK_RUNS
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.121Z - Serializing response for RECORD_TASK_RUNS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.121Z - Responding to RECORD_TASK_RUNS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.121Z - [REQUEST]: Responding to the client. handleRecordTaskRuns
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.121Z - Done responding to the client handleRecordTaskRuns
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.121Z - Handled json message RECORD_TASK_RUNS. Handling time: 3. Response time: 0.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.124Z - Received raw message of length 59
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.124Z - Received json message of type GET_FLAKY_TASKS
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.124Z - Serializing response for GET_FLAKY_TASKS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.124Z - Responding to GET_FLAKY_TASKS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.124Z - [REQUEST]: Responding to the client. handleGetFlakyTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.124Z - Done responding to the client handleGetFlakyTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.124Z - Handled json message GET_FLAKY_TASKS. Handling time: 0. Response time: 0.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.577Z - Received raw message of length 26456
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:57.577Z - Received json message of type PROCESS_IN_BACKGROUND
+Was not able to require.resolve module nx/src/utils/app-root from the following paths: C:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\node_modules,C:\Users\lgarci16\Desktop\libreria-formacion\node_modules. This may be expected.
+Was not able to require.resolve module nx/src/utils/app-root from the following paths: C:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\node_modules,C:\Users\lgarci16\Desktop\libreria-formacion\node_modules. This may be expected.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.409Z - Serializing response for PROCESS_IN_BACKGROUND message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.409Z - Responding to PROCESS_IN_BACKGROUND message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.409Z - [REQUEST]: Responding to the client. PROCESS_IN_BACKGROUND
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.410Z - Uploading file artifacts
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.410Z - Done uploading file artifacts
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.411Z - Sending EndRun request
+[Nx Cloud Debug] Attempting to acquire filesystem lock with path:  C:\Users\lgarci16\AppData\Local\Temp\client-instance-id.lock
+[Nx Cloud Debug] Failed to create folder lock at path: C:\Users\lgarci16\AppData\Local\Temp\client-instance-id.lock
+[Nx Cloud] Unable to detect a VCS context from the environment.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.415Z - Done responding to the client PROCESS_IN_BACKGROUND
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.415Z - Handled json message PROCESS_IN_BACKGROUND. Handling time: 832. Response time: 6.
+
+ NX   RunEnd. Completed tasks
+
+
+[
+  "dcx-ng-lib:storybook"
+]
+
+(node:27016) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.499Z - Received raw message of length 8964
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.499Z - Received json message of type POST_TASKS_EXECUTION
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.500Z - Serializing response for POST_TASKS_EXECUTION message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.500Z - Responding to POST_TASKS_EXECUTION message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.500Z - [REQUEST]: Responding to the client. handleRunPostTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.501Z - Time taken for 'postTasksExecution' 0.7312999999994645ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.501Z - Done responding to the client handleRunPostTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.501Z - Handled json message POST_TASKS_EXECUTION. Handling time: 1. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.516Z - Closed a connection. Number of open connections: 0
+
+ NX   Connection to Nx Cloud failed with status code 401
+
+This workspace is more than three days old and is not connected. Workspaces must be connected within 3 days of creation. Claim your workspace at https://cloud.nx.app.
+
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:52:58.677Z - Error when sending EndRun
+Error: This workspace is more than three days old and is not connected. Workspaces must be connected within 3 days of creation. Claim your workspace at https://cloud.nx.app
+    at Timeout._onTimeout (C:\Users\lgarci16\Desktop\libreria-formacion\.nx\cache\cloud\2511.21.9\lib\daemon\process-run-end.js:1:941778)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:17.461Z - Established a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:17.462Z - Closed a connection. Number of open connections: 0
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:17.463Z - Established a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.601Z - Received raw message of length 32
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.601Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.602Z - [REQUEST]: Client Request for Project Graph Received
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.603Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.624Z - Wrote project graph cache to C:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\project-graph.json
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.624Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.624Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.624Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.624Z - Time taken for 'total for creating and serializing project graph' 22.36019999999553ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.625Z - Done responding to the client project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.625Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 22. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.630Z - Received raw message of length 1975
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.630Z - Received json message of type PRE_TASKS_EXECUTION
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.631Z - Serializing response for PRE_TASKS_EXECUTION message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.631Z - Responding to PRE_TASKS_EXECUTION message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.631Z - [REQUEST]: Responding to the client. handleRunPreTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.631Z - Time taken for 'preTasksExecution' 0.5842000000120606ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.631Z - Done responding to the client handleRunPreTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.631Z - Handled json message PRE_TASKS_EXECUTION. Handling time: 1. Response time: 0.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.711Z - Received raw message of length 9493
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.712Z - Received json message of type HASH_TASKS
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.712Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.733Z - Wrote project graph cache to C:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\project-graph.json
+DEBUG nx::native::tasks::hash_planner: get_plans_internal COMPLETED in 82.6µs - processed 1 tasks (setup: 18.4µs, parallel_planning: 55.9µs)
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key=".gitlab-ci.yml"}: Adding "18407822344902581237" (".gitlab-ci.yml") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key=".gitlab-ci.yml"}: Hash Value: "13972060965251050569"
+DEBUG nx::native::tasks::task_hasher: hash_plans COMPLETED in 1.1222ms - processed 1 plans (setup: 15.1µs, hashing: 1.1043ms, assembly: 56.4µs)
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.736Z - Serializing response for HASH_TASKS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.736Z - Responding to HASH_TASKS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.736Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.737Z - Time taken for 'write cache' 20.9714999999851ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.737Z - Done responding to the client handleHashTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:18.737Z - Handled json message HASH_TASKS. Handling time: 24. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:19.654Z - Received raw message of length 128
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:19.654Z - Received json message of type GET_ESTIMATED_TASK_TIMINGS
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:19.654Z - Serializing response for GET_ESTIMATED_TASK_TIMINGS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:19.654Z - Responding to GET_ESTIMATED_TASK_TIMINGS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:19.655Z - [REQUEST]: Responding to the client. handleGetEstimatedTaskTimings
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:19.655Z - Done responding to the client handleGetEstimatedTaskTimings
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:19.655Z - Handled json message GET_ESTIMATED_TASK_TIMINGS. Handling time: 0. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:21.968Z - Established a connection. Number of open connections: 2
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:21.969Z - Closed a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:21.970Z - Established a connection. Number of open connections: 2
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.123Z - Received raw message of length 32
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.124Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.124Z - [REQUEST]: Client Request for Project Graph Received
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.125Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.145Z - Wrote project graph cache to C:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\project-graph.json
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.145Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.145Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.146Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.146Z - Time taken for 'total for creating and serializing project graph' 21.689400000002934ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.146Z - Done responding to the client project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:23.147Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 21. Response time: 2.
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:27.301Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.329Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.329Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.439Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.440Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.440Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.14480000000912696
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.442Z - Time taken for 'hash changed files from watcher' 0.7973000000056345ms
+Time for 'nx/core/project-json:createNodes' 1.1301000000094064
+Time for 'nx/core/package-json:createNodes' 3.8029000000096858
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.455Z - Time taken for 'build-project-configs' 8.814899999997579ms
+Time for 'build typescript dependencies' 2.427899999980582
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.460Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.461Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.461Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:54.461Z - Time taken for 'total execution time for createProjectGraph()' 8.821100000001024ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T09:55:55.407Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:03.832Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:03.835Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:04.053Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:04.053Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:04.053Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.09970000002067536
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:04.057Z - Time taken for 'hash changed files from watcher' 0.9208000000216998ms
+Time for 'nx/core/project-json:createNodes' 0.9688000000314787
+Time for 'nx/core/package-json:createNodes' 3.790500000002794
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:04.072Z - Time taken for 'build-project-configs' 10.914400000008754ms
+Time for 'build typescript dependencies' 2.501300000003539
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:04.077Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:04.078Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:04.079Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:00:04.079Z - Time taken for 'total execution time for createProjectGraph()' 9.566200000001118ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:13.633Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:13.638Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:14.055Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:14.055Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:14.055Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.12169999995967373
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:14.057Z - Time taken for 'hash changed files from watcher' 0.6640000000479631ms
+Time for 'nx/core/project-json:createNodes' 0.9034000000101514
+Time for 'nx/core/package-json:createNodes' 4.038000000000466
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:14.071Z - Time taken for 'build-project-configs' 9.007700000016484ms
+Time for 'build typescript dependencies' 2.930099999997765
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:14.076Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:14.078Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:14.078Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:01:14.078Z - Time taken for 'total execution time for createProjectGraph()' 9.678400000033434ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:23.523Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:23.526Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:24.362Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:24.362Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:24.362Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.0760999999474734
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:24.392Z - Time taken for 'hash changed files from watcher' 1.0860999999567866ms
+Time for 'nx/core/project-json:createNodes' 1.0945999999530613
+Time for 'nx/core/package-json:createNodes' 7.680799999972805
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:24.413Z - Time taken for 'build-project-configs' 16.82880000001751ms
+Time for 'build typescript dependencies' 4.947299999999814
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:24.422Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:24.423Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:24.423Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:24.423Z - Time taken for 'total execution time for createProjectGraph()' 12.42229999997653ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:30.917Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:30.918Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:32.524Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:32.524Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:32.524Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.0781999999890104
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:32.527Z - Time taken for 'hash changed files from watcher' 0.8016000000061467ms
+Time for 'nx/core/project-json:createNodes' 0.8480999999446794
+Time for 'nx/core/package-json:createNodes' 3.478800000040792
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:32.540Z - Time taken for 'build-project-configs' 8.643900000024587ms
+Time for 'build typescript dependencies' 2.910700000007637
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:32.546Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:32.547Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:32.547Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:32.548Z - Time taken for 'total execution time for createProjectGraph()' 9.526100000017323ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:43.242Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:43.242Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:46.456Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:46.456Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:46.456Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.11719999997876585
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:46.460Z - Time taken for 'hash changed files from watcher' 0.97379999991972ms
+Time for 'nx/core/project-json:createNodes' 1.378499999991618
+Time for 'nx/core/package-json:createNodes' 3.518999999971129
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:46.470Z - Time taken for 'build-project-configs' 8.137199999997392ms
+Time for 'build typescript dependencies' 2.401799999992363
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:46.475Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:46.476Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:46.476Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:04:46.476Z - Time taken for 'total execution time for createProjectGraph()' 7.709499999997206ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:43.529Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:43.532Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:49.943Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:49.944Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:49.944Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.09150000009685755
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:49.950Z - Time taken for 'hash changed files from watcher' 0.9263999999966472ms
+Time for 'nx/core/project-json:createNodes' 1.3893999999854714
+Time for 'nx/core/package-json:createNodes' 5.052900000009686
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:49.963Z - Time taken for 'build-project-configs' 10.849600000074133ms
+Time for 'build typescript dependencies' 3.850099999923259
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:49.970Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:49.972Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:49.972Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:05:49.972Z - Time taken for 'total execution time for createProjectGraph()' 10.660900000017136ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:10.872Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:10.872Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:17.276Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:17.276Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:17.276Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.145699999993667
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:17.279Z - Time taken for 'hash changed files from watcher' 0.9984000000404194ms
+Time for 'nx/core/project-json:createNodes' 1.251200000056997
+Time for 'nx/core/package-json:createNodes' 4.0291000000434
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:17.290Z - Time taken for 'build-project-configs' 8.791299999924377ms
+Time for 'build typescript dependencies' 2.5497999999206513
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:17.296Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:17.297Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:17.297Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:17.297Z - Time taken for 'total execution time for createProjectGraph()' 8.040500000002794ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:22.433Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:22.436Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.239Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.240Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.837Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.838Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.838Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.08770000003278255
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.840Z - Time taken for 'hash changed files from watcher' 0.7305000000633299ms
+Time for 'nx/core/project-json:createNodes' 1.148300000000745
+Time for 'nx/core/package-json:createNodes' 4.063099999912083
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.852Z - Time taken for 'build-project-configs' 8.600099999923259ms
+Time for 'build typescript dependencies' 2.324499999987893
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.857Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.858Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.858Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:28.858Z - Time taken for 'total execution time for createProjectGraph()' 7.738100000075065ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:42.958Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:42.958Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:49.360Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:49.361Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:49.361Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.11389999999664724
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:49.364Z - Time taken for 'hash changed files from watcher' 0.8469000000040978ms
+Time for 'nx/core/project-json:createNodes' 0.9681000000564381
+Time for 'nx/core/package-json:createNodes' 3.64359999995213
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:49.377Z - Time taken for 'build-project-configs' 10.23410000000149ms
+Time for 'build typescript dependencies' 2.4063000000314787
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:49.382Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:49.383Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:49.383Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:49.383Z - Time taken for 'total execution time for createProjectGraph()' 7.3945999999996275ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:53.254Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:53.254Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:59.664Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:59.664Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:59.664Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.11479999998118728
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:59.668Z - Time taken for 'hash changed files from watcher' 0.66039999993518ms
+Time for 'nx/core/project-json:createNodes' 1.1149999999906868
+Time for 'nx/core/package-json:createNodes' 4.398699999903329
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:59.680Z - Time taken for 'build-project-configs' 9.627299999934621ms
+Time for 'build typescript dependencies' 2.1790000000037253
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:59.684Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:59.685Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:59.685Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:07:59.685Z - Time taken for 'total execution time for createProjectGraph()' 6.741900000022724ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:34.022Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:34.022Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:40.435Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:40.435Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:40.435Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.06729999999515712
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:40.438Z - Time taken for 'hash changed files from watcher' 0.6946000000461936ms
+Time for 'nx/core/project-json:createNodes' 0.8155999999726191
+Time for 'nx/core/package-json:createNodes' 3.0243000000482425
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:40.447Z - Time taken for 'build-project-configs' 7.087300000013784ms
+Time for 'build typescript dependencies' 2.168999999994412
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:40.452Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:40.453Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:40.453Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:40.453Z - Time taken for 'total execution time for createProjectGraph()' 6.369300000020303ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:50.040Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:50.041Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:56.455Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:56.456Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:56.456Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.14910000003874302
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:56.458Z - Time taken for 'hash changed files from watcher' 0.6246999999275431ms
+Time for 'nx/core/project-json:createNodes' 0.9597000000067055
+Time for 'nx/core/package-json:createNodes' 3.5746999999973923
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:56.470Z - Time taken for 'build-project-configs' 8.60979999997653ms
+Time for 'build typescript dependencies' 2.3216999999713153
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:56.475Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:56.476Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:56.477Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:08:56.477Z - Time taken for 'total execution time for createProjectGraph()' 8.47740000009071ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:10.166Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:10.169Z - [WATCHER]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:16.575Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:16.576Z - [REQUEST]: libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:16.576Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.12479999999050051
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:16.579Z - Time taken for 'hash changed files from watcher' 1.3970000001136214ms
+Time for 'nx/core/project-json:createNodes' 1.1421000000555068
+Time for 'nx/core/package-json:createNodes' 3.9183000000193715
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:16.591Z - Time taken for 'build-project-configs' 8.782200000016019ms
+Time for 'build typescript dependencies' 2.2643999999854714
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:16.597Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:16.598Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:16.598Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:09:16.598Z - Time taken for 'total execution time for createProjectGraph()' 9.480899999965914ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:28.041Z - [WATCHER]: libs/dcx-ng-lib/src/scss/utils/_mixins.scss was modified
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:28.042Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:29.346Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:29.489Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:29.549Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:31.334Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:31.377Z - Closed a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:31.388Z - Closed a connection. Number of open connections: 0
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:34.458Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:34.458Z - [REQUEST]: libs/dcx-ng-lib/src/scss/utils/_mixins.scss
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:34.458Z - [REQUEST]: 
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 0.06620000000111759
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:34.460Z - Time taken for 'hash changed files from watcher' 0.6173000000417233ms
+Time for 'nx/core/project-json:createNodes' 0.8180999998003244
+Time for 'nx/core/package-json:createNodes' 2.920399999944493
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:34.471Z - Time taken for 'build-project-configs' 7.691000000108033ms
+Time for 'build typescript dependencies' 2.2408000000286847
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:34.477Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:34.478Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:34.478Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:11:34.478Z - Time taken for 'total execution time for createProjectGraph()' 9.007699999958277ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:53.954Z - Established a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:53.954Z - Closed a connection. Number of open connections: 0
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:53.955Z - Established a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.110Z - Received raw message of length 32
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.110Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.110Z - [REQUEST]: Client Request for Project Graph Received
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.111Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.133Z - Wrote project graph cache to C:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\project-graph.json
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.133Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.133Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.133Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.133Z - Time taken for 'total for creating and serializing project graph' 22.79619999998249ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.134Z - Done responding to the client project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.134Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 23. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.138Z - Received raw message of length 1993
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.138Z - Received json message of type PRE_TASKS_EXECUTION
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.139Z - Serializing response for PRE_TASKS_EXECUTION message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.139Z - Responding to PRE_TASKS_EXECUTION message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.139Z - [REQUEST]: Responding to the client. handleRunPreTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.139Z - Time taken for 'preTasksExecution' 0.6504999999888241ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.140Z - Done responding to the client handleRunPreTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.140Z - Handled json message PRE_TASKS_EXECUTION. Handling time: 1. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.233Z - Received raw message of length 9955
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.233Z - Received json message of type HASH_TASKS
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.234Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.255Z - Wrote project graph cache to C:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\project-graph.json
+DEBUG nx::native::tasks::hash_planner: get_plans_internal COMPLETED in 51µs - processed 1 tasks (setup: 17µs, parallel_planning: 29.2µs)
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key="nx.json,.gitignore,.nxignore"}: Adding "53023160234122244" (".gitignore") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key="nx.json,.gitignore,.nxignore"}: Adding "11302365117951060169" ("nx.json") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset{cache_key="nx.json,.gitignore,.nxignore"}: Hash Value: "11971680413361502463"
+DEBUG nx::native::tasks::task_hasher: hash_plans COMPLETED in 565.9µs - processed 1 plans (setup: 16.6µs, hashing: 547.3µs, assembly: 31.2µs)
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.259Z - Serializing response for HASH_TASKS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.259Z - Responding to HASH_TASKS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.260Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.260Z - Time taken for 'write cache' 21.44579999987036ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.260Z - Done responding to the client handleHashTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:55.260Z - Handled json message HASH_TASKS. Handling time: 26. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:56.180Z - Received raw message of length 95
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:56.180Z - Received json message of type GET_ESTIMATED_TASK_TIMINGS
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:56.181Z - Serializing response for GET_ESTIMATED_TASK_TIMINGS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:56.181Z - Responding to GET_ESTIMATED_TASK_TIMINGS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:56.181Z - [REQUEST]: Responding to the client. handleGetEstimatedTaskTimings
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:56.181Z - Done responding to the client handleGetEstimatedTaskTimings
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:56.181Z - Handled json message GET_ESTIMATED_TASK_TIMINGS. Handling time: 1. Response time: 0.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:58.993Z - Established a connection. Number of open connections: 2
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:58.994Z - Closed a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:17:58.996Z - Established a connection. Number of open connections: 2
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.051Z - Received raw message of length 32
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.051Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.051Z - [REQUEST]: Client Request for Project Graph Received
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.052Z - Reusing in-memory cached project graph because no files changed.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.080Z - Wrote project graph cache to C:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\project-graph.json
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.080Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.080Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.080Z - [REQUEST]: Responding to the client. project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.081Z - Time taken for 'total for creating and serializing project graph' 29.166300000157207ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.081Z - Done responding to the client project-graph
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:00.081Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 29. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.186Z - Closed a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.243Z - Received raw message of length 82
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.243Z - Received json message of type RECORD_OUTPUTS_HASH
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.243Z - Serializing response for RECORD_OUTPUTS_HASH message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.244Z - Responding to RECORD_OUTPUTS_HASH message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.244Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.244Z - Done responding to the client recordOutputsHash
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.244Z - Handled json message RECORD_OUTPUTS_HASH. Handling time: 0. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.264Z - Received raw message of length 197
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.264Z - Received json message of type RECORD_TASK_RUNS
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.266Z - Serializing response for RECORD_TASK_RUNS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.266Z - Responding to RECORD_TASK_RUNS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.266Z - [REQUEST]: Responding to the client. handleRecordTaskRuns
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.266Z - Done responding to the client handleRecordTaskRuns
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.266Z - Handled json message RECORD_TASK_RUNS. Handling time: 2. Response time: 0.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.268Z - Received raw message of length 60
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.268Z - Received json message of type GET_FLAKY_TASKS
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.268Z - Serializing response for GET_FLAKY_TASKS message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.268Z - Responding to GET_FLAKY_TASKS message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.268Z - [REQUEST]: Responding to the client. handleGetFlakyTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.268Z - Done responding to the client handleGetFlakyTasks
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.268Z - Handled json message GET_FLAKY_TASKS. Handling time: 0. Response time: 0.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.717Z - Received raw message of length 26460
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:11.717Z - Received json message of type PROCESS_IN_BACKGROUND
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.347Z - Serializing response for PROCESS_IN_BACKGROUND message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.347Z - Responding to PROCESS_IN_BACKGROUND message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.347Z - [REQUEST]: Responding to the client. PROCESS_IN_BACKGROUND
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.348Z - Done responding to the client PROCESS_IN_BACKGROUND
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.348Z - Handled json message PROCESS_IN_BACKGROUND. Handling time: 630. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.348Z - Uploading file artifacts
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.349Z - Done uploading file artifacts
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.349Z - Sending EndRun request
+[Nx Cloud Debug] Attempting to acquire filesystem lock with path:  C:\Users\lgarci16\AppData\Local\Temp\client-instance-id.lock
+[Nx Cloud Debug] Failed to create folder lock at path: C:\Users\lgarci16\AppData\Local\Temp\client-instance-id.lock
+[Nx Cloud] Unable to detect a VCS context from the environment.
+
+ NX   RunEnd. Completed tasks
+
+
+[
+  "dcx-ng-lib:storybook"
+]
+
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.357Z - Received raw message of length 8965
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.357Z - Received json message of type POST_TASKS_EXECUTION
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.358Z - Serializing response for POST_TASKS_EXECUTION message in json mode
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.358Z - Responding to POST_TASKS_EXECUTION message
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.358Z - [REQUEST]: Responding to the client. handleRunPostTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.358Z - Time taken for 'postTasksExecution' 1.0642000001389533ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.359Z - Done responding to the client handleRunPostTasksExecution
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.359Z - Handled json message POST_TASKS_EXECUTION. Handling time: 1. Response time: 1.
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.371Z - Closed a connection. Number of open connections: 0
+
+ NX   Connection to Nx Cloud failed with status code 401
+
+This workspace is more than three days old and is not connected. Workspaces must be connected within 3 days of creation. Claim your workspace at https://cloud.nx.app.
+
+[NX v22.1.1 Daemon Server] - 2025-11-25T10:18:12.540Z - Error when sending EndRun
+Error: This workspace is more than three days old and is not connected. Workspaces must be connected within 3 days of creation. Claim your workspace at https://cloud.nx.app
+    at Timeout._onTimeout (C:\Users\lgarci16\Desktop\libreria-formacion\.nx\cache\cloud\2511.21.9\lib\daemon\process-run-end.js:1:941778)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:28.569Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:28.581Z - [WATCHER]: 0 file(s) created or restored, 9 file(s) modified, 3 file(s) deleted
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:28.617Z - [WATCHER]: Processing file changes in outputs
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:28.620Z - [WATCHER]: 0 file(s) created or restored, 9 file(s) modified, 0 file(s) deleted
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:28.697Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:28.697Z - [REQUEST]: libs/dcx-ng-lib/src/lib/stories/Tooltip/ClassBased.stories.ts,libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component.scss,libs/dcx-ng-lib/src/scss/main.scss,libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component.scss,libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-message/dcx-ng-message.component.scss,libs/dcx-ng-lib/src/scss/utils/_variables.scss,libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss,libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component.stories.ts,libs/dcx-ng-lib/src/scss/utils/_mixins.scss,nx.json,tsconfig.json,libs/dcx-ng-lib/tsconfig.json,package.json,libs/dcx-ng-lib/styles.scss,tsconfig.base.json,src/styles.scss,tsconfig.app.json
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:28.697Z - [REQUEST]: libs/dcx-ng-lib/src/scss/utils/_index.scss,libs/dcx-ng-lib/src/scss/base/_index.scss,migrations.json
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:28.702Z - Time taken for 'hash changed files from watcher' 2.3184000002220273ms
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 1.3306999998167157
+Time for 'nx/core/project-json:createNodes' 4.452100000344217
+Time for 'nx/core/package-json:createNodes' 11.011400000192225
+Unable to find local plugin [] Map(0) {}
+Unable to find local plugin [] Map(0) {}
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:28.732Z - Time taken for 'build-project-configs' 23.119400000199676ms
+Time for 'build typescript dependencies' 850.0701999999583
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:29.592Z - [SYNC]: collect registered sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:29.594Z - [SYNC]: project graph hash is the same, not collecting task sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:29.594Z - [SYNC]: nx.json hash is the same, not collecting global sync generators
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:29.594Z - Time taken for 'total execution time for createProjectGraph()' 866.9460000004619ms
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:38.531Z - Started listening on: \\.\pipe\nx\C:\Users\lgarci16\AppData\Local\Temp\92c62428f62dc2f93b82\d.sock
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:38.537Z - [WATCHER]: Subscribed to changes within: c:\Users\lgarci16\Desktop\libreria-formacion (native)
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:38.539Z - Established a connection. Number of open connections: 1
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:38.542Z - Closed a connection. Number of open connections: 0
+Time for 'plugin worker 29672 code loading' 12.868699999999997
+Time for 'plugin worker 29132 code loading' 23.869099999999996
+Time for 'plugin worker 13284 code loading' 11.3981
+Time for 'plugin worker 10700 code loading' 11.017899999999997
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use \\.\pipe\nx\C:\Users\lgarci16\AppData\Local\Temp\92c62428f62dc2f93b82\d.sock
+    at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2119:5)
+    at c:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\src\daemon\server\server.js:407:20
+    at new Promise (<anonymous>)
+    at startServer (c:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\src\daemon\server\server.js:405:12)
+    at async c:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\src\daemon\server\start.js:8:9
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '\\\\.\\pipe\\nx\\C:\\Users\\lgarci16\\AppData\\Local\\Temp\\92c62428f62dc2f93b82\\d.sock',
+  port: -1
+}
+
+Node.js v22.20.0
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:39.490Z - [WATCHER]: Stopping the watcher for c:\Users\lgarci16\Desktop\libreria-formacion (sources)
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:39.491Z - [WATCHER]: Stopping the watcher for c:\Users\lgarci16\Desktop\libreria-formacion (outputs)
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:39.492Z - Server stopped because: "this process is no longer the current daemon (native)"
+[NX Daemon Server] - 2025-11-26T10:06:50.059Z - Started listening on: \\.\pipe\nx\C:\Users\lgarci16\AppData\Local\Temp\92c62428f62dc2f93b82\d.sock
+[NX Daemon Server] - 2025-11-26T10:06:50.065Z - [WATCHER]: Subscribed to changes within: C:\Users\lgarci16\Desktop\libreria-formacion (native)
+[NX Daemon Server] - 2025-11-26T10:06:50.067Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-11-26T10:06:50.068Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2025-11-26T10:06:50.070Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-11-26T10:06:50.072Z - [REQUEST]: Responding to the client. Shutdown initiated
+[NX Daemon Server] - 2025-11-26T10:06:50.072Z - Done responding to the client Shutdown initiated
+[NX Daemon Server] - 2025-11-26T10:06:50.072Z - Handled FORCE_SHUTDOWN. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2025-11-26T10:06:50.075Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2025-11-26T10:06:50.076Z - [WATCHER]: Stopping the watcher for C:\Users\lgarci16\Desktop\libreria-formacion (sources)
+[NX Daemon Server] - 2025-11-26T10:06:50.077Z - [WATCHER]: Stopping the watcher for C:\Users\lgarci16\Desktop\libreria-formacion (outputs)

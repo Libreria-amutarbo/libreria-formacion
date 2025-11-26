@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx storybook dcx-ng-lib",
+    "startTime": "2025-11-25T10:17:55.923Z",
+    "endTime": "2025-11-25T10:18:11.255Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "dcx-ng-lib:storybook",
+      "target": "storybook",
+      "projectName": "dcx-ng-lib",
+      "hash": "13698929860892768119",
+      "startTime": "2025-11-25T10:17:56.185Z",
+      "endTime": "2025-11-25T10:18:11.239Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
+}

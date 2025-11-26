@@ -1,0 +1,1295 @@
+{
+  "version": "6.0",
+  "nxVersion": "20.0.1",
+  "pathMappings": {
+    "@dcx-ng-components/dcx-ng-lib": [
+      "libs/dcx-ng-lib/src/index.ts"
+    ],
+    "@styles/*": [
+      "libs/dcx-ng-lib/src/scss/*"
+    ]
+  },
+  "nxJsonPlugins": [
+    {
+      "name": "@nx/storybook/plugin",
+      "options": {
+        "serveStorybookTargetName": "storybook",
+        "buildStorybookTargetName": "build-storybook",
+        "testStorybookTargetName": "test-storybook",
+        "staticStorybookTargetName": "static-storybook"
+      }
+    }
+  ],
+  "fileMap": {
+    "projectFileMap": {
+      "dcx-ng-components": [
+        {
+          "file": ".github/ISSUE_TEMPLATE/custom.md",
+          "hash": "4861420649240139804"
+        },
+        {
+          "file": ".github/workflows/auto-update-branch.yml",
+          "hash": "12381981478466382319"
+        },
+        {
+          "file": ".github/workflows/build.yml",
+          "hash": "521294474089090112"
+        },
+        {
+          "file": ".github/workflows/deploy-gh-pages.yml",
+          "hash": "11132623806586751671"
+        },
+        {
+          "file": ".github/workflows/pr-title-linter",
+          "hash": "8189368323683899702"
+        },
+        {
+          "file": ".github/workflows/pr-title-linter.yml",
+          "hash": "8189368323683899702"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "53023160234122244"
+        },
+        {
+          "file": ".gitlab-ci.yml",
+          "hash": "18407822344902581237"
+        },
+        {
+          "file": ".prettierignore",
+          "hash": "12269743867629339573"
+        },
+        {
+          "file": ".prettierrc",
+          "hash": "3266185380693494828"
+        },
+        {
+          "file": ".vscode/extensions.json",
+          "hash": "60901680939730831"
+        },
+        {
+          "file": "README.md",
+          "hash": "426642832996638252"
+        },
+        {
+          "file": "eslint.base.config.js",
+          "hash": "5423641930063832615"
+        },
+        {
+          "file": "eslint.config.js",
+          "hash": "7203946425532375627"
+        },
+        {
+          "file": "jest.config.app.ts",
+          "hash": "5330171175459791890"
+        },
+        {
+          "file": "jest.config.ts",
+          "hash": "7544409015863045561"
+        },
+        {
+          "file": "jest.preset.js",
+          "hash": "7473220183190921152"
+        },
+        {
+          "file": "nx.json",
+          "hash": "16632941694836626039"
+        },
+        {
+          "file": "package.json",
+          "hash": "781778461062739689"
+        },
+        {
+          "file": "project.json",
+          "hash": "3595909121022722104"
+        },
+        {
+          "file": "public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "sonar-project.properties",
+          "hash": "11500924194546911696"
+        },
+        {
+          "file": "src/app/app.component.html",
+          "hash": "17385897758380840601"
+        },
+        {
+          "file": "src/app/app.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/app.component.spec.ts",
+          "hash": "5764540701434137820"
+        },
+        {
+          "file": "src/app/app.component.ts",
+          "hash": "16130164122009749113"
+        },
+        {
+          "file": "src/app/app.config.ts",
+          "hash": "2061310302555965946"
+        },
+        {
+          "file": "src/app/app.routes.ts",
+          "hash": "16682497589213958709",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-button/dcx-ng-page-button.component.html",
+          "hash": "4508957538000502292"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-button/dcx-ng-page-button.component.scss",
+          "hash": "5239024669998056699"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-button/dcx-ng-page-button.component.spec.ts",
+          "hash": "2663454842175880213"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-button/dcx-ng-page-button.component.ts",
+          "hash": "13428072226952520208",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component.html",
+          "hash": "7990567462569961991"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component.scss",
+          "hash": "1184147649718552472"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component.spec.ts",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component.ts",
+          "hash": "7826333424843859940",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component.html",
+          "hash": "3116318142982387491"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component.scss",
+          "hash": "14684867006951305128"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component.spec.ts",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component.ts",
+          "hash": "14699988695486698485",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-chip/dcx-ng-page-chip.component.html",
+          "hash": "10292633903607305519"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-chip/dcx-ng-page-chip.component.scss",
+          "hash": "5221397820764452703"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-chip/dcx-ng-page-chip.component.spec.ts",
+          "hash": "11606681200875984538"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-chip/dcx-ng-page-chip.component.ts",
+          "hash": "7524441222981675895",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-contextMenu/dcx-ng-page-contextMenu.component.html",
+          "hash": "4435728185582225604"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-contextMenu/dcx-ng-page-contextMenu.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-contextMenu/dcx-ng-page-contextMenu.component.spec.ts",
+          "hash": "10148022687052948029"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-contextMenu/dcx-ng-page-contextMenu.component.ts",
+          "hash": "9025876480773862756",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-divider/dcx-ng-page-divider.component.html",
+          "hash": "3157696622380438146"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-divider/dcx-ng-page-divider.component.scss",
+          "hash": "17845244328778684322"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-divider/dcx-ng-page-divider.component.spec.ts",
+          "hash": "7922126688514780344"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-divider/dcx-ng-page-divider.component.ts",
+          "hash": "8246240789320334129",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component.html",
+          "hash": "1267936277536361696"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component.scss",
+          "hash": "4692062932917861952"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component.spec.ts",
+          "hash": "18445132276775105570"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component.ts",
+          "hash": "4353360423532728094",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-icon/dcx-ng-page-icon.component.html",
+          "hash": "15328295031438480096"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-icon/dcx-ng-page-icon.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-icon/dcx-ng-page-icon.component.spec.ts",
+          "hash": "5726702915528208062"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-icon/dcx-ng-page-icon.component.ts",
+          "hash": "5384331214593504872",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component.html",
+          "hash": "11321808302180916565"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component.scss",
+          "hash": "3738730032650317959"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component.spec.ts",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component.ts",
+          "hash": "3231318649651573428",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-input/dcx-ng-page-input.component.html",
+          "hash": "11005530130805656918"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-input/dcx-ng-page-input.component.scss",
+          "hash": "15782764327269392129"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-input/dcx-ng-page-input.component.spec.ts",
+          "hash": "1145277536291560293"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-input/dcx-ng-page-input.component.ts",
+          "hash": "8063708924476876384",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-list/dcx-ng-page-list.component.html",
+          "hash": "1557142024295755726"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-list/dcx-ng-page-list.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-list/dcx-ng-page-list.component.spec.ts",
+          "hash": "11422834631874090223"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-list/dcx-ng-page-list.component.ts",
+          "hash": "6709953636029947043",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-message/dcx-ng-page-message.component.html",
+          "hash": "16328456867652406429"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-message/dcx-ng-page-message.component.scss",
+          "hash": "6299267141857991354"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-message/dcx-ng-page-message.component.spec.ts",
+          "hash": "1164527026853179198"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-message/dcx-ng-page-message.component.ts",
+          "hash": "3585461011681293323",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-paginator/dcx-ng-page-paginator.component.html",
+          "hash": "15528861250983336883"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-paginator/dcx-ng-page-paginator.component.scss",
+          "hash": "7789758075986235400"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-paginator/dcx-ng-page-paginator.component.ts",
+          "hash": "14458347209852346349",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-radio/dcx-ng-page-radio.component.html",
+          "hash": "5545639186337846958"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-radio/dcx-ng-page-radio.component.scss",
+          "hash": "3940718446695313943"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-radio/dcx-ng-page-radio.component.spec.ts",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-radio/dcx-ng-page-radio.component.ts",
+          "hash": "9975580925724701421",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-select/dcx-ng-page-select.component.html",
+          "hash": "15757716186670163075"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-select/dcx-ng-page-select.component.scss",
+          "hash": "1658283144174623678"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-select/dcx-ng-page-select.component.spec.ts",
+          "hash": "12195819138477220859"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-select/dcx-ng-page-select.component.ts",
+          "hash": "14783020691927480276",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component.html",
+          "hash": "16799261984087146787"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component.scss",
+          "hash": "132728092082983618"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component.spec.ts",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component.ts",
+          "hash": "5335729435199937939",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component.html",
+          "hash": "614490099295396712"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component.scss",
+          "hash": "16891628081816981695"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component.spec.ts",
+          "hash": "7026793869982683890"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component.ts",
+          "hash": "13153963715776614019",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-table/dcx-ng-page-table.component.html",
+          "hash": "1951416627214213025"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-table/dcx-ng-page-table.component.scss",
+          "hash": "8212362693960848985"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-table/dcx-ng-page-table.component.spec.ts",
+          "hash": "17509140433689368534"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-table/dcx-ng-page-table.component.ts",
+          "hash": "4471558030354676102",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-toggle/dcx-ng-page-toggle.component.html",
+          "hash": "8791139768689401823"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-toggle/dcx-ng-page-toggle.component.scss",
+          "hash": "1358005369832385035"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-toggle/dcx-ng-page-toggle.component.spec.ts",
+          "hash": "13998009443194639689"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-toggle/dcx-ng-page-toggle.component.ts",
+          "hash": "4541995077641920817",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component.html",
+          "hash": "17891150939987833551"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component.scss",
+          "hash": "10411587628215039261"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component.spec.ts",
+          "hash": "14045695718590104871"
+        },
+        {
+          "file": "src/app/pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component.ts",
+          "hash": "6588040348810878885",
+          "deps": [
+            "dcx-ng-lib"
+          ]
+        },
+        {
+          "file": "src/index.html",
+          "hash": "5122852987953301900"
+        },
+        {
+          "file": "src/main.ts",
+          "hash": "875041330523952236"
+        },
+        {
+          "file": "src/styles.scss",
+          "hash": "15238734216678661313"
+        },
+        {
+          "file": "src/test-setup.ts",
+          "hash": "10765977267162271731"
+        },
+        {
+          "file": "tsconfig.app.json",
+          "hash": "16864811146245124190"
+        },
+        {
+          "file": "tsconfig.base.json",
+          "hash": "14283166445466447976"
+        },
+        {
+          "file": "tsconfig.editor.json",
+          "hash": "17575078801745175164"
+        },
+        {
+          "file": "tsconfig.json",
+          "hash": "4689752647353265835"
+        },
+        {
+          "file": "tsconfig.spec.json",
+          "hash": "1293240435771606091"
+        }
+      ],
+      "dcx-ng-lib": [
+        {
+          "file": "libs/dcx-ng-lib/.eslintrc.json",
+          "hash": "2667455572677229075"
+        },
+        {
+          "file": "libs/dcx-ng-lib/.storybook/main.ts",
+          "hash": "11099192598719304866"
+        },
+        {
+          "file": "libs/dcx-ng-lib/.storybook/manager-head.html",
+          "hash": "2441847935235567676"
+        },
+        {
+          "file": "libs/dcx-ng-lib/.storybook/preview-head.html",
+          "hash": "8289602741254589437"
+        },
+        {
+          "file": "libs/dcx-ng-lib/.storybook/preview.ts",
+          "hash": "10197198381396199563"
+        },
+        {
+          "file": "libs/dcx-ng-lib/.storybook/tsconfig.json",
+          "hash": "8571989769539778070"
+        },
+        {
+          "file": "libs/dcx-ng-lib/README.md",
+          "hash": "17266023216167976759"
+        },
+        {
+          "file": "libs/dcx-ng-lib/eslint.config.js",
+          "hash": "407706753499465619"
+        },
+        {
+          "file": "libs/dcx-ng-lib/jest.config.ts",
+          "hash": "13915798206612527845"
+        },
+        {
+          "file": "libs/dcx-ng-lib/ng-package.json",
+          "hash": "4044891520840522389"
+        },
+        {
+          "file": "libs/dcx-ng-lib/package.json",
+          "hash": "1293685134884388054"
+        },
+        {
+          "file": "libs/dcx-ng-lib/project.json",
+          "hash": "7331111946485342898"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/index.ts",
+          "hash": "7934199789561599235"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-breadcrumb/dcx-ng-breadcrumb.component.html",
+          "hash": "3130622039574351096"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-breadcrumb/dcx-ng-breadcrumb.component.scss",
+          "hash": "4375449931961296217"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-breadcrumb/dcx-ng-breadcrumb.component.spec.ts",
+          "hash": "13942572657345406045"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-breadcrumb/dcx-ng-breadcrumb.component.ts",
+          "hash": "7823236473153707261"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component.html",
+          "hash": "4916225801589198372"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component.scss",
+          "hash": "4995029259257020756"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component.spec.ts",
+          "hash": "3544822913630683865"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component.stories.ts",
+          "hash": "12055332967642733159"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component.ts",
+          "hash": "17965999442353144184"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-card/dcx-ng-card.component.html",
+          "hash": "4122749801226313258"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-card/dcx-ng-card.component.scss",
+          "hash": "10826552303157954078"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-card/dcx-ng-card.component.spec.ts",
+          "hash": "8162742239796102456"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-card/dcx-ng-card.component.stories.ts",
+          "hash": "7982349505845348515"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-card/dcx-ng-card.component.ts",
+          "hash": "1582526152817177058"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component.html",
+          "hash": "2541016892066068712"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component.scss",
+          "hash": "1680522663722388677"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component.spec.ts",
+          "hash": "11326567450600798443"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component.ts",
+          "hash": "13331874973725323646"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component.html",
+          "hash": "279927723328322981"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component.scss",
+          "hash": "17313566410156493322"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component.spec.ts",
+          "hash": "8702243604136356212"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component.stories.ts",
+          "hash": "16446066416649744103"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component.ts",
+          "hash": "3436603750728919400"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component.html",
+          "hash": "12942527369516088597"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component.scss",
+          "hash": "2948497171657253204"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component.spec.ts",
+          "hash": "950277281772273113"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component.ts",
+          "hash": "3268477983414971777"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component.html",
+          "hash": "6275138222868477417"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component.scss",
+          "hash": "12587995929008434942"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component.spec.ts",
+          "hash": "8043973097069968569"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component.stories.ts",
+          "hash": "2218717555538322612"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component.ts",
+          "hash": "14920927895829296288"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component.html",
+          "hash": "2963710889165463065"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component.scss",
+          "hash": "10159273138093410549"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component.spec.ts",
+          "hash": "4027016873632613662"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component.ts",
+          "hash": "9473850420239646015"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component.html",
+          "hash": "622046264690443216"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component.scss",
+          "hash": "17044676770363228405"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component.spec.ts",
+          "hash": "13912521029616964736"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component.stories.ts",
+          "hash": "11229427940241824878"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component.ts",
+          "hash": "9907828981613195198"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.html",
+          "hash": "16723887601934782780"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.scss",
+          "hash": "13805814690691116407"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.spec.ts",
+          "hash": "7818419912861567240"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component.ts",
+          "hash": "2702947044943848485"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-input/dcx-ng-input.component.html",
+          "hash": "15520902247869403363"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-input/dcx-ng-input.component.scss",
+          "hash": "10111233250826255982"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-input/dcx-ng-input.component.spec.ts",
+          "hash": "15927506355504483583"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-input/dcx-ng-input.component.stories.ts",
+          "hash": "16918575698538765286"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-input/dcx-ng-input.component.ts",
+          "hash": "4936246814382070914"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component.html",
+          "hash": "2820621911301228791"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component.scss",
+          "hash": "1377852920200325534"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component.spec.ts",
+          "hash": "16339382553301562662"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component.ts",
+          "hash": "2201142880752554283"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-message/dcx-ng-message.component.html",
+          "hash": "18168181771364079207"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-message/dcx-ng-message.component.scss",
+          "hash": "16965976842166025717"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-message/dcx-ng-message.component.spec.ts",
+          "hash": "17793502328253688650"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-message/dcx-ng-message.component.stories.ts",
+          "hash": "16667237602719635330"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-message/dcx-ng-message.component.ts",
+          "hash": "3572971458949440571"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component.html",
+          "hash": "4938097862406994152"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component.scss",
+          "hash": "17401056918697186769"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component.spec.ts",
+          "hash": "2936963667163483396"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component.ts",
+          "hash": "14144763955528635234"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component.html",
+          "hash": "8839570310422963598"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component.scss",
+          "hash": "15587375193588598494"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component.stories.ts",
+          "hash": "6013168760513151152"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component.ts",
+          "hash": "11405584921932966323"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.components.spec.ts",
+          "hash": "11925214850894807074"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component.html",
+          "hash": "13714583402826766348"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component.scss",
+          "hash": "1657756190385199397"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component.spec.ts",
+          "hash": "13510473849601290679"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component.stories.ts",
+          "hash": "9171423868327222895"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component.ts",
+          "hash": "9411298256442038882"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component.html",
+          "hash": "685786324434845792"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component.scss",
+          "hash": "8237466515542514927"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component.spec.ts",
+          "hash": "3478289700130323214"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component.ts",
+          "hash": "4644623686638562844"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component.html",
+          "hash": "2367281121820492950"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component.scss",
+          "hash": "5346629286493918144"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component.spec.ts",
+          "hash": "2725083918825089112"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component.stories.ts",
+          "hash": "2290638767278665809"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component.ts",
+          "hash": "15712614207363133675"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component.html",
+          "hash": "161911014168091557"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component.scss",
+          "hash": "3650664702043359941"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component.spec.ts",
+          "hash": "17311770072889333462"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component.stories.ts",
+          "hash": "11330296088034884802"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component.ts",
+          "hash": "6939040037113348748"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component.html",
+          "hash": "10372015008144715256"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component.scss",
+          "hash": "1821713050475741326"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component.spec.ts",
+          "hash": "17529910158808899985"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component.stories.ts",
+          "hash": "2317508187802019193"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component.ts",
+          "hash": "4392542182092902353"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component.html",
+          "hash": "8387537859117662236"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component.scss",
+          "hash": "191488091375843975"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component.spec.ts",
+          "hash": "239159355507505450"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component.stories.ts",
+          "hash": "2500230266413001981"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component.ts",
+          "hash": "4552308599165922477"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Breadcrumb/ClassBased.stories.ts",
+          "hash": "16457819817002168369"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Breadcrumb/Documentation.mdx",
+          "hash": "2776885895205992271"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Breadcrumb/UnStyled.stories.ts",
+          "hash": "3624900463547449043"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Button/ClassBased.stories.ts",
+          "hash": "13781802472455996897"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Button/Documentation.mdx",
+          "hash": "10307360552867489311"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Button/UnStyled.stories.ts",
+          "hash": "14173177955768041673"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Card/ClassBased.stories.ts",
+          "hash": "9437864124871175812"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Card/Documentation.mdx",
+          "hash": "17958011298214439308"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Card/UnStyled.stories.ts",
+          "hash": "9819731330736241598"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Checkbox/ClassBased.stories.ts",
+          "hash": "12818106687889555722"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Checkbox/Documentation.mdx",
+          "hash": "1960757647930047161"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Checkbox/UnStyled.stories.ts",
+          "hash": "1190507128415825801"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Chip/ClassBased.stories.ts",
+          "hash": "15197715715044083624"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Chip/Documentation.mdx",
+          "hash": "7376949423213745286"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Chip/UnStyled.stories.ts",
+          "hash": "15041820218916151866"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/ContextMenu/ClassBased.stories.ts",
+          "hash": "18317630397816105999"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/ContextMenu/Documentation.mdx",
+          "hash": "6872148825542960283"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/ContextMenu/UnStyled.stories.ts",
+          "hash": "3404186868292333148"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Divider/ClassBased.stories.ts",
+          "hash": "16411514392405401995"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Divider/Documentation.mdx",
+          "hash": "14142450633838352210"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Divider/UnStyled.stories.ts",
+          "hash": "6835974119486443007"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Dropdown/ClassBased.stories.ts",
+          "hash": "7299612346294313662"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Dropdown/Documentation.mdx",
+          "hash": "11332074309572303996"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Dropdown/UnStyled.stories.ts",
+          "hash": "6542154136609773040"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Icon/ClassBased.stories.ts",
+          "hash": "10778248287575532689"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Icon/Documentation.mdx",
+          "hash": "7622929736604636975"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Input/ClassBased.stories.ts",
+          "hash": "8188516502136797400"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Input/Documentation.mdx",
+          "hash": "9589466346817981627"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/List/ClassBased.stories.ts",
+          "hash": "61392262821447541"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/List/Documentation.mdx",
+          "hash": "4801251074961887325"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/List/UnStyled.stories.ts",
+          "hash": "6496081953733367894"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Message/ClassBased.stories.ts",
+          "hash": "1070440621531460845"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Message/Documentation.mdx",
+          "hash": "5765867666879584200"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Message/UnStyled.stories.ts",
+          "hash": "10709133687023199943"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Paginator/ClassBased.stories.ts",
+          "hash": "1545566295828224849"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Paginator/Documentation.mdx",
+          "hash": "12550763346153174792"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Paginator/UnStyled.stories.ts",
+          "hash": "6876238618367630998"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Select/ClassBased.stories.ts",
+          "hash": "14832597221771277534"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Select/Documentation.mdx",
+          "hash": "10495348089748443166"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Select/UnStyled.stories.ts",
+          "hash": "15484020293497813783"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Spinner/ClassBased.stories.ts",
+          "hash": "18178664745294497528"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Spinner/Documentation.mdx",
+          "hash": "12245559981730738374"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Spinner/UnStyled.stories.ts",
+          "hash": "2711316511370204732"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Table/ClassBased.stories.ts",
+          "hash": "4751110891733163037"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Table/Documentation.mdx",
+          "hash": "4095986472970101693"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Table/UnStyled.stories.ts",
+          "hash": "16486649800581094909"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Toggle/ClassBased.stories.ts",
+          "hash": "14376941679209468739"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Toggle/Documentation.mdx",
+          "hash": "14734693374535506402"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Toggle/UnStyled.stories.ts",
+          "hash": "17595165990923095225"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Tooltip/ClassBased.stories.ts",
+          "hash": "7150498513510378760"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/Tooltip/Documentation.mdx",
+          "hash": "4369419786343481796"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/iconField/ClassBased.stories.ts",
+          "hash": "14063343460254273597"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/iconField/Documentation.mdx",
+          "hash": "3933028937240674723"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/iconField/UnStyled.stories.ts",
+          "hash": "15780868218337596044"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/radio/ClassBased.stories.ts",
+          "hash": "12341808358407504321"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/radio/Documentation.mdx",
+          "hash": "16771963243845690541"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/radio/UnStyled.stories.ts",
+          "hash": "5610011203646267904"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/slider/ClassBased.stories.ts",
+          "hash": "16495304820394462560"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/slider/Documentation.mdx",
+          "hash": "12546963302704045341"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/lib/stories/slider/UnStyled.stories.ts",
+          "hash": "1842603766030816985"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/scss/base/_color.scss",
+          "hash": "2706856428417369267"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/scss/base/_reset.scss",
+          "hash": "17401566026973222847"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/scss/base/_spacing.scss",
+          "hash": "5660064882988094559"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/scss/base/_typography.scss",
+          "hash": "4419530050319083236"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/scss/main.css",
+          "hash": "16399049538532771673"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/scss/main.css.map",
+          "hash": "10746723645412286974"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/scss/main.scss",
+          "hash": "1509825331733075008"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/scss/utils/_mixins.scss",
+          "hash": "18144546600285472751"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/scss/utils/_variables.scss",
+          "hash": "1337873909658064264"
+        },
+        {
+          "file": "libs/dcx-ng-lib/src/test-setup.ts",
+          "hash": "10765977267162271731"
+        },
+        {
+          "file": "libs/dcx-ng-lib/styles.scss",
+          "hash": "15527156111705633841"
+        },
+        {
+          "file": "libs/dcx-ng-lib/tsconfig.json",
+          "hash": "12671159368578576301"
+        },
+        {
+          "file": "libs/dcx-ng-lib/tsconfig.lib.json",
+          "hash": "2698356116434877078"
+        },
+        {
+          "file": "libs/dcx-ng-lib/tsconfig.spec.json",
+          "hash": "1930986853382524452"
+        }
+      ]
+    },
+    "nonProjectFiles": []
+  }
+}

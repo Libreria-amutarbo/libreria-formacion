@@ -1,0 +1,396 @@
+{
+  "nodes": {
+    "dcx-ng-lib": {
+      "name": "dcx-ng-lib",
+      "type": "lib",
+      "data": {
+        "root": "libs/dcx-ng-lib",
+        "targets": {
+          "build-storybook": {
+            "executor": "@storybook/angular:build-storybook",
+            "cache": true,
+            "outputs": [
+              "{options.outputDir}"
+            ],
+            "inputs": [
+              "default",
+              "^production"
+            ],
+            "options": {
+              "configDir": "libs/dcx-ng-lib/.storybook",
+              "browserTarget": "dcx-ng-lib:build-storybook",
+              "compodoc": false,
+              "outputDir": "dist/storybook/dcx-ng-lib"
+            },
+            "configurations": {
+              "ci": {
+                "quiet": true
+              }
+            },
+            "parallelism": true
+          },
+          "storybook": {
+            "executor": "@storybook/angular:start-storybook",
+            "options": {
+              "configDir": "libs/dcx-ng-lib/.storybook",
+              "browserTarget": "dcx-ng-lib:build-storybook",
+              "compodoc": false,
+              "port": 4400
+            },
+            "configurations": {
+              "ci": {
+                "quiet": true
+              }
+            },
+            "parallelism": true
+          },
+          "test-storybook": {
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "test-storybook -c libs/dcx-ng-lib/.storybook --url=http://localhost:4400"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "static-storybook": {
+            "executor": "@nx/web:file-server",
+            "dependsOn": [
+              "build-storybook"
+            ],
+            "options": {
+              "buildTarget": "dcx-ng-lib:build-storybook",
+              "staticFilePath": "dist/storybook/dcx-ng-lib",
+              "spa": true
+            },
+            "configurations": {
+              "ci": {
+                "buildTarget": "dcx-ng-lib:build-storybook:ci"
+              }
+            },
+            "parallelism": true
+          },
+          "start": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "start"
+            },
+            "metadata": {
+              "scriptContent": "nx serve",
+              "runCommand": "npm run start"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "start-storybook": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "start-storybook"
+            },
+            "metadata": {
+              "scriptContent": "npx nx storybook dcx-ng-lib",
+              "runCommand": "npm run start-storybook"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "lint-fix": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "lint-fix"
+            },
+            "metadata": {
+              "scriptContent": "nx lint dcx-ng-lib --fix",
+              "runCommand": "npm run lint-fix"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/dcx-ng-lib/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            },
+            "parallelism": true,
+            "cache": true,
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ]
+          },
+          "build": {
+            "executor": "@nx/angular:package",
+            "outputs": [
+              "{workspaceRoot}/dist/libs/dcx-ng-lib"
+            ],
+            "options": {
+              "project": "libs/dcx-ng-lib/ng-package.json"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "lint": {
+            "executor": "@nx/eslint:lint",
+            "configurations": {},
+            "options": {},
+            "parallelism": true,
+            "cache": true,
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json",
+              "{workspaceRoot}/.eslintignore",
+              "{workspaceRoot}/eslint.config.js"
+            ]
+          }
+        },
+        "sourceRoot": "libs/dcx-ng-lib/src",
+        "name": "dcx-ng-lib",
+        "tags": [
+          "npm:private"
+        ],
+        "metadata": {
+          "targetGroups": {
+            "NPM Scripts": [
+              "start",
+              "start-storybook",
+              "lint-fix"
+            ]
+          }
+        },
+        "$schema": "../../node_modules/nx/schemas/project-schema.json",
+        "prefix": "dcx-ng",
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "dcx-ng-components": {
+      "name": "dcx-ng-components",
+      "type": "app",
+      "data": {
+        "root": ".",
+        "sourceRoot": "./src",
+        "name": "dcx-ng-components",
+        "tags": [
+          "npm:private"
+        ],
+        "metadata": {
+          "targetGroups": {
+            "NPM Scripts": [
+              "start",
+              "start-storybook",
+              "lint-fix",
+              "deploy"
+            ]
+          }
+        },
+        "targets": {
+          "start": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "start"
+            },
+            "metadata": {
+              "scriptContent": "nx serve",
+              "runCommand": "npm run start"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "start-storybook": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "start-storybook"
+            },
+            "metadata": {
+              "scriptContent": "npx nx storybook dcx-ng-lib",
+              "runCommand": "npm run start-storybook"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "lint-fix": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "lint-fix"
+            },
+            "metadata": {
+              "scriptContent": "nx lint dcx-ng-lib --fix",
+              "runCommand": "npm run lint-fix"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "deploy": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "deploy"
+            },
+            "metadata": {
+              "scriptContent": "gh-pages -d dist/storybook/dcx-ng-lib",
+              "runCommand": "npm run deploy"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "build": {
+            "executor": "@angular-devkit/build-angular:application",
+            "outputs": [
+              "{options.outputPath}"
+            ],
+            "options": {
+              "outputPath": "dist/dcx-ng-components",
+              "index": "./src/index.html",
+              "browser": "./src/main.ts",
+              "polyfills": [
+                "zone.js"
+              ],
+              "tsConfig": "tsconfig.app.json",
+              "inlineStyleLanguage": "scss",
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "public"
+                }
+              ],
+              "styles": [
+                "./src/styles.scss"
+              ],
+              "scripts": []
+            },
+            "configurations": {
+              "production": {
+                "budgets": [
+                  {
+                    "type": "initial",
+                    "maximumWarning": "500kb",
+                    "maximumError": "1mb"
+                  },
+                  {
+                    "type": "anyComponentStyle",
+                    "maximumWarning": "2kb",
+                    "maximumError": "4kb"
+                  }
+                ],
+                "outputHashing": "all"
+              },
+              "development": {
+                "optimization": false,
+                "extractLicenses": false,
+                "sourceMap": true
+              }
+            },
+            "defaultConfiguration": "production",
+            "parallelism": true,
+            "cache": true,
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ]
+          },
+          "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+              "production": {
+                "buildTarget": "dcx-ng-components:build:production"
+              },
+              "development": {
+                "buildTarget": "dcx-ng-components:build:development"
+              }
+            },
+            "defaultConfiguration": "development",
+            "options": {},
+            "parallelism": true
+          },
+          "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+              "buildTarget": "dcx-ng-components:build"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "lint": {
+            "executor": "@nx/eslint:lint",
+            "options": {
+              "lintFilePatterns": [
+                "./src"
+              ]
+            },
+            "configurations": {},
+            "parallelism": true,
+            "cache": true,
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json",
+              "{workspaceRoot}/.eslintignore",
+              "{workspaceRoot}/eslint.config.js"
+            ]
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectName}"
+            ],
+            "options": {
+              "jestConfig": "jest.config.app.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            },
+            "parallelism": true,
+            "cache": true,
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ]
+          },
+          "serve-static": {
+            "executor": "@nx/web:file-server",
+            "options": {
+              "buildTarget": "dcx-ng-components:build",
+              "staticFilePath": "dist/dcx-ng-components/browser",
+              "spa": true
+            },
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "$schema": "node_modules/nx/schemas/project-schema.json",
+        "includedScripts": [],
+        "projectType": "application",
+        "prefix": "dcx-ng",
+        "implicitDependencies": []
+      }
+    }
+  },
+  "externalNodes": {},
+  "dependencies": {
+    "dcx-ng-lib": [],
+    "dcx-ng-components": [
+      {
+        "source": "dcx-ng-components",
+        "target": "dcx-ng-lib",
+        "type": "static"
+      }
+    ]
+  },
+  "version": "6.0"
+}

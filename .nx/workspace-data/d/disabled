@@ -1,0 +1,26 @@
+Failed to start or connect to the Nx Daemon process.
+
+Messages from the log:
+    at Server.listen (node:net:2119:5)
+    at c:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\src\daemon\server\server.js:407:20
+    at new Promise (<anonymous>)
+    at startServer (c:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\src\daemon\server\server.js:405:12)
+    at async c:\Users\lgarci16\Desktop\libreria-formacion\node_modules\nx\src\daemon\server\start.js:8:9
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '\\\\.\\pipe\\nx\\C:\\Users\\lgarci16\\AppData\\Local\\Temp\\92c62428f62dc2f93b82\\d.sock',
+  port: -1
+}
+
+Node.js v22.20.0
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:39.490Z - [WATCHER]: Stopping the watcher for c:\Users\lgarci16\Desktop\libreria-formacion (sources)
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:39.491Z - [WATCHER]: Stopping the watcher for c:\Users\lgarci16\Desktop\libreria-formacion (outputs)
+[NX v22.1.1 Daemon Server] - 2025-11-25T11:32:39.492Z - Server stopped because: "this process is no longer the current daemon (native)"
+
+
+
+More information: c:\Users\lgarci16\Desktop\libreria-formacion\.nx\workspace-data\d\daemon.log
