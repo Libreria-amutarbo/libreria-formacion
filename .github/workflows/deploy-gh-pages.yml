@@ -1,7 +1,13 @@
 
+name: Deploy to GitHub Pages
+
 on:
   push:
     branches: [ main, develop ]
+
+permissions:
+  contents: write
+  pages: write
 
 jobs:
   build-and-deploy:
@@ -9,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Necesario para que gh-pages funcione bien
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -28,9 +36,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
           if [ "${GITHUB_REF##*/}" = "main" ]; then npm run deploy:main; else npm run deploy:develop; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          
