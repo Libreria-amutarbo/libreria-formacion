@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
 import { DcxNgDialogComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgDialogComponent> = {
@@ -11,7 +12,7 @@ const meta: Meta<DcxNgDialogComponent> = {
   },
   args: {
     title: 'Título del diálogo',
-    visible: true,
+    visible: false,
   },
 };
 
@@ -27,14 +28,28 @@ export const Basic: Story = {
     },
   },
   render: args => ({
-    props: { ...args },
+    imports: [CommonModule, DcxNgDialogComponent],
+    props: {
+      title: args.title,
+      visible: args.visible,
+      handleClose() {
+        this['visible'] = false;
+      },
+    },
     template: `
-      <dcx-ng-dialog [title]="title" [visible]="visible" (onClose)="visible=false">
-        <div dialog-body>Contenido por defecto del diálogo</div>
-        <div dialog-footer>
-          <button (click)="visible=false">Cerrar</button>
-        </div>
-      </dcx-ng-dialog>
+      <div style="display:grid; gap:16px; max-width:640px;">
+        <button (click)="visible = true">Abrir diálogo</button>
+        <dcx-ng-dialog
+          [title]="title"
+          [visible]="visible"
+          (onClose)="handleClose()"
+        >
+          <div dialog-body>Contenido por defecto del diálogo</div>
+          <div dialog-footer>
+            <button (click)="handleClose()">Cerrar</button>
+          </div>
+        </dcx-ng-dialog>
+      </div>
     `,
   }),
 };
