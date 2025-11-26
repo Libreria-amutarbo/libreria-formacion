@@ -28,7 +28,7 @@ jobs:
 
       - name: Build Storybook
         run: |
-          npx storybook build --config-dir .storybook --output-dir dist/storybook/dcx-ng-lib
+          npx storybook build --config-dir libs/dcx-ng-lib/.storybook --output-dir dist/storybook/dcx-ng-lib
 
       - name: Configure Git user
         run: |
