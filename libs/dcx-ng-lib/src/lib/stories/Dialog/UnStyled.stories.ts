@@ -19,6 +19,13 @@ export default meta;
 type Story = StoryObj<DcxNgDialogComponent>;
 
 export const Basic: Story = {
+  parameters: {
+    docs: {
+      story: {
+        height: '150px',
+      },
+    },
+  },
   render: args => ({
     props: { ...args },
     template: `
