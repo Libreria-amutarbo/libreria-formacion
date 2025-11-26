@@ -10,6 +10,8 @@ import {
   TemplateRef,
 } from '@angular/core';
 
+import { ContextMenuComponent, ContextMenuItem } from '../dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+
 type SortDirection = 'asc' | 'desc' | null;
 
 export enum SortType {
@@ -34,7 +36,7 @@ interface Sort {
 @Component({
   selector: 'dcx-ng-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ContextMenuComponent],
   templateUrl: './dcx-ng-table.component.html',
   styleUrls: ['./dcx-ng-table.component.scss'],
 })
@@ -51,9 +53,17 @@ export class DcxNgTableComponent implements OnInit {
   @Input() cellTemplate?: TemplateRef<any>;
   @Input() menuCellTemplate?: TemplateRef<any>;
 
+  @Input() data: any[] = [];
+  @Input() rowActions: ((row: any) => ContextMenuItem[]) | null = null;
+
   @Output() sortChange = new EventEmitter<Sort>();
 
   sort = signal<Sort>({ key: null, dir: null });
+
+  menuItems: ContextMenuItem[] = [];
+  menuVisible = false;
+  menuPosition = { x: 0, y: 0 };
+  currentRow: any;
 
   ngOnInit(): void {
     this.ensureRowIds();
@@ -102,6 +112,37 @@ export class DcxNgTableComponent implements OnInit {
     if (currentSort.key !== header.key || !currentSort.dir)
       return SortType.None;
     return currentSort.dir === 'asc' ? SortType.Ascending : SortType.Descending;
+  }
+
+  openMenu(event: MouseEvent, rowData: any) {
+    event.stopPropagation();
+
+    this.currentRow = rowData;
+
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    const menuWidth = 160;
+
+    this.menuPosition = {
+      x: rect.left - menuWidth - 6,
+      y: rect.top + window.scrollY
+    };
+
+    this.menuItems = this.rowActions
+      ? this.rowActions(rowData)
+      : [
+        { label: 'Editar', action: () => this.onEdit(rowData) },
+        { label: 'Eliminar', action: () => this.onDelete(rowData) }
+      ];
+
+    this.menuVisible = true;
+  }
+
+  onEdit(rowData: any) {
+    this.menuVisible = false;
+  }
+
+  onDelete(rowData: any) {
+    this.menuVisible = false;
   }
 
   private ensureRowIds(): void {

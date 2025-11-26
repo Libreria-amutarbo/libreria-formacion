@@ -9,7 +9,12 @@
     "test": "nx run-many --target=test --all -- --coverage --coverageDirectory='coverage/libs'",
     "lint": "nx lint dcx-ng-lib",
     "lint-fix": "nx lint dcx-ng-lib --fix",
-    "deploy": "gh-pages -d dist/storybook/dcx-ng-lib"
+    
+ 
+"deploy:main": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy main' -b gh-pages --dest main --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git",
+  "deploy:develop": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy develop' -b gh-pages --dest develop --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+
   },
   "private": true,
   "dependencies": {

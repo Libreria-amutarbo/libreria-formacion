@@ -1,0 +1,10 @@
+<div
+  class="context-menu"
+  *ngIf="visible"
+  [ngStyle]="{ 'left.px': position.x, 'top.px': position.y }"
+  (click)="$event.stopPropagation()"
+>
+  <ul>
+    <li *ngFor="let item of items" (click)="item.action()">{{ item.label }}</li>
+  </ul>
+</div>

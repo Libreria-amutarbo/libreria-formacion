@@ -123,4 +123,68 @@ describe('DcxNgTableComponent', () => {
     ).nativeElement as HTMLElement;
     expect(firstCell.textContent?.trim()).toBe('A');
   });
+
+  it('debe ordenar numéricamente en ascendente al primer click', () => {
+    setInputs({
+      headers: [{ name: 'ID', key: 'id', type: 'number', sortable: true }],
+      value: [{ id: 3 }, { id: 1 }, { id: 2 }],
+    });
+
+    const th = fixture.debugElement.query(By.css('thead th'))
+      .nativeElement as HTMLElement;
+    th.click();
+    fixture.detectChanges();
+
+    const firstCell = fixture.debugElement.query(
+      By.css('tbody tr:first-child td:first-child'),
+    ).nativeElement as HTMLElement;
+
+    expect(firstCell.textContent?.trim()).toBe('1');
+  });
+
+  it('debe aplicar clases de estilo: grid, striped y scroll', () => {
+    setInputs({
+      headers: [{ name: 'ID', key: 'id' }],
+      value: [{ id: 1 }],
+      showGrid: true,
+      showStripped: true,
+      scroll: true,
+      scrollHeight: '200px',
+    });
+
+    const table = fixture.debugElement.query(By.css('table'))
+      .nativeElement as HTMLTableElement;
+    expect(table.classList.contains('grid')).toBe(true);
+    expect(table.classList.contains('striped')).toBe(true);
+
+    const wrapper = fixture.debugElement.query(By.css('.table-wrapper'))
+      .nativeElement as HTMLElement;
+    expect(wrapper.classList.contains('scroll')).toBe(true);
+    expect(wrapper.style.maxHeight).toBe('200px');
+  });
+
+  it('debe respetar defaultSort al iniciar', () => {
+    setInputs({
+      headers: [
+        {
+          name: 'Nombre',
+          key: 'name',
+          type: 'string',
+          sortable: true,
+          defaultSort: 'asc',
+        },
+        { name: 'Estado', key: 'status', sortable: true },
+      ],
+      value: [{ name: 'Z' }, { name: 'A' }],
+    });
+
+    const ths = fixture.debugElement.queryAll(By.css('thead th'));
+    const nameTh = ths[0].nativeElement as HTMLElement;
+    expect(nameTh.getAttribute('aria-sort')).toBe('ascending');
+
+    const firstCell = fixture.debugElement.query(
+      By.css('tbody tr:first-child td:first-child'),
+    ).nativeElement as HTMLElement;
+    expect(firstCell.textContent?.trim()).toBe('A');
+  });
 });
