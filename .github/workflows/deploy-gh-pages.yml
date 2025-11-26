@@ -32,3 +32,5 @@ jobs:
           if [ "${GITHUB_REF##*/}" = "main" ]; then npm run deploy:main; else npm run deploy:develop; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          
