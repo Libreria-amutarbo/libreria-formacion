@@ -1,0 +1,54 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as PaginatorStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Paginator/Documentación" />
+
+# Paginator
+
+El componente `dcx-ng-paginator` proporciona una interfaz de paginación completa con navegación entre páginas.
+
+---
+
+## Ejemplo funcional
+
+<Canvas of={PaginatorStories.Default} />
+
+---
+
+## Props
+
+### Inputs
+
+- **currentPage** (number): Página actual seleccionada. Por defecto es 1.
+- **totalPages** (number): Número total de páginas disponibles. Por defecto es 1.
+- **itemsPerPage** (number): Cantidad de elementos por página (informativo). Por defecto es 10.
+- **disabled** (boolean): Deshabilita todos los botones del paginador. Por defecto es false.
+- **nextButton** (string): Texto del botón para avanzar. Por defecto es "Siguiente".
+- **prevButton** (string): Texto del botón para retroceder. Por defecto es "Anterior".
+
+### Outputs
+
+- **pageChange** (EventEmitter&lt;number&gt;): Emite el número de la nueva página al cambiar.
+- **onNextPage** (EventEmitter&lt;void&gt;): Emite cuando se hace clic en el botón siguiente.
+- **onPrevPage** (EventEmitter&lt;void&gt;): Emite cuando se hace clic en el botón anterior.
+
+---
+
+## Accesibilidad
+
+- Los botones tienen estados disabled apropiados
+- La navegación por teclado está soportada (Tab, Enter, Space)
+- Estados visuales claros para página activa y deshabilitada
+
+---
+
+## Buenas prácticas
+
+- Usa `totalPages` para controlar cuántas páginas hay disponibles
+- Mantén `currentPage` sincronizado con tus datos
+- Implementa la lógica de carga de datos en el evento `pageChange`
+- Considera usar `itemsPerPage` para mostrar información adicional al usuario
+
+```
+
+```

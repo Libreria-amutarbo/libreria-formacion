@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgTooltipComponent, TooltipPosition } from '../../dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
+import { NxArgs } from 'nx/src/utils/command-line-utils';
 
 const meta: Meta<DcxNgTooltipComponent> = {
   title: 'DCXLibrary/Tooltip/ClassBased',

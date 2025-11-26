@@ -1,4 +1,7 @@
-@import '../../../scss/main.scss';
+
+@use '../../../scss/base/color' as color;
+@use 'sass:map';
+
 :host { display: inline-block; }
 
 .dcx-ng-radio {
@@ -10,7 +13,7 @@
   input[type='radio'] {
     width: var(--dcx-radio-size, 1rem);
     height: var(--dcx-radio-size, 1rem);
-    accent-color: map-get($color, "primary"); 
+    accent-color: map.get(color.$color, "primary"); 
     
     &:disabled { 
       cursor: not-allowed;
@@ -19,7 +22,7 @@
   }
 
   &.unstyled input[type='radio'] {
-    accent-color: map-get($color, "gray");
+    accent-color: map.get(color.$color, "gray");
   }
 
   &--s { --dcx-radio-size: 0.875rem; }
@@ -27,11 +30,11 @@
   &--l { --dcx-radio-size: 1.25rem; }
 
   &.unstyled { 
-    color: map-get($color, "gray");
+    color: map.get(color.$color, "gray");
   }
 
   &:has(input:disabled) {
     cursor: not-allowed;
-    color: map-get($color, "gray-light");
+    color: map.get(color.$color, "gray-light");
   }
 }
