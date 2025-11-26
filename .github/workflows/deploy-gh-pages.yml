@@ -28,7 +28,8 @@ jobs:
 
       - name: Build Storybook
         run: |
-          npx storybook build --config-dir libs/dcx-ng-lib/.storybook --output-dir dist/storybook/dcx-ng-lib
+          export NODE_OPTIONS="--experimental-vm-modules"
+          npx nx build-storybook dcx-ng-lib --no-cloud
 
       - name: Configure Git user
         run: |
