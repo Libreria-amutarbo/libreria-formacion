@@ -16,18 +16,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Necesario para que gh-pages funcione bien
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20.19 # Compatible con Storybook v10
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      - name: Install gh-pages CLI
+        run: npm install -g gh-pages
+
       - name: Build Storybook
-        run: npx nx build-storybook dcx-ng-lib --no-cloud
+        run: |
+          export NODE_OPTIONS="--experimental-vm-modules"
+          npx nx build-storybook dcx-ng-lib --no-cloud
 
       - name: Configure Git user
         run: |
