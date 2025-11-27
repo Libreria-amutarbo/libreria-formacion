@@ -1,0 +1,18 @@
+<ng-template #defaultMenuCellTpl let-rowData>
+  <button
+    type="button"
+    class="btn icon"
+    title="Context menu (TODO)"
+    (click)="openMenu($event, rowData)"
+  >
+    ⋮
+  </button>
+</ng-template>
+
+<dcx-ng-context-menu
+  [items]="menuItems"
+  [visible]="menuVisible"
+  [position]="menuPosition"
+  (closed)="menuVisible = false"
+>
+</dcx-ng-context-menu>

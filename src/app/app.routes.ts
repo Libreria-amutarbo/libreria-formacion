@@ -9,13 +9,15 @@ import { DcxNgPageToggleComponent } from './pages/dcx-ng-page-toggle/dcx-ng-page
 import { DcxNgPageRadioComponent } from './pages/dcx-ng-page-radio/dcx-ng-page-radio.component';
 import { DcxNgPageInputComponent } from './pages/dcx-ng-page-input/dcx-ng-page-input.component';
 import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component';
+import { DcxNgPagePaginatorComponent } from './pages/dcx-ng-page-paginator/dcx-ng-page-paginator.component';
 import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCheckboxComponent } from './pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component';
 import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
+import { ContextMenuComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component';
 import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component';
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
-
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
 import { APP_ROUTES } from './core/constants/app-routes';
 
@@ -61,6 +63,10 @@ export const appRoutes: Route[] = [
     component: DcxNgPageSpinnerComponent,
   },
   {
+    path: APP_ROUTES.PAGINATOR,
+    component: DcxNgPagePaginatorComponent,
+  },
+  {
     path: APP_ROUTES.CHIP,
     component: DcxNgPageChipComponent,
   },
@@ -78,7 +84,11 @@ export const appRoutes: Route[] = [
   },
   {
     path: APP_ROUTES.CARD,
-    component: DcxNgPageCardComponent,
+    component: DcxNgPageCardComponent
+  },
+  {
+    path: APP_ROUTES.CONTEXTMENU,
+    component: ContextMenuComponent
   },
   {
     path: APP_ROUTES.ICON_FIELD,
@@ -88,4 +98,9 @@ export const appRoutes: Route[] = [
     path: APP_ROUTES.LIST,
     component: DcxNgPageListComponent,
   },
+  {
+    path: APP_ROUTES.SLIDER,
+    component: DcxNgPageSliderComponent
+  }
 ];
+
