@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { TestHostComponent } from './dcx-ng-slider.component.spec';
 
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { within, expect } from '@storybook/test';
 
 const meta: Meta<TestHostComponent> = {
   component: TestHostComponent,
