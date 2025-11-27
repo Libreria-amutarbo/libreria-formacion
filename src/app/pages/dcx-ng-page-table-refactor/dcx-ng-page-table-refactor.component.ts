@@ -1,8 +1,9 @@
-import { CommonModule } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   DcxNgTableRefactorComponent,
   DcxNgTableTemplateRefactorDirective,
+  type ActionEvent,
   type CellEditEvent,
   type HeaderData,
 } from '@dcx-ng-components/dcx-ng-lib';
@@ -13,24 +14,37 @@ import {
   imports: [
     DcxNgTableRefactorComponent,
     DcxNgTableTemplateRefactorDirective,
-    CommonModule,
+    DatePipe,
+    CurrencyPipe,
   ],
   templateUrl: './dcx-ng-page-table-refactor.component.html',
   styleUrl: './dcx-ng-page-table-refactor.component.scss',
 })
 export class DcxNgPageTableRefactorComponent {
-  rowsPerPageEx3 = 5;
-  rowsPerPageEx6 = 5;
+  // ==================== EJEMPLO 1 ====================
+  // Striped + sort básico
   headers1: HeaderData[] = [
     {
       name: 'ID',
       key: 'id',
       type: 'number',
+      cellType: 'number',
       sortable: true,
       defaultSort: 'asc',
     },
-    { name: 'Nombre', key: 'name', type: 'string', sortable: true },
-    { name: 'Estado', key: 'status', sortable: true },
+    {
+      name: 'Nombre',
+      key: 'name',
+      type: 'string',
+      cellType: 'text',
+      sortable: true,
+    },
+    {
+      name: 'Estado',
+      key: 'status',
+      cellType: 'text',
+      sortable: true,
+    },
   ];
 
   rows1 = [
@@ -42,17 +56,38 @@ export class DcxNgPageTableRefactorComponent {
     { id: 6, name: 'Carbono', status: 'ok' },
   ];
 
+  // ==================== EJEMPLO 2 ====================
+  // Grid + scroll + sort
   headers2: HeaderData[] = [
-    { name: 'Producto', key: 'product', type: 'string', sortable: true },
-    { name: 'Categoría', key: 'category', type: 'string', sortable: true },
+    {
+      name: 'Producto',
+      key: 'product',
+      type: 'string',
+      cellType: 'text',
+      sortable: true,
+    },
+    {
+      name: 'Categoría',
+      key: 'category',
+      type: 'string',
+      cellType: 'text',
+      sortable: true,
+    },
     {
       name: 'Precio',
       key: 'price',
       type: 'number',
+      cellType: 'number',
       sortable: true,
       defaultSort: 'asc',
     },
-    { name: 'Stock', key: 'stock', type: 'number', sortable: true },
+    {
+      name: 'Stock',
+      key: 'stock',
+      type: 'number',
+      cellType: 'number',
+      sortable: true,
+    },
   ];
 
   rows2 = [
@@ -66,11 +101,38 @@ export class DcxNgPageTableRefactorComponent {
     { product: 'Hub USB', category: 'Accesorios', price: 19.9, stock: 0 },
   ];
 
+  // ==================== EJEMPLO 3 ====================
+  // Paginación sencilla
+  rowsPerPageEx3 = 5;
+
   headers3: HeaderData[] = [
-    { name: 'Item', key: 'item', sortable: true, defaultSort: 'asc' },
-    { name: 'Categoria', key: 'category', sortable: true },
-    { name: 'Precio', key: 'price', type: 'number', sortable: true },
-    { name: 'Stock', key: 'stock', type: 'number', sortable: true },
+    {
+      name: 'Item',
+      key: 'item',
+      cellType: 'text',
+      sortable: true,
+      defaultSort: 'asc',
+    },
+    {
+      name: 'Categoría',
+      key: 'category',
+      cellType: 'text',
+      sortable: true,
+    },
+    {
+      name: 'Precio',
+      key: 'price',
+      type: 'number',
+      cellType: 'number',
+      sortable: true,
+    },
+    {
+      name: 'Stock',
+      key: 'stock',
+      type: 'number',
+      cellType: 'number',
+      sortable: true,
+    },
   ];
 
   rows3 = [
@@ -91,48 +153,33 @@ export class DcxNgPageTableRefactorComponent {
     { item: 'Prod 15', category: 'Cat E', price: 33.5, stock: 10 },
   ];
 
-  onSort(
-    e: { key: string | null; dir: 'asc' | 'desc' | null },
-    origin: 'ex1' | 'ex2' | 'ex3',
-  ) {
-    console.log(`[${origin}] sortChange`, e);
-  }
-
-  onMenu(row: Record<string, unknown>, index: number) {
-    console.log('Abrir menú contextual (demo). Fila:', index, 'Datos:', row);
-  }
-
-  onRowsPerPageChange(newSize: number) {
-    console.log('Rows per page changed:', newSize);
-    this.rowsPerPageEx3 = newSize;
-    this.rowsPerPageEx6 = newSize;
-  }
-
-  onPageChange(newPage: number) {
-    console.log('Page changed:', newPage);
-  }
-
-  // Ejemplo 4: Con templates personalizados
+  // ==================== EJEMPLO 4 ====================
+  // Templates proyectados (avatar, fecha, precio, estado)
   headers4: HeaderData[] = [
-    { name: 'Usuario', key: 'user', sortable: true, template: 'userTemplate' },
     {
-      name: 'Fecha Creación',
+      name: 'Usuario',
+      key: 'user',
+      sortable: true,
+      template: 'userTemplate',
+    },
+    {
+      name: 'Fecha creación',
       key: 'createdAt',
       sortable: true,
       template: 'dateTemplate',
     },
     {
-      name: 'Precio',
+      name: 'Importe',
       key: 'amount',
       type: 'number',
-      sortable: true,
       template: 'priceTemplate',
+      sortable: true,
     },
     {
       name: 'Estado',
       key: 'status',
-      sortable: true,
       template: 'statusTemplate',
+      sortable: true,
     },
   ];
 
@@ -174,44 +221,40 @@ export class DcxNgPageTableRefactorComponent {
     },
   ];
 
-  // --- Ejemplo 5: Templates genéricos incorporados y funciones de renderizado ---
-
+  // ==================== EJEMPLO 5 ====================
+  // cellType: date + renderFn + acciones inline
   headers5: HeaderData[] = [
     {
       name: 'Usuario',
       key: 'user',
       sortable: true,
-      // Función de renderizado personalizada
       renderFn: row => `👤 ${(row['user'] as string).toUpperCase()}`,
       frozen: 'left',
-      minWidth: '280px',
+      minWidth: '220px',
     },
     {
-      name: 'Fecha Corta',
+      name: 'Fecha corta',
       key: 'createdAt',
       sortable: true,
-      // Template genérico de fecha con formato corto
-      builtInTemplate: 'date',
       frozen: 'left',
-      dateConfig: {
-      dateFormat: 'dd/MM/yy HH:mm',
+      cellType: 'date',
+      cellTypeConfig: {
+        dateFormat: 'dd/MM/yy HH:mm',
       },
     },
     {
-      name: 'Fecha Formato US',
+      name: 'Fecha completa',
       key: 'createdAt',
       sortable: false,
-      // Template genérico de fecha con formato americano
-      builtInTemplate: 'date',
-      dateConfig: {
-        dateFormat: 'dd/MM/yyyy hh:mm:ss a', // Formato americano con AM/PM
+      cellType: 'date',
+      cellTypeConfig: {
+        dateFormat: 'dd/MM/yyyy hh:mm:ss a',
       },
     },
     {
       name: 'Importe EUR',
       key: 'amount',
       sortable: true,
-      // Función de renderizado para formatear moneda
       renderFn: row => {
         const amount = row['amount'] as number;
         return new Intl.NumberFormat('es-ES', {
@@ -224,7 +267,6 @@ export class DcxNgPageTableRefactorComponent {
       name: 'Importe USD',
       key: 'amount',
       sortable: false,
-      // Función de renderizado para convertir a USD
       renderFn: row => {
         const amount = row['amount'] as number;
         return `$${(amount * 1.1).toFixed(2)}`;
@@ -234,23 +276,49 @@ export class DcxNgPageTableRefactorComponent {
       name: 'Estado',
       key: 'status',
       sortable: true,
-       frozen: 'left',
-      // Template personalizado (ver HTML)
+      frozen: 'left',
       template: 'statusTemplate',
+    },
+    {
+      name: 'Acciones',
+      key: 'actions',
+      cellType: 'actions',
+      cellTypeConfig: {
+        mode: 'inline',
+        items: [
+          {
+            id: 'view',
+            icon: 'visibility',
+            label: 'Ver perfil',
+            variant: 'primary',
+          },
+          {
+            id: 'edit',
+            icon: 'edit',
+            label: 'Editar',
+          },
+          {
+            id: 'delete',
+            icon: 'delete',
+            label: 'Eliminar',
+            variant: 'danger',
+          },
+        ],
+      },
     },
   ];
 
-  rows5 = this.rows4; // Reutilizamos los datos del ejemplo 4
+  rows5 = this.rows4;
 
-  // --- Ejemplo 6: Filtrado y Edición ---
-
+  // ==================== EJEMPLO 6 ====================
+  // Filtros, edición y menú de acciones
   headers6: HeaderData[] = [
     {
       name: 'Producto',
       key: 'product',
       sortable: true,
-      filterable: true, // Input de filtro en la cabecera
-      minWidth: '80px',
+      filterable: true,
+      minWidth: '120px',
     },
     {
       name: 'Categoría',
@@ -262,23 +330,348 @@ export class DcxNgPageTableRefactorComponent {
       name: 'Precio',
       key: 'price',
       type: 'number',
+      cellType: 'number',
       sortable: true,
-      editable: true, // Doble click para editar
+      editable: true,
     },
     {
       name: 'Stock',
       key: 'stock',
       type: 'number',
+      cellType: 'number',
       sortable: true,
       editable: true,
     },
+    {
+      name: 'Acciones',
+      key: 'actions',
+      cellType: 'actions',
+      cellTypeConfig: {
+        mode: 'menu',
+        menuIcon: 'more_vert',
+        items: [
+          { id: 'view', icon: 'visibility', label: 'Ver detalles' },
+          { id: 'edit', icon: 'edit', label: 'Editar producto' },
+          { id: 'duplicate', icon: 'content_copy', label: 'Duplicar' },
+          {
+            id: 'delete',
+            icon: 'delete',
+            label: 'Eliminar',
+            variant: 'danger',
+            disabled: (row: Record<string, unknown>) =>
+              (row['stock'] as number) > 0,
+          },
+        ],
+      },
+    },
   ];
 
-  rows6 = [...this.rows2]; // Copia de rows2 para no mutar el original
+  rows6 = [...this.rows2];
+
+  // ==================== EJEMPLO 7 ====================
+  // Acciones inline sencillas
+  headers7: HeaderData[] = [
+    {
+      name: 'ID',
+      key: 'id',
+      type: 'number',
+      cellType: 'number',
+      sortable: true,
+    },
+    {
+      name: 'Producto',
+      key: 'product',
+      cellType: 'text',
+      sortable: true,
+    },
+    {
+      name: 'Precio',
+      key: 'price',
+      type: 'number',
+      cellType: 'number',
+      sortable: true,
+    },
+    {
+      name: 'Acciones',
+      key: 'actions',
+      cellType: 'actions',
+      cellTypeConfig: {
+        mode: 'inline',
+        items: [
+          {
+            id: 'view',
+            icon: 'visibility',
+            label: 'Ver detalles',
+            variant: 'primary',
+          },
+          {
+            id: 'edit',
+            icon: 'edit',
+            label: 'Editar',
+            variant: 'secondary',
+          },
+          {
+            id: 'delete',
+            icon: 'delete',
+            label: 'Eliminar',
+            variant: 'danger',
+            disabled: row => (row['stock'] as number) > 0,
+          },
+        ],
+      },
+    },
+  ];
+
+  rows7 = this.rows2.slice(0, 4).map((row, index) => ({
+    id: index + 1,
+    ...row,
+  }));
+
+  // ==================== EJEMPLO 8 ====================
+  // Acciones menú en usuarios
+  headers8: HeaderData[] = [
+    {
+      name: 'Usuario',
+      key: 'user',
+      sortable: true,
+      cellType: 'text',
+    },
+    {
+      name: 'Estado',
+      key: 'status',
+      template: 'statusTemplate',
+      sortable: true,
+    },
+    {
+      name: 'Acciones',
+      key: 'actions',
+      cellType: 'actions',
+      cellTypeConfig: {
+        mode: 'menu',
+        menuIcon: 'more_horiz',
+        items: [
+          { id: 'view', icon: 'visibility', label: 'Ver perfil' },
+          { id: 'edit', icon: 'edit', label: 'Editar usuario' },
+          { id: 'message', icon: 'mail', label: 'Enviar mensaje' },
+          {
+            id: 'deactivate',
+            icon: 'block',
+            label: 'Desactivar',
+            variant: 'danger',
+            hidden: (row: Record<string, unknown>) =>
+              row['status'] === 'inactive',
+          },
+          {
+            id: 'activate',
+            icon: 'check_circle',
+            label: 'Activar',
+            hidden: (row: Record<string, unknown>) =>
+              row['status'] === 'active',
+          },
+        ],
+      },
+    },
+  ];
+
+  rows8 = this.rows4;
+
+  // ==================== EJEMPLO 9 (FULL) ====================
+  // Full demo: 102 filas, filtros, badges, fechas, editable, acciones, frozen, scroll, paginación...
+  rowsPerPageFull = 20;
+
+  headers9: HeaderData[] = [
+    {
+      name: 'ID',
+      key: 'id',
+      type: 'number',
+      cellType: 'number',
+      sortable: true,
+      defaultSort: 'asc',
+      frozen: 'left',
+      minWidth: '70px',
+    },
+    {
+      name: 'Usuario',
+      key: 'user',
+      sortable: true,
+      filterable: true,
+      frozen: 'left',
+      minWidth: '200px',
+      template: 'fullUserTemplate',
+    },
+    {
+      name: 'País',
+      key: 'country',
+      sortable: true,
+      filterable: true,
+      cellType: 'text',
+    },
+    {
+      name: 'Estado',
+      key: 'status',
+      cellType: 'badge',
+      cellTypeConfig: {
+        variantMap: {
+          active: 'success',
+          pending: 'warning',
+          inactive: 'danger',
+        },
+        labelMap: {
+          active: 'Activo',
+          pending: 'Pendiente',
+          inactive: 'Inactivo',
+        },
+      },
+      filterable: true,
+      frozen: 'left',
+      template: 'fullStatusTemplate',
+    },
+    {
+      name: 'Fecha alta',
+      key: 'createdAt',
+      cellType: 'date',
+      sortable: true,
+      cellTypeConfig: {
+        dateFormat: 'dd/MM/yyyy HH:mm',
+      },
+    },
+    {
+      name: 'Pedidos',
+      key: 'orders',
+      type: 'number',
+      cellType: 'number',
+      sortable: true,
+      editable: true,
+    },
+    {
+      name: 'Importe total',
+      key: 'amount',
+      type: 'number',
+      sortable: true,
+      editable: true,
+      renderFn: row => {
+        const amount = row['amount'] as number;
+        return new Intl.NumberFormat('es-ES', {
+          style: 'currency',
+          currency: 'EUR',
+        }).format(amount);
+      },
+    },
+    {
+      name: 'Acciones',
+      key: 'actions',
+      cellType: 'actions',
+      frozen: 'right',
+      minWidth: '150px',
+      cellTypeConfig: {
+        mode: 'menu',
+        menuIcon: 'more_vert',
+        items: [
+          { id: 'view', icon: 'visibility', label: 'Ver ficha' },
+          { id: 'edit', icon: 'edit', label: 'Editar usuario' },
+          { id: 'message', icon: 'mail', label: 'Enviar email' },
+          {
+            id: 'deactivate',
+            icon: 'block',
+            label: 'Desactivar',
+            variant: 'danger',
+            hidden: (row: Record<string, unknown>) =>
+              row['status'] === 'inactive',
+          },
+          {
+            id: 'activate',
+            icon: 'check_circle',
+            label: 'Reactivar',
+            hidden: (row: Record<string, unknown>) =>
+              row['status'] === 'active',
+          },
+        ],
+      },
+    },
+  ];
+
+  rows9 = Array.from({ length: 102 }).map((_, index) => {
+    const id = index + 1;
+    const statuses = ['active', 'pending', 'inactive'] as const;
+    const countries = ['España', 'Francia', 'Italia', 'Alemania', 'Portugal'];
+    const status = statuses[index % statuses.length];
+    const country = countries[index % countries.length];
+    const baseDate = new Date(
+      2024,
+      index % 12,
+      (index % 28) + 1,
+      8 + (index % 10),
+      (index * 7) % 60,
+    );
+
+    return {
+      id,
+      user: `Usuario ${id.toString().padStart(3, '0')}`,
+      country,
+      status,
+      createdAt: baseDate,
+      orders: (index * 3) % 50,
+      amount: 100 + ((index * 1735) % 900000) / 100, // valores algo random
+    };
+  });
+
+  // ==================== HANDLERS ====================
+
+  onSort(
+    e: { key: string | null; dir: 'asc' | 'desc' | null },
+    origin: 'ex1' | 'ex2' | 'ex3' | 'ex9',
+  ) {
+    console.log(`[${origin}] sortChange`, e);
+  }
+
+  onRowsPerPageChangeEx3(newSize: number) {
+    console.log('Ejemplo 3 - rowsPerPage:', newSize);
+    this.rowsPerPageEx3 = newSize;
+  }
+
+  onRowsPerPageChangeFull(newSize: number) {
+    console.log('Ejemplo 9 - rowsPerPage:', newSize);
+    this.rowsPerPageFull = newSize;
+  }
+
+  onPageChange(newPage: number) {
+    console.log('Page changed:', newPage);
+  }
 
   onCellEdit(event: CellEditEvent): void {
     console.log('Celda editada:', event);
-    // Actualizar el valor en la fila
     event.row[event.key] = event.newValue;
+  }
+
+  onAction(event: ActionEvent): void {
+    console.log('Acción ejecutada:', event);
+    const { actionId, row, rowIndex } = event;
+
+    switch (actionId) {
+      case 'view':
+        alert(
+          `Ver detalles de la fila ${rowIndex + 1}:\n${JSON.stringify(
+            row,
+            null,
+            2,
+          )}`,
+        );
+        break;
+      case 'edit':
+        alert(`Editar fila ${rowIndex + 1}`);
+        break;
+      case 'delete':
+        if (confirm(`¿Eliminar ${row['product'] || row['user']}?`)) {
+          console.log('Eliminando...', row);
+        }
+        break;
+      case 'message':
+        alert(`Enviar mensaje a: ${row['user']}`);
+        break;
+      case 'activate':
+      case 'deactivate':
+        console.log(`${actionId} usuario:`, row['user']);
+        break;
+    }
   }
 }

@@ -7,6 +7,79 @@ export enum SortType {
 }
 
 /**
+ * Tipos de celda soportados de manera declarativa.
+ * - 'text': Texto simple (por defecto)
+ * - 'number': Números
+ * - 'date': Fechas formateadas
+ * - 'badge': Badges/Pills con colores
+ * - 'actions': Botones de acciones (inline/menu)
+ * - 'custom': Template proyectado personalizado
+ */
+export type CellType = 'text' | 'number' | 'date' | 'badge' | 'actions' | 'custom';
+
+/**
+ * Configuración para celdas de tipo badge/pill
+ */
+export interface BadgeConfig {
+  /** Mapeo de valores a variantes de color */
+  variantMap?: Record<string, 'success' | 'warning' | 'danger' | 'info'>;
+  /** Mapeo de valores a labels personalizados */
+  labelMap?: Record<string, string>;
+}
+
+/**
+ * Configuración específica para cada tipo de celda.
+ * Extensible según el tipo de celda.
+ */
+export type CellTypeConfig =
+  | DateTemplateConfig
+  | ActionsConfig
+  | BadgeConfig
+  | Record<string, unknown>;
+
+/**
+ * Configuración de una acción individual en la columna de acciones
+ */
+export interface ActionItem {
+  /** Icono material para la acción */
+  icon: string;
+  /** Etiqueta descriptiva de la acción */
+  label: string;
+  /** ID único de la acción para identificarla en eventos */
+  id: string;
+  /** Función que determina si la acción está deshabilitada para una fila específica */
+  disabled?: (row: Record<string, unknown>) => boolean;
+  /** Función que determina si la acción está oculta para una fila específica */
+  hidden?: (row: Record<string, unknown>) => boolean;
+  /** Variante visual de la acción */
+  variant?: 'primary' | 'secondary' | 'danger';
+}
+
+/**
+ * Configuración para el template built-in de acciones
+ */
+export interface ActionsConfig {
+  /** Modo de visualización: inline (iconos visibles) o menu (dropdown) */
+  mode: 'inline' | 'menu';
+  /** Lista de acciones disponibles */
+  items: ActionItem[];
+  /** Icono para el botón del menú desplegable (solo aplica en modo menu) */
+  menuIcon?: string;
+}
+
+/**
+ * Evento emitido cuando se ejecuta una acción
+ */
+export interface ActionEvent {
+  /** ID de la acción ejecutada */
+  actionId: string;
+  /** Fila sobre la que se ejecutó la acción */
+  row: Record<string, unknown>;
+  /** Índice de la fila en la página actual */
+  rowIndex: number;
+}
+
+/**
  * Configuración para el template genérico de fecha
  /** Formato de fecha para DatePipe. Ej: 'dd/MM/yyyy', 'dd/MM/yyyy HH:mm', 'dd/MM/yy', 'MM/dd/yyyy hh:mm:ss a' 
  */
@@ -17,45 +90,74 @@ export interface DateTemplateConfig {
 /**
  * Column definition for the table.
  *
- * - `key` se usa para leer la propiedad del row.
- * - `template` es el nombre del template de celda (externo/interno).
- * - `headerTemplate` es el nombre del template de cabecera.
- * - `renderFn` función personalizada para renderizar el valor de la celda.
- * - `builtInTemplate` template genérico incorporado (solo 'date' disponible).
- * - `filterable` habilita el filtrado por columna.
- * - `editable` permite editar celdas con doble click.
+ * @description
+ * Define la configuración de una columna de la tabla. Soporta múltiples modos de renderizado:
+ * - **Declarativo**: Usando `cellType` y `cellTypeConfig`
+ * - **Template proyectado**: Usando `template`
+ * - **Función de renderizado**: Usando `renderFn`
+ * - **Legacy**: Usando `builtInTemplate` (deprecado, usar `cellType`)
+ *
+ * @example Uso con cellType (recomendado)
+ * ```typescript
+ * {
+ *   name: 'Fecha',
+ *   key: 'createdAt',
+ *   cellType: 'date',
+ *   cellTypeConfig: { dateFormat: 'dd/MM/yyyy' }
+ * }
+ * ```
+ *
+ * @example Uso con template proyectado
+ * ```typescript
+ * {
+ *   name: 'Usuario',
+ *   key: 'user',
+ *   template: 'userTemplate'
+ * }
+ * ```
  */
 export interface HeaderData {
+  /** Nombre visible de la columna */
   name: string;
+  /** Clave para acceder al valor en el objeto row */
   key?: string;
+  /** Habilita ordenación en esta columna */
   sortable?: boolean;
+  /** Tipo de dato para ordenación (se infiere si no se especifica) */
   type?: 'string' | 'number';
+  /** Dirección de ordenación por defecto */
   defaultSort?: Exclude<SortDirection, null>;
-  template?: string; // Nombre del template de celda para columna. Sino se indica, se usa el por defecto.
-  headerTemplate?: string; // Nombre del template de cabecera para columna. Sino se indica, se usa el por defecto.
+
+  // ==================== CELL RENDERING (Prioridad) ====================
+  /** Tipo de celda declarativo (recomendado) */
+  cellType?: CellType;
+  /** Configuración específica del tipo de celda */
+  cellTypeConfig?: CellTypeConfig;
+
+  /** Nombre del template de celda proyectado (alta prioridad) */
+  template?: string;
+  /** Nombre del template de cabecera proyectado */
+  headerTemplate?: string;
+
   /**
    * Función personalizada para renderizar el valor de la celda.
-   * Tiene prioridad sobre template y builtInTemplate.
-   * @param row - Fila completa de datos
-   * @param key - Clave de la columna
-   * @returns El valor a mostrar (string, number, etc.)
+   * Tiene prioridad sobre template.
    */
   renderFn?: (row: Record<string, unknown>, key?: string) => unknown;
-  /**
-   * Template genérico incorporado de fecha.
-   * Se usa si no hay template ni renderFn.
-   */
-  builtInTemplate?: 'date';
-  /**
-   * Configuración para el template genérico de fecha.
-   */
-  dateConfig?: DateTemplateConfig;
-  filterable?: boolean; // Habilita el filtrado por columna. Muestra un input de búsqueda en la cabecera.
-  editable?: boolean; // Permite editar celdas con doble click. Solo funciona en celdas sin template personalizado.
+
+  /** Habilita el filtrado por columna */
+  filterable?: boolean;
+  /** Permite editar celdas con doble click */
+  editable?: boolean;
+  /** Congela la columna a la izquierda o derecha */
   frozen?: 'left' | 'right' | null;
- 
+
+  // ==================== SIZING ====================
+  /** Ancho mínimo de la columna */
   minWidth?: string;
+  /** Ancho máximo de la columna */
   maxWidth?: string;
+  /** Ancho fijo de la columna */
   width?: string;
 }
 

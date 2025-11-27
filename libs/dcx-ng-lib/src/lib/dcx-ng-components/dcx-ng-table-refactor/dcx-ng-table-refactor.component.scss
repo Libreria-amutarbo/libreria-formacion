@@ -1,3 +1,24 @@
+/* ================================
+   ACCESIBILIDAD
+   ================================ */
+
+// Clase para contenido visible solo para lectores de pantalla
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ================================
+   ESTRUCTURA BASE
+   ================================ */
+
 .table-wrapper {
   width: 100%;
   overflow: hidden;
@@ -46,24 +67,9 @@ tbody td {
   background: var(--table-row-hover, #f6f6f6);
 }
 
-.menu-col {
-  white-space: nowrap;
-  text-align: right;
-  width: 0.1%;
-}
-
 .sort-indicator {
   margin-left: 0.375rem;
   opacity: 0.7;
-}
-
-.btn.icon {
-  background: none;
-  border: none;
-  color: #555;
-  cursor: not-allowed;
-  padding: 0 0.25rem;
-  font: inherit;
 }
 
 .empty-cell {
@@ -183,4 +189,203 @@ tbody td.frozen-separator-right {
 
 .row-index-cell {
   border-bottom: 1px solid var(--table-border, #e3e3e3);
+}
+/* ================================
+   COLUMNA DE ACCIONES
+   ================================ */
+
+// --- Modo inline: iconos uno al lado del otro ---
+.actions-inline {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary, #6b7280);
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--action-hover-bg, #f3f4f6);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  // Variantes
+  &.action-primary {
+    color: var(--primary, #2196f3);
+
+    &:hover:not(:disabled) {
+      background: rgba(33, 150, 243, 0.1);
+    }
+  }
+
+  &.action-danger {
+    color: var(--danger, #ef4444);
+
+    &:hover:not(:disabled) {
+      background: rgba(239, 68, 68, 0.1);
+    }
+  }
+
+  &.action-secondary {
+    color: var(--text-secondary, #6b7280);
+  }
+}
+
+// --- Modo menu: bot�n con dropdown ---
+.actions-menu {
+  position: relative;
+}
+
+.action-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary, #6b7280);
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: var(--action-hover-bg, #f3f4f6);
+  }
+}
+
+.actions-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.25rem;
+  min-width: 10rem;
+  background: var(--surface, #fff);
+  border: 1px solid var(--table-border, #e3e3e3);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  padding: 0.25rem;
+}
+
+.action-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text, #1f2937);
+  text-align: left;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--action-hover-bg, #f3f4f6);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &.action-danger {
+    color: var(--danger, #ef4444);
+
+    &:hover:not(:disabled) {
+      background: rgba(239, 68, 68, 0.1);
+    }
+  }
+
+  dcx-ng-icon {
+    flex-shrink: 0;
+  }
+
+  span {
+    flex: 1;
+  }
+}
+
+/* ================================
+   OVERLAY DE MENÚ DE ACCIONES (appendTo body anclado al documento)
+   ================================ */
+
+/* El backdrop cubre toda la página, pero se posiciona respecto al documento */
+.actions-overlay-backdrop {
+  position: absolute;   /* antes era fixed */
+  inset: 0;
+  z-index: 999;
+  background: transparent;
+}
+
+/* El menú se posiciona con coordenadas absolutas de página */
+.actions-overlay-dropdown {
+  position: absolute;   /* antes era fixed */
+  min-width: 12rem;
+  background: var(--surface, #fff);
+  border: 1px solid var(--table-border, #e3e3e3);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0.25rem;
+  z-index: 1000;
+}
+
+.actions-overlay-dropdown .action-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text, #1f2937);
+  text-align: left;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--action-hover-bg, #f3f4f6);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &.action-danger {
+    color: var(--danger, #ef4444);
+
+    &:hover:not(:disabled) {
+      background: rgba(239, 68, 68, 0.1);
+    }
+  }
+
+  dcx-ng-icon {
+    flex-shrink: 0;
+  }
+
+  span {
+    flex: 1;
+  }
 }

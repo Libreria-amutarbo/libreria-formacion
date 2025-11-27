@@ -2,7 +2,17 @@
   class="table-wrapper"
   [class.scroll]="scroll()"
   [style.max-height]="scroll() ? scrollHeight() : null"
+  (click)="closeAllMenus()"
+  role="region"
+  aria-label="Tabla de datos con ordenación y filtrado"
 >
+  <!-- Región live para anunciar cambios de ordenación/filtrado -->
+  <div class="sr-only" aria-live="polite" aria-atomic="true">
+    @if (sortLabel() && sort().dir) {
+      Ordenado por {{ sortLabel() }} en orden {{ sort().dir === 'asc' ? 'ascendente' : 'descendente' }}
+    }
+  </div>
+
   <table [class.grid]="showGrid()" [class.striped]="showStripped()">
     <!-- ==================== HEADER ==================== -->
     <thead>
@@ -55,7 +65,6 @@
             }
           </th>
         }
-        <th class="menu-col" scope="col"></th>
       </tr>
     </thead>
 
@@ -63,7 +72,7 @@
     <tbody>
       @if (sortedRows().length === 0) {
         <tr>
-          <td [attr.colspan]="displayHeaders().length + 1 + (showRowIndex() ? 1 : 0)"
+          <td [attr.colspan]="displayHeaders().length + (showRowIndex() ? 1 : 0)"
           class="empty-cell">
             <ng-container
               [ngTemplateOutlet]="getEmptyTemplate()"
@@ -112,23 +121,51 @@
                       $implicit: row,
                       row: row,
                       key: header.key,
-                      header: header
+                      header: header,
+                      rowIndex: rowIndex
                     }"
                   />
                 }
               </td>
             }
-            <td class="menu-col">
-              <ng-container
-                [ngTemplateOutlet]="getMenuTemplate()"
-                [ngTemplateOutletContext]="{ $implicit: row, row: row, index: $index }"
-              />
-            </td>
           </tr>
         }
       }
     </tbody>
   </table>
+
+  <!-- NEW: overlay global para el menú de acciones (tipo appendTo="body") REVISAR NO ME TERMINA DE CONVENCER -->
+  @if (actionsOverlay()) {
+    <div
+      class="actions-overlay-backdrop"
+      (click)="closeAllMenus()"
+    >
+      <div
+        class="actions-overlay-dropdown"
+        role="menu"
+        (click)="$event.stopPropagation()"
+        [style.top.px]="actionsOverlay()!.y"
+        [style.left.px]="actionsOverlay()!.x"
+      >
+        @if ($any(actionsOverlay()!.header.cellTypeConfig)?.items?.length) {
+          @for (action of $any(actionsOverlay()!.header.cellTypeConfig).items; track action.id) {
+            @if (!action.hidden || !action.hidden(actionsOverlay()!.row)) {
+              <button
+                type="button"
+                class="action-menu-item"
+                [class.action-danger]="action.variant === 'danger'"
+                [disabled]="action.disabled ? action.disabled(actionsOverlay()!.row) : false"
+                (click)="onActionClick(action.id, actionsOverlay()!.row, actionsOverlay()!.rowIndex)"
+              >
+                <dcx-ng-icon [name]="action.icon" size="s" />
+                <span>{{ action.label }}</span>
+              </button>
+            }
+          }
+        }
+      </div>
+    </div>
+  }
 </div>
 
 <!-- ==================== PAGINADOR ==================== -->
@@ -159,20 +196,74 @@
 
 <ng-template #builtInDateTpl let-row let-key="key" let-header="header">
   <span style="color: #666;">
-    {{ row?.[key] | date: (header.dateConfig?.dateFormat || 'dd/MM/yyyy HH:mm') }}
+    {{ row?.[key] | date: ((header.cellTypeConfig?.dateFormat) || 'dd/MM/yyyy HH:mm') }}
   </span>
 </ng-template>
 
-<ng-template #defaultMenuCellTpl>
-  <button
-    type="button"
-    class="btn icon"
-    title="Menú contextual"
-    disabled
-    aria-disabled="true"
-  >
-    <dcx-ng-icon name="more_vert" size="m" />
-  </button>
+<ng-template #builtInActionsTpl let-row let-header="header" let-rowIndex="rowIndex">
+  @if (header.cellTypeConfig) {
+    @let config = header.cellTypeConfig;
+    @if (config.mode === 'inline') {
+      <div class="actions-inline">
+        @for (action of config.items; track action.id) {
+          @if (!action.hidden || !action.hidden(row)) {
+            <button
+              type="button"
+              class="action-btn"
+              [class.action-primary]="action.variant === 'primary'"
+              [class.action-danger]="action.variant === 'danger'"
+              [class.action-secondary]="action.variant === 'secondary' || !action.variant"
+              [title]="action.label"
+              [attr.aria-label]="action.label"
+              [disabled]="action.disabled ? action.disabled(row) : false"
+              (click)="onActionClick(action.id, row, rowIndex)"
+            >
+              <dcx-ng-icon [name]="action.icon" size="s" />
+            </button>
+          }
+        }
+      </div>
+    } @else {
+      <div class="actions-menu">
+        <button
+          type="button"
+          class="action-menu-btn"
+          [title]="'Acciones'"
+          [attr.aria-label]="'Menú de acciones'"
+          [attr.aria-expanded]="isMenuOpen(rowIndex)"
+          [attr.aria-haspopup]="true"
+          (click)="openActionsOverlay(rowIndex, header, row, $event)"  
+        >
+          <dcx-ng-icon [name]="config.menuIcon || 'more_vert'" size="m" />
+        </button>
+
+        <!-- DEPRECATED: menú desplegado dentro de la celda (ahora se usa overlay global)
+        @if (isMenuOpen(rowIndex)) {
+          <div 
+            class="actions-dropdown" 
+            role="menu"
+            (click)="$event.stopPropagation()"
+          >
+            @for (action of config.items; track action.id) {
+              @if (!action.hidden || !action.hidden(row)) {
+                <button
+                  type="button"
+                  class="action-menu-item"
+                  [class.action-danger]="action.variant === 'danger'"
+                  [disabled]="action.disabled ? action.disabled(row) : false"
+                  (click)="onActionClick(action.id, row, rowIndex)"
+                >
+                  <dcx-ng-icon [name]="action.icon" size="s" />
+                  <span>{{ action.label }}</span>
+                </button>
+              }
+            }
+          </div>
+        }
+        -->
+      </div>
+    }
+  }
 </ng-template>
 
 <ng-template #defaultEmptyTpl>No hay datos</ng-template>

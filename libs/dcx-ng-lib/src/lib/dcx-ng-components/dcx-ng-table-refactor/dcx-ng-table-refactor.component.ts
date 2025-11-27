@@ -1,29 +1,32 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   TemplateRef,
   afterNextRender,
   computed,
   contentChildren,
+  inject,
   input,
   output,
   signal,
   viewChild,
   viewChildren,
 } from '@angular/core';
-
+import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import {
+  ActionEvent,
   CellEditEvent,
-  FrozenColumnMeta,
   HeaderData,
   Sort,
-  SortDirection,
   SortType,
 } from './dcx-ng-table-refactor.models';
 import { DcxNgTableTemplateRefactorDirective } from './dcx-ng-table-template-refactor.directive';
 import { DcxNgTablePaginatorComponent } from './components/dcx-ng-table-paginator/dcx-ng-table-paginator.component';
-import { DatePipe, NgTemplateOutlet } from '@angular/common';
+import { TableDataPipelineService } from './services/table-data-pipeline.service';
+import { TableComparatorService } from './services/table-comparator.service';
+import { TableState } from './state/table-state';
 
 export type TableRow = { id?: number } & Record<string, unknown>;
 
@@ -31,11 +34,15 @@ export type TableRow = { id?: number } & Record<string, unknown>;
   selector: 'dcx-ng-table-refactor',
   standalone: true,
   imports: [DcxNgIconComponent, DcxNgTablePaginatorComponent, DatePipe, NgTemplateOutlet],
+  providers: [TableDataPipelineService, TableComparatorService],
   templateUrl: './dcx-ng-table-refactor.component.html',
   styleUrls: ['./dcx-ng-table-refactor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgTableRefactorComponent {
-  // ==================== INPUTS ====================
+  private readonly pipelineService = inject(TableDataPipelineService);
+  private readonly comparatorService = inject(TableComparatorService);
+
   readonly headers = input.required<readonly HeaderData[]>();
   readonly rows = input.required<readonly TableRow[]>();
   readonly showGrid = input(false);
@@ -45,11 +52,16 @@ export class DcxNgTableRefactorComponent {
   readonly paginator = input(false);
   readonly rowsPerPage = input(10);
   readonly rowsPerPageOptions = input<readonly number[]>([5, 10, 20]);
-
   readonly showRowIndex = input(false);
-  readonly rowIndexLabel = input('#');
 
-  // separadores de grupos frozen
+  // Normalizar rowsPerPage: si no está en las opciones, usar la primera opción
+  private readonly normalizedRowsPerPage = computed(() => {
+    const current = this.rowsPerPage();
+    const options = this.rowsPerPageOptions();
+    return options.includes(current) ? current : options[0] ?? 10;
+  });
+
+  readonly rowIndexLabel = input('#');
   readonly frozenLeftSeparator = input(false);
   readonly frozenRightSeparator = input(false);
 
@@ -58,268 +70,127 @@ export class DcxNgTableRefactorComponent {
   readonly rowsPerPageChange = output<number>();
   readonly pageChange = output<number>();
   readonly cellEdit = output<CellEditEvent>();
+  readonly rowAction = output<ActionEvent>();
 
-  // ==================== VIEW CHILDREN ====================
-  private readonly defaultHeaderTpl =
-    viewChild.required<TemplateRef<unknown>>('defaultHeaderTpl');
-  private readonly defaultCellTpl =
-    viewChild.required<TemplateRef<unknown>>('defaultCellTpl');
-  private readonly defaultMenuCellTpl =
-    viewChild.required<TemplateRef<unknown>>('defaultMenuCellTpl');
-  private readonly defaultEmptyTpl =
-    viewChild.required<TemplateRef<unknown>>('defaultEmptyTpl');
-  private readonly builtInDateTpl =
-    viewChild.required<TemplateRef<unknown>>('builtInDateTpl');
+  private readonly defaultHeaderTpl = viewChild.required<TemplateRef<unknown>>('defaultHeaderTpl');
+  private readonly defaultCellTpl = viewChild.required<TemplateRef<unknown>>('defaultCellTpl');
+  private readonly defaultEmptyTpl = viewChild.required<TemplateRef<unknown>>('defaultEmptyTpl');
+  private readonly builtInDateTpl = viewChild.required<TemplateRef<unknown>>('builtInDateTpl');
+  private readonly builtInActionsTpl = viewChild.required<TemplateRef<unknown>>('builtInActionsTpl');
+  private readonly headerCells = viewChildren<ElementRef<HTMLTableCellElement>>('headerCell');
 
-  /** Celdas de cabecera para calcular anchos y offsets de columnas frozen */
-  private readonly headerCells = viewChildren<ElementRef<HTMLTableCellElement>>(
-    'headerCell',
-  );
+  private readonly externalTemplates = contentChildren(DcxNgTableTemplateRefactorDirective);
 
-  // ==================== CONTENT CHILDREN ====================
-  private readonly externalTemplates = contentChildren(
-    DcxNgTableTemplateRefactorDirective,
-  );
-
-  // Mapa declarativo de tipo de orden → icono material
   private readonly sortTypeIcon: Record<SortType, string> = {
     [SortType.NONE]: 'swap_vert',
     [SortType.ASCENDING]: 'arrow_upward',
     [SortType.DESCENDING]: 'arrow_downward',
   };
 
-  // ==================== STATE ====================
-  private readonly _manualSort = signal<Sort>({ key: null, dir: null });
-  private readonly _columnFilters = signal<Record<string, string>>({});
-  private readonly _editingCell = signal<{
+  private readonly _editingCell = signal<{ rowIndex: number; key: string } | null>(null);
+  private readonly _openMenuRowIndex = signal<number | null>(null);
+
+  // ==================== OVERLAY DE ACCIONES ====================
+  // Estado del overlay global (tipo appendTo="body") REVIEW ABRIR/CERRAR NO ME TERMINA DE CONVENCER
+  private readonly _actionsOverlay = signal<{
     rowIndex: number;
-    key: string;
+    row: TableRow;
+    header: HeaderData;
+    x: number;
+    y: number;
   } | null>(null);
-  private readonly _rawPageIndex = signal(0);
-  private readonly _columnWidths = signal<number[]>([]);
 
+  readonly actionsOverlay = computed(() => this._actionsOverlay());
 
-  // ==================== CONSTRUCTOR ====================
+  // ==================== ESTADOS CENTRALIZADOS DE LA TABLA ====================
+  private readonly state: TableState;
+
+  readonly displayHeaders = computed(() => this.state.displayHeaders());
+  readonly paginatedRows = computed(() => this.state.paginatedRows());
+  readonly sortedRows = computed(() => this.state.sortedRows());
+  readonly frozenMeta = computed(() => this.state.frozenMeta());
+  readonly sort = computed(() => this.state.sort());
+  readonly pageSize = computed(() => this.state.pageSize());
+  readonly pageIndex = computed(() => this.state.pageIndex());
+  readonly hasRowIndex = computed(() => this.state.hasRowIndex());
+  readonly pageInfo = computed(() => this.state.pageInfo());
+
+  readonly sortLabel = computed(() => {
+    const { key, dir } = this.sort();
+    if (!key || !dir) return null;
+    const header = this.displayHeaders().find(h => h.key === key);
+    return header?.name ?? key;
+  });
+
   constructor() {
-    // Medimos anchos de columnas una vez tras el primer render
-    afterNextRender(() => {
-      this.measureColumnWidths();
-    });
+    this.state = new TableState(
+      this.headers,
+      this.rows,
+      this.normalizedRowsPerPage,
+      this.paginator,
+      this.frozenLeftSeparator,
+      this.frozenRightSeparator,
+      this.showRowIndex,
+      this.pipelineService,
+      this.comparatorService,
+    );
+
+    afterNextRender(() => this.measureColumnWidths());
   }
 
-  // ==================== COMPUTED - Template Cache ====================
   private readonly templateCache = computed(() => {
     const cache = new Map<string, TemplateRef<unknown>>();
     this.externalTemplates().forEach(dir => cache.set(dir.type, dir.template));
     return cache;
   });
 
-   // ==================== COMPUTED - Headers de visualización ====================
-  /**
-   * Orden de columnas en la tabla:
-   *  1. Todas las frozen='left' (en el orden del array original)
-   *  2. Las que no son frozen
-   *  3. Las frozen='right'
-   */
-  readonly displayHeaders = computed<readonly HeaderData[]>(() => {
-    const headers = this.headers();
-    const left = headers.filter(h => h.frozen === 'left');
-    const right = headers.filter(h => h.frozen === 'right');
-    const middle = headers.filter(h => !h.frozen);
-    return [...left, ...middle, ...right];
-  });
-
-  // ==================== COMPUTED - Sort ====================
-  readonly sort = computed(() => {
-    const manual = this._manualSort();
-    if (manual.key && manual.dir) return manual;
-
-    const defaultHeader = this.headers().find(
-      h => h.defaultSort && h.key && h.sortable !== false,
-    );
-
-    return defaultHeader?.key && defaultHeader.defaultSort
-      ? { key: defaultHeader.key, dir: defaultHeader.defaultSort }
-      : { key: null, dir: null };
-  });
-
-  // ==================== COMPUTED - Rows Pipeline ====================
-  private readonly normalizedRows = computed<readonly TableRow[]>(() =>
-    this.rows().map((row, index) =>
-      row.id !== undefined ? row : { ...row, id: index },
-    ),
-  );
-
-  private readonly filteredRows = computed<readonly TableRow[]>(() => {
-    const rows = this.normalizedRows();
-    const activeFilters = Object.entries(this._columnFilters()).filter(
-      ([_, value]) => value.trim() !== '',
-    );
-
-    if (activeFilters.length === 0) return rows;
-
-    return rows.filter(row =>
-      activeFilters.every(([key, filterValue]) => {
-        const cellValue = String(row[key] ?? '').toLowerCase();
-        return cellValue.includes(filterValue.toLowerCase());
-      }),
-    );
-  });
-
-  readonly sortedRows = computed<readonly TableRow[]>(() => {
-    const { key, dir } = this.sort();
-    if (!key || !dir) return this.filteredRows();
-
-    const rows = [...this.filteredRows()];
-    const header = this.headers().find(h => h.key === key);
-    const type = header?.type ?? this.inferType(rows, key);
-
-    rows.sort((a, b) => this.compare(a[key], b[key], type));
-    return dir === 'desc' ? rows.reverse() : rows;
-  });
-
-  // ==================== COMPUTED - Pagination ====================
-  readonly pageSize = computed(() => {
-    const value = this.rowsPerPage();
-    return Number.isFinite(value) && value > 0 ? value : 10;
-  });
-
-  readonly pageIndex = computed(() => this._rawPageIndex());
-
-  readonly paginatedRows = computed<readonly TableRow[]>(() => {
-    if (!this.paginator()) return this.sortedRows();
-
-    const start = this.pageIndex() * this.pageSize();
-    return this.sortedRows().slice(start, start + this.pageSize());
-  });
-
- // ==================== COMPUTED - Frozen Meta ====================
-  /**
-   * Info derivada para columnas frozen:
-   * - left/right: offset en px desde el borde correspondiente
-   * - separatorLeft: dibujar border-right (borde derecho de grupo frozen-left)
-   * - separatorRight: dibujar border-left (borde izquierdo de grupo frozen-right)
-   *
-   * Se calcula sobre displayHeaders() para que coincida con el orden visual.
-   */
-  readonly frozenMeta = computed(() => {
-    const headers = this.displayHeaders();
-    const widths = this._columnWidths();
-
-    const meta: FrozenColumnMeta[] = headers.map(() => ({
-      left: null,
-      right: null,
-      separatorLeft: false,
-      separatorRight: false,
-    }));
-
-    // --- Frozen LEFT ---
-    let leftOffset = 0;
-    const leftIndices: number[] = [];
-
-    headers.forEach((h, idx) => {
-      if (h.frozen === 'left') {
-        meta[idx].left = leftOffset;
-        leftOffset += widths[idx] ?? 0;
-        leftIndices.push(idx);
-      }
+  private readonly sortIcons = computed(() => {
+    const icons = new Map<string, string>();
+    this.displayHeaders().forEach(header => {
+      const ariaType = this.ariaSort(header);
+      icons.set(header.key || '', this.sortTypeIcon[ariaType]);
     });
-
-    // --- Frozen RIGHT ---
-    let rightOffset = 0;
-    const rightIndices: number[] = [];
-
-    for (let i = headers.length - 1; i >= 0; i--) {
-      const h = headers[i];
-      if (h.frozen === 'right') {
-        meta[i].right = rightOffset;
-        rightOffset += widths[i] ?? 0;
-        rightIndices.push(i);
-      }
-    }
-
-    // --- Separadores ---
-    if (this.frozenLeftSeparator() && leftIndices.length > 0) {
-      const lastLeftIdx = leftIndices[leftIndices.length - 1];
-      meta[lastLeftIdx].separatorLeft = true; // => border-right
-    }
-
-    if (this.frozenRightSeparator() && rightIndices.length > 0) {
-      const leftMostRightIdx = rightIndices[rightIndices.length - 1];
-      meta[leftMostRightIdx].separatorRight = true; // => border-left
-    }
-
-    return meta;
+    return icons;
   });
-
 
   // ==================== SORT HANDLERS ====================
   onHeaderClick(header: HeaderData): void {
-    if (!header.sortable) return;
-
-    const current = this.sort();
-    const nextDirection: SortDirection =
-      current.key !== header.key
-        ? 'asc'
-        : current.dir === 'asc'
-          ? 'desc'
-          : current.dir === 'desc'
-            ? null
-            : 'asc';
-
-    const newSort: Sort = { key: header.key ?? null, dir: nextDirection };
-    this._manualSort.set(newSort);
+    const newSort = this.state.toggleSort(header);
     this.sortChange.emit(newSort);
   }
 
   ariaSort(header: HeaderData): SortType {
     const { key, dir } = this.sort();
-    if (key !== header.key || !dir) {
-      return SortType.NONE;
-    }
+    if (key !== header.key || !dir) return SortType.NONE;
     return dir === 'asc' ? SortType.ASCENDING : SortType.DESCENDING;
   }
 
- getSortIcon(header: HeaderData): string {
-    const ariaType = this.ariaSort(header);
-    return this.sortTypeIcon[ariaType];
-}
+  getSortIcon(header: HeaderData): string {
+    return this.sortIcons().get(header.key || '') || this.sortTypeIcon[SortType.NONE];
+  }
 
-  // ==================== PAGINATION HANDLERS ====================
-  /**
-   * Cambia el tamaño de página.
-   * - Emite el evento hacia fuera.
-   * - Resetea el índice de página interno a 0.
-   */
   onRowsPerPageChange(size: number | string | null): void {
     if (size === null) return;
     const parsed = Number(size);
     const validSize = Number.isFinite(parsed) && parsed > 0 ? parsed : 10;
     this.rowsPerPageChange.emit(validSize);
-    this._rawPageIndex.set(0);
+    this.state.resetPageIndex();
   }
 
-  /**
-   * Actualiza el índice de página cuando el paginator emite (pageChange).
-   * El paginator ya se encarga de hacer clamp, aquí solo reflejamos el valor.
-   */
   goToPage(page: number): void {
     if (page === this.pageIndex()) return;
-    this._rawPageIndex.set(page);
+    this.state.goToPage(page);
     this.pageChange.emit(page);
   }
 
-  // ==================== FILTER HANDLERS ====================
   onFilterChange(key: string, value: string): void {
-    this._columnFilters.update(filters => ({ ...filters, [key]: value }));
-    this._rawPageIndex.set(0);
+    this.state.setFilter(key, value);
   }
 
   getFilterValue(key: string): string {
-    return this._columnFilters()[key] || '';
+    return this.state.getFilterValue(key);
   }
 
-  // ==================== EDIT HANDLERS ====================
   onCellDblClick(rowIndex: number, key: string, header: HeaderData): void {
     if (!header.editable || header.template || header.renderFn) return;
     this._editingCell.set({ rowIndex, key });
@@ -330,12 +201,7 @@ export class DcxNgTableRefactorComponent {
     return editing?.rowIndex === rowIndex && editing?.key === key;
   }
 
-  onCellEditComplete(
-    row: TableRow,
-    key: string,
-    newValue: string,
-    rowIndex: number,
-  ): void {
+  onCellEditComplete(row: TableRow, key: string, newValue: string, rowIndex: number): void {
     const oldValue = row[key];
     const header = this.headers().find(h => h.key === key);
 
@@ -346,13 +212,7 @@ export class DcxNgTableRefactorComponent {
     }
 
     if (parsedValue !== oldValue) {
-      this.cellEdit.emit({
-        row,
-        key,
-        oldValue,
-        newValue: parsedValue,
-        rowIndex,
-      });
+      this.cellEdit.emit({ row, key, oldValue, newValue: parsedValue, rowIndex });
     }
 
     this._editingCell.set(null);
@@ -362,89 +222,103 @@ export class DcxNgTableRefactorComponent {
     this._editingCell.set(null);
   }
 
-  // ==================== TEMPLATE RESOLUTION ====================
   getHeaderTemplate(header: HeaderData): TemplateRef<unknown> {
-    // 1. Template específico proyectado
     if (header.headerTemplate) {
       const custom = this.templateCache().get(header.headerTemplate);
       if (custom) return custom;
     }
-
-    // 2. Template por defecto
     return this.defaultHeaderTpl();
   }
 
   getCellTemplate(header: HeaderData): TemplateRef<unknown> {
-    // 1. Template específico proyectado
     if (header.template) {
       const custom = this.templateCache().get(header.template);
-      if (custom) return custom;
+      if (custom) { 
+        return custom;
+      }
     }
 
-    // 2. Template incorporado (built-in)
-    if (header.builtInTemplate === 'date') {
-      return this.builtInDateTpl();
+    switch (header.cellType) {
+      case 'date':
+        return this.builtInDateTpl();
+      case 'actions':
+        return this.builtInActionsTpl();
+      default:
+        return this.defaultCellTpl();
     }
-
-    // 3. Template por defecto (soporta renderFn)
-    return this.defaultCellTpl();
-  }
-
-  getMenuTemplate(): TemplateRef<unknown> {
-    // Template proyectado personalizado o por defecto
-    return this.templateCache().get('menu') || this.defaultMenuCellTpl();
   }
 
   getEmptyTemplate(): TemplateRef<unknown> {
     return this.templateCache().get('empty') || this.defaultEmptyTpl();
   }
 
-  // ==================== UTILITIES ====================
-  private inferType(
-    rows: readonly TableRow[],
-    key: string,
-  ): 'number' | 'string' {
-    const first = rows.find(r => r?.[key] != null)?.[key];
-    return typeof first === 'number' ? 'number' : 'string';
-  }
-
-  private compare(
-    left: unknown,
-    right: unknown,
-    type: 'string' | 'number',
-  ): number {
-    if (left == null && right == null) return 0;
-    if (left == null) return 1;
-    if (right == null) return -1;
-
-    if (type === 'number') {
-      const [leftNum, rightNum] = [Number(left), Number(right)];
-      if (Number.isNaN(leftNum) && Number.isNaN(rightNum)) return 0;
-      if (Number.isNaN(leftNum)) return 1;
-      if (Number.isNaN(rightNum)) return -1;
-      return leftNum - rightNum;
-    }
-
-    return String(left).localeCompare(String(right), undefined, {
-      sensitivity: 'base',
-      numeric: true,
-    });
-  }
-
-   private measureColumnWidths(): void {
+  private measureColumnWidths(): void {
     const cells = this.headerCells();
     if (!cells || cells.length === 0) {
-      this._columnWidths.set([]);
+      this.state.setColumnWidths([]);
       return;
     }
 
-    const widths = cells.map(cell =>
-      cell.nativeElement.getBoundingClientRect().width,
-    );
-    this._columnWidths.set(widths);
+    const widths = cells.map(cell => cell.nativeElement.getBoundingClientRect().width);
+    this.state.setColumnWidths(widths);
   }
 
-   getRowDisplayIndex(rowIndex: number): number {
+  getRowDisplayIndex(rowIndex: number): number {
     return this.pageIndex() * this.pageSize() + rowIndex + 1;
+  }
+
+  onActionClick(actionId: string, row: TableRow, rowIndex: number): void {
+    this.rowAction.emit({ actionId, row, rowIndex });
+    this._openMenuRowIndex.set(null);
+    this._actionsOverlay.set(null); // Cerrar overlay global si está abierto
+  }
+
+  toggleActionsMenu(rowIndex: number, event: Event): void {
+    event.stopPropagation();
+    const current = this._openMenuRowIndex();
+    this._openMenuRowIndex.set(current === rowIndex ? null : rowIndex);
+  }
+
+  isMenuOpen(rowIndex: number): boolean {
+    return this._openMenuRowIndex() === rowIndex;
+  }
+
+  closeAllMenus(): void {
+    this._openMenuRowIndex.set(null);
+    this._actionsOverlay.set(null); // Cerrar overlay global
+  }
+
+// Abre el overlay global de acciones (tipo appendTo="body" pero anclado al documento)
+  openActionsOverlay(
+    rowIndex: number,
+    header: HeaderData,
+    row: TableRow,
+    event: MouseEvent,
+  ): void {
+    event.stopPropagation();
+
+    const button = event.currentTarget as HTMLElement;
+    const rect = button.getBoundingClientRect();
+
+    const current = this._actionsOverlay();
+    if (current && current.rowIndex === rowIndex) {
+      // si ya estaba abierto para esa fila, lo cerramos
+      this._actionsOverlay.set(null);
+      this._openMenuRowIndex.set(null);
+      return;
+    }
+
+    // 👇 OJO: usamos coordenadas de página (viewport + scroll)
+    const x = rect.left + window.scrollX;
+    const y = rect.bottom + window.scrollY;
+
+    this._openMenuRowIndex.set(rowIndex);
+    this._actionsOverlay.set({
+      rowIndex,
+      row,
+      header,
+      x,
+      y,
+    });
   }
 }
