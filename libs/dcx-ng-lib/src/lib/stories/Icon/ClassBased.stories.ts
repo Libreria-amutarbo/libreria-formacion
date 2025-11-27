@@ -1,33 +1,12 @@
 import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 
-const BOOTSTRAP_ICONS = [
-  'heart-fill',
-  'star-fill',
-  'search',
-  'bell',
-  'check-circle-fill',
-  'exclamation-circle-fill',
-  'x-circle-fill',
-  'info-circle-fill',
-  'gear',
-  'house-fill',
-  'person',
-  'gear-fill',
-  'trash',
-  'pencil',
-  'plus',
-  'dash',
-  'arrow-up',
-  'arrow-down',
-];
-
 const meta: Meta<DcxNgIconComponent> = {
   title: 'DCXLibrary/Icon/Class based',
   component: DcxNgIconComponent,
   tags: ['autodocs'],
   argTypes: {
-    name: { control: 'select', options: BOOTSTRAP_ICONS },
+    name: { control: 'text' },
     color: { control: 'text' },
     size: { control: 'select', options: ['s', 'm', 'l', 'xl'] },
     spacing: { control: 'select', options: ['none', 'compact', 'spacious'] },
