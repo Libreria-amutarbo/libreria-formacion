@@ -16,5 +16,8 @@ BUTTON: 'button',
   CARD: 'card',
   ICON_FIELD: 'icon-field',
   LIST: 'list',
+  PAGINATOR: 'paginator',
+  CONTEXTMENU: 'contextMenu',
+  SLIDER: 'slider'
 
 }
