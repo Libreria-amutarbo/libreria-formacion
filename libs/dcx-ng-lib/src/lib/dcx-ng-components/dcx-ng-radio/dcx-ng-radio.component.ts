@@ -21,7 +21,7 @@ type RadioSize = 's' | 'm' | 'l';
   ],
 })
 export class DcxNgRadioComponent implements ControlValueAccessor {
-  @Input() name: string = '';
+  @Input() name = '';
   @Input() value: string | null = null;
   @Input() label: string | null = null;
   @Input() disabled = false;
@@ -77,7 +77,13 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    isDisabled ? this.formControl.disable({ emitEvent: false }) :     this.formControl.enable({ emitEvent: false });
+    
+if (isDisabled) {
+    this.formControl.disable({ emitEvent: false });
+  } else {
+    this.formControl.enable({ emitEvent: false });
+  }
+
     this.cdr.markForCheck();
   }
 

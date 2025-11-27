@@ -40,7 +40,7 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
   icon = input<string>('');
   image = input<string>('');
 
-  @Output() onRemove = new EventEmitter<void>();
+  @Output() removeChip = new EventEmitter<void>();
 
   readonly ThemeColors = ThemeColors;
   readonly ChipTypeValues = {
@@ -62,7 +62,7 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
   handleRemove(event: Event): void {
     event.stopPropagation();
     if (this.removable()) {
-      this.onRemove.emit();
+      this.removeChip.emit();
     }
   }
 }

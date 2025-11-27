@@ -17,10 +17,10 @@ import { ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@a
   ],
 })
 export class DcxNgSliderComponent implements ControlValueAccessor {
-  @Input() value: number = 0;
-  @Input() formControlName: string = '';
-  @Input() step: number = 1;
-  @Input() vertical: boolean = false;
+  @Input() value = 0;
+  @Input() formControlName = '';
+  @Input() step = 1;
+  @Input() vertical = false;
 
   @Output() valueChange = new EventEmitter<number>();
 

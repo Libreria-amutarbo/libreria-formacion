@@ -93,7 +93,7 @@ Soporta diferentes colores, iconos, imágenes y funcionalidad de eliminación.
         defaultValue: { summary: '""' },
       },
     },
-    onRemove: {
+    removeChip: {
       action: 'onRemove',
       description: 'Evento emitido cuando se hace clic en el botón X',
       table: {
