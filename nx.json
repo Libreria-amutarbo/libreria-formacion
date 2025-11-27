@@ -70,7 +70,7 @@
   "defaultBase": "main",
   "plugins": [
     {
-      "plugin": "@nx/storybook/plugin",
+      "plugin": "@nx/storybook",
       "options": {
         "serveStorybookTargetName": "storybook",
         "buildStorybookTargetName": "build-storybook",

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgIconComponent } from './dcx-ng-icon.component';
+import { within, expect } from '@storybook/test';
 
 const meta: Meta<DcxNgIconComponent> = {
   component: DcxNgIconComponent,

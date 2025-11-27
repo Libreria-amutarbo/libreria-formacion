@@ -1,8 +1,9 @@
+
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 permissions:
   contents: write
@@ -14,17 +15,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20.19 # Compatible con Storybook v10
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      - name: Install gh-pages CLI
+        run: npm install -g gh-pages
+
       - name: Build Storybook
-        run: npx nx build-storybook dcx-ng-lib --no-cloud
+        run: |
+          export NODE_OPTIONS="--experimental-vm-modules"
+          npx nx build-storybook dcx-ng-lib --no-cloud
 
       - name: Configure Git user
         run: |
@@ -33,7 +41,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npm run deploy
+          if [ "${GITHUB_REF##*/}" = "main" ]; then npm run deploy:main; else npm run deploy:develop; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
