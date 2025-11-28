@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 interface CalendarDay {
   date: Date;
@@ -12,7 +11,6 @@ interface CalendarDay {
 @Component({
   selector: 'dcx-ng-date-picker',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './dcx-ng-datePicker.component.html',
   styleUrls: ['./dcx-ng-datePicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
