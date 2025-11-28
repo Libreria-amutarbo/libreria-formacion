@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgCheckbox } from '../../dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
+import { DcxNgCheckboxComponent } from '../../dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
 
-const meta: Meta<DcxNgCheckbox> = {
+const meta: Meta<DcxNgCheckboxComponent> = {
     title: 'DCXLibrary/Checkbox/ClassBased',
-    component: DcxNgCheckbox,
+    component: DcxNgCheckboxComponent,
 };
 export default meta;
 
-type Story = StoryObj<DcxNgCheckbox>;
+type Story = StoryObj<DcxNgCheckboxComponent>;
 
 export const Primary: Story = {
     args: {

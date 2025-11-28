@@ -102,7 +102,7 @@ permitiendo implementaciones completamente personalizadas.
         defaultValue: { summary: '""' },
       },
     },
-    onRemove: {
+    removeChip: {
       action: 'onRemove',
       description: 'Evento emitido cuando se hace clic en el botón X',
       table: {

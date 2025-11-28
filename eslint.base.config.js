@@ -1,9 +1,15 @@
+
 const nx = require('@nx/eslint-plugin');
 
 module.exports = [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
+  
+...nx.configs['flat/angular'],
+...nx.configs['flat/angular-template'],
+
+
   {
     ignores: [
       '**/dist',
@@ -12,6 +18,7 @@ module.exports = [
       '**/coverage',
     ],
   },
+
   // Configuración específica para archivos de ejemplo/demo
   {
     files: [
@@ -27,6 +34,8 @@ module.exports = [
       'prefer-const': 'off',
     },
   },
+
+  // Reglas para límites de módulos Nx
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
@@ -45,19 +54,20 @@ module.exports = [
       ],
     },
   },
+
+  // Configuraciones globales más permisivas para desarrollo
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+   files: ['tsx', '**/*.js', '**/*.jsx'],
     rules: {
-      // Configuraciones globales más permisivas para desarrollo
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
           argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_|^form\\d+$', // Ignorar variables form1, form2, etc.
+          varsIgnorePattern: '^_|^form\\d+$',
           ignoreRestSiblings: true,
         },
       ],
-      '@typescript-eslint/no-explicit-any': 'warn', // Warning en lugar de error
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
 ];

@@ -28,10 +28,14 @@ export interface DropdownOptions {
 })
 export class DcxNgDropdownComponent {
   @Input({ required: true }) dropdownOptions: DropdownOptions[] = [];
-  @Input() placeholder: string = '';
+  @Input() placeholder = '';
   @Input() disabled = false;
   @Input() set selectedKey(key: string | null | undefined) {
     this._selectedKey.set(key ?? null);
+  }
+
+    get selectedKey(): string | null {
+    return this._selectedKey();
   }
 
   @Output() selectedKeyChange = new EventEmitter<string | null>();
@@ -47,9 +51,7 @@ export class DcxNgDropdownComponent {
     }
   }
 
-  get selectedKey(): string | null {
-    return this._selectedKey();
-  }
+
 
   _open: WritableSignal<boolean> = signal(false);
   _selectedKey: WritableSignal<string | null> = signal<string | null>(null);

@@ -10,3 +10,5 @@ import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
   styleUrl: './dcx-ng-page-icon.component.scss',
 })
 export class DcxNgPageIconComponent { }
+
+
