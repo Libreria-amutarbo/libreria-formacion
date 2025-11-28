@@ -1,0 +1,27 @@
+@if (visible()) {
+  <div class="dialog"></div>
+    <div class="dialog-header">
+      <h3>{{ title() }}</h3>
+      <button class="dialog-close" (click)="close()">✕</button>
+    </div>
+
+    <div class="dialog-body">
+      @if (bodyTemplate()) {
+        <ng-container *ngTemplateOutlet="bodyTemplate()"></ng-container>
+      } @else {
+        <ng-content select="[dialog-body]"></ng-content>
+      }
+    </div>
+
+    <div class="dialog-footer">
+      @if (footerTemplate()) {
+        
+          <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
+        
+      } @else {
+        <ng-content select="[dialog-footer]"></ng-content>
+      }
+    </div>
+  </div>
+}
+
