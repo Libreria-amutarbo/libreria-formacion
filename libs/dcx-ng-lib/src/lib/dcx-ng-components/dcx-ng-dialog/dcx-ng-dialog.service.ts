@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class DialogService {
-  private dialogState = new BehaviorSubject<{ visible: boolean; data?: any }>({
+  private _dialogState = signal<{ visible: boolean; data?: any }>({
     visible: false,
   });
-  dialogState$ = this.dialogState.asObservable();
+  dialogState = this._dialogState.asReadonly();
 
   openDialog(data?: any): void {
-    this.dialogState.next({ visible: true, data });
+    this._dialogState.set({ visible: true, data });
   }
 
   closeDialog(): void {
-    this.dialogState.next({ visible: false });
+    this._dialogState.set({ visible: false });
   }
 }

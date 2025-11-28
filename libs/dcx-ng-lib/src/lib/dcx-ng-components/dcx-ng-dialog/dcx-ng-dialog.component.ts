@@ -1,9 +1,8 @@
 import {
   Component,
-  ContentChild,
-  EventEmitter,
-  Input,
-  Output,
+  contentChild,
+  input,
+  output,
   TemplateRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,16 +15,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dcx-ng-dialog.component.scss',
 })
 export class DcxNgDialogComponent {
-  @Input() title = '';
-  @Input() visible = false;
+  title = input('');
+  visible = input(false);
 
-  @Output() onClose = new EventEmitter<void>();
+  onClose = output<void>();
 
-  @ContentChild('dialogBody') bodyTemplate?: TemplateRef<any>;
-  @ContentChild('dialogFooter') footerTemplate?: TemplateRef<any>;
+  bodyTemplate = contentChild<TemplateRef<any>>('dialogBody');
+  footerTemplate = contentChild<TemplateRef<any>>('dialogFooter');
 
   close(): void {
-    this.visible = false;
     this.onClose.emit();
   }
 }
