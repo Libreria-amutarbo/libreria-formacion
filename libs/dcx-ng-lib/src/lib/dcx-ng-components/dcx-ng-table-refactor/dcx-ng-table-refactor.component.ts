@@ -90,19 +90,6 @@ export class DcxNgTableRefactorComponent {
   private readonly _editingCell = signal<{ rowIndex: number; key: string } | null>(null);
   private readonly _openMenuRowIndex = signal<number | null>(null);
 
-  // ==================== OVERLAY DE ACCIONES ====================
-  // Estado del overlay global (tipo appendTo="body") REVIEW ABRIR/CERRAR NO ME TERMINA DE CONVENCER
-  private readonly _actionsOverlay = signal<{
-    rowIndex: number;
-    row: TableRow;
-    header: HeaderData;
-    x: number;
-    y: number;
-  } | null>(null);
-
-  readonly actionsOverlay = computed(() => this._actionsOverlay());
-
-  // ==================== ESTADOS CENTRALIZADOS DE LA TABLA ====================
   private readonly state: TableState;
 
   readonly displayHeaders = computed(() => this.state.displayHeaders());
@@ -270,55 +257,35 @@ export class DcxNgTableRefactorComponent {
   onActionClick(actionId: string, row: TableRow, rowIndex: number): void {
     this.rowAction.emit({ actionId, row, rowIndex });
     this._openMenuRowIndex.set(null);
-    this._actionsOverlay.set(null); // Cerrar overlay global si está abierto
   }
 
   toggleActionsMenu(rowIndex: number, event: Event): void {
     event.stopPropagation();
     const current = this._openMenuRowIndex();
-    this._openMenuRowIndex.set(current === rowIndex ? null : rowIndex);
+    const newValue = current === rowIndex ? null : rowIndex;
+    this._openMenuRowIndex.set(newValue);
+    
+    // Gestionar clase has-open-menu en el wrapper
+    const wrapper = (event.target as HTMLElement).closest('.table-wrapper');
+    if (wrapper) {
+      if (newValue !== null) {
+        wrapper.classList.add('has-open-menu');
+      } else {
+        wrapper.classList.remove('has-open-menu');
+      }
+    }
   }
-
   isMenuOpen(rowIndex: number): boolean {
     return this._openMenuRowIndex() === rowIndex;
   }
+  
 
-  closeAllMenus(): void {
-    this._openMenuRowIndex.set(null);
-    this._actionsOverlay.set(null); // Cerrar overlay global
-  }
-
-// Abre el overlay global de acciones (tipo appendTo="body" pero anclado al documento)
-  openActionsOverlay(
-    rowIndex: number,
-    header: HeaderData,
-    row: TableRow,
-    event: MouseEvent,
-  ): void {
-    event.stopPropagation();
-
-    const button = event.currentTarget as HTMLElement;
-    const rect = button.getBoundingClientRect();
-
-    const current = this._actionsOverlay();
-    if (current && current.rowIndex === rowIndex) {
-      // si ya estaba abierto para esa fila, lo cerramos
-      this._actionsOverlay.set(null);
-      this._openMenuRowIndex.set(null);
-      return;
-    }
-
-    // 👇 OJO: usamos coordenadas de página (viewport + scroll)
-    const x = rect.left + window.scrollX;
-    const y = rect.bottom + window.scrollY;
-
-    this._openMenuRowIndex.set(rowIndex);
-    this._actionsOverlay.set({
-      rowIndex,
-      row,
-      header,
-      x,
-      y,
-    });
-  }
+closeAllMenus(): void {
+  this._openMenuRowIndex.set(null);
+  
+  // Quitar clase has-open-menu de todos los wrappers
+  document.querySelectorAll('.table-wrapper.has-open-menu').forEach(wrapper => {
+    wrapper.classList.remove('has-open-menu');
+  });
+}
 }

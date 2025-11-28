@@ -97,11 +97,8 @@
                 [class.frozen-right]="frozenMeta()[colIndex].right !== null"
                 [class.frozen-separator-left]="frozenMeta()[colIndex].separatorLeft"
                 [class.frozen-separator-right]="frozenMeta()[colIndex].separatorRight"
-                [style.left.px]="frozenMeta()[colIndex].left"
-                [style.right.px]="frozenMeta()[colIndex].right"
-                [style.min-width]="header.minWidth || null"
-                [style.max-width]="header.maxWidth || null"
-                [style.width]="header.width || null"
+                [class.has-open-menu]="isMenuOpen(rowIndex) && header.cellType === 'actions'"  
+               
                 (dblclick)="onCellDblClick(rowIndex, header.key || '', header)"
               >
                 @if (isEditing(rowIndex, header.key || '')) {
@@ -133,39 +130,6 @@
       }
     </tbody>
   </table>
-
-  <!-- NEW: overlay global para el menú de acciones (tipo appendTo="body") REVISAR NO ME TERMINA DE CONVENCER -->
-  @if (actionsOverlay()) {
-    <div
-      class="actions-overlay-backdrop"
-      (click)="closeAllMenus()"
-    >
-      <div
-        class="actions-overlay-dropdown"
-        role="menu"
-        (click)="$event.stopPropagation()"
-        [style.top.px]="actionsOverlay()!.y"
-        [style.left.px]="actionsOverlay()!.x"
-      >
-        @if ($any(actionsOverlay()!.header.cellTypeConfig)?.items?.length) {
-          @for (action of $any(actionsOverlay()!.header.cellTypeConfig).items; track action.id) {
-            @if (!action.hidden || !action.hidden(actionsOverlay()!.row)) {
-              <button
-                type="button"
-                class="action-menu-item"
-                [class.action-danger]="action.variant === 'danger'"
-                [disabled]="action.disabled ? action.disabled(actionsOverlay()!.row) : false"
-                (click)="onActionClick(action.id, actionsOverlay()!.row, actionsOverlay()!.rowIndex)"
-              >
-                <dcx-ng-icon [name]="action.icon" size="s" />
-                <span>{{ action.label }}</span>
-              </button>
-            }
-          }
-        }
-      </div>
-    </div>
-  }
 </div>
 
 <!-- ==================== PAGINADOR ==================== -->
@@ -232,12 +196,11 @@
           [attr.aria-label]="'Menú de acciones'"
           [attr.aria-expanded]="isMenuOpen(rowIndex)"
           [attr.aria-haspopup]="true"
-          (click)="openActionsOverlay(rowIndex, header, row, $event)"  
+          (click)="toggleActionsMenu(rowIndex, $event)"
         >
           <dcx-ng-icon [name]="config.menuIcon || 'more_vert'" size="m" />
         </button>
 
-        <!-- DEPRECATED: menú desplegado dentro de la celda (ahora se usa overlay global)
         @if (isMenuOpen(rowIndex)) {
           <div 
             class="actions-dropdown" 
@@ -260,7 +223,6 @@
             }
           </div>
         }
-        -->
       </div>
     }
   }
