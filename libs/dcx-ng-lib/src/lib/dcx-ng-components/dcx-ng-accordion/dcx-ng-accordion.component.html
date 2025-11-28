@@ -1,9 +1,9 @@
 <div class="accordion">
-  <div
-    *ngFor="let item of items"
-    class="accordion-item"
-    [class.disabled]="item.disabled"
-  >
+  @for (item of items; track item.id) {
+    <div
+      class="accordion-item"
+      [class.disabled]="item.disabled"
+    >
     <button
       class="accordion-header"
       (click)="toggleItem(item)"
@@ -28,5 +28,6 @@
         {{ item.content }}
       </div>
     </div>
-  </div>
+    </div>
+  }
 </div>
