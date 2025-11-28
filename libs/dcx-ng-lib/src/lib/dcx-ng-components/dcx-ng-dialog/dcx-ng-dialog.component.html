@@ -1,5 +1,5 @@
-<div class="dialog">
-  @if (visible()) {
+@if (visible()) {
+  <div class="dialog"></div>
     <div class="dialog-header">
       <h3>{{ title() }}</h3>
       <button class="dialog-close" (click)="close()">✕</button>
@@ -13,12 +13,15 @@
       }
     </div>
 
-    @if (footerTemplate()) {
-      <div class="dialog-footer">
-        <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
-      </div>
-    } @else {
-      <ng-content select="[dialog-footer]"></ng-content>
-    }
-  }
-</div>
+    <div class="dialog-footer">
+      @if (footerTemplate()) {
+        
+          <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
+        
+      } @else {
+        <ng-content select="[dialog-footer]"></ng-content>
+      }
+    </div>
+  </div>
+}
+

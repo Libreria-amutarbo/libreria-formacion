@@ -5,12 +5,11 @@ import {
   output,
   TemplateRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'dcx-ng-dialog',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './dcx-ng-dialog.component.html',
   styleUrl: './dcx-ng-dialog.component.scss',
 })
@@ -20,8 +19,8 @@ export class DcxNgDialogComponent {
 
   onClose = output<void>();
 
-  bodyTemplate = contentChild<TemplateRef<any>>('dialogBody');
-  footerTemplate = contentChild<TemplateRef<any>>('dialogFooter');
+  bodyTemplate = contentChild<TemplateRef<unknown>>('dialogBody');
+  footerTemplate = contentChild<TemplateRef<unknown>>('dialogFooter');
 
   close(): void {
     this.onClose.emit();

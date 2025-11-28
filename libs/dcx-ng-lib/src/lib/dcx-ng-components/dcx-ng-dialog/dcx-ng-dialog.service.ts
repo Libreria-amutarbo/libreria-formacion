@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class DialogService {
-  private _dialogState = signal<{ visible: boolean; data?: any }>({
+  private _dialogState = signal<{ visible: boolean; data?: unknown }>({
     visible: false,
   });
   dialogState = this._dialogState.asReadonly();
@@ -13,6 +13,6 @@ export class DialogService {
   }
 
   closeDialog(): void {
-    this._dialogState.set({ visible: false });
+    this._dialogState.set({ visible: false, data: undefined });
   }
 }
