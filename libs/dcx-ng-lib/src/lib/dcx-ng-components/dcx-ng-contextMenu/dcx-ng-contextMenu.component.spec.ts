@@ -303,10 +303,8 @@ describe('ContextMenuComponent', () => {
       const event = new MouseEvent('click');
       const stopPropagationSpy = spyOn(event, 'stopPropagation');
 
-      // Simulating the click event with stopPropagation
       contextMenu.dispatchEvent(event);
 
-      // The template should have (click)="$event.stopPropagation()"
       expect(contextMenu).toBeTruthy();
     });
   });
@@ -362,7 +360,6 @@ describe('ContextMenuComponent', () => {
         { label: 'Delete', action: mockAction2 },
       ];
 
-      // Show the menu
       component.show(100, 100);
       fixture.detectChanges();
 
@@ -370,7 +367,6 @@ describe('ContextMenuComponent', () => {
       let contextMenu = compiled.query(By.css('.context-menu'));
       expect(contextMenu).toBeTruthy();
 
-      // Click first item
       const firstItem = compiled.queryAll(By.css('.context-menu li'))[0];
       firstItem.nativeElement.click();
 
@@ -386,13 +382,11 @@ describe('ContextMenuComponent', () => {
       let closeEventCount = 0;
       component.closed.subscribe(() => closeEventCount++);
 
-      // First cycle
       component.show(10, 10);
       expect(component.visible).toBe(true);
       component.hide();
       expect(component.visible).toBe(false);
 
-      // Second cycle
       component.show(20, 20);
       expect(component.visible).toBe(true);
       component.hide();
