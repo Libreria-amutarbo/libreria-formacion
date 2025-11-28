@@ -20,3 +20,5 @@ export * from './lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component
 export * from './lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component';
 export * from './lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component';
 export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
+export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
+export * from './lib/services/icon.service';

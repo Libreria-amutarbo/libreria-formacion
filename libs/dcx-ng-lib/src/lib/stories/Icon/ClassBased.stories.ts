@@ -1,25 +1,11 @@
 import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 
-const BOOTSTRAP_ICONS = [
-  'heart-fill',
-  'star-fill',
-  'search',
-  'bell',
-  'check-circle-fill',
-  'exclamation-circle-fill',
-  'x-circle-fill',
-  'info-circle-fill',
-  'gear',
-  'house-fill',
-  'person',
-  'gear-fill',
-  'trash',
-  'pencil',
-  'plus',
-  'dash',
-  'arrow-up',
-  'arrow-down',
+const POPULAR_ICONS = [
+  'heart-fill', 'star-fill', 'search', 'bell', 'check-circle-fill',
+  'exclamation-circle-fill', 'x-circle-fill', 'info-circle-fill',
+  'gear', 'gear-fill', 'house-fill', 'person', 'trash', 'pencil',
+  'plus', 'dash', 'arrow-up', 'arrow-down', 'download', 'upload'
 ];
 
 const meta: Meta<DcxNgIconComponent> = {
@@ -27,7 +13,10 @@ const meta: Meta<DcxNgIconComponent> = {
   component: DcxNgIconComponent,
   tags: ['autodocs'],
   argTypes: {
-    name: { control: 'select', options: BOOTSTRAP_ICONS },
+    name: { 
+      control: 'text',
+      description: 'Lista de los iconos en https://icons.getbootstrap.com/'
+    },
     color: { control: 'text' },
     size: { control: 'select', options: ['s', 'm', 'l', 'xl'] },
     spacing: { control: 'select', options: ['none', 'compact', 'spacious'] },
