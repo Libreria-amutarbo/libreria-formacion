@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, input, output, OnInit, ChangeDetectorRef, signal, ChangeDetectionStrategy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -11,10 +11,10 @@ export interface DcxNgAccordionItem {
 
 @Component({
   selector: 'dcx-ng-accordion',
-  standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './dcx-ng-accordion.component.html',
   styleUrl: './dcx-ng-accordion.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('expandCollapse', [
       state('collapsed', style({ 
@@ -35,37 +35,32 @@ export interface DcxNgAccordionItem {
     ])
   ]
 })
-export class DcxNgAccordionComponent implements OnInit {
-  @Input() items: DcxNgAccordionItem[] = [];
-  @Output() itemToggled = new EventEmitter<DcxNgAccordionItem>();
+export class DcxNgAccordionComponent {
+  readonly items = input<DcxNgAccordionItem[]>([]);
+  readonly itemToggled = output<DcxNgAccordionItem>();
 
-  expandedItems: Set<string> = new Set();
+  private readonly _expandedItems = signal<Set<string>>(new Set());
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-    // Inicializa los items como collapsed
-    if (this.items && this.items.length > 0) {
-      this.expandedItems.clear();
-    }
-  }
+  readonly hasItems = computed(() => this.items().length > 0);
 
   toggleItem(item: DcxNgAccordionItem): void {
     if (item.disabled) return;
 
-    // Alterna el estado del item (abre/cierra)
-    if (this.expandedItems.has(item.id)) {
-      this.expandedItems.delete(item.id);
-    } else {
-      this.expandedItems.add(item.id);
-    }
+    this._expandedItems.update(items => {
+      const next = new Set(items);
+      if (next.has(item.id)) {
+        next.delete(item.id);
+      } else {
+        next.add(item.id);
+      }
+      return next;
+    });
 
     this.itemToggled.emit(item);
-    this.cdr.detectChanges();
   }
 
   isExpanded(itemId: string): boolean {
-    return this.expandedItems.has(itemId);
+    return this._expandedItems().has(itemId);
   }
 
   getAnimationState(itemId: string): string {

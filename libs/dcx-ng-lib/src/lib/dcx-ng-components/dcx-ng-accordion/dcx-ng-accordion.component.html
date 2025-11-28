@@ -1,5 +1,6 @@
+@if (hasItems()) {
 <div class="accordion">
-  @for (item of items; track item.id) {
+  @for (item of items(); track item.id) {
     <div
       class="accordion-item"
       [class.disabled]="item.disabled"
@@ -31,3 +32,4 @@
     </div>
   }
 </div>
+}

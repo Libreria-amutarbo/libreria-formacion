@@ -1,32 +1,32 @@
-import { Component, HostBinding, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, computed } from '@angular/core';
 
-type IconSize = 's' | 'm' | 'l' | 'xl';
-type IconSpacing = 'none' | 'compact' | 'spacious';
+export type IconSize = 's' | 'm' | 'l' | 'xl';
+export type IconSpacing = 'none' | 'compact' | 'spacious';
 
 @Component({
   selector: 'dcx-ng-icon',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './dcx-ng-icon.component.html',
   styleUrl: './dcx-ng-icon.component.scss',
 })
 export class DcxNgIconComponent {
-  @Input() size: IconSize = 'm';
-  @Input() spacing: IconSpacing = 'none';
-  @Input() color = '';
-  @Input() name = '';
+  readonly size = input<IconSize>('m');
+  readonly spacing = input<IconSpacing>('none');
+  readonly color = input<string>('');
+  readonly name = input<string>('');
 
-  @HostBinding('class') get iconClass() {
-    const base = ['bi', `bi-${this.name}`, `bi--${this.size}`];
-    if (this.spacing !== 'none') {
-      base.push(`bi--${this.spacing}`);
+  readonly iconClass = computed(() => {
+    const base = ['bi', `bi-${this.name()}`, `bi--${this.size()}`];
+    if (this.spacing() !== 'none') {
+      base.push(`bi--${this.spacing()}`);
     }
-
+    if (this.color()) {
+      base.push(`bi--color-${this.sanitizeColor(this.color())}`);
+    }
     return base.join(' ');
-  }
+  });
 
-  @HostBinding('style.color') get iconColor() {
-    return this.color || '#010101';
+  private sanitizeColor(color: string): string {
+    return color.replace(/^#/, '').toLowerCase();
   }
 }

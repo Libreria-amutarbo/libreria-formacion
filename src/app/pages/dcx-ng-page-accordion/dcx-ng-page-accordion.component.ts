@@ -32,6 +32,5 @@ export class DcxNgPageAccordionComponent {
   ];
 
   onItemToggled(item: DcxNgAccordionItem): void {
-    console.log('Item toggled:', item.id, item.title);
   }
 }
