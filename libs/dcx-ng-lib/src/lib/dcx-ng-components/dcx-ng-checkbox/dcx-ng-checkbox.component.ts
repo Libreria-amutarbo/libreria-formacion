@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CheckBoxVariant } from '../../core/interfaces';
 
 @Component({
   selector: 'app-dcx-ng-checkbox',
@@ -9,10 +10,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./dcx-ng-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DcxNgCheckbox {
+export class DcxNgCheckboxComponent {
   @Input() label: string = '';
   @Input() formControlName: string = '';
-  @Input() color: 'primary' | 'accent' | 'error' = 'primary';
+  @Input() color: CheckBoxVariant = 'primary';
   @Input() checked: boolean = false;
   @Input() disabled: boolean = false;
   @Input() errorMessage: string = '';

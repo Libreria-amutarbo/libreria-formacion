@@ -3,8 +3,6 @@ import type { StorybookConfig } from '@storybook/angular';
 const config: StorybookConfig = {
   stories: [
     '../src/lib/stories/**/*.stories.ts',
-    // '../src/lib/stories/**/*.mdx', // Disabled: @storybook/blocks 8.6.14 incompatible with Storybook 10
-    '../src/lib/dcx-ng-components/**/!(*.spec).stories.ts',
   ],
   addons: [
     '@storybook/addon-a11y',

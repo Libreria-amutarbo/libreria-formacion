@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgTooltipComponent, TooltipPosition } from './dcx-ng-tooltip.component';
+import { DcxNgTooltipComponent } from './dcx-ng-tooltip.component';
 
 import { within, expect } from '@storybook/test';
+import { DcxPosition } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgTooltipComponent> = {
   component: DcxNgTooltipComponent,
@@ -12,7 +13,7 @@ type Story = StoryObj<DcxNgTooltipComponent>;
 
 export const Primary: Story = {
   args: {
-    position: TooltipPosition.TOP,
+    position: DcxPosition.TOP,
     hideTooltipOnClick: false,
     content: '',
   },
@@ -20,7 +21,7 @@ export const Primary: Story = {
 
 export const Heading: Story = {
   args: {
-    position: TooltipPosition.TOP,
+    position: DcxPosition.TOP,
     hideTooltipOnClick: false,
     content: '',
   },

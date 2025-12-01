@@ -1,22 +1,33 @@
 <div class="dcx-paginator">
-
-  <button class="dcx-paginator__button" [ngClass]="{'dcx-paginator__button--disabled': isPrevDisabled}"
-    [disabled]="isPrevDisabled" (click)="goToPrevious()">
+  <button
+    class="dcx-paginator__button"
+    [ngClass]="{'dcx-paginator__button--disabled': isPrevDisabled}"
+    [disabled]="isPrevDisabled"
+    (click)="goToPrevious()"
+  >
     {{ prevButton }}
   </button>
 
   @for (page of [].constructor(totalPages); track $index) {
-  <button class="dcx-paginator__page" [ngClass]="{
+    <button
+      class="dcx-paginator__page"
+      [ngClass]="{
       'dcx-paginator__page--active': currentPage === $index + 1 || pageSelected === $index + 1,
       'dcx-paginator__page--disabled': disabled
-    }" [disabled]="disabled" (click)="goToPage($index + 1)">
-    {{ $index + 1 }}
-  </button>
+    }"
+      [disabled]="disabled"
+      (click)="goToPage($index + 1)"
+    >
+      {{ $index + 1 }}
+    </button>
   }
 
-  <button class="dcx-paginator__button" [ngClass]="{'dcx-paginator__button--disabled': isNextDisabled}"
-    [disabled]="isNextDisabled" (click)="goToNext()">
+  <button
+    class="dcx-paginator__button"
+    [ngClass]="{'dcx-paginator__button--disabled': isNextDisabled}"
+    [disabled]="isNextDisabled"
+    (click)="goToNext()"
+  >
     {{ nextButton }}
   </button>
-
 </div>

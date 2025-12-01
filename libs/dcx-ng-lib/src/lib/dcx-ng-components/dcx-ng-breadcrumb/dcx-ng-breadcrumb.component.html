@@ -7,12 +7,9 @@
         } @else if (!last && !it.href) {
           <span class="dcx-bc__text">{{ it.label }}</span>
         } @else {
-          <span
-            class="dcx-bc__current"
-            aria-current="page"
-            >
-                 {{ it.label }}
-            </span>
+          <span class="dcx-bc__current" aria-current="page">
+            {{ it.label }}
+          </span>
         }
 
         @if (!last) {
