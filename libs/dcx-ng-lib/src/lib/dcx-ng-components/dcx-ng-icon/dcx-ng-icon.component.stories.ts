@@ -3,7 +3,7 @@ import { DcxNgIconComponent, IconSize, IconSpacing } from './dcx-ng-icon.compone
 
 const meta: Meta<DcxNgIconComponent> = {
   component: DcxNgIconComponent,
-  title: 'Components/Icon',
+  title: 'DcxNgIconComponent',
   tags: ['autodocs'],
   argTypes: {
     size: {
