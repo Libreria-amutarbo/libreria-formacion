@@ -26,9 +26,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Fetch main
-        run: git fetch origin main
+        run: git fetch origin develop
 
-      - name: Try merge origin/main into PR branch
+      - name: Try merge origin/develop into PR branch
         id: merge
         run: |
           # Si no hay branch (p. ej. workflow_dispatch manual), salimos.
