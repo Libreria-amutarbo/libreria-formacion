@@ -1,4 +1,4 @@
-import { Component, Input, HostListener, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, HostListener, ElementRef, AfterViewInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export enum TooltipPosition {
@@ -23,6 +23,8 @@ export class DcxNgTooltipComponent implements AfterViewInit {
   visible = false;
   actualPosition: TooltipPosition = TooltipPosition.TOP;
 
+  private readonly elementRef = inject(ElementRef);
+
   @ViewChild('tooltipElement') tooltipElement?: ElementRef;
 
   @HostListener('mouseenter')
@@ -46,7 +48,6 @@ export class DcxNgTooltipComponent implements AfterViewInit {
     }
   }
 
-  constructor(private elementRef: ElementRef) { }
 
   ngAfterViewInit() {
     this.actualPosition = this.position;
@@ -155,7 +156,6 @@ export class DcxNgTooltipComponent implements AfterViewInit {
   getTooltipClasses(): string {
     const baseClass = 'dcx-ng-tooltip';
     const positionClass = `${baseClass}--${this.actualPosition}`;
-
     return `${baseClass} ${positionClass}`.trim();
   }
 }

@@ -1,10 +1,13 @@
-<div
-  class="context-menu"
-  *ngIf="visible"
-  [ngStyle]="{ 'left.px': position.x, 'top.px': position.y }"
-  (click)="$event.stopPropagation()"
->
-  <ul>
-    <li *ngFor="let item of items" (click)="item.action()">{{ item.label }}</li>
-  </ul>
-</div>
+@if (visible) {
+  <div
+    class="context-menu"
+    [ngStyle]="{ 'left.px': position.x, 'top.px': position.y }"
+    (click)="$event.stopPropagation()"
+  >
+    <ul>
+      @for (item of items; track item) {
+        <li (click)="item.action()">{{ item.label }}</li>
+      }
+    </ul>
+  </div>
+}

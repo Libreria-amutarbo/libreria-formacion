@@ -7,7 +7,8 @@
     [checked]="checked2"
     [disabled]="false"
     errorMessage=""
-  ></app-dcx-ng-checkbox>
+  />
+
   <h3>Checkbox (campo obligatorio):</h3>
   <app-dcx-ng-checkbox
     label="Acepto los términos"
@@ -15,7 +16,8 @@
     [checked]="checked1"
     (checkedChange)="checked1 = $event"
     errorMessage="Este campo es obligatorio"
-  ></app-dcx-ng-checkbox>
+  />
+
   <h3>Checkbox deshabilitada:</h3>
   <app-dcx-ng-checkbox
     label="Recibir notificaciones"
@@ -23,5 +25,5 @@
     [checked]="checked2"
     [disabled]="true"
     errorMessage=""
-  ></app-dcx-ng-checkbox>
+  />
 </div>
