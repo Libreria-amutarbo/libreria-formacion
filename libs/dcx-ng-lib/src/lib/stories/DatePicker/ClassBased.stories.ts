@@ -29,7 +29,6 @@ class DatePickerWrapperComponent {
 
   onDateChange(date: Date | null) {
     this.selectedDate = date;
-    console.log('Date changed:', date);
   }
 }
 

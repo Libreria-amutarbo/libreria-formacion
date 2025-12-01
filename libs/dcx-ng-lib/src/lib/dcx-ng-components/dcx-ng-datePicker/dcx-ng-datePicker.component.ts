@@ -26,6 +26,8 @@ export class DcxNgDatePickerComponent {
 
   readonly dateChange = output<Date | null>();
 
+  readonly weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
   private readonly _currentMonth = signal<Date | null>(null);
   private readonly _isOpen = signal(false);
 
@@ -72,25 +74,21 @@ export class DcxNgDatePickerComponent {
     const selected = this.selectedDate();
     const selectedTime = selected ? new Date(selected).setHours(0, 0, 0, 0) : null;
 
-    for (let i = 0; i < 42; i++) {
+    return Array.from({ length: 42 }, (_, i) => {
       const date = new Date(startDate);
       date.setDate(date.getDate() + i);
 
       const dateTime = date.getTime();
 
-      days.push({
+      return {
         date,
         isCurrentMonth: date.getMonth() === month,
         isToday: dateTime === today.getTime(),
         isSelected: selectedTime !== null && dateTime === selectedTime,
         isDisabled: this.isDateDisabled(date)
-      });
-    }
-
-    return days;
+      };
+    });
   });
-
-  readonly weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
   toggleCalendar(): void {
     if (this.disabled()) return;

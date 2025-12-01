@@ -16,8 +16,29 @@ export class DxcNgPageDatePickerComponent {
   isDisabled = signal(false);
 
   handleDateChange(date: Date | null): void {
-    console.log('Fecha seleccionada:', date);
     this.selectedDate.set(date);
+  }
+
+  get toggleButtonLabel(): string {
+    return `${this.isDisabled() ? 'Habilitar' : 'Deshabilitar'} el selector de fecha`;
+  }
+
+  get formattedSelectedDate(): string {
+    return this.selectedDate()
+      ? this.selectedDate()!.toLocaleDateString('es-ES')
+      : 'ninguna';
+  }
+
+  get formattedMinDate(): string {
+    return this.minDate()!.toLocaleDateString('es-ES');
+  }
+
+  get formattedMaxDate(): string {
+    return this.maxDate()!.toLocaleDateString('es-ES');
+  }
+
+  get disabledStatus(): string {
+    return this.isDisabled() ? 'Sí' : 'No';
   }
 
   toggleDisabled(): void {

@@ -1,40 +1,30 @@
-<div style="padding: 2rem">
+<div class="demo-container">
     <h1>DatePicker Component Demo</h1>
 
-    <div style="margin: 2rem 0">
+    <div class="demo-datepicker">
         <dcx-ng-date-picker [selectedDate]="selectedDate()" [minDate]="minDate()" [maxDate]="maxDate()"
             [disabled]="isDisabled()" [placeholder]="'Selecciona una fecha'" (dateChange)="handleDateChange($event)">
         </dcx-ng-date-picker>
     </div>
 
-    <div style="margin: 1rem 0">
-        <dcx-ng-button label="{{ isDisabled() ? 'Habilitar' : 'Deshabilitar' }} el selector de fecha"
-            (buttonClick)="toggleDisabled()"></dcx-ng-button>
+    <div class="demo-button">
+        <dcx-ng-button [label]="toggleButtonLabel" (buttonClick)="toggleDisabled()"></dcx-ng-button>
     </div>
 
-    <div style="
-      margin-top: 2rem;
-      padding: 1rem;
-      background: #f5f5f5;
-      border-radius: 4px;
-    ">
+    <div class="demo-state">
         <h3>Estado actual:</h3>
         <p>
             <strong>Fecha seleccionada:</strong>
-            {{
-            selectedDate()
-            ? selectedDate()!.toLocaleDateString("es-ES")
-            : "ninguna"
-            }}
+            {{ formattedSelectedDate }}
         </p>
         <p>
             <strong>Fecha mínima:</strong>
-            {{ minDate()!.toLocaleDateString("es-ES") }}
+            {{ formattedMinDate }}
         </p>
         <p>
             <strong>Fecha máxima:</strong>
-            {{ maxDate()!.toLocaleDateString("es-ES") }}
+            {{ formattedMaxDate }}
         </p>
-        <p><strong>Deshabilitado:</strong> {{ isDisabled() ? "Sí" : "No" }}</p>
+        <p><strong>Deshabilitado:</strong> {{ disabledStatus }}</p>
     </div>
 </div>
