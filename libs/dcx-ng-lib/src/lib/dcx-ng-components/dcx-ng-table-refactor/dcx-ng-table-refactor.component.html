@@ -9,7 +9,8 @@
   <!-- Región live para anunciar cambios de ordenación/filtrado -->
   <div class="sr-only" aria-live="polite" aria-atomic="true">
     @if (sortLabel() && sort().dir) {
-      Ordenado por {{ sortLabel() }} en orden {{ sort().dir === 'asc' ? 'ascendente' : 'descendente' }}
+      Ordenado por {{ sortLabel() }} en orden
+      {{ sort().dir === 'asc' ? 'ascendente' : 'descendente' }}
     }
   </div>
 
@@ -17,14 +18,17 @@
     <!-- ==================== HEADER ==================== -->
     <thead>
       <tr>
-         @if (showRowIndex()) {
+        @if (showRowIndex()) {
           <th scope="col" class="row-index-header">
             {{ rowIndexLabel() }}
           </th>
-
         }
 
-        @for (header of displayHeaders(); track header.key; let colIndex = $index) {
+        @for (
+          header of displayHeaders();
+          track header.key;
+          let colIndex = $index
+        ) {
           <th
             #headerCell
             scope="col"
@@ -72,8 +76,10 @@
     <tbody>
       @if (sortedRows().length === 0) {
         <tr>
-          <td [attr.colspan]="displayHeaders().length + (showRowIndex() ? 1 : 0)"
-          class="empty-cell">
+          <td
+            [attr.colspan]="displayHeaders().length + (showRowIndex() ? 1 : 0)"
+            class="empty-cell"
+          >
             <ng-container
               [ngTemplateOutlet]="getEmptyTemplate()"
               [ngTemplateOutletContext]="{ headers: displayHeaders() }"
@@ -83,22 +89,24 @@
       } @else {
         @for (row of paginatedRows(); track row.id; let rowIndex = $index) {
           <tr class="table-row">
-
             @if (showRowIndex()) {
               <td class="row-index-cell">
                 {{ getRowDisplayIndex(rowIndex) }}
               </td>
             }
 
-            @for (header of displayHeaders(); track header.key; let colIndex = $index) {
+            @for (
+              header of displayHeaders();
+              track header.key;
+              let colIndex = $index
+            ) {
               <td
                 [class.editable]="header.editable"
                 [class.frozen-left]="frozenMeta()[colIndex].left !== null"
                 [class.frozen-right]="frozenMeta()[colIndex].right !== null"
                 [class.frozen-separator-left]="frozenMeta()[colIndex].separatorLeft"
                 [class.frozen-separator-right]="frozenMeta()[colIndex].separatorRight"
-                [class.has-open-menu]="isMenuOpen(rowIndex) && header.cellType === 'actions'"  
-               
+                [class.has-open-menu]="isMenuOpen(rowIndex) && header.cellType === 'actions'"
                 (dblclick)="onCellDblClick(rowIndex, header.key || '', header)"
               >
                 @if (isEditing(rowIndex, header.key || '')) {
@@ -164,7 +172,12 @@
   </span>
 </ng-template>
 
-<ng-template #builtInActionsTpl let-row let-header="header" let-rowIndex="rowIndex">
+<ng-template
+  #builtInActionsTpl
+  let-row
+  let-header="header"
+  let-rowIndex="rowIndex"
+>
   @if (header.cellTypeConfig) {
     @let config = header.cellTypeConfig;
     @if (config.mode === 'inline') {
@@ -202,8 +215,8 @@
         </button>
 
         @if (isMenuOpen(rowIndex)) {
-          <div 
-            class="actions-dropdown" 
+          <div
+            class="actions-dropdown"
             role="menu"
             (click)="$event.stopPropagation()"
           >

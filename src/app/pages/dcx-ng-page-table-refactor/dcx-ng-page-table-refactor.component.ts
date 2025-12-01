@@ -288,18 +288,18 @@ export class DcxNgPageTableRefactorComponent {
         items: [
           {
             id: 'view',
-            icon: 'visibility',
+            icon: 'eye-fill',
             label: 'Ver perfil',
             variant: 'primary',
           },
           {
             id: 'edit',
-            icon: 'edit',
+            icon: 'pencil-fill',
             label: 'Editar',
           },
           {
             id: 'delete',
-            icon: 'delete',
+            icon: 'trash-fill',
             label: 'Eliminar',
             variant: 'danger',
           },
@@ -348,14 +348,14 @@ export class DcxNgPageTableRefactorComponent {
       cellType: 'actions',
       cellTypeConfig: {
         mode: 'menu',
-        menuIcon: 'more_vert',
+        menuIcon: 'three-dots-vertical',
         items: [
-          { id: 'view', icon: 'visibility', label: 'Ver detalles' },
-          { id: 'edit', icon: 'edit', label: 'Editar producto' },
-          { id: 'duplicate', icon: 'content_copy', label: 'Duplicar' },
+          { id: 'view', icon: 'eye-fill', label: 'Ver detalles' },
+          { id: 'edit', icon: 'pencil-fill', label: 'Editar producto' },
+          { id: 'duplicate', icon: 'files', label: 'Duplicar' },
           {
             id: 'delete',
-            icon: 'delete',
+            icon: 'trash-fill',
             label: 'Eliminar',
             variant: 'danger',
             disabled: (row: Record<string, unknown>) =>
@@ -400,19 +400,19 @@ export class DcxNgPageTableRefactorComponent {
         items: [
           {
             id: 'view',
-            icon: 'visibility',
+            icon: 'eye-fill',
             label: 'Ver detalles',
             variant: 'primary',
           },
           {
             id: 'edit',
-            icon: 'edit',
+            icon: 'pencil-fill',
             label: 'Editar',
             variant: 'secondary',
           },
           {
             id: 'delete',
-            icon: 'delete',
+            icon: 'trash-fill',
             label: 'Eliminar',
             variant: 'danger',
             disabled: row => (row['stock'] as number) > 0,
@@ -448,14 +448,14 @@ export class DcxNgPageTableRefactorComponent {
       cellType: 'actions',
       cellTypeConfig: {
         mode: 'menu',
-        menuIcon: 'more_horiz',
+        menuIcon: 'three-dots',
         items: [
-          { id: 'view', icon: 'visibility', label: 'Ver perfil' },
-          { id: 'edit', icon: 'edit', label: 'Editar usuario' },
-          { id: 'message', icon: 'mail', label: 'Enviar mensaje' },
+          { id: 'view', icon: 'eye-fill', label: 'Ver perfil' },
+          { id: 'edit', icon: 'pencil-fill', label: 'Editar usuario' },
+          { id: 'message', icon: 'envelope-fill', label: 'Enviar mensaje' },
           {
             id: 'deactivate',
-            icon: 'block',
+            icon: 'x-circle-fill',
             label: 'Desactivar',
             variant: 'danger',
             hidden: (row: Record<string, unknown>) =>
@@ -463,7 +463,7 @@ export class DcxNgPageTableRefactorComponent {
           },
           {
             id: 'activate',
-            icon: 'check_circle',
+            icon: 'check-circle-fill',
             label: 'Activar',
             hidden: (row: Record<string, unknown>) =>
               row['status'] === 'active',
@@ -565,14 +565,14 @@ export class DcxNgPageTableRefactorComponent {
       minWidth: '150px',
       cellTypeConfig: {
         mode: 'menu',
-        menuIcon: 'more_vert',
+        menuIcon: 'three-dots-vertical',
         items: [
-          { id: 'view', icon: 'visibility', label: 'Ver ficha' },
-          { id: 'edit', icon: 'edit', label: 'Editar usuario' },
-          { id: 'message', icon: 'mail', label: 'Enviar email' },
+          { id: 'view', icon: 'eye-fill', label: 'Ver ficha' },
+          { id: 'edit', icon: 'pencil-fill', label: 'Editar usuario' },
+          { id: 'message', icon: 'envelope-fill', label: 'Enviar email' },
           {
             id: 'deactivate',
-            icon: 'block',
+            icon: 'x-circle-fill',
             label: 'Desactivar',
             variant: 'danger',
             hidden: (row: Record<string, unknown>) =>
@@ -580,7 +580,7 @@ export class DcxNgPageTableRefactorComponent {
           },
           {
             id: 'activate',
-            icon: 'check_circle',
+            icon: 'check-circle-fill',
             label: 'Reactivar',
             hidden: (row: Record<string, unknown>) =>
               row['status'] === 'active',

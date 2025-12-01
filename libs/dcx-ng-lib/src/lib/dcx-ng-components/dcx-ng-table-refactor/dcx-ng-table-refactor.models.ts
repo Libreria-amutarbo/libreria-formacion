@@ -15,7 +15,13 @@ export enum SortType {
  * - 'actions': Botones de acciones (inline/menu)
  * - 'custom': Template proyectado personalizado
  */
-export type CellType = 'text' | 'number' | 'date' | 'badge' | 'actions' | 'custom';
+export type CellType =
+  | 'text'
+  | 'number'
+  | 'date'
+  | 'badge'
+  | 'actions'
+  | 'custom';
 
 /**
  * Configuración para celdas de tipo badge/pill

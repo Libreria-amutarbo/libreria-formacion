@@ -1,7 +1,5 @@
 import { Directive, TemplateRef, input } from '@angular/core';
 
-/* eslint-disable @angular-eslint/directive-selector */
-
 /**
  * Directiva para registrar templates externos de la tabla.
  *

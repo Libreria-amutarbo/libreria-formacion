@@ -76,13 +76,18 @@ const HEADERS_MENU: HeaderData[] = [
     minWidth: '150px',
     cellTypeConfig: {
       mode: 'menu',
-      menuIcon: 'more_vert',
+      menuIcon: 'three-dots-vertical',
       items: [
-        { id: 'view', icon: 'visibility', label: 'Ver detalle' },
-        { id: 'edit', icon: 'edit', label: 'Editar', variant: 'primary' },
+        { id: 'view', icon: 'eye-fill', label: 'Ver detalle' },
+        {
+          id: 'edit',
+          icon: 'pencil-fill',
+          label: 'Editar',
+          variant: 'primary',
+        },
         {
           id: 'delete',
-          icon: 'delete',
+          icon: 'trash-fill',
           label: 'Eliminar',
           variant: 'danger',
           disabled: (row: Record<string, unknown>) =>
@@ -107,18 +112,18 @@ const HEADERS_INLINE: HeaderData[] = [
       items: [
         {
           id: 'view',
-          icon: 'visibility',
+          icon: 'eye-fill',
           label: 'Ver detalle',
           variant: 'primary',
         },
         {
           id: 'edit',
-          icon: 'edit',
+          icon: 'pencil-fill',
           label: 'Editar',
         },
         {
           id: 'delete',
-          icon: 'delete',
+          icon: 'trash-fill',
           label: 'Eliminar',
           variant: 'danger',
           disabled: (row: Record<string, unknown>) =>
@@ -182,16 +187,7 @@ const meta: Meta<DcxNgTableRefactorComponent> = {
     },
     docs: {
       description: {
-        component: `
-Tabla reutilizable DCX con:
-
-- Ordenación por columnas (incluye orden por defecto).
-- Filtros por columna (texto).
-- Paginación con tamaño de página configurable.
-- Columnas congeladas izquierda/derecha.
-- Plantillas proyectadas para celdas y cabeceras.
-- Columna de acciones (inline o menú) con soporte para deshabilitar/ocultar.
-        `,
+        component: ``,
       },
     },
   },
@@ -276,7 +272,8 @@ Tabla reutilizable DCX con:
     },
     rowsPerPageOptions: {
       control: { type: 'object' },
-      description: 'Lista de opciones disponibles en el selector de filas/página.',
+      description:
+        'Lista de opciones disponibles en el selector de filas/página.',
       table: {
         category: 'Pagination',
         type: { summary: 'readonly number[]' },
@@ -382,7 +379,6 @@ Tabla reutilizable DCX con:
     frozenRightSeparator: true,
   },
 };
-
 
 export default meta;
 

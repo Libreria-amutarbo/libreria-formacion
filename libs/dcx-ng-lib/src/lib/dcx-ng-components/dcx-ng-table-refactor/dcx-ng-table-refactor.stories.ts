@@ -226,7 +226,7 @@ export const FullDemo: Story = {
     headers: BASE_HEADERS,
     rows: ROWS,
   },
-  render: (args) => ({
+  render: args => ({
     props: {
       ...args,
       sortChange: args.sortChange ?? (() => {}),
@@ -247,7 +247,7 @@ export const WithActionsInline: Story = {
     headers: HEADERS_WITH_ACTIONS,
     rows: ROWS,
   },
-  render: (args) => ({
+  render: args => ({
     props: {
       ...args,
       sortChange: args.sortChange ?? (() => {}),
@@ -275,7 +275,7 @@ export const EmptyState: Story = {
     rowsPerPage: 5,
     rowsPerPageOptions: [5, 10, 20],
   },
-  render: (args) => ({
+  render: args => ({
     props: {
       ...args,
       sortChange: args.sortChange ?? (() => {}),
