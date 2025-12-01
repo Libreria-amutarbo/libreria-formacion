@@ -4,7 +4,7 @@
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -17,7 +17,12 @@
     "paths": {
       "@dcx-ng-components/dcx-ng-lib": ["libs/dcx-ng-lib/src/index.ts"],
       "@styles/*": ["libs/dcx-ng-lib/src/scss/*"]
-    }
+    },
+    
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "types": ["node", "jest"]
+
   },
   "exclude": ["node_modules", "tmp"]
 }
