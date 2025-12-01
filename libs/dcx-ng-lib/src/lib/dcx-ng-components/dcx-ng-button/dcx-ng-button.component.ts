@@ -7,19 +7,14 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-
-type ButtonType = 'button' | 'submit' | 'reset';
-type ButtonVariant = 'primary' | 'secondary' | 'link' | 'icon';
-type ButtonSize = 'small' | 'medium' | 'large' | 'block';
-type IconSize = 's' | 'm' | 'l' | 'xl';
-type IconSpacing = 'none' | 'compact' | 'spacious';
-
-export const ICON_POSITION = {
-  start: 'start',
-  end: 'end',
-};
-
-export type IconPosition = typeof ICON_POSITION[keyof typeof ICON_POSITION];
+import {
+  ButtonType,
+  ButtonVariant,
+  IconPosition,
+  ICON_POSITION,
+  IconSpacing,
+  DcxSize
+} from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-button',
@@ -31,33 +26,19 @@ export type IconPosition = typeof ICON_POSITION[keyof typeof ICON_POSITION];
 export class DcxNgButtonComponent {
   @Input() label = '';
   @Input() ariaLabel = '';
-
   @Input() type: ButtonType = 'button';
   @Input() disabled = false;
-
   @Input() variant?: ButtonVariant;
-  @Input() size: ButtonSize = 'medium';
-
+  @Input() size: DcxSize = 'm';
   @Input() class = '';
-
   @Input() iconName?: string;
-
   @Input() iconPosition: IconPosition = ICON_POSITION.start;
-
-  @Input() iconSize?: IconSize;
+  @Input() iconSize?: DcxSize;
   @Input() iconSpacing: IconSpacing = 'none';
   @Input() iconColor = '';
-
   @Input() set icon(_legacy: string) { }
 
   @Output() buttonClick = new EventEmitter<{ clicked: boolean }>();
-
-  private readonly sizeToIconMap: Record<ButtonSize, IconSize> = {
-    small: 's',
-    medium: 'm',
-    large: 'l',
-    block: 'm',
-  };
 
   readonly IconPos = ICON_POSITION;
 
@@ -66,8 +47,8 @@ export class DcxNgButtonComponent {
     return this.ariaLabel ? this.ariaLabel : 'Button';
   }
 
-  get effectiveIconSize(): IconSize {
-    return this.iconSize || this.sizeToIconMap[this.size];
+  get effectiveIconSize(): DcxSize | undefined {
+    return this.iconSize;
   }
 
   get buttonClasses(): string {

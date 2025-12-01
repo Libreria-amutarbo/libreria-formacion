@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { BreadcrumbItem } from '../../core/interfaces';
+import { DcxBreadcrumbItem } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-breadcrumb',
@@ -8,5 +8,5 @@ import { BreadcrumbItem } from '../../core/interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgBreadcrumbComponent {
-  @Input({ required: true }) items: BreadcrumbItem[] = [];
+  @Input({ required: true }) items: DcxBreadcrumbItem[] = [];
 }

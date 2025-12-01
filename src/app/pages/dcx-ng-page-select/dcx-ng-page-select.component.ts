@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DcxNgSelectComponent, SelectOptions } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { DcxNgSelectComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxSelectOptions } from 'libs/dcx-ng-lib/src/lib/core/interfaces/select';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-select',
@@ -21,7 +22,7 @@ export class DcxNgPageSelectComponent {
     noLabelAria: [null],
   });
 
-  optionList: SelectOptions[] = [
+  optionList: DcxSelectOptions[] = [
     { value: '1', label: 'One' },
     { value: '2', label: 'Two' },
     { value: '3', label: 'Three' },

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxNgRadioComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { DcxNgRadioComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-radio',

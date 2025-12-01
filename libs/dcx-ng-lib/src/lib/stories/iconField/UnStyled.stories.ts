@@ -2,8 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgIconFieldComponent } from '../../dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component';
 import { moduleMetadata } from '@storybook/angular';
 import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
-
-type IconSize = 's' | 'm' | 'l' | 'xl';
+import { DcxSize } from '../../core/interfaces';
 
 const meta: Meta<DcxNgIconFieldComponent> = {
   title: 'DCXLibrary/IconField/UnStyled',
@@ -165,10 +164,10 @@ Ideal para cuando quieres tener control total sobre la apariencia visual.
     },
     iconSize: {
       control: { type: 'select' },
-      options: ['s', 'm', 'l', 'xl'] as IconSize[],
+      options: ['s', 'm', 'l', 'xl'] as DcxSize[],
       description: 'Tamaño de los iconos.',
       table: {
-        type: { summary: 'IconSize' },
+        type: { summary: 'DcxSize' },
         defaultValue: { summary: 'm' },
       },
     },

@@ -7,14 +7,7 @@ import {
   HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-type ToggleSize = 'small' | 'medium' | 'large';
-export enum TogglePosition {
-  TOP = 'top',
-  BOTTOM = 'bottom',
-  LEFT = 'left',
-  RIGHT = 'right'
-}
+import { DcxPosition, DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-toggle',
@@ -27,10 +20,10 @@ export class DcxNgToggleComponent {
   @Input() checked = false;
   @Input() disabled = false;
   @Input() label: string | null = null;
-  @Input() size: ToggleSize = 'medium';
+  @Input() size: DcxSize = 'm';
   @Input() color = '#000';
   @Input() ariaLabel = '';
-  @Input() textPosition: TogglePosition = TogglePosition.RIGHT;
+  @Input() textPosition: DcxPosition = DcxPosition.RIGHT;
 
   @Output() toggled = new EventEmitter<boolean>();
 

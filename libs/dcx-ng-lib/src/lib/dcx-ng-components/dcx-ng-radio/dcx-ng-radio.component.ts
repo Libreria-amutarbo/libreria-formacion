@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-type RadioSize = 's' | 'm' | 'l';
+import { DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-radio',
@@ -25,7 +24,7 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   @Input() value: string | null = null;
   @Input() label: string | null = null;
   @Input() disabled = false;
-  @Input() size: RadioSize = 'l';
+  @Input() size: DcxSize = 'l';
   @Input() ariaLabel = '';
   @Input() unstyled = false;
 

@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { Component, computed, input, Signal } from '@angular/core';
+import { DcxMessageType } from '../../core/interfaces/message';
 
-export type MessageType = 'notification' | 'error' | 'warning' | 'success';
 interface DcxNgMessageComponentInputs {
   body: Signal<string>;
-  type: Signal<MessageType>;
+  type: Signal<DcxMessageType>;
   title: Signal<string | undefined>;
   link: Signal<string | undefined>;
   icon: Signal<boolean>;
@@ -21,7 +21,7 @@ interface DcxNgMessageComponentInputs {
 })
 export class DcxNgMessageComponent implements DcxNgMessageComponentInputs {
   body = input.required<string>();
-  type = input<MessageType>('notification');
+  type = input<DcxMessageType>('notification');
   title = input<string>();
   link = input<string>();
   icon = input<boolean>(false);

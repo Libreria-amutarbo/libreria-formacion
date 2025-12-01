@@ -1,8 +1,7 @@
-import { Component, HostBinding, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-type IconSize = 's' | 'm' | 'l' | 'xl';
-type IconSpacing = 'none' | 'compact' | 'spacious';
+import { Component, HostBinding, Input } from '@angular/core';
+import { DcxSize } from '../../core/interfaces';
+import { IconSpacing } from '../../core/interfaces/icon';
 
 @Component({
   selector: 'dcx-ng-icon',
@@ -12,7 +11,7 @@ type IconSpacing = 'none' | 'compact' | 'spacious';
   styleUrl: './dcx-ng-icon.component.scss',
 })
 export class DcxNgIconComponent {
-  @Input() size: IconSize = 'm';
+  @Input() size: DcxSize = 'm';
   @Input() spacing: IconSpacing = 'none';
   @Input() color = '';
   @Input() name = '';

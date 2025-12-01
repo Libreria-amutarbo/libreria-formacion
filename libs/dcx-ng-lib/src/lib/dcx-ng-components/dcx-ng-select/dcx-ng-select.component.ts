@@ -5,11 +5,7 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
-
-export interface SelectOptions {
-  value: any;
-  label: string;
-}
+import { DcxSelectOptions } from '../../core/interfaces/select';
 
 @Component({
   selector: 'dcx-ng-select',
@@ -27,7 +23,7 @@ export interface SelectOptions {
   host: { '[attr.disabled]': 'disabled ? "" : null', },
 })
 export class DcxNgSelectComponent implements ControlValueAccessor {
-  @Input() options: SelectOptions[] = [];
+  @Input() options: DcxSelectOptions[] = [];
   @Input() placeholder = '';
   @Input() label = '';
   @Input() ariaLabel = '';
@@ -68,7 +64,7 @@ export class DcxNgSelectComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  trackByValue(_index: number, option: SelectOptions) {
+  trackByValue(_index: number, option: DcxSelectOptions) {
     return option.value;
   }
 }
