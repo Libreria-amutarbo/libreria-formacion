@@ -1,5 +1,4 @@
-import { DcxNgDatePickerComponent } from './../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-datePicker/dcx-ng-datePicker.component';
-import { DcxNgButtonComponent } from './../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
+import { DcxNgButtonComponent, DcxNgDatePickerComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { Component, signal } from '@angular/core';
 
 @Component({
@@ -7,7 +6,7 @@ import { Component, signal } from '@angular/core';
   standalone: true,
   imports: [DcxNgDatePickerComponent, DcxNgButtonComponent],
   templateUrl: './dxc-ng-page-datePicker.component.html',
-  styleUrls: ['./dxc-ng-page-datePicker.component.scss'],
+  styleUrl: './dxc-ng-page-datePicker.component.scss',
 })
 export class DxcNgPageDatePickerComponent {
   selectedDate = signal<Date | null>(new Date());

@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxNgDatePickerComponent } from '../../dcx-ng-components/dcx-ng-datePicker/dcx-ng-datePicker.component';
+import { DcxNgDatePickerComponent } from '@dcx-ng-components/dcx-ng-lib';
+
 
 @Component({
   selector: 'datepicker-unstyled-wrapper',

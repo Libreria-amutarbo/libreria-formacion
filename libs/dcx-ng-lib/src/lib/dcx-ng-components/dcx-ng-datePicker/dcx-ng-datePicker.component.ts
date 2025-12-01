@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
-import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 interface CalendarDay {
   date: Date;
@@ -14,7 +14,7 @@ interface CalendarDay {
   standalone: true,
   imports: [DcxNgButtonComponent],
   templateUrl: './dcx-ng-datePicker.component.html',
-  styleUrls: ['./dcx-ng-datePicker.component.scss'],
+  styleUrl: './dcx-ng-datePicker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgDatePickerComponent {
