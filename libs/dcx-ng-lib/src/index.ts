@@ -40,3 +40,7 @@ export type {
 export * from './lib/dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-template-refactor.directive';
 export * from './lib/dcx-ng-components/dcx-ng-table-refactor/services/table-data-pipeline.service';
 export * from './lib/dcx-ng-components/dcx-ng-table-refactor/services/table-comparator.service';
+export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
+export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
+export * from './lib/services/icon.service';
+export * from './lib/dcx-ng-components/dcx-ng-dialog/dcx-ng-dialog.component';

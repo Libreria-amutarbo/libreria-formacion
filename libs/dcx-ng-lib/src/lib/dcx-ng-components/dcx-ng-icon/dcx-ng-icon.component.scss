@@ -1,28 +1,33 @@
-.material-icons {
-  font-family: 'Material Icons';
+:host {
+  display: inline-block;
+}
+
+.dcx-icon {
+  display: inline-block;
   vertical-align: middle;
-
-  &--s {
-    font-size: 0.75rem;
-  }
-
-  &--m {
-    font-size: 1.5rem;
-  }
-
-  &--l {
-    font-size: 3rem;
-  }
-
-  &--xl {
-    font-size: 6rem;
-  }
-
-  &--compact {
-    margin: 0.25rem;
-  }
-
-  &--spacious {
-    margin: 0.75rem;
-  }
+  line-height: 1;
+}
+ 
+.dcx-icon--size-s {
+  font-size: 0.75rem;
+}
+ 
+.dcx-icon--size-m {
+  font-size: 1rem;
+}
+ 
+.dcx-icon--size-l {
+  font-size: 1.5rem;
+}
+ 
+.dcx-icon--size-xl {
+  font-size: 2rem;
+}
+ 
+.dcx-icon--spacing-compact {
+  margin: 0 0.25rem;
+}
+ 
+.dcx-icon--spacing-spacious {
+  margin: 0 0.75rem;
 }
