@@ -1,54 +1,33 @@
 :host {
-  display: contents;
-  --icon-color: #010101;
+  display: inline-block;
 }
 
-.bi {
+.dcx-icon {
   display: inline-block;
   vertical-align: middle;
-  font-family: 'bootstrap-icons' !important;
-  font-style: normal;
-  font-weight: normal !important;
-  font-variant: normal;
-  text-transform: none;
   line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--icon-color);
-
-  &--s {
-    font-size: 0.75rem;
-  }
-
-  &--m {
-    font-size: 1.5rem;
-  }
-
-  &--l {
-    font-size: 3rem;
-  }
-
-  &--xl {
-    font-size: 6rem;
-  }
-
-  &--compact {
-    margin: 0.25rem;
-  }
-
-  &--spacious {
-    margin: 0.75rem;
-  }
-
-  // Color variations - common colors
-  &--color-010101 { --icon-color: #010101; }
-  &--color-ff0000 { --icon-color: #ff0000; }
-  &--color-e74c3c { --icon-color: #e74c3c; }
-  &--color-007bff { --icon-color: #007bff; }
-  &--color-28a745 { --icon-color: #28a745; }
-  &--color-ffc107 { --icon-color: #ffc107; }
-  &--color-17a2b8 { --icon-color: #17a2b8; }
-  &--color-6c757d { --icon-color: #6c757d; }
-  &--color-ffffff { --icon-color: #ffffff; }
-  &--color-000000 { --icon-color: #000000; }
+}
+ 
+.dcx-icon--size-s {
+  font-size: 0.75rem;
+}
+ 
+.dcx-icon--size-m {
+  font-size: 1rem;
+}
+ 
+.dcx-icon--size-l {
+  font-size: 1.5rem;
+}
+ 
+.dcx-icon--size-xl {
+  font-size: 2rem;
+}
+ 
+.dcx-icon--spacing-compact {
+  margin: 0 0.25rem;
+}
+ 
+.dcx-icon--spacing-spacious {
+  margin: 0 0.75rem;
 }
