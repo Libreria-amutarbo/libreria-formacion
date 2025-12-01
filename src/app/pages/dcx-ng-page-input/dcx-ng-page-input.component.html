@@ -6,8 +6,8 @@
     [required]="true"
     [type]="InputType.TEXT"
     [size]="InputSize.SMALL"
-    [errorMessages]="[{type: 'required', message: 'Este campo es obligatorio de rellenar'}]"
     (valueChange)="showValue($event)"
+    [errorMessages]="[{type: 'required', message: 'Este campo es obligatorio de rellenar'}]"
   ></dcx-ng-input>
 
   <dcx-ng-input
@@ -17,8 +17,8 @@
     [required]="true"
     [type]="InputType.EMAIL"
     [size]="InputSize.MEDIUM"
-    [errorMessages]="[{type: 'required', message: 'Este campo es obligatorio'}, {type: 'email', message: 'El formato de correo no es válido'}]"
     (valueChange)="showValue($event)"
+    [errorMessages]="[{type: 'required', message: 'Este campo es obligatorio'}, {type: 'email', message: 'El formato de correo no es válido'}]"
   ></dcx-ng-input>
 
   <dcx-ng-input
@@ -27,8 +27,8 @@
     [disabled]="false"
     [required]="true"
     [type]="InputType.NUMBER"
-    [errorMessages]="[{type: 'required', message: 'Es obligatorio rellenar este campo'}, {type: 'pattern', message: 'El formato numérico no es válido'}]"
     (valueChange)="showValue($event)"
+    [errorMessages]="[{type: 'required', message: 'Es obligatorio rellenar este campo'}, {type: 'pattern', message: 'El formato numérico no es válido'}]"
   ></dcx-ng-input>
 
   <dcx-ng-input
@@ -48,8 +48,8 @@
     [required]="false"
     [type]="InputType.EMAIL"
     [size]="InputSize.EXTRA_LARGE"
-    [errorMessages]="[{type: 'email', message: 'El formato de correo no es correcto'}]"
     (valueChange)="showValue($event)"
+    [errorMessages]="[{type: 'email', message: 'El formato de correo no es correcto'}]"
   ></dcx-ng-input>
 
   <dcx-ng-input

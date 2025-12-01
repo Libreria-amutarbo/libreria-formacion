@@ -1,10 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { BreadcrumbItem } from '../../core/interfaces';
+
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
 
 @Component({
   selector: 'dcx-ng-breadcrumb',
+  standalone: true,
   templateUrl: './dcx-ng-breadcrumb.component.html',
-  styleUrl: './dcx-ng-breadcrumb.component.scss',
+  styleUrls: ['./dcx-ng-breadcrumb.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgBreadcrumbComponent {

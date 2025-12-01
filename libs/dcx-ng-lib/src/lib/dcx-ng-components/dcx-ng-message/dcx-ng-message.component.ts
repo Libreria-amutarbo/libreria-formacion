@@ -29,10 +29,22 @@ export class DcxNgMessageComponent implements DcxNgMessageComponentInputs {
 
   messageData = computed(() => {
     const messageOptions = {
-      notification: { icon: '', role: 'notification', },
-      error: { icon: '', role: 'error', },
-      warning: { icon: '', role: 'warning', },
-      success: { icon: '', role: 'success', },
+      notification: {
+        icon: '',
+        role: 'notification',
+      },
+      error: {
+        icon: '',
+        role: 'error',
+      },
+      warning: {
+        icon: '',
+        role: 'warning',
+      },
+      success: {
+        icon: '',
+        role: 'success',
+      },
     };
 
     return messageOptions[this.type()];

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxNgToggleComponent } from './dcx-ng-toggle.component';
+import { DcxNgToggleComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TogglePosition } from '@dcx-ng-components/dcx-ng-lib';
 
