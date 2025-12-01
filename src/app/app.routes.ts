@@ -19,6 +19,8 @@ import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/d
 import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component';
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
+import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
+import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
 
 export const appRoutes: Route[] = [
   {
@@ -99,7 +101,14 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'slider',
-    component: DcxNgPageSliderComponent
-  }
+    component: DcxNgPageSliderComponent,
+  },
+  {
+    path: 'accordion',
+    component: DcxNgPageAccordionComponent,
+  },
+  {
+    path: 'dialog',
+    component: DcxNgPageDialogComponent,
+  },
 ];
-
