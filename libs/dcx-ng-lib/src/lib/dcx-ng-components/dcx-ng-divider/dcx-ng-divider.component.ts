@@ -31,11 +31,10 @@ export class DcxNgDividerComponent {
   }
 
   get dividerClasses(): string {
-    const label = 'dcx-ng-divider';
     return [
-      label,
-      this.orientation ? `${label}--${this.orientation}` : '',
-      this.size ? `${label}--${this.size}` : '',
+      'dcx-ng-divider',
+      this.orientation ? `dcx-ng-divider--${this.orientation}` : '',
+      this.size ? `dcx-ng-divider--${this.size}` : '',
     ].join(' ');
   }
 }

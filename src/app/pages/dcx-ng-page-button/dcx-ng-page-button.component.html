@@ -1,53 +1,86 @@
 <h2>Button Examples</h2>
 
 <div class="examples-container">
+
   <section class="example-section">
     <h3>Variants</h3>
     <div class="row">
       <dcx-ng-button
         label="Primary"
         variant="primary"
-        (buttonClick)="log('Primary clicked')"
-      />
+        (buttonClick)="log('Primary clicked')">
+      </dcx-ng-button>
 
       <dcx-ng-button
         label="Secondary"
         variant="secondary"
-        (buttonClick)="log('Secondary clicked')"
-      />
+        (buttonClick)="log('Secondary clicked')">
+      </dcx-ng-button>
 
       <dcx-ng-button
         label="Link"
         variant="link"
-        (buttonClick)="log('Link clicked')"
-      />
+        (buttonClick)="log('Link clicked')">
+      </dcx-ng-button>
     </div>
   </section>
 
   <section class="example-section">
     <h3>Sizes</h3>
     <div class="row">
-      <dcx-ng-button label="Small" size="small" variant="primary" />
-      <dcx-ng-button label="Medium" size="medium" variant="primary" />
-      <dcx-ng-button label="Large" size="large" variant="primary" />
+      <dcx-ng-button 
+        label="Small"   
+        size="small"  
+        variant="primary">
+      </dcx-ng-button>
+      <dcx-ng-button 
+        abel="Medium"  
+        size="medium" 
+        variant="primary">
+      </dcx-ng-button>
+      <dcx-ng-button 
+        label="Large"   
+        size="large"  
+        variant="primary">
+      </dcx-ng-button>
     </div>
   </section>
 
   <section class="example-section">
     <h3>Block (full width)</h3>
     <div class="stack">
-      <dcx-ng-button label="Block Primary" size="block" variant="primary" />
+      <dcx-ng-button
+        label="Block Primary"
+        size="block"
+        variant="primary">
+      </dcx-ng-button>
 
-      <dcx-ng-button label="Block Secondary" size="block" variant="secondary" />
+      <dcx-ng-button
+        label="Block Secondary"
+        size="block"
+        variant="secondary">
+      </dcx-ng-button>
     </div>
   </section>
 
   <section class="example-section">
     <h3>Disabled state</h3>
     <div class="row">
-      <dcx-ng-button label="Disabled" variant="primary" [disabled]="true" />
-      <dcx-ng-button label="Disabled" variant="secondary" [disabled]="true" />
-      <dcx-ng-button label="Disabled link" variant="link" [disabled]="true" />
+      <dcx-ng-button 
+        label="Disabled" 
+        variant="primary" 
+        [disabled]="true">
+      </dcx-ng-button>
+      <dcx-ng-button 
+        label="Disabled" 
+        variant="secondary" 
+        [disabled]="true">
+      </dcx-ng-button>
+      <dcx-ng-button 
+        label="Disabled link" 
+        variant="link" 
+        [disabled]="true">
+      </dcx-ng-button>
     </div>
   </section>
 
@@ -58,22 +91,22 @@
         label="Guardar"
         variant="primary"
         iconName="save"
-        iconPosition="start"
-      />
+        iconPosition="start">
+      </dcx-ng-button>
 
       <dcx-ng-button
         label="Siguiente"
         variant="secondary"
         iconName="arrow_forward"
-        iconPosition="end"
-      />
+        iconPosition="end">
+      </dcx-ng-button>
 
       <dcx-ng-button
         label="Eliminar"
         variant="secondary"
         iconName="delete"
-        iconColor="#e53935"
-      />
+        iconColor="#e53935">
+      </dcx-ng-button>
     </div>
   </section>
 
@@ -83,22 +116,22 @@
       <dcx-ng-button
         ariaLabel="Abrir ajustes"
         variant="primary"
-        iconName="settings"
-      />
+        iconName="settings">
+      </dcx-ng-button>
 
       <dcx-ng-button
         ariaLabel="Buscar"
         variant="secondary"
         iconName="search"
-        [disabled]="false"
-      />
+        [disabled]="false">
+      </dcx-ng-button>
 
       <dcx-ng-button
         ariaLabel="Información"
         variant="link"
         iconName="info"
-        iconSize="l"
-      />
+        iconSize="l">
+      </dcx-ng-button>
     </div>
   </section>
 
@@ -106,16 +139,21 @@
     <h3>Button types (submit / reset)</h3>
     <form (submit)="onSubmit($event)" (reset)="onReset($event)" class="stack">
       <div class="row">
-        <dcx-ng-button label="Submit" type="submit" variant="primary">
+        <dcx-ng-button 
+          label="Submit" 
+          type="submit" 
+          variant="primary">
         </dcx-ng-button>
-        <dcx-ng-button label="Reset" type="reset" variant="secondary">
+        <dcx-ng-button 
+          label="Reset" 
+          type="reset" 
+          variant="secondary">
         </dcx-ng-button>
-        <dcx-ng-button
-          label="Button"
-          type="button"
-          variant="link"
-          (buttonClick)="log('Type=button clicked')"
-        >
+        <dcx-ng-button 
+          label="Button" 
+          type="button" 
+          variant="link" 
+          (buttonClick)="log('Type=button clicked')">
         </dcx-ng-button>
       </div>
     </form>
@@ -124,14 +162,19 @@
   <section class="example-section">
     <h3>Custom class (theming puntual)</h3>
     <div class="row">
-      <dcx-ng-button label="Danger" variant="primary" class="btn-danger" />
+      <dcx-ng-button
+        label="Danger"
+        variant="primary"
+        class="btn-danger">
+      </dcx-ng-button>
 
       <dcx-ng-button
         label="Success"
         variant="primary"
         class="btn-success"
-        iconName="check_circle"
-      />
+        iconName="check_circle">
+      </dcx-ng-button>
     </div>
   </section>
+
 </div>

@@ -31,18 +31,18 @@ export class PageContextMenuComponent {
     this.menuItems = this.rowActions
       ? this.rowActions(rowData)
       : [
-        { label: 'Editar', action: () => this.onEdit() },
-        { label: 'Eliminar', action: () => this.onDelete() }
+        { label: 'Editar', action: () => this.onEdit(rowData) },
+        { label: 'Eliminar', action: () => this.onDelete(rowData) }
       ];
 
     this.menuVisible = true;
   }
 
-  onEdit() {
+  onEdit(rowData: any) {
     this.menuVisible = false;
   }
 
-  onDelete() {
+  onDelete(rowData: any) {
     this.menuVisible = false;
   }
 }

@@ -5,58 +5,44 @@
     <div class="demo-controls">
       <div class="control-group">
         <label>Items por página:</label>
-        <input type="number" [(ngModel)]="itemsPerPage" min="1" max="100" />
+        <input type="number" [(ngModel)]="itemsPerPage" min="1" max="100">
       </div>
 
       <div class="control-group">
         <label>Total de páginas:</label>
-        <input type="number" [(ngModel)]="totalPages" min="1" max="50" />
+        <input type="number" [(ngModel)]="totalPages" min="1" max="50">
       </div>
 
       <div class="control-group">
         <label>Texto botón anterior:</label>
-        <input type="text" [(ngModel)]="prevButton" />
+        <input type="text" [(ngModel)]="prevButton">
       </div>
 
       <div class="control-group">
         <label>Texto botón siguiente:</label>
-        <input type="text" [(ngModel)]="nextButton" />
+        <input type="text" [(ngModel)]="nextButton">
       </div>
 
       <div class="control-group">
         <label>
-          <input type="checkbox" [(ngModel)]="prevButtonDisabled" />
+          <input type="checkbox" [(ngModel)]="prevButtonDisabled">
           Deshabilitar botón anterior
         </label>
       </div>
 
       <div class="control-group">
         <label>
-          <input
-            type="checkbox"
-            [checked]="!!nextButtonDisabled"
-            (change)="toggleNextDisabled()"
-          />
+          <input type="checkbox" [checked]="!!nextButtonDisabled" (change)="toggleNextDisabled()">
           Deshabilitar botón siguiente
         </label>
       </div>
     </div>
 
     <div class="paginator-container">
-      <dcx-ng-paginator
-        [itemsPerPage]="itemsPerPage"
-        [currentPage]="currentPage"
-        [pageSelected]="pageSelected"
-        [totalPages]="totalPages"
-        [nextButton]="nextButton"
-        [nextButtonDisabled]="nextButtonDisabled"
-        [prevButton]="prevButton"
-        [prevButtonDisabled]="prevButtonDisabled"
-        [disabled]="disabled"
-        (pageChange)="onPageChange($event)"
-        (onNextPage)="onNextPage()"
-        (onPrevPage)="onPrevPage()"
-      >
+      <dcx-ng-paginator [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" [pageSelected]="pageSelected"
+        [totalPages]="totalPages" [nextButton]="nextButton" [nextButtonDisabled]="nextButtonDisabled"
+        [prevButton]="prevButton" [prevButtonDisabled]="prevButtonDisabled" [disabled]="disabled"
+        (pageChange)="onPageChange($event)" (onNextPage)="onNextPage()" (onPrevPage)="onPrevPage()">
       </dcx-ng-paginator>
     </div>
 

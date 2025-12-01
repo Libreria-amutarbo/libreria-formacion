@@ -1,26 +1,18 @@
 <div class="dcx-icon-field-wrapper">
-  <div class="dcx-icon-field-container">
-    @if (iconLeft) {
-      <div class="dcx-icon-left">
-        <dcx-ng-icon [name]="iconLeft" [size]="iconSize"></dcx-ng-icon>
-      </div>
-    }
+    <div class="dcx-icon-field-container">
+        @if (iconLeft) {
+        <div class="dcx-icon-left">
+            <dcx-ng-icon [name]="iconLeft" [size]="iconSize"></dcx-ng-icon>
+        </div>
+        }
 
-    <input
-      type="text"
-      class="dcx-icon-field-input"
-      [placeholder]="placeholder"
-      [value]="value"
-      [disabled]="disabled"
-      (input)="onInput($event)"
-      (blur)="onBlur()"
-      (focus)="onFocus()"
-    />
+        <input type="text" class="dcx-icon-field-input" [placeholder]="placeholder" [value]="value"
+            [disabled]="disabled" (input)="onInput($event)" (blur)="onBlur()" (focus)="onFocus()" />
 
-    @if (iconRight) {
-      <div class="dcx-icon-right">
-        <dcx-ng-icon [name]="iconRight" [size]="iconSize"></dcx-ng-icon>
-      </div>
-    }
-  </div>
+        @if (iconRight) {
+        <div class="dcx-icon-right">
+            <dcx-ng-icon [name]="iconRight" [size]="iconSize"></dcx-ng-icon>
+        </div>
+        }
+    </div>
 </div>

@@ -31,10 +31,18 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   formControl = new FormControl<string | null>(null);
 
-  onChange: (value: string | null) => void = () => { };
-  onTouched: () => void = () => { };
+  onChange: (value: string | null) => void = () => {};
+  onTouched: () => void = () => {};
 
-  private readonly cdr = inject(ChangeDetectorRef);
+  private cdr = inject(ChangeDetectorRef);
+
+  constructor() {
+    this.formControl.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(value => {
+        this.onChange(value);
+      });
+  }
 
   get isChecked(): boolean {
     return this.formControl.value === this.value;
@@ -46,12 +54,6 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   get ariaLabelBinding(): string {
     return this.ariaLabel || 'Radio button';
-  }
-
-  constructor() {
-    this.formControl.valueChanges
-      .pipe(takeUntilDestroyed())
-      .subscribe(value => this.onChange(value));
   }
 
   onInputChange(value: string | null): void {
@@ -75,7 +77,7 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    isDisabled ? this.formControl.disable({ emitEvent: false }) : this.formControl.enable({ emitEvent: false });
+    isDisabled ? this.formControl.disable({ emitEvent: false }) :     this.formControl.enable({ emitEvent: false });
     this.cdr.markForCheck();
   }
 

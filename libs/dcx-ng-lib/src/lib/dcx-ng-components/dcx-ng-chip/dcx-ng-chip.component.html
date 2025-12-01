@@ -1,33 +1,23 @@
-<div
-  class="dcx-ng-chip"
-  [ngClass]="chipClasses"
-  [attr.data-chip-type]="chipType()"
->
-  @if (chipType() === ChipTypeValues.WITH_IMAGE && image()) {
-    <img
-      class="dcx-ng-chip__image"
-      [src]="image()"
-      [alt]="label() || 'Chip image'"
-      loading="lazy"
-    />
-  }
+<div class="dcx-ng-chip" [ngClass]="chipClasses" [attr.data-chip-type]="chipType()">
 
-  @if (chipType() === ChipTypeValues.WITH_ICON && icon()) {
-    <dcx-ng-icon class="dcx-ng-chip__icon" [name]="icon()" size="s" />
-  }
+    @if (chipType() === ChipTypeValues.WITH_IMAGE && image()) {
+    <img class="dcx-ng-chip__image" [src]="image()" [alt]="label() || 'Chip image'" loading="lazy">
+    }
 
-  @if (label()) {
+    @if (chipType() === ChipTypeValues.WITH_ICON && icon()) {
+    <dcx-ng-icon class="dcx-ng-chip__icon" [name]="icon()" size="s">
+    </dcx-ng-icon>
+    }
+
+    @if (label()) {
     <span class="dcx-ng-chip__label">{{ label() }}</span>
-  }
+    }
 
-  @if (removable()) {
-    <button
-      type="button"
-      class="dcx-ng-chip__remove-btn"
-      [attr.aria-label]="'Remover ' + label()"
-      (click)="handleRemove($event)"
-    >
-      <dcx-ng-icon name="close" size="s"> </dcx-ng-icon>
+    @if (removable()) {
+    <button type="button" class="dcx-ng-chip__remove-btn" [attr.aria-label]="'Remover ' + label()"
+        (click)="handleRemove($event)">
+        <dcx-ng-icon name="close" size="s">
+        </dcx-ng-icon>
     </button>
-  }
+    }
 </div>

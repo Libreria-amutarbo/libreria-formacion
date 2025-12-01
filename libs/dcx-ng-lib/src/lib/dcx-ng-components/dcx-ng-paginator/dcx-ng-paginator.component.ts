@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dcx-ng-paginator.component.scss',
 })
 export class DcxNgPaginatorComponent {
+
   @Input() itemsPerPage: number = 10;
   @Input() currentPage: number = 1;
   @Input() pageSelected: number = 1;
