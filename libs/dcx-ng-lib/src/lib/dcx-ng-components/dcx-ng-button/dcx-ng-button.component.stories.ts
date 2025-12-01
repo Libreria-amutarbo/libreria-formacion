@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular/';
-import { DcxNgButtonComponent, ICON_POSITION } from './dcx-ng-button.component';
 
 import { within, expect } from '@storybook/test';
+import { ICON_POSITION, DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgButtonComponent> = {
   component: DcxNgButtonComponent,
@@ -16,7 +16,7 @@ export const Primary: Story = {
     ariaLabel: '',
     type: 'button',
     disabled: false,
-    size: 'medium',
+    size: 'm',
     class: '',
     iconName: '',
     iconPosition: ICON_POSITION.start,
@@ -32,7 +32,7 @@ export const Heading: Story = {
     ariaLabel: '',
     type: 'button',
     disabled: false,
-    size: 'medium',
+    size: 'm',
     class: '',
     iconName: '',
     iconPosition: ICON_POSITION.start,

@@ -12,9 +12,9 @@ import {
   ButtonVariant,
   IconPosition,
   ICON_POSITION,
-  IconSpacing,
   DcxSize
 } from '../../core/interfaces';
+import { IconSpacing } from '../../core/interfaces/icon';
 
 @Component({
   selector: 'dcx-ng-button',
@@ -33,7 +33,7 @@ export class DcxNgButtonComponent {
   @Input() class = '';
   @Input() iconName?: string;
   @Input() iconPosition: IconPosition = ICON_POSITION.start;
-  @Input() iconSize?: DcxSize;
+  @Input() iconSize: DcxSize = 's';
   @Input() iconSpacing: IconSpacing = 'none';
   @Input() iconColor = '';
   @Input() set icon(_legacy: string) { }
@@ -45,10 +45,6 @@ export class DcxNgButtonComponent {
   get computedAriaLabel(): string | null {
     if (this.label) return null;
     return this.ariaLabel ? this.ariaLabel : 'Button';
-  }
-
-  get effectiveIconSize(): DcxSize | undefined {
-    return this.iconSize;
   }
 
   get buttonClasses(): string {

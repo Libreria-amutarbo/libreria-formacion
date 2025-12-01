@@ -5,5 +5,7 @@ export * from './chip';
 export * from './contextMenu';
 export * from './divider';
 export * from './dropdown';
+export * from './input';
+export * from './icon';
 
 export * from './generic'

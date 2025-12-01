@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgInputComponent, InputType, InputSize } from './dcx-ng-input.component';
+import { DcxNgInputComponent } from './dcx-ng-input.component';
 
 import { within, expect } from '@storybook/test';
+import { DcxInputType } from '../../core/interfaces';
 
 const meta: Meta<DcxNgInputComponent> = {
   component: DcxNgInputComponent,
@@ -12,9 +13,9 @@ type Story = StoryObj<DcxNgInputComponent>;
 
 export const Primary: Story = {
   args: {
-    type: InputType.TEXT,
+    type: DcxInputType.TEXT,
     placeholder: null,
-    size: InputSize.MEDIUM,
+    size: 'm',
     disabled: false,
     required: false,
     label: null,
@@ -24,9 +25,9 @@ export const Primary: Story = {
 
 export const Heading: Story = {
   args: {
-    type: InputType.TEXT,
+    type: DcxInputType.TEXT,
     placeholder: null,
-    size: InputSize.MEDIUM,
+    size: 'm',
     disabled: false,
     required: false,
     label: null,
