@@ -1,4 +1,10 @@
 <div class="dcx-slider-wrapper" [class.vertical]="vertical">
-  <input type="range" class="dcx-slider-bar" [value]="value" [step]="step" (input)="onInput($event)"
-    [attr.orient]="orientAttribute" />
+  <input
+    type="range"
+    class="dcx-slider-bar"
+    [value]="value"
+    [step]="step"
+    (input)="onInput($event)"
+    [attr.orient]="orientAttribute"
+  />
 </div>

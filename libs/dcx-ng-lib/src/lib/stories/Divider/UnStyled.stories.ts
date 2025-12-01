@@ -33,7 +33,7 @@ type Story = StoryObj<DcxNgDividerComponent>;
 export const UnstyledHorizontal: Story = {
   args: {
     orientation: 'horizontal',
-    size: 'medium',
+    size: 'm',
     thickness: 1,
     color: '#9b9b9b',
     ariaLabel: 'Horizontal Divider Medium',
@@ -43,7 +43,7 @@ export const UnstyledHorizontal: Story = {
 export const UnstyledVertical: Story = {
   args: {
     orientation: 'vertical',
-    size: 'medium',
+    size: 'm',
     thickness: 1,
     color: '#9b9b9b',
     ariaLabel: 'Vertical Divider Medium',

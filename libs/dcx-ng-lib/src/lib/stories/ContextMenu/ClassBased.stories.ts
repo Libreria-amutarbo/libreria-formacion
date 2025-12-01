@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { ContextMenuComponent, ContextMenuItem } from '../../dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+import { ContextMenuComponent } from '../../dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+import { DcxContextMenuItem } from '../../core/interfaces';
 
 const meta: Meta<ContextMenuComponent> = {
   title: 'DCXLibrary/ContextMenu/ClassBased',
@@ -24,7 +25,7 @@ const meta: Meta<ContextMenuComponent> = {
 export default meta;
 type Story = StoryObj<ContextMenuComponent>;
 
-const mockItems: ContextMenuItem[] = [
+const mockItems: DcxContextMenuItem[] = [
   {
     label: 'Edit',
     action: () => console.log('Edit clicked'),
@@ -39,7 +40,7 @@ const mockItems: ContextMenuItem[] = [
   },
 ];
 
-const basicItems: ContextMenuItem[] = [
+const basicItems: DcxContextMenuItem[] = [
   {
     label: 'Option 1',
     action: () => console.log('Option 1 clicked'),

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-type SpinnerSize = 'xs' | 's' | 'm' | 'l' | 'xl';
+import { DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-spinner',
@@ -11,7 +10,7 @@ type SpinnerSize = 'xs' | 's' | 'm' | 'l' | 'xl';
   styleUrls: ['./dcx-ng-spinner.component.scss'],
 })
 export class DcxNgSpinnerComponent implements OnInit {
-  @Input() size: SpinnerSize = 'm';
+  @Input() size: DcxSize = 'm';
   @Input() wrapper = false;
   @Input() delay = 100;
   @Input() label: string | null = null;
