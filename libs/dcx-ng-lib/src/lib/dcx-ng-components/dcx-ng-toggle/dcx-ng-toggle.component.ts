@@ -54,7 +54,7 @@ export class DcxNgToggleComponent {
 
   @HostListener('keydown.enter', ['$event'])
   @HostListener('keydown.space', ['$event'])
-  handleKeyboardToggle(event: KeyboardEvent): void {
+  handleKeyboardToggle(event: Event): void {
     if (!this.disabled) {
       event.preventDefault();
       this.toggle();

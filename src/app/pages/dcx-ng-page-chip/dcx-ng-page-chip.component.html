@@ -20,25 +20,31 @@
     <div class="chip-row">
       <dcx-ng-chip label="Home" icon="home" color="primary"></dcx-ng-chip>
       <dcx-ng-chip label="Usuario" icon="person" color="success"></dcx-ng-chip>
-      <dcx-ng-chip label="Configuración" icon="settings" color="secondary"></dcx-ng-chip>
+      <dcx-ng-chip
+        label="Configuración"
+        icon="settings"
+        color="secondary"
+      ></dcx-ng-chip>
     </div>
   </div>
 
   <div class="chip-test-container">
     <h4>Chips removibles</h4>
     <div class="chip-row">
-      <dcx-ng-chip 
-        label="Removible" 
-        color="primary" 
+      <dcx-ng-chip
+        label="Removible"
+        color="primary"
         [removable]="true"
-        (onRemove)="onChipRemove('Removible')">
+        (onRemove)="onChipRemove('Removible')"
+      >
       </dcx-ng-chip>
-      <dcx-ng-chip 
-        label="Con icono" 
-        icon="star" 
-        color="warning" 
+      <dcx-ng-chip
+        label="Con icono"
+        icon="star"
+        color="warning"
         [removable]="true"
-        (onRemove)="onChipRemove('Con icono')">
+        (onRemove)="onChipRemove('Con icono')"
+      >
       </dcx-ng-chip>
     </div>
   </div>
