@@ -1,8 +1,7 @@
 import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
- 
-export type IconSize = 's' | 'm' | 'l' | 'xl';
-export type IconSpacing = 'none' | 'compact' | 'spacious';
- 
+import { DcxSize } from '../../core/interfaces';
+import { IconSpacing } from '../../core/interfaces/icon';
+
 @Component({
   selector: 'dcx-ng-icon',
   templateUrl: './dcx-ng-icon.component.html',
@@ -14,11 +13,11 @@ export type IconSpacing = 'none' | 'compact' | 'spacious';
 })
 export class DcxNgIconComponent {
   readonly name = input.required<string>();
-  readonly size = input<IconSize>('m');
+  readonly size = input<DcxSize>('m');
   readonly spacing = input<IconSpacing>('none');
   readonly color = input<string>('');
   readonly extraClass = input<string>('');
- 
+
   readonly iconClass = computed(() => {
     const classes: string[] = [
       'bi',
@@ -26,19 +25,18 @@ export class DcxNgIconComponent {
       'dcx-icon',
       `dcx-icon--size-${this.size()}`,
     ];
- 
+
     const spacing = this.spacing();
     if (spacing !== 'none') {
       classes.push(`dcx-icon--spacing-${spacing}`);
     }
- 
+
     const extra = this.extraClass().trim();
     if (extra) {
       classes.push(extra);
     }
- 
+
     return classes.join(' ');
   });
 }
- 
- 
+
