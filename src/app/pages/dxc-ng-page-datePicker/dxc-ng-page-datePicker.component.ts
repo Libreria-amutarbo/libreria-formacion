@@ -1,10 +1,11 @@
 import { DcxNgDatePickerComponent } from './../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-datePicker/dcx-ng-datePicker.component';
+import { DcxNgButtonComponent } from './../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
 import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-dxc-ng-page-date-picker',
   standalone: true,
-  imports: [DcxNgDatePickerComponent],
+  imports: [DcxNgDatePickerComponent, DcxNgButtonComponent],
   templateUrl: './dxc-ng-page-datePicker.component.html',
   styleUrls: ['./dxc-ng-page-datePicker.component.scss'],
 })

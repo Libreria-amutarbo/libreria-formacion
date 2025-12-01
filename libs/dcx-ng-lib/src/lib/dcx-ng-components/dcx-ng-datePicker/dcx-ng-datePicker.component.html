@@ -1,31 +1,27 @@
 <div class="dcx-datepicker">
     <div class="dcx-datepicker__input-wrapper" [class.dcx-datepicker__input-wrapper--disabled]="disabled()"
         [class.dcx-datepicker__input-wrapper--open]="isOpen()" (click)="toggleCalendar()">
-
         <input type="text" class="dcx-datepicker__input" [value]="formattedSelectedDate()" [disabled]="disabled()"
-            readonly>
+            readonly />
 
         @if (selectedDate() && !disabled()) {
-        <button class="dcx-datepicker__clear" type="button" (click)="clearDate($event)">
-            ✕
-        </button>
+        <dcx-ng-button class="dcx-datepicker__clear" variant="icon" iconName="close" ariaLabel="Limpiar fecha"
+            (buttonClick)="clearDate($event)"></dcx-ng-button>
         }
     </div>
 
     @if (isOpen()) {
     <div class="dcx-datepicker__calendar">
         <div class="dcx-datepicker__header">
-            <button type="button" class="dcx-datepicker__nav-button" (click)="previousMonth()">
-                ‹
-            </button>
+            <dcx-ng-button class="dcx-datepicker__nav-button" variant="icon" iconName="arrow_back"
+                ariaLabel="Mes anterior" (buttonClick)="previousMonth()"></dcx-ng-button>
 
             <span class="dcx-datepicker__month-name">
                 {{ monthName() }}
             </span>
 
-            <button type="button" class="dcx-datepicker__nav-button" (click)="nextMonth()">
-                ›
-            </button>
+            <dcx-ng-button class="dcx-datepicker__nav-button" variant="icon" iconName="arrow_forward"
+                ariaLabel="Mes siguiente" (buttonClick)="nextMonth()"></dcx-ng-button>
         </div>
 
         <div class="dcx-datepicker__weekdays">

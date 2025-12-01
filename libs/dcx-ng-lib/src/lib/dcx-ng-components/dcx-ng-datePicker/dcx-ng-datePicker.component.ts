@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 interface CalendarDay {
   date: Date;
@@ -11,6 +12,7 @@ interface CalendarDay {
 @Component({
   selector: 'dcx-ng-date-picker',
   standalone: true,
+  imports: [DcxNgButtonComponent],
   templateUrl: './dcx-ng-datePicker.component.html',
   styleUrls: ['./dcx-ng-datePicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,12 +26,17 @@ export class DcxNgDatePickerComponent {
 
   readonly dateChange = output<Date | null>();
 
-  // Estado interno del calendario
-  private readonly _currentMonth = signal(new Date());
+  private readonly _currentMonth = signal<Date | null>(null);
   private readonly _isOpen = signal(false);
 
+  readonly currentMonth = computed(() => {
+    const manualMonth = this._currentMonth();
+    if (manualMonth) return manualMonth;
 
-  readonly currentMonth = computed(() => this._currentMonth());
+    const selected = this.selectedDate();
+    return selected ? new Date(selected) : new Date();
+  });
+
   readonly isOpen = computed(() => this._isOpen());
 
   readonly monthName = computed(() => {
@@ -40,6 +47,7 @@ export class DcxNgDatePickerComponent {
   readonly formattedSelectedDate = computed(() => {
     const date = this.selectedDate();
     if (!date) return this.placeholder();
+
     return date.toLocaleDateString('es-ES', {
       day: '2-digit',
       month: '2-digit',
@@ -84,40 +92,31 @@ export class DcxNgDatePickerComponent {
 
   readonly weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
-  constructor() {
-    // Sincronizar mes actual cuando cambie la fecha seleccionada
-    effect(() => {
-      const selected = this.selectedDate();
-      if (selected) {
-        this._currentMonth.set(new Date(selected));
-      }
-    }, { allowSignalWrites: true });
-  }
-
-
   toggleCalendar(): void {
     if (this.disabled()) return;
-    this._isOpen.update(v => !v);
+    this._isOpen.set(!this._isOpen());
+    if (!this._isOpen()) {
+      this._currentMonth.set(null);
+    }
   }
 
   closeCalendar(): void {
     this._isOpen.set(false);
+    this._currentMonth.set(null);
   }
 
   previousMonth(): void {
-    this._currentMonth.update(date => {
-      const newDate = new Date(date);
-      newDate.setMonth(newDate.getMonth() - 1);
-      return newDate;
-    });
+    const current = this.currentMonth();
+    const newDate = new Date(current);
+    newDate.setMonth(newDate.getMonth() - 1);
+    this._currentMonth.set(newDate);
   }
 
   nextMonth(): void {
-    this._currentMonth.update(date => {
-      const newDate = new Date(date);
-      newDate.setMonth(newDate.getMonth() + 1);
-      return newDate;
-    });
+    const current = this.currentMonth();
+    const newDate = new Date(current);
+    newDate.setMonth(newDate.getMonth() + 1);
+    this._currentMonth.set(newDate);
   }
 
   selectDate(day: CalendarDay): void {
@@ -127,10 +126,8 @@ export class DcxNgDatePickerComponent {
     this.closeCalendar();
   }
 
-  clearDate(event: Event): void {
-    event.stopPropagation();
+  clearDate(event: { clicked: boolean }): void {
     if (this.disabled()) return;
-
     this.dateChange.emit(null);
   }
 
@@ -138,9 +135,6 @@ export class DcxNgDatePickerComponent {
     const min = this.minDate();
     const max = this.maxDate();
 
-    if (min && date < min) return true;
-    if (max && date > max) return true;
-
-    return false;
+    return !!(min && date < min) || !!(max && date > max);
   }
 }
