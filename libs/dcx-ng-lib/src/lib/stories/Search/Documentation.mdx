@@ -1,0 +1,106 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as SearchClassBasedStories from './ClassBased.stories';
+import * as SearchUnstyledStories from './UnStyled.stories';
+
+<Meta title="DCXLibrary/Search/Documentation" />
+
+# Search
+
+The `dcx-ng-search` component is a customizable and accessible search input field with a search button.
+It emits events when the user types or triggers a search action.
+
+---
+
+## Unstyled Version
+
+Use this version when you want full control over the appearance.
+No styles are applied beyond native HTML input behavior, which makes it ideal for custom theming.
+
+<Canvas of={SearchUnstyledStories.Default} />
+
+## Class-Based Version
+
+This version includes styling using CSS custom properties.
+It supports different sizes, disabled state, and keyboard interaction.
+
+<Canvas of={SearchClassBasedStories.Default} />
+
+---
+
+### Usage Examples
+
+The following story demonstrates multiple search configurations including different sizes, states, and event handling.
+
+<Canvas of={SearchClassBasedStories.SearchShowcase} />
+
+---
+
+### Available Properties
+
+- **placeholder**: Placeholder text shown when the input is empty (default: `'Buscar...'`)
+- **disabled**: Disables the search input and button (default: `false`)
+- **size**: Size of the search component: `'s'` | `'m'` | `'l'` (default: `'m'`)
+- **ariaLabel**: Accessible label for the search input (default: `'Campo de búsqueda'`)
+
+### Available Events
+
+- **searchChange**: Emitted every time the input value changes (real-time)
+- **search**: Emitted when the user clicks the search button or presses Enter
+
+---
+
+## Keyboard Interaction
+
+The search component supports keyboard interaction:
+
+- **Type** to enter search text
+- **Enter** to trigger the search event
+- **Tab** to navigate between input and button
+
+---
+
+## Usage Examples
+
+### Basic Usage
+
+```html
+<dcx-ng-search
+  (search)="onSearch($event)">
+</dcx-ng-search>
+```
+
+### Custom Placeholder and Size
+
+```html
+<dcx-ng-search
+  placeholder="Buscar productos..."
+  size="l"
+  (search)="onSearch($event)">
+</dcx-ng-search>
+```
+
+### With Real-time Search
+
+```html
+<dcx-ng-search
+  placeholder="Búsqueda en tiempo real..."
+  (searchChange)="onSearchChange($event)"
+  (search)="onSearch($event)">
+</dcx-ng-search>
+```
+
+### Component Handler
+
+```typescript
+export class MyComponent {
+  onSearchChange(value: string): void {
+    console.log('User is typing:', value);
+    // Real-time search logic
+  }
+
+  onSearch(value: string): void {
+    console.log('Search triggered:', value);
+    // Execute search
+  }
+}
+```
