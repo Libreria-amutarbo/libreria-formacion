@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DcxNgInputComponent, InputType } from './dcx-ng-input.component';
+import { DcxNgInputComponent,  } from './dcx-ng-input.component';
+import { DcxInputType } from '../../core/interfaces';
 
 describe('DcxNgInputComponent', () => {
   let component: DcxNgInputComponent;
@@ -100,7 +101,7 @@ describe('DcxNgInputComponent', () => {
     });
 
     it('should validate email type', () => {
-      component.type = InputType.EMAIL;
+      component.type = DcxInputType.EMAIL;
       component.ngOnInit();
       fixture.detectChanges();
 
@@ -112,22 +113,19 @@ describe('DcxNgInputComponent', () => {
     });
 
     it('should validate number type', () => {
-      component.type = InputType.NUMBER;
+      component.type = DcxInputType.NUMBER;
       component.ngOnInit();
       fixture.detectChanges();
 
-      // Casos inválidos
       component.inputControl.setValue('abc');
       expect(component.inputControl.errors?.['pattern']).toBeTruthy();
 
-      // Casos válidos
       const validNumbers = ['123', '-123', '0.5', '-0.5', '1.234', '.5', '-.5', ''];
       validNumbers.forEach(num => {
         component.inputControl.setValue(num);
         expect(component.inputControl.errors).toBeNull();
       });
 
-      // Casos inválidos adicionales
       const invalidNumbers = ['abc123', '12.34.56', '..5', '--1', '1-2'];
       invalidNumbers.forEach(num => {
         component.inputControl.setValue(num);
@@ -136,7 +134,6 @@ describe('DcxNgInputComponent', () => {
     });
   });
 
-  // Tests for Event Handling
   describe('Event Handling', () => {
     it('should toggle focus state', () => {
       inputElement.dispatchEvent(new Event('focus'));
@@ -161,7 +158,6 @@ describe('DcxNgInputComponent', () => {
     });
   });
 
-  // Tests for CSS Classes
   describe('CSS Classes', () => {
     it('should add invalid class when invalid and touched', () => {
       component.required = true;
@@ -183,7 +179,6 @@ describe('DcxNgInputComponent', () => {
     });
   });
 
-  // Tests for Component Lifecycle
   describe('Component Lifecycle', () => {
     it('should update validators when required status changes', () => {
       component.required = true;
