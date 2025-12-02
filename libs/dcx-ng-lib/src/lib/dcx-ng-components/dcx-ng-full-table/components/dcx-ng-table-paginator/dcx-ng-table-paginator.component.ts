@@ -10,7 +10,6 @@ import { DcxNgSelectComponent } from '../../../dcx-ng-select/dcx-ng-select.compo
 
 @Component({
   selector: 'dcx-ng-table-paginator',
-  standalone: true,
   imports: [DcxNgIconComponent, DcxNgSelectComponent],
   templateUrl: './dcx-ng-table-paginator.component.html',
   styleUrl: './dcx-ng-table-paginator.component.scss',
