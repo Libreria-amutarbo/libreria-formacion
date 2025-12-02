@@ -131,9 +131,9 @@ export class DcxNgTableComponent implements OnInit {
     this.menuItems = this.rowActions
       ? this.rowActions(rowData)
       : [
-          { label: 'Editar', action: () => this.onEdit(rowData) },
-          { label: 'Eliminar', action: () => this.onDelete(rowData) },
-        ];
+        { label: 'Editar', action: () => this.onEdit(rowData) },
+        { label: 'Eliminar', action: () => this.onDelete(rowData) }
+      ];
 
     this.menuVisible = true;
   }

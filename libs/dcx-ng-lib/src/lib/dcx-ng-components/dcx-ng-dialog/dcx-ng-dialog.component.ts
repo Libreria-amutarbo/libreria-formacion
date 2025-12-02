@@ -18,12 +18,12 @@ export class DcxNgDialogComponent {
   title = input('');
   visible = input(false);
 
-  onClose = output<void>();
+  closeDialog = output<void>();
 
   bodyTemplate = contentChild<TemplateRef<unknown>>('dialogBody');
   footerTemplate = contentChild<TemplateRef<unknown>>('dialogFooter');
 
   close(): void {
-    this.onClose.emit();
+    this.closeDialog.emit();
   }
 }
