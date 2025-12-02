@@ -21,6 +21,7 @@ import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-n
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
+import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
 
 export const appRoutes: Route[] = [
   {
@@ -85,11 +86,11 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'card',
-    component: DcxNgPageCardComponent
+    component: DcxNgPageCardComponent,
   },
   {
     path: 'contextMenu',
-    component: ContextMenuComponent
+    component: ContextMenuComponent,
   },
   {
     path: 'icon-field',
@@ -110,5 +111,9 @@ export const appRoutes: Route[] = [
   {
     path: 'dialog',
     component: DcxNgPageDialogComponent,
+  },
+  {
+    path: 'tabs',
+    component: DcxNgPageTabsComponent,
   },
 ];

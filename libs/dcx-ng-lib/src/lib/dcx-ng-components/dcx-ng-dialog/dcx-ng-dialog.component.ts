@@ -5,11 +5,12 @@ import {
   output,
   TemplateRef,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'dcx-ng-dialog',
   standalone: true,
-  imports: [],
+  imports: [NgTemplateOutlet],
   templateUrl: './dcx-ng-dialog.component.html',
   styleUrl: './dcx-ng-dialog.component.scss',
 })

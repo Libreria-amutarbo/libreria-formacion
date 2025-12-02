@@ -1,0 +1,106 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as TabsUn from './UnStyled.stories';
+import * as TabsClass from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Tabs/Documentation" />
+
+# Tabs
+
+`dcx-ng-tabs` displays a set of tabs to navigate between different content areas in a tabbed interface.
+
+## Inputs
+
+- `tabs: DcxTabItem[]` (required) - Array of tab objects that define the tabs
+- `activeTabId: string` - ID of the active tab by default
+- `disabled: boolean` - Disables all tabs
+
+## Outputs
+
+- `(tabChange): void` - Emitted when tab changes, emits the selected tab ID
+
+## Interface DcxTabItem
+
+```typescript
+interface DcxTabItem {
+  id: string;        // Unique identifier for the tab
+  label: string;     // Visible text on the tab
+  content?: string;  // Tab content (optional)
+}
+```
+
+---
+
+## Unstyled
+
+<Canvas of={TabsUn.Basic} />
+
+---
+
+## Class-Based
+
+<Canvas of={TabsClass.Basic} />
+
+### Disabled State
+
+<Canvas of={TabsClass.Disabled} />
+
+---
+
+## Usage
+
+### Basic
+
+```html
+<dcx-ng-tabs
+  [tabs]="tabs"
+  [activeTabId]="activeTabId"
+  (tabChange)="onTabChange($event)"
+></dcx-ng-tabs>
+```
+
+### With TypeScript
+
+```typescript
+import { Component, signal } from '@angular/core';
+import { DcxTabItem, DcxNgTabsComponent } from '@dcx-ng-components/dcx-ng-lib';
+
+@Component({
+  selector: 'app-tabs-example',
+  standalone: true,
+  imports: [DcxNgTabsComponent],
+  template: `
+    <dcx-ng-tabs
+      [tabs]="tabs()"
+      [activeTabId]="activeTab()"
+      (tabChange)="onTabChange($event)"
+    ></dcx-ng-tabs>
+  `,
+})
+export class TabsExampleComponent {
+  tabs = signal<DcxTabItem[]>([
+    { id: 'tab1', label: 'Overview', content: 'Overview content' },
+    { id: 'tab2', label: 'Details', content: 'Details content' },
+    { id: 'tab3', label: 'Settings', content: 'Settings content' },
+  ]);
+
+  activeTab = signal<string>('tab1');
+
+  onTabChange(tabId: string): void {
+    this.activeTab.set(tabId);
+    console.log('Tab changed to:', tabId);
+  }
+}
+```
+
+### Disabled
+
+```html
+<dcx-ng-tabs
+  [tabs]="tabs"
+  [activeTabId]="activeTabId"
+  [disabled]="true"
+  (tabChange)="onTabChange($event)"
+></dcx-ng-tabs>
+```
+
+---
