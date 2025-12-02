@@ -38,7 +38,7 @@ jobs:
           fi
 
           # Intentar merge sin editar el mensaje; si hay conflicto, salimos sin push.
-          if git merge --no-edit origin/main; then
+          if git merge --no-edit origin/develop; then
             echo "merged=true" >> $GITHUB_OUTPUT
           else
             echo "merged=false" >> $GITHUB_OUTPUT

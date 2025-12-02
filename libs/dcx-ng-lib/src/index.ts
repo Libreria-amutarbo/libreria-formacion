@@ -26,6 +26,8 @@ export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table.compo
 export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table-template.directive';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-data-pipeline.service';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-comparator.service';
+export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
+export * from './lib/dcx-ng-components/dcx-ng-datePicker/dcx-ng-datePicker.component';
 export * from './lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
 
 export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';

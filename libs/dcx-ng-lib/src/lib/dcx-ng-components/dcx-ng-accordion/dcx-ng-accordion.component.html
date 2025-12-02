@@ -4,13 +4,14 @@
       <div class="accordion-item" [class.disabled]="item.disabled">
         <button
           class="accordion-header"
+          [class.expanded]="isExpanded(item.id)"
           (click)="toggleItem(item)"
           [disabled]="item.disabled"
           [attr.aria-expanded]="isExpanded(item.id)"
           [attr.aria-controls]="'accordion-' + item.id"
         >
           <span class="accordion-title">{{ item.title }}</span>
-          <span class="accordion-icon">
+          <span class="accordion-icon" [class.expanded]="isExpanded(item.id)">
             <svg
               width="20"
               height="20"
@@ -31,7 +32,7 @@
 
         <div
           class="accordion-content-wrapper"
-          [@expandCollapse]="getAnimationState(item.id)"
+          [class.expanded]="isExpanded(item.id)"
           [attr.id]="'accordion-' + item.id"
         >
           <div class="accordion-content">
