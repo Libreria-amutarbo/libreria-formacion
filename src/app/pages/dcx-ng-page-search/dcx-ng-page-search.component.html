@@ -1,0 +1,71 @@
+<div class="search-page">
+  <h1>Search Component Examples</h1>
+
+  <section class="search-section">
+    <h2>Basic Search</h2>
+    <p>Componente de búsqueda básico con funcionalidad completa</p>
+    <dcx-ng-search
+      (searchChange)="onSearchChange($event)"
+      (search)="onSearch($event)"
+    />
+  </section>
+
+  <section class="search-section">
+    <h2>Custom Placeholder</h2>
+    <p>Búsqueda con placeholder personalizado</p>
+    <dcx-ng-search
+      placeholder="Buscar productos..."
+      (search)="onSearch($event)"
+    />
+  </section>
+
+  <section class="search-section">
+    <h2>Different Sizes</h2>
+    
+    <div class="size-example">
+      <h3>Small</h3>
+      <dcx-ng-search
+        size="s"
+        placeholder="Búsqueda pequeña..."
+        (search)="onSearch($event)"
+      />
+    </div>
+
+    <div class="size-example">
+      <h3>Medium (default)</h3>
+      <dcx-ng-search
+        size="m"
+        placeholder="Búsqueda mediana..."
+        (search)="onSearch($event)"
+      />
+    </div>
+
+    <div class="size-example">
+      <h3>Large</h3>
+      <dcx-ng-search
+        size="l"
+        placeholder="Búsqueda grande..."
+        (search)="onSearch($event)"
+      />
+    </div>
+  </section>
+
+  <section class="search-section">
+    <h2>Disabled State</h2>
+    <p>Búsqueda deshabilitada</p>
+    <dcx-ng-search
+      [disabled]="true"
+      placeholder="Campo deshabilitado"
+    />
+  </section>
+
+  <section class="search-section">
+    <h2>Custom Aria Label</h2>
+    <p>Búsqueda con etiqueta ARIA personalizada para accesibilidad</p>
+    <dcx-ng-search
+      ariaLabel="Buscar artículos en el catálogo"
+      placeholder="Buscar artículos"
+      (search)="onSearch($event)"
+    />
+  </section>
+</div>
