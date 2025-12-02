@@ -13,45 +13,11 @@
 <hr />
 
 <section>
-  <h2>Ejemplo 2 - Grid + Scroll</h2>
+  <h2>Ejemplo 2 - Templates personalizados</h2>
 
   <dcx-ng-table-refactor
     [headers]="headers2"
     [rows]="rows2"
-    [showGrid]="true"
-    [showStripped]="true"
-    [scroll]="true"
-    scrollHeight="240px"
-    (sortChange)="onSort($event, 'ex2')"
-  >
-  </dcx-ng-table-refactor>
-</section>
-
-<hr />
-
-<section>
-  <h2>Ejemplo 3 - Paginación</h2>
-
-  <dcx-ng-table-refactor
-    [headers]="headers3"
-    [rows]="rows3"
-    [paginator]="true"
-    [rowsPerPage]="rowsPerPageEx3"
-    [rowsPerPageOptions]="[5, 10, 15]"
-    (rowsPerPageChange)="onRowsPerPageChangeEx3($event)"
-    (pageChange)="onPageChange($event)"
-  >
-  </dcx-ng-table-refactor>
-</section>
-
-<hr />
-
-<section>
-  <h2>Ejemplo 4 - Templates personalizados</h2>
-
-  <dcx-ng-table-refactor
-    [headers]="headers4"
-    [rows]="rows4"
     [showStripped]="true"
   >
     <!-- Usuario con avatar -->
@@ -120,11 +86,11 @@
 <hr />
 
 <section>
-  <h2>Ejemplo 5 - Fecha built-in + renderFn + Acciones inline</h2>
+  <h2>Ejemplo 3 - Fecha built-in + renderFn + Acciones inline</h2>
 
   <dcx-ng-table-refactor
-    [headers]="headers5"
-    [rows]="rows5"
+    [headers]="headers3"
+    [rows]="rows3"
     [showStripped]="true"
     [showRowIndex]="true"
     [frozenLeftSeparator]="true"
@@ -160,82 +126,10 @@
 <hr />
 
 <section>
-  <h2>Ejemplo 6 - Filtros, edición y menú de acciones</h2>
-
-  <dcx-ng-table-refactor
-    [headers]="headers6"
-    [rows]="rows6"
-    [showGrid]="true"
-    [showStripped]="true"
-    [paginator]="true"
-    [showRowIndex]="true"
-    [frozenLeftSeparator]="true"
-    [frozenRightSeparator]="true"
-    (cellEdit)="onCellEdit($event)"
-    (rowAction)="onAction($event)"
-  >
-  </dcx-ng-table-refactor>
-</section>
-
-<hr />
-
-<section>
-  <h2>Ejemplo 7 - Acciones inline (productos)</h2>
-
-  <dcx-ng-table-refactor
-    [headers]="headers7"
-    [rows]="rows7"
-    [showStripped]="true"
-    (rowAction)="onAction($event)"
-  >
-  </dcx-ng-table-refactor>
-</section>
-
-<hr />
-
-<section>
-  <h2>Ejemplo 8 - Acciones con menú (usuarios)</h2>
-
-  <dcx-ng-table-refactor
-    [headers]="headers8"
-    [rows]="rows8"
-    [showStripped]="true"
-    (rowAction)="onAction($event)"
-  >
-    <ng-template dcxNgTableTemplateRefactor="statusTemplate" let-row>
-      <span
-        [style.background-color]="
-          row.status === 'active'
-            ? '#d4edda'
-            : row.status === 'pending'
-              ? '#fff3cd'
-              : '#f8d7da'
-        "
-        [style.color]="
-          row.status === 'active'
-            ? '#155724'
-            : row.status === 'pending'
-              ? '#856404'
-              : '#721c24'
-        "
-        style="padding:4px 10px; border-radius:999px; font-size:12px;"
-      >
-        {{
-          row.status === 'active'
-            ? 'Activo'
-            : row.status === 'pending'
-              ? 'Pendiente'
-              : 'Inactivo'
-        }}
-      </span>
-    </ng-template>
-  </dcx-ng-table-refactor>
-</section>
-
-<hr />
-
-<section>
-  <h2>Ejemplo 9 - Full demo (102 filas, filtros, badges, fechas, edición, acciones, frozen, scroll)</h2>
+  <h2>
+    Ejemplo 4 - Full demo (102 filas, filtros, badges, fechas, edición,
+    acciones, frozen, scroll)
+  </h2>
   <p style="color:#666; margin-bottom:12px;">
     Esta tabla combina <strong>102 filas</strong>, <strong>scroll</strong>,
     <strong>paginación</strong>, <strong>columnas congeladas</strong>,
@@ -244,19 +138,18 @@
   </p>
 
   <dcx-ng-table-refactor
-    [headers]="headers9"
-    [rows]="rows9"
+    [headers]="headers4"
+    [rows]="rows4"
     [showGrid]="true"
     [showStripped]="true"
     [scroll]="true"
     scrollHeight="320px"
     [paginator]="true"
-   
     [rowsPerPageOptions]="[10, 20, 50]"
     [showRowIndex]="true"
     [frozenLeftSeparator]="true"
     [frozenRightSeparator]="true"
-    (sortChange)="onSort($event, 'ex9')"
+    (sortChange)="onSort($event, 'ex4')"
     (rowsPerPageChange)="onRowsPerPageChangeFull($event)"
     (pageChange)="onPageChange($event)"
     (cellEdit)="onCellEdit($event)"

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 
 import { ContextMenuComponent } from '../dcx-ng-contextMenu/dcx-ng-contextMenu.component';
-import { DcxContextMenuItem } from '../../core/interfaces';
+import { DcxContextMenuItem, DcxDataType } from '../../core/interfaces';
 
 type SortDirection = 'asc' | 'desc' | null;
 
@@ -25,7 +25,7 @@ export interface HeaderData {
   name: string;
   key?: string;
   sortable?: boolean;
-  type?: 'string' | 'number';
+  type?: DcxDataType;
   defaultSort?: Exclude<SortDirection, null>;
 }
 
@@ -125,15 +125,15 @@ export class DcxNgTableComponent implements OnInit {
 
     this.menuPosition = {
       x: rect.left - menuWidth - 6,
-      y: rect.top + window.scrollY
+      y: rect.top + window.scrollY,
     };
 
     this.menuItems = this.rowActions
       ? this.rowActions(rowData)
       : [
-        { label: 'Editar', action: () => this.onEdit(rowData) },
-        { label: 'Eliminar', action: () => this.onDelete(rowData) }
-      ];
+          { label: 'Editar', action: () => this.onEdit(rowData) },
+          { label: 'Eliminar', action: () => this.onDelete(rowData) },
+        ];
 
     this.menuVisible = true;
   }
@@ -154,7 +154,7 @@ export class DcxNgTableComponent implements OnInit {
     });
   }
 
-  private inferType(rows: any[], key: string): 'number' | 'string' {
+  private inferType(rows: any[], key: string): DcxDataType {
     const first = rows.find(r => r?.[key] !== null && r?.[key] !== undefined)?.[
       key
     ];
@@ -164,7 +164,7 @@ export class DcxNgTableComponent implements OnInit {
   private compare(
     leftValue: any,
     rightValue: any,
-    valueType: 'string' | 'number',
+    valueType: DcxDataType,
   ): number {
     const leftIsNull = leftValue === null || leftValue === undefined;
     const rightIsNull = rightValue === null || rightValue === undefined;

@@ -23,20 +23,6 @@ export * from './lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component
 export * from './lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component';
 export * from './lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component';
 export * from './lib/dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-refactor.component';
-export { SortType } from './lib/dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-refactor.models';
-export type {
-  ActionEvent,
-  ActionItem,
-  ActionsConfig,
-  BadgeConfig,
-  CellEditEvent,
-  CellType,
-  CellTypeConfig,
-  DateTemplateConfig,
-  HeaderData,
-  Sort,
-  SortDirection,
-} from './lib/dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-refactor.models';
 export * from './lib/dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-template-refactor.directive';
 export * from './lib/dcx-ng-components/dcx-ng-table-refactor/services/table-data-pipeline.service';
 export * from './lib/dcx-ng-components/dcx-ng-table-refactor/services/table-comparator.service';

@@ -13,7 +13,7 @@ import { DcxNgSelectComponent } from '../../../dcx-ng-select/dcx-ng-select.compo
   standalone: true,
   imports: [DcxNgIconComponent, DcxNgSelectComponent],
   templateUrl: './dcx-ng-table-paginator.component.html',
-  styleUrls: ['./dcx-ng-table-paginator.component.scss'],
+  styleUrl: './dcx-ng-table-paginator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgTablePaginatorComponent {

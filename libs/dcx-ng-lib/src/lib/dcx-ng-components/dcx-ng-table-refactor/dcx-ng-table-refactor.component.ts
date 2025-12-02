@@ -17,18 +17,17 @@ import {
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { DcxNgTablePaginatorComponent } from './components/dcx-ng-table-paginator/dcx-ng-table-paginator.component';
 import {
-  ActionEvent,
-  CellEditEvent,
-  HeaderData,
-  Sort,
-  SortType,
-} from './dcx-ng-table-refactor.models';
+  DcxActionEvent,
+  DcxCellEditEvent,
+  DcxHeaderData,
+  DcxSort,
+  DcxSortType,
+  DcxTableRow,
+} from '../../core/interfaces';
 import { DcxNgTableTemplateRefactorDirective } from './dcx-ng-table-template-refactor.directive';
 import { TableComparatorService } from './services/table-comparator.service';
 import { TableDataPipelineService } from './services/table-data-pipeline.service';
 import { TableState } from './state/table-state';
-
-export type TableRow = { id?: number } & Record<string, unknown>;
 
 @Component({
   selector: 'dcx-ng-table-refactor',
@@ -48,8 +47,8 @@ export class DcxNgTableRefactorComponent {
   private readonly pipelineService = inject(TableDataPipelineService);
   private readonly comparatorService = inject(TableComparatorService);
 
-  readonly headers = input.required<readonly HeaderData[]>();
-  readonly rows = input.required<readonly TableRow[]>();
+  readonly headers = input.required<readonly DcxHeaderData[]>();
+  readonly rows = input.required<readonly DcxTableRow[]>();
   readonly showGrid = input(false);
   readonly showStripped = input(false);
   readonly scroll = input(false);
@@ -71,11 +70,11 @@ export class DcxNgTableRefactorComponent {
   readonly frozenRightSeparator = input(false);
 
   // ==================== OUTPUTS ====================
-  readonly sortChange = output<Sort>();
+  readonly sortChange = output<DcxSort>();
   readonly rowsPerPageChange = output<number>();
   readonly pageChange = output<number>();
-  readonly cellEdit = output<CellEditEvent>();
-  readonly rowAction = output<ActionEvent>();
+  readonly cellEdit = output<DcxCellEditEvent>();
+  readonly rowAction = output<DcxActionEvent>();
 
   private readonly defaultHeaderTpl =
     viewChild.required<TemplateRef<unknown>>('defaultHeaderTpl');
@@ -94,10 +93,10 @@ export class DcxNgTableRefactorComponent {
     DcxNgTableTemplateRefactorDirective,
   );
 
-  private readonly sortTypeIcon: Record<SortType, string> = {
-    [SortType.NONE]: 'arrow-down-up',
-    [SortType.ASCENDING]: 'arrow-up',
-    [SortType.DESCENDING]: 'arrow-down',
+  private readonly sortTypeIcon: Record<DcxSortType, string> = {
+    [DcxSortType.NONE]: 'arrow-down-up',
+    [DcxSortType.ASCENDING]: 'arrow-up',
+    [DcxSortType.DESCENDING]: 'arrow-down',
   };
 
   private readonly _editingCell = signal<{
@@ -157,20 +156,21 @@ export class DcxNgTableRefactorComponent {
   });
 
   // ==================== SORT HANDLERS ====================
-  onHeaderClick(header: HeaderData): void {
+  onHeaderClick(header: DcxHeaderData): void {
     const newSort = this.state.toggleSort(header);
     this.sortChange.emit(newSort);
   }
 
-  ariaSort(header: HeaderData): SortType {
+  ariaSort(header: DcxHeaderData): DcxSortType {
     const { key, dir } = this.sort();
-    if (key !== header.key || !dir) return SortType.NONE;
-    return dir === 'asc' ? SortType.ASCENDING : SortType.DESCENDING;
+    if (key !== header.key || !dir) return DcxSortType.NONE;
+    return dir === 'asc' ? DcxSortType.ASCENDING : DcxSortType.DESCENDING;
   }
 
-  getSortIcon(header: HeaderData): string {
+  getSortIcon(header: DcxHeaderData): string {
     return (
-      this.sortIcons().get(header.key || '') || this.sortTypeIcon[SortType.NONE]
+      this.sortIcons().get(header.key || '') ||
+      this.sortTypeIcon[DcxSortType.NONE]
     );
   }
 
@@ -196,7 +196,7 @@ export class DcxNgTableRefactorComponent {
     return this.state.getFilterValue(key);
   }
 
-  onCellDblClick(rowIndex: number, key: string, header: HeaderData): void {
+  onCellDblClick(rowIndex: number, key: string, header: DcxHeaderData): void {
     if (!header.editable || header.template || header.renderFn) return;
     this._editingCell.set({ rowIndex, key });
   }
@@ -207,7 +207,7 @@ export class DcxNgTableRefactorComponent {
   }
 
   onCellEditComplete(
-    row: TableRow,
+    row: DcxTableRow,
     key: string,
     newValue: string,
     rowIndex: number,
@@ -238,7 +238,7 @@ export class DcxNgTableRefactorComponent {
     this._editingCell.set(null);
   }
 
-  getHeaderTemplate(header: HeaderData): TemplateRef<unknown> {
+  getHeaderTemplate(header: DcxHeaderData): TemplateRef<unknown> {
     if (header.headerTemplate) {
       const custom = this.templateCache().get(header.headerTemplate);
       if (custom) return custom;
@@ -246,7 +246,7 @@ export class DcxNgTableRefactorComponent {
     return this.defaultHeaderTpl();
   }
 
-  getCellTemplate(header: HeaderData): TemplateRef<unknown> {
+  getCellTemplate(header: DcxHeaderData): TemplateRef<unknown> {
     if (header.template) {
       const custom = this.templateCache().get(header.template);
       if (custom) {
@@ -285,7 +285,7 @@ export class DcxNgTableRefactorComponent {
     return this.pageIndex() * this.pageSize() + rowIndex + 1;
   }
 
-  onActionClick(actionId: string, row: TableRow, rowIndex: number): void {
+  onActionClick(actionId: string, row: DcxTableRow, rowIndex: number): void {
     this.rowAction.emit({ actionId, row, rowIndex });
     this._openMenuRowIndex.set(null);
   }

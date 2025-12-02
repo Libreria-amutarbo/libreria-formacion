@@ -1,30 +1,35 @@
 import { Signal, WritableSignal, computed, signal } from '@angular/core';
-import { FrozenColumnMeta, HeaderData, Sort, SortDirection } from '../dcx-ng-table-refactor.models';
-import type { TableRow } from '../dcx-ng-table-refactor.component';
+import {
+  DcxFrozenColumnMeta,
+  DcxHeaderData,
+  DcxSort,
+  DcxSortDirection,
+  DcxTableRow,
+} from '../../../core/interfaces';
 import { TableDataPipelineService } from '../services/table-data-pipeline.service';
 import { TableComparatorService } from '../services/table-comparator.service';
 
 export class TableState {
-  private readonly _manualSort: WritableSignal<Sort>;
+  private readonly _manualSort: WritableSignal<DcxSort>;
   private readonly _columnFilters: WritableSignal<Record<string, string>>;
   private readonly _rawPageIndex: WritableSignal<number>;
   private readonly _columnWidths: WritableSignal<number[]>;
 
-  readonly normalizedRows: Signal<readonly TableRow[]>;
-  readonly filteredRows: Signal<readonly TableRow[]>;
-  readonly sortedRows: Signal<readonly TableRow[]>;
-  readonly paginatedRows: Signal<readonly TableRow[]>;
-  readonly displayHeaders: Signal<readonly HeaderData[]>;
-  readonly frozenMeta: Signal<readonly FrozenColumnMeta[]>;
-  readonly sort: Signal<Sort>;
+  readonly normalizedRows: Signal<readonly DcxTableRow[]>;
+  readonly filteredRows: Signal<readonly DcxTableRow[]>;
+  readonly sortedRows: Signal<readonly DcxTableRow[]>;
+  readonly paginatedRows: Signal<readonly DcxTableRow[]>;
+  readonly displayHeaders: Signal<readonly DcxHeaderData[]>;
+  readonly frozenMeta: Signal<readonly DcxFrozenColumnMeta[]>;
+  readonly sort: Signal<DcxSort>;
   readonly pageSize: Signal<number>;
   readonly pageIndex: Signal<number>;
   readonly hasRowIndex: Signal<boolean>;
   readonly pageInfo: Signal<{ index: number; size: number; total: number }>;
 
   constructor(
-    private readonly headers: Signal<readonly HeaderData[]>,
-    private readonly rows: Signal<readonly TableRow[]>,
+    private readonly headers: Signal<readonly DcxHeaderData[]>,
+    private readonly rows: Signal<readonly DcxTableRow[]>,
     private readonly rowsPerPage: Signal<number>,
     private readonly paginator: Signal<boolean>,
     private readonly frozenLeftSeparator: Signal<boolean>,
@@ -33,7 +38,7 @@ export class TableState {
     private readonly pipelineService: TableDataPipelineService,
     private readonly comparatorService: TableComparatorService,
   ) {
-    this._manualSort = signal<Sort>({ key: null, dir: null });
+    this._manualSort = signal<DcxSort>({ key: null, dir: null });
     this._columnFilters = signal<Record<string, string>>({});
     this._rawPageIndex = signal(0);
     this._columnWidths = signal<number[]>([]);
@@ -50,16 +55,20 @@ export class TableState {
       const manual = this._manualSort();
       if (manual.key && manual.dir) return manual;
 
-      const defaultHeader = this.headers().find(h => h.defaultSort && h.key && h.sortable !== false);
+      const defaultHeader = this.headers().find(
+        h => h.defaultSort && h.key && h.sortable !== false,
+      );
       return defaultHeader?.key && defaultHeader.defaultSort
         ? { key: defaultHeader.key, dir: defaultHeader.defaultSort }
         : { key: null, dir: null };
     });
 
-    this.normalizedRows = computed(() => this.pipelineService.normalize(this.rows()));
+    this.normalizedRows = computed(() =>
+      this.pipelineService.normalize(this.rows()),
+    );
 
     this.filteredRows = computed(() =>
-      this.pipelineService.filter(this.normalizedRows(), this._columnFilters())
+      this.pipelineService.filter(this.normalizedRows(), this._columnFilters()),
     );
 
     this.sortedRows = computed(() =>
@@ -67,8 +76,9 @@ export class TableState {
         this.filteredRows(),
         this.sort(),
         this.headers(),
-        (left, right, type) => this.comparatorService.compare(left, right, type)
-      )
+        (left, right, type) =>
+          this.comparatorService.compare(left, right, type),
+      ),
     );
 
     this.pageSize = computed(() => {
@@ -80,14 +90,18 @@ export class TableState {
 
     this.paginatedRows = computed(() => {
       if (!this.paginator()) return this.sortedRows();
-      return this.pipelineService.paginate(this.sortedRows(), this.pageIndex(), this.pageSize());
+      return this.pipelineService.paginate(
+        this.sortedRows(),
+        this.pageIndex(),
+        this.pageSize(),
+      );
     });
 
     this.frozenMeta = computed(() => {
       const headers = this.displayHeaders();
       const widths = this._columnWidths();
 
-      const meta: FrozenColumnMeta[] = headers.map(() => ({
+      const meta: DcxFrozenColumnMeta[] = headers.map(() => ({
         left: null,
         right: null,
         separatorLeft: false,
@@ -139,15 +153,15 @@ export class TableState {
     }));
   }
 
-  setSort(sort: Sort): void {
+  setSort(sort: DcxSort): void {
     this._manualSort.set(sort);
   }
 
-  toggleSort(header: HeaderData): Sort {
+  toggleSort(header: DcxHeaderData): DcxSort {
     if (!header.sortable) return this.sort();
 
     const current = this.sort();
-    const nextDirection: SortDirection =
+    const nextDirection: DcxSortDirection =
       current.key !== header.key
         ? 'asc'
         : current.dir === 'asc'
@@ -156,7 +170,7 @@ export class TableState {
             ? null
             : 'asc';
 
-    const newSort: Sort = { key: header.key ?? null, dir: nextDirection };
+    const newSort: DcxSort = { key: header.key ?? null, dir: nextDirection };
     this._manualSort.set(newSort);
     return newSort;
   }

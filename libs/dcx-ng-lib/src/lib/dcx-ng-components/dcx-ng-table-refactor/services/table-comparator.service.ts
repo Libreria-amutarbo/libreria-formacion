@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { DcxDataType } from '../../../core/interfaces';
 
 @Injectable()
 export class TableComparatorService {
-  compare(left: unknown, right: unknown, type: 'string' | 'number'): number {
+  compare(left: unknown, right: unknown, type: DcxDataType): number {
     if (left == null && right == null) return 0;
     if (left == null) return 1;
     if (right == null) return -1;

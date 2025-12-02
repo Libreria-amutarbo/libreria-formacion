@@ -2,8 +2,14 @@ import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { expect, fn, userEvent, within } from '@storybook/test';
 
 import { DcxNgTableRefactorComponent } from '../../dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-refactor.component';
-import { HeaderData } from '../../dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-refactor.models';
+import { DcxHeaderData } from '../../core/interfaces';
 import { DcxNgTableTemplateRefactorDirective } from '../../dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-template-refactor.directive';
+import {
+  USER_HEADERS_FULL,
+  USER_HEADERS_WITH_MENU,
+  USER_HEADERS_WITH_INLINE,
+  generateUserRows,
+} from '../../core/mock';
 
 const ActionsData = {
   sortChange: fn(),
@@ -14,160 +20,26 @@ const ActionsData = {
 };
 
 // ======================
-// CABECERAS + FILAS DEMO
+// DATOS DE DEMO (desde mock centralizado)
 // ======================
-const BASE_HEADERS: HeaderData[] = [
-  {
-    name: 'ID',
-    key: 'id',
-    type: 'number',
-    cellType: 'number',
-    sortable: true,
-    defaultSort: 'asc',
-    minWidth: '70px',
-    frozen: 'left',
-  },
-  {
-    name: 'Nombre',
-    key: 'name',
-    sortable: true,
-    type: 'string',
-    filterable: true,
-    editable: true,
-    minWidth: '140px',
-  },
-  {
-    name: 'Edad',
-    key: 'age',
-    sortable: true,
-    type: 'number',
-    filterable: true,
-    template: 'age',
-    minWidth: '110px',
-  },
-  {
-    name: 'País',
-    key: 'country',
-    sortable: true,
-    type: 'string',
-    filterable: true,
-    editable: true,
-    headerTemplate: 'countryHeader',
-    minWidth: '160px',
-  },
-  {
-    name: 'Creado el',
-    key: 'createdAt',
-    sortable: true,
-    cellType: 'date',
-    cellTypeConfig: { dateFormat: 'dd/MM/yyyy HH:mm' },
-    minWidth: '190px',
-  },
-];
-
-// HEADERS con acciones en MENÚ (panel)
-const HEADERS_MENU: HeaderData[] = [
-  ...BASE_HEADERS,
-  {
-    name: 'Acciones',
-    key: 'actions',
-    cellType: 'actions',
-    frozen: 'right',
-    minWidth: '150px',
-    cellTypeConfig: {
-      mode: 'menu',
-      menuIcon: 'three-dots-vertical',
-      items: [
-        { id: 'view', icon: 'eye-fill', label: 'Ver detalle' },
-        {
-          id: 'edit',
-          icon: 'pencil-fill',
-          label: 'Editar',
-          variant: 'primary',
-        },
-        {
-          id: 'delete',
-          icon: 'trash-fill',
-          label: 'Eliminar',
-          variant: 'danger',
-          disabled: (row: Record<string, unknown>) =>
-            (row['age'] as number) < 30,
-        },
-      ],
-    },
-  },
-];
-
-// HEADERS con acciones INLINE (iconos)
-const HEADERS_INLINE: HeaderData[] = [
-  ...BASE_HEADERS,
-  {
-    name: 'Acciones',
-    key: 'actions',
-    cellType: 'actions',
-    frozen: 'right',
-    minWidth: '150px',
-    cellTypeConfig: {
-      mode: 'inline',
-      items: [
-        {
-          id: 'view',
-          icon: 'eye-fill',
-          label: 'Ver detalle',
-          variant: 'primary',
-        },
-        {
-          id: 'edit',
-          icon: 'pencil-fill',
-          label: 'Editar',
-        },
-        {
-          id: 'delete',
-          icon: 'trash-fill',
-          label: 'Eliminar',
-          variant: 'danger',
-          disabled: (row: Record<string, unknown>) =>
-            (row['age'] as number) < 30,
-        },
-      ],
-    },
-  },
-];
-
-const ROWS = Array.from({ length: 40 }, (_, i) => {
-  const names = [
-    'Ana',
-    'Luis',
-    'Marta',
-    'Pedro',
-    'Lucía',
-    'Javier',
-    'Elena',
-    'Carlos',
-    'María',
-    'Diego',
-  ];
-  const countries = [
-    'España',
-    'México',
-    'Argentina',
-    'Chile',
-    'Perú',
-    'Colombia',
-    'Bolivia',
-    'Uruguay',
-    'Paraguay',
-    'Ecuador',
-  ];
-
-  return {
-    id: i + 1,
-    name: names[i % names.length],
-    age: 22 + ((i * 7) % 40),
-    country: countries[i % countries.length],
-    createdAt: new Date(2025, (i * 2) % 12, 10 + (i % 20), 10, 15),
-  };
+// Se agregan templates personalizados a los headers base
+const BASE_HEADERS: DcxHeaderData[] = USER_HEADERS_FULL.map(h => {
+  if (h.key === 'age') return { ...h, template: 'age' };
+  if (h.key === 'country') return { ...h, headerTemplate: 'countryHeader' };
+  return h;
 });
+
+const HEADERS_MENU: DcxHeaderData[] = [
+  ...BASE_HEADERS,
+  ...USER_HEADERS_WITH_MENU.filter(h => h.key === 'actions'),
+];
+
+const HEADERS_INLINE: DcxHeaderData[] = [
+  ...BASE_HEADERS,
+  ...USER_HEADERS_WITH_INLINE.filter(h => h.key === 'actions'),
+];
+
+const ROWS = generateUserRows(40);
 
 // ======================
 // META
@@ -198,7 +70,7 @@ const meta: Meta<DcxNgTableRefactorComponent> = {
       description: 'Definición de las columnas de la tabla.',
       table: {
         category: 'Data',
-        type: { summary: 'readonly HeaderData[]' },
+        type: { summary: 'readonly DcxHeaderData[]' },
         defaultValue: { summary: '[]' },
       },
     },

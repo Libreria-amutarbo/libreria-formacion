@@ -2,138 +2,124 @@
   display: block;
 }
 
-/* ================================
-   PAGINADOR – ESTILO PRIMENG-LIKE
-   ================================ */
-
 .paginator {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap; /* por si se rompe en pantallas pequeñas */
+  flex-wrap: wrap;
   row-gap: 0.5rem;
   column-gap: 1rem;
   margin-top: 0.75rem;
   padding: 0.75rem 0.5rem;
   border-top: 1px solid var(--table-divider, #e3e3e3);
   font-size: 0.9rem;
-}
 
-/* Flechas + páginas a la izquierda */
-.paginator-left {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
+  &-left {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 
-/* Texto + selector de filas a la derecha */
-.paginator-right {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+    > * + * {
+      margin-left: 0.25rem;
+    }
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &-nav {
+    padding-inline: 0.5rem;
+    color: #64748b;
+
+    dcx-ng-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &-page {
+    color: #64748b;
+
+    &--active {
+      background-color: var(--primary, #2563eb) !important;
+      border-color: var(--primary, #2563eb) !important;
+      color: #ffffff !important;
+      font-weight: 600 !important;
+      transform: translateY(-1px);
+
+      &:hover:not(:disabled) {
+        background-color: var(--primary, #1d4ed8);
+        border-color: var(--primary, #1d4ed8);
+      }
+    }
+
+    &:hover:not(.paginator-page--active):not(:disabled) {
+      background-color: #f4f4f5;
+    }
+  }
+
+  button {
+    border: 1px solid var(--table-border, #d0d0d0);
+    background: #ffffff;
+    color: #495057;
+    min-width: 1.75rem;
+    height: 1.75rem;
+    padding: 0 0.5rem;
+    border-radius: 6px;
+    font: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.08s ease;
+
+    &:hover:not(:disabled) {
+      background-color: #f4f4f5;
+      border-color: #cbd5e1;
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+      box-shadow: none;
+    }
+  }
 }
 
 .rows-per-page {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
 
-.rows-per-page select {
-  margin-left: 0;
-}
+  select {
+    margin-left: 0;
+  }
 
-/* Estilo del dcx-ng-select en el paginador */
-.rows-per-page ::ng-deep dcx-ng-select select {
-  width: 60px;
-  height: 1.75rem;
-  padding: 0.25rem 0.375rem;
-  font-size: 0.875rem;
-}
-
-/* -------------------------------
-   Botón base dentro del paginador
-   ------------------------------- */
-
-.paginator button {
-  border: 1px solid var(--table-border, #d0d0d0);
-  background: #ffffff;
-  color: #495057;
-  min-width: 1.75rem;
-  height: 1.75rem;
-  padding: 0 0.5rem;
-  border-radius: 6px;
-  font: inherit;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.08s ease;
-}
-
-/* Hover genérico */
-.paginator button:hover:not(:disabled) {
-  background-color: #f4f4f5;
-  border-color: #cbd5e1;
-}
-
-/* Focus accesible */
-.paginator button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
-}
-
-.paginator button:disabled {
-  opacity: 0.5;
-  cursor: default;
-  box-shadow: none;
-}
-
-.paginator-nav {
-  padding-inline: 0.5rem;
-  color: #64748b; /* gris azulado */
-}
-
-.paginator-nav dcx-ng-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  ::ng-deep dcx-ng-select select {
+    width: 60px;
+    height: 1.75rem;
+    padding: 0.25rem 0.375rem;
+    font-size: 0.875rem;
+  }
 }
 
 .page-buttons {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-}
-
-.paginator-page {
-  color: #64748b;
-}
-
-.paginator-page--active {
-  background-color: var(--primary, #2563eb) !important;
-  border-color: var(--primary, #2563eb) !important;
-  color: #ffffff !important;
-  font-weight: 600 !important;
-  transform: translateY(-1px);
-}
-
-.paginator-page--active:hover:not(:disabled) {
-  background-color: var(--primary, #1d4ed8);
-  border-color: var(--primary, #1d4ed8);
-}
-
-.paginator-page:hover:not(.paginator-page--active):not(:disabled) {
-  background-color: #f4f4f5;
-}
-
-/* Opcional: espaciar un pelín entre bloques (flechas / páginas) */
-.paginator-left > * + * {
-  margin-left: 0.25rem;
 }

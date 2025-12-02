@@ -2,111 +2,25 @@ import { CommonModule } from '@angular/common';
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 
 import { DcxNgTableRefactorComponent } from './dcx-ng-table-refactor.component';
-import { HeaderData } from './dcx-ng-table-refactor.models';
+import { DcxHeaderData } from '../../core/interfaces';
 import { DcxNgTableTemplateRefactorDirective } from './dcx-ng-table-template-refactor.directive';
-
-interface PersonRow {
-  id?: number;
-  name: string;
-  age: number;
-  country: string;
-  createdAt: Date;
-}
+import {
+  PERSON_HEADERS_BASE,
+  PERSON_HEADERS_WITH_INLINE_ACTIONS,
+  PersonRow,
+  generatePersonRows,
+} from '../../core/mock';
 
 // ===========================
-// HEADERS + ROWS DE DEMO
+// DATOS DE DEMO (desde mock centralizado)
 // ===========================
-const BASE_HEADERS: HeaderData[] = [
-  {
-    name: 'Nombre',
-    key: 'name',
-    sortable: true,
-    type: 'string',
-    defaultSort: 'asc',
-    filterable: true,
-  },
-  {
-    name: 'Edad',
-    key: 'age',
-    sortable: true,
-    type: 'number',
-    filterable: true,
-    template: 'age',
-  },
-  {
-    name: 'País',
-    key: 'country',
-    sortable: true,
-    type: 'string',
-    filterable: true,
-    editable: true,
-    headerTemplate: 'countryHeader',
-  },
-  {
-    name: 'Creado el',
-    key: 'createdAt',
-    sortable: true,
-  },
-];
-
-// 👇 HEADERS con columna de acciones inline (iconos)
-const HEADERS_WITH_ACTIONS: HeaderData[] = [
-  ...BASE_HEADERS,
-  {
-    name: 'Acciones',
-    key: 'actions',
-    cellType: 'actions',
-    cellTypeConfig: {
-      mode: 'inline',
-      items: [
-        {
-          id: 'view',
-          icon: 'visibility',
-          label: 'Ver detalle',
-          variant: 'primary',
-        },
-        {
-          id: 'edit',
-          icon: 'edit',
-          label: 'Editar',
-        },
-        {
-          id: 'delete',
-          icon: 'delete',
-          label: 'Eliminar',
-          variant: 'danger',
-          disabled: (row: Record<string, unknown>) =>
-            (row['age'] as number) < 30,
-        },
-      ],
-    },
-  },
-];
-
-const BASE_ROWS: Omit<PersonRow, 'id' | 'createdAt'>[] = [
-  { name: 'Ana', age: 32, country: 'España' },
-  { name: 'Luis', age: 41, country: 'México' },
-  { name: 'Marta', age: 27, country: 'Argentina' },
-  { name: 'Pedro', age: 50, country: 'Chile' },
-  { name: 'Lucía', age: 36, country: 'Perú' },
-];
-
-const ROWS: PersonRow[] = Array.from({ length: 25 }, (_, index) => {
-  const base = BASE_ROWS[index % BASE_ROWS.length];
-  return {
-    id: index + 1,
-    name: `${base.name} ${index + 1}`,
-    age: base.age + (index % 5),
-    country: base.country,
-    createdAt: new Date(2024, 0, 1 + index),
-  };
-});
+const ROWS: PersonRow[] = generatePersonRows(25);
 
 // ===========================
 // ARGS EXPLÍCITOS PARA STORY
 // ===========================
 type TableStoryArgs = {
-  headers: HeaderData[];
+  headers: DcxHeaderData[];
   rows: PersonRow[];
 
   showGrid: boolean;
@@ -223,7 +137,7 @@ function buildBaseTemplate(withActions: boolean) {
 // ===========================
 export const FullDemo: Story = {
   args: {
-    headers: BASE_HEADERS,
+    headers: PERSON_HEADERS_BASE,
     rows: ROWS,
   },
   render: args => ({
@@ -244,7 +158,7 @@ export const FullDemo: Story = {
 // ===========================
 export const WithActionsInline: Story = {
   args: {
-    headers: HEADERS_WITH_ACTIONS,
+    headers: PERSON_HEADERS_WITH_INLINE_ACTIONS,
     rows: ROWS,
   },
   render: args => ({
@@ -265,7 +179,7 @@ export const WithActionsInline: Story = {
 // ===========================
 export const EmptyState: Story = {
   args: {
-    headers: BASE_HEADERS,
+    headers: PERSON_HEADERS_BASE,
     rows: [],
     showGrid: true,
     showStripped: false,

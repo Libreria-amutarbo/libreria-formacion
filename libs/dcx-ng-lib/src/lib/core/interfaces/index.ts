@@ -8,4 +8,5 @@ export * from './dropdown';
 export * from './input';
 export * from './icon';
 
-export * from './generic'
+export * from './generic';
+export * from './table';
