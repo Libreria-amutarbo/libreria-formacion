@@ -1,0 +1,24 @@
+<div class="dcx-search">
+  <div class="dcx-search__container">
+    <input
+      type="text"
+      class="dcx-search__input"
+      [placeholder]="placeholder()"
+      [value]="searchValue()"
+      [disabled]="disabled()"
+      [attr.aria-label]="ariaLabel()"
+      (input)="onInput($event)"
+      (keydown)="onKeydown($event)"
+    />
+
+    <button
+      type="button"
+      class="dcx-search__search-button"
+      [attr.aria-label]="'Buscar'"
+      [disabled]="disabled()"
+      (click)="onSearchClick()"
+    >
+      <dcx-ng-icon name="search" size="s" />
+    </button>
+  </div>
+</div>
