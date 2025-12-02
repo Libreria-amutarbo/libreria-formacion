@@ -1,0 +1,44 @@
+@if (hasItems()) {
+  <div class="accordion">
+    @for (item of items(); track item.id) {
+      <div class="accordion-item" [class.disabled]="item.disabled">
+        <button
+          class="accordion-header"
+          (click)="toggleItem(item)"
+          [disabled]="item.disabled"
+          [attr.aria-expanded]="isExpanded(item.id)"
+          [attr.aria-controls]="'accordion-' + item.id"
+        >
+          <span class="accordion-title">{{ item.title }}</span>
+          <span class="accordion-icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 8L10 11L13 8"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </button>
+
+        <div
+          class="accordion-content-wrapper"
+          [@expandCollapse]="getAnimationState(item.id)"
+          [attr.id]="'accordion-' + item.id"
+        >
+          <div class="accordion-content">
+            {{ item.content }}
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

@@ -47,17 +47,17 @@
     border-color: var(--button-disabled-border, #cccccc);
   }
 
-  &--small {
+  &--s {
     --dcx-button-padding: 0.25rem 0.5rem;
     --dcx-button-font-size: 0.875rem;
   }
 
-  &--medium {
+  &--m {
     --dcx-button-padding: 0.5rem 1rem;
     --dcx-button-font-size: 1rem;
   }
 
-  &--large {
+  &--l {
     --dcx-button-padding: 0.75rem 1.25rem;
     --dcx-button-font-size: 1.125rem;
   }

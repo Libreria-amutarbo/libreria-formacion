@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-type RadioSize = 's' | 'm' | 'l';
+import { DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-radio',
@@ -25,24 +24,16 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   @Input() value: string | null = null;
   @Input() label: string | null = null;
   @Input() disabled = false;
-  @Input() size: RadioSize = 'l';
+  @Input() size: DcxSize = 'l';
   @Input() ariaLabel = '';
   @Input() unstyled = false;
 
   formControl = new FormControl<string | null>(null);
 
-  onChange: (value: string | null) => void = () => {};
-  onTouched: () => void = () => {};
+  onChange: (value: string | null) => void = () => { };
+  onTouched: () => void = () => { };
 
-  private cdr = inject(ChangeDetectorRef);
-
-  constructor() {
-    this.formControl.valueChanges
-      .pipe(takeUntilDestroyed())
-      .subscribe(value => {
-        this.onChange(value);
-      });
-  }
+  private readonly cdr = inject(ChangeDetectorRef);
 
   get isChecked(): boolean {
     return this.formControl.value === this.value;
@@ -54,6 +45,12 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   get ariaLabelBinding(): string {
     return this.ariaLabel || 'Radio button';
+  }
+
+  constructor() {
+    this.formControl.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(value => this.onChange(value));
   }
 
   onInputChange(value: string | null): void {
@@ -77,7 +74,7 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    isDisabled ? this.formControl.disable({ emitEvent: false }) :     this.formControl.enable({ emitEvent: false });
+    isDisabled ? this.formControl.disable({ emitEvent: false }) : this.formControl.enable({ emitEvent: false });
     this.cdr.markForCheck();
   }
 

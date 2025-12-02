@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgToggleComponent, TogglePosition } from './dcx-ng-toggle.component';
 
-import { within, expect } from '@storybook/test';
+import { expect, within } from '@storybook/test';
+import { DcxPosition, DcxNgToggleComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgToggleComponent> = {
   component: DcxNgToggleComponent,
@@ -15,10 +15,10 @@ export const Primary: Story = {
     checked: false,
     disabled: false,
     label: null,
-    size: 'medium',
+    size: 'm',
     color: '#000',
     ariaLabel: '',
-    textPosition: TogglePosition.RIGHT,
+    textPosition: DcxPosition.RIGHT,
   },
 };
 
@@ -27,10 +27,10 @@ export const Heading: Story = {
     checked: false,
     disabled: false,
     label: null,
-    size: 'medium',
+    size: 'm',
     color: '#000',
     ariaLabel: '',
-    textPosition: TogglePosition.RIGHT,
+    textPosition: DcxPosition.RIGHT,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

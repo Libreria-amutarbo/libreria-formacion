@@ -3,29 +3,8 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, S
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-export enum InputType {
-  TEXT = 'text',
-  NUMBER = 'number',
-  EMAIL = 'email',
-  PASSWORD = 'password',
-  SEARCH = 'search',
-  TEL = 'tel',
-  URL = 'url'
-}
-
-export enum InputSize {
-  SMALL = 's',
-  MEDIUM = 'm',
-  LARGE = 'l',
-  EXTRA_LARGE = 'xl',
-  AUTO = 'auto'
-}
-
-export interface ErrorMessage {
-  type: string;
-  message: string;
-}
+import { DcxSize } from '../../core/interfaces';
+import { DcxInputErrorMessage, DcxInputType } from '../../core/interfaces/input';
 
 @Component({
   selector: 'dcx-ng-input',
@@ -35,14 +14,14 @@ export interface ErrorMessage {
   styleUrls: ['./dcx-ng-input.component.scss'],
 })
 export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
-
-  @Input() type: InputType = InputType.TEXT;
+  @Input() type: DcxInputType = DcxInputType.TEXT;
   @Input() placeholder: string | null = null;
-  @Input() size: InputSize = InputSize.MEDIUM;
+  @Input() size: DcxSize = 'm';
   @Input() disabled = false;
   @Input() required = false;
+
   @Input() label: string | null = null;
-  @Input() errorMessages: ErrorMessage[] = [];
+  @Input() errorMessages: DcxInputErrorMessage[] = [];
   set value(val: string) {
     if (this.inputControl) {
       this.inputControl.setValue(val, { emitEvent: false });
@@ -72,17 +51,13 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
 
   setupFormControl() {
     const validators = [];
-
-    // Agregar validadores de formato primero para que tengan prioridad
-    if (this.type === InputType.EMAIL) {
+    if (this.type === DcxInputType.EMAIL) {
       validators.push(Validators.email);
     }
-    if (this.type === InputType.NUMBER) {
-      // Patrón más estricto que no permite números terminados en punto decimal
+    if (this.type === DcxInputType.NUMBER) {
       validators.push(Validators.pattern(/^-?(?:\d+(?:\.\d+)?|\.\d+)$/));
     }
 
-    // Agregar required al final para que los errores de formato tengan prioridad
     if (this.required) {
       validators.push(Validators.required);
     }
@@ -114,19 +89,16 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     const value = this.inputControl.value;
-
-    // Si hay contenido pero es inválido, priorizar errores de formato
     if (value && value.trim() !== '') {
-      console.log(value);
-      if (this.inputControl.hasError('pattern') && this.type === InputType.NUMBER) {
+      if (this.inputControl.hasError('pattern') && this.type === DcxInputType.NUMBER) {
         return this.errorMessages.find(msg => msg.type === 'pattern')?.message || 'Formato numérico inválido';
       }
+
       if (this.inputControl.hasError('email')) {
         return this.errorMessages.find(msg => msg.type === 'email')?.message || 'Formato correo inválido';
       }
     }
 
-    // Si está vacío o solo tiene espacios, mostrar error required
     if (this.inputControl.hasError('required')) {
       return this.errorMessages.find(msg => msg.type === 'required')?.message || 'Campo obligatorio';
     }

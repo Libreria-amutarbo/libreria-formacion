@@ -1,15 +1,6 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, inject, Input, Output, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export interface Position {
-  x: number;
-  y: number;
-}
-
-export interface ContextMenuItem {
-  label: string;
-  action: () => void;
-}
+import { DcxContextMenuItem, DcxContextPosition } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-context-menu',
@@ -19,13 +10,13 @@ export interface ContextMenuItem {
   styleUrl: './dcx-ng-contextMenu.component.scss',
 })
 export class ContextMenuComponent {
-  @Input() items: ContextMenuItem[] = [];
+  private readonly eRef = inject(ElementRef)
+
+  @Input() items: DcxContextMenuItem[] = [];
   @Input() visible = false;
-  @Input() position: Position = { x: 0, y: 0 };
+  @Input() position: DcxContextPosition = { x: 0, y: 0 };
 
   @Output() closed = new EventEmitter<void>();
-
-  constructor(private eRef: ElementRef) { }
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
@@ -34,8 +25,8 @@ export class ContextMenuComponent {
     }
   }
 
-  show(x: number, y: number) {
-    this.position = { x, y };
+  show(position: DcxContextPosition) {
+    this.position = position;
     this.visible = true;
   }
 
@@ -44,7 +35,7 @@ export class ContextMenuComponent {
     this.closed.emit();
   }
 
-  onItemClick(item: ContextMenuItem) {
+  onItemClick(item: DcxContextMenuItem) {
     item.action();
     this.hide();
   }
