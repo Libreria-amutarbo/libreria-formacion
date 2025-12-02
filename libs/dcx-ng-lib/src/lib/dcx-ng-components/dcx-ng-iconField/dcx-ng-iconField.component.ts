@@ -14,7 +14,7 @@ export class DcxNgIconFieldComponent {
   @Input() placeholder = '';
   @Input() iconLeft = '';
   @Input() iconRight = '';
-  @Input() iconSize = 'm';
+  @Input() iconSize: DcxSize = 'm';
   @Input() disabled = false;
 
   @Output() valueChange = new EventEmitter<string>();
