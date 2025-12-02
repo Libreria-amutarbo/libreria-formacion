@@ -24,14 +24,13 @@ import {
   DcxSortType,
   DcxTableRow,
 } from '../../core/interfaces';
-import { DcxNgTableTemplateRefactorDirective } from './dcx-ng-table-template-refactor.directive';
 import { TableComparatorService } from './services/table-comparator.service';
 import { TableDataPipelineService } from './services/table-data-pipeline.service';
 import { TableState } from './state/table-state';
+import { DcxNgFullTableTemplateDirective } from './dcx-ng-full-table-template.directive';
 
 @Component({
-  selector: 'dcx-ng-table-refactor',
-  standalone: true,
+  selector: 'dcx-ng-full-table',
   imports: [
     DcxNgIconComponent,
     DcxNgTablePaginatorComponent,
@@ -39,11 +38,11 @@ import { TableState } from './state/table-state';
     NgTemplateOutlet,
   ],
   providers: [TableDataPipelineService, TableComparatorService],
-  templateUrl: './dcx-ng-table-refactor.component.html',
-  styleUrls: ['./dcx-ng-table-refactor.component.scss'],
+  templateUrl: './dcx-ng-full-table.component.html',
+  styleUrl: './dcx-ng-full-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DcxNgTableRefactorComponent {
+export class DcxNgFullTableComponent {
   private readonly pipelineService = inject(TableDataPipelineService);
   private readonly comparatorService = inject(TableComparatorService);
 
@@ -90,7 +89,7 @@ export class DcxNgTableRefactorComponent {
     viewChildren<ElementRef<HTMLTableCellElement>>('headerCell');
 
   private readonly externalTemplates = contentChildren(
-    DcxNgTableTemplateRefactorDirective,
+    DcxNgFullTableTemplateDirective,
   );
 
   private readonly sortTypeIcon: Record<DcxSortType, string> = {

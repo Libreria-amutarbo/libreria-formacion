@@ -1,13 +1,12 @@
 <section>
   <h2>Ejemplo 1 - Striped + Sort</h2>
 
-  <dcx-ng-table-refactor
+  <dcx-ng-full-table
     [headers]="headers1"
     [rows]="rows1"
     [showStripped]="true"
     (sortChange)="onSort($event, 'ex1')"
-  >
-  </dcx-ng-table-refactor>
+  />
 </section>
 
 <hr />
@@ -15,13 +14,9 @@
 <section>
   <h2>Ejemplo 2 - Templates personalizados</h2>
 
-  <dcx-ng-table-refactor
-    [headers]="headers2"
-    [rows]="rows2"
-    [showStripped]="true"
-  >
+  <dcx-ng-full-table [headers]="headers2" [rows]="rows2" [showStripped]="true">
     <!-- Usuario con avatar -->
-    <ng-template dcxNgTableTemplateRefactor="userTemplate" let-row>
+    <ng-template dcxNgFullTableTemplate="userTemplate" let-row>
       <div style="display:flex; gap:10px; align-items:center;">
         <img
           [src]="row.avatar"
@@ -33,21 +28,21 @@
     </ng-template>
 
     <!-- Fecha -->
-    <ng-template dcxNgTableTemplateRefactor="dateTemplate" let-row>
+    <ng-template dcxNgFullTableTemplate="dateTemplate" let-row>
       <span style="color:#666;">
         {{ row.createdAt | date:'dd/MM/yyyy HH:mm' }}
       </span>
     </ng-template>
 
     <!-- Precio -->
-    <ng-template dcxNgTableTemplateRefactor="priceTemplate" let-row>
+    <ng-template dcxNgFullTableTemplate="priceTemplate" let-row>
       <span style="font-weight:600; color:#2d5a27;">
         {{ row.amount | currency:'EUR':'symbol':'1.2-2':'es' }}
       </span>
     </ng-template>
 
     <!-- Estado -->
-    <ng-template dcxNgTableTemplateRefactor="statusTemplate" let-row>
+    <ng-template dcxNgFullTableTemplate="statusTemplate" let-row>
       <span
         [style.background-color]="
           row.status === 'active'
@@ -80,7 +75,7 @@
         }}
       </span>
     </ng-template>
-  </dcx-ng-table-refactor>
+  </dcx-ng-full-table>
 </section>
 
 <hr />
@@ -88,7 +83,7 @@
 <section>
   <h2>Ejemplo 3 - Fecha built-in + renderFn + Acciones inline</h2>
 
-  <dcx-ng-table-refactor
+  <dcx-ng-full-table
     [headers]="headers3"
     [rows]="rows3"
     [showStripped]="true"
@@ -97,7 +92,7 @@
     (rowAction)="onAction($event)"
   >
     <!-- Reutilizamos statusTemplate -->
-    <ng-template dcxNgTableTemplateRefactor="statusTemplate" let-row>
+    <ng-template dcxNgFullTableTemplate="statusTemplate" let-row>
       <span
         [style.background-color]="
           row.status === 'active' ? '#d4edda' :
@@ -120,7 +115,7 @@
         }}
       </span>
     </ng-template>
-  </dcx-ng-table-refactor>
+  </dcx-ng-full-table>
 </section>
 
 <hr />
@@ -137,12 +132,12 @@
     <strong>celdas editables</strong> y <strong>acciones con menú</strong>.
   </p>
 
-  <dcx-ng-table-refactor
+  <dcx-ng-full-table
     [headers]="headers4"
     [rows]="rows4"
     [showGrid]="true"
     [showStripped]="true"
-    [scroll]="true"
+    [scroll]="false"
     scrollHeight="320px"
     [paginator]="true"
     [rowsPerPageOptions]="[10, 20, 50]"
@@ -156,7 +151,7 @@
     (rowAction)="onAction($event)"
   >
     <!-- Usuario "full" -->
-    <ng-template dcxNgTableTemplateRefactor="fullUserTemplate" let-row>
+    <ng-template dcxNgFullTableTemplate="fullUserTemplate" let-row>
       <span style="font-weight:500;">
         {{ row.user }}
       </span>
@@ -166,7 +161,7 @@
     </ng-template>
 
     <!-- Badge de estado -->
-    <ng-template dcxNgTableTemplateRefactor="fullStatusTemplate" let-row>
+    <ng-template dcxNgFullTableTemplate="fullStatusTemplate" let-row>
       <span
         [style.background-color]="
           row.status === 'active'
@@ -193,5 +188,5 @@
         }}
       </span>
     </ng-template>
-  </dcx-ng-table-refactor>
+  </dcx-ng-full-table>
 </section>

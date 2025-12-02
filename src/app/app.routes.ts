@@ -19,9 +19,9 @@ import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/d
 import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component';
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
-import { DcxNgPageTableRefactorComponent } from './pages/dcx-ng-page-table-refactor/dcx-ng-page-table-refactor.component';
 import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
+import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
 
 export const appRoutes: Route[] = [
   {
@@ -29,8 +29,8 @@ export const appRoutes: Route[] = [
     component: DcxNgPageTableComponent,
   },
   {
-    path: 'table-refactor',
-    component: DcxNgPageTableRefactorComponent,
+    path: 'full-table',
+    component: DcxNgPageFullTableComponent,
   },
   {
     path: 'button',
@@ -90,11 +90,11 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'card',
-    component: DcxNgPageCardComponent
+    component: DcxNgPageCardComponent,
   },
   {
     path: 'contextMenu',
-    component: ContextMenuComponent
+    component: ContextMenuComponent,
   },
   {
     path: 'icon-field',

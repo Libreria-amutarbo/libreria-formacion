@@ -4,8 +4,6 @@ import {
   DcxActionEvent,
   DcxCellEditEvent,
   DcxHeaderData,
-  DcxNgTableRefactorComponent,
-  DcxNgTableTemplateRefactorDirective,
   SIMPLE_USER_HEADERS,
   SIMPLE_USER_ROWS,
   USER_HEADERS_WITH_INLINE,
@@ -14,21 +12,23 @@ import {
   USER_WITH_STATUS_ROWS,
   generateUserRows,
   DcxSort,
+  DcxNgFullTableComponent,
+  DcxNgFullTableTemplateDirective,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-table-refactor',
   standalone: true,
   imports: [
-    DcxNgTableRefactorComponent,
-    DcxNgTableTemplateRefactorDirective,
+    DcxNgFullTableComponent,
+    DcxNgFullTableTemplateDirective,
     DatePipe,
     CurrencyPipe,
   ],
-  templateUrl: './dcx-ng-page-table-refactor.component.html',
-  styleUrl: './dcx-ng-page-table-refactor.component.scss',
+  templateUrl: './dcx-ng-page-full-table.component.html',
+  styleUrl: './dcx-ng-page-full-table.component.scss',
 })
-export class DcxNgPageTableRefactorComponent {
+export class DcxNgPageFullTableComponent {
   headers1 = SIMPLE_USER_HEADERS;
   rows1 = SIMPLE_USER_ROWS;
 

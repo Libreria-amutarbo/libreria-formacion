@@ -5,24 +5,24 @@ import { Directive, TemplateRef, input } from '@angular/core';
  *
  * Uso:
  * ```html
- * <ng-template dcxNgTableTemplateRefactor="price" let-row>
+ * <ng-template dcxNgFullTableTemplate="price" let-row>
  *   {{ row.amount | currency }}
  * </ng-template>
  * ```
  */
 @Directive({
-  selector: 'ng-template[dcxNgTableTemplateRefactor]',
+  selector: 'ng-template[dcxNgFullTableTemplate]',
   standalone: true,
 })
-export class DcxNgTableTemplateRefactorDirective {
+export class DcxNgFullTableTemplateDirective {
   /**
    * Nombre del template. Debe coincidir con `header.template`,
    * `header.headerTemplate` o claves internas como 'cell-default', 'header-default', 'menu-default'.
    */
-  readonly dcxNgTableTemplateRefactor = input.required<string>();
+  readonly dcxNgFullTableTemplate = input.required<string>();
 
   get type(): string {
-    return this.dcxNgTableTemplateRefactor();
+    return this.dcxNgFullTableTemplate();
   }
 
   constructor(public readonly template: TemplateRef<unknown>) {}

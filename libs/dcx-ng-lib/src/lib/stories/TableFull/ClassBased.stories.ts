@@ -1,15 +1,17 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { expect, fn, userEvent, within } from '@storybook/test';
 
-import { DcxNgTableRefactorComponent } from '../../dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-refactor.component';
 import { DcxHeaderData } from '../../core/interfaces';
-import { DcxNgTableTemplateRefactorDirective } from '../../dcx-ng-components/dcx-ng-table-refactor/dcx-ng-table-template-refactor.directive';
 import {
   USER_HEADERS_FULL,
   USER_HEADERS_WITH_MENU,
   USER_HEADERS_WITH_INLINE,
   generateUserRows,
 } from '../../core/mock';
+import {
+  DcxNgFullTableComponent,
+  DcxNgFullTableTemplateDirective,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const ActionsData = {
   sortChange: fn(),
@@ -44,12 +46,12 @@ const ROWS = generateUserRows(40);
 // ======================
 // META
 // ======================
-const meta: Meta<DcxNgTableRefactorComponent> = {
-  title: 'DCXLIBRARY/Table Refactor/Class based',
-  component: DcxNgTableRefactorComponent,
+const meta: Meta<DcxNgFullTableComponent> = {
+  title: 'DCXLIBRARY/Table Full/Class based',
+  component: DcxNgFullTableComponent,
   decorators: [
     moduleMetadata({
-      imports: [DcxNgTableTemplateRefactorDirective],
+      imports: [DcxNgFullTableTemplateDirective],
     }),
   ],
   tags: ['autodocs'],
@@ -254,7 +256,7 @@ const meta: Meta<DcxNgTableRefactorComponent> = {
 
 export default meta;
 
-type Story = StoryObj<DcxNgTableRefactorComponent>;
+type Story = StoryObj<DcxNgFullTableComponent>;
 
 // ======================
 // STORY 1: GridScroll (acciones en MENÚ)
@@ -290,7 +292,7 @@ export const GridScroll: Story = {
     },
 
     template: `
-      <dcx-ng-table-refactor
+      <dcx-ng-full-table
         [headers]="headers"
         [rows]="rows"
         [showGrid]="showGrid"
@@ -329,7 +331,7 @@ export const GridScroll: Story = {
         <ng-template dcxNgTableTemplateRefactor="empty" let-headers="headers">
           <em>No hay registros ({{ headers.length }} columnas)</em>
         </ng-template>
-      </dcx-ng-table-refactor>
+      </dcx-ng-full-table>
     `,
   }),
 };
@@ -366,7 +368,7 @@ export const InlineActions: Story = {
     },
 
     template: `
-      <dcx-ng-table-refactor
+      <dcx-ng-full-table
         [headers]="headers"
         [rows]="rows"
         [showGrid]="showGrid"
@@ -404,7 +406,7 @@ export const InlineActions: Story = {
         <ng-template dcxNgTableTemplateRefactor="empty" let-headers="headers">
           <em>No hay registros ({{ headers.length }} columnas)</em>
         </ng-template>
-      </dcx-ng-table-refactor>
+      </dcx-ng-full-table>
     `,
   }),
 };

@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 
-import { DcxNgTableRefactorComponent } from './dcx-ng-table-refactor.component';
 import { DcxHeaderData } from '../../core/interfaces';
-import { DcxNgTableTemplateRefactorDirective } from './dcx-ng-table-template-refactor.directive';
+
 import {
   PERSON_HEADERS_BASE,
   PERSON_HEADERS_WITH_INLINE_ACTIONS,
   PersonRow,
   generatePersonRows,
 } from '../../core/mock';
+import { DcxNgFullTableComponent } from './dcx-ng-full-table.component';
+import { DcxNgFullTableTemplateDirective } from './dcx-ng-full-table-template.directive';
 
 // ===========================
 // DATOS DE DEMO (desde mock centralizado)
@@ -43,11 +44,11 @@ type TableStoryArgs = {
 // META (AQUÍ VAN LOS DEFAULTS GLOBALES)
 // ===========================
 const meta: Meta<TableStoryArgs> = {
-  title: 'DCX/TableRefactor',
-  component: DcxNgTableRefactorComponent,
+  title: 'DCX/TableFull',
+  component: DcxNgFullTableComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, DcxNgTableTemplateRefactorDirective],
+      imports: [CommonModule, DcxNgFullTableTemplateDirective],
     }),
   ],
   tags: ['autodocs'],
@@ -91,7 +92,7 @@ type Story = StoryObj<TableStoryArgs>;
 // helper para evitar repetir siempre el mismo template
 function buildBaseTemplate(withActions: boolean) {
   return `
-    <dcx-ng-table-refactor
+    <dcx-ng-full-table
       [headers]="headers"
       [rows]="rows"
       [showGrid]="showGrid"
@@ -128,7 +129,7 @@ function buildBaseTemplate(withActions: boolean) {
       <ng-template dcxNgTableTemplateRefactor="empty" let-headers="headers">
         <em>No hay registros ({{ headers.length }} columnas definidas)</em>
       </ng-template>
-    </dcx-ng-table-refactor>
+    </dcx-ng-full-table>
   `;
 }
 
@@ -199,7 +200,7 @@ export const EmptyState: Story = {
       rowAction: args.rowAction ?? (() => {}),
     },
     template: `
-      <dcx-ng-table-refactor
+      <dcx-ng-full-table
         [headers]="headers"
         [rows]="rows"
         [showGrid]="showGrid"
@@ -214,7 +215,7 @@ export const EmptyState: Story = {
         <ng-template dcxNgTableTemplateRefactor="empty" let-headers="headers">
           <strong>Tabla vacía</strong> ({{ headers.length }} columnas)
         </ng-template>
-      </dcx-ng-table-refactor>
+      </dcx-ng-full-table>
     `,
   }),
 };
