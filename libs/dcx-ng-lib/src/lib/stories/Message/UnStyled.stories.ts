@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgMessageComponent, MessageType } from '../../dcx-ng-components/dcx-ng-message/dcx-ng-message.component';
+import { DcxNgMessageComponent } from '../../dcx-ng-components/dcx-ng-message/dcx-ng-message.component';
 import { moduleMetadata } from '@storybook/angular';
 import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
+import { DcxMessageType } from '../../core/interfaces/message';
 
 const meta: Meta<DcxNgMessageComponent> = {
   title: 'DCXLibrary/Message/Without style',
@@ -66,7 +67,7 @@ Es útil para entender la semántica del componente y como base para implementar
     },
     type: {
       control: { type: 'select' },
-      options: ['notification', 'error', 'warning', 'success'] as MessageType[],
+      options: ['notification', 'error', 'warning', 'success'] as DcxMessageType[],
       description: 'Tipo de mensaje que define la clase CSS y el rol ARIA',
       table: {
         type: { summary: 'MessageType' },

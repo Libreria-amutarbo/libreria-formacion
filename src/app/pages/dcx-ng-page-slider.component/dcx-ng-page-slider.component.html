@@ -1,11 +1,15 @@
 <h2>Slider demo</h2>
 <div class="slider-container">
   @for (slider of sliders; track $index) {
-  <div>
-    <dcx-ng-slider [value]="slider.value" [step]="slider.step" [vertical]="slider.vertical"
-      (valueChange)="onSliderValueChange($index, $event)">
-    </dcx-ng-slider>
-    <p>{{ slider.label }}: {{ slider.value }}</p>
-  </div>
+    <div>
+      <dcx-ng-slider
+        [value]="slider.value"
+        [step]="slider.step"
+        [vertical]="slider.vertical"
+        (valueChange)="onSliderValueChange($index, $event)"
+      >
+      </dcx-ng-slider>
+      <p>{{ slider.label }}: {{ slider.value }}</p>
+    </div>
   }
 </div>

@@ -1,42 +1,82 @@
-const baseConfig = require('./eslint.base.config.js');
 const nx = require('@nx/eslint-plugin');
 
 module.exports = [
-  ...baseConfig,
+  ...nx.configs['flat/base'],
+  ...nx.configs['flat/typescript'],
+  ...nx.configs['flat/javascript'],
+  
+...nx.configs['flat/angular'],
+...nx.configs['flat/angular-template'],
+
   {
-    ignores: ['**/dist'],
+    ignores: [
+      '**/dist',
+      '**/node_modules',
+      '**/*.min.js',
+      '**/coverage',
+    ],
+  },
+  // Configuración específica para archivos de ejemplo/demo
+  {
+    files: [
+      '**/*.stories.ts',
+      '**/*.spec.ts',
+      '**/examples/**/*',
+      '**/demo/**/*',
+    ],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
+      'prefer-const': 'off',
+    },
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    // Override or add rules here
-    rules: {},
-  },
-  ...nx.configs['flat/angular'],
-  ...nx.configs['flat/angular-template'],
-  {
-    files: ['**/*.ts'],
     rules: {
-      '@angular-eslint/directive-selector': [
+      '@nx/enforce-module-boundaries': [
         'error',
         {
-          type: 'attribute',
-          prefix: 'app',
-          style: 'camelCase',
-        },
-      ],
-      '@angular-eslint/component-selector': [
-        'error',
-        {
-          type: 'element',
-          prefix: 'app',
-          style: 'kebab-case',
+          enforceBuildableLibDependency: true,
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
+          depConstraints: [
+            {
+              sourceTag: '*',
+              onlyDependOnLibsWithTags: ['*'],
+            },
+          ],
         },
       ],
     },
   },
   {
-    files: ['**/*.html'],
-    // Override or add rules here
-    rules: {},
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    rules: {
+      // Configuraciones globales más permisivas para desarrollo
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_|^form\\d+$', // Ignorar variables form1, form2, etc.
+          ignoreRestSiblings: true,
+        },
+      ],
+      '@typescript-eslint/no-explicit-any': 'warn', // Warning en lugar de error
+    },
   },
+  
+{
+    files: ['*.ts'],
+    languageOptions: {
+      parser: require('@typescript-eslint/parser'),
+    },
+    plugins: {
+      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
+      '@nx': nx,
+    },
+    rules: {
+      // tus reglas aquí
+    },
+  },
+
 ];

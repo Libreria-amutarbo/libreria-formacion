@@ -1,14 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   DcxNgDropdownComponent,
-  DropdownOptions,
 } from './dcx-ng-dropdown.component';
+import { DcxDropdownOptions } from '../../core/interfaces';
 
 describe('DcxNgDropdownComponent (Jest)', () => {
   let fixture: ComponentFixture<DcxNgDropdownComponent>;
   let component: DcxNgDropdownComponent;
 
-  const OPTIONS: DropdownOptions[] = [
+  const OPTIONS: DcxDropdownOptions[] = [
     { key: 'red', value: 'Rojo' },
     { key: 'green', value: 'Verde' },
     { key: 'blue', value: 'Azul' },
@@ -176,7 +176,7 @@ describe('DcxNgDropdownComponent (Jest)', () => {
   });
 
   it('should render numeric values using valueToString', () => {
-    const numeric: DropdownOptions[] = [
+    const numeric: DcxDropdownOptions[] = [
       { key: 'v17', value: 17 },
       { key: 'v18', value: 18 },
     ];

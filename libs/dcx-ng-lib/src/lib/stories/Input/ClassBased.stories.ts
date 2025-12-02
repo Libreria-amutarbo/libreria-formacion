@@ -1,4 +1,5 @@
-import { DcxNgInputComponent, InputSize, InputType } from '../../dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
+import { DcxInputType } from '../../core/interfaces/input';
+import { DcxNgInputComponent } from '../../dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
 import { Meta, StoryObj } from '@storybook/angular';
 
 
@@ -9,13 +10,20 @@ const meta: Meta<DcxNgInputComponent> = {
   argTypes: {
     type: {
       control: 'select',
-      options: [InputType.TEXT, InputType.NUMBER, InputType.EMAIL, InputType.PASSWORD, InputType.SEARCH, InputType.TEL, InputType.URL],
-      defaultValue: InputType.TEXT,
+      options: [
+        DcxInputType.TEXT,
+        DcxInputType.NUMBER,
+        DcxInputType.EMAIL,
+        DcxInputType.PASSWORD,
+        DcxInputType.SEARCH,
+        DcxInputType.TEL,
+        DcxInputType.URL],
+      defaultValue: DcxInputType.TEXT,
     },
     size: {
       control: 'select',
-      options: [InputSize.SMALL, InputSize.MEDIUM, InputSize.LARGE, InputSize.EXTRA_LARGE],
-      defaultValue: InputSize.MEDIUM,
+      options: ['s', 'm', 'l', 'xl'],
+      defaultValue: 'm',
     },
     placeholder: {
       control: 'text',
@@ -41,8 +49,8 @@ type Story = StoryObj<DcxNgInputComponent>;
 
 export const TextSmall: Story = {
   args: {
-    type: InputType.TEXT,
-    size: InputSize.SMALL,
+    type: DcxInputType.TEXT,
+    size: 's',
     placeholder: 'Enter text...',
     disabled: false,
     required: false,
@@ -52,8 +60,8 @@ export const TextSmall: Story = {
 
 export const NumberMedium: Story = {
   args: {
-    type: InputType.NUMBER,
-    size: InputSize.MEDIUM,
+    type: DcxInputType.NUMBER,
+    size: 'm',
     placeholder: 'Enter number...',
     disabled: false,
     required: false,
@@ -63,8 +71,8 @@ export const NumberMedium: Story = {
 
 export const EmailLargeRequired: Story = {
   args: {
-    type: InputType.EMAIL,
-    size: InputSize.LARGE,
+    type: DcxInputType.EMAIL,
+    size: 'l',
     placeholder: 'Enter email...',
     disabled: false,
     required: true,
@@ -74,8 +82,8 @@ export const EmailLargeRequired: Story = {
 
 export const PasswordExtraLarge: Story = {
   args: {
-    type: InputType.PASSWORD,
-    size: InputSize.EXTRA_LARGE,
+    type: DcxInputType.PASSWORD,
+    size: 'xl',
     placeholder: 'Enter password...',
     disabled: false,
     required: false,
@@ -85,8 +93,8 @@ export const PasswordExtraLarge: Story = {
 
 export const AutoRequired: Story = {
   args: {
-    type: InputType.TEXT,
-    size: InputSize.AUTO,
+    type: DcxInputType.TEXT,
+    size: 'auto',
     placeholder: 'Enter data auto size...',
     disabled: false,
     required: true,
@@ -112,7 +120,7 @@ export const AutoRequired: Story = {
 
 export const SearchDefault: Story = {
   args: {
-    type: InputType.SEARCH,
+    type: DcxInputType.SEARCH,
     placeholder: 'Search...',
     label: 'Search Input'
   },
@@ -120,8 +128,8 @@ export const SearchDefault: Story = {
 
 export const TelDisabled: Story = {
   args: {
-    type: InputType.TEL,
-    size: InputSize.MEDIUM,
+    type: DcxInputType.TEL,
+    size: 'm',
     placeholder: 'Enter phone number...',
     disabled: true,
     required: false,
