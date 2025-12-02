@@ -19,8 +19,10 @@ import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/d
 import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component';
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
+import { DxcNgPageDatePickerComponent } from './pages/dxc-ng-page-datePicker/dxc-ng-page-datePicker.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
+
 
 export const appRoutes: Route[] = [
   {
@@ -102,6 +104,10 @@ export const appRoutes: Route[] = [
   {
     path: 'slider',
     component: DcxNgPageSliderComponent,
+  },
+  {
+    path: 'date-picker',
+    component: DxcNgPageDatePickerComponent,
   },
   {
     path: 'accordion',
