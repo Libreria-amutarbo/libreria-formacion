@@ -20,7 +20,12 @@ export * from './lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component
 export * from './lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component';
 export * from './lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component';
 export * from './lib/dcx-ng-components/dcx-ng-datePicker/dcx-ng-datePicker.component';
+export * from './lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
+
 export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
 export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 export * from './lib/services/icon.service';
 export * from './lib/dcx-ng-components/dcx-ng-dialog/dcx-ng-dialog.component';
+
+export * from './lib/core/interfaces';
+export * from './lib/core/mock';

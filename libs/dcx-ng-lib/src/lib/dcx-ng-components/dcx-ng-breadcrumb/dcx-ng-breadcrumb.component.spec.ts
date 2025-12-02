@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   DcxNgBreadcrumbComponent,
-  BreadcrumbItem,
+  DcxBreadCrumbItemMock,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgBreadcrumbComponent', () => {
@@ -25,12 +25,7 @@ describe('DcxNgBreadcrumbComponent', () => {
   });
 
   it('renders links for all but last, and last as current', () => {
-    const items: BreadcrumbItem[] = [
-      { label: 'Home', href: '/' },
-      { label: 'Library', href: '/library' },
-      { label: 'Data' },
-    ];
-    component.items = items;
+    component.items = DcxBreadCrumbItemMock;
     fixture.detectChanges();
 
     const nav = host().querySelector('nav');

@@ -13,6 +13,7 @@
             @if (header) {
               <h3 class="dcx-card-header__title">{{ header }}</h3>
             }
+
             @if (subheader) {
               <h4 class="dcx-card-header__subtitle">{{ subheader }}</h4>
             }
@@ -20,6 +21,7 @@
         </div>
 
         @if (closable) {
+          <!-- TODO: Change this to Dcx Icon -->
           <button
             type="button"
             class="dcx-card-header__close-btn"
@@ -46,6 +48,7 @@
       </div>
     } @else {
       <div class="dcx-card-footer dcx-card-footer--default">
+        <!-- TODO: Change this to Dcx Icon -->
         <button
           type="button"
           class="dcx-btn dcx-btn--secondary dcx-card-footer__btn"
@@ -53,6 +56,8 @@
         >
           Cancelar
         </button>
+
+        <!-- TODO: Change this to Dcx Icon -->
         <button
           type="button"
           class="dcx-btn dcx-btn--primary dcx-card-footer__btn"

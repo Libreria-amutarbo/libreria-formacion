@@ -5,11 +5,7 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
-
-interface SelectOptions {
-  value: any;
-  label: string;
-}
+import { DcxSelectOptions } from '../../core/interfaces/select';
 
 @Component({
   selector: 'dcx-ng-select',
@@ -24,21 +20,14 @@ interface SelectOptions {
       multi: true,
     },
   ],
-  host: {
-    '[attr.disabled]': 'disabled ? "" : null',
-  },
+  host: { '[attr.disabled]': 'disabled ? "" : null', },
 })
 export class DcxNgSelectComponent implements ControlValueAccessor {
-  @Input() options: SelectOptions[] = [];
+  @Input() options: DcxSelectOptions[] = [];
   @Input() placeholder = '';
-
-  /** Texto visible encima del select */
   @Input() label = '';
-
-  /** Nombre accesible (solo si NO hay label visible) */
   @Input() ariaLabel = '';
 
-  /** id único para asociar <label for> con <select id> */
   selectId = `dcx-select-${Math.random().toString(36).slice(2)}`;
 
   disabled = false;
@@ -75,7 +64,7 @@ export class DcxNgSelectComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  trackByValue(_index: number, option: SelectOptions) {
+  trackByValue(_index: number, option: DcxSelectOptions) {
     return option.value;
   }
 }
