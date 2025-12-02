@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, TemplateRef, ContentChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, TemplateRef, ContentChild, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,23 +16,25 @@ export class DcxNgCardComponent {
   @Input() closable = false;
   @Input() visible = true;
 
-  @Output() onClose = new EventEmitter<void>();
-  @Output() onAccept = new EventEmitter<void>();
-  @Output() onCancel = new EventEmitter<void>();
+   private readonly _allProducts = signal<any[]>([]);
+
+  @Output() cardClose = new EventEmitter<void>();
+  @Output() cardAccept = new EventEmitter<void>();
+  @Output() cardCancel = new EventEmitter<void>();
 
   @ContentChild('cardBody') cardBodyTemplate: TemplateRef<any> | null = null;
   @ContentChild('cardFooter') cardFooterTemplate: TemplateRef<any> | null = null;
 
   handleClose(): void {
     this.visible = false;
-    this.onClose.emit();
+    this.cardClose.emit();
   }
 
   handleAccept(): void {
-    this.onAccept.emit();
+    this.cardAccept.emit();
   }
 
   handleCancel(): void {
-    this.onCancel.emit();
+    this.cardCancel.emit();
   }
 }

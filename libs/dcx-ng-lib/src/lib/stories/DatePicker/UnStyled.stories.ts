@@ -6,7 +6,7 @@ import { DcxNgDatePickerComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 
 @Component({
-  selector: 'datepicker-unstyled-wrapper',
+  selector: 'dcx-ng-datepicker-unstyled-wrapper',
   standalone: true,
   imports: [DcxNgDatePickerComponent, CommonModule],
   template: `

@@ -76,24 +76,15 @@ export default meta;
 type Story = StoryObj<DcxNgButtonComponent>;
 
 export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    label: 'Primary',
-  },
+  args: { variant: 'primary', label: 'Primary', },
 };
 
 export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    label: 'Secondary',
-  },
+  args: { variant: 'secondary', label: 'Secondary', },
 };
 
 export const Link: Story = {
-  args: {
-    variant: 'link',
-    label: 'Link',
-  },
+  args: { variant: 'link', label: 'Link', },
 };
 
 export const WithStartIcon: Story = {
@@ -128,9 +119,9 @@ export const Sizes: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Small"  size="small"  variant="primary" iconName="check"></dcx-ng-button>
-        <dcx-ng-button label="Medium" size="medium" variant="primary" iconName="check"></dcx-ng-button>
-        <dcx-ng-button label="Large"  size="large"  variant="primary" iconName="check"></dcx-ng-button>
+        <dcx-ng-button label="Small"  size="s" variant="primary" iconName="check"></dcx-ng-button>
+        <dcx-ng-button label="Medium" size="m" variant="primary" iconName="check"></dcx-ng-button>
+        <dcx-ng-button label="Large"  size="l" variant="primary" iconName="check"></dcx-ng-button>
       </div>
     `,
   }),
@@ -141,7 +132,7 @@ export const Block: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; flex-direction:column; gap:8px; width:320px;">
-        <dcx-ng-button label="Block Primary"   size="block" variant="primary" iconName="arrow_forward"></dcx-ng-button>
+        <dcx-ng-button label="Block Primary" size="block" variant="primary" iconName="arrow_forward"></dcx-ng-button>
         <dcx-ng-button label="Block Secondary" size="block" variant="secondary"></dcx-ng-button>
       </div>
     `,
@@ -153,9 +144,9 @@ export const Disabled: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center;">
-        <dcx-ng-button label="Disabled" variant="primary"   [disabled]="true"></dcx-ng-button>
+        <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
         <dcx-ng-button label="Disabled" variant="secondary" [disabled]="true"></dcx-ng-button>
-        <dcx-ng-button label="Disabled" variant="link"      [disabled]="true"></dcx-ng-button>
+        <dcx-ng-button label="Disabled" variant="link" [disabled]="true"></dcx-ng-button>
       </div>
     `,
   }),

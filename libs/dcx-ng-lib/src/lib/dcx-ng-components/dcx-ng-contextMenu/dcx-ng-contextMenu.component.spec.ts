@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ContextMenuComponent, ContextMenuItem } from './dcx-ng-contextMenu.component';
+import { ContextMenuComponent } from './dcx-ng-contextMenu.component';
+import { DcxContextMenuItem } from '../../core/interfaces';
 
 describe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
@@ -59,15 +60,15 @@ describe('ContextMenuComponent', () => {
       fixture.detectChanges();
 
       const contextMenu = compiled.query(By.css('.context-menu'));
-      const styles = contextMenu.nativeElement.getAttribute('ng-reflect-ng-style') || 
-                     contextMenu.nativeElement.style;
-      
+      const styles = contextMenu.nativeElement.getAttribute('ng-reflect-ng-style') ||
+        contextMenu.nativeElement.style;
+
       expect(contextMenu.nativeElement.style.left).toBe('100px');
       expect(contextMenu.nativeElement.style.top).toBe('200px');
     });
 
     it('should render all menu items', () => {
-      const mockItems: ContextMenuItem[] = [
+      const mockItems: DcxContextMenuItem[] = [
         { label: 'Edit', action: jasmine.createSpy('action1') },
         { label: 'Delete', action: jasmine.createSpy('action2') },
         { label: 'Copy', action: jasmine.createSpy('action3') },
@@ -86,7 +87,7 @@ describe('ContextMenuComponent', () => {
 
     it('should have ul element inside context menu', () => {
       component.visible = true;
-      component.items = [{ label: 'Test', action: () => {} }];
+      component.items = [{ label: 'Test', action: () => { } }];
       fixture.detectChanges();
 
       const ul = compiled.query(By.css('.context-menu ul'));
@@ -96,26 +97,26 @@ describe('ContextMenuComponent', () => {
 
   describe('show() method', () => {
     it('should set visible to true', () => {
-      component.show(50, 75);
+      component.show({ x: 50, y: 75 });
       expect(component.visible).toBe(true);
     });
 
     it('should set the correct position', () => {
-      component.show(100, 200);
+      component.show({ x: 100, y: 200 });
       expect(component.position.x).toBe(100);
       expect(component.position.y).toBe(200);
     });
 
     it('should update position on subsequent calls', () => {
-      component.show(10, 20);
+      component.show({ x: 10, y: 20 });
       expect(component.position).toEqual({ x: 10, y: 20 });
 
-      component.show(300, 400);
+      component.show({ x: 300, y: 400 });
       expect(component.position).toEqual({ x: 300, y: 400 });
     });
 
     it('should render menu after calling show()', () => {
-      component.show(50, 50);
+      component.show({ x: 50, y: 50 });
       fixture.detectChanges();
 
       const contextMenu = compiled.query(By.css('.context-menu'));
@@ -142,7 +143,7 @@ describe('ContextMenuComponent', () => {
     it('should not render menu after calling hide()', () => {
       component.visible = true;
       fixture.detectChanges();
-      
+
       component.hide();
       fixture.detectChanges();
 
@@ -154,7 +155,7 @@ describe('ContextMenuComponent', () => {
   describe('onItemClick() method', () => {
     it('should execute item action', () => {
       const mockAction = jasmine.createSpy('action');
-      const item: ContextMenuItem = { label: 'Test', action: mockAction };
+      const item: DcxContextMenuItem = { label: 'Test', action: mockAction };
 
       component.onItemClick(item);
 
@@ -163,7 +164,7 @@ describe('ContextMenuComponent', () => {
 
     it('should hide menu after item click', () => {
       const mockAction = jasmine.createSpy('action');
-      const item: ContextMenuItem = { label: 'Test', action: mockAction };
+      const item: DcxContextMenuItem = { label: 'Test', action: mockAction };
 
       component.visible = true;
       component.onItemClick(item);
@@ -173,7 +174,7 @@ describe('ContextMenuComponent', () => {
 
     it('should emit closed event after item click', (done) => {
       const mockAction = jasmine.createSpy('action');
-      const item: ContextMenuItem = { label: 'Test', action: mockAction };
+      const item: DcxContextMenuItem = { label: 'Test', action: mockAction };
 
       component.closed.subscribe(() => {
         expect(true).toBe(true);
@@ -196,7 +197,7 @@ describe('ContextMenuComponent', () => {
         component.closed.emit();
       });
 
-      const item: ContextMenuItem = { label: 'Test', action: mockAction };
+      const item: DcxContextMenuItem = { label: 'Test', action: mockAction };
       component.onItemClick(item);
 
       expect(callOrder).toEqual(['action', 'hide']);
@@ -206,7 +207,7 @@ describe('ContextMenuComponent', () => {
   describe('Item Click in Template', () => {
     it('should call onItemClick when menu item is clicked', () => {
       spyOn(component, 'onItemClick');
-      const mockItem: ContextMenuItem = { label: 'Delete', action: () => {} };
+      const mockItem: DcxContextMenuItem = { label: 'Delete', action: () => { } };
 
       component.items = [mockItem];
       component.visible = true;
@@ -220,7 +221,7 @@ describe('ContextMenuComponent', () => {
 
     it('should call action and hide on item click in template', () => {
       const mockAction = jasmine.createSpy('mockAction');
-      const mockItem: ContextMenuItem = { label: 'Edit', action: mockAction };
+      const mockItem: DcxContextMenuItem = { label: 'Edit', action: mockAction };
 
       component.items = [mockItem];
       component.visible = true;
@@ -278,7 +279,7 @@ describe('ContextMenuComponent', () => {
 
     it('should handle click on child elements of context menu', () => {
       const mockAction = jasmine.createSpy('action');
-      const mockItem: ContextMenuItem = { label: 'Test', action: mockAction };
+      const mockItem: DcxContextMenuItem = { label: 'Test', action: mockAction };
 
       component.items = [mockItem];
       component.visible = true;
@@ -311,9 +312,9 @@ describe('ContextMenuComponent', () => {
 
   describe('Input/Output Properties', () => {
     it('should accept items as input', () => {
-      const mockItems: ContextMenuItem[] = [
-        { label: 'Item 1', action: () => {} },
-        { label: 'Item 2', action: () => {} },
+      const mockItems: DcxContextMenuItem[] = [
+        { label: 'Item 1', action: () => { } },
+        { label: 'Item 2', action: () => { } },
       ];
 
       component.items = mockItems;
@@ -360,7 +361,7 @@ describe('ContextMenuComponent', () => {
         { label: 'Delete', action: mockAction2 },
       ];
 
-      component.show(100, 100);
+      component.show({ x: 100, y: 100 });
       fixture.detectChanges();
 
       expect(component.visible).toBe(true);
@@ -382,12 +383,12 @@ describe('ContextMenuComponent', () => {
       let closeEventCount = 0;
       component.closed.subscribe(() => closeEventCount++);
 
-      component.show(10, 10);
+      component.show({ x: 10, y: 10 });
       expect(component.visible).toBe(true);
       component.hide();
       expect(component.visible).toBe(false);
 
-      component.show(20, 20);
+      component.show({ x: 20, y: 20 });
       expect(component.visible).toBe(true);
       component.hide();
       expect(component.visible).toBe(false);
@@ -396,19 +397,19 @@ describe('ContextMenuComponent', () => {
     });
 
     it('should update position dynamically', () => {
-      component.show(50, 50);
+      component.show({ x: 50, y: 50 });
       fixture.detectChanges();
       expect(component.position).toEqual({ x: 50, y: 50 });
 
-      component.show(150, 150);
+      component.show({ x: 150, y: 150 });
       fixture.detectChanges();
       expect(component.position).toEqual({ x: 150, y: 150 });
     });
   });
 
-  describe('ContextMenuItem Interface', () => {
+  describe('DcxContextMenuItem Interface', () => {
     it('should accept items with label and action', () => {
-      const item: ContextMenuItem = {
+      const item: DcxContextMenuItem = {
         label: 'Test Label',
         action: jasmine.createSpy('testAction'),
       };
