@@ -22,6 +22,7 @@ import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-lis
 import { DxcNgPageDatePickerComponent } from './pages/dxc-ng-page-datePicker/dxc-ng-page-datePicker.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
+import { DcxNgPageSearchComponent } from './pages/dcx-ng-page-search/dcx-ng-page-search.component';
 
 
 export const appRoutes: Route[] = [
@@ -116,5 +117,9 @@ export const appRoutes: Route[] = [
   {
     path: 'dialog',
     component: DcxNgPageDialogComponent,
+  },
+  {
+    path: 'search',
+    component: DcxNgPageSearchComponent,
   },
 ];
