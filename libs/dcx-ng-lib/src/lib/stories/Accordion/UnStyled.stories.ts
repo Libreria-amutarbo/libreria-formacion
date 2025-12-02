@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgAccordionComponent, DcxNgAccordionItem } from '../../dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
+import { DcxAccordionMock } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgAccordionComponent> = {
   title: 'DCXLibrary/Accordion',
@@ -7,28 +8,7 @@ const meta: Meta<DcxNgAccordionComponent> = {
   argTypes: {
     items: { control: { type: 'object' } },
   },
-  args: {
-    items: [
-      {
-        id: '1',
-        title: 'Item 1',
-        content: 'Item 1',
-        disabled: false,
-      },
-      {
-        id: '2',
-        title: 'Item 2',
-        content: 'Item 2',
-        disabled: false,
-      },
-      {
-        id: '3',
-        title: 'Item 3',
-        content: 'Item 3',
-        disabled: false,
-      },
-    ] as DcxNgAccordionItem[],
-  },
+  args: { items: DcxAccordionMock, },
 };
 
 export default meta;
