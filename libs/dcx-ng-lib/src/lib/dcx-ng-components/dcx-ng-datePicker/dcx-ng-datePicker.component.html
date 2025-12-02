@@ -1,6 +1,9 @@
 <div class="dcx-datepicker">
     <div class="dcx-datepicker__input-wrapper" [class.dcx-datepicker__input-wrapper--disabled]="disabled()"
-        [class.dcx-datepicker__input-wrapper--open]="isOpen()" (click)="toggleCalendar()">
+        [class.dcx-datepicker__input-wrapper--open]="isOpen()" (click)="toggleCalendar()" 
+tabindex="0"
+  role="button"
+>
         <input type="text" class="dcx-datepicker__input" [value]="formattedSelectedDate()" [disabled]="disabled()"
             readonly />
 
