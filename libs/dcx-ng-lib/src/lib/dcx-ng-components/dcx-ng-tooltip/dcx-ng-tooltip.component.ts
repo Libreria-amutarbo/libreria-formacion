@@ -1,12 +1,6 @@
-import { Component, Input, HostListener, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, HostListener, ElementRef, AfterViewInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export enum TooltipPosition {
-  TOP = 'top',
-  BOTTOM = 'bottom',
-  LEFT = 'left',
-  RIGHT = 'right'
-}
+import { DcxPosition } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-tooltip',
@@ -16,12 +10,14 @@ export enum TooltipPosition {
   styleUrls: ['./dcx-ng-tooltip.component.scss'],
 })
 export class DcxNgTooltipComponent implements AfterViewInit {
-  @Input() position: TooltipPosition = TooltipPosition.TOP;
+  @Input() position: DcxPosition = DcxPosition.TOP;
   @Input() hideTooltipOnClick = false;
   @Input() content = '';
 
   visible = false;
-  actualPosition: TooltipPosition = TooltipPosition.TOP;
+  actualPosition: DcxPosition = DcxPosition.TOP;
+
+  private readonly elementRef = inject(ElementRef);
 
   @ViewChild('tooltipElement') tooltipElement?: ElementRef;
 
@@ -46,7 +42,6 @@ export class DcxNgTooltipComponent implements AfterViewInit {
     }
   }
 
-  constructor(private elementRef: ElementRef) { }
 
   ngAfterViewInit() {
     this.actualPosition = this.position;
@@ -89,7 +84,7 @@ export class DcxNgTooltipComponent implements AfterViewInit {
   }
 
   private calculateOptimalPosition(
-    preferredPosition: TooltipPosition,
+    preferredPosition: DcxPosition,
     tooltipRect: DOMRect,
     availableSpace: {
       spaceTop: number;
@@ -97,41 +92,39 @@ export class DcxNgTooltipComponent implements AfterViewInit {
       spaceLeft: number;
       spaceRight: number;
     }
-  ): TooltipPosition {
+  ): DcxPosition {
     const margin = 10; // Safety margin
     const tooltipHeight = tooltipRect.height;
     const tooltipWidth = tooltipRect.width;
 
     // Check if preferred position fits
     switch (preferredPosition) {
-      case TooltipPosition.TOP:
-        if (availableSpace.spaceTop >= tooltipHeight + margin) {
-          return TooltipPosition.TOP;
-        }
+      case DcxPosition.TOP:
+
         break;
-      case TooltipPosition.BOTTOM:
+      case DcxPosition.BOTTOM:
         if (availableSpace.spaceBottom >= tooltipHeight + margin) {
-          return TooltipPosition.BOTTOM;
+          return DcxPosition.BOTTOM;
         }
         break;
-      case TooltipPosition.LEFT:
+      case DcxPosition.LEFT:
         if (availableSpace.spaceLeft >= tooltipWidth + margin) {
-          return TooltipPosition.LEFT;
+          return DcxPosition.LEFT;
         }
         break;
-      case TooltipPosition.RIGHT:
+      case DcxPosition.RIGHT:
         if (availableSpace.spaceRight >= tooltipWidth + margin) {
-          return TooltipPosition.RIGHT;
+          return DcxPosition.RIGHT;
         }
         break;
     }
 
     // If preferred position doesn't fit, find the best alternative
-    const alternatives: { position: TooltipPosition; space: number }[] = [
-      { position: TooltipPosition.TOP, space: availableSpace.spaceTop },
-      { position: TooltipPosition.BOTTOM, space: availableSpace.spaceBottom },
-      { position: TooltipPosition.LEFT, space: availableSpace.spaceLeft },
-      { position: TooltipPosition.RIGHT, space: availableSpace.spaceRight }
+    const alternatives: { position: DcxPosition; space: number }[] = [
+      { position: DcxPosition.TOP, space: availableSpace.spaceTop },
+      { position: DcxPosition.BOTTOM, space: availableSpace.spaceBottom },
+      { position: DcxPosition.LEFT, space: availableSpace.spaceLeft },
+      { position: DcxPosition.RIGHT, space: availableSpace.spaceRight }
     ];
 
     // Sort by available space (descending)
@@ -139,7 +132,7 @@ export class DcxNgTooltipComponent implements AfterViewInit {
 
     // Return the position with the most space that fits
     for (const alt of alternatives) {
-      const requiredSpace = (alt.position === TooltipPosition.LEFT || alt.position === TooltipPosition.RIGHT)
+      const requiredSpace = (alt.position === DcxPosition.LEFT || alt.position === DcxPosition.RIGHT)
         ? tooltipWidth + margin
         : tooltipHeight + margin;
 
@@ -155,7 +148,6 @@ export class DcxNgTooltipComponent implements AfterViewInit {
   getTooltipClasses(): string {
     const baseClass = 'dcx-ng-tooltip';
     const positionClass = `${baseClass}--${this.actualPosition}`;
-
     return `${baseClass} ${positionClass}`.trim();
   }
 }

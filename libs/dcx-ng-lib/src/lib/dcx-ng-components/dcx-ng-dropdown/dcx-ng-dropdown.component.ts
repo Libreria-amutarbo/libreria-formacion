@@ -12,11 +12,7 @@ import {
   signal,
 } from '@angular/core';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
-
-export interface DropdownOptions {
-  key: string;
-  value: string | number;
-}
+import { DcxDropdownOptions } from '../../core/interfaces/dropdown';
 
 @Component({
   selector: 'dcx-ng-dropdown',
@@ -27,7 +23,7 @@ export interface DropdownOptions {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgDropdownComponent {
-  @Input({ required: true }) dropdownOptions: DropdownOptions[] = [];
+  @Input({ required: true }) dropdownOptions: DcxDropdownOptions[] = [];
   @Input() placeholder = '';
   @Input() disabled = false;
   @Input() set selectedKey(key: string | null | undefined) {
@@ -64,7 +60,7 @@ export class DcxNgDropdownComponent {
     return opt ? this.valueToString(opt.value) : this.placeholder;
   });
 
-  constructor(private host: ElementRef<HTMLElement>) {}
+  constructor(private host: ElementRef<HTMLElement>) { }
 
   toggle(): void {
     if (this.disabled) return;
@@ -72,7 +68,7 @@ export class DcxNgDropdownComponent {
     this._open.set(!this._open());
   }
 
-  select(item: DropdownOptions): void {
+  select(item: DcxDropdownOptions): void {
     if (this.disabled) return;
 
     this._selectedKey.set(item.key);
@@ -80,11 +76,11 @@ export class DcxNgDropdownComponent {
     this._open.set(false);
   }
 
-  findByKey(key: string): DropdownOptions | undefined {
+  findByKey(key: string): DcxDropdownOptions | undefined {
     return this.dropdownOptions.find(o => o.key === key);
   }
 
-  isSelected(item: DropdownOptions): boolean {
+  isSelected(item: DcxDropdownOptions): boolean {
     return this._selectedKey() === item.key;
   }
 

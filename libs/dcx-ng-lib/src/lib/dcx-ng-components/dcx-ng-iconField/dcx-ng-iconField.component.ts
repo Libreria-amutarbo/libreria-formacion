@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-
-type IconSize = 's' | 'm' | 'l' | 'xl';
+import { DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-icon-field',

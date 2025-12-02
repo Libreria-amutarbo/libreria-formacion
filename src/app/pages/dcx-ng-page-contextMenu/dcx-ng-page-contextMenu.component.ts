@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContextMenuComponent, ContextMenuItem, Position } from '@dcx-ng-components/dcx-ng-lib';
+import { ContextMenuComponent, DcxContextMenuItem, DcxContextPosition, } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-page-context-menu',
@@ -10,11 +10,11 @@ import { ContextMenuComponent, ContextMenuItem, Position } from '@dcx-ng-compone
   styleUrl: './dcx-ng-page-contextMenu.component.scss',
 })
 export class PageContextMenuComponent {
-  menuItems: ContextMenuItem[] = [];
+  menuItems: DcxContextMenuItem[] = [];
   menuVisible = false;
-  menuPosition: Position = { x: 0, y: 0 };
+  menuPosition: DcxContextPosition = { x: 0, y: 0 };
   currentRow: any;
-  rowActions: ((row: any) => ContextMenuItem[]) | null = null;
+  rowActions: ((row: any) => DcxContextMenuItem[]) | null = null;
 
   openMenu(event: MouseEvent, rowData: any) {
     event.stopPropagation();
@@ -31,18 +31,18 @@ export class PageContextMenuComponent {
     this.menuItems = this.rowActions
       ? this.rowActions(rowData)
       : [
-        { label: 'Editar', action: () => this.onEdit(rowData) },
-        { label: 'Eliminar', action: () => this.onDelete(rowData) }
+        { label: 'Editar', action: () => this.onEdit() },
+        { label: 'Eliminar', action: () => this.onDelete() }
       ];
 
     this.menuVisible = true;
   }
 
-  onEdit(rowData: any) {
+  onEdit() {
     this.menuVisible = false;
   }
 
-  onDelete(rowData: any) {
+  onDelete() {
     this.menuVisible = false;
   }
 }

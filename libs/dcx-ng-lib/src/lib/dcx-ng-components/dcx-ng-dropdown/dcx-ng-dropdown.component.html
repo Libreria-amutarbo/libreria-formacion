@@ -2,12 +2,12 @@
   <dcx-ng-button
     type="button"
     class="dcx-trigger"
-    [disabled]="disabled"
-    [variant]="'icon'"
-    [size]="'medium'"
-    [label]="displayLabel()"
-    [iconName]="'expand_more'"
+    variant="icon"
+    size="m"
+    iconName="expand_more"
     iconPosition="end"
+    [disabled]="disabled"
+    [label]="displayLabel()"
     [attr.aria-expanded]="_open()"
     (buttonClick)="toggle()"
   ></dcx-ng-button>

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgMessageComponent, MessageType } from '../../dcx-ng-components/dcx-ng-message/dcx-ng-message.component';
+import { DcxNgMessageComponent } from '../../dcx-ng-components/dcx-ng-message/dcx-ng-message.component';
 import { moduleMetadata } from '@storybook/angular';
 import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
+import { DcxMessageType } from '../../core/interfaces/message';
 
 const meta: Meta<DcxNgMessageComponent> = {
   title: 'DCXLibrary/Message/Class based',
@@ -53,7 +54,7 @@ Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opcione
     },
     type: {
       control: { type: 'select' },
-      options: ['notification', 'error', 'warning', 'success'] as MessageType[],
+      options: ['notification', 'error', 'warning', 'success'] as DcxMessageType[],
       description: 'Define el tipo de mensaje que determina el estilo visual.',
       table: {
         type: { summary: 'MessageType' },

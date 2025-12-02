@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'dcx-ng-paginator',
@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dcx-ng-paginator.component.scss',
 })
 export class DcxNgPaginatorComponent {
-
   @Input() itemsPerPage = 10;
   @Input() currentPage = 1;
   @Input() pageSelected = 1;

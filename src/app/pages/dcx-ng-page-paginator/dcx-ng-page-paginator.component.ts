@@ -25,11 +25,9 @@ export class DcxNgPagePaginatorComponent {
         this.pageSelected = page;
     }
 
-    onNextPage() {
-    }
+    onNextPage() { }
 
-    onPrevPage() {
-    }
+    onPrevPage() { }
 
     togglePrevDisabled() {
         this.prevButtonDisabled = !this.prevButtonDisabled;

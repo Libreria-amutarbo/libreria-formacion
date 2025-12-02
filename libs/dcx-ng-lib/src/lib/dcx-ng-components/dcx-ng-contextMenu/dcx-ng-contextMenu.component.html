@@ -1,18 +1,17 @@
-
 <div
   class="context-menu"
   *ngIf="visible"
   [ngStyle]="{ 'left.px': position.x, 'top.px': position.y }"
   (click)="$event.stopPropagation()"
-  tabindex="0"
-  role="menu"
->
-
   
-<ul role="menu">
-  <li *ngFor="let item of items" role="menuitem">
-    <button type="button" (click)="item.action()">{{ item.label }}</button>
-  </li>
-</ul>
+tabindex="0"
+      role="button"
 
+>
+  <ul>
+    <li *ngFor="let item of items" (click)="item.action()" 
+tabindex="0"
+      role="menuitem"
+>{{ item.label }}</li>
+  </ul>
 </div>
