@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DcxNgCardComponent } from '../../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-card/dcx-ng-card.component';
+import { DcxNgCardComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-card',
@@ -9,4 +9,4 @@ import { DcxNgCardComponent } from '../../../../../libs/dcx-ng-lib/src/lib/dcx-n
   styleUrl: './dcx-ng-page-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DcxNgPageCardComponent {}
+export class DcxNgPageCardComponent { }

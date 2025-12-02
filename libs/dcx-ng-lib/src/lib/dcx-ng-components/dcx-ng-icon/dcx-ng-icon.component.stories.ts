@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgIconComponent, IconSize, IconSpacing } from './dcx-ng-icon.component';
+import { DcxSize } from '../../core/interfaces';
+import { IconSpacing } from '../../core/interfaces/icon';
+import { DcxNgIconComponent } from './dcx-ng-icon.component';
 
 const meta: Meta<DcxNgIconComponent> = {
   component: DcxNgIconComponent,
@@ -8,7 +10,7 @@ const meta: Meta<DcxNgIconComponent> = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['s', 'm', 'l', 'xl'] as IconSize[],
+      options: ['s', 'm', 'l', 'xl'] as DcxSize[],
       description: 'Icon size variant',
     },
     spacing: {

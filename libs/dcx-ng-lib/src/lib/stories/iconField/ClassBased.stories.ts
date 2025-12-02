@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgIconFieldComponent } from '../../dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component';
 import { moduleMetadata } from '@storybook/angular';
 import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
+import { DcxSize } from '../../core/interfaces';
 
-type IconSize = 's' | 'm' | 'l' | 'xl';
 
 const meta: Meta<DcxNgIconFieldComponent> = {
   title: 'DCXLibrary/IconField/Class based',
@@ -69,10 +69,10 @@ Funciona igual que un input normal pero permite añadir iconos a la izquierda y/
     },
     iconSize: {
       control: { type: 'select' },
-      options: ['s', 'm', 'l', 'xl'] as IconSize[],
+      options: ['s', 'm', 'l', 'xl'] as DcxSize[],
       description: 'Tamaño de los iconos.',
       table: {
-        type: { summary: 'IconSize' },
+        type: { summary: 'DcxSize' },
         defaultValue: { summary: 'm' },
       },
     },

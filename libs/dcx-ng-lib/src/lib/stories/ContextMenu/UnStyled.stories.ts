@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { ContextMenuComponent, ContextMenuItem } from '../../dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+import { DcxContextMenuItem } from '../../core/interfaces';
+import { ContextMenuComponent } from '../../dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
 
 const meta: Meta<ContextMenuComponent> = {
   title: 'DCXLibrary/ContextMenu/Without style',
@@ -24,7 +25,7 @@ const meta: Meta<ContextMenuComponent> = {
 export default meta;
 type Story = StoryObj<ContextMenuComponent>;
 
-const unstyledItems: ContextMenuItem[] = [
+const unstyledItems: DcxContextMenuItem[] = [
   {
     label: 'New',
     action: () => console.log('New clicked'),

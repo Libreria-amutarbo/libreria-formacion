@@ -1,10 +1,8 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { within, expect, fn } from '@storybook/test';
+import { fn } from '@storybook/test';
 import { DcxNgButtonComponent } from '../../dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
 
-const ActionsData = {
-  buttonClick: fn(),
-};
+const ActionsData = { buttonClick: fn(), };
 
 const meta: Meta<DcxNgButtonComponent> = {
   title: 'DCXLibrary/Button/Class based',
@@ -61,7 +59,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     type: 'button',
     disabled: false,
     variant: 'primary',
-    size: 'medium',
+    size: 'm',
     iconName: '',
     iconPosition: 'start',
     iconSize: undefined,

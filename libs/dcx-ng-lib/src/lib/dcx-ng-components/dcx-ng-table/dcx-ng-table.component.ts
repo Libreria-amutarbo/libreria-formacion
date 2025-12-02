@@ -10,7 +10,8 @@ import {
   TemplateRef,
 } from '@angular/core';
 
-import { ContextMenuComponent, ContextMenuItem } from '../dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+import { ContextMenuComponent } from '../dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+import { DcxContextMenuItem } from '../../core/interfaces';
 
 type SortDirection = 'asc' | 'desc' | null;
 
@@ -54,13 +55,13 @@ export class DcxNgTableComponent implements OnInit {
   @Input() menuCellTemplate?: TemplateRef<any>;
 
   @Input() data: any[] = [];
-  @Input() rowActions: ((row: any) => ContextMenuItem[]) | null = null;
+  @Input() rowActions: ((row: any) => DcxContextMenuItem[]) | null = null;
 
   @Output() sortChange = new EventEmitter<Sort>();
 
   sort = signal<Sort>({ key: null, dir: null });
 
-  menuItems: ContextMenuItem[] = [];
+  menuItems: DcxContextMenuItem[] = [];
   menuVisible = false;
   menuPosition = { x: 0, y: 0 };
   currentRow: any;
