@@ -5,6 +5,7 @@ import {
   output,
   signal,
   computed,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
@@ -14,8 +15,8 @@ import { DcxTabItem } from '../../core/interfaces/tabs';
   selector: 'dcx-ng-tabs',
   standalone: true,
   imports: [CommonModule, DcxNgButtonComponent],
-  templateUrl: './dcx-ng-tabs.html',
-  styleUrl: './dcx-ng-tabs.scss',
+  templateUrl: './dcx-ng-tabs.component.html',
+  styleUrl: './dcx-ng-tabs.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgTabsComponent {
@@ -33,16 +34,14 @@ export class DcxNgTabsComponent {
   });
 
   constructor() {
-    this.initializeActiveTab();
-  }
-
-  private initializeActiveTab(): void {
-    const initialId = this.activeTabId();
-    if (initialId) {
-      this._activeTabId.set(initialId);
-    } else if (this.tabs().length > 0) {
-      this._activeTabId.set(this.tabs()[0].id);
-    }
+    effect(() => {
+      const initialId = this.activeTabId();
+      if (initialId) {
+        this._activeTabId.set(initialId);
+      } else if (this.tabs().length > 0) {
+        this._activeTabId.set(this.tabs()[0].id);
+      }
+    });
   }
 
   selectTab(tabId: string): void {

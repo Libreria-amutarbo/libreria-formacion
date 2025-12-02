@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgTabsComponent } from './dcx-ng-tabs';
+import { DcxNgTabsComponent } from './dcx-ng-tabs.component';
 import { DcxTabItemMock } from '../../core/mock';
 
 describe('DcxNgTabsComponent', () => {
