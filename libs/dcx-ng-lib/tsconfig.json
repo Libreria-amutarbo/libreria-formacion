@@ -1,14 +1,12 @@
 {
   "compilerOptions": {
-    
-
-"moduleResolution": "bundler",
+    "moduleResolution": "bundler",
     "module": "esnext",
     "target": "es2022",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-"types": ["node", "@storybook/jest", "@storybook/testing-library"],
+    "types": ["node", "@storybook/jest", "@storybook/testing-library"],
 
     "forceConsistentCasingInFileNames": true,
     "strict": true,

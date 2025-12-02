@@ -2,31 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DcxNgAccordionComponent, DcxNgAccordionItem } from './dcx-ng-accordion.component';
 import { Component } from '@angular/core';
+import { DcxAccordionMock } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgAccordionComponent', () => {
   let component: DcxNgAccordionComponent;
   let fixture: ComponentFixture<TestHostComponent>;
-
-  const mockItems: DcxNgAccordionItem[] = [
-    {
-      id: '1',
-      title: 'Item 1',
-      content: 'Item 1',
-      disabled: false,
-    },
-    {
-      id: '2',
-      title: 'Item 2',
-      content: 'Item 2',
-      disabled: false,
-    },
-    {
-      id: '3',
-      title: 'Item 3 (Disabled)',
-      content: 'Item 3',
-      disabled: true,
-    },
-  ];
 
   @Component({
     selector: 'test-host',
@@ -34,7 +14,7 @@ describe('DcxNgAccordionComponent', () => {
     imports: [DcxNgAccordionComponent]
   })
   class TestHostComponent {
-    items = mockItems;
+    items = DcxAccordionMock;
     toggledItem: DcxNgAccordionItem | null = null;
 
     onItemToggled(item: DcxNgAccordionItem) {
@@ -58,21 +38,19 @@ describe('DcxNgAccordionComponent', () => {
 
   describe('toggleItem', () => {
     it('should toggle item expansion (open/close)', () => {
-      const item = mockItems[0];
+      const item = DcxAccordionMock[0];
 
-      // Primera vez: abre
       component.toggleItem(item);
       fixture.detectChanges();
       expect(component.isExpanded(item.id)).toBe(true);
 
-      // Segunda vez: cierra
       component.toggleItem(item);
       fixture.detectChanges();
       expect(component.isExpanded(item.id)).toBe(false);
     });
 
     it('should not toggle disabled items', () => {
-      const disabledItem = mockItems[2];
+      const disabledItem = DcxAccordionMock[2];
       component.toggleItem(disabledItem);
       fixture.detectChanges();
 
@@ -80,8 +58,8 @@ describe('DcxNgAccordionComponent', () => {
     });
 
     it('should allow multiple items expanded simultaneously', () => {
-      const item1 = mockItems[0];
-      const item2 = mockItems[1];
+      const item1 = DcxAccordionMock[0];
+      const item2 = DcxAccordionMock[1];
 
       component.toggleItem(item1);
       component.toggleItem(item2);
@@ -92,8 +70,8 @@ describe('DcxNgAccordionComponent', () => {
     });
 
     it('should allow closing an item independently', () => {
-      const item1 = mockItems[0];
-      const item2 = mockItems[1];
+      const item1 = DcxAccordionMock[0];
+      const item2 = DcxAccordionMock[1];
 
       component.toggleItem(item1);
       component.toggleItem(item2);
@@ -107,7 +85,7 @@ describe('DcxNgAccordionComponent', () => {
 
     it('should emit itemToggled event when item is toggled', () => {
       spyOn(component.itemToggled, 'emit');
-      const item = mockItems[0];
+      const item = DcxAccordionMock[0];
 
       component.toggleItem(item);
 
@@ -117,7 +95,7 @@ describe('DcxNgAccordionComponent', () => {
 
   describe('isExpanded', () => {
     it('should return true if item is expanded', () => {
-      const item = mockItems[0];
+      const item = DcxAccordionMock[0];
       component.toggleItem(item);
       fixture.detectChanges();
 
@@ -125,7 +103,7 @@ describe('DcxNgAccordionComponent', () => {
     });
 
     it('should return false if item is not expanded', () => {
-      const item = mockItems[0];
+      const item = DcxAccordionMock[0];
 
       expect(component.isExpanded(item.id)).toBe(false);
     });
@@ -133,7 +111,7 @@ describe('DcxNgAccordionComponent', () => {
 
   describe('getAnimationState', () => {
     it('should return "expanded" when item is expanded', () => {
-      const item = mockItems[0];
+      const item = DcxAccordionMock[0];
       component.toggleItem(item);
       fixture.detectChanges();
 
@@ -141,7 +119,7 @@ describe('DcxNgAccordionComponent', () => {
     });
 
     it('should return "collapsed" when item is not expanded', () => {
-      const item = mockItems[0];
+      const item = DcxAccordionMock[0];
 
       expect(component.getAnimationState(item.id)).toBe('collapsed');
     });
@@ -151,13 +129,13 @@ describe('DcxNgAccordionComponent', () => {
     it('should render all accordion items', () => {
       const items = fixture.nativeElement.querySelectorAll('.accordion-item');
 
-      expect(items.length).toBe(mockItems.length);
+      expect(items.length).toBe(DcxAccordionMock.length);
     });
 
     it('should render accordion headers with correct titles', () => {
       const headers = fixture.nativeElement.querySelectorAll('.accordion-header');
 
-      mockItems.forEach((item, index) => {
+      DcxAccordionMock.forEach((item, index) => {
         expect(headers[index].textContent).toContain(item.title);
       });
     });
@@ -180,7 +158,7 @@ describe('DcxNgAccordionComponent', () => {
     });
 
     it('should set aria-expanded attribute correctly', () => {
-      const item = mockItems[0];
+      const item = DcxAccordionMock[0];
       const headers = fixture.nativeElement.querySelectorAll(
         '.accordion-header'
       );
@@ -199,7 +177,7 @@ describe('DcxNgAccordionComponent', () => {
         '.accordion-header'
       );
 
-      mockItems.forEach((item, index) => {
+      DcxAccordionMock.forEach((item, index) => {
         expect(headers[index].getAttribute('aria-controls')).toBe(
           `accordion-${item.id}`
         );
@@ -209,7 +187,7 @@ describe('DcxNgAccordionComponent', () => {
 
   describe('Input Properties', () => {
     it('should accept items input', () => {
-      expect(component.items()).toEqual(mockItems);
+      expect(component.items()).toEqual(DcxAccordionMock);
     });
   });
 });
