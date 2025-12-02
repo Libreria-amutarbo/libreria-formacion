@@ -29,10 +29,10 @@ describe('DcxNgToggleComponent', () => {
   });
 
   it('should apply size class', () => {
-    component.size = 'large';
+    component.size = 'l';
     fixture.detectChanges();
     const toggle = fixture.debugElement.query(By.css('.dcx-ng-toggle'));
-    expect(toggle.nativeElement.classList).toContain('dcx-ng-toggle--large');
+    expect(toggle.nativeElement.classList).toContain('dcx-ng-toggle--l');
   });
 
   it('should show label when set', () => {
