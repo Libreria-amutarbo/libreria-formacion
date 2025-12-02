@@ -15,7 +15,6 @@ import {
   viewChildren,
 } from '@angular/core';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { DcxNgTablePaginatorComponent } from './components/dcx-ng-table-paginator/dcx-ng-table-paginator.component';
 import {
   DcxActionEvent,
   DcxCellEditEvent,
@@ -28,6 +27,7 @@ import { TableComparatorService } from './services/table-comparator.service';
 import { TableDataPipelineService } from './services/table-data-pipeline.service';
 import { TableState } from './state/table-state';
 import { DcxNgFullTableTemplateDirective } from './dcx-ng-full-table-template.directive';
+import { DcxNgTablePaginatorComponent } from './components/dcx-ng-table-paginator/dcx-ng-table-paginator.component';
 
 @Component({
   selector: 'dcx-ng-full-table',
