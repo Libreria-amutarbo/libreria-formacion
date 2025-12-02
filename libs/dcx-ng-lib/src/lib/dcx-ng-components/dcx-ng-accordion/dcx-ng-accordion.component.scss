@@ -59,6 +59,11 @@
         margin-left: 12px;
         flex-shrink: 0;
         transition: transform 0.3s ease-in-out;
+        transform: rotate(0deg);
+
+        &.expanded {
+          transform: rotate(180deg);
+        }
 
         svg {
           width: 20px;
@@ -68,15 +73,16 @@
       }
     }
 
-    // Expandir el icono cuando está abierto
-    &:has(.accordion-content-wrapper[style*="height"]:not([style*="height: 0"])) {
-      .accordion-header .accordion-icon {
-        transform: rotate(180deg);
-      }
-    }
-
     .accordion-content-wrapper {
+      max-height: 0;
       overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+      &.expanded {
+        max-height: 1000px;
+        opacity: 1;
+      }
 
       .accordion-content {
         padding: 16px;
@@ -89,32 +95,3 @@
   }
 }
 
-// Modo oscuro (opcional)
-@media (prefers-color-scheme: dark) {
-  .accordion {
-    background-color: #1e1e1e;
-    border-color: #444;
-
-    .accordion-item {
-      border-bottom-color: #444;
-
-      .accordion-header {
-        background-color: #1e1e1e;
-        color: #e0e0e0;
-
-        &:hover:not(:disabled) {
-          background-color: #2a2a2a;
-        }
-
-        .accordion-icon svg {
-          color: #999;
-        }
-      }
-
-      .accordion-content-wrapper .accordion-content {
-        background-color: #2a2a2a;
-        color: #ccc;
-      }
-    }
-  }
-}

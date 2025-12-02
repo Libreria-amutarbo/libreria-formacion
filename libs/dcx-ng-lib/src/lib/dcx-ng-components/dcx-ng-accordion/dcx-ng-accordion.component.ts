@@ -1,6 +1,4 @@
-import { Component, input, output, OnInit, ChangeDetectorRef, signal, ChangeDetectionStrategy, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Component, input, output, signal, ChangeDetectionStrategy, computed } from '@angular/core';
 
 export interface DcxNgAccordionItem {
   id: string;
@@ -11,29 +9,9 @@ export interface DcxNgAccordionItem {
 
 @Component({
   selector: 'dcx-ng-accordion',
-  imports: [],
   templateUrl: './dcx-ng-accordion.component.html',
   styleUrl: './dcx-ng-accordion.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('expandCollapse', [
-      state('collapsed', style({ 
-        height: '0px',
-        opacity: '0',
-        overflow: 'hidden',
-        visibility: 'hidden'
-      })),
-      state('expanded', style({ 
-        height: '*',
-        opacity: '1',
-        overflow: 'visible',
-        visibility: 'visible'
-      })),
-      transition('collapsed <=> expanded', [
-        animate('300ms ease-in-out')
-      ])
-    ])
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DcxNgAccordionComponent {
   readonly items = input<DcxNgAccordionItem[]>([]);
@@ -61,9 +39,5 @@ export class DcxNgAccordionComponent {
 
   isExpanded(itemId: string): boolean {
     return this._expandedItems().has(itemId);
-  }
-
-  getAnimationState(itemId: string): string {
-    return this.isExpanded(itemId) ? 'expanded' : 'collapsed';
   }
 }
