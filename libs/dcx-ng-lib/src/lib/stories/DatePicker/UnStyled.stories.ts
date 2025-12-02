@@ -19,10 +19,15 @@ import { DcxNgDatePickerComponent } from '@dcx-ng-components/dcx-ng-lib';
         [placeholder]="placeholder"
         (dateChange)="onDateChange($event)">
       </dcx-ng-date-picker>
+      
+      <div style="margin-top: 1rem; padding: 0.5rem; background: #f0f0f0; border-radius: 4px;">
+        <strong>Fecha seleccionada:</strong> 
+        {{ selectedDate ? selectedDate.toLocaleDateString('es-ES') : 'ninguna' }}
+      </div>
     </div>
   `,
 })
-class DatePickerUnstyledWrapperComponent {
+export class DatePickerUnstyledWrapperComponent {
   @Input() selectedDate: Date | null = null;
   @Input() minDate: Date | null = null;
   @Input() maxDate: Date | null = null;
