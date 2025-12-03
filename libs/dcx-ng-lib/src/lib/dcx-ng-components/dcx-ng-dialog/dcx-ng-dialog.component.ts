@@ -6,7 +6,6 @@ import {
   output,
   TemplateRef,
 } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'dcx-ng-dialog',
