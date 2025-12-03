@@ -37,7 +37,9 @@ export class DcxNgTabsComponent {
       const initialId = this.activeTabId();
       if (initialId) {
         this._activeTabId.set(initialId);
-      } else if (this.tabs().length > 0) {
+      }
+
+      if (this.tabs().length > 0) {
         this._activeTabId.set(this.tabs()[0].id);
       }
     });
