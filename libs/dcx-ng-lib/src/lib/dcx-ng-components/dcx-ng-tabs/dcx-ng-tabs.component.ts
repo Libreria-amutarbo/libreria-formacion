@@ -24,7 +24,7 @@ export class DcxNgTabsComponent {
   disabled = input<boolean>(false);
 
   tabChange = output<string>();
-  prueba: string = 'patata';
+
   private _activeTabId = signal<string>('');
 
   activeTab = computed(() => {
