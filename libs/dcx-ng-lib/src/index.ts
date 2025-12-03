@@ -2,9 +2,7 @@ export * from './lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
 export * from './lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 export * from './lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
 export * from './lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component';
-export * from './lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
 export * from './lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component';
-export * from './lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 export * from './lib/dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
 export * from './lib/dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
 export * from './lib/dcx-ng-components/dcx-ng-card/dcx-ng-card.component';
@@ -22,8 +20,8 @@ export * from './lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component';
 export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 export * from './lib/dcx-ng-components/dcx-ng-datePicker/dcx-ng-datePicker.component';
 export * from './lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
-
 export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
+export * from './lib/dcx-ng-components/dcx-ng-tabs/dcx-ng-tabs.component';
 export * from './lib/services/icon.service';
 export * from './lib/dcx-ng-components/dcx-ng-dialog/dcx-ng-dialog.component';
 

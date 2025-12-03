@@ -23,6 +23,7 @@ import { DxcNgPageDatePickerComponent } from './pages/dxc-ng-page-datePicker/dxc
 import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
+import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
 
 export const appRoutes: Route[] = [
   {
@@ -120,5 +121,9 @@ export const appRoutes: Route[] = [
   {
     path: 'dialog',
     component: DcxNgPageDialogComponent,
+  },
+  {
+    path: 'tabs',
+    component: DcxNgPageTabsComponent,
   },
 ];
