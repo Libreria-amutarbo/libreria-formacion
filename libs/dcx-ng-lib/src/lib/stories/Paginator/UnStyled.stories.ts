@@ -28,7 +28,7 @@ export default meta;
 type Story = StoryObj<DcxNgPaginatorComponent>;
 
 @Component({
-  selector: 'paginator-unstyled-demo',
+  selector: 'dcx-ng-paginator-unstyled-demo',
   standalone: true,
   imports: [DcxNgPaginatorComponent],
   template: `
@@ -57,10 +57,10 @@ export const Default: Story = {
       imports: [PaginatorUnstyledDemoComponent],
     },
     template: `
-      <paginator-unstyled-demo
+      <dcx-ng-paginator-unstyled-demo
         [totalPages]="totalPages"
         [disabled]="disabled">
-      </paginator-unstyled-demo>
+      </dcx-ng-paginator-unstyled-demo>
     `,
   }),
   args: {
