@@ -8,7 +8,6 @@ const meta: Meta<DcxNgTabsComponent> = {
   component: DcxNgTabsComponent,
   tags: ['autodocs'],
   argTypes: {
-    tabs: { control: 'object' },
     activeTabId: { control: 'text' },
     disabled: { control: 'boolean' },
   },
@@ -18,6 +17,11 @@ export default meta;
 type Story = StoryObj<DcxNgTabsComponent>;
 
 export const Basic: Story = {
+  args: {
+    tabs: DcxTabItemMock,
+    activeTabId: 'tab1',
+    disabled: false,
+  },
   parameters: {
     docs: {
       story: {
@@ -25,46 +29,10 @@ export const Basic: Story = {
       },
     },
   },
-  render: args => ({
-    imports: [CommonModule, DcxNgTabsComponent],
-    props: {
-      tabs: DcxTabItemMock,
-      activeTabId: 'tab1',
-      disabled: false,
-      onTabChange(tabId: string) {
-        console.log('Selected tab:', tabId);
-      },
-    },
-    template: `
-      <dcx-ng-tabs
-        [tabs]="tabs"
-        [activeTabId]="activeTabId"
-        [disabled]="disabled"
-        (tabChange)="onTabChange($event)"
-      ></dcx-ng-tabs>
-    `,
-  }),
-};
 
-export const Disabled: Story = {
-  parameters: {
-    docs: {
-      story: {
-        height: '200px',
-      },
-    },
-  },
-  render: args => ({
-    imports: [CommonModule, DcxNgTabsComponent],
-    props: {
-      tabs: DcxTabItemMock,
-      activeTabId: 'tab1',
-      disabled: true,
-      onTabChange(tabId: string) {
-        console.log('Selected tab:', tabId);
-      },
-    },
-    template: `
+  render: args => {
+    return {
+      template: `
       <dcx-ng-tabs
         [tabs]="tabs"
         [activeTabId]="activeTabId"
@@ -72,5 +40,12 @@ export const Disabled: Story = {
         (tabChange)="onTabChange($event)"
       ></dcx-ng-tabs>
     `,
-  }),
+      props: {
+        tabs: args.tabs,
+        activeTabId: args.activeTabId,
+        disabled: args.disabled,
+        onTabChange: (tabId: string) => console.log('Selected tab:', tabId),
+      },
+    };
+  },
 };

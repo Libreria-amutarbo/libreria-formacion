@@ -30,23 +30,22 @@ export const Basic: Story = {
       },
     },
   },
-  render: args => ({
-    imports: [CommonModule, DcxNgTabsComponent],
-    props: {
-      tabs: args.tabs,
-      activeTabId: args.activeTabId,
-      disabled: args.disabled,
-      handleTabChange(tabId: string) {
-        console.log('Tab changed to:', tabId);
-      },
-    },
-    template: `
+  render: args => {
+    return {
+      template: `
       <dcx-ng-tabs
         [tabs]="tabs"
         [activeTabId]="activeTabId"
         [disabled]="disabled"
-        (tabChange)="handleTabChange($event)"
+        (tabChange)="onTabChange($event)"
       ></dcx-ng-tabs>
     `,
-  }),
+      props: {
+        tabs: args.tabs,
+        activeTabId: args.activeTabId,
+        disabled: args.disabled,
+        onTabChange: (tabId: string) => console.log('Selected tab:', tabId),
+      },
+    };
+  },
 };
