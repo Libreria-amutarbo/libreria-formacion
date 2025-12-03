@@ -7,14 +7,13 @@ import {
   computed,
   effect,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxTabItem } from '../../core/interfaces/tabs';
 
 @Component({
   selector: 'dcx-ng-tabs',
   standalone: true,
-  imports: [CommonModule, DcxNgButtonComponent],
+  imports: [DcxNgButtonComponent],
   templateUrl: './dcx-ng-tabs.component.html',
   styleUrl: './dcx-ng-tabs.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
