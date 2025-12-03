@@ -14,58 +14,58 @@ hr {
 }
 
 // Estilos para templates personalizados
-::ng-deep {
-  .user-cell {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.user-avatar-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 
-    img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #e0e0e0;
-    }
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
-    span {
-      font-weight: 500;
-      color: #333;
-    }
-  }
+.date-text {
+  color: #666;
+}
 
-  .date-cell {
-    color: #666;
-    font-size: 14px;
-  }
+.price-text {
+  font-weight: 600;
+  color: #2d5a27;
+}
 
-  .price-cell {
-    font-weight: 600;
-    color: #2d5a27;
-    font-size: 15px;
-  }
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: inline-block;
+}
 
-  .status-badge {
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: capitalize;
-    display: inline-block;
+.status-active {
+  background-color: #d4edda;
+  color: #155724;
+}
 
-    &.active {
-      background-color: #d4edda;
-      color: #155724;
-    }
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
 
-    &.pending {
-      background-color: #fff3cd;
-      color: #856404;
-    }
+.status-inactive {
+  background-color: #f8d7da;
+  color: #721c24;
+}
 
-    &.inactive {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-  }
+.user-name {
+  font-weight: 500;
+}
+
+.user-country {
+  color: #999;
+  font-size: 12px;
+  margin-left: 8px;
 }

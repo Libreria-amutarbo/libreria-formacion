@@ -25,7 +25,7 @@ import {
 } from '../../core/interfaces';
 import { TableComparatorService } from './services/table-comparator.service';
 import { TableDataPipelineService } from './services/table-data-pipeline.service';
-import { TableState } from './state/table-state';
+import { TableState, TableStateConfig } from './state/table-state';
 import { DcxNgFullTableTemplateDirective } from './dcx-ng-full-table-template.directive';
 import { DcxNgTablePaginatorComponent } from './components/dcx-ng-table-paginator/dcx-ng-table-paginator.component';
 
@@ -104,6 +104,16 @@ export class DcxNgFullTableComponent {
   } | null>(null);
   private readonly _openMenuRowIndex = signal<number | null>(null);
 
+  private readonly stateConfig: TableStateConfig = {
+    headers: this.headers,
+    rows: this.rows,
+    rowsPerPage: this.normalizedRowsPerPage,
+    paginator: this.paginator,
+    frozenLeftSeparator: this.frozenLeftSeparator,
+    frozenRightSeparator: this.frozenRightSeparator,
+    showRowIndex: this.showRowIndex,
+  };
+
   private readonly state: TableState;
 
   readonly displayHeaders = computed(() => this.state.displayHeaders());
@@ -125,13 +135,7 @@ export class DcxNgFullTableComponent {
 
   constructor() {
     this.state = new TableState(
-      this.headers,
-      this.rows,
-      this.normalizedRowsPerPage,
-      this.paginator,
-      this.frozenLeftSeparator,
-      this.frozenRightSeparator,
-      this.showRowIndex,
+      this.stateConfig,
       this.pipelineService,
       this.comparatorService,
     );
@@ -193,6 +197,18 @@ export class DcxNgFullTableComponent {
 
   getFilterValue(key: string): string {
     return this.state.getFilterValue(key);
+  }
+
+  getFilterPlaceholder(headerName: string): string {
+    return `Filtrar ${headerName}`;
+  }
+
+  isActionDisabled(action: { disabled?: (row: DcxTableRow) => boolean }, row: DcxTableRow): boolean {
+    return action.disabled ? action.disabled(row) : false;
+  }
+
+  getMenuIcon(menuIcon?: string): string {
+    return menuIcon || 'three-dots-vertical';
   }
 
   onCellDblClick(rowIndex: number, key: string, header: DcxHeaderData): void {

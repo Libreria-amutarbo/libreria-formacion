@@ -8,6 +8,15 @@ import {
 } from '../../../core/interfaces';
 import { TableDataPipelineService } from '../services/table-data-pipeline.service';
 import { TableComparatorService } from '../services/table-comparator.service';
+export interface TableStateConfig {
+  headers: Signal<readonly DcxHeaderData[]>;
+  rows: Signal<readonly DcxTableRow[]>;
+  rowsPerPage: Signal<number>;
+  paginator: Signal<boolean>;
+  frozenLeftSeparator: Signal<boolean>;
+  frozenRightSeparator: Signal<boolean>;
+  showRowIndex: Signal<boolean>;
+}
 
 export class TableState {
   private readonly _manualSort: WritableSignal<DcxSort>;
@@ -26,15 +35,8 @@ export class TableState {
   readonly pageIndex: Signal<number>;
   readonly hasRowIndex: Signal<boolean>;
   readonly pageInfo: Signal<{ index: number; size: number; total: number }>;
-
   constructor(
-    private readonly headers: Signal<readonly DcxHeaderData[]>,
-    private readonly rows: Signal<readonly DcxTableRow[]>,
-    private readonly rowsPerPage: Signal<number>,
-    private readonly paginator: Signal<boolean>,
-    private readonly frozenLeftSeparator: Signal<boolean>,
-    private readonly frozenRightSeparator: Signal<boolean>,
-    private readonly showRowIndex: Signal<boolean>,
+    private readonly config: TableStateConfig,
     private readonly pipelineService: TableDataPipelineService,
     private readonly comparatorService: TableComparatorService,
   ) {
@@ -44,7 +46,7 @@ export class TableState {
     this._columnWidths = signal<number[]>([]);
 
     this.displayHeaders = computed(() => {
-      const headers = this.headers();
+      const headers = this.config.headers();
       const left = headers.filter(h => h.frozen === 'left');
       const right = headers.filter(h => h.frozen === 'right');
       const middle = headers.filter(h => !h.frozen);
@@ -55,16 +57,16 @@ export class TableState {
       const manual = this._manualSort();
       if (manual.key && manual.dir) return manual;
 
-      const defaultHeader = this.headers().find(
-        h => h.defaultSort && h.key && h.sortable !== false,
-      );
+      const defaultHeader = this.config
+        .headers()
+        .find(h => h.defaultSort && h.key && h.sortable !== false);
       return defaultHeader?.key && defaultHeader.defaultSort
         ? { key: defaultHeader.key, dir: defaultHeader.defaultSort }
         : { key: null, dir: null };
     });
 
     this.normalizedRows = computed(() =>
-      this.pipelineService.normalize(this.rows()),
+      this.pipelineService.normalize(this.config.rows()),
     );
 
     this.filteredRows = computed(() =>
@@ -75,21 +77,21 @@ export class TableState {
       this.pipelineService.sort(
         this.filteredRows(),
         this.sort(),
-        this.headers(),
+        this.config.headers(),
         (left, right, type) =>
           this.comparatorService.compare(left, right, type),
       ),
     );
 
     this.pageSize = computed(() => {
-      const value = this.rowsPerPage();
+      const value = this.config.rowsPerPage();
       return Number.isFinite(value) && value > 0 ? value : 10;
     });
 
     this.pageIndex = computed(() => this._rawPageIndex());
 
     this.paginatedRows = computed(() => {
-      if (!this.paginator()) return this.sortedRows();
+      if (!this.config.paginator()) return this.sortedRows();
       return this.pipelineService.paginate(
         this.sortedRows(),
         this.pageIndex(),
@@ -131,12 +133,12 @@ export class TableState {
         }
       }
 
-      if (this.frozenLeftSeparator() && leftIndices.length > 0) {
+      if (this.config.frozenLeftSeparator() && leftIndices.length > 0) {
         const lastLeftIdx = leftIndices[leftIndices.length - 1];
         meta[lastLeftIdx].separatorLeft = true;
       }
 
-      if (this.frozenRightSeparator() && rightIndices.length > 0) {
+      if (this.config.frozenRightSeparator() && rightIndices.length > 0) {
         const leftMostRightIdx = rightIndices[rightIndices.length - 1];
         meta[leftMostRightIdx].separatorRight = true;
       }
@@ -144,7 +146,7 @@ export class TableState {
       return meta;
     });
 
-    this.hasRowIndex = computed(() => this.showRowIndex());
+    this.hasRowIndex = computed(() => this.config.showRowIndex());
 
     this.pageInfo = computed(() => ({
       index: this.pageIndex(),

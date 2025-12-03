@@ -60,7 +60,7 @@
                 <input
                   type="text"
                   class="filter-input"
-                  [placeholder]="'Filtrar ' + header.name"
+                  [placeholder]="getFilterPlaceholder(header.name)"
                   [value]="getFilterValue(header.key)"
                   (click)="$event.stopPropagation()"
                   (input)="onFilterChange(header.key, $any($event.target).value)"
@@ -167,9 +167,7 @@
 </ng-template>
 
 <ng-template #builtInDateTpl let-row let-key="key" let-header="header">
-  <span style="color: #666;">
     {{ row?.[key] | date: ((header.cellTypeConfig?.dateFormat) || 'dd/MM/yyyy HH:mm') }}
-  </span>
 </ng-template>
 
 <ng-template
@@ -187,12 +185,9 @@
             <button
               type="button"
               class="action-btn"
-              [class.action-primary]="action.variant === 'primary'"
-              [class.action-danger]="action.variant === 'danger'"
-              [class.action-secondary]="action.variant === 'secondary' || !action.variant"
               [title]="action.label"
               [attr.aria-label]="action.label"
-              [disabled]="action.disabled ? action.disabled(row) : false"
+              [disabled]="isActionDisabled(action, row)"
               (click)="onActionClick(action.id, row, rowIndex)"
             >
               <dcx-ng-icon [name]="action.icon" size="s" />
@@ -211,13 +206,14 @@
           [attr.aria-haspopup]="true"
           (click)="toggleActionsMenu(rowIndex, $event)"
         >
-          <dcx-ng-icon [name]="config.menuIcon || 'more_vert'" size="m" />
+          <dcx-ng-icon [name]="getMenuIcon(config.menuIcon)" size="m" />
         </button>
 
         @if (isMenuOpen(rowIndex)) {
           <div
             class="actions-dropdown"
             role="menu"
+            tabindex="0"
             (click)="$event.stopPropagation()"
           >
             @for (action of config.items; track action.id) {
@@ -226,7 +222,7 @@
                   type="button"
                   class="action-menu-item"
                   [class.action-danger]="action.variant === 'danger'"
-                  [disabled]="action.disabled ? action.disabled(row) : false"
+                  [disabled]="isActionDisabled(action, row)"
                   (click)="onActionClick(action.id, row, rowIndex)"
                 >
                   <dcx-ng-icon [name]="action.icon" size="s" />

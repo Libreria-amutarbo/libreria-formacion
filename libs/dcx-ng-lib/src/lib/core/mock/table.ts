@@ -378,6 +378,13 @@ export const USER_HEADERS_FULL_FROZEN: DcxHeaderData[] = [
       dateFormat: 'dd/MM/yyyy HH:mm',
     },
   },
+  {
+    name: 'Fecha alta T',
+    key: 'createdAt',
+    cellType: 'date',
+    sortable: true,
+    template: 'dateTemplate',
+  },
 ];
 
 /** Headers full frozen + acciones menú */
@@ -495,3 +502,61 @@ export const USER_WITH_STATUS_HEADERS: DcxHeaderData[] = [
     sortable: true,
   },
 ];
+export const SIMPLE_USER_HEADERS_RENDER:  DcxHeaderData[] = [
+    {
+      name: 'Usuario',
+      key: 'name',
+      sortable: true,
+      renderFn: row => `👤 ${(row['name'] as string).toUpperCase()}`,
+      frozen: 'left',
+      minWidth: '220px',
+    },
+    {
+      name: 'Fecha corta',
+      key: 'createdAt',
+      sortable: true,
+      frozen: 'left',
+      cellType: 'date',
+      cellTypeConfig: {
+        dateFormat: 'dd/MM/yy HH:mm',
+      },
+    },
+    {
+      name: 'Fecha completa',
+      key: 'createdAt',
+      sortable: false,
+      cellType: 'date',
+      cellTypeConfig: {
+        dateFormat: 'dd/MM/yyyy hh:mm:ss a',
+      },
+    },
+    {
+      name: 'Edad EUR',
+      key: 'age',
+      sortable: true,
+      renderFn: row => {
+        const age = row['age'] as number;
+        return new Intl.NumberFormat('es-ES', {
+          style: 'currency',
+          currency: 'EUR',
+        }).format(age);
+      },
+    },
+    {
+      name: 'Edad USD',
+      key: 'age',
+      sortable: false,
+      renderFn: row => {
+        const age = row['age'] as number;
+        return `$${(age * 1.1).toFixed(2)}`;
+      },
+    },
+    {
+      name: 'País',
+      key: 'country',
+      sortable: true,
+      frozen: 'left',
+    },
+    ...USER_HEADERS_WITH_INLINE.filter(h => h.key === 'actions'),
+  ];
+
