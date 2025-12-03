@@ -7,5 +7,6 @@ export * from './divider';
 export * from './dropdown';
 export * from './input';
 export * from './icon';
+export * from './tabs';
 
-export * from './generic'
+export * from './generic';
