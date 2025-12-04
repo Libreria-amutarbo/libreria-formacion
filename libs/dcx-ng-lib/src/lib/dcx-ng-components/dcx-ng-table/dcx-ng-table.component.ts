@@ -10,7 +10,8 @@ import {
   TemplateRef,
 } from '@angular/core';
 
-import { ContextMenuComponent, ContextMenuItem } from '../dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+import { ContextMenuComponent } from '../dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+import { DcxContextMenuItem, DcxDataType } from '../../core/interfaces';
 
 type SortDirection = 'asc' | 'desc' | null;
 
@@ -24,7 +25,7 @@ export interface HeaderData {
   name: string;
   key?: string;
   sortable?: boolean;
-  type?: 'string' | 'number';
+  type?: DcxDataType;
   defaultSort?: Exclude<SortDirection, null>;
 }
 
@@ -54,13 +55,13 @@ export class DcxNgTableComponent implements OnInit {
   @Input() menuCellTemplate?: TemplateRef<any>;
 
   @Input() data: any[] = [];
-  @Input() rowActions: ((row: any) => ContextMenuItem[]) | null = null;
+  @Input() rowActions: ((row: any) => DcxContextMenuItem[]) | null = null;
 
   @Output() sortChange = new EventEmitter<Sort>();
 
   sort = signal<Sort>({ key: null, dir: null });
 
-  menuItems: ContextMenuItem[] = [];
+  menuItems: DcxContextMenuItem[] = [];
   menuVisible = false;
   menuPosition = { x: 0, y: 0 };
   currentRow: any;
@@ -124,7 +125,7 @@ export class DcxNgTableComponent implements OnInit {
 
     this.menuPosition = {
       x: rect.left - menuWidth - 6,
-      y: rect.top + window.scrollY
+      y: rect.top + window.scrollY,
     };
 
     this.menuItems = this.rowActions
@@ -153,7 +154,7 @@ export class DcxNgTableComponent implements OnInit {
     });
   }
 
-  private inferType(rows: any[], key: string): 'number' | 'string' {
+  private inferType(rows: any[], key: string): DcxDataType {
     const first = rows.find(r => r?.[key] !== null && r?.[key] !== undefined)?.[
       key
     ];
@@ -163,7 +164,7 @@ export class DcxNgTableComponent implements OnInit {
   private compare(
     leftValue: any,
     rightValue: any,
-    valueType: 'string' | 'number',
+    valueType: DcxDataType,
   ): number {
     const leftIsNull = leftValue === null || leftValue === undefined;
     const rightIsNull = rightValue === null || rightValue === undefined;

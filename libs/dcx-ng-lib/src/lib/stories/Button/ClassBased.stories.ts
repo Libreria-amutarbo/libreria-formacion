@@ -1,10 +1,9 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { within, expect, fn } from '@storybook/test';
+import { fn } from '@storybook/test';
 import { DcxNgButtonComponent } from '../../dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
+import { BOOTSTRAP_ICONS } from '../../../../.storybook/bootstrap-icons';
 
-const ActionsData = {
-  buttonClick: fn(),
-};
+const ActionsData = { buttonClick: fn() };
 
 const meta: Meta<DcxNgButtonComponent> = {
   title: 'DCXLibrary/Button/Class based',
@@ -28,16 +27,20 @@ const meta: Meta<DcxNgButtonComponent> = {
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large', 'block'],
+      options: ['s', 'm', 'l', 'block'],
     },
     // Icono (usando dcx-ng-icon internamente)
-    iconName: {
-      control: 'text',
-      description: 'Nombre de Material Icons (p.ej. "save", "settings")',
+    iconStart: {
+      control: 'select',
+      options: BOOTSTRAP_ICONS,
+      description:
+        'Icono de Bootstrap Icons al inicio (p.ej. "save", "chevron-left")',
     },
-    iconPosition: {
-      control: 'inline-radio',
-      options: ['start', 'end'],
+    iconEnd: {
+      control: 'select',
+      options: BOOTSTRAP_ICONS,
+      description:
+        'Icono de Bootstrap Icons al final (p.ej. "arrow-right", "chevron-right")',
     },
     iconSize: {
       control: 'select',
@@ -50,7 +53,10 @@ const meta: Meta<DcxNgButtonComponent> = {
     iconColor: { control: 'color' },
 
     // Evento
-    buttonClick: { action: 'buttonClick', description: 'Output al hacer click' },
+    buttonClick: {
+      action: 'buttonClick',
+      description: 'Output al hacer click',
+    },
 
     // Clase extra (si mantienes el @Input() class)
     class: { control: 'text', table: { category: 'Styling' } },
@@ -61,9 +67,9 @@ const meta: Meta<DcxNgButtonComponent> = {
     type: 'button',
     disabled: false,
     variant: 'primary',
-    size: 'medium',
-    iconName: '',
-    iconPosition: 'start',
+    size: 'm',
+    iconStart: '',
+    iconEnd: '',
     iconSize: undefined,
     iconSpacing: 'none',
     iconColor: '',
@@ -78,32 +84,22 @@ export default meta;
 type Story = StoryObj<DcxNgButtonComponent>;
 
 export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    label: 'Primary',
-  },
+  args: { variant: 'primary', label: 'Primary' },
 };
 
 export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    label: 'Secondary',
-  },
+  args: { variant: 'secondary', label: 'Secondary' },
 };
 
 export const Link: Story = {
-  args: {
-    variant: 'link',
-    label: 'Link',
-  },
+  args: { variant: 'link', label: 'Link' },
 };
 
 export const WithStartIcon: Story = {
   args: {
     variant: 'primary',
     label: 'Guardar',
-    iconName: 'save',
-    iconPosition: 'start',
+    iconStart: 'save',
   },
 };
 
@@ -111,8 +107,7 @@ export const WithEndIcon: Story = {
   args: {
     variant: 'secondary',
     label: 'Siguiente',
-    iconName: 'arrow_forward',
-    iconPosition: 'end',
+    iconStart: 'arrow_forward',
   },
 };
 
@@ -121,29 +116,29 @@ export const IconOnlyAccessible: Story = {
     variant: 'icon',
     label: '',
     ariaLabel: 'Abrir ajustes',
-    iconName: 'settings',
+    iconStart: 'settings',
   },
 };
 
 export const Sizes: Story = {
-  render: (args) => ({
+  render: args => ({
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Small"  size="small"  variant="primary" iconName="check"></dcx-ng-button>
-        <dcx-ng-button label="Medium" size="medium" variant="primary" iconName="check"></dcx-ng-button>
-        <dcx-ng-button label="Large"  size="large"  variant="primary" iconName="check"></dcx-ng-button>
+        <dcx-ng-button label="Small"  size="s" variant="primary" iconStart="check"></dcx-ng-button>
+        <dcx-ng-button label="Medium" size="m" variant="primary" iconEnd="check"></dcx-ng-button>
+        <dcx-ng-button label="Large"  size="l" variant="primary" iconStart="check"></dcx-ng-button>
       </div>
     `,
   }),
 };
 
 export const Block: Story = {
-  render: (args) => ({
+  render: args => ({
     props: { ...args },
     template: `
       <div style="display:flex; flex-direction:column; gap:8px; width:320px;">
-        <dcx-ng-button label="Block Primary"   size="block" variant="primary" iconName="arrow_forward"></dcx-ng-button>
+        <dcx-ng-button label="Block Primary" size="block" variant="primary" iconStart="arrow_forward"></dcx-ng-button>
         <dcx-ng-button label="Block Secondary" size="block" variant="secondary"></dcx-ng-button>
       </div>
     `,
@@ -151,20 +146,20 @@ export const Block: Story = {
 };
 
 export const Disabled: Story = {
-  render: (args) => ({
+  render: args => ({
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center;">
-        <dcx-ng-button label="Disabled" variant="primary"   [disabled]="true"></dcx-ng-button>
+        <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
         <dcx-ng-button label="Disabled" variant="secondary" [disabled]="true"></dcx-ng-button>
-        <dcx-ng-button label="Disabled" variant="link"      [disabled]="true"></dcx-ng-button>
+        <dcx-ng-button label="Disabled" variant="link" [disabled]="true"></dcx-ng-button>
       </div>
     `,
   }),
 };
 
 export const Types: Story = {
-  render: (args) => ({
+  render: args => ({
     props: { ...args },
     template: `
       <form onsubmit="event.preventDefault()" style="display:flex; gap:12px; align-items:center;">

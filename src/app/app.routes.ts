@@ -13,17 +13,26 @@ import { DcxNgPagePaginatorComponent } from './pages/dcx-ng-page-paginator/dcx-n
 import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCheckboxComponent } from './pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component';
-import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
+import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card.component';
 import { ContextMenuComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component';
 import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component';
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
+import { DxcNgPageDatePickerComponent } from './pages/dxc-ng-page-datePicker/dxc-ng-page-datePicker.component';
+import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
+import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
+import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
+import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
 
 export const appRoutes: Route[] = [
   {
     path: 'table',
     component: DcxNgPageTableComponent,
+  },
+  {
+    path: 'full-table',
+    component: DcxNgPageFullTableComponent,
   },
   {
     path: 'button',
@@ -83,11 +92,11 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'card',
-    component: DcxNgPageCardComponent
+    component: DcxNgPageCardComponent,
   },
   {
     path: 'contextMenu',
-    component: ContextMenuComponent
+    component: ContextMenuComponent,
   },
   {
     path: 'icon-field',
@@ -99,7 +108,22 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'slider',
-    component: DcxNgPageSliderComponent
-  }
+    component: DcxNgPageSliderComponent,
+  },
+  {
+    path: 'date-picker',
+    component: DxcNgPageDatePickerComponent,
+  },
+  {
+    path: 'accordion',
+    component: DcxNgPageAccordionComponent,
+  },
+  {
+    path: 'dialog',
+    component: DcxNgPageDialogComponent,
+  },
+  {
+    path: 'tabs',
+    component: DcxNgPageTabsComponent,
+  },
 ];
-

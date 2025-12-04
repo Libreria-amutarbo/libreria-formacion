@@ -1,36 +1,36 @@
-@use "sass:map";
+@use 'sass:map';
 @use '../base' as *;
 // Mixins útiles para tipografía
 @mixin heading-1 {
-  font-family: map.get($fonts, "primary");
-  font-size: map.get($font-size, "h1");
-  font-weight: map.get($weight, "bold");
-  line-height: map.get($line-height, "tight");
-  letter-spacing: map.get($letter-spacing, "tight");
+  font-family: map.get($fonts, 'primary');
+  font-size: map.get($font-size, 'h1');
+  font-weight: map.get($weight, 'bold');
+  line-height: map.get($line-height, 'tight');
+  letter-spacing: map.get($letter-spacing, 'tight');
 }
 
 @mixin heading-2 {
-  font-family: map.get($fonts, "primary");
-  font-size: map.get($font-size, "h2");
-  font-weight: map.get($weight, "bold");
-  line-height: map.get($line-height, "tight");
-  letter-spacing: map.get($letter-spacing, "tight");
+  font-family: map.get($fonts, 'primary');
+  font-size: map.get($font-size, 'h2');
+  font-weight: map.get($weight, 'bold');
+  line-height: map.get($line-height, 'tight');
+  letter-spacing: map.get($letter-spacing, 'tight');
 }
 
 @mixin body-text {
-  font-family: map.get($fonts, "primary");
-  font-size: map.get($font-size, "body");
-  font-weight: map.get($weight, "regular");
-  line-height: map.get($line-height, "normal");
-  letter-spacing: map.get($letter-spacing, "normal");
+  font-family: map.get($fonts, 'primary');
+  font-size: map.get($font-size, 'body');
+  font-weight: map.get($weight, 'regular');
+  line-height: map.get($line-height, 'normal');
+  letter-spacing: map.get($letter-spacing, 'normal');
 }
 
 @mixin caption-text {
-  font-family: map.get($fonts, "primary");
-  font-size: map.get($font-size, "caption");
-  font-weight: map.get($weight, "regular");
-  line-height: map.get($line-height, "normal");
-  letter-spacing: map.get($letter-spacing, "wide");
+  font-family: map.get($fonts, 'primary');
+  font-size: map.get($font-size, 'caption');
+  font-weight: map.get($weight, 'regular');
+  line-height: map.get($line-height, 'normal');
+  letter-spacing: map.get($letter-spacing, 'wide');
 }
 
 // Mixins de utilidad para usar las variables CSS
@@ -116,7 +116,7 @@ $breakpoints: (
   'md': 768px,
   'lg': 1024px,
   'xl': 1280px,
-  '2xl': 1536px
+  '2xl': 1536px,
 );
 
 @mixin respond-to($breakpoint) {
@@ -144,18 +144,86 @@ $breakpoints: (
   font-weight: var(--font-weight-medium);
   transition: all var(--transition-normal) var(--transition-timing);
   cursor: pointer;
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
 }
 
+// Tamaños del botón
+$button-sizes: (
+  s: (
+    height: 2.5rem,
+    // 40px
+    padding-y: 0.5rem,
+    // 8px
+    padding-x: 0.75rem,
+    // 12px
+    font-size: 0.875rem,
+    // 14px
+    icon-size: 1rem, // 16px
+  ),
+  m: (
+    height: 3rem,
+    // 48px
+    padding-y: 0.75rem,
+    // 12px
+    padding-x: 1.5rem,
+    // 24px
+    font-size: 1rem,
+    // 16px
+    icon-size: 1rem, // 16px
+  ),
+  l: (
+    height: 3.5rem,
+    // 56px
+    padding-y: 1rem,
+    // 16px
+    padding-x: 1.5rem,
+    // 24px
+    font-size: 1rem,
+    // 16px
+    icon-size: 1.5rem, // 24px
+  ),
+);
+
+@mixin button-size($size) {
+  $config: map.get($button-sizes, $size);
+
+  @if $config == null {
+    @error "button-size: el size `#{$size}` no existe en \$button-sizes.";
+  }
+
+  height: map.get($config, height);
+  padding: map.get($config, padding-y) map.get($config, padding-x);
+  gap: var(--spacing-s);
+  font-size: map.get($config, font-size);
+
+  .icon {
+    font-size: map.get($config, icon-size);
+  }
+}
+
+@mixin button-icon-only-size($size) {
+  $config: map.get($button-sizes, $size);
+
+  @if $config == null {
+    @error "button-icon-only-size: el size `#{$size}` no existe en \$button-sizes.";
+  }
+
+  width: map.get($config, height);
+}
+
 // Mixins de Animación
 @mixin fade-in {
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   animation: fadeIn var(--transition-normal) var(--transition-timing);
 }
@@ -235,10 +303,9 @@ $breakpoints: (
   &::-webkit-scrollbar-thumb {
     background: var(--color-gray);
     border-radius: 4px;
-    
+
     &:hover {
       background: var(--color-gray-dark);
     }
   }
 }
- 

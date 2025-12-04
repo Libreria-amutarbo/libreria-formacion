@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgCheckbox } from './dcx-ng-checkbox.component';
+import { DcxNgCheckboxComponent } from './dcx-ng-checkbox.component';
 import { By } from '@angular/platform-browser';
 
-describe('DcxNgCheckbox', () => {
-  let component: DcxNgCheckbox;
-  let fixture: ComponentFixture<DcxNgCheckbox>;
+describe('DcxNgCheckboxComponent', () => {
+  let component: DcxNgCheckboxComponent;
+  let fixture: ComponentFixture<DcxNgCheckboxComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgCheckbox]
+      imports: [DcxNgCheckboxComponent]
     }).compileComponents();
-    fixture = TestBed.createComponent(DcxNgCheckbox);
+    fixture = TestBed.createComponent(DcxNgCheckboxComponent);
     component = fixture.componentInstance;
     component.label = 'Prueba';
     component.checked = false;

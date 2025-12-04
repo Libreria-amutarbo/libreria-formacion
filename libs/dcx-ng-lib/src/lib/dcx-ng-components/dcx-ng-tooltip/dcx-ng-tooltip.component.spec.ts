@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DcxNgTooltipComponent, TooltipPosition } from './dcx-ng-tooltip.component';
+import { DcxPosition } from '../../core/interfaces';
+import { DcxNgTooltipComponent } from './dcx-ng-tooltip.component';
 
 describe('DcxNgTooltipComponent', () => {
   let component: DcxNgTooltipComponent;
@@ -27,16 +28,16 @@ describe('DcxNgTooltipComponent', () => {
   // Tests para propiedades de entrada
   describe('Input Properties', () => {
     it('should set default values correctly', () => {
-      expect(component.position).toBe(TooltipPosition.TOP);
+      expect(component.position).toBe(DcxPosition.TOP);
       expect(component.hideTooltipOnClick).toBe(false);
       expect(component.content).toBe('');
       expect(component.visible).toBe(false);
     });
 
     it('should update position correctly', () => {
-      component.position = TooltipPosition.BOTTOM;
+      component.position = DcxPosition.BOTTOM;
       fixture.detectChanges();
-      expect(component.position).toBe(TooltipPosition.BOTTOM);
+      expect(component.position).toBe(DcxPosition.BOTTOM);
     });
 
     it('should update content correctly', () => {
@@ -101,25 +102,25 @@ describe('DcxNgTooltipComponent', () => {
     });
 
     it('should apply correct position class for TOP', () => {
-      component.position = TooltipPosition.TOP;
+      component.position = DcxPosition.TOP;
       const classes = component.getTooltipClasses();
       expect(classes).toContain('dcx-ng-tooltip--top');
     });
 
     it('should apply correct position class for BOTTOM', () => {
-      component.position = TooltipPosition.BOTTOM;
+      component.position = DcxPosition.BOTTOM;
       const classes = component.getTooltipClasses();
       expect(classes).toContain('dcx-ng-tooltip--bottom');
     });
 
     it('should apply correct position class for LEFT', () => {
-      component.position = TooltipPosition.LEFT;
+      component.position = DcxPosition.LEFT;
       const classes = component.getTooltipClasses();
       expect(classes).toContain('dcx-ng-tooltip--left');
     });
 
     it('should apply correct position class for RIGHT', () => {
-      component.position = TooltipPosition.RIGHT;
+      component.position = DcxPosition.RIGHT;
       const classes = component.getTooltipClasses();
       expect(classes).toContain('dcx-ng-tooltip--right');
     });
@@ -230,7 +231,7 @@ describe('DcxNgTooltipComponent', () => {
     });
 
     it('should have correct data-position attribute', () => {
-      component.position = TooltipPosition.BOTTOM;
+      component.position = DcxPosition.BOTTOM;
       fixture.detectChanges();
 
       const tooltipElement = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
@@ -241,7 +242,7 @@ describe('DcxNgTooltipComponent', () => {
   // Tests para el ciclo de vida del componente
   describe('Component Lifecycle', () => {
     it('should initialize component with correct default values', () => {
-      expect(component.position).toBe(TooltipPosition.TOP);
+      expect(component.position).toBe(DcxPosition.TOP);
       expect(component.hideTooltipOnClick).toBe(false);
       expect(component.content).toBe('');
       expect(component.visible).toBe(false);
@@ -257,7 +258,7 @@ describe('DcxNgTooltipComponent', () => {
 
     it('should maintain component state during lifecycle', () => {
       component.content = 'Test content';
-      component.position = TooltipPosition.BOTTOM;
+      component.position = DcxPosition.BOTTOM;
       component.hideTooltipOnClick = true;
       component.visible = true;
 
@@ -265,7 +266,7 @@ describe('DcxNgTooltipComponent', () => {
 
       // Verificar que el estado se mantiene
       expect(component.content).toBe('Test content');
-      expect(component.position).toBe(TooltipPosition.BOTTOM);
+      expect(component.position).toBe(DcxPosition.BOTTOM);
       expect(component.hideTooltipOnClick).toBe(true);
       expect(component.visible).toBe(true);
     });
@@ -279,14 +280,13 @@ describe('DcxNgTooltipComponent', () => {
     });
   });
 
-  // Tests para diferentes posiciones
   describe('Position Variants', () => {
     beforeEach(() => {
       component.content = 'Test content';
       component.visible = true;
     });
 
-    Object.values(TooltipPosition).forEach(position => {
+    Object.values(DcxPosition).forEach(position => {
       it(`should render correctly with ${position} position`, () => {
         component.position = position;
         fixture.detectChanges();

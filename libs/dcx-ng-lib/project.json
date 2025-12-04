@@ -28,7 +28,7 @@
       "options": {
         "port": 4400,
         "configDir": "libs/dcx-ng-lib/.storybook",
-        "browserTarget": "dcx-ng-lib:build-storybook",
+        "browserTarget": "dcx-ng-components:build",
         "compodoc": false
       },
       "configurations": {
@@ -43,7 +43,7 @@
       "options": {
         "outputDir": "dist/storybook/dcx-ng-lib",
         "configDir": "libs/dcx-ng-lib/.storybook",
-        "browserTarget": "dcx-ng-lib:build-storybook",
+        "browserTarget": "dcx-ng-components:build",
         "compodoc": false
       },
       "configurations": {

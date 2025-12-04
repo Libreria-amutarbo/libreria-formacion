@@ -1,0 +1,122 @@
+<section>
+  <h2>Ejemplo 1 - Striped + Sort</h2>
+
+  <dcx-ng-full-table
+    [headers]="headersSimpleUsers"
+    [rows]="rowsSimpleUsers"
+    [showStripped]="true"
+    (sortChange)="onSort($event, 'ex1')"
+  />
+</section>
+
+<hr />
+
+<section>
+  <h2>Ejemplo 2 - Templates personalizados</h2>
+
+  <dcx-ng-full-table
+    [headers]="headersUsersWithStatus"
+    [rows]="rowsUsersWithStatus"
+    [showStripped]="true"
+  >
+    <!-- Usuario con avatar -->
+    <ng-template dcxNgFullTableTemplate="userTemplate" let-row>
+      <div class="user-avatar-wrapper">
+        <img [src]="row.avatar" [alt]="row.user" class="user-avatar" />
+        <strong>{{ row.user }}</strong>
+      </div>
+    </ng-template>
+
+    <!-- Fecha -->
+    <ng-template dcxNgFullTableTemplate="dateTemplate" let-row>
+      <span class="date-text">
+        {{ row.createdAt | date:'dd/MM/yyyy HH:mm' }}
+      </span>
+    </ng-template>
+
+    <!-- Precio -->
+    <ng-template dcxNgFullTableTemplate="priceTemplate" let-row>
+      <span class="price-text">
+        {{ row.amount | currency:'EUR':'symbol':'1.2-2':'es' }}
+      </span>
+    </ng-template>
+
+    <!-- Estado -->
+    <ng-template dcxNgFullTableTemplate="statusTemplate" let-row>
+      <span [class]="getStatusClass(row.status)">
+        {{ getStatusLabel(row.status) }}
+      </span>
+    </ng-template>
+  </dcx-ng-full-table>
+</section>
+
+<hr />
+
+<section>
+  <h2>Ejemplo 3 - Fecha built-in + renderFn + Acciones inline</h2>
+
+  <dcx-ng-full-table
+    [headers]="headersSimpleUsersRender"
+    [rows]="rowsSimpleUsersRender"
+    [showStripped]="true"
+    [showRowIndex]="true"
+    [frozenLeftSeparator]="true"
+    (rowAction)="onAction($event)"
+  >
+    <!-- Reutilizamos statusTemplate -->
+    <ng-template dcxNgFullTableTemplate="statusTemplate" let-row>
+      <span [class]="getStatusClass(row.status)">
+        {{ getStatusLabel(row.status) }}
+      </span>
+    </ng-template>
+  </dcx-ng-full-table>
+</section>
+
+<hr />
+
+<section>
+  <h2>
+    Ejemplo 4 - Full demo (102 filas, filtros, badges, fechas, edición,
+    acciones, frozen, scroll)
+  </h2>
+  <p style="color:#666; margin-bottom:12px;">
+    Esta tabla combina <strong>102 filas</strong>, <strong>scroll</strong>,
+    <strong>paginación</strong>, <strong>columnas congeladas</strong>,
+    <strong>badges de estado</strong>, <strong>fechas</strong>,
+    <strong>celdas editables</strong> y <strong>acciones con menú</strong>.
+  </p>
+
+  <dcx-ng-full-table
+    [headers]="headersUserFull"
+    [rows]="rowsUserFull"
+    [showGrid]="true"
+    [showStripped]="true"
+    [scroll]="false"
+    scrollHeight="320px"
+    [paginator]="true"
+    [rowsPerPageOptions]="[10, 20, 50]"
+    [showRowIndex]="true"
+    [frozenLeftSeparator]="true"
+    [frozenRightSeparator]="true"
+    (sortChange)="onSort($event, 'ex4')"
+    (rowsPerPageChange)="onRowsPerPageChangeFull($event)"
+    (pageChange)="onPageChange($event)"
+    (cellEdit)="onCellEdit($event)"
+    (rowAction)="onAction($event)"
+  >
+    <!-- Usuario "full" -->
+    <ng-template dcxNgFullTableTemplate="fullUserTemplate" let-row>
+      <span class="user-name">
+        {{ row.user }}
+      </span>
+      <span class="user-country"> ({{ row.country }}) </span>
+    </ng-template>
+
+    <!-- Badge de estado -->
+    <ng-template dcxNgFullTableTemplate="fullStatusTemplate" let-row>
+      <span [class]="getStatusClass(row.status)">
+        {{ getStatusLabel(row.status) }}
+      </span>
+    </ng-template>
+  </dcx-ng-full-table>
+</section>
