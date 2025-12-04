@@ -1,65 +1,73 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  Output,
+  computed,
+  input,
+  output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import {
-  ButtonType,
-  ButtonVariant,
-  IconPosition,
-  ICON_POSITION,
-  DcxSize
-} from '../../core/interfaces';
+import { ButtonType, ButtonVariant, DcxSize } from '../../core/interfaces';
 import { IconSpacing } from '../../core/interfaces/icon';
 
 @Component({
   selector: 'dcx-ng-button',
-  imports: [CommonModule, DcxNgIconComponent],
+  imports: [DcxNgIconComponent],
   styleUrl: './dcx-ng-button.component.scss',
   templateUrl: './dcx-ng-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgButtonComponent {
-  @Input() label = '';
-  @Input() ariaLabel = '';
-  @Input() type: ButtonType = 'button';
-  @Input() disabled = false;
-  @Input() variant?: ButtonVariant;
-  @Input() size: DcxSize = 'm';
-  @Input() class = '';
-  @Input() iconName?: string;
-  @Input() iconPosition: IconPosition = ICON_POSITION.start;
-  @Input() iconSize: DcxSize = 's';
-  @Input() iconSpacing: IconSpacing = 'none';
-  @Input() iconColor = '';
-  @Input() set icon(_legacy: string) { }
+  // Inputs
+  label = input<string>('');
+  ariaLabel = input<string>('');
+  type = input<ButtonType>('button');
+  disabled = input<boolean>(false);
+  variant = input<ButtonVariant | undefined>(undefined);
+  size = input<DcxSize>('m');
+  class = input<string>('');
 
-  @Output() buttonClick = new EventEmitter<{ clicked: boolean }>();
+  // Iconos
+  iconStart = input<string>('');
+  iconEnd = input<string>('');
+  iconSize = input<DcxSize>('s');
+  iconSpacing = input<IconSpacing>('none');
+  iconColor = input<string>('');
 
-  readonly IconPos = ICON_POSITION;
+  // Output usando signals
+  buttonClick = output<{ clicked: boolean }>();
 
-  get computedAriaLabel(): string | null {
-    if (this.label) return null;
-    return this.ariaLabel ? this.ariaLabel : 'Button';
-  }
+  computedAriaLabel = computed<string | null>(() => {
+    const labelValue = this.label();
+    const ariaLabelValue = this.ariaLabel();
 
-  get buttonClasses(): string {
+    if (labelValue) return null;
+    return ariaLabelValue ? ariaLabelValue : 'Button';
+  });
+
+  buttonClasses = computed<string>(() => {
     const base = 'dcx-ng-button';
+    const variantValue = this.variant();
+    const sizeValue = this.size();
+    const labelValue = this.label();
+    const iconStartValue = this.iconStart();
+    const iconEndValue = this.iconEnd();
+    const classValue = this.class();
+
+    const hasAnyIcon = iconStartValue || iconEndValue;
+
     return [
       base,
-      `${base}--${this.variant ?? 'default'}`,
-      this.size ? `${base}--${this.size}` : '',
-      (!this.label && this.iconName) ? `${base}--icon-only` : '',
-      this.class ?? ''
-    ].filter(Boolean).join(' ');
-  }
+      `${base}--${variantValue ?? 'primary'}`,
+      sizeValue ? `${base}--${sizeValue}` : '',
+      !labelValue && hasAnyIcon ? `${base}--icon-only` : '',
+      classValue ?? '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+  });
 
   onClick(): void {
-    if (!this.disabled) {
+    if (!this.disabled()) {
       this.buttonClick.emit({ clicked: true });
     }
   }
