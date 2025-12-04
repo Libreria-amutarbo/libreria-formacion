@@ -6,7 +6,6 @@
       [placeholder]="placeholder()"
       [value]="searchValue()"
       [disabled]="disabled()"
-      [attr.aria-label]="ariaLabel()"
       (input)="onInput($event)"
       (keydown)="onKeydown($event)"
     />
@@ -21,4 +20,8 @@
       <dcx-ng-icon name="search" size="s" />
     </button>
   </div>
+
+  @if (helperText()) {
+    <p class="dcx-search__helper-text">{{ helperText() }}</p>
+  }
 </div>

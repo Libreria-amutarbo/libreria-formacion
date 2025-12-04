@@ -19,7 +19,7 @@ export class DcxNgSearchComponent {
   readonly placeholder = input<string>('Buscar...');
   readonly disabled = input<boolean>(false);
   readonly size = input<DcxSize>('m');
-  readonly ariaLabel = input<string>('Campo de búsqueda');
+  readonly helperText = input<string>('');
 
   readonly searchChange = output<string>();
   readonly search = output<string>();
