@@ -1,80 +1,160 @@
-:host {
-  --dcx-button-padding: 0.5rem 1rem;
-  --dcx-button-font-size: 1rem;
-  --dcx-button-bg: transparent;
-  --dcx-button-color: inherit;
-  --dcx-button-border: 1px solid currentColor;
+@use '../../../scss/utils/mixins' as *;
 
+:host {
   display: inline-block;
 }
 
 .dcx-ng-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: var(--dcx-button-padding);
-  font-size: var(--dcx-button-font-size);
-  background-color: var(--dcx-button-bg);
-  color: var(--dcx-button-color);
-  border: var(--dcx-button-border);
-  cursor: pointer;
-  border-radius: 4px;
-  line-height: 1;
+  // Reset
+  margin: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+
+  @include button-base;
+
+  border: 1px solid transparent;
+  white-space: nowrap;
+  line-height: 1.5;
+
+  // ========== SIZES ==========
+
+  &--s,
+  &--small {
+    @include button-size(s);
+  }
+
+  &--m,
+  &--medium {
+    @include button-size(m);
+  }
+
+  &--l,
+  &--large {
+    @include button-size(l);
+  }
+
+  // ========== PRIMARY ==========
 
   &--primary {
-    --dcx-button-bg: #0056b3;
-    --dcx-button-color: #fff;
-  }
+    background-color: #0058ab;
+    color: #ffffff;
 
-  &--secondary {
-    --dcx-button-bg: #6c757d;
-    --dcx-button-color: #fff;
-  }
+    &:hover:not(:disabled) {
+      background-color: #004080;
+    }
 
-  &--link {
-    --dcx-button-bg: transparent;
-    --dcx-button-color: #0056b3;
-    border: none;
-  }
+    &:active:not(:disabled) {
+      background-color: #121a38;
+    }
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
-    background-color: var(--button-disabled-bg, #e0e0e0);
-    color: var(--button-disabled-text, #a0a0a0);
-    border-color: var(--button-disabled-border, #cccccc);
-  }
-
-  &--s {
-    --dcx-button-padding: 0.25rem 0.5rem;
-    --dcx-button-font-size: 0.875rem;
-  }
-
-  &--m {
-    --dcx-button-padding: 0.5rem 1rem;
-    --dcx-button-font-size: 1rem;
-  }
-
-  &--l {
-    --dcx-button-padding: 0.75rem 1.25rem;
-    --dcx-button-font-size: 1.125rem;
-  }
-
-  &--icon-only {
-    min-width: 2.25rem;
-    min-height: 2.25rem;
-    padding: 0.5rem;
-
-    .dcx-ng-button__label {
-      display: none;
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 88, 171, 0.2);
     }
   }
-}
 
-.dcx-ng-button__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  // ========== SECONDARY ==========
+
+  &--secondary {
+    background-color: transparent;
+    color: #2a2e33;
+    border: 1px solid #2a2e33;
+
+    &:hover:not(:disabled) {
+      background-color: #f7f8fa;
+    }
+
+    &:active:not(:disabled) {
+      background-color: #e1e3e6;
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px #e1e3e6;
+    }
+  }
+
+  // ========== TERTIARY ==========
+
+  &--link {
+    background-color: transparent;
+    color: #2a2e33;
+    border: none;
+    text-decoration: underline;
+
+    &:hover:not(:disabled) {
+      background-color: #f7f8fa;
+    }
+
+    &:active:not(:disabled) {
+      background-color: #e1e3e6;
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px #e1e3e6;
+    }
+  }
+
+  // ========== DISABLED ==========
+
+  &:disabled,
+  &[disabled] {
+    background-color: #e1e3e6;
+    color: #a0aec0;
+    border-color: transparent;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 1;
+  }
+
+  // ========== ICON ONLY ==========
+
+  &--icon-only {
+    padding: 0;
+
+    &.dcx-ng-button--s,
+    &.dcx-ng-button--small {
+      @include button-icon-only-size(s);
+    }
+
+    &.dcx-ng-button--m,
+    &.dcx-ng-button--medium {
+      @include button-icon-only-size(m);
+    }
+
+    &.dcx-ng-button--l,
+    &.dcx-ng-button--large {
+      @include button-icon-only-size(l);
+    }
+
+    .label {
+      @include visually-hidden;
+    }
+  }
+
+  // ========== CHILDREN ==========
+
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .icon--start {
+    order: -1;
+  }
+
+  .icon--end {
+    order: 1;
+  }
+
+  .label {
+    display: inline-flex;
+    align-items: center;
+  }
 }
