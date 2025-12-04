@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DcxNgSpinnerComponent } from '@dcx-ng-components/dcx-ng-lib';
 
+
 @Component({
   selector: 'dcx-ng-dcx-ng-page-spinner',
   standalone: true,

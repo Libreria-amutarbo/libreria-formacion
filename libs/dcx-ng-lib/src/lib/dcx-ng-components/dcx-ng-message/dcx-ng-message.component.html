@@ -1,24 +1,31 @@
-<div [ngClass]="['message__container', messageData().role]" [attr.aria-role]="messageData().role">
+<div
+  [ngClass]="['message__container', messageData().role]"
+  [attr.aria-role]="messageData().role"
+>
   @if (icon()) {
-  <dcx-ng-icon class="icon__container" [name]="messageData().icon || 'info-circle'" size="m"
-    color="inherit"></dcx-ng-icon>
+    <dcx-ng-icon
+      class="icon__container"
+      [name]="messageData().icon || 'info'"
+      size="m"
+      color="inherit"
+    ></dcx-ng-icon>
   }
 
   <div class="message__container__body">
     @if (title()) {
-    <h3 class="message__container__title">{{ title() }}</h3>
+      <h3 class="message__container__title">{{ title() }}</h3>
     }
 
     <p class="message__container__paragraph">{{ body() }}</p>
 
     @if (link()) {
-    <a [href]="link()" class="message__container__link">{{link()}}</a>
+      <a [href]="link()" class="message__container__link">{{link()}}</a>
     }
   </div>
 
   @if (showClose()) {
-  <button class="icon__container__close" type="button">
-    <dcx-ng-icon name="x-lg" size="m" color="inherit"></dcx-ng-icon>
-  </button>
+    <button class="icon__container__close" type="button">
+      <dcx-ng-icon name="close" size="m" color="inherit"></dcx-ng-icon>
+    </button>
   }
 </div>

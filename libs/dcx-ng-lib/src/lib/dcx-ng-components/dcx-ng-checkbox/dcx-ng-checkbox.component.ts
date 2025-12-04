@@ -1,22 +1,21 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CheckBoxVariant } from '../../core/interfaces';
 
 @Component({
-  selector: 'dcx-ng-checkbox',
+  selector: 'app-dcx-ng-checkbox',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dcx-ng-checkbox.component.html',
   styleUrls: ['./dcx-ng-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DcxNgCheckboxComponent {
-  @Input() label = '';
-  @Input() formControlName = '';
-  @Input() color: CheckBoxVariant = 'primary';
-  @Input() checked = false;
-  @Input() disabled = false;
-  @Input() errorMessage = '';
+export class DcxNgCheckbox {
+  @Input() label: string = '';
+  @Input() formControlName: string = '';
+  @Input() color: 'primary' | 'accent' | 'error' = 'primary';
+  @Input() checked: boolean = false;
+  @Input() disabled: boolean = false;
+  @Input() errorMessage: string = '';
 
   @Output() checkedChange = new EventEmitter<boolean>();
 

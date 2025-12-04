@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DcxNgSliderComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgSliderComponent } from 'libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component';
 
 interface SliderConfig {
   label: string;

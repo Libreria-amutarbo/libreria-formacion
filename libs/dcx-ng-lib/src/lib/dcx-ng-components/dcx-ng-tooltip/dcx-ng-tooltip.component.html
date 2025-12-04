@@ -3,9 +3,9 @@
   @if (visible && content) {
     <div
       #tooltipElement
-      role="tooltip"
       [class]="getTooltipClasses()"
       [attr.data-position]="actualPosition"
+      role="tooltip"
       [attr.aria-hidden]="!visible"
       [attr.aria-live]="'polite'"
     >

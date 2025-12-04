@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/angular';
 import {
   DcxNgBreadcrumbComponent,
-  DcxBreadCrumbItemMock,
+  BreadcrumbItem,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgBreadcrumbComponent> = {
@@ -11,7 +11,13 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
   argTypes: {
     items: { control: { type: 'object' } },
   },
-  args: { items: DcxBreadCrumbItemMock, },
+  args: {
+    items: [
+      { label: 'Home', href: '/' },
+      { label: 'Library', href: '/library' },
+      { label: 'Data' },
+    ] as BreadcrumbItem[],
+  },
 };
 
 export default meta;

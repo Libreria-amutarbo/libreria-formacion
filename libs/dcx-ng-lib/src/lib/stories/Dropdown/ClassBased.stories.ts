@@ -1,9 +1,9 @@
-import {
-  DcxDropdownOptions,
-  DcxNgDropdownComponent
-} from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
 import { fn } from '@storybook/test';
+import {
+  DcxNgDropdownComponent,
+  DropdownOptions,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const ActionsData = {
   selectedKeyChange: fn(),
@@ -30,7 +30,7 @@ const meta: Meta<DcxNgDropdownComponent> = {
       { key: 'red', value: 'Rojo' },
       { key: 'green', value: 'Verde' },
       { key: 'blue', value: 'Azul' },
-    ] as DcxDropdownOptions[],
+    ] as DropdownOptions[],
     selectedKey: null,
     placeholder: 'Selecciona color',
     disabled: false,

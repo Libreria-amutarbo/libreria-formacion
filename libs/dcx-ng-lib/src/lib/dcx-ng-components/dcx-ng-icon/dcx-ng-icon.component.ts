@@ -1,41 +1,32 @@
-import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
-import { IconSpacing, DcxSize } from '../../core/interfaces';
+import { Component, HostBinding, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+type IconSize = 's' | 'm' | 'l' | 'xl';
+type IconSpacing = 'none' | 'compact' | 'spacious';
 
 @Component({
   selector: 'dcx-ng-icon',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './dcx-ng-icon.component.html',
-  styleUrls: ['./dcx-ng-icon.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[style.color]': 'color() || null',
-  },
+  styleUrl: './dcx-ng-icon.component.scss',
 })
 export class DcxNgIconComponent {
-  readonly name = input.required<string>();
-  readonly size = input<DcxSize>('m');
-  readonly spacing = input<IconSpacing>('none');
-  readonly color = input<string>('');
-  readonly extraClass = input<string>('');
+  @Input() size: IconSize = 'm';
+  @Input() spacing: IconSpacing = 'none';
+  @Input() color = '';
+  @Input() name = '';
 
-  readonly iconClass = computed(() => {
-    const classes: string[] = [
-      'bi',
-      `bi-${this.name()}`,
-      'dcx-icon',
-      `dcx-icon--size-${this.size()}`,
-    ];
-
-    const spacing = this.spacing();
-    if (spacing !== 'none') {
-      classes.push(`dcx-icon--spacing-${spacing}`);
+  @HostBinding('class') get iconClass() {
+    const base = ['material-icons', `material-icons--${this.size}`];
+    if (this.spacing !== 'none') {
+      base.push(`material-icons--${this.spacing}`);
     }
 
-    const extra = this.extraClass().trim();
-    if (extra) {
-      classes.push(extra);
-    }
+    return base.join(' ');
+  }
 
-    return classes.join(' ');
-  });
+  @HostBinding('style.color') get iconColor() {
+    return this.color || '#010101';
+  }
 }
-

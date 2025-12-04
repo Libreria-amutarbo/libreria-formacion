@@ -9,6 +9,7 @@ type DcxSelectStoryArgs = {
   placeholder?: string;
   label?: string;
   ariaLabel?: string;
+
   initialValue?: string | null;
   isDisabled?: boolean;
 };

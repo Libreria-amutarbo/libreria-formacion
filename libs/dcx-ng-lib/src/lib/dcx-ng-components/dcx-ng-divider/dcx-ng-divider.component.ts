@@ -1,6 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostBinding, Input } from '@angular/core';
-import { DcxSize, DividerOrientation } from '../../core/interfaces';
+import { CommonModule } from '@angular/common';
+
+type DividerOrientation = 'horizontal' | 'vertical';
+type DividerSize = 'small' | 'medium' | 'large' | 'auto';
 
 @Component({
   selector: 'dcx-ng-divider',
@@ -11,7 +13,7 @@ import { DcxSize, DividerOrientation } from '../../core/interfaces';
 })
 export class DcxNgDividerComponent {
   @Input() color = '#ff0000';
-  @Input() size: DcxSize = 'auto';
+  @Input() size: DividerSize = 'auto';
   @Input() orientation: DividerOrientation = 'horizontal';
   @Input() thickness = 0.25;
   @Input() ariaLabel = '';
@@ -29,11 +31,10 @@ export class DcxNgDividerComponent {
   }
 
   get dividerClasses(): string {
-    const label = 'dcx-ng-divider';
     return [
-      label,
-      this.orientation ? `${label}--${this.orientation}` : '',
-      this.size ? `${label}--${this.size}` : '',
+      'dcx-ng-divider',
+      this.orientation ? `dcx-ng-divider--${this.orientation}` : '',
+      this.size ? `dcx-ng-divider--${this.size}` : '',
     ].join(' ');
   }
 }

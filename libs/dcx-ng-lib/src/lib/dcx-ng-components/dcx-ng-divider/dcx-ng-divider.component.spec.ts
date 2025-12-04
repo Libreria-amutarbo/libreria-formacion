@@ -65,11 +65,11 @@ describe('DcxNgDividerComponent', () => {
   });
 
   it('should apply the small size class', () => {
-    component.size = 's';
+    component.size = 'small';
     fixture.detectChanges();
 
     const hr = fixture.debugElement.query(By.css('hr')).nativeElement;
-    expect(hr.classList).toContain('dcx-ng-divider--s');
+    expect(hr.classList).toContain('dcx-ng-divider--small');
   });
 
   it('should apply the vertical orientation class', () => {

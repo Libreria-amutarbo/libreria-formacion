@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { DcxNgTooltipComponent, DcxPosition } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgTooltipComponent, TooltipPosition } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-tooltip',
@@ -10,5 +10,5 @@ import { DcxNgTooltipComponent, DcxPosition } from '@dcx-ng-components/dcx-ng-li
   styleUrls: ['./dcx-ng-page-tooltip.component.scss'],
 })
 export class DcxNgPageTooltipComponent {
-  readonly DcxPosition = DcxPosition;
+  readonly TooltipPosition = TooltipPosition;
 }

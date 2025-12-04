@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
-  DcxDropdownOptions,
   DcxNgDropdownComponent,
+  DropdownOptions,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -13,14 +13,14 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageDropdownComponent {
-  colors: DcxDropdownOptions[] = [
+  colors: DropdownOptions[] = [
     { key: 'red', value: 'Rojo' },
     { key: 'green', value: 'Verde' },
     { key: 'blue', value: 'Azul' },
   ];
   selectedColorKey = signal<string | null>(null);
 
-  sizes: DcxDropdownOptions[] = [
+  sizes: DropdownOptions[] = [
     { key: 's', value: 'S' },
     { key: 'm', value: 'M' },
     { key: 'l', value: 'L' },
@@ -28,8 +28,11 @@ export class DcxNgPageDropdownComponent {
   ];
   isDisabled = signal<boolean>(true);
   selectedSizeKey = signal<string | null>('m');
+  toggleDisabled() {
+    this.isDisabled.set(!this.isDisabled());
+  }
 
-  versions: DcxDropdownOptions[] = [
+  versions: DropdownOptions[] = [
     { key: 'v16', value: 16 },
     { key: 'v17', value: 17 },
     { key: 'v18', value: 18 },
@@ -41,9 +44,5 @@ export class DcxNgPageDropdownComponent {
 
   log(label: string, key: string | null) {
     console.log(`[${label}] key seleccionada:`, key);
-  }
-
-  toggleDisabled() {
-    this.isDisabled.set(!this.isDisabled());
   }
 }
