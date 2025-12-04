@@ -7,6 +7,7 @@ type DcxSearchStoryArgs = {
   disabled?: boolean;
   size?: DcxSize;
   ariaLabel?: string;
+  helperText?: string;
 };
 
 const meta: Meta<DcxNgSearchComponent> = {
@@ -27,16 +28,16 @@ const meta: Meta<DcxNgSearchComponent> = {
       options: ['s', 'm', 'l'],
       description: 'Tamaño del campo de búsqueda',
     },
-    ariaLabel: {
+    helperText: {
       control: 'text',
-      description: 'Etiqueta accesible para el campo de búsqueda',
+      description: 'Texto de ayuda que se muestra debajo del campo de búsqueda',
     },
   },
   args: {
     placeholder: 'Buscar...',
     disabled: false,
     size: 'm',
-    ariaLabel: 'Campo de búsqueda',
+    helperText: '',
   },
   decorators: [
     moduleMetadata({
@@ -71,6 +72,7 @@ export const Default: Story = {
           [disabled]="disabled"
           [size]="size"
           [ariaLabel]="ariaLabel"
+          [helperText]="helperText"
           (searchChange)="onSearchChange($event)"
           (search)="onSearch($event)">
         </dcx-ng-search>
@@ -91,21 +93,11 @@ export const SearchShowcase: Story = {
     },
     template: `
       <div style="width:360px;">
-        <!-- Basic Search -->
-        <section style="margin-bottom:24px;">
-          <h4>Basic Search</h4>
-          <dcx-ng-search
-            (searchChange)="onSearchChange($event)"
-            (search)="onSearch($event)">
-          </dcx-ng-search>
-        </section>
-
         <!-- Custom Placeholder -->
-        <section style="margin-bottom:24px;">
+        <section>
           <h4>Custom Placeholder</h4>
           <dcx-ng-search
-            placeholder="Buscar productos..."
-            (search)="onSearch($event)">
+            placeholder="Buscar productos...">
           </dcx-ng-search>
         </section>
 
@@ -114,8 +106,7 @@ export const SearchShowcase: Story = {
           <h4>Small Size</h4>
           <dcx-ng-search
             size="s"
-            placeholder="Búsqueda pequeña..."
-            (search)="onSearch($event)">
+            placeholder="Búsqueda pequeña...">
           </dcx-ng-search>
         </section>
 
@@ -124,8 +115,7 @@ export const SearchShowcase: Story = {
           <h4>Medium Size</h4>
           <dcx-ng-search
             size="m"
-            placeholder="Búsqueda mediana..."
-            (search)="onSearch($event)">
+            placeholder="Búsqueda mediana...">
           </dcx-ng-search>
         </section>
 
@@ -134,8 +124,7 @@ export const SearchShowcase: Story = {
           <h4>Large Size</h4>
           <dcx-ng-search
             size="l"
-            placeholder="Búsqueda grande..."
-            (search)="onSearch($event)">
+            placeholder="Búsqueda grande...">
           </dcx-ng-search>
         </section>
 
@@ -146,32 +135,6 @@ export const SearchShowcase: Story = {
             [disabled]="true"
             placeholder="Campo deshabilitado...">
           </dcx-ng-search>
-        </section>
-
-        <!-- Custom Aria Label -->
-        <section style="margin-bottom:24px;">
-          <h4>Custom Aria Label</h4>
-          <dcx-ng-search
-            ariaLabel="Buscar artículos en el catálogo"
-            placeholder="Buscar artículos..."
-            (search)="onSearch($event)">
-          </dcx-ng-search>
-          <p style="margin-top:8px; color:#666; font-size:12px;">
-            Este campo tiene un aria-label personalizado para accesibilidad
-          </p>
-        </section>
-
-        <!-- With Events -->
-        <section style="margin-bottom:24px;">
-          <h4>With Change Events</h4>
-          <dcx-ng-search
-            placeholder="Escribe algo y presiona Enter..."
-            (searchChange)="onSearchChange($event)"
-            (search)="onSearch($event)">
-          </dcx-ng-search>
-          <p style="margin-top:8px; color:#666; font-size:12px;">
-            Revisa la consola para ver los eventos
-          </p>
         </section>
       </div>
     `,
