@@ -1,25 +1,25 @@
-<button (click)="visibleInfo = true">Abrir diálogo</button>
+<button (click)="openInfo()">Abrir diálogo</button>
 
 <dcx-ng-dialog
+  dialogId="info"
   [title]="'Información importante'"
-  [visible]="visibleInfo"
   [showClose]="true"
   [position]="'center'"
-  (closeDialog)="handleCloseInfo()"
+  (closeDialog)="onInfoClosed()"
 >
   <div dialog-body>
     <p>Este es un mensaje informativo dentro del diálogo.</p>
   </div>
 </dcx-ng-dialog>
 
-<button (click)="visibleConfirm = true">Abrir confirmación</button>
+<button (click)="openConfirm()">Abrir confirmación</button>
 
 <dcx-ng-dialog
+  dialogId="confirm"
   [title]="'Confirmación'"
-  [visible]="visibleConfirm"
   [showClose]="false"
   [position]="'top-right'"
-  (closeDialog)="handleCloseConfirm()"
+  (closeDialog)="onConfirmClosed()"
 >
   <ng-template #dialogBody>
     <p>¿Estás seguro de que quieres continuar?</p>
