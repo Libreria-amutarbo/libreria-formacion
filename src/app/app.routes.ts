@@ -28,7 +28,7 @@ import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tab
 
 export const appRoutes: Route[] = [
   {
-path: '',
+    path: '',
     component: DcxNgPageFullTableComponent,
   },
   {    
