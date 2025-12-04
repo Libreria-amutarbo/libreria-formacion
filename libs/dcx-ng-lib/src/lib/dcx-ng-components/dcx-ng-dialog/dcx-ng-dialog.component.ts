@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   contentChild,
@@ -9,7 +10,7 @@ import {
 @Component({
   selector: 'dcx-ng-dialog',
   standalone: true,
-  imports: [],
+  imports: [NgTemplateOutlet],
   templateUrl: './dcx-ng-dialog.component.html',
   styleUrl: './dcx-ng-dialog.component.scss',
 })

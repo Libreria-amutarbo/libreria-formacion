@@ -13,7 +13,7 @@ module.exports = [
         'error',
         {
           type: 'attribute',
-          prefix: 'dcx-ng',
+          prefix: 'dcxNg',
           style: 'camelCase',
         },
       ],

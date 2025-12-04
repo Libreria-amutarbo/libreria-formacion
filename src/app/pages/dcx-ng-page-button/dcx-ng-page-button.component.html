@@ -58,21 +58,26 @@
       <dcx-ng-button
         label="Guardar"
         variant="primary"
-        iconName="save"
-        iconPosition="start"
+        iconStart="chevron-left"
+        iconEnd="chevron-right"
       />
 
       <dcx-ng-button
         label="Siguiente"
         variant="secondary"
-        iconName="arrow_forward"
-        iconPosition="end"
+        iconEnd="arrow-right"
+      />
+
+      <dcx-ng-button
+        label="Guardar"
+        variant="primary"
+        iconStart="save"
       />
 
       <dcx-ng-button
         label="Eliminar"
         variant="secondary"
-        iconName="delete"
+        iconStart="trash"
         iconColor="#e53935"
       />
     </div>
@@ -84,20 +89,20 @@
       <dcx-ng-button
         ariaLabel="Abrir ajustes"
         variant="primary"
-        iconName="settings"
+        iconStart="gear"
       />
 
       <dcx-ng-button
         ariaLabel="Buscar"
         variant="secondary"
-        iconName="search"
+        iconStart="search"
         [disabled]="false"
       />
 
       <dcx-ng-button
         ariaLabel="Información"
         variant="link"
-        iconName="info"
+        iconStart="info-circle"
         iconSize="l"
       />
     </div>
@@ -131,7 +136,7 @@
         label="Success"
         variant="primary"
         class="btn-success"
-        iconName="check_circle"
+        iconStart="check-circle"
       />
     </div>
   </section>
