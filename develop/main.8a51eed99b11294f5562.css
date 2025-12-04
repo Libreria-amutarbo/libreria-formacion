@@ -529,6 +529,11 @@ template {
   --spacing-inline-m: 0.75rem;
   --spacing-inline-l: 1rem;
   --spacing-inline-xl: 1.5rem;
+  --border-radius-xs: 0.125rem;
+  --border-radius-sm: 0.1875rem;
+  --border-radius-md: 0.25rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-full: 9999px;
   --font-family-base: var(--font-family-primary);
   --font-size-base: var(--font-size-body);
   --font-weight-base: var(--font-weight-regular);
