@@ -8,14 +8,12 @@ module.exports = [
   {
     files: ['**/*.ts'],
     rules: {
-      // Desactivar reglas de module boundaries para evitar dependencias circulares
       '@nx/enforce-module-boundaries': 'off',
-
       '@angular-eslint/directive-selector': [
         'error',
         {
           type: 'attribute',
-          prefix: 'dcx-ng',
+          prefix: 'dcxNg',
           style: 'camelCase',
         },
       ],
@@ -27,25 +25,17 @@ module.exports = [
           style: 'kebab-case',
         },
       ],
-
-      // Configurar variables no utilizadas con patrones de ignorado
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
-          argsIgnorePattern: '^_', // Ignorar argumentos que empiecen con _
-          varsIgnorePattern: '^_', // Ignorar variables que empiecen con _
-          ignoreRestSiblings: true, // Ignorar propiedades rest siblings
-          destructuredArrayIgnorePattern: '^_', // Ignorar destructuring arrays con _
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+          destructuredArrayIgnorePattern: '^_',
         },
       ],
-
-      // Permitir any en ciertos contextos
       '@typescript-eslint/no-explicit-any': 'off',
-
-      // Permitir funciones vacías (útil para callbacks)
       '@typescript-eslint/no-empty-function': 'off',
-
-      // Permitir non-null assertions
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },

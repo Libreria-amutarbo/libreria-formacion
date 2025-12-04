@@ -18,6 +18,9 @@ BUTTON: 'button',
   LIST: 'list',
   PAGINATOR: 'paginator',
   CONTEXTMENU: 'contextMenu',
-  SLIDER: 'slider'
-
+  SLIDER: 'slider',
+  DATEPICKER: 'date-picker',
+  ACCORDION: 'accordion',
+  DIALOG: 'dialog',
+  TABS: 'tabs'
 }

@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DcxNgIconFieldComponent } from './dcx-ng-iconField.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { ChangeDetectorRef } from '@angular/core';
+import { DcxNgIconFieldComponent } from './dcx-ng-iconField.component';
 
 describe('DcxNgIconFieldComponent', () => {
     let component: DcxNgIconFieldComponent;

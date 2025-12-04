@@ -1,12 +1,9 @@
+<div>
 
-<ul>
-  @for (item of paths; track item) {
-    <li>
-      <a [routerLink]="item">{{ item  }}</a>
-    </li>
-  }
-</ul>
-
+<dcx-ng-select label="Selecciona tu componente" [options]="getSelectOptions()"
+(valueChange)="routeTo($event)"></dcx-ng-select>
 
 
 <router-outlet></router-outlet>
+</div>
+

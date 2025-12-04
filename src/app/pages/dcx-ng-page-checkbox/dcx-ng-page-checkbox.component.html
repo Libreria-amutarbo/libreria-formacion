@@ -1,27 +1,29 @@
 <h1>Demo Checkbox</h1>
 <div class="demo-checkboxes">
   <h3>Checkbox basica:</h3>
-  <app-dcx-ng-checkbox
+  <dcx-ng-checkbox
     label="Recibir notificaciones"
     color="primary"
     [checked]="checked2"
     [disabled]="false"
     errorMessage=""
-  ></app-dcx-ng-checkbox>
+  />
+
   <h3>Checkbox (campo obligatorio):</h3>
-  <app-dcx-ng-checkbox
+  <dcx-ng-checkbox
     label="Acepto los términos"
     color="primary"
     [checked]="checked1"
     (checkedChange)="checked1 = $event"
     errorMessage="Este campo es obligatorio"
-  ></app-dcx-ng-checkbox>
+  />
+
   <h3>Checkbox deshabilitada:</h3>
-  <app-dcx-ng-checkbox
+  <dcx-ng-checkbox
     label="Recibir notificaciones"
     color="accent"
     [checked]="checked2"
     [disabled]="true"
     errorMessage=""
-  ></app-dcx-ng-checkbox>
+  />
 </div>

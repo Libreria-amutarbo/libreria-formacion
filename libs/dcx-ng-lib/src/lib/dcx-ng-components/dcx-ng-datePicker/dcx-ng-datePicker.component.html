@@ -1,0 +1,49 @@
+<div class="dcx-datepicker">
+    <div class="dcx-datepicker__input-wrapper" [class.dcx-datepicker__input-wrapper--disabled]="disabled()"
+        [class.dcx-datepicker__input-wrapper--open]="isOpen()" (click)="toggleCalendar()" 
+tabindex="0"
+  role="button"
+>
+        <input type="text" class="dcx-datepicker__input" [value]="formattedSelectedDate()" [disabled]="disabled()"
+            readonly />
+
+        @if (selectedDate() && !disabled()) {
+        <dcx-ng-button class="dcx-datepicker__clear" variant="icon" iconName="x-lg" ariaLabel="Limpiar fecha"
+            (buttonClick)="clearDate($event)"></dcx-ng-button>
+        }
+    </div>
+
+    @if (isOpen()) {
+    <div class="dcx-datepicker__calendar">
+        <div class="dcx-datepicker__header">
+            <dcx-ng-button class="dcx-datepicker__nav-button" variant="icon" iconName="arrow-left"
+                ariaLabel="Mes anterior" (buttonClick)="previousMonth()"></dcx-ng-button>
+
+            <span class="dcx-datepicker__month-name">
+                {{ monthName() }}
+            </span>
+
+            <dcx-ng-button class="dcx-datepicker__nav-button" variant="icon" iconName="arrow-right"
+                ariaLabel="Mes siguiente" (buttonClick)="nextMonth()"></dcx-ng-button>
+        </div>
+
+        <div class="dcx-datepicker__weekdays">
+            @for (day of weekDays; track day) {
+            <span class="dcx-datepicker__weekday">{{ day }}</span>
+            }
+        </div>
+
+        <div class="dcx-datepicker__days">
+            @for (day of calendarDays(); track day.date.getTime()) {
+            <button type="button" class="dcx-datepicker__day"
+                [class.dcx-datepicker__day--other-month]="!day.isCurrentMonth"
+                [class.dcx-datepicker__day--today]="day.isToday" [class.dcx-datepicker__day--selected]="day.isSelected"
+                [class.dcx-datepicker__day--disabled]="day.isDisabled" [disabled]="day.isDisabled"
+                (click)="selectDate(day)">
+                {{ day.date.getDate() }}
+            </button>
+            }
+        </div>
+    </div>
+    }
+</div>

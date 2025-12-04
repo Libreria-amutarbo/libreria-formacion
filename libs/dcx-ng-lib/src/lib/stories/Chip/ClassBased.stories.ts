@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgChipComponent, ThemeColors, ThemeColorsType } from '../../dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
 import { moduleMetadata } from '@storybook/angular';
+import { DcxNgChipComponent } from '../../dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
 import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
+import { ThemeColors } from '../../core/interfaces';
 
 const meta: Meta<DcxNgChipComponent> = {
   title: 'DCXLibrary/Chip/ClassBased',
@@ -93,7 +94,7 @@ Soporta diferentes colores, iconos, imágenes y funcionalidad de eliminación.
         defaultValue: { summary: '""' },
       },
     },
-    onRemove: {
+    removeChip: {
       action: 'onRemove',
       description: 'Evento emitido cuando se hace clic en el botón X',
       table: {

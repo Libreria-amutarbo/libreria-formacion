@@ -13,21 +13,30 @@ import { DcxNgPagePaginatorComponent } from './pages/dcx-ng-page-paginator/dcx-n
 import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCheckboxComponent } from './pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component';
-import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card/dcx-ng-page-card.component';
+import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card.component';
 import { ContextMenuComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component';
 import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component';
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
 import { APP_ROUTES } from './core/constants/app-routes';
+import { DxcNgPageDatePickerComponent } from './pages/dxc-ng-page-datePicker/dxc-ng-page-datePicker.component';
+import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
+import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
+import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
+import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
 
 export const appRoutes: Route[] = [
   {
+path: '',
+    component: DcxNgPageFullTableComponent,
+  },
+  {    
     path: APP_ROUTES.TABLE,
-    component: DcxNgPageTableComponent,
+    component: DcxNgPageFullTableComponent,
   },
   {
-    path: APP_ROUTES.BUTTON,
+   path: APP_ROUTES.BUTTON,
     component: DcxNgPageButtonComponent,
   },
   {
@@ -101,6 +110,21 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.SLIDER,
     component: DcxNgPageSliderComponent
-  }
+  },
+  {
+    path: APP_ROUTES.DATEPICKER,
+    component: DxcNgPageDatePickerComponent,
+  },
+  {
+    path: APP_ROUTES.ACCORDION,
+    component: DcxNgPageAccordionComponent,
+  },
+  {
+    path: APP_ROUTES.DIALOG,
+    component: DcxNgPageDialogComponent,
+  },
+  {
+    path: APP_ROUTES.TABS,
+    component: DcxNgPageTabsComponent,
+  },
 ];
-
