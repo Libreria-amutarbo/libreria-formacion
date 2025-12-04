@@ -19,6 +19,7 @@ import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/d
 import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component';
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
+import { APP_ROUTES } from './core/constants/app-routes';
 import { DxcNgPageDatePickerComponent } from './pages/dxc-ng-page-datePicker/dxc-ng-page-datePicker.component';
 import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
@@ -27,103 +28,103 @@ import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tab
 
 export const appRoutes: Route[] = [
   {
-    path: 'table',
-    component: DcxNgPageTableComponent,
+    path: '',
+    component: DcxNgPageFullTableComponent,
   },
-  {
-    path: 'full-table',
+  {    
+    path: APP_ROUTES.TABLE,
     component: DcxNgPageFullTableComponent,
   },
   {
-    path: 'button',
+   path: APP_ROUTES.BUTTON,
     component: DcxNgPageButtonComponent,
   },
   {
-    path: 'message',
+    path: APP_ROUTES.MESSAGE,
     component: DcxNgPageMessageComponent,
   },
   {
-    path: 'icon',
+    path: APP_ROUTES.ICON,
     component: DcxNgPageIconComponent,
   },
   {
-    path: 'select',
+    path: APP_ROUTES.SELECT,
     component: DcxNgPageSelectComponent,
   },
   {
-    path: 'divider',
+    path: APP_ROUTES.DIVIDER,
     component: DcxNgPageDividerComponent,
   },
   {
-    path: 'toggle',
+    path: APP_ROUTES.TOGGLE,
     component: DcxNgPageToggleComponent,
   },
   {
-    path: 'radio',
+    path: APP_ROUTES.RADIO,
     component: DcxNgPageRadioComponent,
   },
   {
-    path: 'input',
+    path: APP_ROUTES.INPUT,
     component: DcxNgPageInputComponent,
   },
   {
-    path: 'spinner',
+    path: APP_ROUTES.SPINNER,
     component: DcxNgPageSpinnerComponent,
   },
   {
-    path: 'paginator',
+    path: APP_ROUTES.PAGINATOR,
     component: DcxNgPagePaginatorComponent,
   },
   {
-    path: 'chip',
+    path: APP_ROUTES.CHIP,
     component: DcxNgPageChipComponent,
   },
   {
-    path: 'tooltip',
+    path: APP_ROUTES.TOOLTIP,
     component: DcxNgPageTooltipComponent,
   },
   {
-    path: 'checkbox',
+    path: APP_ROUTES.CHECKBOX,
     component: DcxNgPageCheckboxComponent,
   },
   {
-    path: 'dropdown',
+    path: APP_ROUTES.DROPDOWN,
     component: DcxNgPageDropdownComponent,
   },
   {
-    path: 'card',
-    component: DcxNgPageCardComponent,
+    path: APP_ROUTES.CARD,
+    component: DcxNgPageCardComponent
   },
   {
-    path: 'contextMenu',
-    component: ContextMenuComponent,
+    path: APP_ROUTES.CONTEXTMENU,
+    component: ContextMenuComponent
   },
   {
-    path: 'icon-field',
+    path: APP_ROUTES.ICON_FIELD,
     component: DcxNgPageIconFieldComponent,
   },
   {
-    path: 'list',
+    path: APP_ROUTES.LIST,
     component: DcxNgPageListComponent,
   },
   {
-    path: 'slider',
-    component: DcxNgPageSliderComponent,
+    path: APP_ROUTES.SLIDER,
+    component: DcxNgPageSliderComponent
   },
   {
-    path: 'date-picker',
+    path: APP_ROUTES.DATEPICKER,
     component: DxcNgPageDatePickerComponent,
   },
   {
-    path: 'accordion',
+    path: APP_ROUTES.ACCORDION,
     component: DcxNgPageAccordionComponent,
   },
   {
-    path: 'dialog',
+    path: APP_ROUTES.DIALOG,
     component: DcxNgPageDialogComponent,
   },
   {
-    path: 'tabs',
+    path: APP_ROUTES.TABS,
     component: DcxNgPageTabsComponent,
   },
 ];
