@@ -1,6 +1,6 @@
-import { DcxPosition } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgTooltipComponent } from '../../dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
+import { DcxNgTooltipComponent, TooltipPosition } from '../../dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
+import { NxArgs } from 'nx/src/utils/command-line-utils';
 
 const meta: Meta<DcxNgTooltipComponent> = {
   title: 'DCXLibrary/Tooltip/ClassBased',
@@ -30,7 +30,7 @@ type Story = StoryObj<DcxNgTooltipComponent>;
 export const DefaultTooltip: Story = {
   args: {
     content: 'Default tooltip',
-    position: DcxPosition.TOP,
+    position: TooltipPosition.TOP,
     hideTooltipOnClick: false,
   },
   render: (args) => ({
@@ -46,7 +46,7 @@ export const DefaultTooltip: Story = {
 };
 export const LeftTooltip: Story = {
   args: {
-    position: DcxPosition.LEFT,
+    position: TooltipPosition.LEFT,
     content: 'Tooltip on the left',
   },
   render: (args) => ({
@@ -62,7 +62,7 @@ export const LeftTooltip: Story = {
 };
 export const RightTooltip: Story = {
   args: {
-    position: DcxPosition.RIGHT,
+    position: TooltipPosition.RIGHT,
     content: 'Tooltip on the right',
   },
   render: (args) => ({
@@ -78,7 +78,7 @@ export const RightTooltip: Story = {
 };
 export const BottomTooltip: Story = {
   args: {
-    position: DcxPosition.BOTTOM,
+    position: TooltipPosition.BOTTOM,
     content: 'Tooltip on the bottom',
   },
   render: (args) => ({
@@ -94,7 +94,7 @@ export const BottomTooltip: Story = {
 };
 export const TopTooltip: Story = {
   args: {
-    position: DcxPosition.TOP,
+    position: TooltipPosition.TOP,
     content: 'Tooltip on the top',
   },
   render: (args) => ({
@@ -128,7 +128,7 @@ export const HideOnClickTooltip: Story = {
 export const ViewportEdgePositioning: Story = {
   args: {
     content: 'This tooltip intelligently adjusts its position to stay within the viewport boundaries',
-    position: DcxPosition.TOP,
+    position: TooltipPosition.TOP,
   },
   render: (args) => ({
     props: args,
@@ -190,7 +190,7 @@ export const ViewportEdgePositioning: Story = {
 export const LongContentTooltip: Story = {
   args: {
     content: 'This is a very long tooltip content that should wrap properly and test the intelligent positioning system with longer text that might cause issues with viewport boundaries when positioned near edges.',
-    position: DcxPosition.LEFT,
+    position: TooltipPosition.LEFT,
   },
   render: (args) => ({
     props: args,

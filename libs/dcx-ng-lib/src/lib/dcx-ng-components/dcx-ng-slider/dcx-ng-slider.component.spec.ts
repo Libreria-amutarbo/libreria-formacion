@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 
 
 @Component({
-    selector: 'dcx-ng-test-slider-host',
+    selector: 'test-slider-host',
     template: `
         <form [formGroup]="form">
             <dcx-ng-slider

@@ -5,8 +5,8 @@ import * as IconClassBasedStories from './ClassBased.stories';
 
 # Icon
 
-The Icon component is a flexible UI element that uses Bootstrap Icons for consistent and modern iconography.
-You can find the name of your icon on the [Bootstrap Icons](https://icons.getbootstrap.com/) website.
+The Icon component is a UI/UX-agnostic element designed for flexibility and reuse.  
+You can find the name of your icon on the Google Icons site (https://fonts.google.com/icons).
 
 ---
 
@@ -16,10 +16,10 @@ You can find the name of your icon on the [Bootstrap Icons](https://icons.getboo
 
 You can customize:
 
-- **name**: the Bootstrap icon name (e.g., 'heart-fill', 'star-fill', 'search')
-- **color**: the icon color (hex or named color)
-- **size**: s (small), m (medium), l (large), xl (extra-large)
-- **spacing**: none, compact, spacious
+- name: the icon name
+- color: the icon color
+- size: s, m, l, xl
+- spacing: none, compact, spacious
 
 ---
 
@@ -28,20 +28,9 @@ You can customize:
 ```html
 <dcx-ng-icon
   [name]="'search'"
-  [color]="'#27ae60'"
-  [size]="'m'"
+  [color]="'green'"
+  [size]="'medium'"
   [spacing]="'spacious'"
 >
 </dcx-ng-icon>
 ```
-
----
-
-## Popular Icons
-
-- **Navigation**: `house-fill`, `arrow-left`, `arrow-right`, `chevron-up`, `chevron-down`
-- **Status**: `check-circle`, `x-circle`, `exclamation-circle`, `info-circle`, `question-circle`
-- **UI**: `search`, `bell`, `gear`, `download`, `upload`, `trash`, `edit`, `eye`, `eye-slash`
-- **Ratings**: `star`, `star-fill`, `heart`, `heart-fill`
-
-For a complete list of available icons, visit [Bootstrap Icons](https://icons.getbootstrap.com/)

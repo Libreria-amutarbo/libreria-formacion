@@ -8,15 +8,22 @@
 
   .icon__container__close {
     color: $color;
+
     &:hover {
       background: rgba($color, 0.1);
       color: $color;
     }
+
     &:active {
       background: rgba($color, 0.2);
       color: $color;
     }
   }
+}
+
+.message__container__link {
+  text-decoration: underline;
+  font-size: 0.7rem;
 }
 
 .message__container {
@@ -33,19 +40,13 @@
   }
 
   &__paragraph {
-    margin: 0.125rem 0 0 0;
+    margin: 0;
     font-size: 0.875rem;
     line-height: 1.4;
   }
 
-  &__link {
-    text-decoration: underline;
-    font-size: 0.7rem;
-  }
-
   &__body {
     flex: 1;
-    margin-top: 0.125rem;
   }
 }
 
@@ -64,23 +65,22 @@
 
 .icon__container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
   flex-shrink: 0;
-  width: 1.5rem;
-  height: 1.5rem;
+  margin-top: 0.125rem;
+  padding: 0.125rem;
+  border-radius: 0.25rem;
 
   &__close {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 1.5rem;
-    height: 1.5rem;
+    height: 3rem;
     border: none;
     border-radius: 0.25rem;
     background: transparent;
     padding: 0;
-    cursor: pointer;
-    flex-shrink: 0;
+    margin-left: auto;
   }
 }

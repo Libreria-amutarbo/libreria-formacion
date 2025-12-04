@@ -1,20 +1,13 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { DcxSelectOptions } from '../../core/interfaces/select';
 
 interface SelectOptions {
-  value: string | number;
+  value: any;
   label: string;
 }
 
@@ -31,35 +24,38 @@ interface SelectOptions {
       multi: true,
     },
   ],
-  host: { '[attr.disabled]': 'disabled ? "" : null' },
+  host: {
+    '[attr.disabled]': 'disabled ? "" : null',
+  },
 })
 export class DcxNgSelectComponent implements ControlValueAccessor {
-  @Input() options: DcxSelectOptions[] = [];
+  @Input() options: SelectOptions[] = [];
   @Input() placeholder = '';
-  @Input() label = '';
-  @Input() ariaLabel = '';
 
-  /** Emite el valor cuando cambia */
-  @Output() valueChange = new EventEmitter<string | number | null>();
+  /** Texto visible encima del select */
+  @Input() label = '';
+
+  /** Nombre accesible (solo si NO hay label visible) */
+  @Input() ariaLabel = '';
 
   /** id único para asociar <label for> con <select id> */
   selectId = `dcx-select-${Math.random().toString(36).slice(2)}`;
 
   disabled = false;
-  value: string | number | null = null;
+  value: any = null;
 
-  private onChange: (value: string | number | null) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: any) => void = () => { };
+  private onTouched: () => void = () => { };
 
-  writeValue(value: string | number | null): void {
+  writeValue(value: any): void {
     this.value = value ?? null;
   }
 
-  registerOnChange(fn: (value: string | number | null) => void): void {
+  registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: () => void): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
@@ -73,14 +69,13 @@ export class DcxNgSelectComponent implements ControlValueAccessor {
     const newValue = raw ?? null;
     this.value = newValue;
     this.onChange(this.value);
-    this.valueChange.emit(this.value);
   }
 
   handleBlur() {
     this.onTouched();
   }
 
-  trackByValue(_index: number, option: DcxSelectOptions) {
+  trackByValue(_index: number, option: SelectOptions) {
     return option.value;
   }
 }

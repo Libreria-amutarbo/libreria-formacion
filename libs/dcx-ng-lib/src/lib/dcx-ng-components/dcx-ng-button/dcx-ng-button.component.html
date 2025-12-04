@@ -1,36 +1,36 @@
 <button
-  [type]="type()"
-  [disabled]="disabled()"
-  [class]="buttonClasses()"
+  [type]="type"
+  [disabled]="disabled"
+  [ngClass]="buttonClasses"
   (click)="onClick()"
-  [attr.aria-label]="computedAriaLabel()"
+  [attr.aria-label]="computedAriaLabel"
 >
-  @if (iconStart()) {
+  @if (iconName && iconPosition === IconPos.start) {
     <dcx-ng-icon
-      class="icon icon--start"
-      [name]="iconStart()"
-      [size]="iconSize()"
-      [spacing]="iconSpacing()"
-      [color]="iconColor()"
+      class="dcx-ng-button__icon dcx-ng-button__icon--start"
+      [name]="iconName"
+      [size]="effectiveIconSize"
+      [spacing]="iconSpacing"
+      [color]="iconColor"
       aria-hidden="true"
-    />
+    ></dcx-ng-icon>
   }
 
-  @if (label()) {
-    <span class="label">{{ label() }}</span>
+  @if (label) {
+    <span class="dcx-ng-button__label">{{ label }}</span>
   }
 
-  @if (iconEnd()) {
+  @if (iconName && iconPosition === IconPos.end) {
     <dcx-ng-icon
-      class="icon icon--end"
-      [name]="iconEnd()"
-      [size]="iconSize()"
-      [spacing]="iconSpacing()"
-      [color]="iconColor()"
+      class="dcx-ng-button__icon dcx-ng-button__icon--end"
+      [name]="iconName"
+      [size]="effectiveIconSize"
+      [spacing]="iconSpacing"
+      [color]="iconColor"
       aria-hidden="true"
-    />
+    ></dcx-ng-icon>
   }
 
-  <ng-content select="dcx-ng-icon" />
-  <ng-content select="[button-trailing]" />
+  <ng-content select="dcx-ng-icon"></ng-content>
+  <ng-content select="[button-trailing]"></ng-content>
 </button>

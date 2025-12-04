@@ -12,7 +12,7 @@ const meta: Meta<DcxNgDividerComponent> = {
     },
     size: {
       control: 'select',
-      options: ['s', 'm', 'l'],
+      options: ['small', 'medium', 'large'],
     },
     color: {
       control: 'color',
@@ -35,7 +35,7 @@ type Story = StoryObj<DcxNgDividerComponent>;
 export const HorizontalSmall: Story = {
   args: {
     orientation: 'horizontal',
-    size: 's',
+    size: 'small',
     thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Horizontal Divider Small',
@@ -45,7 +45,7 @@ export const HorizontalSmall: Story = {
 export const HorizontalMedium: Story = {
   args: {
     orientation: 'horizontal',
-    size: 'm',
+    size: 'medium',
     thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Horizontal Divider Medium',
@@ -55,7 +55,7 @@ export const HorizontalMedium: Story = {
 export const HorizontalLarge: Story = {
   args: {
     orientation: 'horizontal',
-    size: 'l',
+    size: 'large',
     thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Horizontal Divider Large',
@@ -65,7 +65,7 @@ export const HorizontalLarge: Story = {
 export const VerticalSmall: Story = {
   args: {
     orientation: 'vertical',
-    size: 's',
+    size: 'small',
     thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Vertical Divider Small',
@@ -75,7 +75,7 @@ export const VerticalSmall: Story = {
 export const VerticalMedium: Story = {
   args: {
     orientation: 'vertical',
-    size: 'm',
+    size: 'medium',
     thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Vertical Divider Medium',
@@ -85,7 +85,7 @@ export const VerticalMedium: Story = {
 export const VerticalLarge: Story = {
   args: {
     orientation: 'vertical',
-    size: 'l',
+    size: 'large',
     thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Vertical Divider Large',

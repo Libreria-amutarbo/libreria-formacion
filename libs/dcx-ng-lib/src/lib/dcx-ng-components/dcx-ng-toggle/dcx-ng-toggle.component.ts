@@ -7,7 +7,14 @@ import {
   HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxPosition, DcxSize } from '../../core/interfaces';
+
+type ToggleSize = 'small' | 'medium' | 'large';
+export enum TogglePosition {
+  TOP = 'top',
+  BOTTOM = 'bottom',
+  LEFT = 'left',
+  RIGHT = 'right'
+}
 
 @Component({
   selector: 'dcx-ng-toggle',
@@ -20,10 +27,10 @@ export class DcxNgToggleComponent {
   @Input() checked = false;
   @Input() disabled = false;
   @Input() label: string | null = null;
-  @Input() size: DcxSize = 'm';
+  @Input() size: ToggleSize = 'medium';
   @Input() color = '#000';
   @Input() ariaLabel = '';
-  @Input() textPosition: DcxPosition = DcxPosition.RIGHT;
+  @Input() textPosition: TogglePosition = TogglePosition.RIGHT;
 
   @Output() toggled = new EventEmitter<boolean>();
 
@@ -47,7 +54,7 @@ export class DcxNgToggleComponent {
 
   @HostListener('keydown.enter', ['$event'])
   @HostListener('keydown.space', ['$event'])
-  handleKeyboardToggle(event: Event): void {
+  handleKeyboardToggle(event: KeyboardEvent): void {
     if (!this.disabled) {
       event.preventDefault();
       this.toggle();

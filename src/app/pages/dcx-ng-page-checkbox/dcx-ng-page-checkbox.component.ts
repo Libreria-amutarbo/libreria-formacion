@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DcxNgCheckboxComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgCheckbox } from 'libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
 
 @Component({
   selector: 'app-dcx-ng-page-checkbox',
   standalone: true,
-  imports: [DcxNgCheckboxComponent],
+  imports: [DcxNgCheckbox],
   templateUrl: './dcx-ng-page-checkbox.component.html',
-  styleUrl: './dcx-ng-page-checkbox.component.scss',
+  styleUrls: ['./dcx-ng-page-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageCheckboxComponent {

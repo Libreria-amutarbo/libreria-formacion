@@ -37,7 +37,7 @@ export default meta;
 type Story = StoryObj<DcxNgPaginatorComponent>;
 
 @Component({
-  selector: 'dcx-ng-paginator-interactive',
+  selector: 'paginator-interactive',
   standalone: true,
   imports: [DcxNgPaginatorComponent],
   template: `
@@ -74,13 +74,13 @@ export const Default: Story = {
       imports: [PaginatorInteractiveComponent],
     },
     template: `
-      <dcx-ng-paginator-interactive
+      <paginator-interactive
         [totalPages]="totalPages"
         [itemsPerPage]="itemsPerPage"
         [disabled]="disabled"
         [nextButton]="nextButton"
         [prevButton]="prevButton">
-      </dcx-ng-paginator-interactive>
+      </paginator-interactive>
     `,
   }),
   args: {

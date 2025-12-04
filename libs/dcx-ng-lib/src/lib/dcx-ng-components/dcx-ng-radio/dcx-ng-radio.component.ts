@@ -1,9 +1,10 @@
 import { Component, Input, forwardRef, ChangeDetectorRef, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DcxSize } from '../../core/interfaces';
-import { CommonModule } from '@angular/common';
+
+type RadioSize = 's' | 'm' | 'l';
 
 @Component({
   selector: 'dcx-ng-radio',
@@ -20,20 +21,28 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class DcxNgRadioComponent implements ControlValueAccessor {
-  @Input() name = '';
+  @Input() name: string = '';
   @Input() value: string | null = null;
   @Input() label: string | null = null;
   @Input() disabled = false;
-  @Input() size: DcxSize = 'l';
+  @Input() size: RadioSize = 'l';
   @Input() ariaLabel = '';
   @Input() unstyled = false;
 
   formControl = new FormControl<string | null>(null);
 
-  onChange: (value: string | null) => void = () => { };
-  onTouched: () => void = () => { };
+  onChange: (value: string | null) => void = () => {};
+  onTouched: () => void = () => {};
 
-  private readonly cdr = inject(ChangeDetectorRef);
+  private cdr = inject(ChangeDetectorRef);
+
+  constructor() {
+    this.formControl.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(value => {
+        this.onChange(value);
+      });
+  }
 
   get isChecked(): boolean {
     return this.formControl.value === this.value;
@@ -45,12 +54,6 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   get ariaLabelBinding(): string {
     return this.ariaLabel || 'Radio button';
-  }
-
-  constructor() {
-    this.formControl.valueChanges
-      .pipe(takeUntilDestroyed())
-      .subscribe(value => this.onChange(value));
   }
 
   onInputChange(value: string | null): void {
@@ -74,11 +77,7 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    if(isDisabled) {
-      this.formControl.disable({ emitEvent: false })
-    } else {
-this.formControl.enable({ emitEvent: false });
-    }
+    isDisabled ? this.formControl.disable({ emitEvent: false }) :     this.formControl.enable({ emitEvent: false });
     this.cdr.markForCheck();
   }
 

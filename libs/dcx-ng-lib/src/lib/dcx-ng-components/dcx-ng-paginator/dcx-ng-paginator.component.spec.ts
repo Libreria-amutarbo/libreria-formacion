@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgPaginatorComponent } from './dcx-ng-paginator.component';
 
+// Asegurar que spyOn esté disponible globalmente
+declare const jasmine: any;
+
 describe('DcxNgPaginatorComponent', () => {
   let component: DcxNgPaginatorComponent;
   let fixture: ComponentFixture<DcxNgPaginatorComponent>;

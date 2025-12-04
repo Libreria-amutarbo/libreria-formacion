@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { DcxSize } from '../../core/interfaces';
+
+type IconSize = 's' | 'm' | 'l' | 'xl';
 
 @Component({
   selector: 'dcx-ng-icon-field',
@@ -11,17 +12,17 @@ import { DcxSize } from '../../core/interfaces';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DcxNgIconFieldComponent {
-  @Input() placeholder = '';
-  @Input() iconLeft = '';
-  @Input() iconRight = '';
-  @Input() iconSize: DcxSize = 'm';
-  @Input() disabled = false;
+  @Input() placeholder: string = '';
+  @Input() iconLeft: string = '';
+  @Input() iconRight: string = '';
+  @Input() iconSize: IconSize = 'm';
+  @Input() disabled: boolean = false;
 
   @Output() valueChange = new EventEmitter<string>();
-  @Output() focusIconField = new EventEmitter<void>();
-  @Output() blurIconField = new EventEmitter<void>();
+  @Output() focus = new EventEmitter<void>();
+  @Output() blur = new EventEmitter<void>();
 
-  value = '';
+  value: string = '';
 
   onInput(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -30,10 +31,10 @@ export class DcxNgIconFieldComponent {
   }
 
   onFocus() {
-    this.focusIconField.emit();
+    this.focus.emit();
   }
 
   onBlur() {
-    this.blurIconField.emit();
+    this.blur.emit();
   }
 }

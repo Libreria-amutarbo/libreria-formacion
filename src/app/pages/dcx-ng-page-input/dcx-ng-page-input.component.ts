@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DcxNgInputComponent } from '@dcx-ng-components/dcx-ng-lib';
-import { DcxInputType } from 'libs/dcx-ng-lib/src/lib/core/interfaces/input';
+import { InputSize, InputType } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-input',
@@ -13,7 +13,9 @@ import { DcxInputType } from 'libs/dcx-ng-lib/src/lib/core/interfaces/input';
 export class DcxNgPageInputComponent {
   valor = '';
 
-  readonly DcxInputType = DcxInputType;
+  // Exponemos los enums para uso en el template
+  readonly InputType = InputType;
+  readonly InputSize = InputSize;
 
   showValue(value: string | null) {
     this.valor = value || '';

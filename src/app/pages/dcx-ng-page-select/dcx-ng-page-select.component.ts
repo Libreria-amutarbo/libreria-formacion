@@ -1,7 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { DcxNgSelectComponent } from '@dcx-ng-components/dcx-ng-lib';
-import { DcxSelectOptions } from 'libs/dcx-ng-lib/src/lib/core/interfaces/select';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { DcxNgSelectComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-select',
@@ -11,18 +10,9 @@ import { DcxSelectOptions } from 'libs/dcx-ng-lib/src/lib/core/interfaces/select
   styleUrls: ['./dcx-ng-page-select.component.scss'],
 })
 export class DcxNgPageSelectComponent {
-  private readonly fb = inject(FormBuilder);
+  form: FormGroup;
 
-  form = this.fb.group({
-    basic: [null],
-    withPlaceholder: [null],
-    disabled: [null, { disabled: true }],
-    preselected: ['2'],
-    withChange: [null],
-    noLabelAria: [null],
-  });
-
-  optionList: DcxSelectOptions[] = [
+  optionList = [
     { value: '1', label: 'One' },
     { value: '2', label: 'Two' },
     { value: '3', label: 'Three' },
@@ -31,7 +21,16 @@ export class DcxNgPageSelectComponent {
 
   selectedValue: any = null;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      basic: this.fb.control<string | null>(null),
+      withPlaceholder: this.fb.control<string | null>(null),
+      disabled: this.fb.control<string | null>({ value: null, disabled: true }),
+      preselected: this.fb.control<string>('2'),
+      withChange: this.fb.control<string | null>(null),
+      noLabelAria: this.fb.control<string | null>(null),
+    });
+
     this.form.get('withChange')?.valueChanges.subscribe(v => {
       this.onValueChange(v);
     });

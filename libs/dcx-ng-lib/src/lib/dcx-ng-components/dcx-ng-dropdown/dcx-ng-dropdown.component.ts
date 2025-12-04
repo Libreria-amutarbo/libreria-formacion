@@ -12,7 +12,11 @@ import {
   signal,
 } from '@angular/core';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
-import { DcxDropdownOptions } from '../../core/interfaces/dropdown';
+
+export interface DropdownOptions {
+  key: string;
+  value: string | number;
+}
 
 @Component({
   selector: 'dcx-ng-dropdown',
@@ -23,15 +27,11 @@ import { DcxDropdownOptions } from '../../core/interfaces/dropdown';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgDropdownComponent {
-  @Input({ required: true }) dropdownOptions: DcxDropdownOptions[] = [];
-  @Input() placeholder = '';
+  @Input({ required: true }) dropdownOptions: DropdownOptions[] = [];
+  @Input() placeholder: string = '';
   @Input() disabled = false;
   @Input() set selectedKey(key: string | null | undefined) {
     this._selectedKey.set(key ?? null);
-  }
-
-    get selectedKey(): string | null {
-    return this._selectedKey();
   }
 
   @Output() selectedKeyChange = new EventEmitter<string | null>();
@@ -47,7 +47,9 @@ export class DcxNgDropdownComponent {
     }
   }
 
-
+  get selectedKey(): string | null {
+    return this._selectedKey();
+  }
 
   _open: WritableSignal<boolean> = signal(false);
   _selectedKey: WritableSignal<string | null> = signal<string | null>(null);
@@ -60,7 +62,7 @@ export class DcxNgDropdownComponent {
     return opt ? this.valueToString(opt.value) : this.placeholder;
   });
 
-  constructor(private host: ElementRef<HTMLElement>) { }
+  constructor(private host: ElementRef<HTMLElement>) {}
 
   toggle(): void {
     if (this.disabled) return;
@@ -68,7 +70,7 @@ export class DcxNgDropdownComponent {
     this._open.set(!this._open());
   }
 
-  select(item: DcxDropdownOptions): void {
+  select(item: DropdownOptions): void {
     if (this.disabled) return;
 
     this._selectedKey.set(item.key);
@@ -76,11 +78,11 @@ export class DcxNgDropdownComponent {
     this._open.set(false);
   }
 
-  findByKey(key: string): DcxDropdownOptions | undefined {
+  findByKey(key: string): DropdownOptions | undefined {
     return this.dropdownOptions.find(o => o.key === key);
   }
 
-  isSelected(item: DcxDropdownOptions): boolean {
+  isSelected(item: DropdownOptions): boolean {
     return this._selectedKey() === item.key;
   }
 

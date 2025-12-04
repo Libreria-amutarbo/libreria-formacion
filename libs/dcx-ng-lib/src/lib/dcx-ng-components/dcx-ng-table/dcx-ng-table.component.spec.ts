@@ -15,14 +15,14 @@ describe('DcxNgTableComponent', () => {
     component = fixture.componentInstance;
   });
 
-  const setInputs = ({
+  function setInputs({
     headers,
     value,
     showGrid = false,
     showStripped = false,
     scroll = false,
     scrollHeight = '320px',
-  }: any) => {
+  }: any) {
     component.headers = headers;
     component.rows = value;
     component.showGrid = showGrid;

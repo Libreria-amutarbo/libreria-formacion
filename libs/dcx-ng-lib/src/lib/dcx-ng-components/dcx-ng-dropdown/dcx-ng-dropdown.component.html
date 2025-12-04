@@ -2,40 +2,36 @@
   <dcx-ng-button
     type="button"
     class="dcx-trigger"
-    variant="icon"
-    size="m"
-    iconName="expand_more"
-    iconPosition="end"
     [disabled]="disabled"
+    [variant]="'icon'"
+    [size]="'medium'"
     [label]="displayLabel()"
+    [iconName]="'expand_more'"
+    iconPosition="end"
     [attr.aria-expanded]="_open()"
     (buttonClick)="toggle()"
   ></dcx-ng-button>
 
   @if (_open()) {
     <div class="dcx-panel">
-      
-<ul class="dcx-list" role="listbox">
-  @for (item of dropdownOptions; track item.key) {
-    <li class="dcx-item" [class.selected]="isSelected(item)">
-      <button
-        type="button"
-        (click)="select(item)"
-        [attr.aria-selected]="isSelected(item)"
-        role="option"
-      >
-        <span class="dcx-item__label">{{ valueToString(item.value) }}</span>
-        @if (isSelected(item)) {
-          <span class="dcx-item__check">✓</span>
+      <ul class="dcx-list">
+        @for (item of dropdownOptions; track item.key) {
+          <li
+            class="dcx-item"
+            (click)="select(item)"
+            [class.selected]="isSelected(item)"
+          >
+            <span class="dcx-item__label">{{ valueToString(item.value) }}</span>
+            @if (isSelected(item)) {
+              <span class="dcx-item__check">✓</span>
+            }
+          </li>
         }
-      </button>
-    </li>
-  }
-  @if (!dropdownOptions.length) {
-    <li class="dcx-empty">(Sin opciones)</li>
-  }
-</ul>
 
+        @if (!dropdownOptions.length) {
+          <li class="dcx-empty">(Sin opciones)</li>
+        }
+      </ul>
     </div>
   }
 </div>

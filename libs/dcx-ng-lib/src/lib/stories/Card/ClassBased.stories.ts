@@ -40,15 +40,15 @@ const meta: Meta<DcxNgCardComponent> = {
       control: 'boolean',
       description: 'Controla la visibilidad de la tarjeta',
     },
-    cardClose: {
+    onClose: {
       action: 'closed',
       description: 'Evento emitido al cerrar la tarjeta',
     },
-    cardAccept: {
+    onAccept: {
       action: 'accepted',
       description: 'Evento emitido al hacer clic en Aceptar',
     },
-    cardCancel: {
+    onCancel: {
       action: 'cancelled',
       description: 'Evento emitido al hacer clic en Cancelar',
     },
