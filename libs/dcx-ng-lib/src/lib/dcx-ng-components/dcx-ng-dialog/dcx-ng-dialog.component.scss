@@ -1,8 +1,23 @@
-.dialog {
+.dialog-root {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  z-index: 1000;
+}
+
+.dialog-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 180ms ease-out;
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.dialog {
+  position: absolute; /* las coords vienen del preset */
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -10,6 +25,16 @@
   max-width: 90%;
   display: flex;
   flex-direction: column;
+
+  transition:
+    opacity 180ms ease-out,
+    transform 180ms ease-out;
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.98); // el translate lo aporta cada preset
+  }
 
   &-header {
     display: flex;
@@ -37,5 +62,59 @@
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
+  }
+
+  &.dialog--pos-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.dialog--pos-top {
+    top: 16px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  &.dialog--pos-bottom {
+    bottom: 16px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  &.dialog--pos-left {
+    left: 16px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  &.dialog--pos-right {
+    right: 16px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  &.dialog--pos-top-left {
+    top: 16px;
+    left: 16px;
+    transform: none;
+  }
+
+  &.dialog--pos-top-right {
+    top: 16px;
+    right: 16px;
+    transform: none;
+  }
+
+  &.dialog--pos-bottom-left {
+    bottom: 16px;
+    left: 16px;
+    transform: none;
+  }
+
+  &.dialog--pos-bottom-right {
+    bottom: 16px;
+    right: 16px;
+    transform: none;
   }
 }

@@ -3,7 +3,9 @@
 <dcx-ng-dialog
   [title]="'Información importante'"
   [visible]="visibleInfo"
-  (onClose)="handleCloseInfo()"
+  [showClose]="true"
+  [position]="'center'"
+  (closeDialog)="handleCloseInfo()"
 >
   <div dialog-body>
     <p>Este es un mensaje informativo dentro del diálogo.</p>
@@ -15,7 +17,9 @@
 <dcx-ng-dialog
   [title]="'Confirmación'"
   [visible]="visibleConfirm"
-  (onClose)="handleCloseConfirm()"
+  [showClose]="false"
+  [position]="'top-right'"
+  (closeDialog)="handleCloseConfirm()"
 >
   <ng-template #dialogBody>
     <p>¿Estás seguro de que quieres continuar?</p>

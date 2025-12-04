@@ -9,10 +9,12 @@ const meta: Meta<DcxNgDialogComponent> = {
   argTypes: {
     title: { control: 'text' },
     visible: { control: 'boolean' },
+    showClose: { control: 'boolean' },
   },
   args: {
     title: 'Información importante',
     visible: false,
+    showClose: true,
   },
 };
 
@@ -32,6 +34,7 @@ export const DialogPlainText: Story = {
     props: {
       title: args.title,
       visible: args.visible,
+      showClose: args.showClose,
       handleCloseInfo() {
         this['visible'] = false;
       },
@@ -42,7 +45,8 @@ export const DialogPlainText: Story = {
         <dcx-ng-dialog
           [title]="title"
           [visible]="visible"
-          (onClose)="handleCloseInfo()"
+          [showClose]="true"
+          (closeDialog)="handleCloseInfo()"
         >
           <div dialog-body>
             <p>Este es un mensaje informativo dentro del diálogo.</p>
@@ -95,7 +99,8 @@ export const DialogWithTemplates: Story = {
         <dcx-ng-dialog
           [title]="title"
           [visible]="visible"
-          (onClose)="handleCloseConfirm()"
+          [showClose]="false"
+          (closeDialog)="handleCloseConfirm()"
         >
           <ng-template #dialogBody>
             <p>¿Estás seguro de que quieres continuar?</p>
