@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-search',
-  imports: [DcxNgIconComponent],
+  imports: [DcxNgButtonComponent],
   templateUrl: './dcx-ng-search.component.html',
   styleUrl: './dcx-ng-search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,7 +22,7 @@ export class DcxNgSearchComponent {
   readonly helperText = input<string>('');
 
   readonly searchChange = output<string>();
-  readonly search = output<string>();
+  readonly searchOutput = output<string>();
 
   readonly searchValue = signal<string>('');
 
@@ -33,13 +33,13 @@ export class DcxNgSearchComponent {
   }
 
   onSearchClick(): void {
-    this.search.emit(this.searchValue());
+    this.searchOutput.emit(this.searchValue());
   }
 
   onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       event.preventDefault();
-      this.search.emit(this.searchValue());
+      this.searchOutput.emit(this.searchValue());
     }
   }
 }

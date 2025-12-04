@@ -52,7 +52,7 @@ describe('DcxNgSearchComponent', () => {
       done();
     });
 
-    const searchButton = fixture.nativeElement.querySelector('.dcx-search__search-button') as HTMLButtonElement;
+    const searchButton = fixture.nativeElement.querySelector('.dcx-search__search-button button') as HTMLButtonElement;
     searchButton.click();
   });
 

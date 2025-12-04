@@ -10,15 +10,15 @@
       (keydown)="onKeydown($event)"
     />
 
-    <button
-      type="button"
+    <dcx-ng-button
       class="dcx-search__search-button"
-      [attr.aria-label]="'Buscar'"
+      ariaLabel="Buscar"
       [disabled]="disabled()"
-      (click)="onSearchClick()"
-    >
-      <dcx-ng-icon name="search" size="s" />
-    </button>
+      iconStart="search"
+      iconSize="s"
+      variant="link"
+      (buttonClick)="onSearchClick()"
+    />
   </div>
 
   @if (helperText()) {
