@@ -5,28 +5,28 @@
   <div class="size-examples">
     <div>
       <p>Small</p>
-      <dcx-ng-spinner size="s"></dcx-ng-spinner>
+      <dcx-ng-spinner size="s" title="Loading" description="description"/>
     </div>
     <div>
       <p>Medium (default)</p>
-      <dcx-ng-spinner size="m"></dcx-ng-spinner>
+      <dcx-ng-spinner size="m" title="Loading" description="description"/>
     </div>
     <div>
       <p>Large</p>
-      <dcx-ng-spinner size="l"></dcx-ng-spinner>
+      <dcx-ng-spinner size="l" title="Loading" description="description"/>
     </div>
     <div>
       <p>Extra large</p>
-      <dcx-ng-spinner size="xl"></dcx-ng-spinner>
+      <dcx-ng-spinner size="xl" title="Loading" description="description" [color]="'#ff0000'"/>
     </div>
   </div>
 
   <h3>With custom delay (1000ms)</h3>
-  <dcx-ng-spinner [delay]="1000" label="Loading with delay..."></dcx-ng-spinner>
+  <dcx-ng-spinner [delay]="1000" title="Loading with delay..."></dcx-ng-spinner>
 
   <div class="wrapper-example">
     <h3>Wrapper mode (content with overlay)</h3>
-    <dcx-ng-spinner [wrapper]="true" label="Loading content...">
+    <dcx-ng-spinner [wrapper]="true" title="Loading content...">
       <div class="content-box">
         <h4>Wrapper Content</h4>
         <p>

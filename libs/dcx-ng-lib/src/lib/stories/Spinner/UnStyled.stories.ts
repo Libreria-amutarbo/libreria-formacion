@@ -19,7 +19,7 @@ const meta: Meta<DcxNgSpinnerComponent> = {
       control: 'number',
       description: 'Retardo en milisegundos antes de mostrar el spinner',
     },
-    label: {
+    title: {
       control: 'text',
       description: 'Texto descriptivo que acompaña al spinner',
     }
@@ -34,7 +34,7 @@ export const DefaultSpinner: Story = {
     size: 'm',
     wrapper: false,
     delay: 0,
-    label: 'Loading...',
+    title: 'Loading...',
   },
 };
 
@@ -43,7 +43,8 @@ export const WithoutLabel: Story = {
     size: 'm',
     wrapper: false,
     delay: 0,
-    label: null,
+    title: '',
+    description: '',
   },
 };
 
@@ -52,7 +53,7 @@ export const WithWrapper: Story = {
     size: 'l',
     wrapper: true,
     delay: 0,
-    label: 'Loading content',
+    title: 'Loading content',
   },
   render: (args) => ({
     props: args,
