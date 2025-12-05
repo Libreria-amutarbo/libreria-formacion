@@ -1,5 +1,7 @@
 // ClassBased.stories.ts (fix)
 import {
+  DcxBreadCrumbIcon,
+  DcxBreadCrumbIconList,
   DcxBreadcrumbItem,
   DcxBreadCrumbItemMock,
   DcxNgBreadcrumbComponent,
@@ -12,8 +14,16 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
   tags: ['autodocs'],
   argTypes: {
     items: { control: { type: 'object' } },
+    iconSeparator: {
+      control: 'select',
+      options: DcxBreadCrumbIconList.map(element => {return element}),
+      description: 'Opciones de iconos para separar los elementos del breadcrumb'
+    }
   },
-  args: { items: DcxBreadCrumbItemMock },
+  args: { 
+    items: DcxBreadCrumbItemMock,
+    iconSeparator: DcxBreadCrumbIcon
+  },
 };
 
 export default meta;
@@ -29,7 +39,7 @@ export const ClassBasedDemo: Story = {
       props: { ...args, pathText, },
       template: `
         <div style="display:grid; gap:8px; max-width:640px;">
-          <dcx-ng-breadcrumb [items]="items"></dcx-ng-breadcrumb>
+          <dcx-ng-breadcrumb [items]="items" [iconSeparator]="iconSeparator"></dcx-ng-breadcrumb>
         </div>
       `,
     };
