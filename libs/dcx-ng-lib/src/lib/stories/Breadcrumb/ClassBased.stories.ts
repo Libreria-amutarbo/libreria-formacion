@@ -16,13 +16,16 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
     items: { control: { type: 'object' } },
     iconSeparator: {
       control: 'select',
-      options: DcxBreadCrumbIconList.map(element => {return element}),
-      description: 'Opciones de iconos para separar los elementos del breadcrumb'
-    }
+      options: DcxBreadCrumbIconList.map(element => {
+        return element;
+      }),
+      description:
+        'Opciones de iconos para separar los elementos del breadcrumb',
+    },
   },
-  args: { 
+  args: {
     items: DcxBreadCrumbItemMock,
-    iconSeparator: DcxBreadCrumbIcon
+    iconSeparator: DcxBreadCrumbIcon,
   },
 };
 
@@ -36,7 +39,7 @@ export const ClassBasedDemo: Story = {
       .join(' / ');
 
     return {
-      props: { ...args, pathText, },
+      props: { ...args, pathText },
       template: `
         <div style="display:grid; gap:8px; max-width:640px;">
           <dcx-ng-breadcrumb [items]="items" [iconSeparator]="iconSeparator"></dcx-ng-breadcrumb>

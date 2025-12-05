@@ -3,7 +3,7 @@
     @for (item of items; track $index; let last = $last) {
       <li class="dcx-bc__item">
         @if (!last) {
-          <span class="dcx-bc__text">
+          <span class="dcx-bc__text" [class.disabled]="item.disabled">
             @if (item.href) {
               <a class="dcx-bc__link" [href]="item.href">
                 <ng-container
@@ -13,7 +13,7 @@
                 </ng-container>
               </a>
             } @else {
-              <span class="dcx-bc__text">
+              <span class="dcx-bc__text" [class.disabled]="item.disabled">
                 <ng-container
                   [ngTemplateOutlet]="getItemContentTpl()"
                   [ngTemplateOutletContext]="{ $implicit: item, isCurrent: false }"
@@ -27,7 +27,11 @@
             <dcx-ng-icon [name]="iconSeparator()"></dcx-ng-icon>
           </span>
         } @else {
-          <span class="dcx-bc__current" aria-current="page">
+          <span
+            class="dcx-bc__current"
+            aria-current="page"
+            [attr.disabled]="true"
+          >
             <ng-container
               [ngTemplateOutlet]="getItemContentTpl()"
               [ngTemplateOutletContext]="{ $implicit: item, isCurrent: false }"

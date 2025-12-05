@@ -11,7 +11,7 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
   argTypes: {
     items: { control: { type: 'object' } },
   },
-  args: { items: DcxBreadCrumbItemMock, },
+  args: { items: DcxBreadCrumbItemMock },
 };
 
 export default meta;
