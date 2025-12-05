@@ -97,7 +97,7 @@ export const SpinnerDelayShowcase: Story = {
   render: args => ({
     props: args,
     template: `
-      <dcx-ng-spinner [delay]="1000" title="Loading with delay..."></dcx-ng-spinner>
+      <dcx-ng-spinner [size]="size" [color]="color" [delay]="1000" title="Loading with delay..."></dcx-ng-spinner>
     `,
   }),
 };
@@ -105,7 +105,8 @@ export const SpinnerWrapperShowcase: Story = {
   render: args => ({
     props: args,
     template: `
-      <dcx-ng-spinner [wrapper]="true" title="Loading content...">
+      <dcx-ng-spinner [size]="size" [color]="color" [wrapper]="true" title="Loading content..."  [title]="title"
+      [description]="description">
       <div class="content-box">
         <h4>Wrapper Content</h4>
         <p>
