@@ -1,31 +1,31 @@
-@if (isVisible) {
-  <div
-    class="dcx-ng-spinner dcx-ng-spinner--{{ size }}"
-    [class.dcx-ng-spinner--wrapper]="wrapper"
-    role="status"
-    [attr.aria-label]="label || 'loading'"
-  >
-    <!-- Spinner standalone -->
-    @if (!wrapper) {
-      <div class="dcx-ng-spinner__circle"></div>
-      @if (label) {
-        <span class="dcx-ng-spinner__label">
-          {{ label }}
-        </span>
-      }
-    }
+<div
+  [class]="spinnerClasses()"
+  role="status"
+  aria-live="polite"
+  [attr.aria-label]="computedAriaLabel()"
+>
+  @if (!wrapper()) {
+    <div class="circle"></div>
 
-    <!-- Spinner as overlay on projected content -->
-    @if (wrapper) {
-      <ng-content></ng-content>
-      <div class="dcx-ng-spinner__overlay">
-        <div class="dcx-ng-spinner__circle"></div>
-        @if (label) {
-          <span class="dcx-ng-spinner__label">
-            {{ label }}
-          </span>
+    @if (hasContent()) {
+      <div class="text">
+        @if (title()) {
+          <div class="title">{{ title() }}</div>
+        }
+        @if (description()) {
+          <div class="description">{{ description() }}</div>
         }
       </div>
     }
-  </div>
-}
+  }
+
+  @if (wrapper()) {
+    <ng-content></ng-content>
+    <div class="overlay">
+      <div class="circle"></div>
+      @if (title()) {
+        <span class="label">{{ title() }}</span>
+      }
+    </div>
+  }
+</div>

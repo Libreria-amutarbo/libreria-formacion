@@ -1,0 +1,41 @@
+@use 'sass:map';
+@use './spinner.tokens' as tokens;
+
+// Tamaños según el tamaño canónico (xs, s, m, l, xl)
+@mixin spinner-size($size) {
+  $config: map.get(tokens.$spinner-sizes, $size);
+
+  @if $config == null {
+    @error "spinner-size: size `#{$size}` no existe en $spinner-sizes.";
+  }
+
+  .circle {
+    width: map.get($config, circle);
+    height: map.get($config, circle);
+    border-width: map.get($config, border-width);
+  }
+
+  .title {
+    font-size: map.get($config, title-size);
+  }
+
+  .description {
+    font-size: map.get($config, description-size);
+  }
+}
+
+// Clases de alias
+@mixin spinner-size-classes {
+  &--xs { @include spinner-size(xs); }
+
+  &--s,
+  &--small { @include spinner-size(s); }
+
+  &--m,
+  &--medium { @include spinner-size(m); }
+
+  &--l,
+  &--large { @include spinner-size(l); }
+
+  &--xl { @include spinner-size(xl); }
+}
