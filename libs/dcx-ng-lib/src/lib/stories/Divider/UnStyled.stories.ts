@@ -1,51 +1,15 @@
-import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgDividerComponent } from '../../dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
+import { DcxNgDividerComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { Meta } from '@storybook/angular';
+import { argTypesDivider, builderDivider } from './utils';
 
 const meta: Meta<DcxNgDividerComponent> = {
   title: 'DCXLibrary/Divider/Without style',
   component: DcxNgDividerComponent,
   tags: ['autodocs'],
-  argTypes: {
-    orientation: {
-      control: 'select',
-      options: ['horizontal', 'vertical'],
-    },
-    size: {
-      control: 'select',
-      options: ['small', 'medium', 'large'],
-    },
-    color: {
-      control: 'color',
-    },
-    thickness: {
-      control: { type: 'number', min: 0, max: 20, step: 0.2 },
-      defaultValue: 1,
-    },
-    ariaLabel: {
-      control: 'text',
-    },
-  },
+  argTypes: argTypesDivider
 };
 
 export default meta;
-type Story = StoryObj<DcxNgDividerComponent>;
 
-export const UnstyledHorizontal: Story = {
-  args: {
-    orientation: 'horizontal',
-    size: 'm',
-    thickness: 1,
-    color: '#9b9b9b',
-    ariaLabel: 'Horizontal Divider Medium',
-  },
-};
-
-export const UnstyledVertical: Story = {
-  args: {
-    orientation: 'vertical',
-    size: 'm',
-    thickness: 1,
-    color: '#9b9b9b',
-    ariaLabel: 'Vertical Divider Medium',
-  },
-};
+export const UnstyledHorizontal = builderDivider('m', 'Horizontal Divider Medium')
+export const UnstyledVertical = builderDivider('m', 'Vertical Divider Medium')

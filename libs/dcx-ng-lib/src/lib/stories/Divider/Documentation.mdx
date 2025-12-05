@@ -32,10 +32,11 @@ It leverages CSS variables for flexibility and can be easily extended or themed.
 You can customize:
 
 - **orientation**: horizontal or vertical
-- **size**: small, medium, large
+- **size**: s, m, l, xl, auto
 - **color**: any valid CSS color
 - **thickness**: defines how thick the line is
 - **ariaLabel**: accessibility text
+- **type**: dot or default
 
 ---
 
@@ -43,10 +44,10 @@ You can customize:
 
 ```html
 <dcx-ng-divider
-  orientation="'horizontal'"
-  size="'medium'"
-  color="'#0056b3'"
+  orientation="horizontal"
+  size="m"
+  color="#0056b3"
   [thickness]="2"
-  ariaLabel="'Divider'"
+  ariaLabel="Divider"
 ></dcx-ng-divider>
 ```

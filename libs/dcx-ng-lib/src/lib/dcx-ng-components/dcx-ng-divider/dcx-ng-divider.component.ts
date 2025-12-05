@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, Input } from '@angular/core';
-import { DcxSize, DividerOrientation } from '../../core/interfaces';
+import { Component, computed, HostBinding, input } from '@angular/core';
+import { DcxSize, DividerOrientation, DividerType } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-divider',
@@ -10,30 +10,31 @@ import { DcxSize, DividerOrientation } from '../../core/interfaces';
   styleUrl: './dcx-ng-divider.component.scss',
 })
 export class DcxNgDividerComponent {
-  @Input() color = '#ff0000';
-  @Input() size: DcxSize = 'auto';
-  @Input() orientation: DividerOrientation = 'horizontal';
-  @Input() thickness = 0.25;
-  @Input() ariaLabel = '';
+  color = input<string>('#ff0000');
+  size = input<DcxSize>('auto');
+  orientation = input<DividerOrientation>('horizontal');
+  thickness = input<number>(0.25);
+  ariaLabel = input<string>('');
+  type = input<DividerType>('default')
 
-  @HostBinding('style.--dcx-divider-color') get dividerColor() {
-    return this.color;
-  }
-
-  @HostBinding('style.--dcx-divider-thickness') get dividerThickness() {
-    return `${this.thickness}rem`;
-  }
-
-  @HostBinding('attr.aria-label') get ariaLabelBinding() {
-    return this.ariaLabel || 'Divider';
-  }
-
-  get dividerClasses(): string {
+  dividerClasses = computed<string>(() => {
     const label = 'dcx-ng-divider';
-    return [
-      label,
-      this.orientation ? `${label}--${this.orientation}` : '',
-      this.size ? `${label}--${this.size}` : '',
-    ].join(' ');
+    const orientation = this.orientation() ? `${label}--${this.orientation()}` : '';
+    const size = this.size() ? `${label}--${this.size()}` : ''
+    const type = this.type() ? `${label}--${this.type()}` : '';
+    console.log([label, orientation, size, type].join(' '))
+    return [label, orientation, size, type].join(' ');
+  })
+
+  ariaLabelBinding = computed<string>(() => this.ariaLabel() ?? 'dcx-divider')
+
+  @HostBinding('style.--dcx-divider-color')
+  get dividerColor() {
+    return this.color();
+  }
+
+  @HostBinding('style.--dcx-divider-thickness')
+  get dividerThickness() {
+    return `${this.thickness()}rem`;
   }
 }
