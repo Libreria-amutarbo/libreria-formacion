@@ -1,5 +1,6 @@
+import { DcxNgDividerComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgDividerComponent } from '../../dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
+
 
 const meta: Meta<DcxNgDividerComponent> = {
   title: 'DCXLibrary/Divider/ClassBased',

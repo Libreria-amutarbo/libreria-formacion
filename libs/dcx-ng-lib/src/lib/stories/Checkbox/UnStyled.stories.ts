@@ -1,9 +1,17 @@
+import { DcxNgCheckboxComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgCheckboxComponent } from '../../dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
+
 
 const meta: Meta<DcxNgCheckboxComponent> = {
     title: 'DCXLibrary/Checkbox/Without style',
     component: DcxNgCheckboxComponent,
+    argTypes: {
+        size: {
+            control: 'select',
+            options: ['s', 'm', 'l', 'xl', 'auto'],
+            description: 'Tamaño del checkbox',
+        },
+    },
 };
 export default meta;
 
@@ -15,6 +23,7 @@ export const Primary: Story = {
         checked: false,
         errorMessage: 'Este campo es obligatorio',
         color: undefined,
+        size: 'm',
     },
 };
 
@@ -24,6 +33,7 @@ export const Accent: Story = {
         checked: true,
         disabled: true,
         color: undefined,
+        size: 'm',
     },
 };
 
@@ -33,5 +43,6 @@ export const Error: Story = {
         checked: false,
         errorMessage: 'Debes marcar esta opción',
         color: undefined,
+        size: 'm',
     },
 };

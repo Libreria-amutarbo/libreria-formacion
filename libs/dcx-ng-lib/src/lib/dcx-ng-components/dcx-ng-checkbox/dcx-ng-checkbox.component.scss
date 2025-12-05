@@ -1,6 +1,10 @@
 :host {
   display: block;
 }
+.prueba {
+  background-color: rgb(252, 252, 252);
+  width: 150px;
+}
 .dcx-checkbox-label {
   display: flex;
   align-items: center;
@@ -12,16 +16,34 @@
   opacity: 0.6;
 }
 .dcx-checkbox-container {
-  width: 20px;
-  height: 20px;
   border: 2px solid var(--color, #1976d2);
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 8px;
-  background: #fff;
+  background-color: #ffffff;
   transition: border-color 0.2s;
+
+  &.size-s {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &.size-m {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &.size-l {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &.size-xl {
+    width: 3rem;
+    height: 3rem;
+  }
 }
 .dcx-checkbox-container.checked {
   border-color: var(--color, #1976d2);
@@ -39,19 +61,45 @@
   background: #f5f5f5;
 }
 .dcx-checkbox-box {
-  width: 16px;
-  height: 16px;
   position: relative;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
 }
 .dcx-checkbox-check {
   position: absolute;
-  left: 3px;
-  top: 0px;
-  width: 8px;
-  height: 14px;
   border-right: 2px solid var(--color, #1976d2);
   border-bottom: 2px solid var(--color, #1976d2);
   transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.dcx-checkbox-container.size-s .dcx-checkbox-check {
+  left: -2px;
+  top: -2px;
+  width: 5px;
+  height: 10px;
+}
+
+.dcx-checkbox-container.size-m .dcx-checkbox-check {
+  left: 0px;
+  top: -1px;
+  width: 8px;
+  height: 16px;
+}
+
+.dcx-checkbox-container.size-l .dcx-checkbox-check {
+  left: 3px;
+  top: 0px;
+  width: 11px;
+  height: 22px;
+}
+
+.dcx-checkbox-container.size-xl .dcx-checkbox-check {
+  left: 6px;
+  top: 2px;
+  width: 16px;
+  height: 32px;
 }
 .dcx-checkbox-text {
   font-size: 15px;
@@ -60,4 +108,23 @@
   color: #ef4444;
   font-size: 13px;
   margin-top: 4px;
+}
+
+.dcx-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    color: #333;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 }
