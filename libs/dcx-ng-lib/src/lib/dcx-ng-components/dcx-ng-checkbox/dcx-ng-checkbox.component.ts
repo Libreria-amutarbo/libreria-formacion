@@ -7,14 +7,16 @@ import {
   signal,
   effect,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CheckBoxVariant, CheckboxOption, DcxSize } from '../../core/interfaces';
-
+import {
+  CheckBoxVariant,
+  CheckboxOption,
+  DcxSize,
+} from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-checkbox',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './dcx-ng-checkbox.component.html',
   styleUrls: ['./dcx-ng-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,19 +44,16 @@ export class DcxNgCheckboxComponent {
   readonly isGroup = computed(() => this.options().length > 0);
 
   readonly isCheckedComputed = computed(() =>
-    this.isGroup() ? false : this._internalChecked()
+    this.isGroup() ? false : this._internalChecked(),
   );
 
   readonly containerClasses = computed(() => {
     const classes = ['dcx-checkbox-container'];
-    if (this.isPresetColor()) {
-      classes.push(`color-${this.color()}`);
-    }
-    if (this.isGroup()) {
-    } else if (this._internalChecked()) {
-      classes.push('checked');
-    }
+
+    if (this.isPresetColor()) classes.push(`color-${this.color()}`);
+    if (!this.isGroup() && this._internalChecked()) classes.push('checked');
     if (this.disabled()) classes.push('disabled');
+
     classes.push(`size-${this.size()}`);
     return classes.join(' ');
   });
@@ -95,19 +94,15 @@ export class DcxNgCheckboxComponent {
   onGroupCheckboxChange(value: string, shouldCheck: boolean): void {
     if (this.disabled()) return;
 
-    let newSelection: string[];
-
-    if (this.multiple()) {
-      if (shouldCheck) {
-        newSelection = [...this._internalSelectedValues(), value];
-      } else {
-        newSelection = this._internalSelectedValues().filter(
+    const newSelection = this.multiple()
+      ? shouldCheck
+        ? [...this._internalSelectedValues(), value]
+        : this._internalSelectedValues().filter(
           selectedValue => selectedValue !== value,
-        );
-      }
-    } else {
-      newSelection = shouldCheck ? [value] : [];
-    }
+        )
+      : shouldCheck
+        ? [value]
+        : [];
 
     this._internalSelectedValues.set(newSelection);
     this.selectionChange.emit(newSelection);
