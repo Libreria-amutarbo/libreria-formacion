@@ -1,8 +1,10 @@
 
 @forward './base';
 @forward './utils';
+@forward './components';
 
 @use './base' as base;
 @use './utils' as utils;
+@use './components' as components;
 @use 'sass:map';
 

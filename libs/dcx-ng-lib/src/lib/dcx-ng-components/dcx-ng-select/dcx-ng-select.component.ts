@@ -13,10 +13,6 @@ import {
 } from '@angular/forms';
 import { DcxSelectOptions } from '../../core/interfaces/select';
 
-interface SelectOptions {
-  value: string | number;
-  label: string;
-}
 
 @Component({
   selector: 'dcx-ng-select',
