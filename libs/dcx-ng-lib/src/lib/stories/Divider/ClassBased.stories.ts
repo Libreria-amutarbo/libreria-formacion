@@ -55,7 +55,7 @@ export const HorizontalMedium: Story = {
 export const HorizontalLarge: Story = {
   args: {
     orientation: 'horizontal',
-    size: 'l',
+    size: 's',
     thickness: 0.25,
     color: '#0056b3',
     ariaLabel: 'Horizontal Divider Large',

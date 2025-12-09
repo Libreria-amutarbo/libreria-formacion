@@ -41,9 +41,7 @@ export const ClassBasedDemo: Story = {
     return {
       props: { ...args, pathText },
       template: `
-        <div style="display:grid; gap:8px; max-width:640px;">
           <dcx-ng-breadcrumb [items]="items" [iconSeparator]="iconSeparator"></dcx-ng-breadcrumb>
-        </div>
       `,
     };
   },
