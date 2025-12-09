@@ -1,9 +1,9 @@
 <div>
+  <dcx-ng-select
+    label="Selecciona tu componente"
+    [options]="getSelectOptions()"
+    (valueChange)="routeTo($event)"
+  ></dcx-ng-select>
 
-<dcx-ng-select label="Selecciona tu componente" [options]="getSelectOptions()"
-(valueChange)="routeTo($event)"></dcx-ng-select>
-
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
-
