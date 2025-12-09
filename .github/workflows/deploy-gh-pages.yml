@@ -5,14 +5,13 @@ on:
     branches: [main, develop]
 
 permissions:
-  contents: write # para gh-pages CLI (push a gh-pages)
-  pages: none # no usamos el flujo moderno de Pages aquí
+  contents: write # vamos a hacer push a gh-pages
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -22,40 +21,49 @@ jobs:
         with:
           node-version: 20.19
 
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Install gh-pages CLI
-        run: npm install -g gh-pages
-
-      - name: Build Storybook
+      - name: Build Storybook (main)
+        if: github.ref == 'refs/heads/main'
         run: |
           export NODE_OPTIONS="--experimental-vm-modules"
           npx nx build-storybook dcx-ng-lib --no-cloud
+        # Si tus assets necesitan base, puedes usar:
+        # STORYBOOK_BASE=/MAIN/ npx nx build-storybook ...
 
-      - name: Configure Git user
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Actions"
-
-      - name: Deploy (main → gh-pages/prod)
-        if: github.ref == 'refs/heads/main'
-        run: npm run deploy:main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-
-      - name: Deploy (develop → gh-pages/preview)
+      - name: Build Storybook (develop)
         if: github.ref == 'refs/heads/develop'
-        run: npm run deploy:develop
+        run: |
+          export NODE_OPTIONS="--experimental-vm-modules"
+          npx nx build-storybook dcx-ng-lib --no-cloud
+        # STORYBOOK_BASE=/preview/ ...
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-branch
+
+      - name: Copy build to gh-pages folder
+        run: |
+          DEST_DIR=$([ "${GITHUB_REF##*/}" = "main" ] && echo "main" || echo "preview")
+          rm -rf gh-pages-branch/$DEST_DIR
+          mkdir -p gh-pages-branch/$DEST_DIR
+          cp -r dist/storybook/dcx-ng-lib/* gh-pages-branch/$DEST_DIR/
+          # evita que GitHub trate el contenido como Jekyll
+          touch gh-pages-branch/.nojekyll
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref }}
+
+      - name: Commit & push
+        run: |
+          cd gh-pages-branch
+          git config user.email "action@github.com"
+          git config user.name "GitHub Actions"
+          git add .
+          git commit -m "Deploy $([ "${GITHUB_REF##*/}" = "main" ] && echo "main" || echo "preview") from ${GITHUB_SHA}" || echo "No changes to commit"
+          git push origin gh-pages
+        env:
+          GITHUB_REF: ${{ github.ref }}
+          GITHUB_SHA: ${{ github.sha }}
