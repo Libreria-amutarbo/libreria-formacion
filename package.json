@@ -10,7 +10,7 @@
     "lint": "nx lint dcx-ng-lib",
     "lint-fix": "nx lint dcx-ng-lib --fix",
     "deploy:main": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy main' -b gh-pages --dest main --add --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git",
-    "deploy:develop": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy develop' -b gh-pages --dest preview --add --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git",
+    "deploy:develop": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy develop' -b gh-pages --dest develop --add --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git",
     "prepare": "husky install"
   },
   "lint-staged": {
