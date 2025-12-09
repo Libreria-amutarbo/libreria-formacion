@@ -1,13 +1,12 @@
-
-name: Deploy to GitHub Pages
+name: Deploy Storybook to GitHub Pages
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 permissions:
-  contents: write
-  pages: write
+  contents: write # para gh-pages CLI (push a gh-pages)
+  pages: none # no usamos el flujo moderno de Pages aquí
 
 jobs:
   build-and-deploy:
@@ -21,7 +20,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.19 # Compatible con Storybook v10
+          node-version: 20.19
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -39,8 +46,16 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Actions"
 
-      - name: Deploy to GitHub Pages
-        run: |
-          if [ "${GITHUB_REF##*/}" = "main" ]; then npm run deploy:main; else npm run deploy:develop; fi
+      - name: Deploy (main → gh-pages/prod)
+        if: github.ref == 'refs/heads/main'
+        run: npm run deploy:main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Deploy (develop → gh-pages/preview)
+        if: github.ref == 'refs/heads/develop'
+        run: npm run deploy:develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
