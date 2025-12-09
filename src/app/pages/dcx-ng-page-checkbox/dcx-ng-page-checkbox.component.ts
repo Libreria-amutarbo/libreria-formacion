@@ -13,7 +13,5 @@ export class DcxNgPageCheckboxComponent {
   checked1 = false;
   checked2 = false;
 
-  onSelectionChange(selectedValues: string[]): void {
-    console.log('Selección cambiada:', selectedValues);
-  }
+  onSelectionChange(selectedValues: string[]): void { }
 }
