@@ -27,6 +27,7 @@ import { DcxNgCardComponent } from '@dcx-ng-components/dcx-ng-lib';
 })
 export class MyComponent {}
 ```
+
 ## Uso Básico
 
 ### Tarjeta Simple
@@ -40,7 +41,7 @@ export class MyComponent {}
 ### Tarjeta con Header
 
 ```html
-<dcx-ng-card 
+<dcx-ng-card
   header="Título de la Tarjeta"
   subheader="Subtítulo descriptivo">
   <p>Contenido de la tarjeta con header y subheader.</p>
@@ -50,7 +51,7 @@ export class MyComponent {}
 ### Tarjeta con Icono
 
 ```html
-<dcx-ng-card 
+<dcx-ng-card
   header="Configuración"
   subheader="Ajustes del sistema"
   iconClass="fas fa-cog">
@@ -62,7 +63,7 @@ export class MyComponent {}
 ### Tarjeta Cerrable
 
 ```html
-<dcx-ng-card 
+<dcx-ng-card
   header="Notificación"
   subheader="Mensaje importante"
   [closable]="true"
@@ -74,7 +75,7 @@ export class MyComponent {}
 ### Tarjeta con Eventos
 
 ```html
-<dcx-ng-card 
+<dcx-ng-card
   header="Confirmar Acción"
   [closable]="true"
   (onClose)="handleClose()"
@@ -100,17 +101,14 @@ export class MyComponent {
 }
 ```
 
-
-
 ## Comportamiento
-
 
 ## Casos de Uso Comunes
 
 ### Modal de Confirmación
 
 ```html
-<dcx-ng-card 
+<dcx-ng-card
   header="Confirmar Eliminación"
   subheader="Esta acción no se puede deshacer"
   iconClass="fas fa-exclamation-triangle"
@@ -124,7 +122,7 @@ export class MyComponent {
 ### Tarjeta de Información
 
 ```html
-<dcx-ng-card 
+<dcx-ng-card
   header="Estadísticas del Proyecto"
   iconClass="fas fa-chart-bar">
   <div class="stats-grid">
@@ -143,7 +141,7 @@ export class MyComponent {
 ### Notificación
 
 ```html
-<dcx-ng-card 
+<dcx-ng-card
   header="Éxito"
   subheader="Operación completada"
   iconClass="fas fa-check-circle"

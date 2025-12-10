@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { CommonModule } from '@angular/common';
+
 import { DcxNgCardComponent } from '../../dcx-ng-components/dcx-ng-card/dcx-ng-card.component';
 
 const meta: Meta<DcxNgCardComponent> = {
@@ -8,14 +8,15 @@ const meta: Meta<DcxNgCardComponent> = {
   component: DcxNgCardComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, DcxNgCardComponent],
+      imports: [DcxNgCardComponent],
     }),
   ],
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Un componente de tarjeta versátil con header, body y footer personalizables.',
+        component:
+          'Un componente de tarjeta versátil con header, body y footer personalizables.',
       },
     },
   },
@@ -67,7 +68,7 @@ type Story = StoryObj<DcxNgCardComponent>;
 
 export const Default: Story = {
   args: {},
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <div style="width: 400px;">
@@ -92,7 +93,7 @@ export const WithHeaderAndSubheader: Story = {
     header: 'Título de la Tarjeta',
     subheader: 'Subtítulo descriptivo',
   },
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <div style="width: 400px;">
@@ -113,14 +114,13 @@ export const WithHeaderAndSubheader: Story = {
   }),
 };
 
-
 export const WithIcon: Story = {
   args: {
     header: 'Configuración',
     subheader: 'Ajustes del sistema',
     iconClass: 'fas fa-cog',
   },
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <div style="width: 400px;">
@@ -147,7 +147,7 @@ export const Closable: Story = {
     subheader: 'Mensaje importante',
     closable: true,
   },
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <div style="width: 400px;">
@@ -167,8 +167,3 @@ export const Closable: Story = {
     `,
   }),
 };
-
-
-
-
-
