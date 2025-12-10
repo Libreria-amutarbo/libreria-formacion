@@ -1,39 +1,131 @@
 import { Meta, Canvas } from '@storybook/blocks';
-import * as CheckboxUnstyledStories from './UnStyled.stories';
 import * as CheckboxClassBasedStories from './ClassBased.stories';
 
 <Meta title="DCXLibrary/Checkbox/Documentation" />
 
 # Checkbox
 
-The `dcx-ng-checkbox` component allows you to select boolean values in forms and views, displaying a checkmark (✔) using SCSS styles.
+El componente `dcx-ng-checkbox` permite seleccionar valores booleanos en formularios y vistas, mostrando un check (✔) usando estilos SCSS.
 
-## Class-Based Version
+Este componente está desarrollado con **Angular Signals** para mejor rendimiento y reactividad.
 
-The class-based version uses minimal styles and CSS variables for flexibility and customization.
+## Versión Class-Based
+
+La versión class-based usa estilos mínimos y variables CSS para flexibilidad y personalización.
+
+### Checkbox Individual
 
 <Canvas of={CheckboxClassBasedStories.Primary} />
 <Canvas of={CheckboxClassBasedStories.Accent} />
 <Canvas of={CheckboxClassBasedStories.Error} />
 
-You can customize:
+### Tamaños Disponibles
 
-- **label**: text shown next to the checkbox
-- **color**: primary, accent, warn
-- **checked**: checked/unchecked state
-- **disabled**: disables interaction
-- **errorMessage**: custom error message
+El componente soporta diferentes tamaños según el sistema de espaciado:
+
+<Canvas of={CheckboxClassBasedStories.SizeSmall} />
+<Canvas of={CheckboxClassBasedStories.SizeMedium} />
+<Canvas of={CheckboxClassBasedStories.SizeLarge} />
+<Canvas of={CheckboxClassBasedStories.SizeXLarge} />
+
+### Grupo de Checkboxes - Selección Múltiple
+
+<Canvas of={CheckboxClassBasedStories.GroupMultipleSelection} />
+
+### Grupo de Checkboxes - Selección Única
+
+<Canvas of={CheckboxClassBasedStories.GroupSingleSelection} />
+
+### Grupo con Opciones Deshabilitadas
+
+<Canvas of={CheckboxClassBasedStories.GroupWithDisabledOptions} />
+
+## Personalización
+
+Puedes personalizar:
+
+- **label**: texto mostrado junto al checkbox
+- **color**: primary, accent, error o color personalizado (hex, rgb)
+- **checked**: estado marcado/desmarcado
+- **disabled**: deshabilita la interacción
+- **errorMessage**: mensaje de error personalizado
+- **size**: tamaño del checkbox ('s' | 'm' | 'l' | 'xl' | 'auto')
+  - **s**: 1rem (16px)
+  - **m**: 1.5rem (24px) - por defecto
+  - **l**: 2rem (32px)
+  - **xl**: 3rem (48px)
+  - **auto**: tamaño automático
+
+### Para Grupos:
+
+- **options**: array de opciones `CheckboxOption[]`
+- **selectedValues**: array de valores seleccionados
+- **multiple**: permite selección múltiple (true) o única (false)
+- **groupLabel**: label para el grupo
 
 ---
 
-## Usage Example
+## Ejemplo de Uso
+
+### Checkbox Individual
 
 ```html
 <dcx-ng-checkbox
-  label="I accept the terms"
+  label="Acepto los términos"
   color="primary"
+  size="m"
   [checked]="checked"
   (checkedChange)="checked = $event"
-  errorMessage="This field is required"
+  errorMessage="Este campo es obligatorio"
 ></dcx-ng-checkbox>
+```
+
+### Checkbox con Tamaño Personalizado
+
+```html
+<dcx-ng-checkbox
+  label="Checkbox grande"
+  color="accent"
+  size="xl"
+  [checked]="checked"
+  (checkedChange)="checked = $event"
+></dcx-ng-checkbox>
+```
+
+### Grupo con Selección Múltiple
+
+```html
+<dcx-ng-checkbox
+  groupLabel="Selecciona tus intereses"
+  [options]="options"
+  [selectedValues]="selectedValues"
+  [multiple]="true"
+  size="m"
+  color="primary"
+  (selectionChange)="handleSelection($event)"
+></dcx-ng-checkbox>
+```
+
+### Grupo con Selección Única (tipo Radio)
+
+```html
+<dcx-ng-checkbox
+  groupLabel="Selecciona tu favorito"
+  [options]="options"
+  [selectedValues]="selectedValues"
+  [multiple]="false"
+  size="m"
+  color="accent"
+  (selectionChange)="handleSelection($event)"
+></dcx-ng-checkbox>
+```
+
+## Interface CheckboxOption
+
+```typescript
+interface CheckboxOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
 ```

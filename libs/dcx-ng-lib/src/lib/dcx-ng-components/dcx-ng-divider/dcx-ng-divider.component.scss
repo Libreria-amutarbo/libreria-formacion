@@ -1,36 +1,28 @@
 :host {
-  --dcx-divider-color: #ff0000;
   --dcx-divider-thickness: 0.6px;
   --dcx-divider-size: 100px;
   display: block;
 }
 
 .dcx-ng-divider {
-  background-color: var(--dcx-divider-color);
   margin: 0;
-  border: none;
   display: block;
+  border: none;
 
-  &--horizontal {
-    height: var(--dcx-divider-thickness);
-    width: var(--dcx-divider-size);
-  }
-
-  &--vertical {
-    width: var(--dcx-divider-thickness);
-    height: var(--dcx-divider-size);
-  }
-
-  &--small {
+  &--s {
     --dcx-divider-size: 5rem;
   }
 
-  &--medium {
+  &--m {
     --dcx-divider-size: 15rem;
   }
 
-  &--large {
+  &--l {
     --dcx-divider-size: 30rem;
+  }
+
+  &--xl {
+    --dcx-divider-size: 35rem;
   }
 
   &--auto {
@@ -39,7 +31,30 @@
     }
 
     &.dcx-ng-divider--vertical {
-      height: 100%;
+      height: inherit;
+      align-self: stretch;
+    }
+  }
+
+  &--horizontal {
+    width: var(--dcx-divider-size);
+    height: 0;
+    border-top: var(--dcx-divider-thickness) solid var(--dcx-divider-color);
+  }
+
+  &--vertical {
+    height: var(--dcx-divider-size);
+    width: 0;
+    border-left: var(--dcx-divider-thickness) solid var(--dcx-divider-color);
+  }
+
+  &--dot {
+    &.dcx-ng-divider--horizontal {
+      border-top-style: dotted;
+    }
+
+    &.dcx-ng-divider--vertical {
+      border-left-style: dotted;
     }
   }
 }

@@ -1,29 +1,35 @@
 <h1>Demo Checkbox</h1>
 <div class="demo-checkboxes">
-  <h3>Checkbox basica:</h3>
-  <dcx-ng-checkbox
-    label="Recibir notificaciones"
-    color="primary"
-    [checked]="checked2"
-    [disabled]="false"
-    errorMessage=""
-  />
+  <h3>Checkbox básica:</h3>
+  <dcx-ng-checkbox label="Recibir notificaciones" color="primary" size="m" [checked]="checked2" [disabled]="false"
+    errorMessage="" />
 
   <h3>Checkbox (campo obligatorio):</h3>
-  <dcx-ng-checkbox
-    label="Acepto los términos"
-    color="primary"
-    [checked]="checked1"
-    (checkedChange)="checked1 = $event"
-    errorMessage="Este campo es obligatorio"
-  />
+  <dcx-ng-checkbox label="Acepto los términos" color="primary" size="m" [checked]="checked1"
+    (checkedChange)="checked1 = $event" errorMessage="Este campo es obligatorio" />
 
   <h3>Checkbox deshabilitada:</h3>
-  <dcx-ng-checkbox
-    label="Recibir notificaciones"
-    color="accent"
-    [checked]="checked2"
-    [disabled]="true"
-    errorMessage=""
-  />
+  <dcx-ng-checkbox label="Recibir notificaciones" color="accent" size="m" [checked]="checked2" [disabled]="true"
+    errorMessage="" />
+
+  <h3>Diferentes tamaños:</h3>
+  <dcx-ng-checkbox label="Small (16px)" color="primary" size="s" [checked]="true" />
+  <dcx-ng-checkbox label="Medium (24px)" color="primary" size="m" [checked]="true" />
+  <dcx-ng-checkbox label="Large (32px)" color="primary" size="l" [checked]="true" />
+  <dcx-ng-checkbox label="XLarge (48px)" color="primary" size="xl" [checked]="true" />
+
+  <h3>Grupo con selección múltiple:</h3>
+  <dcx-ng-checkbox groupLabel="Selecciona tus intereses" color="primary" size="m" [multiple]="true" [options]="[
+      { value: 'sports', label: 'Deportes' },
+      { value: 'music', label: 'Música' },
+      { value: 'movies', label: 'Películas' },
+      { value: 'reading', label: 'Lectura' }
+    ]" [selectedValues]="['sports']" (selectionChange)="onSelectionChange($event)" />
+
+  <h3>Grupo con selección única:</h3>
+  <dcx-ng-checkbox groupLabel="Selecciona tu género favorito" color="accent" size="m" [multiple]="false" [options]="[
+      { value: 'action', label: 'Acción' },
+      { value: 'comedy', label: 'Comedia' },
+      { value: 'drama', label: 'Drama' }
+    ]" [selectedValues]="['comedy']" (selectionChange)="onSelectionChange($event)" />
 </div>
