@@ -24,18 +24,19 @@ import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
+import { DcxNgPageBreadcrumb } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
 
 export const appRoutes: Route[] = [
   {
     path: '',
     component: DcxNgPageFullTableComponent,
   },
-  {    
+  {
     path: APP_ROUTES.TABLE,
     component: DcxNgPageFullTableComponent,
   },
   {
-   path: APP_ROUTES.BUTTON,
+    path: APP_ROUTES.BUTTON,
     component: DcxNgPageButtonComponent,
   },
   {
@@ -92,11 +93,11 @@ export const appRoutes: Route[] = [
   },
   {
     path: APP_ROUTES.CARD,
-    component: DcxNgPageCardComponent
+    component: DcxNgPageCardComponent,
   },
   {
     path: APP_ROUTES.CONTEXTMENU,
-    component: ContextMenuComponent
+    component: ContextMenuComponent,
   },
   {
     path: APP_ROUTES.ICON_FIELD,
@@ -108,7 +109,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: APP_ROUTES.SLIDER,
-    component: DcxNgPageSliderComponent
+    component: DcxNgPageSliderComponent,
   },
   {
     path: APP_ROUTES.DATEPICKER,
@@ -125,5 +126,9 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.TABS,
     component: DcxNgPageTabsComponent,
+  },
+  {
+    path: APP_ROUTES.BREADCRUMB,
+    component: DcxNgPageBreadcrumb,
   },
 ];
