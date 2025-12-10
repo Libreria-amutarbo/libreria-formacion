@@ -1,23 +1,36 @@
-import { Meta, Canvas } from '@storybook/blocks';
-import * as BCUn from './UnStyled.stories';
-import * as BCClass from './ClassBased.stories';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/blocks';
+import * as Stories from './ClassBased.stories';
 
-<Meta title="DCXLibrary/Breadcrumb/Documentation" />
+<Meta of={Stories} title="DCXLibrary/Breadcrumb/Docs" />
 
 # Breadcrumb
 
-`dcx-ng-breadcrumb` muestra la ruta de navegación desde la raíz hasta la página actual.
+Componente para mostrar la jerarquía de navegación.
 
-- **API mínima**: `@Input() items: { label: string; href?: string }[]`
-- Último ítem se marca como **actual** (`aria-current="page"`).
-- Separador por defecto: `/`.
-- Semántica accesible: `<nav aria-label="Breadcrumb">` + `<ol role="list">`.
+## Cuándo usar
 
----
+- Cuando el usuario necesita volver a niveles superiores.
+- No usar si la jerarquía es plana.
 
-## Class-Based
+## Accesibilidad
 
-<Canvas of={BCClass.ClassBasedDemo} />
+- Usa `<nav aria-label="Breadcrumb">`.
+- El último elemento debe tener `aria-current="page"`.
+
+## Ejemplo básico
+
+<Canvas>
+  <Story id="dcxlibrary-breadcrumb-class-based--class-based-demo" />
+</Canvas>
+
+## Variantes
+
+- Con iconos: <Story of={Stories.ConIconos} />
+- Etiquetas largas: <Story of={Stories.EtiquetasLargas} />
+
+## API
+
+<ArgsTable of={Stories.default} />
 
 ---
 
