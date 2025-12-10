@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<div>
+  <dcx-ng-select
+    label="Selecciona tu componente de la lista"
+    [options]="getSelectOptions()"
+    (valueChange)="routeTo($event)"
+  ></dcx-ng-select>
+
+  <router-outlet></router-outlet>
+</div>

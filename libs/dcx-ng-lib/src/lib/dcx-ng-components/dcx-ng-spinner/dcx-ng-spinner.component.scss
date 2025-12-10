@@ -1,58 +1,74 @@
-@use '../../../scss/main' as *;
+@use '../../../scss/utils/mixins' as *;
+@use '../../../scss/components/spinner/spinner' as spinner;
 
 .dcx-ng-spinner {
   display: inline-flex;
   align-items: center;
+  gap: var(--spacing-xs);
+  animation-delay: var(--dcx-spinner-delay, 1000ms);
 
-  &--xs {
-    font-size: var(--spacing-xs);
-  } // 0.5rem - 8px
-  &--s {
-    font-size: var(--spacing-s);
-  } // 1rem - 16px
-  &--m {
-    font-size: var(--spacing-m);
-  } // 1.5rem - 24px
-  &--l {
-    font-size: var(--spacing-l);
-  } // 2rem - 32px
-  &--xl {
-    font-size: var(--spacing-xl);
-  } // 3rem - 48px
+  &:not(.dcx-ng-spinner--wrapper) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
-  &__circle {
-    width: 1em;
-    height: 1em;
-    border: 0.2em solid var(--color-primary);
-    border-top-color: var(--color-accent);
+  // Tamaños desde tokens + aliases
+  @include spinner.spinner-size-classes();
+
+  .circle {
+    flex-shrink: 0;
+    border-style: solid;
+    border-color: var(--color-gray-lighter);
+    border-top-color: var(--dcx-spinner-color, var(--color-primary));
     border-radius: 50%;
-    animation: spin 0.6s linear infinite;
+    animation: spin 0.8s linear infinite;
   }
 
-  &__label {
-    margin-left: 0.5em;
-    font-size: 1em;
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    line-height: var(--line-height-normal);
   }
 
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+  .title {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
   }
 
-  /* Estilos para wrapper (overlay sobre contenido) */
+  .description {
+    color: var(--color-text-secondary);
+  }
+
+  .label {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
   &--wrapper {
     position: relative;
     display: block;
 
-    .dcx-ng-spinner__overlay {
+    .overlay {
       position: absolute;
       inset: 0;
-      background-color: var(--color-gray-lighter);
-      opacity: 0.9;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: var(--spacing-xs);
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(2px);
+      z-index: 10;
     }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

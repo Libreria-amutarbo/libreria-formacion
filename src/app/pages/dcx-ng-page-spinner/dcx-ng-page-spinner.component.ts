@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DcxNgSpinnerComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-spinner',
-  standalone: true,
-  imports: [CommonModule, DcxNgSpinnerComponent],
+  imports: [DcxNgSpinnerComponent],
   templateUrl: './dcx-ng-page-spinner.component.html',
   styleUrl: './dcx-ng-page-spinner.component.scss',
 })
-export class DcxNgPageSpinnerComponent { }
+export class DcxNgPageSpinnerComponent {}

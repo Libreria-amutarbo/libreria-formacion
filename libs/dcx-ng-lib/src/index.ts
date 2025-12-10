@@ -10,7 +10,6 @@ export * from './lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
 export * from './lib/dcx-ng-components/dcx-ng-message/dcx-ng-message.component';
 export * from './lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component';
 export * from './lib/dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component';
-export * from './lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component';
 export * from './lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
 export * from './lib/dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component';
 export * from './lib/dcx-ng-components/dcx-ng-breadcrumb/dcx-ng-breadcrumb.component';

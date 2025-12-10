@@ -1,37 +1,76 @@
+import { DcxNgCheckboxComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgCheckboxComponent } from '../../dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
 
 const meta: Meta<DcxNgCheckboxComponent> = {
     title: 'DCXLibrary/Checkbox/ClassBased',
     component: DcxNgCheckboxComponent,
+    tags: ['autodocs'],
+    argTypes: {
+        size: {
+            control: 'select',
+            options: ['s', 'm', 'l', 'xl',],
+            description: 'Tamaño del checkbox',
+        },
+        color: {
+            control: 'color',
+            description: 'Color del checkbox',
+        },
+    },
 };
 export default meta;
 
 type Story = StoryObj<DcxNgCheckboxComponent>;
 
-export const Primary: Story = {
+export const Default: Story = {
     args: {
         label: 'Acepto los términos',
         color: 'primary',
         checked: false,
-        errorMessage: 'Este campo es obligatorio',
+        errorMessage: '',
+        disabled: false,
+        size: 'm',
     },
 };
 
-export const Accent: Story = {
+export const Primary: Story = {
     args: {
-        label: 'Recibir notificaciones',
-        color: 'accent',
-        checked: true,
-        disabled: true,
-    },
-};
-
-export const Error: Story = {
-    args: {
-        label: 'Campo con error',
-        color: 'error',
+        label: 'Checkbox Primary',
+        color: 'primary',
         checked: false,
-        errorMessage: 'Debes marcar esta opción',
+        size: 'm',
+    },
+};
+
+export const GroupMultipleSelection: Story = {
+    args: {
+        groupLabel: 'Selecciona tus intereses',
+        color: 'primary',
+        multiple: true,
+        disabled: false,
+        size: 'm',
+        options: [
+            { value: 'sports', label: 'Deportes' },
+            { value: 'music', label: 'Música' },
+            { value: 'movies', label: 'Películas' },
+            { value: 'reading', label: 'Lectura' },
+        ],
+        selectedValues: ['sports'],
+    },
+};
+
+export const GroupSingleSelection: Story = {
+    args: {
+        groupLabel: 'Selecciona tu género favorito',
+        color: 'accent',
+        multiple: false,
+        disabled: false,
+        size: 'm',
+        options: [
+            { value: 'action', label: 'Acción' },
+            { value: 'comedy', label: 'Comedia' },
+            { value: 'drama', label: 'Drama' },
+            { value: 'scifi', label: 'Ciencia Ficción' },
+        ],
+        selectedValues: ['comedy'],
     },
 };
