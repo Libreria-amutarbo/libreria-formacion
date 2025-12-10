@@ -18,6 +18,12 @@ export const DcxBreadCrumbDisabled: DcxBreadcrumbItem[] = [
   { label: 'Portáiles', disabled: true },
 ];
 
+export const DcxBreadCrumbCurrentPage: DcxBreadcrumbItem[] = [
+  { label: 'Inicio', href: '/', disabled: false },
+  { label: 'Catálogo', href: '/catalogo', disabled: false },
+  { label: 'Portátiles', disabled: false }, // último sin href
+];
+
 export const DcxBreadCrumbSlashIcon: DcxBreadCrumbSeparatorIcons = 'slash-lg';
 export const DcxBreadCrumbArrowhIcon: DcxBreadCrumbSeparatorIcons =
   'arrow-right-short';

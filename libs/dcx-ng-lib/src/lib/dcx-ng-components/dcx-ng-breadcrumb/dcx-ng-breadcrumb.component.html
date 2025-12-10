@@ -1,6 +1,6 @@
 <nav aria-label="Breadcrumb">
   <ol class="dcx-bc" role="list">
-    @for (item of items; track $index; let last = $last) {
+    @for (item of items(); track $index; let last = $last) {
       <li class="dcx-bc__item">
         @if (!last) {
           <span class="dcx-bc__text" [class.disabled]="item.disabled">

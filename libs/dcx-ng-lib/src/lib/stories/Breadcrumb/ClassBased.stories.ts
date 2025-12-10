@@ -8,6 +8,7 @@ import {
   DcxNgBreadcrumbComponent,
   DcxBreadCrumbArrowhIcon,
   DcxBreadChevronSlashIcon,
+  DcxBreadCrumbCurrentPage,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
 
@@ -15,16 +16,46 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
   title: 'DCXLibrary/Breadcrumb/Class based',
   component: DcxNgBreadcrumbComponent,
   tags: ['autodocs'],
+  parameters: {
+    controls: { expanded: true },
+  },
   argTypes: {
-    items: { control: { type: 'object' } },
+    items: {
+      name: 'Elementos',
+      control: { type: 'object' },
+      description: 'Items del breadcrumb',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxBreadcrumbItem[]' },
+        defaultValue: { summary: 'DcxBreadCrumbItemDefault' },
+      },
+    },
     iconSeparator: {
+      name: 'Icono separador',
       control: 'select',
-      options: DcxBreadCrumbIconList.map(element => {
-        return element;
-      }),
+      options: DcxBreadCrumbIconList,
       description:
         'Opciones de iconos para separar los elementos del breadcrumb',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxBreadCrumbSeparatorIcons (string)' },
+        defaultValue: { summary: 'slash-lg' },
+      },
     },
+    itemSelected: {
+      name: 'Elementos seleccionados',
+      action: 'itemSelected',
+      description: 'Se emite al hacer clic en un item',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(item: DcxBreadcrumbItem) => void' },
+        defaultValue: { summary: '-' },
+      },
+    },
+  },
+  args: {
+    items: DcxBreadCrumbItemDefault,
+    iconSeparator: DcxBreadCrumbSlashIcon,
   },
 };
 
@@ -63,5 +94,12 @@ export const ChevronIcon: Story = {
   args: {
     items: DcxBreadCrumbItemDefault,
     iconSeparator: DcxBreadChevronSlashIcon,
+  },
+};
+
+export const CurrentPage: Story = {
+  args: {
+    items: DcxBreadCrumbCurrentPage,
+    iconSeparator: DcxBreadCrumbSlashIcon,
   },
 };
