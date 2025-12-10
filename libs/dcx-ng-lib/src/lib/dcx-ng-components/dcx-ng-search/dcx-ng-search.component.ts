@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, forwardRef, input, output, signal } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal } from '@angular/core';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { DcxSize } from '../../core/interfaces';
 
@@ -17,13 +16,6 @@ export interface SearchItem {
   templateUrl: './dcx-ng-search.component.html',
   styleUrl: './dcx-ng-search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DcxNgSearchComponent),
-      multi: true,
-    },
-  ],
   host: {
     '[class.dcx-search--disabled]': 'disabled()',
     '[class.dcx-search--size-s]': 'size() === "s"',
@@ -34,7 +26,7 @@ export interface SearchItem {
     '[class.dcx-search--invalid]': 'isInvalid()',
   },
 })
-export class DcxNgSearchComponent implements ControlValueAccessor {
+export class DcxNgSearchComponent {
   readonly placeholder = input<string>('Buscar...');
   readonly disabled = input<boolean>(false);
   readonly size = input<DcxSize>('m');
@@ -52,10 +44,6 @@ export class DcxNgSearchComponent implements ControlValueAccessor {
   readonly itemSelected = output<SearchItem>();
 
   readonly searchValue = signal<string>('');
-  
-  // ControlValueAccessor
-  private onChange: (value: string) => void = () => {};
-  private onTouched: () => void = () => {};
   readonly isDropdownOpen = signal<boolean>(false);
   readonly isInvalid = computed(() => {
     if (this.invalid()) {
@@ -96,7 +84,6 @@ export class DcxNgSearchComponent implements ControlValueAccessor {
     const input = event.target as HTMLInputElement;
     this.searchValue.set(input.value);
     this.searchChange.emit(input.value);
-    this.onChange(input.value);
     
     if (this.dropdown() && input.value) {
       this.isDropdownOpen.set(true);
@@ -121,8 +108,6 @@ export class DcxNgSearchComponent implements ControlValueAccessor {
     this.searchValue.set(item.label);
     this.itemSelected.emit(item);
     this.isDropdownOpen.set(false);
-    this.onChange(item.label);
-    this.onTouched();
   }
 
   onKeydown(event: KeyboardEvent): void {
@@ -139,7 +124,6 @@ export class DcxNgSearchComponent implements ControlValueAccessor {
     const relatedTarget = event.relatedTarget as HTMLElement;
     if (!relatedTarget || !relatedTarget.closest('.dcx-search')) {
       this.isDropdownOpen.set(false);
-      this.onTouched();
     }
   }
 
@@ -147,24 +131,5 @@ export class DcxNgSearchComponent implements ControlValueAccessor {
     this.searchValue.set('');
     this.searchChange.emit('');
     this.isDropdownOpen.set(false);
-    this.onChange('');
-    this.onTouched();
-  }
-
-  // ControlValueAccessor implementation
-  writeValue(value: string): void {
-    this.searchValue.set(value || '');
-  }
-
-  registerOnChange(fn: (value: string) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    // The disabled state is handled via the disabled input
   }
 }
