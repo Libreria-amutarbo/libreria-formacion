@@ -1,4 +1,3 @@
-// ClassBased.stories.ts (fix)
 import {
   DcxBreadCrumbDisabled,
   DcxBreadCrumbSlashIcon,

@@ -13,7 +13,7 @@ import {
   DcxBreadcrumbItem,
   DcxBreadCrumbSeparatorIcons,
 } from '../../core/interfaces';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -28,11 +28,9 @@ export class DcxNgBreadcrumbComponent {
   private readonly itemContent =
     viewChild.required<TemplateRef<unknown>>('itemContent');
 
-  //@Input({ required: true }) items: DcxBreadcrumbItem[] = [];
   items = input.required<DcxBreadcrumbItem[]>();
   iconSeparator = input.required<DcxBreadCrumbSeparatorIcons>();
 
-  // Output como signal
   itemSelected = output<DcxBreadcrumbItem>();
 
   onItemClick(item: DcxBreadcrumbItem) {
