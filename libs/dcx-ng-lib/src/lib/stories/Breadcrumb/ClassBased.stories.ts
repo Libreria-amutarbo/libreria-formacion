@@ -20,7 +20,7 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
   },
   argTypes: {
     items: {
-      name: 'Elementos',
+      name: 'items',
       control: { type: 'object' },
       description: 'Items del breadcrumb',
       table: {
@@ -30,7 +30,7 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
       },
     },
     iconSeparator: {
-      name: 'Icono separador',
+      name: 'iconSeparator',
       control: 'select',
       options: DcxBreadCrumbIconList,
       description:
@@ -42,7 +42,7 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
       },
     },
     itemSelected: {
-      name: 'Elementos seleccionados',
+      name: 'itemSelected',
       action: 'itemSelected',
       description: 'Se emite al hacer clic en un item',
       table: {
