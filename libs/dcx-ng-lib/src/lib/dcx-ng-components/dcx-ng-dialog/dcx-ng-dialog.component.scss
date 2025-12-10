@@ -17,7 +17,7 @@
 }
 
 .dialog {
-  position: absolute; /* las coords vienen del preset */
+  position: absolute;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -33,7 +33,7 @@
 
   @starting-style {
     opacity: 0;
-    transform: scale(0.98); // el translate lo aporta cada preset
+    transform: scale(0.98);
   }
 
   &-header {
@@ -41,7 +41,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid #ddd;
   }
 
   &-body {
@@ -54,7 +53,6 @@
     justify-content: flex-end;
     gap: 0.5rem;
     padding: 1rem;
-    border-top: 1px solid #ddd;
   }
 
   &-close {

@@ -6,10 +6,11 @@
   [showClose]="true"
   [position]="'center'"
   (closeDialog)="onInfoClosed()"
+  [closeOnBackdrop]="false"
 >
-  <div dialog-body>
+  <ng-template #dialogBody>
     <p>Este es un mensaje informativo dentro del diálogo.</p>
-  </div>
+  </ng-template>
 </dcx-ng-dialog>
 
 <button (click)="openConfirm()">Abrir confirmación</button>

@@ -27,19 +27,21 @@ export class DcxNgDialogComponent {
   showClose = input<boolean>(true);
   position = input<DcxDialogPosition>('center');
 
+  closeOnBackdrop = input<boolean>(true);
+
   closeDialog = output<void>();
 
   bodyTemplate = contentChild<TemplateRef<unknown>>('dialogBody');
   footerTemplate = contentChild<TemplateRef<unknown>>('dialogFooter');
 
-  private ds = inject(DialogService);
+  private dialogService = inject(DialogService);
 
   readonly isVisible = computed(() => {
     const v = this.visible();
     if (v !== undefined) return v;
 
     const id = this.dialogId();
-    if (id) return this.ds.readOnly(id)().visible;
+    if (id) return this.dialogService.readOnly(id)().visible;
 
     return false;
   });
@@ -48,6 +50,11 @@ export class DcxNgDialogComponent {
     this.closeDialog.emit();
 
     const id = this.dialogId();
-    if (id) this.ds.close(id);
+    if (id) this.dialogService.close(id);
+  }
+
+  onBackdropClick(event: MouseEvent): void {
+    event.stopPropagation();
+    if (this.closeOnBackdrop()) this.close();
   }
 }
