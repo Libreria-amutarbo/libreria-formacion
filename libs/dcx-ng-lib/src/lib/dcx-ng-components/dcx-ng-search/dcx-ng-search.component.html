@@ -8,20 +8,71 @@
       [disabled]="disabled()"
       (input)="onInput($event)"
       (keydown)="onKeydown($event)"
+      (blur)="onBlur($event)"
     />
 
-    <dcx-ng-button
+    @if (showClear() && searchValue()) {
+      <button
+        type="button"
+        class="dcx-search__clear-button"
+        aria-label="Limpiar"
+        [disabled]="disabled()"
+        (click)="onClearClick()"
+      >
+        <dcx-ng-icon name="x" size="s" />
+      </button>
+    }
+
+    <button
+      type="button"
       class="dcx-search__search-button"
-      ariaLabel="Buscar"
+      aria-label="Buscar"
       [disabled]="disabled()"
-      iconStart="search"
-      iconSize="s"
-      variant="link"
-      (buttonClick)="onSearchClick()"
-    />
+      (click)="onSearchClick()"
+    >
+      <dcx-ng-icon name="search" size="s" />
+    </button>
+
+    @if (dropdown()) {
+      <button
+        type="button"
+        class="dcx-search__dropdown-button"
+        [attr.aria-label]="dropdownMode() === 'blank' ? 'Buscar todo' : 'Buscar actual'"
+        [disabled]="disabled()"
+        (click)="onDropdownClick()"
+      >
+        <dcx-ng-icon name="chevron-down" size="s" />
+      </button>
+    }
+
+    @if (dropdown() && isDropdownOpen() && filteredItems().length > 0) {
+      <div class="dcx-search__dropdown">
+        <ul class="dcx-search__dropdown-list">
+          @for (item of filteredItems(); track item.id) {
+            <li 
+              class="dcx-search__dropdown-item"
+              (click)="onItemClick(item)"
+              tabindex="0"
+            >
+              {{ item.label }}
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
+    @if (dropdown() && isDropdownOpen() && filteredItems().length === 0 && searchValue()) {
+      <div class="dcx-search__dropdown">
+        <p class="dcx-search__dropdown-empty">No se encontraron resultados</p>
+      </div>
+    }
   </div>
 
-  @if (helperText()) {
+  @if (helperText() && !isInvalid()) {
     <p class="dcx-search__helper-text">{{ helperText() }}</p>
+  }
+
+  @if (isInvalid() && errorMessage()) {
+    <p class="dcx-search__error-message">{{ errorMessage() }}</p>
   }
 </div>
