@@ -3,19 +3,19 @@ import { DcxBreadcrumbItem, DcxBreadCrumbSeparatorIcons } from '../interfaces';
 export const DcxBreadCrumbItemDefault: DcxBreadcrumbItem[] = [
   { label: 'Inicio', href: '/', disabled: false },
   { label: 'Catálogo', href: '/catalogo', disabled: false },
-  { label: 'Portáiles', disabled: false },
+  { label: 'Portátiles', disabled: false },
 ];
 
 export const DcxBreadCrumbItemWithIcon: DcxBreadcrumbItem[] = [
   { label: 'Inicio', href: '/', icon: 'house', disabled: false },
   { label: 'Catálogo', href: '/catalogo', icon: 'grid', disabled: true },
-  { label: 'Portáiles', icon: 'laptop', disabled: false },
+  { label: 'Portátiles', icon: 'laptop', disabled: false },
 ];
 
 export const DcxBreadCrumbDisabled: DcxBreadcrumbItem[] = [
   { label: 'Inicio', href: '/', disabled: true },
   { label: 'Catálogo', href: '/catalogo', disabled: true },
-  { label: 'Portáiles', disabled: true },
+  { label: 'Portátiles', disabled: true },
 ];
 
 export const DcxBreadCrumbCurrentPage: DcxBreadcrumbItem[] = [
