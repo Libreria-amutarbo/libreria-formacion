@@ -15,18 +15,18 @@ describe('DcxNgCheckboxComponent', () => {
     fixture = TestBed.createComponent(DcxNgCheckboxComponent);
     component = fixture.componentInstance;
     componentRef = fixture.componentRef;
-    componentRef.setInput('label', 'Prueba');
+    componentRef.setInput('label', 'Acepto términos');
     componentRef.setInput('checked', false);
     fixture.detectChanges();
   });
 
   it('debe mostrar el label', () => {
-    componentRef.setInput('label', 'Prueba');
+    componentRef.setInput('label', 'Recibir notificaciones');
     fixture.detectChanges();
     const labelDebug = fixture.debugElement.query(By.css('.dcx-checkbox-text'));
     expect(labelDebug).toBeTruthy();
     const label = labelDebug.nativeElement;
-    expect(label.textContent).toContain('Prueba');
+    expect(label.textContent).toContain('Recibir notificaciones');
   });
 
   it('debe emitir checkedChange al hacer click', () => {
@@ -53,7 +53,7 @@ describe('DcxNgCheckboxComponent', () => {
   });
 
   it('debe trabajar con grupos de opciones', () => {
-    componentRef.setInput('groupLabel', 'Test Group');
+    componentRef.setInput('groupLabel', 'Selecciona tus intereses');
     componentRef.setInput('options', [
       { value: 'opt1', label: 'Opción 1' },
       { value: 'opt2', label: 'Opción 2' }
@@ -63,7 +63,7 @@ describe('DcxNgCheckboxComponent', () => {
 
     const groupLabel = fixture.debugElement.query(By.css('.dcx-checkbox-group__label'));
     expect(groupLabel).toBeTruthy();
-    expect(groupLabel.nativeElement.textContent).toContain('Test Group');
+    expect(groupLabel.nativeElement.textContent).toContain('Selecciona tus intereses');
 
     const options = fixture.debugElement.queryAll(By.css('.dcx-checkbox-label'));
     expect(options.length).toBe(2);
@@ -97,7 +97,7 @@ describe('DcxNgCheckboxComponent', () => {
   });
 
   it('debe cambiar posición del label', () => {
-    componentRef.setInput('label', 'Test');
+    componentRef.setInput('label', 'Etiqueta a la izquierda');
     componentRef.setInput('labelPosition', 'left');
     fixture.detectChanges();
 
