@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { DcxNgCheckboxComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgButtonComponent, DcxNgCheckboxComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-checkbox',
   standalone: true,
-  imports: [DcxNgCheckboxComponent, ReactiveFormsModule],
+  imports: [DcxNgCheckboxComponent, DcxNgButtonComponent, ReactiveFormsModule],
   templateUrl: './dcx-ng-page-checkbox.component.html',
   styleUrl: './dcx-ng-page-checkbox.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

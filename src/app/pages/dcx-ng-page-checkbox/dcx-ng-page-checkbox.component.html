@@ -42,9 +42,8 @@
       [options]="sportsOptions()" [formControl]="sportsControl" />
 
     <div class="button-group">
-      <button type="button" (click)="toggleDisableBasketball()" class="example-button">
-        Toggle Baloncesto Disabled
-      </button>
+      <dcx-ng-button label="Toggle Baloncesto Disabled" variant="secondary" size="m"
+        (buttonClick)="toggleDisableBasketball()" />
     </div>
   </div>
 
@@ -54,9 +53,8 @@
       [options]="genreOptions()" [formControl]="genreControl" />
 
     <div class="button-group">
-      <button type="button" (click)="toggleDisableComedy()" class="example-button">
-        Toggle Comedia Disabled
-      </button>
+      <dcx-ng-button label="Toggle Comedia Disabled" variant="secondary" size="m"
+        (buttonClick)="toggleDisableComedy()" />
     </div>
   </div>
 </div>
