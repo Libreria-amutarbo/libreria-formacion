@@ -1,169 +1,201 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
 
-import { DcxNgCardComponent } from '../../dcx-ng-components/dcx-ng-card/dcx-ng-card.component';
+import { DcxNgCardComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DEFAULTARGS, TITLE, VARIANT, VARIANTLIST } from '../../core/mock/card';
 
 const meta: Meta<DcxNgCardComponent> = {
   title: 'DCXLibrary/Card/Class based',
   component: DcxNgCardComponent,
-  decorators: [
-    moduleMetadata({
-      imports: [DcxNgCardComponent],
-    }),
-  ],
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component:
-          'Un componente de tarjeta versátil con header, body y footer personalizables.',
+  tags: ['autodocs'],
+  argTypes: {
+    title: {
+      description: 'Título principal del card.',
+      control: { type: 'text' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    subtitle: {
+      description: 'Subtítulo o descripción corta.',
+      control: { type: 'text' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    image: {
+      description: 'URL de la imagen.',
+      control: { type: 'text' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    imageAlt: {
+      description: 'Texto alternativo para la imagen.',
+      control: { type: 'text' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+
+    variant: {
+      description: 'Variante visual.',
+      control: 'select',
+      options: VARIANTLIST,
+      table: {
+        category: 'Atributos',
+        defaultValue: { summary: VARIANT },
+      },
+    },
+    layout: {
+      description: 'Orientación del contenido.',
+      options: ['vertical', 'horizontal'],
+      control: { type: 'inline-radio' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    align: {
+      description: 'Alineación del bloque y del contenido.',
+      options: ['start', 'center', 'end'],
+      control: { type: 'inline-radio' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    size: {
+      description: 'Tamaño (padding + tipografía).',
+      options: ['sm', 'md', 'lg'],
+      control: { type: 'inline-radio' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+
+    maxContentWidth: {
+      description: 'Ancho máx. del bloque (en cualquier layout).',
+      control: { type: 'text' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    maxImageWidth: {
+      description: 'Ancho máx. de imagen (vertical).',
+      control: { type: 'text' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+
+    bordered: {
+      description: 'Activa borde explícito.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    borderWidth: {
+      description: 'Grosor del borde (px).',
+      control: { type: 'number', min: 0, max: 16, step: 1 },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    borderStyle: {
+      description: 'Tipo de línea del borde.',
+      options: ['solid', 'dashed', 'dotted', 'double', 'none'],
+      control: { type: 'inline-radio' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    borderColor: {
+      description: 'Color del borde.',
+      control: { type: 'color' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+
+    shadow: {
+      description: 'Sombra: preset 0/1/2/3 o "custom".',
+      options: [0, 1, 2, 3, 'custom'],
+      control: { type: 'inline-radio' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    shadowValue: {
+      description: 'Valor literal de box-shadow si `shadow="custom"`.',
+      control: { type: 'text' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+
+    interactive: {
+      description: 'Convierte el card en interactivo (hover/cursor).',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Atributos',
+      },
+    },
+    disabled: {
+      description: 'Deshabilita interacciones/estilos.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Atributos',
       },
     },
   },
-  argTypes: {
-    header: {
-      control: 'text',
-      description: 'Título principal de la tarjeta',
-    },
-    subheader: {
-      control: 'text',
-      description: 'Subtítulo de la tarjeta',
-    },
-    iconClass: {
-      control: 'text',
-      description: 'Clase CSS para el icono del header',
-    },
-    closable: {
-      control: 'boolean',
-      description: 'Mostrar botón de cerrar en el header',
-    },
-    visible: {
-      control: 'boolean',
-      description: 'Controla la visibilidad de la tarjeta',
-    },
-    cardClose: {
-      action: 'closed',
-      description: 'Evento emitido al cerrar la tarjeta',
-    },
-    cardAccept: {
-      action: 'accepted',
-      description: 'Evento emitido al hacer clic en Aceptar',
-    },
-    cardCancel: {
-      action: 'cancelled',
-      description: 'Evento emitido al hacer clic en Cancelar',
-    },
-  },
-  args: {
-    header: '',
-    subheader: '',
-    iconClass: '',
-    closable: false,
-    visible: true,
-  },
+  args: DEFAULTARGS,
 };
 
 export default meta;
 type Story = StoryObj<DcxNgCardComponent>;
 
-export const Default: Story = {
-  args: {},
-  render: args => ({
-    props: args,
-    template: `
-      <div style="width: 400px;">
-        <dcx-ng-card 
-          [header]="header"
-          [subheader]="subheader"
-          [iconClass]="iconClass"
-          [closable]="closable"
-          [visible]="visible"
-          (onClose)="onClose($event)"
-          (onAccept)="onAccept($event)"
-          (onCancel)="onCancel($event)">
-          <p>Este es el contenido por defecto de la tarjeta. Aquí puedes colocar cualquier contenido que necesites.</p>
-        </dcx-ng-card>
-      </div>
-    `,
-  }),
+export const Default: Story = {};
+
+export const VerticalCenterImg50: Story = {
+  args: {
+    layout: 'vertical',
+    align: 'center',
+    maxContentWidth: '560px',
+    maxImageWidth: '50%', // imagen al 50% y centrada
+  },
 };
 
-export const WithHeaderAndSubheader: Story = {
+export const HorizontalCenterMax800: Story = {
   args: {
-    header: 'Título de la Tarjeta',
-    subheader: 'Subtítulo descriptivo',
+    layout: 'horizontal',
+    align: 'center',
+    maxContentWidth: '800px', // bloque centrado y limitado también en horizontal
+    image: 'https://picsum.photos/360/240',
   },
-  render: args => ({
-    props: args,
-    template: `
-      <div style="width: 400px;">
-        <dcx-ng-card 
-          [header]="header"
-          [subheader]="subheader"
-          [iconClass]="iconClass"
-          [closable]="closable"
-          [visible]="visible"
-          (onClose)="onClose($event)"
-          (onAccept)="onAccept($event)"
-          (onCancel)="onCancel($event)">
-          <p>Contenido de la tarjeta con header y subheader.</p>
-          <p>Puedes agregar múltiples párrafos y elementos.</p>
-        </dcx-ng-card>
-      </div>
-    `,
-  }),
 };
 
-export const WithIcon: Story = {
+export const HorizontalEnd: Story = {
   args: {
-    header: 'Configuración',
-    subheader: 'Ajustes del sistema',
-    iconClass: 'fas fa-cog',
+    layout: 'horizontal',
+    align: 'end',
+    maxContentWidth: '960px',
+    image: 'https://picsum.photos/360/240',
   },
-  render: args => ({
-    props: args,
-    template: `
-      <div style="width: 400px;">
-        <dcx-ng-card 
-          [header]="header"
-          [subheader]="subheader"
-          [iconClass]="iconClass"
-          [closable]="closable"
-          [visible]="visible"
-          (onClose)="onClose($event)"
-          (onAccept)="onAccept($event)"
-          (onCancel)="onCancel($event)">
-          <p>Esta tarjeta incluye un icono en el header.</p>
-          <p><strong>Nota:</strong> Necesitas Font Awesome para ver el icono correctamente.</p>
-        </dcx-ng-card>
-      </div>
-    `,
-  }),
 };
 
-export const Closable: Story = {
+export const SubtleCustomShadow: Story = {
   args: {
-    header: 'Notificación',
-    subheader: 'Mensaje importante',
-    closable: true,
+    variant: 'subtle',
+    bordered: true,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'hsl(210deg 20% 80%)',
+    shadow: 'custom',
+    shadowValue: '0 12px 24px -8px rgba(0,0,0,.25)',
+    size: 'lg',
+    layout: 'vertical',
+    align: 'center',
+    image: 'https://picsum.photos/800/500',
+    maxContentWidth: '560px',
+    maxImageWidth: '100%',
   },
-  render: args => ({
-    props: args,
-    template: `
-      <div style="width: 400px;">
-        <dcx-ng-card 
-          [header]="header"
-          [subheader]="subheader"
-          [iconClass]="iconClass"
-          [closable]="closable"
-          [visible]="visible"
-          (onClose)="onClose($event)"
-          (onAccept)="onAccept($event)"
-          (onCancel)="onCancel($event)">
-          <p>Esta tarjeta se puede cerrar usando el botón X en el header.</p>
-          <p>Al hacer clic en el botón de cerrar, la tarjeta se ocultará.</p>
-        </dcx-ng-card>
-      </div>
-    `,
-  }),
 };

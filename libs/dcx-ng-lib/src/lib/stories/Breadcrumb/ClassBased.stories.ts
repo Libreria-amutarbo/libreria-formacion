@@ -26,7 +26,7 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
       table: {
         category: 'Atributos',
         type: { summary: 'DcxBreadcrumbItem[]' },
-        defaultValue: { summary: 'DcxBreadCrumbItemDefault' },
+        defaultValue: { summary: DcxBreadCrumbSlashIcon },
       },
     },
     iconSeparator: {
@@ -61,12 +61,7 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
 export default meta;
 type Story = StoryObj<DcxNgBreadcrumbComponent>;
 
-export const ClassBased: Story = {
-  args: {
-    items: DcxBreadCrumbItemDefault,
-    iconSeparator: DcxBreadCrumbSlashIcon,
-  },
-};
+export const ClassBased: Story = {};
 
 export const WithIconInText: Story = {
   args: {

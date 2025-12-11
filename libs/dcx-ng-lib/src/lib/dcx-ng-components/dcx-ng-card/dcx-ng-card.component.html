@@ -1,71 +1,53 @@
-<div class="dcx-card" [class.dcx-card--hidden]="!visible">
-  @if (visible) {
-    <div class="dcx-card-header">
-      @if (header || closable) {
-        <div class="dcx-card-header__content">
-          @if (iconClass) {
-            <div class="dcx-card-header__icon">
-              <i [class]="iconClass" aria-hidden="true"></i>
-            </div>
-          }
-
-          <div class="dcx-card-header__titles">
-            @if (header) {
-              <h3 class="dcx-card-header__title">{{ header }}</h3>
-            }
-
-            @if (subheader) {
-              <h4 class="dcx-card-header__subtitle">{{ subheader }}</h4>
-            }
-          </div>
-        </div>
-
-        @if (closable) {
-          <!-- TODO: Change this to Dcx Icon -->
-          <button
-            type="button"
-            class="dcx-card-header__close-btn"
-            (click)="handleClose()"
-            aria-label="Cerrar"
-          >
-            <i class="dcx-icon-close" aria-hidden="true">✕</i>
-          </button>
-        }
-      }
-    </div>
-
-    <div class="dcx-card-body">
-      @if (cardBodyTemplate) {
-        <ng-container *ngTemplateOutlet="cardBodyTemplate"></ng-container>
-      } @else {
-        <ng-content></ng-content>
-      }
-    </div>
-
-    @if (cardFooterTemplate) {
-      <div class="dcx-card-footer">
-        <ng-container *ngTemplateOutlet="cardFooterTemplate"></ng-container>
-      </div>
-    } @else {
-      <div class="dcx-card-footer dcx-card-footer--default">
-        <!-- TODO: Change this to Dcx Icon -->
-        <button
-          type="button"
-          class="dcx-btn dcx-btn--secondary dcx-card-footer__btn"
-          (click)="handleCancel()"
-        >
-          Cancelar
-        </button>
-
-        <!-- TODO: Change this to Dcx Icon -->
-        <button
-          type="button"
-          class="dcx-btn dcx-btn--primary dcx-card-footer__btn"
-          (click)="handleAccept()"
-        >
-          Aceptar
-        </button>
+<div
+  class="dcx-card"
+  [class.interactive]="interactive()"
+  [class.disabled]="disabled()"
+  [attr.tabindex]="tabIndex()"
+  [attr.aria-disabled]="disabled()"
+  [attr.role]="role()"
+  [attr.aria-labelledby]="headingId() || null"
+  [attr.aria-describedby]="descId() || null"
+  (click)="onHostClick($event)"
+  (keydown)="onKeydown($event)"
+>
+  <div
+    class="card-inner"
+    [ngClass]="innerClassMap()"
+    [ngStyle]="innerStyleVars()"
+  >
+    @if (image()) {
+      <div class="image-container">
+        <img [src]="image()!" [alt]="imageAlt()" />
       </div>
     }
-  }
+
+    <div class="card-body">
+      <div class="header">
+        @if (header()) {
+          <ng-container *ngTemplateOutlet="header()!"></ng-container>
+        } @else {
+          @if (title()) {
+            <h3 class="title" [id]="headingId()">{{ title() }}</h3>
+          }
+          @if (subtitle()) {
+            <p class="subtitle">{{ subtitle() }}</p>
+          }
+        }
+      </div>
+
+      <div class="content" [id]="descId()">
+        @if (content()) {
+          <ng-container *ngTemplateOutlet="content()!"></ng-container>
+        } @else {
+          <ng-content></ng-content>
+        }
+      </div>
+
+      @if (footer()) {
+        <div class="footer">
+          <ng-container *ngTemplateOutlet="footer()!"></ng-container>
+        </div>
+      }
+    </div>
+  </div>
 </div>

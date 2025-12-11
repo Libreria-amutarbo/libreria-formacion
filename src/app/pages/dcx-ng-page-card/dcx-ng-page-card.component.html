@@ -1,57 +1,35 @@
-<div class="page-container">
-  <h1 class="page-title">Componente DCX Card - Ejemplos</h1>
-  <p class="page-description">
-    Diferentes ejemplos de uso del componente card con headers, body y footer
-    personalizables.
-  </p>
+<section>
+  <h2 class="example-title">Ejemplo 1 - Card Básica</h2>
+  <dcx-ng-card subheader="Datos personales" iconClass="fas fa-user">
+    <p>
+      Esta es una card básica con header, subheader, icono y botones por
+      defecto.
+    </p>
+    <p>El contenido se muestra usando ng-content.</p>
+  </dcx-ng-card>
+</section>
 
-  <div class="examples-grid">
-    <div class="example-section">
-      <h2 class="example-title">1. Card Básica</h2>
-      <dcx-ng-card
-        header="Información del Usuario"
-        subheader="Datos personales"
-        iconClass="fas fa-user"
-      >
-        <p>
-          Esta es una card básica con header, subheader, icono y botones por
-          defecto.
-        </p>
-        <p>El contenido se muestra usando ng-content.</p>
-      </dcx-ng-card>
-    </div>
+<hr />
 
-    <div class="example-section">
-      <h2 class="example-title">2. Card Cerrable</h2>
-      <dcx-ng-card
-        header="Notificación"
-        subheader="Mensaje importante"
-        iconClass="fas fa-bell"
-        [closable]="true"
-      >
-        <div class="notification-content">
-          <p>
-            <strong>¡Atención!</strong> Esta es una notificación importante.
-          </p>
-          <p>
-            Puedes cerrarla usando el botón X en la esquina superior derecha.
-          </p>
-        </div>
-      </dcx-ng-card>
-    </div>
+<section>
+  <h2 class="example-title">Ejemplo 2 - Card Cerrable</h2>
+  <dcx-ng-card subheader="Mensaje importante" iconClass="fas fa-bell">
+    <p><strong>¡Atención!</strong> Esta es una notificación importante.</p>
+    <p>Puedes cerrarla usando el botón X en la esquina superior derecha.</p>
+  </dcx-ng-card>
+</section>
+<hr />
 
-    <div class="example-section">
-      <h2 class="example-title">3. Card Solo con Body</h2>
-      <dcx-ng-card>
-        <div class="simple-content">
-          <h3>Card sin Header</h3>
-          <p>
-            Esta card solo tiene contenido en el body y los botones por defecto
-            en el footer.
-          </p>
-          <p>No tiene header, subheader ni icono.</p>
-        </div>
-      </dcx-ng-card>
+<section>
+  <h2 class="example-title">Ejemplo 3 - Card Solo con Body</h2>
+  <dcx-ng-card>
+    <div class="simple-content">
+      <h3>Card sin Header</h3>
+      <p>
+        Esta card solo tiene contenido en el body y los botones por defecto en
+        el footer.
+      </p>
+      <p>No tiene header, subheader ni icono.</p>
     </div>
-  </div>
-</div>
+  </dcx-ng-card>
+</section>

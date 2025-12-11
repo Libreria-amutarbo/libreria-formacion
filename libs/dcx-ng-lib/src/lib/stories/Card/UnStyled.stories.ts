@@ -11,115 +11,35 @@ const meta: Meta<DcxNgCardComponent> = {
       imports: [CommonModule, DcxNgCardComponent],
     }),
   ],
-  parameters: {
-    layout: 'padded',
-    docs: {
-      description: {
-        component: 'Versión sin estilos del componente Card. Muestra la estructura básica sin CSS aplicado.',
-      },
-    },
-  },
-  argTypes: {
-    header: {
-      control: 'text',
-      description: 'Título principal de la tarjeta',
-    },
-    subheader: {
-      control: 'text',
-      description: 'Subtítulo de la tarjeta',
-    },
-    iconClass: {
-      control: 'text',
-      description: 'Clase CSS para el icono del header',
-    },
-    closable: {
-      control: 'boolean',
-      description: 'Mostrar botón de cerrar en el header',
-    },
-    visible: {
-      control: 'boolean',
-      description: 'Controla la visibilidad de la tarjeta',
-    },
-  },
+  render: args => ({ props: args }),
   args: {
-    header: '',
-    subheader: '',
-    iconClass: '',
-    closable: false,
-    visible: true,
+    title: 'Card Title',
+    subtitle: 'Card Subtitle',
+    image: null, // sin imagen
+    variant: 'outlined', // sin estilo
+    layout: 'vertical',
+    bordered: false, // sin borde
+    borderWidth: 0,
+    interactive: false,
+    disabled: false,
+    size: 'md',
+    align: 'start',
   },
 };
-
 export default meta;
+
 type Story = StoryObj<DcxNgCardComponent>;
 
-export const Default: Story = {
-  args: {
-    header: 'Título de la Tarjeta',
-    subheader: 'Subtítulo descriptivo',
-  },
-  render: (args) => ({
+// ---------------------------------------------
+// Default unstyled
+// ---------------------------------------------
+export const Unstyled: Story = {
+  render: args => ({
     props: args,
     template: `
-      <dcx-ng-card 
-        [header]="header"
-        [subheader]="subheader"
-        [iconClass]="iconClass"
-        [closable]="closable"
-        [visible]="visible">
-        <p>Esta es la versión sin estilos del componente Card.</p>
-        <p>Solo muestra la estructura HTML básica sin CSS aplicado.</p>
-        <p>Los estilos que ves son los estilos base del navegador.</p>
-      </dcx-ng-card>
-    `,
-  }),
-};
-
-export const WithAllElements: Story = {
-  args: {
-    header: 'Tarjeta Completa',
-    subheader: 'Con todos los elementos',
-    iconClass: 'fas fa-star',
-    closable: true,
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <dcx-ng-card 
-        [header]="header"
-        [subheader]="subheader"
-        [iconClass]="iconClass"
-        [closable]="closable"
-        [visible]="visible">
-        <h4>Contenido de la tarjeta</h4>
-        <p>Esta tarjeta muestra todos los elementos disponibles:</p>
-        <ul>
-          <li>Header con título</li>
-          <li>Subtítulo</li>
-          <li>Icono (si Font Awesome está disponible)</li>
-          <li>Botón de cerrar</li>
-          <li>Contenido del body</li>
-          <li>Botones de acción en el footer</li>
-        </ul>
-        <p><strong>Nota:</strong> Sin estilos CSS aplicados, solo estructura HTML.</p>
-      </dcx-ng-card>
-    `,
-  }),
-};
-
-export const MinimalContent: Story = {
-  args: {},
-  render: (args) => ({
-    props: args,
-    template: `
-      <dcx-ng-card 
-        [header]="header"
-        [subheader]="subheader"
-        [iconClass]="iconClass"
-        [closable]="closable"
-        [visible]="visible">
-        Contenido mínimo sin header ni configuración adicional.
-      </dcx-ng-card>
+      <ui-card [title]="title" [subtitle]="subtitle">
+        <p>Este es contenido de ejemplo para la card sin estilos aplicados.</p>
+      </ui-card>
     `,
   }),
 };
