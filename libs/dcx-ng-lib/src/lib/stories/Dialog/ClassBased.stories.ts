@@ -6,6 +6,8 @@ import {
   Output,
   inject,
   OnInit,
+  input,
+  output,
 } from '@angular/core';
 import {
   DcxNgDialogComponent,
@@ -18,7 +20,7 @@ import { fn } from '@storybook/test';
 const ActionsData = { closeDialog: fn() };
 
 @Component({
-  selector: 'dcx-ng-dialog',
+  selector: 'dcx-ng-dialog-story',
   standalone: true,
   imports: [DcxNgDialogComponent, DcxNgButtonComponent],
   template: `
@@ -28,52 +30,55 @@ const ActionsData = { closeDialog: fn() };
 
     <div style="min-height:50vh; display:grid; place-items:center;">
       <dcx-ng-dialog
-        [dialogId]="dialogId"
-        [title]="title"
-        [showClose]="showClose"
-        [position]="position"
-        [closeOnBackdrop]="closeOnBackdrop"
+        [dialogId]="dialogId()"
+        [title]="title()"
+        [showClose]="showClose()"
+        [position]="position()"
+        [closeOnBackdrop]="closeOnBackdrop()"
         (closeDialog)="onClose()"
       >
         <ng-template #dialogBody>
-          <div [innerHTML]="bodyHtml"></div>
+          <div [innerHTML]="bodyHtml()"></div>
         </ng-template>
 
-        @if (footerHtml) {
+        @if (footerHtml()) {
           <ng-template #dialogFooter>
-            <div [innerHTML]="footerHtml"></div>
+            <div [innerHTML]="footerHtml()"></div>
           </ng-template>
         }
       </dcx-ng-dialog>
     </div>
+
   `,
 })
 class StoryHostDcxDialogComponent implements OnInit {
-  @Input() dialogId?: string;
-  @Input() title = '';
-  @Input() visible?: boolean;
-  @Input() showClose = true;
-  @Input() position: DcxDialogPosition = 'center';
-  @Input() closeOnBackdrop = true;
-  @Input() bodyHtml = '';
-  @Input() footerHtml = '';
+  dialogId = input<string | undefined>(undefined);
+  title = input<string>('');
+  visible = input<boolean>(false);
+  showClose = input<boolean>(true);
+  position = input<DcxDialogPosition>('center');
+  closeOnBackdrop = input<boolean>(true);
+  bodyHtml = input<string>('');
+  footerHtml = input<string>('');
 
-  @Output() closeDialog = new EventEmitter<void>();
+  closeDialog = output<void>();
 
-  private dialog = inject(DialogService);
+  private readonly dialog = inject(DialogService);
 
   ngOnInit() {
-    if (this.visible && this.dialogId) {
-      this.dialog.open(this.dialogId);
+    if (this.visible() && this.dialogId()) {
+      this.dialog.open(this.dialogId()!);
     }
   }
 
   open(data?: unknown) {
-    if (this.dialogId) this.dialog.open(this.dialogId, data);
+    const id = this.dialogId();
+    if (id) this.dialog.open(id, data);
   }
 
   close() {
-    if (this.dialogId) this.dialog.close(this.dialogId);
+    const id = this.dialogId();
+    if (id) this.dialog.close(id);
   }
 
   onClose() {
@@ -115,7 +120,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Solo para **abrir por defecto** en esta story. El ciclo de vida real se gestiona por servicio.',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean | undefined' },
+        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
@@ -223,7 +228,7 @@ export const ClassBased: Story = {
       visible: args.visible,
     },
     template: `
-      <story-host-dcx-dialog
+      <dcx-ng-dialog-story
         [dialogId]="dialogId"
         [title]="title"
         [showClose]="showClose"

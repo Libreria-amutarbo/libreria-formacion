@@ -21,8 +21,8 @@ export class DialogService {
   }
 
   open<T = unknown>(id: string, data?: T) {
-    const s = this.getState<T>(id);
-    s.set({ visible: true, data });
+    const state = this.getState<T>(id);
+    state.set({ visible: true, data });
   }
 
   close(id: string) {

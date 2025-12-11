@@ -23,7 +23,7 @@ export class DcxNgDialogComponent {
   dialogId = input<string | undefined>(undefined);
 
   title = input<string>('');
-  visible = input<boolean | undefined>(undefined);
+  visible = input<boolean>(false);
   showClose = input<boolean>(true);
   position = input<DcxDialogPosition>('center');
 
@@ -37,13 +37,9 @@ export class DcxNgDialogComponent {
   private dialogService = inject(DialogService);
 
   readonly isVisible = computed(() => {
-    const visible = this.visible();
-    if (v !== undefined) return v;
-
     const id = this.dialogId();
     if (id) return this.dialogService.readOnly(id)().visible;
-
-    return false;
+    return this.visible();
   });
 
   close(): void {
