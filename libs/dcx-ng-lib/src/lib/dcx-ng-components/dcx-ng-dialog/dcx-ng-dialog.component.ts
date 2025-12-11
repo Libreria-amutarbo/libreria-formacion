@@ -37,7 +37,7 @@ export class DcxNgDialogComponent {
   private dialogService = inject(DialogService);
 
   readonly isVisible = computed(() => {
-    const v = this.visible();
+    const visible = this.visible();
     if (v !== undefined) return v;
 
     const id = this.dialogId();
