@@ -1,16 +1,14 @@
 <h1>Demo Checkbox</h1>
 <div class="demo-checkboxes">
   <h3>Checkbox básica:</h3>
-  <dcx-ng-checkbox label="Recibir notificaciones" color="primary" size="m" [checked]="checked2" [disabled]="false"
-    errorMessage="" />
+  <dcx-ng-checkbox label="Recibir notificaciones" color="primary" size="m" [checked]="checked2" [disabled]="false" />
 
   <h3>Checkbox (campo obligatorio):</h3>
   <dcx-ng-checkbox label="Acepto los términos" color="primary" size="m" [checked]="checked1"
-    (checkedChange)="checked1 = $event" errorMessage="Este campo es obligatorio" />
+    (checkedChange)="checked1 = $event" />
 
   <h3>Checkbox deshabilitada:</h3>
-  <dcx-ng-checkbox label="Recibir notificaciones" color="accent" size="m" [checked]="checked2" [disabled]="true"
-    errorMessage="" />
+  <dcx-ng-checkbox label="Recibir notificaciones" color="accent" size="m" [checked]="checked2" [disabled]="true" />
 
   <h3>Diferentes tamaños:</h3>
   <dcx-ng-checkbox label="Small (16px)" color="primary" size="s" [checked]="true" />
@@ -18,18 +16,47 @@
   <dcx-ng-checkbox label="Large (32px)" color="primary" size="l" [checked]="true" />
   <dcx-ng-checkbox label="XLarge (48px)" color="primary" size="xl" [checked]="true" />
 
+  <h3>Label a la izquierda:</h3>
+  <dcx-ng-checkbox label="Label a la izquierda" color="primary" size="m" labelPosition="left" [checked]="true" />
+  <dcx-ng-checkbox label="Deshabilitado con label izquierdo" color="accent" size="m" labelPosition="left"
+    [checked]="false" [disabled]="true" />
+
   <h3>Grupo con selección múltiple:</h3>
   <dcx-ng-checkbox groupLabel="Selecciona tus intereses" color="primary" size="m" [multiple]="true" [options]="[
       { value: 'sports', label: 'Deportes' },
       { value: 'music', label: 'Música' },
       { value: 'movies', label: 'Películas' },
       { value: 'reading', label: 'Lectura' }
-    ]" [selectedValues]="['sports']" (selectionChange)="onSelectionChange($event)" />
+    ]" [selectedValues]="['sports']" />
 
   <h3>Grupo con selección única:</h3>
   <dcx-ng-checkbox groupLabel="Selecciona tu género favorito" color="accent" size="m" [multiple]="false" [options]="[
       { value: 'action', label: 'Acción' },
       { value: 'comedy', label: 'Comedia' },
       { value: 'drama', label: 'Drama' }
-    ]" [selectedValues]="['comedy']" (selectionChange)="onSelectionChange($event)" />
+    ]" [selectedValues]="['comedy']" />
+
+  <h3>Ejemplo con FormControl - Selección Múltiple (Deportes):</h3>
+  <div class="form-control-example">
+    <dcx-ng-checkbox groupLabel="¿Qué deportes te gustan?" color="primary" size="m" [multiple]="true"
+      [options]="sportsOptions()" [formControl]="sportsControl" />
+
+    <div class="button-group">
+      <button type="button" (click)="toggleDisableBasketball()" class="example-button">
+        Toggle Baloncesto Disabled
+      </button>
+    </div>
+  </div>
+
+  <h3>Ejemplo con FormControl - Selección Única (Género favorito):</h3>
+  <div class="form-control-example">
+    <dcx-ng-checkbox groupLabel="Selecciona tu género favorito" color="accent" size="m" [multiple]="false"
+      [options]="genreOptions()" [formControl]="genreControl" />
+
+    <div class="button-group">
+      <button type="button" (click)="toggleDisableComedy()" class="example-button">
+        Toggle Comedia Disabled
+      </button>
+    </div>
+  </div>
 </div>
