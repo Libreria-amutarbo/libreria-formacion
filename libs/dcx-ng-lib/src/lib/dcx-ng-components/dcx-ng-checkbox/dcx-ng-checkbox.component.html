@@ -30,27 +30,29 @@
   </div>
 </div>
 } @else {
-<label class="dcx-checkbox-label" [class.disabled]="disabled()" [class.label-left]="labelPosition() === 'left'">
-  @if (labelPosition() === 'left') {
-  <span class="dcx-checkbox-text">{{ label() }}</span>
+<div class="dcx-checkbox-wrapper">
+  <label class="dcx-checkbox-label" [class.disabled]="disabled()" [class.label-left]="labelPosition() === 'left'">
+    @if (labelPosition() === 'left') {
+    <span class="dcx-checkbox-text">{{ label() }}</span>
+    }
+
+    <button type="button" [class]="containerClasses()" [style.--color]="customColorStyle()" (click)="onToggle()">
+      <span class="dcx-checkbox-box">
+        @if (isCheckedComputed()) {
+        <span class="dcx-checkbox-check"></span>
+        }
+      </span>
+    </button>
+
+    @if (labelPosition() === 'right') {
+    <span class="dcx-checkbox-text">{{ label() }}</span>
+    }
+  </label>
+
+  @if (errorMessage() && !isCheckedComputed()) {
+  <div class="dcx-checkbox-error" [class.error-label-left]="labelPosition() === 'left'">
+    {{ errorMessage() }}
+  </div>
   }
-
-  <button type="button" [class]="containerClasses()" [style.--color]="customColorStyle()" (click)="onToggle()">
-    <span class="dcx-checkbox-box">
-      @if (isCheckedComputed()) {
-      <span class="dcx-checkbox-check"></span>
-      }
-    </span>
-  </button>
-
-  @if (labelPosition() === 'right') {
-  <span class="dcx-checkbox-text">{{ label() }}</span>
-  }
-</label>
-
-@if (errorMessage() && !isCheckedComputed()) {
-<div class="dcx-checkbox-error">
-  {{ errorMessage() }}
 </div>
-}
 }
