@@ -5,8 +5,6 @@
   [attr.tabindex]="tabIndex()"
   [attr.aria-disabled]="disabled()"
   [attr.role]="role()"
-  [attr.aria-labelledby]="headingId() || null"
-  [attr.aria-describedby]="descId() || null"
   (click)="onHostClick($event)"
   (keydown)="onKeydown($event)"
 >
@@ -23,13 +21,15 @@
 
     <div class="card-body">
       @if (header()) {
-        <ng-container [ngTemplateOutlet]="header()"></ng-container>
+        <div class="header">
+          <ng-container [ngTemplateOutlet]="header()"></ng-container>
+        </div>
       }
 
       @if (!header()) {
         <div class="header">
           @if (title()) {
-            <h3 class="title" [id]="headingId()">{{ title() }}</h3>
+            <h3 class="title">{{ title() }}</h3>
           }
           @if (subtitle()) {
             <p class="subtitle">{{ subtitle() }}</p>
@@ -37,11 +37,11 @@
         </div>
       }
 
-      <div class="content" [id]="descId()">
-        @if (content()) {
+      @if (content()) {
+        <div class="content">
           <ng-container [ngTemplateOutlet]="content()"></ng-container>
-        }
-      </div>
+        </div>
+      }
 
       @if (footer()) {
         <div class="footer">

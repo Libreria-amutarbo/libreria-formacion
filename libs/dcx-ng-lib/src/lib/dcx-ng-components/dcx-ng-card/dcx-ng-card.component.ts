@@ -25,7 +25,6 @@ export class DcxNgCardComponent {
   title = input<string>(TITLE_DEFAULT);
   subtitle = input<string>('');
 
-  /** Visual */
   layout = input<DcxLayout>('vertical');
   align = input<DcxAlign>('center');
   size = input<DcxSize>('m');
@@ -39,23 +38,14 @@ export class DcxNgCardComponent {
 
   shadow = input<ShadowPresetCard>(0);
 
-  /** Interacción */
   interactive = input<boolean>(false);
   disabled = input<boolean>(false);
 
-  /** Slots TemplateRef */
   header = input<TemplateRef<any> | null>(null);
   content = input<TemplateRef<any> | null>(null);
   footer = input<TemplateRef<any> | null>(null);
 
-  /** Eventos */
   cardClick = output<MouseEvent | KeyboardEvent>();
-
-  /** IDs A11y */
-  headingId = computed(() =>
-    this.title() ? this._id('card-title') : undefined,
-  );
-  descId = computed(() => this._id('card-desc'));
 
   role = computed<'button' | 'link' | 'region'>(() => {
     if (this.disabled()) return 'region';
@@ -69,7 +59,6 @@ export class DcxNgCardComponent {
     return r === 'button' || r === 'link' ? 0 : null;
   });
 
-  /** Clases que gobiernan layout, align, size y variant */
   innerClassMap = computed<Record<string, boolean>>(() => ({
     'layout-vertical': this.layout() === 'vertical',
     'layout-horizontal': this.layout() === 'horizontal',
@@ -83,47 +72,44 @@ export class DcxNgCardComponent {
     'size-l': this.size() === 'l',
   }));
 
-  innerStyleVars = computed(() => {
-    // Sombra efectiva
-    const sh = this.shadow();
-    let shadowVar = 'var(--shadow-0)';
+  /**
+   * Mapea inputs a variables CSS consumidas en el SCSS.
+   * Mantiene compatibilidad con las vars existentes del :host.
+   */
+  innerStyleVars = computed<Record<string, string | number>>(() => ({
+    '--card-max-content-width': this.maxContentWidth(),
+    '--card-max-image-width': this.maxImageWidth(),
+    '--card-border-style': this.bordered() ? this.borderStyle() : 'solid',
+    '--card-border-width': this.bordered() ? `${this.borderWidth()}px` : 0,
+    '--card-shadow': this.shadowToCSS(this.shadow()),
+  }));
 
-    shadowVar = `var(--shadow-${sh})`;
-
-    return {
-      '--card-border-width': `${this.bordered() ? this.borderWidth() : 0}px`,
-      '--card-border-style': this.borderStyle(),
-
-      '--card-shadow': shadowVar,
-
-      '--card-max-content-width': this.maxContentWidth(),
-      '--card-max-image-width': this.maxImageWidth(),
-    } as Record<string, string>;
-  });
-
-  onHostClick(event: MouseEvent) {
-    if (this.disabled()) return;
-    if (this.interactive()) this.cardClick.emit(event);
-  }
-
-  onKeydown(event: KeyboardEvent) {
-    if (this.disabled()) return;
-    const key = event.key;
-    if (this.role() === 'button' && (key === 'Enter' || key === ' ')) {
-      event.preventDefault();
-      this.cardClick.emit(event);
-    }
-    if (this.role() === 'link' && key === 'Enter') {
-      event.preventDefault();
+  private shadowToCSS(preset: ShadowPresetCard): string {
+    switch (preset) {
+      case 1:
+        return 'var(--shadow-1)';
+      case 2:
+        return 'var(--shadow-2)';
+      case 3:
+        return 'var(--shadow-3)';
+      default:
+        return 'var(--shadow-0)';
     }
   }
 
-  /** Utils */
-  private _id(prefix: string): string {
-    return `${prefix}-${Math.random().toString(36).slice(2, 9)}`;
+  // Eventos de interacción básicos
+  onHostClick(evt: MouseEvent) {
+    if (this.disabled()) return;
+    this.cardClick.emit(evt);
   }
-  private _navigate(url: string, target: string) {
-    if (target === '_blank') window.open(url, '_blank', 'noopener');
-    else window.location.assign(url);
+
+  onKeydown(evt: KeyboardEvent) {
+    if (this.disabled()) return;
+    // ENTER o SPACE activan click "accesible" si es interactivo
+    const key = evt.key.toLowerCase();
+    if (this.interactive() && (key === 'enter' || key === ' ')) {
+      evt.preventDefault();
+      this.cardClick.emit(evt);
+    }
   }
 }

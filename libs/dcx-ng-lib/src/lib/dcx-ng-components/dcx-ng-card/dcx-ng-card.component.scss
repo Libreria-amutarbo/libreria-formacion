@@ -6,8 +6,8 @@
   --card-border-width: 0;
   --card-radius: 8px;
 
-  --card-padding: 0.9rem; /* size-* lo sobrescribe */
-  --card-gap: 0.75rem; /* size-* lo sobrescribe */
+  --card-padding: 0.9rem;
+  --card-gap: 0.75rem;
 
   --card-max-content-width: 640px;
   --card-max-image-width: 100%;
@@ -17,11 +17,9 @@
   --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.12);
   --shadow-3: 0 8px 24px rgba(0, 0, 0, 0.16);
 
-  /* Sombra: fuente única usada por .card-inner */
   --card-shadow: var(--shadow-0);
 }
 
-/* Wrapper del host */
 .dcx-card {
   display: block;
   background: transparent;
@@ -48,7 +46,6 @@
   }
 }
 
-/* Contenedor de la card */
 .card-inner {
   display: flex;
   flex-direction: column;
@@ -61,25 +58,20 @@
   border-radius: var(--card-radius);
   padding: var(--card-padding);
 
-  /* Sombra: fuente única */
   box-shadow: var(--card-shadow);
 
-  /* Importante para poder centrar con justify-content en horizontal */
   width: 100%;
   max-width: var(--card-max-content-width);
 
-  /* Orientación */
   &.layout-vertical {
     flex-direction: column;
   }
   &.layout-horizontal {
     flex-direction: row;
-    /* ⬅️ CENTRAMOS verticalmente imagen y body en horizontal */
     align-items: center;
     gap: var(--card-gap);
   }
 
-  /* Tamaños (más notorios) */
   &.size-s {
     --card-padding: 0.6rem;
     --card-gap: 0.55rem;
@@ -105,11 +97,6 @@
     --card-max-image-width: 100%;
   }
 
-  /* ===========================
-     Alineación DEL CONTENIDO
-     =========================== */
-
-  /* Distribución principal del row (izq/centro/der) */
   &.layout-horizontal.align-start {
     justify-content: flex-start;
   }
@@ -121,7 +108,6 @@
   }
 }
 
-/* Imagen */
 .image-container {
   display: flex;
 }
@@ -132,19 +118,13 @@
   border-radius: 6px;
 }
 
-/* Hijos principales en horizontal:
-   que no crezcan si no se pide, para que exista “aire” lateral */
 .card-inner.layout-horizontal .image-container {
   flex: 0 0 auto;
 }
 .card-inner.layout-horizontal .card-body {
   flex: 0 0 auto;
 }
-/* Si quieres que el body ocupe espacio restante, usa:
-.card-inner.layout-horizontal .card-body { flex: 1 1 auto; }
-*/
 
-/* Body y sub-bloques */
 .card-body {
   display: flex;
   flex-direction: column;
@@ -189,7 +169,6 @@
   text-align: right;
 }
 
-/* Alineación de la imagen según align (vertical y horizontal) */
 .card-inner.align-start .image-container {
   justify-content: flex-start;
 }
@@ -200,7 +179,6 @@
   justify-content: flex-end;
 }
 
-/* Hover conserva la sombra actual */
 .dcx-card.interactive:not(.disabled) .card-inner:hover {
   box-shadow: var(--card-shadow);
 }

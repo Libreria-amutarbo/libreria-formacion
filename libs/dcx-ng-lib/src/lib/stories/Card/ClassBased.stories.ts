@@ -175,3 +175,126 @@ export const HorizontalEnd: Story = {
     image: 'https://picsum.photos/360/240',
   },
 };
+
+export const WithSlotsVertical: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+      <!-- Definimos los templates "slots" -->
+      <ng-template #headerTpl>
+        <div class="custom-header">
+          <h3 class="title">Encabezado personalizado</h3>
+          <p class="subtitle">Este header sobrescribe el título/subtítulo por defecto</p>
+        </div>
+      </ng-template>
+
+      <ng-template #contentTpl>
+        <div class="custom-content">
+          <p>Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
+          <ul>
+            <li>Elemento 1</li>
+            <li>Elemento 2</li>
+          </ul>
+        </div>
+      </ng-template>
+
+      <ng-template #footerTpl>
+        <div class="custom-footer">
+          <button type="button">Acción primaria</button>
+          <button type="button" aria-label="Acción secundaria">Secundaria</button>
+        </div>
+      </ng-template>
+
+      <!-- Pasamos los TemplateRef a los inputs de la card -->
+      <dcx-ng-card
+        [layout]="layout"
+        [align]="align"
+        [size]="size"
+        [image]="image"
+        [imageAlt]="imageAlt"
+        [bordered]="bordered"
+        [borderStyle]="borderStyle"
+        [borderWidth]="borderWidth"
+        [shadow]="shadow"
+        [interactive]="interactive"
+        [disabled]="disabled"
+        [maxContentWidth]="maxContentWidth"
+        [maxImageWidth]="maxImageWidth"
+        [header]="headerTpl"
+        [content]="contentTpl"
+        [footer]="footerTpl"
+      ></dcx-ng-card>
+    `,
+  }),
+  args: {
+    layout: 'vertical',
+    align: 'center',
+    size: 'm',
+    image: 'https://picsum.photos/640/360',
+    maxContentWidth: '640px',
+    maxImageWidth: '100%',
+    bordered: true,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    shadow: 2,
+    interactive: true,
+    disabled: false,
+  },
+};
+
+export const WithSlotsHorizontal: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+      <ng-template #headerTpl>
+          <h3 class="title">Encabezado personalizado</h3>
+          <p class="subtitle">Este header sobrescribe el título/subtítulo por defecto</p>
+      </ng-template>
+
+      <ng-template #contentTpl>
+        <div class="custom-content">
+          <p>Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
+          <ul>
+            <li>Elemento 1</li>
+            <li>Elemento 2</li>
+          </ul>
+        </div>
+      </ng-template>
+
+      <ng-template #footerTpl>
+        <div class="custom-footer">
+          <button type="button">Acción primaria</button>
+          <button type="button" aria-label="Acción secundaria">Secundaria</button>
+        </div>
+      </ng-template>
+
+
+      <dcx-ng-card
+        [layout]="layout"
+        [align]="align"
+        [size]="size"
+        [image]="image"
+        [imageAlt]="imageAlt"
+        [maxContentWidth]="maxContentWidth"
+        [maxImageWidth]="maxImageWidth"
+        [shadow]="shadow"
+        [interactive]="interactive"
+        [disabled]="disabled"
+        [header]="headerTpl"
+        [content]="contentTpl"
+        [footer]="footerTpl"
+      ></dcx-ng-card>
+    `,
+  }),
+  args: {
+    layout: 'horizontal',
+    align: 'start',
+    size: 'm',
+    image: 'https://picsum.photos/360/240',
+    maxContentWidth: '800px',
+    maxImageWidth: '100%',
+    shadow: 1,
+    interactive: true,
+    disabled: false,
+  },
+};
