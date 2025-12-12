@@ -1,9 +1,7 @@
-:host {
-  display: block;
+@use '../../../scss/main' as *;
+@use 'sass:map';
 
-  /* Tokens base */
-  --card-bg: white;
-  --card-border-color: #ccc;
+:host {
   --card-border-style: solid;
   --card-border-width: 0;
   --card-radius: 8px;
@@ -13,10 +11,6 @@
 
   --card-max-content-width: 640px;
   --card-max-image-width: 100%;
-
-  --card-title-font-size: 1.15rem; /* size-* lo sobrescribe */
-  --card-title-font-weight: 600;
-  --card-subtitle-font-size: 0.95rem; /* size-* lo sobrescribe */
 
   --shadow-0: none;
   --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -60,9 +54,9 @@
   flex-direction: column;
   gap: var(--card-gap);
 
-  background: var(--card-bg);
+  background: map.get($color, 'background');
   border-style: var(--card-border-style);
-  border-color: var(--card-border-color);
+  border-color: map.get($color, 'primary');
   border-width: var(--card-border-width);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
@@ -85,17 +79,8 @@
     gap: var(--card-gap);
   }
 
-  /* Variantes (no pisan box-shadow directamente) */
-  &.variant-outline {
-    /* estilos opcionales de outline */
-  }
-  &.variant-subtle {
-    background: #f7f7f7;
-    border-width: 0;
-  }
-
   /* Tamaños (más notorios) */
-  &.size-sm {
+  &.size-s {
     --card-padding: 0.6rem;
     --card-gap: 0.55rem;
     --card-title-font-size: 1rem;
@@ -103,7 +88,7 @@
     --card-radius: 6px;
     --card-max-image-width: 92%;
   }
-  &.size-md {
+  &.size-m {
     --card-padding: 0.9rem;
     --card-gap: 0.75rem;
     --card-title-font-size: 1.15rem;
@@ -111,7 +96,7 @@
     --card-radius: 8px;
     --card-max-image-width: 100%;
   }
-  &.size-lg {
+  &.size-l {
     --card-padding: 1.5rem;
     --card-gap: 1rem;
     --card-title-font-size: 1.4rem;
@@ -181,19 +166,16 @@
 
   .title {
     margin: 0 0 0.5rem 0;
-    font-size: var(--card-title-font-size);
-    font-weight: var(--card-title-font-weight);
+    font-size: map.get($font-size, 'h3');
+    font-weight: map.get($weight, 'semibold');
   }
   .subtitle {
     margin: 0;
-    font-size: var(--card-subtitle-font-size);
-    color: #666;
+    font-size: map.get($font-size, 'body');
+    color: map.get($color, 'texto-secondary');
   }
 }
 
-/* ⬆️ Alineación HORIZONTAL del contenido interno con alta especificidad
-   y aplicando a TODOS los hijos directos del body para que se reposicionen.
-   Esto evita que .header/.content/.footer mantengan posición "a la izquierda". */
 .card-inner.align-start .card-body > * {
   align-self: flex-start;
   text-align: left;

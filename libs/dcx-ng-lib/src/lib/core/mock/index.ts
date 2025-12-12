@@ -1,3 +1,4 @@
+export * from './generic';
 export * from './breadcrumb';
 export * from './table';
 export * from './tabs';

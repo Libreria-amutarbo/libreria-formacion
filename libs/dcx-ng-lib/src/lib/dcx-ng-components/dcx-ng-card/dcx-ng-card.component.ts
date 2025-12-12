@@ -7,12 +7,9 @@ import {
   output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  BorderStyleCard,
-  ShadowPresetCard,
-  Variant,
-} from '../../core/interfaces/card';
-import { TITLE } from '../../core/mock/card';
+import { BorderStyleCard, ShadowPresetCard } from '../../core/interfaces/card';
+import { TITLE_DEFAULT } from '../../core/mock/card';
+import { DcxAlign, DcxLayout, DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-card',
@@ -25,14 +22,13 @@ import { TITLE } from '../../core/mock/card';
 export class DcxNgCardComponent {
   image = input<string | null>(null);
   imageAlt = input<string>('Imagen de la card');
-  title = input<string>(TITLE);
+  title = input<string>(TITLE_DEFAULT);
   subtitle = input<string>('');
 
   /** Visual */
-  variant = input<Variant>('elevated'); // 'elevated' | 'outlined' | 'subtle'
-  layout = input<'vertical' | 'horizontal'>('vertical');
-  align = input<'start' | 'center' | 'end'>('center');
-  size = input<'sm' | 'md' | 'lg'>('md');
+  layout = input<DcxLayout>('vertical');
+  align = input<DcxAlign>('center');
+  size = input<DcxSize>('m');
 
   maxContentWidth = input<string>('640px');
   maxImageWidth = input<string>('100%');
@@ -40,10 +36,8 @@ export class DcxNgCardComponent {
   bordered = input<boolean>(false);
   borderWidth = input<number>(1);
   borderStyle = input<BorderStyleCard>('solid');
-  borderColor = input<string>('');
 
-  shadow = input<ShadowPresetCard | 'custom'>(0);
-  shadowValue = input<string>('0 2px 8px rgba(0,0,0,.10)');
+  shadow = input<ShadowPresetCard>(0);
 
   /** Interacción */
   interactive = input<boolean>(false);
@@ -80,51 +74,27 @@ export class DcxNgCardComponent {
     'layout-vertical': this.layout() === 'vertical',
     'layout-horizontal': this.layout() === 'horizontal',
 
-    'variant-elevated': this.variant() === 'elevated',
-    'variant-outline': this.variant() === 'outlined',
-    'variant-subtle': this.variant() === 'subtle',
-
     'align-start': this.align() === 'start',
     'align-center': this.align() === 'center',
     'align-end': this.align() === 'end',
 
-    'size-sm': this.size() === 'sm',
-    'size-md': this.size() === 'md',
-    'size-lg': this.size() === 'lg',
+    'size-s': this.size() === 's',
+    'size-m': this.size() === 'm',
+    'size-l': this.size() === 'l',
   }));
 
-  /**
-   * Variables CSS inline:
-   * - Sombra: fuente única (--card-shadow) para evitar conflictos.
-   * - Regla: si shadow=0 → preset según variant; si 1/2/3 o 'custom' → respetar.
-   */
   innerStyleVars = computed(() => {
-    // Borde: si no está bordered, width = 0; outlined => 1px si no hay bordered
-    let widthPx = this.bordered() ? this.borderWidth() : 0;
-    if (this.variant() === 'outlined' && !this.bordered()) widthPx = 1;
-
     // Sombra efectiva
     const sh = this.shadow();
     let shadowVar = 'var(--shadow-0)';
 
-    if (sh === 'custom') {
-      shadowVar = this.shadowValue();
-    } else {
-      shadowVar = `var(--shadow-${sh})`;
-      if (sh === 0) {
-        const v = this.variant();
-        if (v === 'elevated') shadowVar = 'var(--shadow-1)'; // elevated por defecto con sombra 1
-        if (v === 'subtle') shadowVar = 'var(--shadow-0)'; // subtle sin sombra
-        // outlined: mantiene 0 si no se indica
-      }
-    }
+    shadowVar = `var(--shadow-${sh})`;
 
     return {
-      '--card-border-width': `${widthPx}px`,
+      '--card-border-width': `${this.bordered() ? this.borderWidth() : 0}px`,
       '--card-border-style': this.borderStyle(),
-      '--card-border-color': this.borderColor(),
 
-      '--card-shadow': shadowVar, // ← ÚNICA fuente de box-shadow
+      '--card-shadow': shadowVar,
 
       '--card-max-content-width': this.maxContentWidth(),
       '--card-max-image-width': this.maxImageWidth(),

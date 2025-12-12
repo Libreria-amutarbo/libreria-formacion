@@ -1,22 +1,15 @@
 import { Story } from 'storybook/internal/csf';
-import { Variant } from '../interfaces/card';
+import { BorderStyleCard, ShadowPresetCard } from '../interfaces/card';
+import { DcxAlign, DcxLayout, DcxSize } from '../interfaces';
+import { ALIGN_DEFAULT, LAYOUT_DEFAULT, SIZE_DEFAULT } from './generic';
 
-export const TITLE = 'Título de la carta';
+export const TITLE_DEFAULT = 'Título de la carta';
 
 export const SUBTITLE = 'Subtítulo de la carta';
 
 export const IMAGE = 'https://picsum.photos/360/240';
 
 export const IMAGE_ALT = '-';
-
-export const VARIANTLIST: Variant[] = ['elevated', 'outlined', 'subtle'];
-export const VARIANT: Variant = 'outlined';
-
-export const LAYOUT: 'vertical' | 'horizontal' = 'vertical';
-
-export const ALIGN: 'start' | 'center' | 'end' = 'center';
-
-export const SIZE: 'sm' | 'md' | 'lg' = 'md';
 
 export const MAX_CONTENT_WIDTH = '560px';
 
@@ -26,33 +19,36 @@ export const BORDERED = false;
 
 export const BORDER_WIDTH = 1;
 
-export const BORDER_STYLE: 'solid' | 'dashed' | 'dotted' | 'double' | 'none' =
-  'solid';
-
-export const BORDER_COLOR = '#CCBABA';
+export const BORDER_STYLE_DEFAULT: BorderStyleCard = 'solid';
+export const BORDER_STYLE_LIST: BorderStyleCard[] = [
+  'solid',
+  'dashed',
+  'dotted',
+  'double',
+  'none',
+];
 
 export const INTERACTIVE = true;
 
 export const DISABLED = false;
 
-export const SHADOW: 0 | 1 | 2 | 3 | 'custom' = 1;
+export const SHADOW_DEFAULT: ShadowPresetCard = 1;
+export const SHADOW_LIST: ShadowPresetCard[] = [0, 1, 2, 3];
 
 export const DEFAULTARGS = {
-  title: TITLE,
-  subtitle: SUBTITLE,
+  align: ALIGN_DEFAULT,
+  bordered: BORDERED,
+  borderStyle: BORDER_STYLE_DEFAULT,
+  borderWidth: BORDER_WIDTH,
+  disabled: DISABLED,
   image: IMAGE,
   imageAlt: IMAGE_ALT,
-  variant: VARIANT,
-  layout: LAYOUT,
-  align: ALIGN,
-  size: SIZE,
+  interactive: INTERACTIVE,
+  layout: LAYOUT_DEFAULT,
   maxContentWidth: MAX_CONTENT_WIDTH,
   maxImageWidth: MAX_IMAGE_WIDTH,
-  bordered: BORDERED,
-  borderWidth: BORDER_WIDTH,
-  borderStyle: BORDER_STYLE,
-  borderColor: BORDER_COLOR,
-  interactive: INTERACTIVE,
-  disabled: DISABLED,
-  shadow: SHADOW,
+  shadow: SHADOW_DEFAULT,
+  size: SIZE_DEFAULT,
+  subtitle: SUBTITLE,
+  title: TITLE_DEFAULT,
 };

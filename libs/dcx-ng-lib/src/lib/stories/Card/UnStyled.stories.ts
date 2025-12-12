@@ -16,13 +16,12 @@ const meta: Meta<DcxNgCardComponent> = {
     title: 'Card Title',
     subtitle: 'Card Subtitle',
     image: null, // sin imagen
-    variant: 'outlined', // sin estilo
     layout: 'vertical',
     bordered: false, // sin borde
     borderWidth: 0,
     interactive: false,
     disabled: false,
-    size: 'md',
+    size: 'm',
     align: 'start',
   },
 };
