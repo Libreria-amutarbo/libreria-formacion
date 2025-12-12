@@ -1,29 +1,33 @@
 :host {
   display: block;
 
+  /* Tokens base */
   --card-bg: white;
   --card-border-color: #ccc;
   --card-border-style: solid;
   --card-border-width: 0;
   --card-radius: 8px;
 
-  --card-padding: 0.75rem;
-  --card-gap: 0.75rem;
+  --card-padding: 0.9rem; /* size-* lo sobrescribe */
+  --card-gap: 0.75rem; /* size-* lo sobrescribe */
 
   --card-max-content-width: 640px;
   --card-max-image-width: 100%;
 
-  --card-title-font-size: 1.1rem;
+  --card-title-font-size: 1.15rem; /* size-* lo sobrescribe */
   --card-title-font-weight: 600;
-  --card-subtitle-font-size: 0.9rem;
+  --card-subtitle-font-size: 0.95rem; /* size-* lo sobrescribe */
 
   --shadow-0: none;
   --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.1);
   --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.12);
   --shadow-3: 0 8px 24px rgba(0, 0, 0, 0.16);
+
+  /* Sombra: fuente única usada por .card-inner */
   --card-shadow: var(--shadow-0);
 }
 
+/* Wrapper del host */
 .dcx-card {
   display: block;
   background: transparent;
@@ -50,6 +54,7 @@
   }
 }
 
+/* Contenedor de la card */
 .card-inner {
   display: flex;
   flex-direction: column;
@@ -62,74 +67,76 @@
   border-radius: var(--card-radius);
   padding: var(--card-padding);
 
+  /* Sombra: fuente única */
   box-shadow: var(--card-shadow);
 
+  /* Importante para poder centrar con justify-content en horizontal */
+  width: 100%;
   max-width: var(--card-max-content-width);
 
-  &.align-center {
-    margin-inline: auto;
-  }
-  &.align-start {
-    margin-inline: 0;
-  }
-  &.align-end {
-    margin-left: auto;
-    margin-right: 0;
-  }
-
-  /* Layouts */
+  /* Orientación */
   &.layout-vertical {
     flex-direction: column;
   }
   &.layout-horizontal {
     flex-direction: row;
+    /* ⬅️ CENTRAMOS verticalmente imagen y body en horizontal */
     align-items: center;
-    ¡ ¡ &.align-start {
-      justify-content: flex-start;
-    }
-    &.align-center {
-      justify-content: center;
-    }
-    &.align-end {
-      justify-content: flex-end;
-    }
+    gap: var(--card-gap);
   }
 
-  ¡ &.variant-elevated {
-    box-shadow: var(--shadow-1);
-  }
+  /* Variantes (no pisan box-shadow directamente) */
   &.variant-outline {
-    /* opcional: estilos por defecto de outline */
+    /* estilos opcionales de outline */
   }
   &.variant-subtle {
     background: #f7f7f7;
     border-width: 0;
   }
 
-  ¡ &.align-center {
-    text-align: center;
-    align-items: center;
-  }
-  &.align-end {
-    text-align: right;
-    align-items: flex-end;
-  }
-  &.align-start {
-    text-align: left;
-    align-items: flex-start;
-  }
-
-  ¡ &.size-sm {
-    --card-padding: 0.5rem;
+  /* Tamaños (más notorios) */
+  &.size-sm {
+    --card-padding: 0.6rem;
+    --card-gap: 0.55rem;
+    --card-title-font-size: 1rem;
+    --card-subtitle-font-size: 0.85rem;
+    --card-radius: 6px;
+    --card-max-image-width: 92%;
   }
   &.size-md {
-    --card-padding: 0.75rem;
+    --card-padding: 0.9rem;
+    --card-gap: 0.75rem;
+    --card-title-font-size: 1.15rem;
+    --card-subtitle-font-size: 0.95rem;
+    --card-radius: 8px;
+    --card-max-image-width: 100%;
   }
   &.size-lg {
-    --card-padding: 1.25rem;
+    --card-padding: 1.5rem;
+    --card-gap: 1rem;
+    --card-title-font-size: 1.4rem;
+    --card-subtitle-font-size: 1.05rem;
+    --card-radius: 10px;
+    --card-max-image-width: 100%;
+  }
+
+  /* ===========================
+     Alineación DEL CONTENIDO
+     =========================== */
+
+  /* Distribución principal del row (izq/centro/der) */
+  &.layout-horizontal.align-start {
+    justify-content: flex-start;
+  }
+  &.layout-horizontal.align-center {
+    justify-content: center;
+  }
+  &.layout-horizontal.align-end {
+    justify-content: flex-end;
   }
 }
 
+/* Imagen */
 .image-container {
   display: flex;
 }
@@ -140,21 +147,23 @@
   border-radius: 6px;
 }
 
-.card-inner.layout-vertical.align-center .image-container {
-  justify-content: center;
+/* Hijos principales en horizontal:
+   que no crezcan si no se pide, para que exista “aire” lateral */
+.card-inner.layout-horizontal .image-container {
+  flex: 0 0 auto;
 }
-.card-inner.layout-vertical.align-start .image-container {
-  justify-content: flex-start;
+.card-inner.layout-horizontal .card-body {
+  flex: 0 0 auto;
 }
-.card-inner.layout-vertical.align-end .image-container {
-  justify-content: flex-end;
-}
+/* Si quieres que el body ocupe espacio restante, usa:
+.card-inner.layout-horizontal .card-body { flex: 1 1 auto; }
+*/
 
+/* Body y sub-bloques */
 .card-body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  flex: 1;
 
   .header {
     margin-bottom: 0.5rem;
@@ -167,8 +176,9 @@
   .footer {
     margin-top: 0.5rem;
     display: flex;
-    justify-content: flex-end;
+    width: 100%;
   }
+
   .title {
     margin: 0 0 0.5rem 0;
     font-size: var(--card-title-font-size);
@@ -181,6 +191,34 @@
   }
 }
 
+/* ⬆️ Alineación HORIZONTAL del contenido interno con alta especificidad
+   y aplicando a TODOS los hijos directos del body para que se reposicionen.
+   Esto evita que .header/.content/.footer mantengan posición "a la izquierda". */
+.card-inner.align-start .card-body > * {
+  align-self: flex-start;
+  text-align: left;
+}
+.card-inner.align-center .card-body > * {
+  align-self: center;
+  text-align: center;
+}
+.card-inner.align-end .card-body > * {
+  align-self: flex-end;
+  text-align: right;
+}
+
+/* Alineación de la imagen según align (vertical y horizontal) */
+.card-inner.align-start .image-container {
+  justify-content: flex-start;
+}
+.card-inner.align-center .image-container {
+  justify-content: center;
+}
+.card-inner.align-end .image-container {
+  justify-content: flex-end;
+}
+
+/* Hover conserva la sombra actual */
 .dcx-card.interactive:not(.disabled) .card-inner:hover {
   box-shadow: var(--card-shadow);
 }

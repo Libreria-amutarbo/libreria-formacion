@@ -29,10 +29,9 @@ export class DcxNgCardComponent {
   subtitle = input<string>('');
 
   /** Visual */
-  variant = input<Variant>('elevated');
+  variant = input<Variant>('elevated'); // 'elevated' | 'outlined' | 'subtle'
   layout = input<'vertical' | 'horizontal'>('vertical');
   align = input<'start' | 'center' | 'end'>('center');
-
   size = input<'sm' | 'md' | 'lg'>('md');
 
   maxContentWidth = input<string>('640px');
@@ -55,10 +54,10 @@ export class DcxNgCardComponent {
   content = input<TemplateRef<any> | null>(null);
   footer = input<TemplateRef<any> | null>(null);
 
-  /** Salida (activación) */
+  /** Eventos */
   cardClick = output<MouseEvent | KeyboardEvent>();
 
-  /** IDs A11y (auto) */
+  /** IDs A11y */
   headingId = computed(() =>
     this.title() ? this._id('card-title') : undefined,
   );
@@ -76,6 +75,7 @@ export class DcxNgCardComponent {
     return r === 'button' || r === 'link' ? 0 : null;
   });
 
+  /** Clases que gobiernan layout, align, size y variant */
   innerClassMap = computed<Record<string, boolean>>(() => ({
     'layout-vertical': this.layout() === 'vertical',
     'layout-horizontal': this.layout() === 'horizontal',
@@ -93,46 +93,46 @@ export class DcxNgCardComponent {
     'size-lg': this.size() === 'lg',
   }));
 
+  /**
+   * Variables CSS inline:
+   * - Sombra: fuente única (--card-shadow) para evitar conflictos.
+   * - Regla: si shadow=0 → preset según variant; si 1/2/3 o 'custom' → respetar.
+   */
   innerStyleVars = computed(() => {
-    // Borde: si no está bordered, width = 0
+    // Borde: si no está bordered, width = 0; outlined => 1px si no hay bordered
     let widthPx = this.bordered() ? this.borderWidth() : 0;
     if (this.variant() === 'outlined' && !this.bordered()) widthPx = 1;
 
-    // Sombra: preset (CSS var) o literal custom
+    // Sombra efectiva
     const sh = this.shadow();
-    const shadowVar =
-      sh === 'custom' ? this.shadowValue() : `var(--shadow-${sh})`;
+    let shadowVar = 'var(--shadow-0)';
+
+    if (sh === 'custom') {
+      shadowVar = this.shadowValue();
+    } else {
+      shadowVar = `var(--shadow-${sh})`;
+      if (sh === 0) {
+        const v = this.variant();
+        if (v === 'elevated') shadowVar = 'var(--shadow-1)'; // elevated por defecto con sombra 1
+        if (v === 'subtle') shadowVar = 'var(--shadow-0)'; // subtle sin sombra
+        // outlined: mantiene 0 si no se indica
+      }
+    }
 
     return {
       '--card-border-width': `${widthPx}px`,
       '--card-border-style': this.borderStyle(),
       '--card-border-color': this.borderColor(),
-      '--card-shadow': shadowVar,
 
-      // límites de ancho (ahora globales)
+      '--card-shadow': shadowVar, // ← ÚNICA fuente de box-shadow
+
       '--card-max-content-width': this.maxContentWidth(),
       '--card-max-image-width': this.maxImageWidth(),
-
-      // tipografía según size
-      '--card-title-font-size':
-        this.size() === 'sm'
-          ? '1rem'
-          : this.size() === 'lg'
-            ? '1.25rem'
-            : '1.1rem',
-      '--card-subtitle-font-size':
-        this.size() === 'sm'
-          ? '0.85rem'
-          : this.size() === 'lg'
-            ? '1rem'
-            : '0.9rem',
-      '--card-title-font-weight': '600',
     } as Record<string, string>;
   });
 
   onHostClick(event: MouseEvent) {
     if (this.disabled()) return;
-
     if (this.interactive()) this.cardClick.emit(event);
   }
 

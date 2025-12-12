@@ -7,6 +7,9 @@ const meta: Meta<DcxNgCardComponent> = {
   title: 'DCXLibrary/Card/Class based',
   component: DcxNgCardComponent,
   tags: ['autodocs'],
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     title: {
       description: 'Título principal del card.',

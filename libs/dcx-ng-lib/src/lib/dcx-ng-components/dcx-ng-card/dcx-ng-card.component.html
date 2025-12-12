@@ -22,30 +22,30 @@
     }
 
     <div class="card-body">
-      <div class="header">
-        @if (header()) {
-          <ng-container *ngTemplateOutlet="header()!"></ng-container>
-        } @else {
+      @if (header()) {
+        <ng-container [ngTemplateOutlet]="header()"></ng-container>
+      }
+
+      @if (!header()) {
+        <div class="header">
           @if (title()) {
             <h3 class="title" [id]="headingId()">{{ title() }}</h3>
           }
           @if (subtitle()) {
             <p class="subtitle">{{ subtitle() }}</p>
           }
-        }
-      </div>
+        </div>
+      }
 
       <div class="content" [id]="descId()">
         @if (content()) {
-          <ng-container *ngTemplateOutlet="content()!"></ng-container>
-        } @else {
-          <ng-content></ng-content>
+          <ng-container [ngTemplateOutlet]="content()"></ng-container>
         }
       </div>
 
       @if (footer()) {
         <div class="footer">
-          <ng-container *ngTemplateOutlet="footer()!"></ng-container>
+          <ng-container [ngTemplateOutlet]="footer()"></ng-container>
         </div>
       }
     </div>
