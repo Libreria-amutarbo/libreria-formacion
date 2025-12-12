@@ -11,3 +11,25 @@ h1 {
   margin-top: 16px;
   margin-left: 10px;
 }
+
+.form-control-example {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.example-button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
