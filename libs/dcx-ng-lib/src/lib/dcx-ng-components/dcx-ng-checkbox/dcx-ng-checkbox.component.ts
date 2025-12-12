@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-  CheckBoxVariant,
   CheckboxOption,
   DcxSize,
 } from '../../core/interfaces';
@@ -33,7 +32,7 @@ import {
 export class DcxNgCheckboxComponent implements ControlValueAccessor {
   readonly label = input<string>('');
   readonly labelPosition = input<'left' | 'right'>('right');
-  readonly color = input<CheckBoxVariant | string>('primary');
+  readonly color = input<string>('#1976d2');
   readonly checked = input<boolean>(false);
   readonly disabled = input<boolean>(false);
   readonly errorMessage = input<string>('');
@@ -63,7 +62,6 @@ export class DcxNgCheckboxComponent implements ControlValueAccessor {
   readonly containerClasses = computed(() => {
     const classes = ['dcx-checkbox-container'];
 
-    if (this.isPresetColor()) classes.push(`color-${this.color()}`);
     if (!this.isGroup() && this._internalChecked()) classes.push('checked');
     if (this.disabled() || this._isDisabledByForm()) classes.push('disabled');
 
@@ -71,13 +69,7 @@ export class DcxNgCheckboxComponent implements ControlValueAccessor {
     return classes.join(' ');
   });
 
-  readonly isPresetColor = computed(() =>
-    ['primary', 'accent', 'error'].includes(this.color() as string),
-  );
-
-  readonly customColorStyle = computed(() =>
-    this.isPresetColor() ? null : (this.color() as string),
-  );
+  readonly customColorStyle = computed(() => this.color());
 
   constructor() {
     effect(() => {

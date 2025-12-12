@@ -14,9 +14,9 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             control: { type: 'text' },
             description: 'Texto del label del checkbox',
             table: {
-                category: 'Atributos',
+                category: 'Attributes',
                 type: { summary: 'string' },
-                defaultValue: { summary: '' },
+                defaultValue: { summary: "-" },
             },
         },
         labelPosition: {
@@ -25,7 +25,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             options: ['left', 'right'],
             description: 'Posición del label respecto al checkbox',
             table: {
-                category: 'Atributos',
+                category: 'Attributes',
                 type: { summary: "'left' | 'right'" },
                 defaultValue: { summary: 'right' },
             },
@@ -33,11 +33,11 @@ const meta: Meta<DcxNgCheckboxComponent> = {
         color: {
             name: 'color',
             control: 'color',
-            description: 'Color del checkbox (preset o personalizado)',
+            description: 'Color del checkbox (personalizado)',
             table: {
-                category: 'Atributos',
-                type: { summary: "CheckBoxVariant | string ('primary' | 'accent' | 'error' | hex)" },
-                defaultValue: { summary: 'primary' },
+                category: 'Attributes',
+                type: { summary: 'string (hex color)' },
+                defaultValue: { summary: '#1976d2' },
             },
         },
         size: {
@@ -46,7 +46,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             options: ['s', 'm', 'l', 'xl'],
             description: 'Tamaño del checkbox según sistema de espaciado',
             table: {
-                category: 'Atributos',
+                category: 'Attributes',
                 type: { summary: "DcxSize ('s' | 'm' | 'l' | 'xl')" },
                 defaultValue: { summary: 'm' },
             },
@@ -56,7 +56,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             control: { type: 'boolean' },
             description: 'Estado marcado/desmarcado del checkbox',
             table: {
-                category: 'Atributos',
+                category: 'Attributes',
                 type: { summary: 'boolean' },
                 defaultValue: { summary: 'false' },
             },
@@ -66,7 +66,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             control: { type: 'boolean' },
             description: 'Deshabilita la interacción con el checkbox',
             table: {
-                category: 'Atributos',
+                category: 'Attributes',
                 type: { summary: 'boolean' },
                 defaultValue: { summary: 'false' },
             },
@@ -76,9 +76,9 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             control: { type: 'text' },
             description: 'Mensaje de error mostrado cuando el checkbox no está marcado',
             table: {
-                category: 'Atributos',
+                category: 'Attributes',
                 type: { summary: 'string' },
-                defaultValue: { summary: '' },
+                defaultValue: { summary: '-' },
             },
         },
         groupLabel: {
@@ -86,9 +86,9 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             control: { type: 'text' },
             description: 'Label del grupo de checkboxes',
             table: {
-                category: 'Atributos - Grupo',
+                category: 'Attributes - Group',
                 type: { summary: 'string' },
-                defaultValue: { summary: '' },
+                defaultValue: { summary: '-' },
             },
         },
         options: {
@@ -96,7 +96,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             control: { type: 'object' },
             description: 'Array de opciones para grupo de checkboxes',
             table: {
-                category: 'Atributos - Grupo',
+                category: 'Attributes - Group',
                 type: { summary: 'CheckboxOption[]' },
                 defaultValue: { summary: '[]' },
             },
@@ -106,7 +106,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             control: { type: 'object' },
             description: 'Array de valores seleccionados en el grupo',
             table: {
-                category: 'Atributos - Grupo',
+                category: 'Attributes - Group',
                 type: { summary: 'string[]' },
                 defaultValue: { summary: '[]' },
             },
@@ -116,7 +116,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             control: { type: 'boolean' },
             description: 'Permite selección múltiple (true) o única (false) en grupos',
             table: {
-                category: 'Atributos - Grupo',
+                category: 'Attributes - Group',
                 type: { summary: 'boolean' },
                 defaultValue: { summary: 'true' },
             },
@@ -126,7 +126,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             action: 'checkedChange',
             description: 'Se emite cuando cambia el estado checked del checkbox individual',
             table: {
-                category: 'Eventos',
+                category: 'Events',
                 type: { summary: '(checked: boolean) => void' },
                 defaultValue: { summary: '-' },
             },
@@ -136,7 +136,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             action: 'selectionChange',
             description: 'Se emite cuando cambia la selección en un grupo de checkboxes',
             table: {
-                category: 'Eventos',
+                category: 'Events',
                 type: { summary: '(selectedValues: string[]) => void' },
                 defaultValue: { summary: '-' },
             },
@@ -144,7 +144,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
     },
     args: {
         label: 'Acepto los términos',
-        color: 'primary',
+        color: '#1976d2',
         checked: false,
         disabled: false,
         size: 'm',
@@ -159,7 +159,7 @@ type Story = StoryObj<DcxNgCheckboxComponent>;
 export const Default: Story = {
     args: {
         label: 'Acepto los términos',
-        color: 'primary',
+        color: '#1976d2',
         checked: false,
         errorMessage: '',
         disabled: false,
@@ -171,16 +171,39 @@ export const Default: Story = {
 export const Primary: Story = {
     args: {
         label: 'Checkbox Primary',
-        color: 'primary',
+        labelPosition: 'left',
+        color: '#1976d2',
         checked: false,
         size: 'm',
+    },
+};
+
+export const DisabledCheckbox: Story = {
+    args: {
+        label: 'Checkbox Disabled',
+        color: '#e91e63',
+        checked: true,
+        disabled: true,
+        size: 'm',
+    },
+};
+
+export const WithErrorMessage: Story = {
+    args: {
+        label: 'Acepto los términos',
+        color: '#ef4444',
+        checked: false,
+        errorMessage: 'Debes aceptar los términos para continuar',
+        disabled: false,
+        size: 'm',
+        labelPosition: 'right',
     },
 };
 
 export const GroupMultipleSelection: Story = {
     args: {
         groupLabel: 'Selecciona tus intereses',
-        color: 'primary',
+        color: '#1976d2',
         multiple: true,
         disabled: false,
         size: 'm',
@@ -196,7 +219,7 @@ export const GroupMultipleSelection: Story = {
 export const GroupSingleSelection: Story = {
     args: {
         groupLabel: 'Selecciona tu género favorito',
-        color: 'accent',
+        color: '#e91e63',
         multiple: false,
         disabled: false,
         size: 'm',
@@ -213,7 +236,7 @@ export const GroupWithDisabledOptions: Story = {
     name: 'Grupo con opciones deshabilitadas',
     args: {
         groupLabel: '¿Qué deportes te gustan?',
-        color: 'primary',
+        color: '#1976d2',
         multiple: true,
         disabled: false,
         size: 'm',

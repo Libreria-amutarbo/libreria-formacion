@@ -51,18 +51,6 @@
     border-color: var(--color, #1976d2);
   }
 
-  &.color-primary {
-    --color: #1976d2;
-  }
-
-  &.color-accent {
-    --color: #e91e63;
-  }
-
-  &.color-error {
-    --color: #ef4444;
-  }
-
   &.disabled {
     background: #f5f5f5;
   }
