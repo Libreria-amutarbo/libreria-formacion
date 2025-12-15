@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 
 import {
   ALIGN_DEFAULT,
   ALIGN_LIST,
+  DcxNgButtonComponent,
   DcxNgCardComponent,
   LAYOUT_DEFAULT,
   LAYOUT_LIST,
@@ -19,6 +20,11 @@ import {
 const meta: Meta<DcxNgCardComponent> = {
   title: 'DCXLibrary/Card/Class based',
   component: DcxNgCardComponent,
+  decorators: [
+    moduleMetadata({
+      imports: [DcxNgButtonComponent],
+    }),
+  ],
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
@@ -154,7 +160,7 @@ export const VerticalCenterImg50: Story = {
     layout: 'vertical',
     align: 'center',
     maxContentWidth: '560px',
-    maxImageWidth: '50%', // imagen al 50% y centrada
+    maxImageWidth: '50%',
   },
 };
 
@@ -162,7 +168,7 @@ export const HorizontalCenterMax800: Story = {
   args: {
     layout: 'horizontal',
     align: 'center',
-    maxContentWidth: '800px', // bloque centrado y limitado también en horizontal
+    maxContentWidth: '800px',
     image: 'https://picsum.photos/360/240',
   },
 };
@@ -173,6 +179,16 @@ export const HorizontalEnd: Story = {
     align: 'end',
     maxContentWidth: '960px',
     image: 'https://picsum.photos/360/240',
+  },
+};
+
+export const DisabledCard: Story = {
+  args: {
+    layout: 'horizontal',
+    align: 'end',
+    maxContentWidth: '960px',
+    image: 'https://picsum.photos/360/240',
+    disabled: true,
   },
 };
 
@@ -191,17 +207,14 @@ export const WithSlotsVertical: Story = {
       <ng-template #contentTpl>
         <div class="custom-content">
           <p>Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
-          <ul>
-            <li>Elemento 1</li>
-            <li>Elemento 2</li>
-          </ul>
+          
         </div>
       </ng-template>
 
       <ng-template #footerTpl>
         <div class="custom-footer">
-          <button type="button">Acción primaria</button>
-          <button type="button" aria-label="Acción secundaria">Secundaria</button>
+          <dcx-ng-button type="button"  label="Cancelar" variant="secondary" size="s" style="margin-right:0.5rem"></dcx-ng-button>
+          <dcx-ng-button type="button" aria-label="Acción secundaria"  label="Aceptar" size="s"></dcx-ng-button>
         </div>
       </ng-template>
 
@@ -254,17 +267,15 @@ export const WithSlotsHorizontal: Story = {
       <ng-template #contentTpl>
         <div class="custom-content">
           <p>Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
-          <ul>
-            <li>Elemento 1</li>
-            <li>Elemento 2</li>
-          </ul>
+          
         </div>
       </ng-template>
 
       <ng-template #footerTpl>
         <div class="custom-footer">
-          <button type="button">Acción primaria</button>
-          <button type="button" aria-label="Acción secundaria">Secundaria</button>
+        
+          <dcx-ng-button type="button"  label="Cancelar" variant="secondary" size="s"  style="margin-right:0.5rem"></dcx-ng-button>
+          <dcx-ng-button type="button" aria-label="Acción secundaria" label="Aceptar" size="s" ></dcx-ng-button>
         </div>
       </ng-template>
 

@@ -8,8 +8,22 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BorderStyleCard, ShadowPresetCard } from '../../core/interfaces/card';
-import { TITLE_DEFAULT } from '../../core/mock/card';
+import {
+  BORDER_STYLE_DEFAULT,
+  BORDER_WIDTH,
+  BORDERED,
+  DISABLED,
+  IMAGE,
+  IMAGE_ALT,
+  INTERACTIVE,
+  MAX_CONTENT_WIDTH,
+  MAX_IMAGE_WIDTH,
+  SHADOW_DEFAULT,
+  SUBTITLE,
+  TITLE_DEFAULT,
+} from '../../core/mock/card';
 import { DcxAlign, DcxLayout, DcxSize } from '../../core/interfaces';
+import { LAYOUT_DEFAULT, ALIGN_DEFAULT, SIZE_DEFAULT } from '../../core/mock';
 
 @Component({
   selector: 'dcx-ng-card',
@@ -20,26 +34,26 @@ import { DcxAlign, DcxLayout, DcxSize } from '../../core/interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgCardComponent {
-  image = input<string | null>(null);
-  imageAlt = input<string>('Imagen de la card');
+  image = input<string | null>(IMAGE);
+  imageAlt = input<string>(IMAGE_ALT);
   title = input<string>(TITLE_DEFAULT);
-  subtitle = input<string>('');
+  subtitle = input<string>(SUBTITLE);
 
-  layout = input<DcxLayout>('vertical');
-  align = input<DcxAlign>('center');
-  size = input<DcxSize>('m');
+  layout = input<DcxLayout>(LAYOUT_DEFAULT);
+  align = input<DcxAlign>(ALIGN_DEFAULT);
+  size = input<DcxSize>(SIZE_DEFAULT);
 
-  maxContentWidth = input<string>('640px');
-  maxImageWidth = input<string>('100%');
+  maxContentWidth = input<string>(MAX_CONTENT_WIDTH);
+  maxImageWidth = input<string>(MAX_IMAGE_WIDTH);
 
-  bordered = input<boolean>(false);
-  borderWidth = input<number>(1);
-  borderStyle = input<BorderStyleCard>('solid');
+  bordered = input<boolean>(BORDERED);
+  borderWidth = input<number>(BORDER_WIDTH);
+  borderStyle = input<BorderStyleCard>(BORDER_STYLE_DEFAULT);
 
-  shadow = input<ShadowPresetCard>(0);
+  shadow = input<ShadowPresetCard>(SHADOW_DEFAULT);
 
-  interactive = input<boolean>(false);
-  disabled = input<boolean>(false);
+  interactive = input<boolean>(INTERACTIVE);
+  disabled = input<boolean>(DISABLED);
 
   header = input<TemplateRef<any> | null>(null);
   content = input<TemplateRef<any> | null>(null);
@@ -72,10 +86,6 @@ export class DcxNgCardComponent {
     'size-l': this.size() === 'l',
   }));
 
-  /**
-   * Mapea inputs a variables CSS consumidas en el SCSS.
-   * Mantiene compatibilidad con las vars existentes del :host.
-   */
   innerStyleVars = computed<Record<string, string | number>>(() => ({
     '--card-max-content-width': this.maxContentWidth(),
     '--card-max-image-width': this.maxImageWidth(),

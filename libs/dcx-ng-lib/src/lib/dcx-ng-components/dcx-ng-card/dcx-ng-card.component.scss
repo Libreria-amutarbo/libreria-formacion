@@ -4,13 +4,6 @@
 :host {
   --card-border-style: solid;
   --card-border-width: 0;
-  --card-radius: 8px;
-
-  --card-padding: 0.9rem;
-  --card-gap: 0.75rem;
-
-  --card-max-content-width: 640px;
-  --card-max-image-width: 100%;
 
   --shadow-0: none;
   --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -122,7 +115,8 @@
   flex: 0 0 auto;
 }
 .card-inner.layout-horizontal .card-body {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .card-body {
@@ -130,18 +124,25 @@
   flex-direction: column;
   gap: 0.5rem;
 
+  min-width: 0;
+
   .header {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
   }
   .content {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    max-width: 100%;
+    min-width: 0;
   }
   .footer {
-    margin-top: 0.5rem;
+    margin-top: 1.5rem;
     display: flex;
     width: 100%;
+    gap: map.get($spacing, 'inline-s');
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .title {
@@ -153,6 +154,21 @@
     margin: 0;
     font-size: map.get($font-size, 'body');
     color: map.get($color, 'texto-secondary');
+    font-weight: map.get($weight, 'semibold');
+  }
+
+  .header ::ng-deep h3,
+  .header ::ng-deep .title {
+    margin: 0 0 0.5rem 0;
+    font-size: map.get($font-size, 'h3');
+    font-weight: map.get($weight, 'semibold');
+  }
+  .header ::ng-deep p,
+  .header ::ng-deep .subtitle {
+    margin: 0;
+    font-size: map.get($font-size, 'body');
+    color: map.get($color, 'texto-secondary');
+    font-weight: map.get($weight, 'semibold');
   }
 }
 
@@ -167,6 +183,16 @@
 .card-inner.align-end .card-body > * {
   align-self: flex-end;
   text-align: right;
+}
+
+.card-inner.align-start .card-body .footer {
+  justify-content: flex-start;
+}
+.card-inner.align-center .card-body .footer {
+  justify-content: center;
+}
+.card-inner.align-end .card-body .footer {
+  justify-content: flex-end;
 }
 
 .card-inner.align-start .image-container {
