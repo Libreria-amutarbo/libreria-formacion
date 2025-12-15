@@ -112,7 +112,7 @@ export const SearchShowcase: Story = {
       <div style="width:360px;">
         <!-- Basic Search -->
         <section style="margin-bottom:24px;">
-          <h4>Basic Search</h4>
+          <h4 style="margin-bottom:5px;">Basic Search</h4>
           <dcx-ng-search
             placeholder="Buscar productos...">
           </dcx-ng-search>
@@ -120,7 +120,7 @@ export const SearchShowcase: Story = {
 
         <!-- With Clear Button -->
         <section style="margin-bottom:24px;">
-          <h4>With Clear Button</h4>
+          <h4 style="margin-bottom:5px;">With Clear Button</h4>
           <dcx-ng-search
             [showClear]="true"
             placeholder="Con botón limpiar...">
@@ -129,7 +129,7 @@ export const SearchShowcase: Story = {
 
         <!-- With Dropdown -->
         <section style="margin-bottom:24px;">
-          <h4>With Dropdown</h4>
+          <h4 style="margin-bottom:5px;">With Dropdown</h4>
           <dcx-ng-search
             [dropdown]="true"
             [showClear]="true"
@@ -139,23 +139,9 @@ export const SearchShowcase: Story = {
           </dcx-ng-search>
         </section>
 
-        <!-- With Dropdown + All Features -->
-        <section style="margin-bottom:24px;">
-          <h4>Complete Example</h4>
-          <dcx-ng-search
-            [dropdown]="true"
-            [showClear]="true"
-            [items]="personItems"
-            placeholder="Búsqueda completa..."
-            (searchChange)="onSearchChange($event)"
-            (searchOutput)="onSearch($event)"
-            (itemSelected)="onItemSelected($event)">
-          </dcx-ng-search>
-        </section>
-
         <!-- Small Size -->
         <section style="margin-bottom:24px;">
-          <h4>Small Size</h4>
+          <h4 style="margin-bottom:5px;">Small Size</h4>
           <dcx-ng-search
             size="s"
             [showClear]="true"
@@ -165,7 +151,7 @@ export const SearchShowcase: Story = {
 
         <!-- Medium Size (default) -->
         <section style="margin-bottom:24px;">
-          <h4>Medium Size</h4>
+          <h4 style="margin-bottom:5px;">Medium Size</h4>
           <dcx-ng-search
             size="m"
             [showClear]="true"
@@ -175,7 +161,7 @@ export const SearchShowcase: Story = {
 
         <!-- Large Size -->
         <section style="margin-bottom:24px;">
-          <h4>Large Size</h4>
+          <h4 style="margin-bottom:5px;">Large Size</h4>
           <dcx-ng-search
             size="l"
             [showClear]="true"
@@ -185,7 +171,7 @@ export const SearchShowcase: Story = {
 
         <!-- Disabled -->
         <section style="margin-bottom:24px;">
-          <h4>Disabled State</h4>
+          <h4 style="margin-bottom:5px;">Disabled State</h4>
           <dcx-ng-search
             [disabled]="true"
             placeholder="Campo deshabilitado...">
@@ -231,7 +217,7 @@ export const AllSizes: Story = {
     template: `
       <div style="width:360px;">
         <section style="margin-bottom:24px;">
-          <h4>Small Size</h4>
+          <h4 style="margin-bottom:5px;">Small Size</h4>
           <dcx-ng-search
             size="s"
             [showClear]="true"
@@ -241,7 +227,7 @@ export const AllSizes: Story = {
         </section>
 
         <section style="margin-bottom:24px;">
-          <h4>Medium Size (Default)</h4>
+          <h4 style="margin-bottom:5px;">Medium Size (Default)</h4>
           <dcx-ng-search
             size="m"
             [showClear]="true"
@@ -251,7 +237,7 @@ export const AllSizes: Story = {
         </section>
 
         <section style="margin-bottom:24px;">
-          <h4>Large Size</h4>
+          <h4 style="margin-bottom:5px;">Large Size</h4>
           <dcx-ng-search
             size="l"
             [showClear]="true"
@@ -282,64 +268,4 @@ export const DisabledState: Story = {
   }),
 };
 
-export const CompleteExample: Story = {
-  args: {
-    placeholder: 'Búsqueda completa con todas las características...',
-    dropdown: true,
-    showClear: true,
-    size: 'm',
-    items: personItems,
-  },
-  render: (args) => ({
-    props: {
-      ...args,
-      searchResult: '',
-      selectedPerson: null as SearchItem | null,
-      onSearchChange: function(value: string) {
-      },
-      onSearch: function(this: any, value: string) {
-        this['searchResult'] = value;
-      },
-      onItemSelected: function(this: any, item: SearchItem) {
-        this['selectedPerson'] = item;
-      },
-    },
-    template: `
-      <div style="width:500px;">
-        <h3 style="margin-bottom:16px;">Ejemplo Completo</h3>
-        <p style="margin-bottom:16px; color:#666; font-size:14px;">
-          Este ejemplo muestra todas las características del componente en acción:
-          dropdown inteligente, clear button, y diferentes tamaños.
-        </p>
-        
-        <dcx-ng-search
-          [placeholder]="placeholder"
-          [dropdown]="dropdown"
-          [showClear]="showClear"
-          [size]="size"
-          [items]="items"
-          [disabled]="disabled"
-          (searchChange)="onSearchChange($event)"
-          (searchOutput)="onSearch($event)"
-          (itemSelected)="onItemSelected($event)">
-        </dcx-ng-search>
 
-        <div style="margin-top:16px; padding:12px; background:#f5f5f5; border-radius:6px;">
-          <div style="margin-bottom:8px;">
-            <strong>Último resultado de búsqueda:</strong> 
-            <span>{{ searchResult || '(ninguno)' }}</span>
-          </div>
-          <div>
-            <strong>Persona seleccionada:</strong> 
-            <span>{{ selectedPerson?.label || '(ninguna)' }}</span>
-          </div>
-        </div>
-
-        <div style="margin-top:16px; padding:12px; background:#fff3cd; border-radius:6px; font-size:13px;">
-          <strong>💡 Nota:</strong> Para buscar, usa el botón de lupa. 
-          La tecla Enter no está soportada debido a las limitaciones de dcx-ng-input.
-        </div>
-      </div>
-    `,
-  }),
-};
