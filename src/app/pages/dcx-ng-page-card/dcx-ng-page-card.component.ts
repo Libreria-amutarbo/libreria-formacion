@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   DcxNgButtonComponent,
   DcxNgCardComponent,
+  DEFAULTARGS,
 } from '@dcx-ng-components/dcx-ng-lib';
-import { DEFAULTARGS } from 'src/app/core/mocks/card';
 
 @Component({
   selector: 'app-dcx-ng-page-card',
