@@ -17,16 +17,6 @@ const meta: Meta<DcxNgSliderComponent> = {
         component: `
 El componente Slider permite seleccionar valores numéricos de forma visual, tanto horizontal como vertical.
 Soporta personalización de paso, orientación y muestra el valor en tiempo real.
-
-### Uso básico
-\`\`\`html
-<dcx-ng-slider [value]="10" [step]="1"></dcx-ng-slider>
-\`\`\`
-
-### Vertical
-\`\`\`html
-<dcx-ng-slider [value]="50" [step]="5" [vertical]="true"></dcx-ng-slider>
-\`\`\`
         `,
       },
     },
@@ -38,6 +28,7 @@ Soporta personalización de paso, orientación y muestra el valor en tiempo real
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: '0' },
+        category: 'Attributes'
       },
     },
     step: {
@@ -46,6 +37,7 @@ Soporta personalización de paso, orientación y muestra el valor en tiempo real
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: '1' },
+        category: 'Attributes'
       },
     },
   },

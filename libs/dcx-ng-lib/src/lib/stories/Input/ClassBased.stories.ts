@@ -17,29 +17,36 @@ const meta: Meta<DcxNgInputComponent> = {
         DcxInputType.PASSWORD,
         DcxInputType.SEARCH,
         DcxInputType.TEL,
-        DcxInputType.URL],
+        DcxInputType.URL
+      ],
       defaultValue: DcxInputType.TEXT,
+      table: { category: 'Attributes' }
     },
     size: {
       control: 'select',
       options: ['s', 'm', 'l', 'xl'],
       defaultValue: 'm',
+      table: { category: 'Attributes' }
     },
     placeholder: {
       control: 'text',
       defaultValue: null,
+      table: { category: 'Attributes' }
     },
     disabled: {
       control: 'boolean',
       defaultValue: false,
+      table: { category: 'Attributes' }
     },
     required: {
       control: 'boolean',
       defaultValue: false,
+      table: { category: 'Attributes' }
     },
     label: {
       control: 'text',
       defaultValue: null,
+      table: { category: 'Attributes' }
     }
   },
 };

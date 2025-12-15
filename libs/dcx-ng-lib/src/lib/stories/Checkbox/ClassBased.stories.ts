@@ -10,10 +10,12 @@ const meta: Meta<DcxNgCheckboxComponent> = {
             control: 'select',
             options: ['s', 'm', 'l', 'xl',],
             description: 'Tamaño del checkbox',
+            table: { category: 'Attributes' }
         },
         color: {
             control: 'color',
             description: 'Color del checkbox',
+            table: { category: 'Attributes' }
         },
     },
 };

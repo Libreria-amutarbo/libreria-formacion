@@ -12,6 +12,7 @@ const meta: Meta<DcxNgMessageComponent> = {
       imports: [DcxNgIconComponent],
     }),
   ],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -19,26 +20,6 @@ const meta: Meta<DcxNgMessageComponent> = {
         component: `
 El componente Message proporciona una manera consistente de mostrar mensajes al usuario.
 Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opciones de personalización.
-
-### Uso básico
-\`\`\`html
-<dcx-ng-message 
-  body="Mensaje de ejemplo"
-  type="notification">
-</dcx-ng-message>
-\`\`\`
-
-### Con todas las opciones
-\`\`\`html
-<dcx-ng-message 
-  body="Mensaje con todas las opciones"
-  type="success"
-  title="Título del mensaje"
-  link="https://ejemplo.com"
-  [icon]="true"
-  [showClose]="true">
-</dcx-ng-message>
-\`\`\`
         `,
       },
     },
@@ -50,6 +31,7 @@ Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opcione
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: '-' },
+        category: 'Attributes'
       },
     },
     type: {
@@ -59,6 +41,7 @@ Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opcione
       table: {
         type: { summary: 'MessageType' },
         defaultValue: { summary: 'notification' },
+        category: 'Attributes'
       },
     },
     title: {
@@ -67,6 +50,7 @@ Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opcione
       table: {
         type: { summary: 'string | undefined' },
         defaultValue: { summary: 'undefined' },
+        category: 'Attributes'
       },
     },
     link: {
@@ -75,6 +59,7 @@ Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opcione
       table: {
         type: { summary: 'string | undefined' },
         defaultValue: { summary: 'undefined' },
+        category: 'Attributes'
       },
     },
     icon: {
@@ -83,6 +68,7 @@ Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opcione
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
+        category: 'Attributes'
       },
     },
     showClose: {
@@ -91,6 +77,7 @@ Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opcione
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
+        category: 'Attributes'
       },
     },
   },
