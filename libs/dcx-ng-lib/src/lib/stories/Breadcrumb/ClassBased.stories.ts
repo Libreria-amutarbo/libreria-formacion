@@ -1,8 +1,13 @@
-// ClassBased.stories.ts (fix)
 import {
-  DcxBreadcrumbItem,
-  DcxBreadCrumbItemMock,
+  DcxBreadCrumbDisabled,
+  DcxBreadCrumbSlashIcon,
+  DcxBreadCrumbIconList,
+  DcxBreadCrumbItemDefault,
+  DcxBreadCrumbItemWithIcon,
   DcxNgBreadcrumbComponent,
+  DcxBreadCrumbArrowhIcon,
+  DcxBreadChevronSlashIcon,
+  DcxBreadCrumbCurrentPage,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
 
@@ -10,28 +15,90 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
   title: 'DCXLibrary/Breadcrumb/Class based',
   component: DcxNgBreadcrumbComponent,
   tags: ['autodocs'],
-  argTypes: {
-    items: { control: { type: 'object' } },
+  parameters: {
+    controls: { expanded: true },
   },
-  args: { items: DcxBreadCrumbItemMock },
+  argTypes: {
+    items: {
+      name: 'items',
+      control: { type: 'object' },
+      description: 'Items del breadcrumb',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxBreadcrumbItem[]' },
+        defaultValue: { summary: 'DcxBreadCrumbItemDefault' },
+      },
+    },
+    iconSeparator: {
+      name: 'iconSeparator',
+      control: 'select',
+      options: DcxBreadCrumbIconList,
+      description:
+        'Opciones de iconos para separar los elementos del breadcrumb',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxBreadCrumbSeparatorIcons (string)' },
+        defaultValue: { summary: 'slash-lg' },
+      },
+    },
+    itemSelected: {
+      name: 'itemSelected',
+      action: 'itemSelected',
+      description: 'Se emite al hacer clic en un item',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(item: DcxBreadcrumbItem) => void' },
+        defaultValue: { summary: '-' },
+      },
+    },
+  },
+  args: {
+    items: DcxBreadCrumbItemDefault,
+    iconSeparator: DcxBreadCrumbSlashIcon,
+  },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgBreadcrumbComponent>;
 
-export const ClassBasedDemo: Story = {
-  render: args => {
-    const pathText = (args.items ?? [])
-      .map((i: DcxBreadcrumbItem) => i.label)
-      .join(' / ');
+export const ClassBased: Story = {
+  args: {
+    items: DcxBreadCrumbItemDefault,
+    iconSeparator: DcxBreadCrumbSlashIcon,
+  },
+};
 
-    return {
-      props: { ...args, pathText, },
-      template: `
-        <div style="display:grid; gap:8px; max-width:640px;">
-          <dcx-ng-breadcrumb [items]="items"></dcx-ng-breadcrumb>
-        </div>
-      `,
-    };
+export const WithIconInText: Story = {
+  args: {
+    items: DcxBreadCrumbItemWithIcon,
+    iconSeparator: DcxBreadCrumbSlashIcon,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    items: DcxBreadCrumbDisabled,
+    iconSeparator: DcxBreadCrumbSlashIcon,
+  },
+};
+
+export const ArrowIcon: Story = {
+  args: {
+    items: DcxBreadCrumbItemDefault,
+    iconSeparator: DcxBreadCrumbArrowhIcon,
+  },
+};
+
+export const ChevronIcon: Story = {
+  args: {
+    items: DcxBreadCrumbItemDefault,
+    iconSeparator: DcxBreadChevronSlashIcon,
+  },
+};
+
+export const CurrentPage: Story = {
+  args: {
+    items: DcxBreadCrumbCurrentPage,
+    iconSeparator: DcxBreadCrumbSlashIcon,
   },
 };

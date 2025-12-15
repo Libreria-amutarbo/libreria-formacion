@@ -53,3 +53,9 @@
   color: var(--dcx-muted);
   user-select: none;
 }
+
+.disabled {
+  pointer-events: none; /* no permite clics */
+  opacity: 0.5; /* aspecto deshabilitado */
+  cursor: not-allowed;
+}

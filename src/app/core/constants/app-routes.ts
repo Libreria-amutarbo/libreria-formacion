@@ -23,5 +23,6 @@ export const APP_ROUTES = {
   ACCORDION: 'accordion',
   DIALOG: 'dialog',
   SEARCH: 'search',
-  TABS: 'tabs'
-}
+  TABS: 'tabs',
+  BREADCRUMB: 'breadcrumb',
+};

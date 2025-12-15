@@ -46,9 +46,9 @@ describe('DcxNgBreadcrumbComponent', () => {
 
   it('renders intermediate item without href as plain text', () => {
     component.items = [
-      { label: 'Home', href: '/' },
-      { label: 'Section' },
-      { label: 'Page' },
+      { label: 'Home', href: '/', disabled: false },
+      { label: 'Section', disabled: false },
+      { label: 'Page', disabled: false },
     ];
     fixture.detectChanges();
 
