@@ -15,9 +15,9 @@ const meta: Meta<DcxNgCardComponent> = {
   args: {
     title: 'Card Title',
     subtitle: 'Card Subtitle',
-    image: null, // sin imagen
+    image: null,
     layout: 'vertical',
-    bordered: false, // sin borde
+    bordered: false,
     borderWidth: 0,
     interactive: false,
     disabled: false,
@@ -29,9 +29,6 @@ export default meta;
 
 type Story = StoryObj<DcxNgCardComponent>;
 
-// ---------------------------------------------
-// Default unstyled
-// ---------------------------------------------
 export const Unstyled: Story = {
   render: args => ({
     props: args,
