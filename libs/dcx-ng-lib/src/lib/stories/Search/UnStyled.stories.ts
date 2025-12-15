@@ -57,12 +57,10 @@ export const Default: Story = {
       props: {
         ...args,
         onSearch: (value: string) => {
-          console.log('Search triggered:', value);
         },
         onInput: (event: Event) => {
           const input = event.target as HTMLInputElement;
           args.searchValue = input.value;
-          console.log('Input changed:', input.value);
         },
       },
       template: `
