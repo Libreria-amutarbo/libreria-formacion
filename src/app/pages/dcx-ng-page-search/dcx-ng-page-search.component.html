@@ -13,7 +13,6 @@
     <dcx-ng-search
       [showClear]="true"
       placeholder="Buscar con botón limpiar..."
-      helperText="El icono X aparece cuando escribes"
       (searchOutput)="onSearch($event)"
     />
   </section>
@@ -26,7 +25,6 @@
       [showClear]="true"
       [items]="personItems()"
       placeholder="Buscar personas..."
-      helperText="Escribe para filtrar o selecciona del dropdown"
       (searchOutput)="onSearch($event)"
       (itemSelected)="onItemSelected($event)"
     />
@@ -71,35 +69,6 @@
         />
       </div>
     </div>
-  </section>
-
-  <section class="search-section">
-    <h2>Search con autocomplete y validación</h2>
-    <p class="description">Autocomplete con dropdown que valida que el campo no esté vacío.</p>
-    <dcx-ng-search
-      [dropdown]="true"
-      [items]="personItems()"
-      [invalid]="!searchValue()"
-      [showClear]="true"
-      placeholder="Buscar personas..."
-      errorMessage="Este campo es requerido"
-      (searchChange)="onSearchValueChange($event)"
-      (searchOutput)="onSearch($event)"
-      (itemSelected)="onItemSelected($event)"
-    />
-  </section>
-
-  <section class="search-section">
-    <h2>Search con validación dinámica (mínimo 3 caracteres)</h2>
-    <p class="description">El estado invalid aparece automáticamente cuando no se cumpla la validación regex.</p>
-    <dcx-ng-search
-      [validationRegex]="minThreeCharsRegex"
-      [showClear]="true"
-      placeholder="Escribe al menos 3 caracteres..."
-      errorMessage="Por favor, introduce al menos 3 caracteres"
-      helperText="Mínimo 3 caracteres requeridos"
-      (searchOutput)="onSearch($event)"
-    />
   </section>
 
   <section class="search-section">

@@ -59,7 +59,6 @@ export class DcxNgPageSearchComponent {
 
   onItemSelected(item: SearchItem): void {
     this.selectedItem.set(item);
-    console.log('Item seleccionado:', item);
   }
 
   onSearchValueChange(value: string): void {
