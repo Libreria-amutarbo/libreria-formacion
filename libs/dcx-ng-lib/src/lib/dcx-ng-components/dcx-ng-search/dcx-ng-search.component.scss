@@ -15,42 +15,29 @@
 
   &__input {
     flex: 1;
-    padding: var(--spacing-inset-s, 8px) var(--spacing-inset-m, 12px);
-    padding-right: calc(var(--spacing-inset-m, 12px) * 4);
-    border: 1px solid var(--color-border, #d1d5db);
-    border-radius: var(--border-radius-m, 6px);
-    font-size: var(--font-size-m, 14px);
-    font-family: inherit;
-    line-height: 1.5;
-    background-color: var(--color-background, #ffffff);
-    color: var(--color-text, #111827);
-    transition: all 0.2s ease;
-    outline: none;
 
-    &::placeholder {
-      color: var(--color-text-secondary, #6b7280);
-    }
+    ::ng-deep .dcx-ng-input--search {
+      &::placeholder {
+        color: var(--color-text-secondary, #6b7280);
+      }
 
-    &:hover:not(:disabled) {
-      border-color: var(--color-border-hover, #9ca3af);
-    }
+      &:focus {
+        border-color: var(--color-primary, #3b82f6);
+        box-shadow: 0 0 0 3px var(--color-primary-alpha, rgba(59, 130, 246, 0.1));
+      }
 
-    &:focus {
-      border-color: var(--color-primary, #3b82f6);
-      box-shadow: 0 0 0 3px var(--color-primary-alpha, rgba(59, 130, 246, 0.1));
-    }
+      &:disabled {
+        background-color: var(--color-background-disabled, #f3f4f6);
+        color: var(--color-text-disabled, #9ca3af);
+        cursor: not-allowed;
+      }
 
-    &:disabled {
-      background-color: var(--color-background-disabled, #f3f4f6);
-      color: var(--color-text-disabled, #9ca3af);
-      cursor: not-allowed;
-    }
-
-    // Remove default search input styles
-    &::-webkit-search-cancel-button,
-    &::-webkit-search-decoration {
-      -webkit-appearance: none;
-      appearance: none;
+      // Remove default search input styles
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-decoration {
+        -webkit-appearance: none;
+        appearance: none;
+      }
     }
   }
 
@@ -60,29 +47,36 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: none;
-    padding: 4px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-secondary, #6b7280);
-    transition: color 0.2s ease;
     
-    &:hover:not(:disabled) {
-      color: var(--color-text, #111827);
-    }
-    
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-    
-    &:focus-visible {
-      outline: 2px solid var(--color-primary, #3b82f6);
-      outline-offset: 2px;
-      border-radius: 2px;
+    ::ng-deep button {
+      background: none !important;
+      border: none !important;
+      padding: 4px !important;
+      min-width: auto !important;
+      width: auto !important;
+      height: auto !important;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-secondary, #6b7280);
+      transition: color 0.2s ease;
+
+      &:hover:not(:disabled) {
+        color: var(--color-text, #111827);
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--color-primary, #3b82f6);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
     }
   }
 
@@ -144,34 +138,6 @@
     margin: 0;
   }
 
-  &__helper-text {
-    padding-left: 8px;
-    margin: var(--spacing-xs, 8px) 0 0 0;
-    font-size: var(--font-size-s, 12px);
-    color: var(--color-text-secondary, #6b7280);
-    line-height: 1.4;
-  }
-
-  &__error-message {
-    padding-left: 8px;
-    margin: var(--spacing-xs, 8px) 0 0 0;
-    font-size: var(--font-size-s, 12px);
-    color: var(--color-danger, #dc2626);
-    line-height: 1.4;
-  }
-
-  // Invalid state
-  &--invalid {
-    .dcx-search__input {
-      border-color: var(--color-danger, #dc2626);
-
-      &:focus {
-        border-color: var(--color-danger, #dc2626);
-        box-shadow: 0 0 0 3px var(--color-danger-alpha, rgba(220, 38, 38, 0.1));
-      }
-    }
-  }
-
   // Disabled state
   &--disabled {
     .dcx-search__container {
@@ -194,12 +160,6 @@
 
 // Size variants (applied to :host)
 :host.dcx-search--size-s {
-  .dcx-search__input {
-    padding: var(--spacing-inset-xs, 6px) var(--spacing-inset-s, 8px);
-    padding-right: calc(var(--spacing-inset-s, 8px) * 4);
-    font-size: var(--font-size-s, 12px);
-  }
-
   .dcx-search__clear-button {
     right: calc(var(--spacing-inset-xs, 4px) + 60px);
   }
@@ -226,12 +186,6 @@
 }
 
 :host.dcx-search--size-l {
-  .dcx-search__input {
-    padding: var(--spacing-inset-m, 12px) var(--spacing-inset-l, 16px);
-    padding-right: calc(var(--spacing-inset-l, 16px) * 4);
-    font-size: var(--font-size-l, 16px);
-  }
-
   .dcx-search__clear-button {
     right: calc(var(--spacing-inset-m, 12px) + 68px);
   }

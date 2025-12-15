@@ -1,48 +1,50 @@
 <div class="dcx-search">
   <div class="dcx-search__container">
-    <input
-      type="text"
+    <dcx-ng-input
+      #searchInput
       class="dcx-search__input"
       [placeholder]="placeholder()"
-      [value]="searchValue()"
       [disabled]="disabled()"
-      (input)="onInput($event)"
-      (keydown)="onKeydown($event)"
-      (blur)="onBlur($event)"
+      [size]="size()"
+      [search]="true"
+      (valueChange)="onValueChange($event)"
     />
 
     @if (showClear() && searchValue()) {
-      <button
-        type="button"
+      <dcx-ng-button
         class="dcx-search__clear-button"
-        aria-label="Limpiar"
+        [ariaLabel]="'Limpiar'"
         [disabled]="disabled()"
-        (click)="onClearClick()"
-      >
-        <dcx-ng-icon name="x" size="s" />
-      </button>
+        [variant]="'icon'"
+        [size]="size()"
+        [iconStart]="'x'"
+        [iconSize]="size() === 's' ? 'm' : size() === 'm' ? 'l' : 'xl'"
+        (buttonClick)="onClearClick()"
+      />
     }
 
-    <button
-      type="button"
+    <dcx-ng-button
       class="dcx-search__search-button"
-      aria-label="Buscar"
+      [ariaLabel]="'Buscar'"
       [disabled]="disabled()"
-      (click)="onSearchClick()"
-    >
-      <dcx-ng-icon name="search" size="s" />
-    </button>
+      [variant]="'icon'"
+      [size]="size()"
+      [iconStart]="'search'"
+      [iconSize]="size()"
+      (buttonClick)="onSearchClick()"
+    />
 
     @if (dropdown()) {
-      <button
-        type="button"
+      <dcx-ng-button
         class="dcx-search__dropdown-button"
-        [attr.aria-label]="dropdownMode() === 'blank' ? 'Buscar todo' : 'Buscar actual'"
+        [ariaLabel]="'Abrir opciones'"
         [disabled]="disabled()"
-        (click)="onDropdownClick()"
-      >
-        <dcx-ng-icon name="chevron-down" size="s" />
-      </button>
+        [variant]="'icon'"
+        [size]="size()"
+        [iconStart]="'chevron-down'"
+        [iconSize]="size()"
+        (buttonClick)="onDropdownClick()"
+      />
     }
 
     @if (dropdown() && isDropdownOpen() && filteredItems().length > 0) {
@@ -67,12 +69,4 @@
       </div>
     }
   </div>
-
-  @if (helperText() && !isInvalid()) {
-    <p class="dcx-search__helper-text">{{ helperText() }}</p>
-  }
-
-  @if (isInvalid() && errorMessage()) {
-    <p class="dcx-search__error-message">{{ errorMessage() }}</p>
-  }
 </div>

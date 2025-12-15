@@ -47,7 +47,7 @@ describe('DcxNgSearchComponent', () => {
 
   it('should emit search event on button click', (done) => {
     component.searchValue.set('test query');
-    component.search.subscribe((value: string) => {
+    component.searchOutput.subscribe((value: string) => {
       expect(value).toBe('test query');
       done();
     });
@@ -58,7 +58,7 @@ describe('DcxNgSearchComponent', () => {
 
   it('should emit search event on Enter key', (done) => {
     component.searchValue.set('test query');
-    component.search.subscribe((value: string) => {
+    component.searchOutput.subscribe((value: string) => {
       expect(value).toBe('test query');
       done();
     });
