@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal, viewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 import { DcxSize } from '../../core/interfaces';
@@ -12,7 +11,7 @@ export interface SearchItem {
 
 @Component({
   selector: 'dcx-ng-search',
-  imports: [DcxNgButtonComponent, DcxNgInputComponent, FormsModule],
+  imports: [DcxNgButtonComponent, DcxNgInputComponent],
   templateUrl: './dcx-ng-search.component.html',
   styleUrl: './dcx-ng-search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
