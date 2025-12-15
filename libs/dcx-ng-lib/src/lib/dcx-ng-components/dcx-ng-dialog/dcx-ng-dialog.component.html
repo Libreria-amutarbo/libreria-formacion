@@ -2,14 +2,11 @@
   <div class="dialog-root">
     <div class="dialog-backdrop" (pointerdown)="onBackdropClick($event)"></div>
 
-    <div
-      class="dialog"
-      role="dialog"
-      aria-modal="true"
-      [class]="'dialog dialog--pos-' + position()"
-    >
+    <div [class]="dialogClasses" role="dialog" aria-modal="true">
       <div class="dialog-header">
-        <h3>{{ title() }}</h3>
+        @if (title()) {
+          <h3>{{ title() }}</h3>
+        }
 
         @if (showClose()) {
           <dcx-ng-button

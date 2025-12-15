@@ -34,7 +34,7 @@ export class DcxNgDialogComponent {
   bodyTemplate = contentChild<TemplateRef<unknown>>('dialogBody');
   footerTemplate = contentChild<TemplateRef<unknown>>('dialogFooter');
 
-  private dialogService = inject(DialogService);
+  private readonly dialogService = inject(DialogService);
 
   readonly isVisible = computed(() => {
     const id = this.dialogId();
@@ -52,5 +52,9 @@ export class DcxNgDialogComponent {
   onBackdropClick(event: MouseEvent): void {
     event.stopPropagation();
     if (this.closeOnBackdrop()) this.close();
+  }
+
+  get dialogClasses(): string {
+    return `dialog dialog--pos-${this.position()}`;
   }
 }

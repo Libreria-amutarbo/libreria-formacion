@@ -1,20 +1,12 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  inject,
-  OnInit,
-  input,
-  output,
-} from '@angular/core';
+import { Component, inject, OnInit, input, output } from '@angular/core';
 import {
   DcxNgDialogComponent,
   DcxNgButtonComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
+import { DIALOG_DEFAULT_ARGS } from '../../core/mock/dialog';
 import { DialogService } from '../../services/dialog.service';
-import { DcxDialogPosition } from '../../core/interfaces';
+import { DcxDialogPosition, DIALOG_POSITION_LIST } from '../../core/interfaces';
 import { fn } from '@storybook/test';
 
 const ActionsData = { closeDialog: fn() };
@@ -24,9 +16,7 @@ const ActionsData = { closeDialog: fn() };
   standalone: true,
   imports: [DcxNgDialogComponent, DcxNgButtonComponent],
   template: `
-    <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
-      <button type="button" (click)="open()">Abrir dialog</button>
-    </div>
+    <dcx-ng-button label="Abrir dialog" variant="primary" (buttonClick)="open()" />
 
     <div style="min-height:50vh; display:grid; place-items:center;">
       <dcx-ng-dialog
@@ -41,11 +31,13 @@ const ActionsData = { closeDialog: fn() };
           <div [innerHTML]="bodyHtml()"></div>
         </ng-template>
 
-        @if (footerHtml()) {
-          <ng-template #dialogFooter>
-            <div [innerHTML]="footerHtml()"></div>
-          </ng-template>
-        }
+        <ng-template #dialogFooter>
+          <dcx-ng-button 
+            label="Aceptar" 
+            variant="primary" 
+            (buttonClick)="closeDialogFromFooter()"
+          />
+        </ng-template>
       </dcx-ng-dialog>
     </div>
 
@@ -76,7 +68,7 @@ class StoryHostDcxDialogComponent implements OnInit {
     if (id) this.dialog.open(id, data);
   }
 
-  close() {
+  closeDialogFromFooter() {
     const id = this.dialogId();
     if (id) this.dialog.close(id);
   }
@@ -135,17 +127,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
     },
     position: {
       control: 'select',
-      options: [
-        'center',
-        'top',
-        'bottom',
-        'left',
-        'right',
-        'top-left',
-        'top-right',
-        'bottom-left',
-        'bottom-right',
-      ],
+      options: DIALOG_POSITION_LIST,
       description: 'Posiciona el diálogo aplicando clases CSS dialog--pos-*.',
       table: {
         category: 'Appearance',
@@ -165,7 +147,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
     footerHtml: {
       control: 'text',
       description:
-        'HTML del pie (opcional). Si está vacío, no se renderiza #dialogFooter.',
+        '⚠️ HTML del footer (solo referencia). No se actualiza en tiempo real porque los componentes Angular no se compilan con [innerHTML]. En esta demo, el footer está hardcodeado con un botón funcional.',
       table: {
         category: 'Templates',
         type: { summary: 'string' },
@@ -187,31 +169,14 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
       table: { category: 'Events' },
     },
   },
-  args: {
-    showClose: true,
-    position: 'center',
-    title: 'Diálogo',
-    bodyHtml: '',
-    footerHtml: '',
-    closeOnBackdrop: true,
-    visible: false,
-  },
+  args: DIALOG_DEFAULT_ARGS,
 };
 
 export default meta;
 type Story = StoryObj<StoryHostDcxDialogComponent>;
 
 export const ClassBased: Story = {
-  args: {
-    dialogId: 'dialog-playground',
-    title: 'Diálogo',
-    showClose: true,
-    position: 'center',
-    bodyHtml: `<p>Este es un mensaje informativo dentro del diálogo.</p>`,
-    footerHtml: ``,
-    closeOnBackdrop: true,
-    visible: false,
-  },
+  args: DIALOG_DEFAULT_ARGS,
   render: args => ({
     moduleMetadata: {
       imports: [StoryHostDcxDialogComponent],

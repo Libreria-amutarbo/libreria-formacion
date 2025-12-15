@@ -1,41 +1,34 @@
-import { Component, inject, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DcxNgDialogComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { Component, inject } from '@angular/core';
+import {
+  DcxNgDialogComponent,
+  DcxNgButtonComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
+import { DIALOG_DEFAULT_ARGS } from 'libs/dcx-ng-lib/src/lib/core/mock/dialog';
 import { DialogService } from 'libs/dcx-ng-lib/src/lib/services/dialog.service';
 
 @Component({
   selector: 'dcx-ng-page-dialog',
   standalone: true,
-  imports: [CommonModule, DcxNgDialogComponent],
+  imports: [DcxNgDialogComponent, DcxNgButtonComponent],
   templateUrl: './dcx-ng-page-dialog.component.html',
   styleUrl: './dcx-ng-page-dialog.component.scss',
 })
 export class DcxNgPageDialogComponent {
   private ds = inject(DialogService);
 
-  infoData = computed(() => this.ds.readOnly('info')().data);
-  confirmData = computed(() => this.ds.readOnly('confirm')().data);
+  mockData = DIALOG_DEFAULT_ARGS;
 
   openInfo() {
-    this.ds.open('info', { from: 'page', ts: Date.now() });
+    this.ds.open('info');
   }
   openConfirm() {
     this.ds.open('confirm');
   }
 
-  onInfoClosed() {
-    console.log('Info cerrado. Data:', this.infoData());
-  }
-  onConfirmClosed() {
-    console.log('Confirm cerrado.');
-  }
-
   handleCancel() {
-    console.log('Cancelado');
     this.ds.close('confirm');
   }
   handleAccept() {
-    console.log('Aceptado');
     this.ds.close('confirm');
   }
 }
