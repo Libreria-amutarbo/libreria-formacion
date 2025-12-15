@@ -10,16 +10,19 @@ const meta: Meta<DcxNgTooltipComponent> = {
     position: {
       control: 'select',
       options: ['top', 'right', 'bottom', 'left'],
+      table: { category: 'Attributes' }
     },
     content: {
       control: 'text',
       description: 'Content of the tooltip',
       defaultValue: 'This is a tooltip',
+      table: { category: 'Attributes' }
     },
     hideTooltipOnClick: {
       control: 'boolean',
       description: 'Whether the tooltip should hide when clicking',
       defaultValue: false,
+      table: { category: 'Attributes' }
     },
   },
 };
