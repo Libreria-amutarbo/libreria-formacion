@@ -1,47 +1,14 @@
-import { Meta, Canvas, ArgTypes, Story } from '@storybook/blocks';
-import * as IconClassBasedStories from './ClassBased.stories';
+import { Meta, Title, IconGallery, IconItem } from '@storybook/blocks';
+import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons'
 
-<Meta title="DCXLibrary/Icon/Documentation" />
+const icons = BOOTSTRAP_ICONS;
 
-# Icon
+<Meta title="DCXLibrary/Divider/Documentation" />
+<Title>Bootstrap Icons</Title>
 
-The Icon component is a flexible UI element that uses Bootstrap Icons for consistent and modern iconography.
-You can find the name of your icon on the [Bootstrap Icons](https://icons.getbootstrap.com/) website.
-
----
-
-## Example
-
-<Canvas of={IconClassBasedStories.MediumCompact} />
-
-You can customize:
-
-- **name**: the Bootstrap icon name (e.g., 'heart-fill', 'star-fill', 'search')
-- **color**: the icon color (hex or named color)
-- **size**: s (small), m (medium), l (large), xl (extra-large)
-- **spacing**: none, compact, spacious
-
----
-
-## Usage Example
-
-```html
-<dcx-ng-icon
-  [name]="'search'"
-  [color]="'#27ae60'"
-  [size]="'m'"
-  [spacing]="'spacious'"
->
-</dcx-ng-icon>
-```
-
----
-
-## Popular Icons
-
-- **Navigation**: `house-fill`, `arrow-left`, `arrow-right`, `chevron-up`, `chevron-down`
-- **Status**: `check-circle`, `x-circle`, `exclamation-circle`, `info-circle`, `question-circle`
-- **UI**: `search`, `bell`, `gear`, `download`, `upload`, `trash`, `edit`, `eye`, `eye-slash`
-- **Ratings**: `star`, `star-fill`, `heart`, `heart-fill`
-
-For a complete list of available icons, visit [Bootstrap Icons](https://icons.getbootstrap.com/)
+<IconGallery>
+  {icons.map((name) => (
+    <IconItem key={name} name={name}>
+      <i class={`bi bi-${name}`} style={{ fontSize: '32px' }}></i>
+    </IconItem>
+   ))}
