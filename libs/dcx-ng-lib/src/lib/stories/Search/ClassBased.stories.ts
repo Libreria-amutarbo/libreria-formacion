@@ -1,5 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import {
+  DcxNgButtonComponent,
+  DcxNgInputComponent,
   DcxNgSearchComponent,
   SearchItem,
   SIZE_DEFAULT,
@@ -13,6 +15,11 @@ import {
 const meta: Meta<DcxNgSearchComponent> = {
   title: 'DCXLibrary/Search/Class based',
   component: DcxNgSearchComponent,
+  decorators: [
+    moduleMetadata({
+      imports: [DcxNgButtonComponent, DcxNgInputComponent],
+    }),
+  ],
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
