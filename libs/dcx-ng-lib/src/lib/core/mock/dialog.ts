@@ -1,4 +1,12 @@
-import { DcxDialogPosition } from '../interfaces';
+import { DcxDialogPosition, DcxDialogMockData } from '../interfaces';
+
+export const DCX_DIALOG_DEFAULTS = {
+  title: '',
+  visible: false,
+  showClose: true,
+  position: 'center',
+  closeOnBackdrop: true,
+};
 
 export const DIALOG_ID_DEFAULT = 'dialog-info';
 export const DIALOG_TITLE_DEFAULT = 'Información';
@@ -11,7 +19,7 @@ export const DIALOG_POSITION_DEFAULT: DcxDialogPosition = 'center';
 export const DIALOG_CLOSE_ON_BACKDROP_DEFAULT = true;
 export const DIALOG_VISIBLE_DEFAULT = false;
 
-export const DIALOG_DEFAULT_ARGS = {
+export const DIALOG_DEFAULT_ARGS: DcxDialogMockData = {
   dialogId: DIALOG_ID_DEFAULT,
   title: DIALOG_TITLE_DEFAULT,
   bodyHtml: DIALOG_BODY_HTML_DEFAULT,
@@ -21,16 +29,3 @@ export const DIALOG_DEFAULT_ARGS = {
   closeOnBackdrop: DIALOG_CLOSE_ON_BACKDROP_DEFAULT,
   visible: DIALOG_VISIBLE_DEFAULT,
 };
-
-export interface DcxDialogMockData {
-  dialogId: string;
-  title: string;
-  bodyHtml: string;
-  footerHtml?: string;
-  showClose?: boolean;
-  position?: DcxDialogPosition;
-  closeOnBackdrop?: boolean;
-  visible?: boolean;
-}
-
-export const DcxDialogMock: DcxDialogMockData[] = [DIALOG_DEFAULT_ARGS];

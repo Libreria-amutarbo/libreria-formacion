@@ -8,10 +8,10 @@
 
   <dcx-ng-dialog
     dialogId="info"
-    [title]="'Información importante'"
-    [showClose]="true"
-    [position]="'center'"
-    [closeOnBackdrop]="false"
+    [title]="mockData.title"
+    [showClose]="mockData.showClose"
+    [position]="mockData.position"
+    [closeOnBackdrop]="mockData.closeOnBackdrop"
   >
     <ng-template #dialogBody>
       <p>Este es un mensaje informativo dentro del diálogo.</p>
@@ -31,9 +31,9 @@
 
   <dcx-ng-dialog
     dialogId="confirm"
-    [title]="'Confirmación'"
-    [showClose]="false"
-    [position]="'top-right'"
+    [title]="mockData.title"
+    [showClose]="mockData.showClose"
+    [position]="mockData.position"
   >
     <ng-template #dialogBody>
       <p>¿Estás seguro de que quieres continuar?</p>

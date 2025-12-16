@@ -21,10 +21,13 @@ export const DIALOG_POSITION_LIST: DcxDialogPosition[] = [
   'bottom-right',
 ];
 
-export const DCX_DIALOG_DEFAULTS = {
-  title: '',
-  visible: false,
-  showClose: true,
-  position: 'center' as DcxDialogPosition,
-  closeOnBackdrop: true,
-} as const;
+export interface DcxDialogMockData {
+  dialogId: string;
+  title: string;
+  bodyHtml: string;
+  footerHtml?: string;
+  showClose?: boolean;
+  position?: DcxDialogPosition;
+  closeOnBackdrop?: boolean;
+  visible?: boolean;
+}
