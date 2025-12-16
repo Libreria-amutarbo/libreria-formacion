@@ -1,29 +1,15 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
 import { DcxNgSpinnerComponent } from '../../dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component';
 
 const meta: Meta<DcxNgSpinnerComponent> = {
   title: 'DCXLibrary/Spinner/Class based',
   component: DcxNgSpinnerComponent,
   tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [],
-    }),
-  ],
-  args: {
-    size: 'm',
-    wrapper: false,
-    delay: 1000,
-    title: '',
-    description: '',
-    color: null,
-  },
   argTypes: {
     color: {
       control: 'color',
       table: {
-        category: 'props',
+        category: 'Attributes',
         defaultValue: { summary: '' },
       },
     },
@@ -32,7 +18,7 @@ const meta: Meta<DcxNgSpinnerComponent> = {
       options: ['xs', 's', 'm', 'l', 'xl'],
       description: 'Size of the spinner',
       table: {
-        category: 'props',
+        category: 'Attributes',
         defaultValue: { summary: 'm' },
       },
     },
@@ -40,7 +26,7 @@ const meta: Meta<DcxNgSpinnerComponent> = {
       control: { type: 'boolean' },
       description: 'Whether the spinner acts as an overlay on content',
       table: {
-        category: 'props',
+        category: 'Attributes',
         defaultValue: { summary: 'false' },
       },
     },
@@ -48,7 +34,7 @@ const meta: Meta<DcxNgSpinnerComponent> = {
       control: { type: 'number' },
       description: 'Delay in milliseconds before showing the spinner',
       table: {
-        category: 'props',
+        category: 'Attributes',
         defaultValue: { summary: '0' },
       },
     },
@@ -56,7 +42,7 @@ const meta: Meta<DcxNgSpinnerComponent> = {
       control: { type: 'text' },
       description: 'Descriptive text that accompanies the spinner',
       table: {
-        category: 'props',
+        category: 'Attributes',
         defaultValue: { summary: "''" },
       },
     },
@@ -64,7 +50,7 @@ const meta: Meta<DcxNgSpinnerComponent> = {
       control: { type: 'text' },
       description: 'Descriptive text that accompanies the spinner',
       table: {
-        category: 'props',
+        category: 'Attributes',
         defaultValue: { summary: "''" },
       },
     },
@@ -101,6 +87,7 @@ export const SpinnerDelayShowcase: Story = {
     `,
   }),
 };
+
 export const SpinnerWrapperShowcase: Story = {
   render: args => ({
     props: args,

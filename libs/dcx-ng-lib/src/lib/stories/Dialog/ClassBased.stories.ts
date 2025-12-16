@@ -7,12 +7,16 @@ const meta: Meta<DcxNgDialogComponent> = {
   component: DcxNgDialogComponent,
   tags: ['autodocs'],
   argTypes: {
-    title: { control: 'text' },
-    visible: { control: 'boolean' },
-  },
-  args: {
-    title: 'Información importante',
-    visible: false,
+    title: { control: 'text', table: { category: 'Attributes' } },
+    visible: { control: 'boolean', table: { category: 'Attributes' } },
+    closeDialog: {
+      action: 'closeDialog',
+      description: 'Evento emitido cuando se cierra el dialogo',
+      table: {
+        type: { summary: 'EventEmitter<void>' },
+        category: 'Events',
+      },
+    }
   },
 };
 
@@ -23,7 +27,7 @@ export const DialogPlainText: Story = {
   parameters: {
     docs: {
       story: {
-        height: '150px',
+        height: '300px',
       },
     },
   },

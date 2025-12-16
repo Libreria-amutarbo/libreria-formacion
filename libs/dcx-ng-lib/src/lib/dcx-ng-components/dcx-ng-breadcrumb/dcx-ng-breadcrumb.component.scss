@@ -1,15 +1,6 @@
 :host {
   display: block;
-  font-family:
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Ubuntu,
-    Cantarell,
-    Arial,
-    'Noto Sans',
-    sans-serif;
+  font-family: Roboto;
   --dcx-text: #24292f;
   --dcx-muted: #6e7781;
 }
@@ -52,4 +43,10 @@
 .dcx-bc__sep {
   color: var(--dcx-muted);
   user-select: none;
+}
+
+.disabled {
+  pointer-events: none; /* no permite clics */
+  opacity: 0.5; /* aspecto deshabilitado */
+  cursor: not-allowed;
 }

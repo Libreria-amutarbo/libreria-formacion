@@ -37,7 +37,7 @@ jobs:
         run: |
           export NODE_OPTIONS="--experimental-vm-modules"
           npx nx build-storybook dcx-ng-lib --no-cloud
-        # STORYBOOK_BASE=/preview/ ...
+        # STORYBOOK_BASE=/develop/ ...
 
       - name: Checkout gh-pages
         uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
 
       - name: Copy build to gh-pages folder
         run: |
-          DEST_DIR=$([ "${GITHUB_REF##*/}" = "main" ] && echo "main" || echo "preview")
+          DEST_DIR=$([ "${GITHUB_REF##*/}" = "main" ] && echo "main" || echo "develop")
           rm -rf gh-pages-branch/$DEST_DIR
           mkdir -p gh-pages-branch/$DEST_DIR
           cp -r dist/storybook/dcx-ng-lib/* gh-pages-branch/$DEST_DIR/
@@ -62,7 +62,7 @@ jobs:
           git config user.email "action@github.com"
           git config user.name "GitHub Actions"
           git add .
-          git commit -m "Deploy $([ "${GITHUB_REF##*/}" = "main" ] && echo "main" || echo "preview") from ${GITHUB_SHA}" || echo "No changes to commit"
+          git commit -m "Deploy $([ "${GITHUB_REF##*/}" = "main" ] && echo "main" || echo "develop") from ${GITHUB_SHA}" || echo "No changes to commit"
           git push origin gh-pages
         env:
           GITHUB_REF: ${{ github.ref }}
