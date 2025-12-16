@@ -1,78 +1,134 @@
-import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
+
+import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
+import { SIZE_LIST, SIZE_DEFAULT, ICON_SPACING_LIST, ICON_SPACING_DEFAULT } from '../../core/mock';
 import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
+import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 
-const meta: Meta<DcxNgIconComponent> = {
-  title: 'DCXLibrary/Icon/Class based',
-  component: DcxNgIconComponent,
+const meta: Meta = {
+  title: 'DCXLibrary/Icon/Class based (Wrapper)',
   tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },
+  decorators: [
+    moduleMetadata({
+      imports: [CommonModule, DcxNgIconComponent],
+    }),
+  ],
   argTypes: {
-    name: { 
-      control: 'select',
-      options: BOOTSTRAP_ICONS,
-      description: 'Icono de Bootstrap Icons'
+    size: {
+      description: 'Tamaño (padding + tipografía).',
+      options: SIZE_LIST,
+      control: { type: 'select' },
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: 'l' },
+      },
     },
-    color: { 
+    color: {
       control: 'color',
-      description: 'Color del icono'
+      defaultValue: '#0058ab',
+      table: { category: 'Attributes' },
     },
-    size: { 
-      control: 'select', 
-      options: ['s', 'm', 'l', 'xl'],
-      description: 'Tamaño'
+    extraClass: {
+      control: 'text',
+      defaultValue: '',
+      table: { category: 'Attributes' },
     },
-    spacing: { 
-      control: 'select', 
-      options: ['none', 'compact', 'spacious'],
-      description: 'Espaciado'
+    spacing: {
+      description: 'Spacing',
+      options: ICON_SPACING_LIST,
+      control: { type: 'select' },
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: ICON_SPACING_DEFAULT },
+      },
     },
   },
-};
-
-export default meta;
-type Story = StoryObj<DcxNgIconComponent>;
-
-export const Default: Story = {
   args: {
-    name: 'house-fill',
-    color: '#000000',
-    size: 'm',
-    spacing: 'none',
-  },
-};
-
-export const Small: Story = {
-  args: {
-    name: 'heart-fill',
-    color: '#e74c3c',
-    size: 's',
-    spacing: 'none',
-  },
-};
-
-export const Medium: Story = {
-  args: {
-    name: 'star-fill',
-    color: '#f39c12',
-    size: 'm',
-    spacing: 'compact',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    name: 'gear-fill',
-    color: '#3498db',
     size: 'l',
-    spacing: 'spacious',
-  },
-};
-
-export const ExtraLarge: Story = {
-  args: {
-    name: 'search',
-    color: '#2c3e50',
-    size: 'xl',
     spacing: 'none',
+    color: '#0058ab',
+    extraClass: '',
   },
 };
+export default meta;
+
+type Story = StoryObj<any>;
+
+export const AllIcons: Story = {
+  render: (args) => {
+    const props = {
+      size: args['size'],
+      spacing: args['spacing'],
+      color: args['color'],
+      extraClass: args['extraClass'],
+      icons: BOOTSTRAP_ICONS,
+      onCopy: async (name: string) => {
+        try {
+          await navigator.clipboard.writeText(name);
+          alert('Copiado al portapapeles')
+        } catch {
+          const ta = document.createElement('textarea');
+          ta.value = name;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+      },
+    };
+
+    return {
+      template: `
+        <div style="
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 16px;
+        ">
+          <div style="
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            justify-content: center;
+            justify-items: center;
+            align-items: start;
+          ">
+            <div 
+              *ngFor="let icon of icons"
+              [class]="extraClass"
+              (click)="onCopy(icon)"
+              [title]="'Click para copiar: ' + icon"
+              style="
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                padding: 8px;
+              "
+            >
+              <dcx-ng-icon
+                [name]="icon"
+                [size]="size"
+                [spacing]="spacing"
+                [color]="color"
+              ></dcx-ng-icon>
+
+              <div style="
+                font-size: 14px;
+                color: #666;
+                text-align: center;
+                word-break: break-word;
+              ">
+                {{ icon }}
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      props,
+    };
+  },
+}
