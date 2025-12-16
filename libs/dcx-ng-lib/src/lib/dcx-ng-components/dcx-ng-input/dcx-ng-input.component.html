@@ -13,7 +13,22 @@
     [attr.aria-invalid]="inputControl.invalid && inputControl.touched"
     [attr.aria-label]="label || placeholder"
   />
-} @else if (!inline) {
+} @else if (inline) {
+  <input
+    [id]="inputId"
+    class="dcx-ng-input dcx-ng-input--inline"
+    [class.disabled]="disabled"
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="inputControl"
+    [ngClass]="'dcx-ng-input-size--' + size"
+    [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
+    [class.invalid]="inputControl.invalid && inputControl.touched"
+    [attr.aria-required]="required"
+    [attr.aria-invalid]="inputControl.invalid && inputControl.touched"
+    [attr.aria-label]="label || placeholder"
+  />
+} @else {
   <div class="input-container" [class.no-margin]="noMargin">
     @if (label) {
       <label [for]="inputId" class="input-label">
@@ -44,19 +59,4 @@
       <span class="invalid-message">{{ getErrorMessage() }}</span>
     }
   </div>
-} @else {
-  <input
-    [id]="inputId"
-    class="dcx-ng-input dcx-ng-input--inline"
-    [class.disabled]="disabled"
-    [type]="type"
-    [placeholder]="placeholder"
-    [formControl]="inputControl"
-    [ngClass]="'dcx-ng-input-size--' + size"
-    [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
-    [class.invalid]="inputControl.invalid && inputControl.touched"
-    [attr.aria-required]="required"
-    [attr.aria-invalid]="inputControl.invalid && inputControl.touched"
-    [attr.aria-label]="label || placeholder"
-  />
 }
