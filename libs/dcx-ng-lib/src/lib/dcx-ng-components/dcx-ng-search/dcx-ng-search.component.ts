@@ -1,13 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal, viewChild } from '@angular/core';
-import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
-import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
-import { DcxSize } from '../../core/interfaces';
+import { DcxNgButtonComponent, DcxNgInputComponent, DcxSize, SearchItem } from '@dcx-ng-components/dcx-ng-lib';
 
-export interface SearchItem {
-  id: number | string;
-  label: string;
-  [key: string]: unknown;
-}
+export const SIZE_LIST: DcxSize[] = ['s', 'm', 'l'];
+export const SIZE_DEFAULT: DcxSize = 'm';
 
 @Component({
   selector: 'dcx-ng-search',
