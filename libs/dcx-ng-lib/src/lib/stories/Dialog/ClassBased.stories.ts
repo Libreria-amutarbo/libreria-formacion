@@ -1,115 +1,217 @@
-import { Meta, StoryObj } from '@storybook/angular';
-import { CommonModule } from '@angular/common';
-import { DcxNgDialogComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { Component, inject, OnInit, input, output } from '@angular/core';
+import {
+  DcxNgDialogComponent,
+  DcxNgButtonComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
+import { DIALOG_DEFAULT_ARGS } from '../../core/mock/dialog';
+import { DialogService } from '../../services/dialog.service';
+import { DcxDialogPosition, DIALOG_POSITION_LIST } from '../../core/interfaces';
+import { fn } from '@storybook/test';
 
-const meta: Meta<DcxNgDialogComponent> = {
+const ActionsData = { closeDialog: fn() };
+
+@Component({
+  selector: 'dcx-ng-dialog-story',
+  standalone: true,
+  imports: [DcxNgDialogComponent, DcxNgButtonComponent],
+  template: `
+    <dcx-ng-button label="Abrir dialog" variant="primary" (buttonClick)="open()" />
+
+    <div style="min-height:50vh; display:grid; place-items:center;">
+      <dcx-ng-dialog
+        [dialogId]="dialogId()"
+        [title]="title()"
+        [showClose]="showClose()"
+        [position]="position()"
+        [closeOnBackdrop]="closeOnBackdrop()"
+        (closeDialog)="onClose()"
+      >
+        <ng-template #dialogBody>
+          <div [innerHTML]="bodyHtml()"></div>
+        </ng-template>
+
+        <ng-template #dialogFooter>
+          <dcx-ng-button 
+            label="Aceptar" 
+            variant="primary" 
+            (buttonClick)="closeDialogFromFooter()"
+          />
+        </ng-template>
+      </dcx-ng-dialog>
+    </div>
+
+  `,
+})
+class StoryHostDcxDialogComponent implements OnInit {
+  dialogId = input<string | undefined>(undefined);
+  title = input<string>('');
+  visible = input<boolean>(false);
+  showClose = input<boolean>(true);
+  position = input<DcxDialogPosition>('center');
+  closeOnBackdrop = input<boolean>(true);
+  bodyHtml = input<string>('');
+  footerHtml = input<string>('');
+
+  closeDialog = output<void>();
+
+  private readonly dialog = inject(DialogService);
+
+  ngOnInit() {
+    if (this.visible() && this.dialogId()) {
+      this.dialog.open(this.dialogId()!);
+    }
+  }
+
+  open(data?: unknown) {
+    const id = this.dialogId();
+    if (id) this.dialog.open(id, data);
+  }
+
+  closeDialogFromFooter() {
+    const id = this.dialogId();
+    if (id) this.dialog.close(id);
+  }
+
+  onClose() {
+    ActionsData.closeDialog();
+    this.closeDialog.emit();
+  }
+}
+
+const meta: Meta<StoryHostDcxDialogComponent> = {
   title: 'DCXLibrary/Dialog/ClassBased',
-  component: DcxNgDialogComponent,
+  component: StoryHostDcxDialogComponent,
+  decorators: [
+    moduleMetadata({
+      imports: [StoryHostDcxDialogComponent],
+      providers: [DialogService],
+    }),
+  ],
   tags: ['autodocs'],
+  parameters: {
+    controls: { expanded: true },
+    docs: {
+      description: {
+        component: [
+          'El contenido se pasa por ng-template (#dialogBody, #dialogFooter).',
+          '⚠️ El HTML inyectado con [innerHTML] no compila eventos Angular; para interacción, usa elementos Angular reales o botones externos.',
+        ].join('\n'),
+      },
+    },
+  },
   argTypes: {
-    title: { control: 'text', table: { category: 'Attributes' } },
-    visible: { control: 'boolean', table: { category: 'Attributes' } },
+    dialogId: {
+      control: 'text',
+      description: 'Id para integrarse con DialogService en modo servicio.',
+      table: { category: 'Behavior', type: { summary: 'string' } },
+    },
+    title: {
+      control: 'text',
+      description: 'Título del diálogo.',
+      table: {
+        category: 'Templates',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
+      },
+    },
+    visible: {
+      control: 'boolean',
+      description:
+        'Solo para **abrir por defecto** en esta story. El ciclo de vida real se gestiona por servicio.',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    showClose: {
+      control: 'boolean',
+      description: 'Muestra/oculta el botón de cierre en el header.',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
+    },
+    position: {
+      control: 'select',
+      options: DIALOG_POSITION_LIST,
+      description: 'Posiciona el diálogo aplicando clases CSS dialog--pos-*.',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'DcxDialogPosition' },
+        defaultValue: { summary: 'center' },
+      },
+    },
+    bodyHtml: {
+      control: 'text',
+      description: 'HTML del cuerpo (se inyecta en #dialogBody).',
+      table: {
+        category: 'Templates',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
+      },
+    },
+    footerHtml: {
+      control: 'text',
+      description:
+        '⚠️ HTML del footer (solo referencia). No se actualiza en tiempo real porque los componentes Angular no se compilan con [innerHTML]. En esta demo, el footer está hardcodeado con un botón funcional.',
+      table: {
+        category: 'Templates',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
+      },
+    },
+    closeOnBackdrop: {
+      control: 'boolean',
+      description: 'Permite cerrar el diálogo al hacer clic en el backdrop.',
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
+    },
     closeDialog: {
       action: 'closeDialog',
-      description: 'Evento emitido cuando se cierra el dialogo',
-      table: {
-        type: { summary: 'EventEmitter<void>' },
-        category: 'Events',
-      },
-    }
+      description: 'Se emite al pulsar cerrar (X / backdrop / botones).',
+      table: { category: 'Events' },
+    },
   },
+  args: DIALOG_DEFAULT_ARGS,
 };
 
 export default meta;
-type Story = StoryObj<DcxNgDialogComponent>;
+type Story = StoryObj<StoryHostDcxDialogComponent>;
 
-export const DialogPlainText: Story = {
-  parameters: {
-    docs: {
-      story: {
-        height: '300px',
-      },
-    },
-  },
+export const ClassBased: Story = {
+  args: DIALOG_DEFAULT_ARGS,
   render: args => ({
-    imports: [CommonModule, DcxNgDialogComponent],
+    moduleMetadata: {
+      imports: [StoryHostDcxDialogComponent],
+      providers: [DialogService],
+    },
     props: {
+      dialogId: args.dialogId,
       title: args.title,
+      showClose: args.showClose,
+      position: args.position,
+      bodyHtml: args.bodyHtml,
+      footerHtml: args.footerHtml,
+      closeOnBackdrop: args.closeOnBackdrop,
       visible: args.visible,
-      handleCloseInfo() {
-        this['visible'] = false;
-      },
     },
     template: `
-      <div style="display:grid; gap:16px; max-width:640px;">
-        <button (click)="visible = true">Abrir diálogo informativo</button>
-        <dcx-ng-dialog
-          [title]="title"
-          [visible]="visible"
-          (onClose)="handleCloseInfo()"
-        >
-          <div dialog-body>
-            <p>Este es un mensaje informativo dentro del diálogo.</p>
-          </div>
-          <div dialog-footer>
-            <button (click)="handleCloseInfo()">Cerrar</button>
-          </div>
-        </dcx-ng-dialog>
-      </div>
-    `,
-  }),
-};
-
-export const DialogWithTemplates: Story = {
-  parameters: {
-    docs: {
-      story: {
-        height: '200px',
-      },
-    },
-  },
-  argTypes: {
-    title: { control: 'text' },
-    visible: { control: 'boolean' },
-  },
-  args: {
-    title: 'Confirmación',
-    visible: false,
-  },
-  render: args => ({
-    imports: [CommonModule, DcxNgDialogComponent],
-    props: {
-      title: args.title,
-      visible: args.visible,
-      handleCloseConfirm() {
-        this['visible'] = false;
-      },
-      handleCancel() {
-        alert('Cancelado');
-        this['visible'] = false;
-      },
-      handleAccept() {
-        alert('Aceptado');
-        this['visible'] = false;
-      },
-    },
-    template: `
-      <div style="display:grid; gap:16px; max-width:640px;">
-        <button (click)="visible = true">Abrir confirmación</button>
-        <dcx-ng-dialog
-          [title]="title"
-          [visible]="visible"
-          (onClose)="handleCloseConfirm()"
-        >
-          <ng-template #dialogBody>
-            <p>¿Estás seguro de que quieres continuar?</p>
-          </ng-template>
-          <ng-template #dialogFooter>
-            <button (click)="handleCancel()">Cancelar</button>
-            <button (click)="handleAccept()">Aceptar</button>
-          </ng-template>
-        </dcx-ng-dialog>
-      </div>
+      <dcx-ng-dialog-story
+        [dialogId]="dialogId"
+        [title]="title"
+        [showClose]="showClose"
+        [position]="position"
+        [bodyHtml]="bodyHtml"
+        [footerHtml]="footerHtml"
+        [closeOnBackdrop]="closeOnBackdrop"
+        [visible]="visible"
+      />
     `,
   }),
 };

@@ -10,4 +10,5 @@ export * from './icon';
 export * from './tabs';
 export * from './generic';
 export * from './table';
+export * from './dialog';
 export * from './card';

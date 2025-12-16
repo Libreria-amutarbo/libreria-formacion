@@ -4,3 +4,4 @@ export * from './table';
 export * from './tabs';
 export * from './accordion';
 export * from './card';
+export * from './dialog';
