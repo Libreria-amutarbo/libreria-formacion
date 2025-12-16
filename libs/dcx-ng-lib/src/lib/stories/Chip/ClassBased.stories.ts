@@ -1,63 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
-import { DcxNgChipComponent } from '../../dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
-import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 import { ThemeColors } from '../../core/interfaces';
+import { DcxNgChipComponent } from '../../dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
 
 const meta: Meta<DcxNgChipComponent> = {
-  title: 'DCXLibrary/Chip/ClassBased',
+  title: 'DCXLibrary/Chip/Class Based',
   component: DcxNgChipComponent,
-  decorators: [
-    moduleMetadata({
-      imports: [DcxNgIconComponent],
-    }),
-  ],
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component: `
-El componente Chip proporciona una manera compacta de mostrar información, etiquetas o elementos seleccionables.
-Soporta diferentes colores, iconos, imágenes y funcionalidad de eliminación.
-
-### Uso básico
-\`\`\`html
-<dcx-ng-chip 
-  label="Etiqueta básica"
-  color="primary">
-</dcx-ng-chip>
-\`\`\`
-
-### Con icono y eliminación
-\`\`\`html
-<dcx-ng-chip 
-  label="Angular"
-  icon="code"
-  color="primary"
-  [removable]="true"
-  (onRemove)="handleRemove()">
-</dcx-ng-chip>
-\`\`\`
-
-### Con imagen
-\`\`\`html
-<dcx-ng-chip 
-  label="Usuario"
-  image="avatar.jpg"
-  color="secondary"
-  [removable]="true">
-</dcx-ng-chip>
-\`\`\`
-        `,
-      },
-    },
-  },
+  tags: ['autodocs'],
   argTypes: {
     label: {
       control: { type: 'text' },
       description: 'Texto del chip (obligatorio)',
       table: {
         type: { summary: 'string' },
+        category: 'Attributes',
         defaultValue: { summary: '""' },
       },
     },
@@ -67,14 +22,15 @@ Soporta diferentes colores, iconos, imágenes y funcionalidad de eliminación.
       description: 'Color del chip según el sistema de diseño',
       table: {
         type: { summary: 'ThemeColors' },
-        defaultValue: { summary: ThemeColors.GRAY },
+        category: 'Attributes',
+        defaultValue: { summary: ThemeColors.PRIMARY },
       },
     },
     removable: {
       control: { type: 'boolean' },
       description: 'Muestra el botón X para eliminar el chip',
       table: {
-        type: { summary: 'boolean' },
+        category: 'Attributes',
         defaultValue: { summary: 'false' },
       },
     },
@@ -83,6 +39,7 @@ Soporta diferentes colores, iconos, imágenes y funcionalidad de eliminación.
       description: 'Nombre del icono Material (opcional)',
       table: {
         type: { summary: 'string' },
+        category: 'Attributes',
         defaultValue: { summary: '""' },
       },
     },
@@ -91,6 +48,7 @@ Soporta diferentes colores, iconos, imágenes y funcionalidad de eliminación.
       description: 'URL de imagen para mostrar en el chip (opcional)',
       table: {
         type: { summary: 'string' },
+        category: 'Attributes',
         defaultValue: { summary: '""' },
       },
     },
@@ -99,15 +57,9 @@ Soporta diferentes colores, iconos, imágenes y funcionalidad de eliminación.
       description: 'Evento emitido cuando se hace clic en el botón X',
       table: {
         type: { summary: 'EventEmitter<void>' },
+        category: 'Events',
       },
     },
-  },
-  args: {
-    label: 'Chip de ejemplo',
-    color: ThemeColors.PRIMARY,
-    removable: false,
-    icon: '',
-    image: '',
   },
 };
 
@@ -117,7 +69,7 @@ type Story = StoryObj<DcxNgChipComponent>;
 export const Default: Story = {
   args: {
     label: 'Chip por defecto',
-    color: ThemeColors.GRAY,
+    color: ThemeColors.PRIMARY,
   },
 };
 

@@ -1,174 +1,311 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
-import { CommonModule } from '@angular/common';
-import { DcxNgCardComponent } from '../../dcx-ng-components/dcx-ng-card/dcx-ng-card.component';
+import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+
+import {
+  ALIGN_DEFAULT,
+  ALIGN_LIST,
+  DcxNgButtonComponent,
+  DcxNgCardComponent,
+  LAYOUT_DEFAULT,
+  LAYOUT_LIST,
+  SIZE_DEFAULT,
+  SIZE_LIST,
+} from '@dcx-ng-components/dcx-ng-lib';
+import {
+  BORDER_STYLE_DEFAULT,
+  BORDER_STYLE_LIST,
+  DEFAULTARGS,
+  SHADOW_LIST,
+} from '../../core/mock/card';
 
 const meta: Meta<DcxNgCardComponent> = {
   title: 'DCXLibrary/Card/Class based',
   component: DcxNgCardComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, DcxNgCardComponent],
+      imports: [DcxNgButtonComponent],
     }),
   ],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
-    docs: {
-      description: {
-        component: 'Un componente de tarjeta versátil con header, body y footer personalizables.',
+  },
+
+  argTypes: {
+    align: {
+      description: 'Alineación del bloque y del contenido.',
+      options: ALIGN_LIST,
+      control: { type: 'select' },
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: ALIGN_DEFAULT },
+      },
+    },
+    bordered: {
+      description: 'Activa borde explícito.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    borderStyle: {
+      description: 'Tipo de línea del borde de la carta.',
+      options: BORDER_STYLE_LIST,
+      control: { type: 'select' },
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: BORDER_STYLE_DEFAULT },
+      },
+    },
+    borderWidth: {
+      description: 'Grosor del borde (px). Máx 16px',
+      control: { type: 'number', min: 0, max: 16, step: 1 },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    disabled: {
+      description: 'Deshabilita la carta',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    image: {
+      description: 'URL de la imagen.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    imageAlt: {
+      description: 'Texto alternativo para la imagen.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    interactive: {
+      description: 'Convierte la carta en interactivo (hover/cursor).',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    layout: {
+      description: 'Orientación del contenido.',
+      options: LAYOUT_LIST,
+      control: { type: 'select' },
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: LAYOUT_DEFAULT },
+      },
+    },
+    maxContentWidth: {
+      description: 'Ancho máx. del bloque (en cualquier layout).',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    maxImageWidth: {
+      description: 'Ancho máx. de imagen.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    shadow: {
+      description: 'Sombra: preset 0/1/2/3.',
+      options: SHADOW_LIST,
+      control: { type: 'select' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    size: {
+      description: 'Tamaño (padding + tipografía).',
+      options: SIZE_LIST,
+      control: { type: 'select' },
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: SIZE_DEFAULT },
+      },
+    },
+    subtitle: {
+      description: 'Subtítulo o descripción corta de la carta.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    title: {
+      description: 'Título principal de la carta.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
       },
     },
   },
-  argTypes: {
-    header: {
-      control: 'text',
-      description: 'Título principal de la tarjeta',
-    },
-    subheader: {
-      control: 'text',
-      description: 'Subtítulo de la tarjeta',
-    },
-    iconClass: {
-      control: 'text',
-      description: 'Clase CSS para el icono del header',
-    },
-    closable: {
-      control: 'boolean',
-      description: 'Mostrar botón de cerrar en el header',
-    },
-    visible: {
-      control: 'boolean',
-      description: 'Controla la visibilidad de la tarjeta',
-    },
-    cardClose: {
-      action: 'closed',
-      description: 'Evento emitido al cerrar la tarjeta',
-    },
-    cardAccept: {
-      action: 'accepted',
-      description: 'Evento emitido al hacer clic en Aceptar',
-    },
-    cardCancel: {
-      action: 'cancelled',
-      description: 'Evento emitido al hacer clic en Cancelar',
-    },
-  },
-  args: {
-    header: '',
-    subheader: '',
-    iconClass: '',
-    closable: false,
-    visible: true,
-  },
+
+  args: DEFAULTARGS,
 };
 
 export default meta;
 type Story = StoryObj<DcxNgCardComponent>;
 
-export const Default: Story = {
-  args: {},
-  render: (args) => ({
-    props: args,
-    template: `
-      <div style="width: 400px;">
-        <dcx-ng-card 
-          [header]="header"
-          [subheader]="subheader"
-          [iconClass]="iconClass"
-          [closable]="closable"
-          [visible]="visible"
-          (onClose)="onClose($event)"
-          (onAccept)="onAccept($event)"
-          (onCancel)="onCancel($event)">
-          <p>Este es el contenido por defecto de la tarjeta. Aquí puedes colocar cualquier contenido que necesites.</p>
-        </dcx-ng-card>
-      </div>
-    `,
-  }),
-};
+export const Default: Story = {};
 
-export const WithHeaderAndSubheader: Story = {
+export const VerticalCenterImg50: Story = {
   args: {
-    header: 'Título de la Tarjeta',
-    subheader: 'Subtítulo descriptivo',
+    layout: 'vertical',
+    align: 'center',
+    maxContentWidth: '560px',
+    maxImageWidth: '50%',
   },
-  render: (args) => ({
-    props: args,
-    template: `
-      <div style="width: 400px;">
-        <dcx-ng-card 
-          [header]="header"
-          [subheader]="subheader"
-          [iconClass]="iconClass"
-          [closable]="closable"
-          [visible]="visible"
-          (onClose)="onClose($event)"
-          (onAccept)="onAccept($event)"
-          (onCancel)="onCancel($event)">
-          <p>Contenido de la tarjeta con header y subheader.</p>
-          <p>Puedes agregar múltiples párrafos y elementos.</p>
-        </dcx-ng-card>
-      </div>
-    `,
-  }),
 };
 
-
-export const WithIcon: Story = {
+export const HorizontalCenterMax800: Story = {
   args: {
-    header: 'Configuración',
-    subheader: 'Ajustes del sistema',
-    iconClass: 'fas fa-cog',
+    layout: 'horizontal',
+    align: 'center',
+    maxContentWidth: '800px',
+    image: 'https://picsum.photos/360/240',
   },
-  render: (args) => ({
-    props: args,
-    template: `
-      <div style="width: 400px;">
-        <dcx-ng-card 
-          [header]="header"
-          [subheader]="subheader"
-          [iconClass]="iconClass"
-          [closable]="closable"
-          [visible]="visible"
-          (onClose)="onClose($event)"
-          (onAccept)="onAccept($event)"
-          (onCancel)="onCancel($event)">
-          <p>Esta tarjeta incluye un icono en el header.</p>
-          <p><strong>Nota:</strong> Necesitas Font Awesome para ver el icono correctamente.</p>
-        </dcx-ng-card>
-      </div>
-    `,
-  }),
 };
 
-export const Closable: Story = {
+export const HorizontalEnd: Story = {
   args: {
-    header: 'Notificación',
-    subheader: 'Mensaje importante',
-    closable: true,
+    layout: 'horizontal',
+    align: 'end',
+    maxContentWidth: '960px',
+    image: 'https://picsum.photos/360/240',
   },
-  render: (args) => ({
-    props: args,
-    template: `
-      <div style="width: 400px;">
-        <dcx-ng-card 
-          [header]="header"
-          [subheader]="subheader"
-          [iconClass]="iconClass"
-          [closable]="closable"
-          [visible]="visible"
-          (onClose)="onClose($event)"
-          (onAccept)="onAccept($event)"
-          (onCancel)="onCancel($event)">
-          <p>Esta tarjeta se puede cerrar usando el botón X en el header.</p>
-          <p>Al hacer clic en el botón de cerrar, la tarjeta se ocultará.</p>
-        </dcx-ng-card>
-      </div>
-    `,
-  }),
 };
 
+export const DisabledCard: Story = {
+  args: {
+    layout: 'horizontal',
+    align: 'end',
+    maxContentWidth: '960px',
+    image: 'https://picsum.photos/360/240',
+    disabled: true,
+  },
+};
+
+export const WithSlotsVertical: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+      <!-- Definimos los templates "slots" -->
+      <ng-template #headerTpl>
+        <div class="custom-header">
+          <h3 class="title">Encabezado personalizado</h3>
+          <p class="subtitle">Este header sobrescribe el título/subtítulo por defecto</p>
+        </div>
+      </ng-template>
+
+      <ng-template #contentTpl>
+        <div class="custom-content">
+          <p>Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
+          
+        </div>
+      </ng-template>
+
+      <ng-template #footerTpl>
+        <div class="custom-footer">
+          <dcx-ng-button type="button"  label="Cancelar" variant="secondary" size="s" style="margin-right:0.5rem"></dcx-ng-button>
+          <dcx-ng-button type="button" aria-label="Acción secundaria"  label="Aceptar" size="s"></dcx-ng-button>
+        </div>
+      </ng-template>
+
+      <!-- Pasamos los TemplateRef a los inputs de la card -->
+      <dcx-ng-card
+        [layout]="layout"
+        [align]="align"
+        [size]="size"
+        [image]="image"
+        [imageAlt]="imageAlt"
+        [bordered]="bordered"
+        [borderStyle]="borderStyle"
+        [borderWidth]="borderWidth"
+        [shadow]="shadow"
+        [interactive]="interactive"
+        [disabled]="disabled"
+        [maxContentWidth]="maxContentWidth"
+        [maxImageWidth]="maxImageWidth"
+        [header]="headerTpl"
+        [content]="contentTpl"
+        [footer]="footerTpl"
+      ></dcx-ng-card>
+    `,
+  }),
+  args: {
+    layout: 'vertical',
+    align: 'center',
+    size: 'm',
+    image: 'https://picsum.photos/640/360',
+    maxContentWidth: '640px',
+    maxImageWidth: '100%',
+    bordered: true,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    shadow: 2,
+    interactive: true,
+    disabled: false,
+  },
+};
+
+export const WithSlotsHorizontal: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+      <ng-template #headerTpl>
+          <h3 class="title">Encabezado personalizado</h3>
+          <p class="subtitle">Este header sobrescribe el título/subtítulo por defecto</p>
+      </ng-template>
+
+      <ng-template #contentTpl>
+        <div class="custom-content">
+          <p>Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
+          
+        </div>
+      </ng-template>
+
+      <ng-template #footerTpl>
+        <div class="custom-footer">
+        
+          <dcx-ng-button type="button"  label="Cancelar" variant="secondary" size="s"  style="margin-right:0.5rem"></dcx-ng-button>
+          <dcx-ng-button type="button" aria-label="Acción secundaria" label="Aceptar" size="s" ></dcx-ng-button>
+        </div>
+      </ng-template>
 
 
-
-
+      <dcx-ng-card
+        [layout]="layout"
+        [align]="align"
+        [size]="size"
+        [image]="image"
+        [imageAlt]="imageAlt"
+        [maxContentWidth]="maxContentWidth"
+        [maxImageWidth]="maxImageWidth"
+        [shadow]="shadow"
+        [interactive]="interactive"
+        [disabled]="disabled"
+        [header]="headerTpl"
+        [content]="contentTpl"
+        [footer]="footerTpl"
+      ></dcx-ng-card>
+    `,
+  }),
+  args: {
+    layout: 'horizontal',
+    align: 'start',
+    size: 'm',
+    image: 'https://picsum.photos/360/240',
+    maxContentWidth: '800px',
+    maxImageWidth: '100%',
+    shadow: 1,
+    interactive: true,
+    disabled: false,
+  },
+};

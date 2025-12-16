@@ -1,37 +1,40 @@
 $color: (
   // Colores principales de Capgemini
-  "primary": #0070AD,  // Azul Capgemini
-  "secondary": #2B0A3D,  // Morado Capgemini
-  "accent": #12ABDB,  // Azul claro Capgemini
+  'primary': #0058ab,
+  // Azul Capgemini
+  'secondary': #2b0a3d,
+  // Morado Capgemini
+  'accent': #12abdb,
 
+  // Azul claro Capgemini
   // Variaciones del color primario
-  "primary-light": #0088D1,
-  "primary-dark": #005A8C,
+  'primary-light': #0088d1,
+  'primary-dark': #005a8c,
 
   // Grises corporativos
-  "gray-dark": #1A1A1A,
-  "gray": #666666,
-  "gray-light": #CCCCCC,
-  "gray-lighter": #F2F2F2,
+  'gray-dark': #1a1a1a,
+  'gray': #666666,
+  'gray-light': #cccccc,
+  'gray-lighter': #f2f2f2,
 
   // Colores de estado
-  "success": #00A76F,
-  "warning": #FFA726,
-  "error": #EF4444,
-  "info": #12ABDB,
+  'success': #00a76f,
+  'warning': #ffa726,
+  'error': #ef4444,
+  'info': #12abdb,
 
   // Colores de fondo
-  "background": #FFFFFF,
-  "background-alt": #F8F9FA,
-  "surface": #FFFFFF,
+  'background': #ffffff,
+  'background-alt': #f8f9fa,
+  'surface': #ffffff,
 
   // Colores de texto
-  "text-primary": #1A1A1A,
-  "text-secondary": #666666,
-  "text-disabled": #999999,
-  "text-inverse": #FFFFFF,
+  'text-primary': #1a1a1a,
+  'text-secondary': #666666,
+  'text-disabled': #999999,
+  'text-inverse': #ffffff,
 
   // Bordes
-  "border": #E5E7EB,
-  "border-light": #F3F4F6
-);  
+  'border': #e5e7eb,
+  'border-light': #f3f4f6
+);

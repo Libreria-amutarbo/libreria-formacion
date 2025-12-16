@@ -1,5 +1,7 @@
+export * from './generic';
 export * from './breadcrumb';
 export * from './table';
 export * from './tabs';
 export * from './accordion';
 export * from './search';
+export * from './card';

@@ -15,7 +15,6 @@
     "zone.js": "^0.15.0",
     "bootstrap-icons": "^1.11.0"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "sideEffects": false
 }
