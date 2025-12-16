@@ -1,6 +1,5 @@
 @use '../../../scss/main' as *;
 @use 'sass:map';
-
 :host {
   --card-border-style: solid;
   --card-border-width: 0;
@@ -44,9 +43,9 @@
   flex-direction: column;
   gap: var(--card-gap);
 
-  background: map.get($color, 'background');
+  background: color('background');
   border-style: var(--card-border-style);
-  border-color: map.get($color, 'primary');
+  border-color: color('primary');
   border-width: var(--card-border-width);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
@@ -140,35 +139,35 @@
     margin-top: 1.5rem;
     display: flex;
     width: 100%;
-    gap: map.get($spacing, 'inline-s');
+    gap: spacing('inline-s');
     align-items: center;
     justify-content: flex-start;
   }
 
   .title {
     margin: 0 0 0.5rem 0;
-    font-size: map.get($font-size, 'h3');
-    font-weight: map.get($weight, 'semibold');
+    font-size: fontSize('h3');
+    font-weight: weight('semibold');
   }
   .subtitle {
     margin: 0;
-    font-size: map.get($font-size, 'body');
-    color: map.get($color, 'texto-secondary');
-    font-weight: map.get($weight, 'semibold');
+    font-size: fontSize('body');
+    color: color('texto-secondary');
+    font-weight: weight('semibold');
   }
 
   .header ::ng-deep h3,
   .header ::ng-deep .title {
     margin: 0 0 0.5rem 0;
-    font-size: map.get($font-size, 'h3');
-    font-weight: map.get($weight, 'semibold');
+    font-size: fontSize('h3');
+    font-weight: weight('semibold');
   }
   .header ::ng-deep p,
   .header ::ng-deep .subtitle {
     margin: 0;
-    font-size: map.get($font-size, 'body');
-    color: map.get($color, 'texto-secondary');
-    font-weight: map.get($weight, 'semibold');
+    font-size: fontSize('body');
+    color: color('texto-secondary');
+    font-weight: weight('semibold');
   }
 }
 

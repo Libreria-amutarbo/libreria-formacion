@@ -10,6 +10,10 @@ $fonts: (
   'monospace': "'Source Code Pro', monospace"
 );
 
+@function fonts($name) {
+  @return map-get($fonts, $name);
+}
+
 // Pesos de fuente
 $weight: (
   'light': 300,
@@ -18,6 +22,10 @@ $weight: (
   'semibold': 600,
   'bold': 700,
 );
+
+@function weight($name) {
+  @return map-get($weight, $name);
+}
 
 // Tamaños de fuente
 $font-size: (
@@ -49,12 +57,20 @@ $font-size: (
   'overline': 0.625rem // 10px
 );
 
+@function fontSize($name) {
+  @return map-get($font-size, $name);
+}
+
 // Altura de línea
 $line-height: (
   'tight': 1.2,
   'normal': 1.5,
   'relaxed': 1.75,
 );
+
+@function lineHeight($name) {
+  @return map-get($line-height, $name);
+}
 
 // Espaciado entre letras
 $letter-spacing: (
@@ -63,3 +79,7 @@ $letter-spacing: (
   'wide': 0.025em,
   'wider': 0.05em,
 );
+
+@function letterSpacing($name) {
+  @return map-get($letter-spacing, $name);
+}

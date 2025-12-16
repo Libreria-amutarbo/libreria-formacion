@@ -24,7 +24,7 @@ $color: (
   'info': #12abdb,
 
   // Colores de fondo
-  'background': #ffffff,
+  'background': red,
   'background-alt': #f8f9fa,
   'surface': #ffffff,
 
@@ -38,3 +38,7 @@ $color: (
   'border': #e5e7eb,
   'border-light': #f3f4f6
 );
+
+@function color($name) {
+  @return map-get($color, $name);
+}

@@ -2,7 +2,7 @@
 @use '../base' as *;
 // Mixins útiles para tipografía
 @mixin heading-1 {
-  font-family: map.get($fonts, 'primary');
+  font-family: fonts('primary');
   font-size: map.get($font-size, 'h1');
   font-weight: map.get($weight, 'bold');
   line-height: map.get($line-height, 'tight');
@@ -162,7 +162,8 @@ $button-sizes: (
     // 12px
     font-size: 0.875rem,
     // 14px
-    icon-size: 1rem, // 16px
+    icon-size: 1rem,
+    // 16px
   ),
   m: (
     height: 3rem,
@@ -173,7 +174,8 @@ $button-sizes: (
     // 24px
     font-size: 1rem,
     // 16px
-    icon-size: 1rem, // 16px
+    icon-size: 1rem,
+    // 16px
   ),
   l: (
     height: 3.5rem,
@@ -184,7 +186,8 @@ $button-sizes: (
     // 24px
     font-size: 1rem,
     // 16px
-    icon-size: 1.5rem, // 24px
+    icon-size: 1.5rem,
+    // 24px
   ),
 );
 
