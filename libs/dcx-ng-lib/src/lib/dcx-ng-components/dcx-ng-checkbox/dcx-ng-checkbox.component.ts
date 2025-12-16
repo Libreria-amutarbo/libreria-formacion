@@ -11,6 +11,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   CheckboxOption,
+  DcxPosition,
   DcxSize,
 } from '../../core/interfaces';
 
@@ -31,7 +32,7 @@ import {
 })
 export class DcxNgCheckboxComponent implements ControlValueAccessor {
   readonly label = input<string>('');
-  readonly labelPosition = input<'left' | 'right'>('right');
+  readonly labelPosition = input<DcxPosition>(DcxPosition.RIGHT);
   readonly color = input<string>('#1976d2');
   readonly checked = input<boolean>(false);
   readonly disabled = input<boolean>(false);
@@ -70,6 +71,7 @@ export class DcxNgCheckboxComponent implements ControlValueAccessor {
   });
 
   readonly customColorStyle = computed(() => this.color());
+  readonly DcxPosition = DcxPosition;
 
   constructor() {
     effect(() => {
@@ -121,9 +123,10 @@ export class DcxNgCheckboxComponent implements ControlValueAccessor {
   writeValue(value: boolean | string[]): void {
     if (this.isGroup()) {
       this._internalSelectedValues.set(Array.isArray(value) ? value : []);
-    } else {
-      this._internalChecked.set(!!value);
+      return
     }
+
+    this._internalChecked.set(!!value);
   }
 
   registerOnChange(onChangeCallback: (value: boolean | string[]) => void): void {

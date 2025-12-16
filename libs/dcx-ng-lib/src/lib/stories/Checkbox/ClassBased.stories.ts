@@ -1,4 +1,4 @@
-import { DcxNgCheckboxComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgCheckboxComponent, DcxPosition, POSITION_LIST, SIZE_LIST } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgCheckboxComponent> = {
@@ -22,11 +22,11 @@ const meta: Meta<DcxNgCheckboxComponent> = {
         labelPosition: {
             name: 'labelPosition',
             control: 'select',
-            options: ['left', 'right'],
+            options: POSITION_LIST,
             description: 'Posición del label respecto al checkbox',
             table: {
                 category: 'Attributes',
-                type: { summary: "'left' | 'right'" },
+                type: { summary: "DcxPosition" },
                 defaultValue: { summary: 'right' },
             },
         },
@@ -43,11 +43,11 @@ const meta: Meta<DcxNgCheckboxComponent> = {
         size: {
             name: 'size',
             control: 'select',
-            options: ['s', 'm', 'l', 'xl'],
+            options: SIZE_LIST,
             description: 'Tamaño del checkbox según sistema de espaciado',
             table: {
                 category: 'Attributes',
-                type: { summary: "DcxSize ('s' | 'm' | 'l' | 'xl')" },
+                type: { summary: "DcxSize" },
                 defaultValue: { summary: 'm' },
             },
         },
@@ -148,7 +148,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
         checked: false,
         disabled: false,
         size: 'm',
-        labelPosition: 'right',
+        labelPosition: DcxPosition.RIGHT,
         errorMessage: '',
     },
 };
@@ -164,14 +164,14 @@ export const Default: Story = {
         errorMessage: '',
         disabled: false,
         size: 'm',
-        labelPosition: 'right',
+        labelPosition: DcxPosition.RIGHT,
     },
 };
 
 export const Primary: Story = {
     args: {
         label: 'Checkbox Primary',
-        labelPosition: 'left',
+        labelPosition: DcxPosition.RIGHT,
         color: '#1976d2',
         checked: false,
         size: 'm',
@@ -196,7 +196,7 @@ export const WithErrorMessage: Story = {
         errorMessage: 'Debes aceptar los términos para continuar',
         disabled: false,
         size: 'm',
-        labelPosition: 'right',
+        labelPosition: DcxPosition.RIGHT,
     },
 };
 
