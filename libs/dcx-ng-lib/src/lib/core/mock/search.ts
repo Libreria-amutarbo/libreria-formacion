@@ -1,5 +1,6 @@
 import { SearchItem } from '../interfaces/search';
 import { generatePersonRows, PersonRow } from './table';
+import { SIZE_DEFAULT } from './generic';
 
 export const SEARCH_ITEMS: SearchItem[] = generatePersonRows(20).map((person: PersonRow) => ({
   id: person.id ?? 0,
@@ -10,7 +11,7 @@ export const SEARCH_ITEMS: SearchItem[] = generatePersonRows(20).map((person: Pe
 export const SEARCH_DEFAULTARGS = {
   placeholder: 'Buscar...',
   disabled: false,
-  size: 'm' as const,
+  size: SIZE_DEFAULT,
   dropdown: false,
   showClear: true,
   items: SEARCH_ITEMS,
