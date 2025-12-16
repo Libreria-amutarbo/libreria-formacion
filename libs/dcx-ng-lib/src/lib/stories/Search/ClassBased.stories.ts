@@ -6,7 +6,7 @@ import {
   SIZE_LIST,
 } from '@dcx-ng-components/dcx-ng-lib';
 import {
-  DEFAULTARGS,
+  SEARCH_DEFAULTARGS,
   SEARCH_ITEMS,
 } from '../../core/mock/search';
 
@@ -63,7 +63,7 @@ const meta: Meta<DcxNgSearchComponent> = {
       },
     },
   },
-  args: DEFAULTARGS,
+  args: SEARCH_DEFAULTARGS,
 };
 
 export default meta;
@@ -156,5 +156,3 @@ export const SearchShowcase: Story = {
     `,
   }),
 };
-
-
