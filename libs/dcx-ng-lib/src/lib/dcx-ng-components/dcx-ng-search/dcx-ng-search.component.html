@@ -13,36 +13,27 @@
     @if (showClear() && searchValue()) {
       <dcx-ng-button
         class="dcx-search__clear-button"
-        [ariaLabel]="'Limpiar'"
-        [disabled]="disabled()"
-        [variant]="'icon'"
-        [size]="size()"
-        [iconStart]="'x'"
-        [iconSize]="size() === 's' ? 'm' : size() === 'm' ? 'l' : 'xl'"
+        ariaLabel="Limpiar"
+        variant="icon"
+        iconStart="x-lg"
         (buttonClick)="onClearClick()"
       />
     }
 
     <dcx-ng-button
       class="dcx-search__search-button"
-      [ariaLabel]="'Buscar'"
-      [disabled]="disabled()"
-      [variant]="'icon'"
-      [size]="size()"
-      [iconStart]="'search'"
-      [iconSize]="size()"
+      ariaLabel="Buscar"
+      variant="icon"
+      iconStart="search"
       (buttonClick)="onSearchClick()"
     />
 
     @if (dropdown()) {
       <dcx-ng-button
         class="dcx-search__dropdown-button"
-        [ariaLabel]="'Abrir opciones'"
-        [disabled]="disabled()"
-        [variant]="'icon'"
-        [size]="size()"
-        [iconStart]="'chevron-down'"
-        [iconSize]="size()"
+        ariaLabel="Abrir opciones"
+        variant="icon"
+        iconStart="chevron-down"
         (buttonClick)="onDropdownClick()"
       />
     }
