@@ -9,12 +9,28 @@ const meta: Meta<DcxNgRadioComponent> = {
     size: {
       control: { type: 'radio' },
       options: ['s', 'm', 'l'],
+      table: { category: 'Attributes' },
     },
-    disabled: { control: 'boolean' },
-    unstyled: { control: 'boolean' },
-    label: { control: 'text' },
-    value: { control: 'text' },
-    name: { control: 'text' },
+    disabled: {
+      control: 'boolean',
+      table: { category: 'Attributes' },
+    },
+    unstyled: {
+      control: 'boolean',
+      table: { category: 'Attributes' },
+    },
+    label: {
+      control: 'text',
+      table: { category: 'Attributes' },
+    },
+    value: {
+      control: 'text',
+      table: { category: 'Attributes' },
+    },
+    name: {
+      control: 'text',
+      table: { category: 'Attributes' },
+    },
   },
 };
 

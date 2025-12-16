@@ -10,24 +10,34 @@ const meta: Meta<DcxNgButtonComponent> = {
   component: DcxNgButtonComponent,
   tags: ['autodocs'],
   argTypes: {
-    label: { control: 'text', description: 'Texto visible del botón' },
+    label: {
+      control: 'text',
+      description: 'Texto visible del botón',
+      table: { category: 'Attributes' }
+    },
     ariaLabel: {
       control: 'text',
       description: 'Nombre accesible (úsalo en botones de solo icono)',
+      table: { category: 'Attributes' }
     },
     type: {
       control: 'select',
       options: ['button', 'submit', 'reset'],
       description: 'Tipo nativo del botón',
+      table: { category: 'Attributes' }
     },
-    disabled: { control: 'boolean' },
+    disabled: {
+      control: 'boolean', table: { category: 'Attributes' }
+    },
     variant: {
       control: 'select',
       options: ['primary', 'secondary', 'link', 'icon'],
+      table: { category: 'Attributes' }
     },
     size: {
       control: 'select',
       options: ['s', 'm', 'l', 'block'],
+      table: { category: 'Attributes' }
     },
     // Icono (usando dcx-ng-icon internamente)
     iconStart: {
@@ -35,30 +45,37 @@ const meta: Meta<DcxNgButtonComponent> = {
       options: BOOTSTRAP_ICONS,
       description:
         'Icono de Bootstrap Icons al inicio (p.ej. "save", "chevron-left")',
+      table: { category: 'Attributes' }
     },
     iconEnd: {
       control: 'select',
       options: BOOTSTRAP_ICONS,
       description:
         'Icono de Bootstrap Icons al final (p.ej. "arrow-right", "chevron-right")',
+      table: { category: 'Attributes' }
     },
     iconSize: {
       control: 'select',
       options: ['s', 'm', 'l', 'xl'],
+      table: { category: 'Attributes' }
     },
     iconSpacing: {
       control: 'select',
       options: ['none', 'compact', 'spacious'],
+      table: { category: 'Attributes' }
     },
-    iconColor: { control: 'color' },
-
-    // Evento
+    iconColor: {
+      control: 'color', table: { category: 'Attributes' }
+    },
     buttonClick: {
       action: 'buttonClick',
       description: 'Output al hacer click',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(clicked: boolean) => void' },
+        defaultValue: { summary: '-' },
+      }
     },
-
-    // Clase extra (si mantienes el @Input() class)
     class: { control: 'text', table: { category: 'Styling' } },
   },
   args: {

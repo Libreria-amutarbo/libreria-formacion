@@ -1,15 +1,27 @@
-import { Meta, StoryObj } from '@storybook/angular';
-import { CommonModule } from '@angular/common';
 import { DcxNgTabsComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { Meta, StoryObj } from '@storybook/angular';
 import { DcxTabItemMock } from '../../core/mock';
 
 const meta: Meta<DcxNgTabsComponent> = {
-  title: 'DCXLibrary/Tabs/ClassBased',
+  title: 'DCXLibrary/Tabs/Class Based',
   component: DcxNgTabsComponent,
   tags: ['autodocs'],
   argTypes: {
-    activeTabId: { control: 'text' },
-    disabled: { control: 'boolean' },
+    tabs: {
+      control: 'object',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'DcxTabItem[]' },
+      }
+    },
+    activeTabId: {
+      control: 'text',
+      table: { category: 'Attributes' }
+    },
+    disabled: {
+      control: 'boolean',
+      table: { category: 'Attributes' }
+    },
   },
 };
 
@@ -24,12 +36,9 @@ export const Basic: Story = {
   },
   parameters: {
     docs: {
-      story: {
-        height: '200px',
-      },
+      story: { height: '200px' },
     },
   },
-
   render: args => {
     return {
       template: `

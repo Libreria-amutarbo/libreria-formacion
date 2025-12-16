@@ -20,25 +20,31 @@ export const argTypesDivider: ArgTypes = {
   orientation: {
     control: 'select',
     options: ['horizontal', 'vertical'],
+    table: { category: 'Attributes' }
   },
   size: {
     control: 'select',
     options: ['s', 'm', 'l', 'xl', 'auto'],
+    table: { category: 'Attributes' }
   },
   color: {
     control: 'color',
     defaultValue: '#0056b3',
+    table: { category: 'Attributes' }
   },
   thickness: {
     control: { type: 'number', min: 0, max: 20, step: 0.2 },
     defaultValue: 0.25,
+    table: { category: 'Attributes' }
   },
   ariaLabel: {
     control: 'text',
     defaultValue: 'Divider',
+    table: { category: 'Attributes' }
   },
   type: {
     control: 'select',
     options: ['default', 'dot'],
+    table: { category: 'Attributes' }
   },
 };

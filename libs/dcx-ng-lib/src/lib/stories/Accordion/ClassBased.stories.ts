@@ -6,8 +6,20 @@ const meta: Meta<DcxNgAccordionComponent> = {
   title: 'DCXLibrary/Accordion/Class based',
   component: DcxNgAccordionComponent,
   tags: ['autodocs'],
+  parameters: {
+    controls: { expanded: true },
+  },
   argTypes: {
-    items: { control: { type: 'object' } },
+    items: {
+      name: 'items',
+      control: { type: 'object' },
+      description: 'Items del accordion',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxNgAccordionItem[]' },
+        defaultValue: { summary: 'DcxNgAccordionItem' },
+      },
+    },
   },
   args: { items: DcxAccordionMock },
 };
