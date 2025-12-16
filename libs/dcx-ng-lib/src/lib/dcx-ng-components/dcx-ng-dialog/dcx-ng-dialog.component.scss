@@ -23,7 +23,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 400px;
   max-width: 90%;
-  max-height: 80vh;
+  max-height: 70vh;
   display: flex;
   flex-direction: column;
 
@@ -42,11 +42,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    flex-shrink: 0;
   }
 
   &-body {
     padding: 1rem;
     text-align: center;
+    overflow-y: auto;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
   &-footer {
@@ -54,6 +58,7 @@
     justify-content: flex-end;
     gap: 0.5rem;
     padding: 1rem;
+    flex-shrink: 0;
   }
 
   &-close {

@@ -5,7 +5,9 @@
     <div [class]="dialogClasses" role="dialog" aria-modal="true">
       <div class="dialog-header">
         @if (title()) {
-          <h3>{{ title() }}</h3>
+          <h3>
+            <strong>{{ title() }}</strong>
+          </h3>
         }
 
         @if (showClose()) {

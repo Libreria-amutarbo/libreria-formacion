@@ -106,6 +106,15 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
       description: 'Id para integrarse con DialogService en modo servicio.',
       table: { category: 'Behavior', type: { summary: 'string' } },
     },
+    title: {
+      control: 'text',
+      description: 'Título del diálogo.',
+      table: {
+        category: 'Templates',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
+      },
+    },
     visible: {
       control: 'boolean',
       description:
