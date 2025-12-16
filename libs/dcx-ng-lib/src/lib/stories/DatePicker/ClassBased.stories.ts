@@ -1,51 +1,9 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DcxNgDatePickerComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { Meta, StoryObj } from '@storybook/angular';
 
-
-@Component({
-  selector: 'dcx-ng-datepicker-wrapper',
-  standalone: true,
-  imports: [DcxNgDatePickerComponent, CommonModule],
-  template: `
-    <div style="min-width: 320px;">
-      <dcx-ng-date-picker
-        [selectedDate]="selectedDate"
-        [minDate]="minDate"
-        [maxDate]="maxDate"
-        [disabled]="disabled"
-        [placeholder]="placeholder"
-        (dateChange)="onDateChange($event)">
-      </dcx-ng-date-picker>
-      
-      <div style="margin-top: 1rem; padding: 0.5rem; background: #f0f0f0; border-radius: 4px;">
-        <strong>Fecha seleccionada:</strong> 
-        {{ selectedDate ? selectedDate.toLocaleDateString('es-ES') : 'ninguna' }}
-      </div>
-    </div>
-  `,
-})
-export class DatePickerWrapperComponent {
-  @Input() selectedDate: Date | null = null;
-  @Input() minDate: Date | null = null;
-  @Input() maxDate: Date | null = null;
-  @Input() disabled = false;
-  @Input() placeholder = 'Selecciona una fecha';
-
-  onDateChange(date: Date | null) {
-    this.selectedDate = date;
-  }
-}
-
-const meta: Meta<DatePickerWrapperComponent> = {
+const meta: Meta<DcxNgDatePickerComponent> = {
   title: 'DCXLibrary/DatePicker/ClassBased',
-  component: DatePickerWrapperComponent,
-  decorators: [
-    moduleMetadata({
-      imports: [DatePickerWrapperComponent],
-    }),
-  ],
+  component: DcxNgDatePickerComponent,
   parameters: {
     layout: 'centered',
     docs: {
@@ -64,32 +22,38 @@ Incluye calendario popup, navegación por meses, validación de fechas min/max.
       },
     },
   },
+  tags: ['autodocs'],
   argTypes: {
     selectedDate: {
       control: 'date',
       description: 'Fecha seleccionada',
+      table: { category: 'Attributes' }
     },
     placeholder: {
       control: 'text',
       description: 'Texto del placeholder',
+      table: { category: 'Attributes' }
     },
     disabled: {
       control: 'boolean',
       description: 'Estado deshabilitado',
+      table: { category: 'Attributes' }
     },
     minDate: {
       control: 'date',
       description: 'Fecha mínima seleccionable',
+      table: { category: 'Attributes' }
     },
     maxDate: {
       control: 'date',
       description: 'Fecha máxima seleccionable',
+      table: { category: 'Attributes' }
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<DatePickerWrapperComponent>;
+type Story = StoryObj<DcxNgDatePickerComponent>;
 
 export const Default: Story = {
   args: {

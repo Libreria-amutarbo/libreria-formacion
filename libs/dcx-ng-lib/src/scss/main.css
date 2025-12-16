@@ -1,7 +1,9 @@
 :root {
   --font-family-primary: sans-serif;
   --font-family-secondary: sans-serif;
-  --font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-family-system:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
   --font-family-monospace: 'Source Code Pro', monospace;
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -26,28 +28,28 @@
   --letter-spacing-normal: 0;
   --letter-spacing-wide: 0.025em;
   --letter-spacing-wider: 0.05em;
-  --color-primary: #0070AD;
-  --color-secondary: #2B0A3D;
-  --color-accent: #12ABDB;
-  --color-primary-light: #0088D1;
-  --color-primary-dark: #005A8C;
-  --color-gray-dark: #1A1A1A;
+  --color-primary: #0070ad;
+  --color-secondary: #2b0a3d;
+  --color-accent: #12abdb;
+  --color-primary-light: #0088d1;
+  --color-primary-dark: #005a8c;
+  --color-gray-dark: #1a1a1a;
   --color-gray: #666666;
-  --color-gray-light: #CCCCCC;
-  --color-gray-lighter: #F2F2F2;
-  --color-success: #00A76F;
-  --color-warning: #FFA726;
-  --color-error: #EF4444;
-  --color-info: #12ABDB;
-  --color-background: #FFFFFF;
-  --color-background-alt: #F8F9FA;
-  --color-surface: #FFFFFF;
-  --color-text-primary: #1A1A1A;
+  --color-gray-light: #cccccc;
+  --color-gray-lighter: #f2f2f2;
+  --color-success: #00a76f;
+  --color-warning: #ffa726;
+  --color-error: #ef4444;
+  --color-info: #12abdb;
+  --color-background: #ffffff;
+  --color-background-alt: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-text-primary: #1a1a1a;
   --color-text-secondary: #666666;
   --color-text-disabled: #999999;
-  --color-text-inverse: #FFFFFF;
-  --color-border: #E5E7EB;
-  --color-border-light: #F3F4F6;
+  --color-text-inverse: #ffffff;
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
   --spacing-base: 0.25rem;
   --spacing-xs: 0.5rem;
   --spacing-s: 1rem;
@@ -229,7 +231,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 
@@ -402,7 +404,8 @@ textarea {
  * 1. Show the overflow in Edge.
  */
 button,
-input { /* 1 */
+input {
+  /* 1 */
   overflow: visible;
 }
 
@@ -411,7 +414,8 @@ input { /* 1 */
  * 1. Remove the inheritance of text transform in Firefox.
  */
 button,
-select { /* 1 */
+select {
+  /* 1 */
   text-transform: none;
 }
 
@@ -419,9 +423,9 @@ select { /* 1 */
  * Correct the inability to style clickable types in iOS and Safari.
  */
 button,
-[type=button],
-[type=reset],
-[type=submit] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
   -webkit-appearance: button;
 }
 
@@ -429,9 +433,9 @@ button,
  * Remove the inner border and padding in Firefox.
  */
 button::-moz-focus-inner,
-[type=button]::-moz-focus-inner,
-[type=reset]::-moz-focus-inner,
-[type=submit]::-moz-focus-inner {
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
@@ -440,9 +444,9 @@ button::-moz-focus-inner,
  * Restore the focus styles unset by the previous rule.
  */
 button:-moz-focusring,
-[type=button]:-moz-focusring,
-[type=reset]:-moz-focusring,
-[type=submit]:-moz-focusring {
+[type='button']:-moz-focusring,
+[type='reset']:-moz-focusring,
+[type='submit']:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
@@ -486,8 +490,8 @@ textarea {
  * 1. Add the correct box sizing in IE 10.
  * 2. Remove the padding in IE 10.
  */
-[type=checkbox],
-[type=radio] {
+[type='checkbox'],
+[type='radio'] {
   box-sizing: border-box; /* 1 */
   padding: 0; /* 2 */
 }
@@ -495,8 +499,8 @@ textarea {
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
-[type=number]::-webkit-inner-spin-button,
-[type=number]::-webkit-outer-spin-button {
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -504,7 +508,7 @@ textarea {
  * 1. Correct the odd appearance in Chrome and Safari.
  * 2. Correct the outline style in Safari.
  */
-[type=search] {
+[type='search'] {
   -webkit-appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
 }
@@ -512,7 +516,7 @@ textarea {
 /**
  * Remove the inner padding in Chrome and Safari on macOS.
  */
-[type=search]::-webkit-search-decoration {
+[type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 

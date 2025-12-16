@@ -1,57 +1,167 @@
-<div class="page-container">
-  <h1 class="page-title">Componente DCX Card - Ejemplos</h1>
-  <p class="page-description">
-    Diferentes ejemplos de uso del componente card con headers, body y footer
-    personalizables.
-  </p>
+<section>
+  <h2 class="example-title">Ejemplo 1 - Posición vertical e imagen al 50%</h2>
+  <dcx-ng-card
+    layout="vertical"
+    align="center"
+    maxContentWidth="560px"
+    maxImageWidth="50%"
+  >
+  </dcx-ng-card>
+</section>
 
-  <div class="examples-grid">
-    <div class="example-section">
-      <h2 class="example-title">1. Card Básica</h2>
-      <dcx-ng-card
-        header="Información del Usuario"
-        subheader="Datos personales"
-        iconClass="fas fa-user"
-      >
-        <p>
-          Esta es una card básica con header, subheader, icono y botones por
-          defecto.
-        </p>
-        <p>El contenido se muestra usando ng-content.</p>
-      </dcx-ng-card>
-    </div>
+<hr />
 
-    <div class="example-section">
-      <h2 class="example-title">2. Card Cerrable</h2>
-      <dcx-ng-card
-        header="Notificación"
-        subheader="Mensaje importante"
-        iconClass="fas fa-bell"
-        [closable]="true"
-      >
-        <div class="notification-content">
-          <p>
-            <strong>¡Atención!</strong> Esta es una notificación importante.
-          </p>
-          <p>
-            Puedes cerrarla usando el botón X en la esquina superior derecha.
-          </p>
-        </div>
-      </dcx-ng-card>
-    </div>
+<section>
+  <h2 class="example-title">
+    Ejemplo 2 - Posición horizontal y content a 800px
+  </h2>
 
-    <div class="example-section">
-      <h2 class="example-title">3. Card Solo con Body</h2>
-      <dcx-ng-card>
-        <div class="simple-content">
-          <h3>Card sin Header</h3>
-          <p>
-            Esta card solo tiene contenido en el body y los botones por defecto
-            en el footer.
-          </p>
-          <p>No tiene header, subheader ni icono.</p>
-        </div>
-      </dcx-ng-card>
+  <dcx-ng-card layout="horizontal" align="center" maxContentWidth="800px">
+  </dcx-ng-card>
+</section>
+<hr />
+
+<section>
+  <h2 class="example-title">
+    Ejemplo 2 - Posición horizontal y alineación al final
+  </h2>
+
+  <dcx-ng-card layout="horizontal" align="end" maxContentWidth="800px">
+  </dcx-ng-card>
+</section>
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Carta deshabilitada</h2>
+
+  <dcx-ng-card
+    layout="horizontal"
+    align="end"
+    maxContentWidth="800px"
+    [disabled]="true"
+  >
+  </dcx-ng-card>
+</section>
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Posición vertical con slots</h2>
+  <!-- Definimos los templates "slots" -->
+  <ng-template #headerTpl>
+    <div class="custom-header">
+      <h3 class="title">Encabezado personalizado</h3>
+      <p class="subtitle">
+        Este header sobrescribe el título/subtítulo por defecto
+      </p>
     </div>
-  </div>
-</div>
+  </ng-template>
+
+  <ng-template #contentTpl>
+    <div class="custom-content">
+      <p>
+        Contenido principal de la card. Aquí puedes insertar cualquier HTML,
+        componentes, etc.
+      </p>
+    </div>
+  </ng-template>
+
+  <ng-template #footerTpl>
+    <div class="custom-footer">
+      <dcx-ng-button
+        type="button"
+        label="Cancelar"
+        variant="secondary"
+        size="s"
+        style="margin-right:0.5rem"
+      ></dcx-ng-button>
+      <dcx-ng-button
+        type="button"
+        aria-label="Acción secundaria"
+        label="Aceptar"
+        size="s"
+      ></dcx-ng-button>
+    </div>
+  </ng-template>
+
+  <!-- Pasamos los TemplateRef a los inputs de la card -->
+  <dcx-ng-card
+    [layout]="DEFAULT_ARGS.layout"
+    [align]="DEFAULT_ARGS.align"
+    [size]="DEFAULT_ARGS.size"
+    [image]="DEFAULT_ARGS.image"
+    [imageAlt]="DEFAULT_ARGS.imageAlt"
+    [bordered]="DEFAULT_ARGS.bordered"
+    [borderStyle]="DEFAULT_ARGS.borderStyle"
+    [borderWidth]="DEFAULT_ARGS.borderWidth"
+    [shadow]="DEFAULT_ARGS.shadow"
+    [interactive]="DEFAULT_ARGS.interactive"
+    [disabled]="DEFAULT_ARGS.disabled"
+    [maxContentWidth]="DEFAULT_ARGS.maxContentWidth"
+    [maxImageWidth]="DEFAULT_ARGS.maxImageWidth"
+    [header]="headerTpl"
+    [content]="contentTpl"
+    [footer]="footerTpl"
+  ></dcx-ng-card>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Posición horizontal con slots</h2>
+  <!-- Definimos los templates "slots" -->
+  <ng-template #headerTpl>
+    <div class="custom-header">
+      <h3 class="title">Encabezado personalizado</h3>
+      <p class="subtitle">
+        Este header sobrescribe el título/subtítulo por defecto
+      </p>
+    </div>
+  </ng-template>
+
+  <ng-template #contentTpl>
+    <div class="custom-content">
+      <p>
+        Contenido principal de la card. Aquí puedes insertar cualquier HTML,
+        componentes, etc.
+      </p>
+    </div>
+  </ng-template>
+
+  <ng-template #footerTpl>
+    <div class="custom-footer">
+      <dcx-ng-button
+        type="button"
+        label="Cancelar"
+        variant="secondary"
+        size="s"
+        style="margin-right:0.5rem"
+      ></dcx-ng-button>
+      <dcx-ng-button
+        type="button"
+        aria-label="Acción secundaria"
+        label="Aceptar"
+        size="s"
+      ></dcx-ng-button>
+    </div>
+  </ng-template>
+
+  <!-- Pasamos los TemplateRef a los inputs de la card -->
+  <dcx-ng-card
+    layout="horizontal"
+    [align]="DEFAULT_ARGS.align"
+    [size]="DEFAULT_ARGS.size"
+    [image]="DEFAULT_ARGS.image"
+    [imageAlt]="DEFAULT_ARGS.imageAlt"
+    [bordered]="DEFAULT_ARGS.bordered"
+    [borderStyle]="DEFAULT_ARGS.borderStyle"
+    [borderWidth]="DEFAULT_ARGS.borderWidth"
+    [shadow]="DEFAULT_ARGS.shadow"
+    [interactive]="DEFAULT_ARGS.interactive"
+    [disabled]="DEFAULT_ARGS.disabled"
+    maxContentWidth="800px"
+    [maxImageWidth]="DEFAULT_ARGS.maxImageWidth"
+    [header]="headerTpl"
+    [content]="contentTpl"
+    [footer]="footerTpl"
+  ></dcx-ng-card>
+</section>

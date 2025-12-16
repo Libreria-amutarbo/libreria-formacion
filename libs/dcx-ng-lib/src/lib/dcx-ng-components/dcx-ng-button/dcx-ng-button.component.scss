@@ -39,7 +39,7 @@
   // ========== PRIMARY ==========
 
   &--primary {
-    background-color: #0058ab;
+    background-color: var(--color-primary);
     color: #ffffff;
 
     &:hover:not(:disabled) {

@@ -29,7 +29,7 @@ import { DcxNgPageBreadcrumb } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-
 export const appRoutes: Route[] = [
   {
     path: '',
-    component: DcxNgPageFullTableComponent,
+    component: DcxNgPageAccordionComponent,
   },
   {
     path: APP_ROUTES.TABLE,

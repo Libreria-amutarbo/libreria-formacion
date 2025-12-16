@@ -28,12 +28,21 @@ const meta: Meta<DcxNgSelectComponent> = {
     options: {
       control: 'object',
       description: 'Listado de opciones { value, label }',
+      table: { category: 'Attributes' }
     },
-    placeholder: { control: 'text' },
-    label: { control: 'text', description: 'Texto visible del label' },
+    placeholder: {
+      control: 'text',
+      table: { category: 'Attributes' }
+    },
+    label: {
+      control: 'text',
+      description: 'Texto visible del label',
+      table: { category: 'Attributes' }
+    },
     ariaLabel: {
       control: 'text',
       description: 'Nombre accesible SOLO cuando no hay label visible',
+      table: { category: 'Attributes' }
     },
   },
   args: {

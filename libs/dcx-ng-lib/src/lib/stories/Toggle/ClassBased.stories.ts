@@ -6,15 +6,31 @@ const meta: Meta<DcxNgToggleComponent> = {
   component: DcxNgToggleComponent,
   tags: ['autodocs'],
   argTypes: {
-    checked: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    label: { control: 'text' },
+    checked: {
+      control: 'boolean', 
+      table: { category: 'Attributes' }
+    },
+    disabled: {
+      control: 'boolean', 
+      table: { category: 'Attributes' }
+    },
+    label: {
+      control: 'text', 
+      table: { category: 'Attributes' }
+    },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium', 'large'], 
+      table: { category: 'Attributes' }
     },
-    color: { control: 'color' },
-    ariaLabel: { control: 'text' },
+    color: {
+      control: 'color', 
+      table: { category: 'Attributes' }
+    },
+    ariaLabel: {
+      control: 'text', 
+      table: { category: 'Attributes' }
+    },
   },
 };
 

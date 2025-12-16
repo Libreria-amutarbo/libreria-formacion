@@ -18,22 +18,25 @@ const meta: Meta<DcxNgDropdownComponent> = {
       control: { type: 'object' },
       table: {
         type: { summary: 'Array<{ key: string; value: string | number }>' },
+        category: 'Attributes'
       },
     },
-    selectedKey: { control: 'text' },
-    placeholder: { control: 'text' },
-    disabled: { control: 'boolean' },
-    selectedKeyChange: { action: 'selectedKeyChange' },
-  },
-  args: {
-    dropdownOptions: [
-      { key: 'red', value: 'Rojo' },
-      { key: 'green', value: 'Verde' },
-      { key: 'blue', value: 'Azul' },
-    ] as DcxDropdownOptions[],
-    selectedKey: null,
-    placeholder: 'Selecciona color',
-    disabled: false,
+    selectedKey: {
+      control: 'text',
+      table: { category: 'Attributes' }
+    },
+    placeholder: {
+      control: 'text',
+      table: { category: 'Attributes' }
+    },
+    disabled: {
+      control: 'boolean',
+      table: { category: 'Attributes' }
+    },
+    selectedKeyChange: {
+      action: 'selectedKeyChange',
+      table: { category: 'Events' }
+    },
   },
 };
 
