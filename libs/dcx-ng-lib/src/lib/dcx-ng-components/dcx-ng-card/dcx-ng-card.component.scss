@@ -28,9 +28,9 @@
   flex-direction: column;
   gap: var(--card-gap);
 
-  background: var(--color-background);
+  background: var(--background-default);
   border-style: var(--card-border-style);
-  border-color: var(--card-border-color, var(--color-border));
+  border-color: var(--border-primary);
   border-width: var(--card-border-width);
   border-radius: var(--card-radius);
   padding: var(--card-padding);

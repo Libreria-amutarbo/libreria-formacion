@@ -25,48 +25,57 @@ $color-base: (
 
 $color-semantic: (
   light-blue-700: #1d88f2,
-  red-300: #f08080,
+  red-800: #b00020,
+  red-700: #b91c1c,
+  red-300: #fee2e2,
 );
 
+//QUITAR!!!!
 $color: (
-  default: map.get($color-base, 'white'),
-  // Colores principales de Capgemini
-  'primary': map.get($color-primary, 500),
-  'primary-hover': map.get($color-primary, 600),
-  // Azul Capgemini
-  'secondary': #2b0a3d,
-  // Morado Capgemini
-  'accent': #12abdb,
-
-  // Azul claro Capgemini
-  // Variaciones del color primario
-  'primary-light': #0088d1,
-  'primary-dark': #005a8c,
-
-  // Grises corporativos
-  'gray-dark': #1a1a1a,
-  'gray': #666666,
-  'gray-light': #cccccc,
-  'gray-lighter': #f2f2f2,
-
   // Colores de estado
   'success': #00a76f,
   'warning': #ffa726,
   'error': #ef4444,
   'info': #12abdb,
 
-  // Colores de fondo
-  background: map.get($color-primary, 500),
-  'background-alt': #f8f9fa,
-  'surface': #ffffff,
-
   // Colores de texto
   'text-primary': #1a1a1a,
   'text-secondary': #666666,
   'text-disabled': #999999,
-  'text-inverse': #ffffff,
+  'text-inverse': #ffffff
+);
 
-  // Bordes
-  'border': #e5e7eb,
-  'border-light': #f3f4f6,
+$background: (
+  default: map.get($color-base, 'white'),
+  primary: map.get($color-primary, 500),
+  primary-hover: map.get($color-primary, 600),
+  primary-pressed: map.get($color-primary, 700),
+  secondary: map.get($color-grey, 700),
+  secondary-light: map.get($color-grey, 400),
+  pressed: map.get($color-grey, 200),
+  disabled: map.get($color-grey, 200),
+  hover: map.get($color-grey, 100),
+  error: map.get($color-semantic, red-300),
+);
+
+$content: (
+  default-white: map.get($color-base, 'white'),
+  default-dark: map.get($color-grey, 700),
+  primary: map.get($color-primary, 500),
+  hover: map.get($color-grey, 400),
+  terciary: map.get($color-grey, 200),
+  disabled: map.get($color-grey, 500),
+  disabled-dark: map.get($color-grey, 600),
+  error-text: map.get($color-semantic, red-800),
+  error: map.get($color-semantic, red-700),
+);
+
+$border: (
+  primary: map.get($color-primary, 500),
+  default: map.get($color-grey, 700),
+  hover: map.get($color-grey, 200),
+  terciary: map.get($color-grey, 200),
+  disabled: map.get($color-primary, 400),
+  focus: map.get($color-semantic, light-blue-70),
+  error: map.get($content, error),
 );

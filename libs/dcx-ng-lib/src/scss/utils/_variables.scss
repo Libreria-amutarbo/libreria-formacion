@@ -32,9 +32,18 @@
     --shadow-#{$name}: #{$value};
   }
 
-  // Colores
+  /** COLORES */
   @each $name, $value in color.$color {
     --color-#{$name}: #{$value};
+  }
+  @each $name, $value in color.$background {
+    --background-#{$name}: #{$value};
+  }
+  @each $name, $value in color.$content {
+    --content-#{$name}: #{$value};
+  }
+  @each $name, $value in color.$border {
+    --border-#{$name}: #{$value};
   }
 
   // Espaciados
