@@ -1,36 +1,37 @@
 @use 'sass:map';
 @use '../base' as *;
-// Mixins útiles para tipografía
+
+// Mixins: prefer runtime CSS variables for consistent theming.
 @mixin heading-1 {
-  font-family: fonts('primary');
-  font-size: map.get($font-size, 'h1');
-  font-weight: map.get($weight, 'bold');
-  line-height: map.get($line-height, 'tight');
-  letter-spacing: map.get($letter-spacing, 'tight');
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 @mixin heading-2 {
-  font-family: map.get($fonts, 'primary');
-  font-size: map.get($font-size, 'h2');
-  font-weight: map.get($weight, 'bold');
-  line-height: map.get($line-height, 'tight');
-  letter-spacing: map.get($letter-spacing, 'tight');
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 @mixin body-text {
-  font-family: map.get($fonts, 'primary');
-  font-size: map.get($font-size, 'body');
-  font-weight: map.get($weight, 'regular');
-  line-height: map.get($line-height, 'normal');
-  letter-spacing: map.get($letter-spacing, 'normal');
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
 @mixin caption-text {
-  font-family: map.get($fonts, 'primary');
-  font-size: map.get($font-size, 'caption');
-  font-weight: map.get($weight, 'regular');
-  line-height: map.get($line-height, 'normal');
-  letter-spacing: map.get($letter-spacing, 'wide');
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 // Mixins de utilidad para usar las variables CSS

@@ -1,6 +1,38 @@
+@use 'sass:map';
+$color-primary: (
+  100: #e6f0fa,
+  200: #b3d4f0,
+  300: #88b6e6,
+  400: #4d9cd8,
+  500: #0058ab,
+  600: #004080,
+  700: #121a38,
+);
+
+$color-grey: (
+  100: #f7f8fa,
+  200: #e1e3e6,
+  300: #c8cdcd,
+  400: #a9adb3,
+  500: #696e75,
+  600: #4f545a,
+  700: #2a2e33,
+);
+
+$color-base: (
+  white: #ffffff,
+);
+
+$color-semantic: (
+  light-blue-700: #1d88f2,
+  red-300: #f08080,
+);
+
 $color: (
+  default: map.get($color-base, 'white'),
   // Colores principales de Capgemini
-  'primary': #0058ab,
+  'primary': map.get($color-primary, 500),
+  'primary-hover': map.get($color-primary, 600),
   // Azul Capgemini
   'secondary': #2b0a3d,
   // Morado Capgemini
@@ -24,7 +56,7 @@ $color: (
   'info': #12abdb,
 
   // Colores de fondo
-  'background': red,
+  background: map.get($color-primary, 500),
   'background-alt': #f8f9fa,
   'surface': #ffffff,
 
@@ -36,9 +68,5 @@ $color: (
 
   // Bordes
   'border': #e5e7eb,
-  'border-light': #f3f4f6
+  'border-light': #f3f4f6,
 );
-
-@function color($name) {
-  @return map-get($color, $name);
-}

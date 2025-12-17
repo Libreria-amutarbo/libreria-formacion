@@ -63,7 +63,3 @@ $spacing: (
   // 16px
   'inline-xl': 1.5rem // 24px
 );
-
-@function spacing($name) {
-  @return map-get($spacing, $name);
-}

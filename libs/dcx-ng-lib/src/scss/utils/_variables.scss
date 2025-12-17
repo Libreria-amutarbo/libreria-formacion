@@ -1,8 +1,8 @@
-
 @use '../base/typography' as typography;
 @use '../base/color' as color;
 @use '../base/spacing' as spacing;
 @use '../base/radius' as radius;
+@use '../base/shadows' as shadows;
 
 // Variables raíz del sistema de diseño
 :root {
@@ -25,6 +25,11 @@
 
   @each $name, $value in typography.$letter-spacing {
     --letter-spacing-#{$name}: #{$value};
+  }
+
+  // Shadows
+  @each $name, $value in shadows.$shadows {
+    --shadow-#{$name}: #{$value};
   }
 
   // Colores
