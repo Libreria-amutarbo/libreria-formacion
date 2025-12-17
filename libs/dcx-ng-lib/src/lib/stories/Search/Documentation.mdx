@@ -1,0 +1,154 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as SearchClassBasedStories from './ClassBased.stories';
+import * as SearchUnstyledStories from './UnStyled.stories';
+
+<Meta title="DCXLibrary/Search/Documentation" />
+
+# Search
+
+The `dcx-ng-search` component is a customizable and accessible search input field with a search button.
+It emits events when the user types or triggers a search action.
+
+---
+
+## Unstyled Version
+
+Use this version when you want full control over the appearance.
+No styles are applied beyond native HTML input behavior, which makes it ideal for custom theming.
+
+<Canvas of={SearchUnstyledStories.Default} />
+
+## Class-Based Version
+
+This version includes styling using CSS custom properties.
+It supports different sizes, disabled state, and keyboard interaction.
+
+<Canvas of={SearchClassBasedStories.Default} />
+
+---
+
+### Usage Examples
+
+The following story demonstrates multiple search configurations including different sizes, states, and event handling.
+
+<Canvas of={SearchClassBasedStories.SearchShowcase} />
+
+---
+
+### Available Properties
+
+- **placeholder**: Placeholder text shown when the input is empty (default: `'Buscar...'`)
+- **disabled**: Disables the search input and button (default: `false`)
+- **size**: Size of the search component: `'s'` | `'m'` | `'l'` (default: `'m'`)
+- **dropdown**: Enables dropdown with filterable items (default: `false`)
+- **items**: Array of searchable items for the dropdown (default: `[]`)
+- **showClear**: Shows clear button when there is text (default: `true`)
+
+### Available Events
+
+- **searchChange**: Emitted every time the input value changes (real-time)
+- **searchOutput**: Emitted when the user clicks the search button or presses Enter
+- **itemSelected**: Emitted when a dropdown item is selected
+
+---
+
+## Keyboard Interaction
+
+The search component supports keyboard interaction:
+
+- **Type** to enter search text
+- **Enter** to trigger the search event
+- **Tab** to navigate between input and button
+
+---
+
+## Usage Examples
+
+### Basic Usage
+
+```html
+<dcx-ng-search
+  (searchOutput)="onSearch($event)">
+</dcx-ng-search>
+```
+
+### With Clear Button
+
+```html
+<dcx-ng-search
+  placeholder="Buscar productos..."
+  [showClear]="true"
+  (searchOutput)="onSearch($event)">
+</dcx-ng-search>
+```
+
+### Custom Placeholder and Size
+
+```html
+<dcx-ng-search
+  placeholder="Buscar productos..."
+  size="l"
+  [showClear]="true"
+  (searchOutput)="onSearch($event)">
+</dcx-ng-search>
+```
+
+### With Dropdown
+
+```html
+<dcx-ng-search
+  placeholder="Buscar personas..."
+  [dropdown]="true"
+  [items]="searchItems"
+  [showClear]="true"
+  (searchChange)="onSearchChange($event)"
+  (searchOutput)="onSearch($event)"
+  (itemSelected)="onItemSelected($event)">
+</dcx-ng-search>
+```
+
+### With Real-time Search
+
+```html
+<dcx-ng-search
+  placeholder="Búsqueda en tiempo real..."
+  [showClear]="true"
+  (searchChange)="onSearchChange($event)"
+  (searchOutput)="onSearch($event)">
+</dcx-ng-search>
+```
+
+### Component Handler
+
+```typescript
+import { SearchItem } from '@dcx-ng-lib/dcx-ng-search';
+
+export interface SearchItem {
+  id: number | string;
+  label: string;
+  [key: string]: unknown;
+}
+
+export class MyComponent {
+  searchItems: SearchItem[] = [
+    { id: 1, label: 'Item 1' },
+    { id: 2, label: 'Item 2' },
+    { id: 3, label: 'Item 3' }
+  ];
+
+  onSearchChange(value: string): void {
+    console.log('User is typing:', value);
+    // Real-time search logic
+  }
+
+  onSearch(value: string): void {
+    console.log('Search triggered:', value);
+    // Execute search
+  }
+
+  onItemSelected(item: SearchItem): void {
+    console.log('Item selected:', item);
+    // Handle item selection
+  }
+}
+```
