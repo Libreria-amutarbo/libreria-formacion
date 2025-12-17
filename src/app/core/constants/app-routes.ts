@@ -22,6 +22,7 @@ export const APP_ROUTES = {
   DATEPICKER: 'date-picker',
   ACCORDION: 'accordion',
   DIALOG: 'dialog',
+  SEARCH: 'search',
   TABS: 'tabs',
   BREADCRUMB: 'breadcrumb',
 };
