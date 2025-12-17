@@ -79,3 +79,13 @@ $border: (
   focus: map.get($color-semantic, light-blue-70),
   error: map.get($content, error),
 );
+
+$text: (
+  title: map.get($color-grey, 700),
+  body: map.get($color-grey, 700),
+  label-default: map.get($color-grey, 700),
+  label-base: map.get($color-base, 'white'),
+  disabled: map.get($color-grey, 500),
+  disabled-dark: map.get($color-grey, 600),
+  error: map.get($color-semantic, red-800),
+);
