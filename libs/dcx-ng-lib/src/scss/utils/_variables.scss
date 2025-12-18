@@ -58,10 +58,4 @@
   @each $name, $value in radius.$radius {
     --border-radius-#{$name}: #{$value};
   }
-
-  // Variables adicionales
-  --font-family-base: var(--font-family-primary);
-  --font-size-base: var(--font-size-body);
-  --font-weight-base: var(--font-weight-regular);
-  --line-height-base: var(--line-height-normal);
 }
