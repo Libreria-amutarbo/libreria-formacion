@@ -1,65 +1,40 @@
 // Sistema de espaciado
 $spacing: (
   // Espaciado base (4px)
-  'base': 0.25rem,
+  base: 0.25rem,
 
-  // 4px
   // Tamaños principales
-  'xs': 0.5rem,
-  // 8px
-  's': 1rem,
-  // 16px
-  'm': 1.5rem,
-  // 24px
-  'l': 2rem,
-  // 32px
-  'xl': 3rem,
+  xs: 0.25rem,
+  s: 0.5rem,
+  m: 1rem,
+  l: 1.5rem,
+  xl: 2rem,
 
-  // 48px
   // Espaciado para secciones
-  'section-xs': 1.5rem,
-  // 24px
-  'section-s': 2rem,
-  // 32px
-  'section-m': 3rem,
-  // 48px
-  'section-l': 4rem,
-  // 64px
-  'section-xl': 6rem,
+  section-xs: 1.5rem,
+  section-s: 2rem,
+  section-m: 3rem,
+  section-l: 4rem,
+  section-xl: 6rem,
 
-  // 96px
   // Espaciado para márgenes internos (padding)
-  'inset-xs': 0.5rem,
-  // 8px
-  'inset-s': 0.75rem,
-  // 12px
-  'inset-m': 1rem,
-  // 16px
-  'inset-l': 1.5rem,
-  // 24px
-  'inset-xl': 2rem,
+  inset-xs: 0.5rem,
+  inset-s: 0.75rem,
+  inset-m: 1rem,
+  inset-l: 1.5rem,
+  inset-xl: 2rem,
 
-  // 32px
   // Espaciado para stacks (elementos apilados verticalmente)
-  'stack-xs': 0.25rem,
-  // 4px
-  'stack-s': 0.5rem,
-  // 8px
-  'stack-m': 1rem,
-  // 16px
-  'stack-l': 1.5rem,
-  // 24px
-  'stack-xl': 2rem,
+  stack-xs: 0.25rem,
+  stack-s: 0.5rem,
+  stack-m: 1rem,
+  stack-l: 1.5rem,
+  stack-xl: 2rem,
 
-  // 32px
   // Espaciado para elementos inline (horizontalmente)
-  'inline-xs': 0.25rem,
-  // 4px
-  'inline-s': 0.5rem,
-  // 8px
-  'inline-m': 0.75rem,
-  // 12px
-  'inline-l': 1rem,
-  // 16px
-  'inline-xl': 1.5rem // 24px
+  inline-xs: 0.25rem,
+  inline-s: 0.5rem,
+  inline-m: 0.75rem,
+  inline-l: 1rem,
+  inline-xl: 1.5rem
 );

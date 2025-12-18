@@ -1,3 +1,5 @@
+@use '../../../scss/utils' as utils;
+
 :host {
   display: inline-block;
 }
@@ -7,27 +9,27 @@
   vertical-align: middle;
   line-height: 1;
 }
- 
+
 .dcx-icon--size-s {
-  font-size: 0.75rem;
+  font-size: var(--size-s);
 }
- 
+
 .dcx-icon--size-m {
-  font-size: 1rem;
+  font-size: var(--size-m);
 }
- 
+
 .dcx-icon--size-l {
-  font-size: 1.5rem;
+  font-size: var(--size-l);
 }
- 
+
 .dcx-icon--size-xl {
-  font-size: 2rem;
+  font-size: var(--size-xl);
 }
- 
+
 .dcx-icon--spacing-compact {
   margin: 0 0.25rem;
 }
- 
+
 .dcx-icon--spacing-spacious {
   margin: 0 0.75rem;
 }
