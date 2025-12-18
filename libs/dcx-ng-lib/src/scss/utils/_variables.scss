@@ -3,6 +3,7 @@
 @use '../base/spacing' as spacing;
 @use '../base/radius' as radius;
 @use '../base/shadows' as shadows;
+@use '../base/sizes' as sizes;
 
 // Variables raíz del sistema de diseño
 :root {
@@ -57,5 +58,10 @@
   // Border Radius
   @each $name, $value in radius.$radius {
     --border-radius-#{$name}: #{$value};
+  }
+
+  // Tamaños
+  @each $name, $value in sizes.$size {
+    --size-#{$name}: #{$value};
   }
 }
