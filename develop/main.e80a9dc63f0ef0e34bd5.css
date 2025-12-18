@@ -491,7 +491,7 @@ template {
   --color-warning: #ffa726;
   --color-error: #ef4444;
   --color-info: #12abdb;
-  --background-default: ;
+  --background-default: #ffffff;
   --background-primary: #0058ab;
   --background-primary-hover: #004080;
   --background-primary-pressed: #121a38;
@@ -501,7 +501,7 @@ template {
   --background-disabled: #e1e3e6;
   --background-hover: #f7f8fa;
   --background-error: #fee2e2;
-  --content-default-white: ;
+  --content-default-white: #ffffff;
   --content-default-dark: #2a2e33;
   --content-primary: #0058ab;
   --content-hover: #a9adb3;
@@ -520,10 +520,15 @@ template {
   --text-title: #2a2e33;
   --text-body: #2a2e33;
   --text-label-default: #2a2e33;
-  --text-label-base: ;
+  --text-label-base: #ffffff;
   --text-disabled: #696e75;
   --text-disabled-dark: #4f545a;
+  --text-link: #0058ab;
   --text-error: #b00020;
+  --status-success: #00a76f;
+  --status-warning: #ffa726;
+  --status-error: #ef4444;
+  --status-info: #12abdb;
   --spacing-base: 0.25rem;
   --spacing-xs: 0.25rem;
   --spacing-s: 0.5rem;
