@@ -1,4 +1,5 @@
 @use '../../../scss/utils/mixins' as *;
+@use '../../../scss/utils' as utils;
 
 :host {
   display: inline-block;

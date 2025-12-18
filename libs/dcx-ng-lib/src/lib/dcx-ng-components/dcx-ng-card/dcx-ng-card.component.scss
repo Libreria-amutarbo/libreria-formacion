@@ -1,19 +1,8 @@
 @use '../../../scss/main' as *;
-@use 'sass:map';
-
-:host {
-  --card-border-style: solid;
-  --card-border-width: 0;
-
-  --shadow-0: none;
-  --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.12);
-  --shadow-3: 0 8px 24px rgba(0, 0, 0, 0.16);
-
-  --card-shadow: var(--shadow-0);
-}
+@use '../../../scss/utils' as utils;
 
 .dcx-card {
+  font-family: var(--font-family-primary);
   display: block;
   background: transparent;
   border: none;
@@ -21,11 +10,6 @@
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-
-  &:focus-visible .card-inner {
-    outline: 3px solid rgba(10, 132, 255, 0.35);
-    outline-offset: 2px;
-  }
 
   &.disabled {
     opacity: 0.5;
@@ -44,14 +28,14 @@
   flex-direction: column;
   gap: var(--card-gap);
 
-  background: map.get($color, 'background');
+  background: var(--background-default);
   border-style: var(--card-border-style);
-  border-color: map.get($color, 'primary');
+  border-color: var(--border-primary);
   border-width: var(--card-border-width);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
 
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--shadow-1);
 
   width: 100%;
   max-width: var(--card-max-content-width);
@@ -102,7 +86,7 @@
 }
 
 .image-container {
-  display: flex;
+  @include utils.flex-center;
 }
 .image-container img {
   display: block;
@@ -127,7 +111,7 @@
   min-width: 0;
 
   .header {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-inline-m);
   }
   .content {
     display: flex;
@@ -137,38 +121,39 @@
     min-width: 0;
   }
   .footer {
-    margin-top: 1.5rem;
-    display: flex;
+    margin-top: var(--spacing-inline-m);
+    @include utils.flex-center;
     width: 100%;
-    gap: map.get($spacing, 'inline-s');
-    align-items: center;
+    gap: var(--spacing-inline-s);
+
     justify-content: flex-start;
   }
 
   .title {
     margin: 0 0 0.5rem 0;
-    font-size: map.get($font-size, 'h3');
-    font-weight: map.get($weight, 'semibold');
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-semibold);
   }
   .subtitle {
     margin: 0;
-    font-size: map.get($font-size, 'body');
-    color: map.get($color, 'texto-secondary');
-    font-weight: map.get($weight, 'semibold');
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-semibold);
   }
 
   .header ::ng-deep h3,
   .header ::ng-deep .title {
     margin: 0 0 0.5rem 0;
-    font-size: map.get($font-size, 'h3');
-    font-weight: map.get($weight, 'semibold');
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-semibold);
   }
   .header ::ng-deep p,
   .header ::ng-deep .subtitle {
     margin: 0;
-    font-size: map.get($font-size, 'body');
-    color: map.get($color, 'texto-secondary');
-    font-weight: map.get($weight, 'semibold');
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-semibold);
   }
 }
 
