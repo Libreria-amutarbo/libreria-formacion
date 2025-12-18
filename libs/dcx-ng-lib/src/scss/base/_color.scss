@@ -36,13 +36,17 @@ $color: (
   'success': #00a76f,
   'warning': #ffa726,
   'error': #ef4444,
-  'info': #12abdb,
+  'info': #12abdb
+);
 
-  // Colores de texto
-  'text-primary': #1a1a1a,
-  'text-secondary': #666666,
-  'text-disabled': #999999,
-  'text-inverse': #ffffff
+$text: (
+  title: map.get($color-grey, 700),
+  body: map.get($color-grey, 700),
+  label-default: map.get($color-grey, 700),
+  label-base: map.get($color-base, 'white'),
+  disabled: map.get($color-grey, 500),
+  disabled-dark: map.get($color-grey, 600),
+  error: map.get($color-semantic, red-800),
 );
 
 $background: (
