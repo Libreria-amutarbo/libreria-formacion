@@ -3,6 +3,7 @@
 
 :host {
   display: inline-block;
+  font-family: var(--font-family-primary);
 }
 
 .dcx-ng-button {
@@ -40,20 +41,20 @@
   // ========== PRIMARY ==========
 
   &--primary {
-    background-color: var(--color-primary);
-    color: #ffffff;
+    background-color: var(--background-primary);
+    color: var(--text-label-base);
 
     &:hover:not(:disabled) {
-      background-color: #004080;
+      background-color: var(--background-primary-hover);
     }
 
     &:active:not(:disabled) {
-      background-color: #121a38;
+      background-color: var(--background-primary-pressed);
     }
 
     &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(0, 88, 171, 0.2);
+      box-shadow: 0 0 0 3px rgba(var(--background-primary), 0.2);
     }
   }
 
@@ -61,20 +62,20 @@
 
   &--secondary {
     background-color: transparent;
-    color: #2a2e33;
-    border: 1px solid #2a2e33;
+    color: var(--text-body);
+    border: 1px solid var(--text-body);
 
     &:hover:not(:disabled) {
-      background-color: #f7f8fa;
+      background-color: var(--background-hover);
     }
 
     &:active:not(:disabled) {
-      background-color: #e1e3e6;
+      background-color: var(--background-pressed);
     }
 
     &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 3px #e1e3e6;
+      box-shadow: 0 0 0 3px var(--background-pressed);
     }
   }
 
@@ -82,21 +83,21 @@
 
   &--link {
     background-color: transparent;
-    color: #2a2e33;
+    color: var(--text-link);
     border: none;
     text-decoration: underline;
 
     &:hover:not(:disabled) {
-      background-color: #f7f8fa;
+      background-color: var(--background-hover);
     }
 
     &:active:not(:disabled) {
-      background-color: #e1e3e6;
+      background-color: var(--background-pressed);
     }
 
     &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 3px #e1e3e6;
+      box-shadow: 0 0 0 3px var(--background-pressed);
     }
   }
 
@@ -104,8 +105,8 @@
 
   &:disabled,
   &[disabled] {
-    background-color: #e1e3e6;
-    color: #a0aec0;
+    background-color: var(--background-disabled);
+    color: var(--text-disabled);
     border-color: transparent;
     cursor: not-allowed;
     pointer-events: none;

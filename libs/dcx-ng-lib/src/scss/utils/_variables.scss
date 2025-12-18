@@ -49,6 +49,9 @@
   @each $name, $value in color.$text {
     --text-#{$name}: #{$value};
   }
+  @each $name, $value in color.$status {
+    --status-#{$name}: #{$value};
+  }
 
   // Espaciados
   @each $name, $value in spacing.$spacing {
