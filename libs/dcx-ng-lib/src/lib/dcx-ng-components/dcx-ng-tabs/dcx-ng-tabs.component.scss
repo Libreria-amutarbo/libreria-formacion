@@ -1,4 +1,8 @@
+@use '../../../scss/main' as *;
+@use '../../../scss/utils' as utils;
+
 .dcx-tabs {
+  font-family: var(--font-family-primary);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -10,36 +14,36 @@
 
   &__header {
     display: flex;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border-terciary);
     gap: 0;
   }
 
   &__content {
-    padding: 16px;
+    padding: var(--spacing-m);
     animation: fadeIn 0.3s ease;
   }
 }
 
 .dcx-tab {
   &__button {
-    padding: 12px 16px;
+    padding: var(--spacing-s) var(--spacing-m);
     background: none;
     border: none;
     border-bottom: 3px solid transparent;
-    color: #666;
-    font-weight: 500;
+    color: var(--text-disabled);
+    font-weight: var(--font-weight-medium);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
 
     &:hover:not(:disabled) {
-      color: #333;
-      background-color: #f5f5f5;
+      color: var(--text-body);
+      background-color: var(--background-hover);
     }
 
     &.active {
-      color: #1976d2;
-      border-bottom-color: #1976d2;
+      color: var(--background-primary);
+      border-bottom-color: var(--background-primary);
     }
 
     &:disabled {
@@ -51,8 +55,8 @@
   &__panel {
     p {
       margin: 0;
-      color: #333;
-      line-height: 1.6;
+      color: var(--text-body);
+      line-height: var(--line-height-normal);
     }
   }
 }
