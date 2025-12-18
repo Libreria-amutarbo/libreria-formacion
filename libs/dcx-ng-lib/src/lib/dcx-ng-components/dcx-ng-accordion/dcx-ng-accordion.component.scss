@@ -1,11 +1,15 @@
+@use '../../../scss/main' as *;
+@use '../../../scss/utils' as utils;
+
 .accordion {
-  border: 1px solid #e0e0e0;
+  font-family: var(--font-family-primary);
+  border: 1px solid var(--border-terciary);
   border-radius: 4px;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: var(--background-default);
 
   .accordion-item {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border-terciary);
 
     &:last-child {
       border-bottom: none;
@@ -14,8 +18,8 @@
     &.disabled {
       .accordion-header {
         cursor: not-allowed;
-        background-color: #f5f5f5;
-        color: #999;
+        background-color: var(--background-disabled);
+        color: var(--text-disabled);
       }
     }
 
@@ -24,22 +28,22 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px;
-      background-color: #ffffff;
+      background-color: var(--background-default);
       border: none;
       cursor: pointer;
       width: 100%;
       text-align: left;
       font-size: 16px;
       font-weight: 500;
-      color: #333;
+      color: var(--text-title);
       transition: all 0.2s ease-in-out;
 
       &:hover:not(:disabled) {
-        background-color: #f9f9f9;
+        background-color: var(--background-hover);
       }
 
       &:focus {
-        outline: 2px solid #2563eb;
+        outline: 2px solid var(--content-primary);
         outline-offset: -2px;
       }
 
@@ -68,7 +72,7 @@
         svg {
           width: 20px;
           height: 20px;
-          color: #666;
+          color: var(--text-body);
         }
       }
     }
@@ -77,7 +81,9 @@
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      transition:
+        max-height 0.3s ease-in-out,
+        opacity 0.3s ease-in-out;
 
       &.expanded {
         max-height: 1000px;
@@ -86,12 +92,11 @@
 
       .accordion-content {
         padding: 16px;
-        background-color: #fafafa;
-        color: #555;
+        background-color: var(--background-default);
+        color: var(--text-body);
         line-height: 1.6;
         font-size: 14px;
       }
     }
   }
 }
-

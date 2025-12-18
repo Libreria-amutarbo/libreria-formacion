@@ -7,6 +7,10 @@ p {
   flex-direction: column;
   gap: var(--spacing-xs);
   margin-bottom: var(--spacing-m);
+
+  &.no-margin {
+    margin-bottom: 0;
+  }
 }
 
 .dcx-ng-input {
@@ -27,12 +31,30 @@ p {
   font-size: var(--input-font-size);
   padding: var(--input-padding-vertical) var(--input-padding-horizontal);
 
+  &--inline {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  &--search {
+    box-sizing: border-box;
+    width: 100%;
+    flex: 1;
+    padding-right: calc(var(--spacing-inset-m, 12px) * 5);
+    height: 44px;
+  }
+
   &-size--s {
     --input-height: var(--spacing-xs);
     --input-width: var(--spacing-s);
     --input-font-size: var(--font-size-body-small);
     --input-padding-vertical: var(--spacing-inset-xs);
     --input-padding-horizontal: var(--spacing-inset-s);
+
+    &.dcx-ng-input--search {
+      padding-right: calc(var(--spacing-inset-s, 8px) * 5);
+      height: 38px;
+    }
   }
   &-size--m {
     --input-height: var(--spacing-xs);
@@ -40,6 +62,11 @@ p {
     --input-font-size: var(--font-size-body);
     --input-padding-vertical: var(--spacing-inset-xs);
     --input-padding-horizontal: var(--spacing-inset-m);
+
+    &.dcx-ng-input--search {
+      padding-right: calc(var(--spacing-inset-m, 12px) * 5);
+      height: 44px;
+    }
   }
   &-size--l {
     --input-height: var(--spacing-s);
@@ -47,6 +74,11 @@ p {
     --input-font-size: var(--font-size-body);
     --input-padding-vertical: var(--spacing-inset-s);
     --input-padding-horizontal: var(--spacing-inset-m);
+
+    &.dcx-ng-input--search {
+      padding-right: calc(var(--spacing-inset-l, 16px) * 5);
+      height: 50px;
+    }
   }
   &-size--xl {
     --input-height: var(--spacing-s);
