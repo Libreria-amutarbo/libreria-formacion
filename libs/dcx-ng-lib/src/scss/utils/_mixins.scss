@@ -1,44 +1,45 @@
 @use 'sass:map';
 @use '../base' as *;
-// Mixins útiles para tipografía
+
+// Mixins: prefer runtime CSS variables for consistent theming.
 @mixin heading-1 {
-  font-family: map.get($fonts, 'primary');
-  font-size: map.get($font-size, 'h1');
-  font-weight: map.get($weight, 'bold');
-  line-height: map.get($line-height, 'tight');
-  letter-spacing: map.get($letter-spacing, 'tight');
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 @mixin heading-2 {
-  font-family: map.get($fonts, 'primary');
-  font-size: map.get($font-size, 'h2');
-  font-weight: map.get($weight, 'bold');
-  line-height: map.get($line-height, 'tight');
-  letter-spacing: map.get($letter-spacing, 'tight');
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 @mixin body-text {
-  font-family: map.get($fonts, 'primary');
-  font-size: map.get($font-size, 'body');
-  font-weight: map.get($weight, 'regular');
-  line-height: map.get($line-height, 'normal');
-  letter-spacing: map.get($letter-spacing, 'normal');
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
 @mixin caption-text {
-  font-family: map.get($fonts, 'primary');
-  font-size: map.get($font-size, 'caption');
-  font-weight: map.get($weight, 'regular');
-  line-height: map.get($line-height, 'normal');
-  letter-spacing: map.get($letter-spacing, 'wide');
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 // Mixins de utilidad para usar las variables CSS
 @mixin font-base {
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-base);
-  line-height: var(--line-height-base);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
 }
 
 @mixin transition-base {
@@ -155,36 +156,24 @@ $breakpoints: (
 $button-sizes: (
   s: (
     height: 2.5rem,
-    // 40px
     padding-y: 0.5rem,
-    // 8px
     padding-x: 0.75rem,
-    // 12px
     font-size: 0.875rem,
-    // 14px
-    icon-size: 1rem, // 16px
+    icon-size: 1rem,
   ),
   m: (
     height: 3rem,
-    // 48px
     padding-y: 0.75rem,
-    // 12px
     padding-x: 1.5rem,
-    // 24px
     font-size: 1rem,
-    // 16px
-    icon-size: 1rem, // 16px
+    icon-size: 1rem,
   ),
   l: (
     height: 3.5rem,
-    // 56px
     padding-y: 1rem,
-    // 16px
     padding-x: 1.5rem,
-    // 24px
     font-size: 1rem,
-    // 16px
-    icon-size: 1.5rem, // 24px
+    icon-size: 1.5rem,
   ),
 );
 

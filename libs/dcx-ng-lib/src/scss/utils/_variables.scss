@@ -1,8 +1,9 @@
-
 @use '../base/typography' as typography;
 @use '../base/color' as color;
 @use '../base/spacing' as spacing;
 @use '../base/radius' as radius;
+@use '../base/shadows' as shadows;
+@use '../base/sizes' as sizes;
 
 // Variables raíz del sistema de diseño
 :root {
@@ -27,9 +28,29 @@
     --letter-spacing-#{$name}: #{$value};
   }
 
-  // Colores
+  // Shadows
+  @each $name, $value in shadows.$shadows {
+    --shadow-#{$name}: #{$value};
+  }
+
+  /** COLORES */
   @each $name, $value in color.$color {
     --color-#{$name}: #{$value};
+  }
+  @each $name, $value in color.$background {
+    --background-#{$name}: #{$value};
+  }
+  @each $name, $value in color.$content {
+    --content-#{$name}: #{$value};
+  }
+  @each $name, $value in color.$border {
+    --border-#{$name}: #{$value};
+  }
+  @each $name, $value in color.$text {
+    --text-#{$name}: #{$value};
+  }
+  @each $name, $value in color.$status {
+    --status-#{$name}: #{$value};
   }
 
   // Espaciados
@@ -42,9 +63,8 @@
     --border-radius-#{$name}: #{$value};
   }
 
-  // Variables adicionales
-  --font-family-base: var(--font-family-primary);
-  --font-size-base: var(--font-size-body);
-  --font-weight-base: var(--font-weight-regular);
-  --line-height-base: var(--line-height-normal);
+  // Tamaños
+  @each $name, $value in sizes.$size {
+    --size-#{$name}: #{$value};
+  }
 }

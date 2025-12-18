@@ -23,6 +23,7 @@ export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.compone
 export * from './lib/dcx-ng-components/dcx-ng-tabs/dcx-ng-tabs.component';
 export * from './lib/services/icon.service';
 export * from './lib/dcx-ng-components/dcx-ng-dialog/dcx-ng-dialog.component';
+export * from './lib/dcx-ng-components/dcx-ng-search/dcx-ng-search.component';
 
 export * from './lib/core/interfaces';
 export * from './lib/core/mock';

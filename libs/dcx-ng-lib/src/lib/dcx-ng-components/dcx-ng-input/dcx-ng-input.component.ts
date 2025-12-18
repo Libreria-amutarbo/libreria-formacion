@@ -22,6 +22,9 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() label: string | null = null;
   @Input() errorMessages: DcxInputErrorMessage[] = [];
+  @Input() noMargin = false;
+  @Input() inline = false;
+  @Input() search = false;
   set value(val: string) {
     if (this.inputControl) {
       this.inputControl.setValue(val, { emitEvent: false });
