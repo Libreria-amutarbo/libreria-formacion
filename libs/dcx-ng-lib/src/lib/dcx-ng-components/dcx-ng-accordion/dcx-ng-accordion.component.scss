@@ -25,7 +25,7 @@
 
     .accordion-header {
       @include flex-between;
-      @include padding(s);
+      @include padding(m);
       background-color: var(--background-default);
       border: none;
       cursor: pointer;
