@@ -1,5 +1,4 @@
 @use '../../../scss/main' as *;
-@use '../../../scss/utils' as utils;
 
 .accordion {
   font-family: var(--font-family-primary);
@@ -24,17 +23,15 @@
     }
 
     .accordion-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
+      @include flex-between;
+      @include padding(m);
       background-color: var(--background-default);
       border: none;
       cursor: pointer;
       width: 100%;
       text-align: left;
-      font-size: 16px;
-      font-weight: 500;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
       color: var(--text-title);
       transition: all 0.2s ease-in-out;
 
@@ -53,13 +50,11 @@
 
       .accordion-title {
         flex: 1;
-        font-weight: 500;
+        font-weight: var(--font-weight-medium);
       }
 
       .accordion-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include flex-center;
         margin-left: 12px;
         flex-shrink: 0;
         transition: transform 0.3s ease-in-out;
@@ -91,11 +86,11 @@
       }
 
       .accordion-content {
-        padding: 16px;
+        @include padding(m);
         background-color: var(--background-default);
         color: var(--text-body);
-        line-height: 1.6;
-        font-size: 14px;
+        line-height: var(--line-height-normal);
+        font-size: var(--font-size-body-small);
       }
     }
   }

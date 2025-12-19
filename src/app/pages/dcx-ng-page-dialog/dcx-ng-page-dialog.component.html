@@ -1,28 +1,55 @@
-<button (click)="visibleInfo = true">Abrir diálogo</button>
+<section>
+  <h2>Ejemplo 1 - Diálogo básico con información</h2>
+  <dcx-ng-button
+    label="Abrir diálogo"
+    variant="primary"
+    (buttonClick)="openInfo()"
+  />
 
-<dcx-ng-dialog
-  [title]="'Información importante'"
-  [visible]="visibleInfo"
-  (onClose)="handleCloseInfo()"
->
-  <div dialog-body>
-    <p>Este es un mensaje informativo dentro del diálogo.</p>
-  </div>
-</dcx-ng-dialog>
+  <dcx-ng-dialog
+    dialogId="info"
+    [title]="mockData.title"
+    [showClose]="mockData.showClose"
+    [position]="mockData.position"
+    [closeOnBackdrop]="mockData.closeOnBackdrop"
+  >
+    <ng-template #dialogBody>
+      <p>Este es un mensaje informativo dentro del diálogo.</p>
+    </ng-template>
+  </dcx-ng-dialog>
+</section>
 
-<button (click)="visibleConfirm = true">Abrir confirmación</button>
+<hr />
 
-<dcx-ng-dialog
-  [title]="'Confirmación'"
-  [visible]="visibleConfirm"
-  (onClose)="handleCloseConfirm()"
->
-  <ng-template #dialogBody>
-    <p>¿Estás seguro de que quieres continuar?</p>
-  </ng-template>
+<section>
+  <h2>Ejemplo 2 - Diálogo de confirmación con footer</h2>
+  <dcx-ng-button
+    label="Abrir confirmación"
+    variant="primary"
+    (buttonClick)="openConfirm()"
+  />
 
-  <ng-template #dialogFooter>
-    <button (click)="handleCancel()">Cancelar</button>
-    <button (click)="handleAccept()">Aceptar</button>
-  </ng-template>
-</dcx-ng-dialog>
+  <dcx-ng-dialog
+    dialogId="confirm"
+    [title]="mockData.title"
+    [showClose]="mockData.showClose"
+    [position]="mockData.position"
+  >
+    <ng-template #dialogBody>
+      <p>¿Estás seguro de que quieres continuar?</p>
+    </ng-template>
+
+    <ng-template #dialogFooter>
+      <dcx-ng-button
+        label="Cancelar"
+        variant="secondary"
+        (buttonClick)="handleCancel()"
+      />
+      <dcx-ng-button
+        label="Aceptar"
+        variant="primary"
+        (buttonClick)="handleAccept()"
+      />
+    </ng-template>
+  </dcx-ng-dialog>
+</section>

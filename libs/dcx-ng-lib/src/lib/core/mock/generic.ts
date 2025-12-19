@@ -1,10 +1,12 @@
-import { DcxLayout, DcxAlign, DcxSize, IconSpacing } from '../interfaces';
+import { DcxLayout, DcxAlign, DcxSize, DcxPosition, IconSpacing } from '../interfaces';
 
 export const LAYOUT_LIST: DcxLayout[] = ['vertical', 'horizontal'];
 
 export const ALIGN_LIST: DcxAlign[] = ['start', 'center', 'end'];
 
 export const SIZE_LIST: DcxSize[] = ['s', 'm', 'l'];
+
+export const POSITION_LIST: DcxPosition[] = Object.values(DcxPosition);
 
 export const ICON_SPACING_LIST: IconSpacing[] = ['none', 'compact', 'spacious'];
 
