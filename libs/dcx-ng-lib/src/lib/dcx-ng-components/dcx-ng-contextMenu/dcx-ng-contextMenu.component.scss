@@ -1,55 +1,74 @@
+@use '../../../scss/base' as *;
+
 .context-menu {
-    position: fixed;
-    background-color: var(--color-background, #ffffff);
-    border: 1px solid var(--color-border, #e5e7eb);
-    border-radius: var(--border-radius-md, 8px);
-    z-index: var(--z-index-dropdown, 1000);
-    min-width: 160px;
-    padding: var(--spacing-md, 8px) 0;
-    box-shadow: var(--shadow-lg, 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.06));
-    animation: slideIn var(--transition-fast, 150ms) ease-out;
-    backdrop-filter: blur(8px);
-    font-family: var(--font-family-base);
+  position: fixed;
+  background-color: map-get($color-base, white);
+  border: 1px solid map-get($color-grey, 200);
+  border-radius: map-get($radius, 'lg');
+  z-index: 1000;
+  min-width: 160px;
+  padding: map-get($spacing, 'xs') 0;
+  box-shadow: map-get($shadows, 4);
+  animation: slideIn 150ms ease-out;
+  backdrop-filter: blur(8px);
+  font-family: map-get($fonts, 'primary');
 }
 
 .context-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .context-menu li {
-    padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
-    font-size: var(--font-size-body-small, 14px);
-    font-weight: var(--font-weight-medium, 500);
-    color: var(--color-text-primary, #374151);
-    cursor: pointer;
-    transition: all var(--transition-normal, 250ms) var(--transition-timing, cubic-bezier(0.4, 0, 0.2, 1));
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs, 8px);
-    user-select: none;
-    line-height: var(--line-height-tight, 1.2);
+  padding: map-get($spacing, 'xs') map-get($spacing, 's');
+  font-size: map-get($font-size, 'body-small');
+  font-weight: map-get($weight, 'medium');
+  color: map-get($color-grey, 700);
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: map-get($spacing, 'xs');
+  user-select: none;
+  line-height: map-get($line-height, 'tight');
 
-    &:hover {
-        background-color: var(--color-surface-hover, #f3f4f6);
-        color: var(--color-text-primary, #111827);
-        padding-left: calc(var(--spacing-md, 16px) + var(--spacing-xs, 8px));
-    }
+  &:hover {
+    background-color: map-get($color-grey, 100);
+    color: map-get($color-grey, 700);
+    padding-left: calc(#{map-get($spacing, 's')} + #{map-get($spacing, 'xs')});
+  }
 
-    &:active {
-        background-color: var(--color-surface-active, #e5e7eb);
-    }
+  &:active {
+    background-color: map-get($color-grey, 200);
+  }
+
+  &:focus-visible {
+    outline: 2px solid map-get($color-primary, 500);
+    outline-offset: -2px;
+    background-color: map-get($color-grey, 100);
+  }
 }
 
 .context-menu li + li {
-    border-top: 1px solid #f3f4f6;
+  border-top: 1px solid map-get($color-grey, 100);
 }
 
 .context-menu li:first-child {
-    border-radius: 8px 8px 0 0;
+  border-radius: map-get($radius, 'lg') map-get($radius, 'lg') 0 0;
 }
 
 .context-menu li:last-child {
-    border-radius: 0 0 8px 8px;
+  border-radius: 0 0 map-get($radius, 'lg') map-get($radius, 'lg');
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
