@@ -1,41 +1,63 @@
-<div class="dcx-dropdown" [class.dcx-disabled]="disabled">
+<div class="dcx-dropdown" [class.dcx-disabled]="disabled()" [class.dcx-open]="isOpen()">
   <dcx-ng-button
     type="button"
     class="dcx-trigger"
-    variant="icon"
-    size="m"
-    iconName="expand_more"
-    iconPosition="end"
-    [disabled]="disabled"
+    [variant]="buttonVariant()"
+    [size]="buttonSize()"
+    [iconEnd]="displayIcon() ? '' : 'chevron-down'"
+    [iconStart]="displayIcon()"
+    [disabled]="disabled()"
     [label]="displayLabel()"
-    [attr.aria-expanded]="_open()"
+    [attr.aria-expanded]="isOpen()"
+    [attr.aria-haspopup]="'listbox'"
+    [attr.aria-label]="placeholder()"
     (buttonClick)="toggle()"
   ></dcx-ng-button>
 
-  @if (_open()) {
-    <div class="dcx-panel">
-      
-<ul class="dcx-list" role="listbox">
-  @for (item of dropdownOptions; track item.key) {
-    <li class="dcx-item" [class.selected]="isSelected(item)">
-      <button
-        type="button"
-        (click)="select(item)"
-        [attr.aria-selected]="isSelected(item)"
-        role="option"
-      >
-        <span class="dcx-item__label">{{ valueToString(item.value) }}</span>
-        @if (isSelected(item)) {
-          <span class="dcx-item__check">✓</span>
+  @if (isOpen()) {
+    <div class="dcx-panel" role="listbox" [attr.aria-label]="placeholder()">
+      <ul class="dcx-list">
+        @for (item of dropdownOptions(); track item.key) {
+          @if (isDivider(item)) {
+            <li class="dcx-divider" role="separator"></li>
+          } @else {
+            <li 
+              class="dcx-item" 
+              [class.selected]="isSelected(item)"
+              [class.disabled]="item.disabled"
+              role="option"
+              [attr.aria-selected]="isSelected(item)"
+              [attr.aria-disabled]="item.disabled"
+            >
+              <button
+                type="button"
+                (click)="select(item)"
+                [disabled]="item.disabled"
+                tabindex="0"
+              >
+                @if (item.icon) {
+                  <dcx-ng-icon 
+                    [name]="item.icon" 
+                    [size]="'s'"
+                    class="dcx-item__icon">
+                  </dcx-ng-icon>
+                }
+                <span class="dcx-item__label">{{ valueToString(item.value) }}</span>
+                @if (isSelected(item)) {
+                  <dcx-ng-icon 
+                    [name]="'check-lg'" 
+                    [size]="'s'"
+                    class="dcx-item__check">
+                  </dcx-ng-icon>
+                }
+              </button>
+            </li>
+          }
         }
-      </button>
-    </li>
-  }
-  @if (!dropdownOptions.length) {
-    <li class="dcx-empty">(Sin opciones)</li>
-  }
-</ul>
-
+        @if (!dropdownOptions().length) {
+          <li class="dcx-empty">(No options available)</li>
+        }
+      </ul>
     </div>
   }
 </div>
