@@ -1,8 +1,6 @@
 :host {
   display: block;
-  font-family: Roboto;
-  --dcx-text: #24292f;
-  --dcx-muted: #6e7781;
+  font-family: var(--font-family-primary);
 }
 
 .dcx-bc {
@@ -13,7 +11,7 @@
   gap: 6px;
   align-items: center;
   flex-wrap: wrap;
-  color: var(--dcx-text);
+  color: var(--text-title);
 }
 
 .dcx-bc__item {
@@ -23,7 +21,7 @@
 }
 
 .dcx-bc__link {
-  color: #0969da;
+  color: var(--text-link);
   text-decoration: none;
 
   &:hover {
@@ -32,16 +30,16 @@
 }
 
 .dcx-bc__text {
-  color: var(--dcx-text);
+  color: var(--text-title);
 }
 
 .dcx-bc__current {
-  color: var(--dcx-muted);
+  color: var(--text-body);
   font-weight: 600;
 }
 
 .dcx-bc__sep {
-  color: var(--dcx-muted);
+  color: var(--text-body);
   user-select: none;
 }
 

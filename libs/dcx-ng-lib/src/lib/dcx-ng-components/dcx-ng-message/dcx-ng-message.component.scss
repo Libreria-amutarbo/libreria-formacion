@@ -20,6 +20,7 @@
 }
 
 .message__container {
+  font-family: var(--font-family-primary);
   border-radius: 0.25rem;
   padding: 0.5rem;
   display: flex;
@@ -50,16 +51,16 @@
 }
 
 .error {
-  @include message-type(map.get($color, 'error'));
+  @include message-type(var(--status-error));
 }
 .warning {
-  @include message-type(map.get($color, 'warning'));
+  @include message-type(var(--status-warning));
 }
 .notification {
-  @include message-type(map.get($color, 'info'));
+  @include message-type(var(--status-info));
 }
 .success {
-  @include message-type(map.get($color, 'success'));
+  @include message-type(var(--status-success));
 }
 
 .icon__container {
