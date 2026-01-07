@@ -1,23 +1,37 @@
-@if (visible()) {
-  <div class="dialog">
-    <div class="dialog-header">
-      <h3>{{ title() }}</h3>
-      <button class="dialog-close" (click)="close()">✕</button>
-    </div>
+@if (isVisible()) {
+  <div class="dialog-root">
+    <div class="dialog-backdrop" (pointerdown)="onBackdropClick($event)"></div>
 
-    <div class="dialog-body">
+    <div [class]="dialogClasses" role="dialog" aria-modal="true">
+      <div class="dialog-header">
+        @if (title()) {
+          <h3>
+            <strong>{{ title() }}</strong>
+          </h3>
+        }
+
+        @if (showClose()) {
+          <dcx-ng-button
+            ariaLabel="Cerrar diálogo"
+            variant="icon"
+            size="s"
+            iconStart="x-lg"
+            iconSpacing="none"
+            (buttonClick)="close()"
+          />
+        }
+      </div>
+
       @if (bodyTemplate()) {
-        <ng-container *ngTemplateOutlet="bodyTemplate()"></ng-container>
-      } @else {
-        <ng-content select="[dialog-body]"></ng-content>
+        <div class="dialog-body">
+          <ng-container *ngTemplateOutlet="bodyTemplate()"></ng-container>
+        </div>
       }
-    </div>
 
-    <div class="dialog-footer">
       @if (footerTemplate()) {
-        <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
-      } @else {
-        <ng-content select="[dialog-footer]"></ng-content>
+        <div class="dialog-footer">
+          <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
+        </div>
       }
     </div>
   </div>

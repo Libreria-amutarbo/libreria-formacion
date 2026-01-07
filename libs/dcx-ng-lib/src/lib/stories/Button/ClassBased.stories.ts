@@ -13,31 +13,32 @@ const meta: Meta<DcxNgButtonComponent> = {
     label: {
       control: 'text',
       description: 'Texto visible del botón',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     ariaLabel: {
       control: 'text',
       description: 'Nombre accesible (úsalo en botones de solo icono)',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     type: {
       control: 'select',
       options: ['button', 'submit', 'reset'],
       description: 'Tipo nativo del botón',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     disabled: {
-      control: 'boolean', table: { category: 'Attributes' }
+      control: 'boolean',
+      table: { category: 'Attributes' },
     },
     variant: {
       control: 'select',
       options: ['primary', 'secondary', 'link', 'icon'],
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     size: {
       control: 'select',
       options: ['s', 'm', 'l', 'block'],
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     // Icono (usando dcx-ng-icon internamente)
     iconStart: {
@@ -45,27 +46,28 @@ const meta: Meta<DcxNgButtonComponent> = {
       options: BOOTSTRAP_ICONS,
       description:
         'Icono de Bootstrap Icons al inicio (p.ej. "save", "chevron-left")',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     iconEnd: {
       control: 'select',
       options: BOOTSTRAP_ICONS,
       description:
         'Icono de Bootstrap Icons al final (p.ej. "arrow-right", "chevron-right")',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     iconSize: {
       control: 'select',
       options: ['s', 'm', 'l', 'xl'],
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     iconSpacing: {
       control: 'select',
       options: ['none', 'compact', 'spacious'],
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     iconColor: {
-      control: 'color', table: { category: 'Attributes' }
+      control: 'color',
+      table: { category: 'Attributes' },
     },
     buttonClick: {
       action: 'buttonClick',
@@ -74,7 +76,7 @@ const meta: Meta<DcxNgButtonComponent> = {
         category: 'Eventos',
         type: { summary: '(clicked: boolean) => void' },
         defaultValue: { summary: '-' },
-      }
+      },
     },
     class: { control: 'text', table: { category: 'Styling' } },
   },
@@ -124,7 +126,7 @@ export const WithEndIcon: Story = {
   args: {
     variant: 'secondary',
     label: 'Siguiente',
-    iconStart: 'arrow_forward',
+    iconEnd: 'arrow-right',
   },
 };
 

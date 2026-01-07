@@ -6,3 +6,4 @@ export * from './accordion';
 export * from './search';
 export * from './card';
 export * from './contextMenu';
+export * from './dialog';

@@ -20,7 +20,7 @@ $color-grey: (
 );
 
 $color-base: (
-  white: #ffffff,
+  'white': #ffffff,
 );
 
 $color-semantic: (
@@ -32,6 +32,14 @@ $color-semantic: (
 
 //QUITAR!!!!
 $color: (
+  // Colores de estado
+  'success': #00a76f,
+  'warning': #ffa726,
+  'error': #ef4444,
+  'info': #12abdb
+);
+
+$status: (
   // Colores de estado
   'success': #00a76f,
   'warning': #ffa726,
@@ -91,5 +99,6 @@ $text: (
   label-base: map.get($color-base, 'white'),
   disabled: map.get($color-grey, 500),
   disabled-dark: map.get($color-grey, 600),
+  link: map.get($color-primary, 500),
   error: map.get($color-semantic, red-800),
 );
