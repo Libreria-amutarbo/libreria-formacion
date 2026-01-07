@@ -1,27 +1,56 @@
-.dialog {
+.dialog-root {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  z-index: 1000;
+}
+
+.dialog-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 180ms ease-out;
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.dialog {
+  position: absolute;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 400px;
   max-width: 90%;
+  max-height: 70vh;
   display: flex;
   flex-direction: column;
+
+  transition:
+    opacity 180ms ease-out,
+    transform 180ms ease-out;
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.98);
+  }
 
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid #ddd;
+    flex-shrink: 0;
   }
 
   &-body {
     padding: 1rem;
     text-align: center;
+    overflow-y: auto;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
   &-footer {
@@ -29,7 +58,7 @@
     justify-content: flex-end;
     gap: 0.5rem;
     padding: 1rem;
-    border-top: 1px solid #ddd;
+    flex-shrink: 0;
   }
 
   &-close {
@@ -37,5 +66,59 @@
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
+  }
+
+  &.dialog--pos-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.dialog--pos-top {
+    top: 16px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  &.dialog--pos-bottom {
+    bottom: 16px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  &.dialog--pos-left {
+    left: 16px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  &.dialog--pos-right {
+    right: 16px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  &.dialog--pos-top-left {
+    top: 16px;
+    left: 16px;
+    transform: none;
+  }
+
+  &.dialog--pos-top-right {
+    top: 16px;
+    right: 16px;
+    transform: none;
+  }
+
+  &.dialog--pos-bottom-left {
+    bottom: 16px;
+    left: 16px;
+    transform: none;
+  }
+
+  &.dialog--pos-bottom-right {
+    bottom: 16px;
+    right: 16px;
+    transform: none;
   }
 }
