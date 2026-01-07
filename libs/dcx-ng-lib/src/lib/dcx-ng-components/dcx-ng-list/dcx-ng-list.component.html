@@ -1,5 +1,23 @@
-<ul aria-label="Lista de elementos">
-  @for (item of items; track $index) {
-    <li>{{ item }}</li>
+<ul [attr.role]="role()" [attr.aria-label]="ariaLabel()">
+  @for (item of items(); track $index) {
+    @if (isSeparator(item)) {
+      <li class="list-separator" role="separator"></li>
+    } @else {
+      <li
+        [attr.role]="getItemRole()"
+        [class.interactive]="interactive()"
+        [class.disabled]="isDisabled(item)"
+        [class.with-icon]="hasIcon(item)"
+        [attr.tabindex]="interactive() && !isDisabled(item) ? 0 : null"
+        [attr.aria-disabled]="isDisabled(item) ? true : null"
+        (click)="!isDisabled(item) && onItemClick(item, $index, $event)"
+        (keydown.enter)="!isDisabled(item) && onItemClick(item, $index, $event)"
+        (keydown.space)="!isDisabled(item) && onItemClick(item, $index, $event); $event.preventDefault()">
+        @if (hasIcon(item)) {
+          <dcx-ng-icon [name]="getIcon(item)" [size]="'s'" class="item-icon"></dcx-ng-icon>
+        }
+        <span class="item-label">{{ getLabel(item) }}</span>
+      </li>
+    }
   }
 </ul>

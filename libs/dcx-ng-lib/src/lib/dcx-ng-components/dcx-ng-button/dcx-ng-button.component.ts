@@ -34,7 +34,7 @@ export class DcxNgButtonComponent {
   iconColor = input<string>('');
 
   // Output usando signals
-  buttonClick = output<{ clicked: boolean }>();
+  buttonClick = output<MouseEvent>();
 
   computedAriaLabel = computed<string | null>(() => {
     const labelValue = this.label();
@@ -66,9 +66,9 @@ export class DcxNgButtonComponent {
       .join(' ');
   });
 
-  onClick(): void {
+  onClick(event: MouseEvent): void {
     if (!this.disabled()) {
-      this.buttonClick.emit({ clicked: true });
+      this.buttonClick.emit(event);
     }
   }
 }

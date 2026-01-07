@@ -2,7 +2,7 @@
   [type]="type()"
   [disabled]="disabled()"
   [class]="buttonClasses()"
-  (click)="onClick()"
+  (click)="onClick($event)"
   [attr.aria-label]="computedAriaLabel()"
 >
   @if (iconStart()) {
