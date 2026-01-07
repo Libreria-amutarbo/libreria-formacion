@@ -1,74 +1,34 @@
-@use '../../../scss/base' as *;
+@use '../../../scss/utils/mixins' as *;
+@use '../../../scss/base/typography' as *;
+@use 'sass:map';
 
 .context-menu {
   position: fixed;
-  background-color: map-get($color-base, white);
-  border: 1px solid map-get($color-grey, 200);
-  border-radius: map-get($radius, 'lg');
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
   z-index: 1000;
   min-width: 160px;
-  padding: map-get($spacing, 'xs') 0;
-  box-shadow: map-get($shadows, 4);
+  @include padding-vertical('xs');
+  @include padding-horizontal('s');
+  box-shadow: var(--shadow-4);
   animation: slideIn 150ms ease-out;
   backdrop-filter: blur(8px);
-  font-family: map-get($fonts, 'primary');
-}
-
-.context-menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.context-menu li {
-  padding: map-get($spacing, 'xs') map-get($spacing, 's');
-  font-size: map-get($font-size, 'body-small');
-  font-weight: map-get($weight, 'medium');
-  color: map-get($color-grey, 700);
-  cursor: pointer;
-  transition: all 150ms ease-in-out;
-  display: flex;
-  align-items: center;
-  gap: map-get($spacing, 'xs');
-  user-select: none;
-  line-height: map-get($line-height, 'tight');
-
-  &:hover {
-    background-color: map-get($color-grey, 100);
-    color: map-get($color-grey, 700);
-    padding-left: calc(#{map-get($spacing, 's')} + #{map-get($spacing, 'xs')});
-  }
-
-  &:active {
-    background-color: map-get($color-grey, 200);
-  }
-
-  &:focus-visible {
-    outline: 2px solid map-get($color-primary, 500);
-    outline-offset: -2px;
-    background-color: map-get($color-grey, 100);
-  }
-}
-
-.context-menu li + li {
-  border-top: 1px solid map-get($color-grey, 100);
-}
-
-.context-menu li:first-child {
-  border-radius: map-get($radius, 'lg') map-get($radius, 'lg') 0 0;
-}
-
-.context-menu li:last-child {
-  border-radius: 0 0 map-get($radius, 'lg') map-get($radius, 'lg');
+  
+  // Aplicar tipografía del sistema
+  font-family: map.get($fonts, 'primary');
+  font-size: map.get($font-size, 'body-small');
+  font-weight: map.get($weight, 'regular');
+  line-height: map.get($line-height, 'normal');
+  
+  overflow: hidden;
 }
 
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
   }
 }

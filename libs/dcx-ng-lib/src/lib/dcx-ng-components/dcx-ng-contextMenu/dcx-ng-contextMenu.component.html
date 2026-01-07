@@ -4,22 +4,15 @@
     [style.left.px]="position().x"
     [style.top.px]="position().y"
     (click)="$event.stopPropagation()"
-    tabindex="0"
-    role="menu"
+    role="none"
     aria-label="Context menu"
   >
-    <ul role="none">
-      @for (item of items(); track item.label) {
-        <li
-          (click)="onItemClick(item, $event)"
-          (keydown.enter)="onItemClick(item, $event)"
-          (keydown.space)="onItemClick(item, $event); $event.preventDefault()"
-          tabindex="0"
-          role="menuitem"
-        >
-          {{ item.label }}
-        </li>
-      }
-    </ul>
+    <dcx-ng-list
+      [items]="listItems()"
+      [role]="'menu'"
+      [ariaLabel]="'Context menu options'"
+      [interactive]="true"
+      (itemClick)="onListItemClick($event)"
+    />
   </div>
 }

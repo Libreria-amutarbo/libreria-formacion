@@ -1,10 +1,19 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ContextMenuComponent } from '../../dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
-import { DcxContextMenuItem, DcxHeaderData } from '../../core/interfaces';
 import { CommonModule } from '@angular/common';
 import { DcxNgButtonComponent } from '../../dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
 import { DcxNgFullTableComponent } from '../../dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table.component';
 import { DcxNgFullTableTemplateDirective } from '../../dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table-template.directive';
+import {
+  CONTEXT_MENU_ITEMS_BASIC,
+  CONTEXT_MENU_ITEM_SINGLE,
+  CONTEXT_MENU_ITEMS_MANY,
+  CONTEXT_MENU_ITEMS_WITH_ICONS,
+  CONTEXT_MENU_ITEMS_ADVANCED,
+  TABLE_HEADERS_WITH_ACTIONS,
+  TABLE_DATA_WITH_ACTIONS,
+  getRowContextMenuItems,
+} from '../../core/mock';
 
 const meta: Meta<ContextMenuComponent> = {
   title: 'DCXLibrary/ContextMenu/ClassBased',
@@ -17,79 +26,83 @@ const meta: Meta<ContextMenuComponent> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
+    controls: { expanded: true },
   },
   argTypes: {
     items: {
-      control: 'object',
+      name: 'items',
+      control: { type: 'object' },
       description: 'Array of menu items with label and action',
       table: {
         category: 'Attributes',
+        type: { summary: 'ContextMenuItem[]' },
+        defaultValue: { summary: '[]' },
       },
     },
     visible: {
-      control: 'boolean',
+      name: 'visible',
+      control: { type: 'boolean' },
       description: 'Controls visibility of the context menu',
       table: {
         category: 'Attributes',
+        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
     position: {
-      control: 'object',
+      name: 'position',
+      control: { type: 'object' },
       description: 'Position of the context menu (x, y coordinates)',
       table: {
         category: 'Attributes',
+        type: { summary: 'Position' },
         defaultValue: { summary: '{ x: 0, y: 0 }' },
       },
     },
+    closeOnClickOutside: {
+      name: 'closeOnClickOutside',
+      control: { type: 'boolean' },
+      description: 'Close menu when clicking outside',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
+    },
     closed: {
+      name: 'closed',
       action: 'closed',
       description: 'Event emitted when the menu is closed',
       table: {
         category: 'Events',
+        type: { summary: '() => void' },
       },
     },
+  },
+  args: {
+    items: CONTEXT_MENU_ITEMS_BASIC,
+    visible: false,
+    position: { x: 0, y: 0 },
+    closeOnClickOutside: true,
   },
 };
 
 export default meta;
 type Story = StoryObj<ContextMenuComponent>;
 
-const mockItems: DcxContextMenuItem[] = [
-  {
-    label: 'Edit',
-    action: () => ({}),
-  },
-  {
-    label: 'Delete',
-    action: () => ({}),
-  },
-  {
-    label: 'Share',
-    action: () => ({}),
-  },
-];
-
-const basicItems: DcxContextMenuItem[] = [
-  {
-    label: 'Option 1',
-    action: () => ({}),
-  },
-  {
-    label: 'Option 2',
-    action: () => ({}),
-  },
-];
-
 export const Default: Story = {
   render: (args) => ({
     props: {
       ...args,
-      menuVisible: true,
+      menuVisible: false,
       menuPosition: { x: 50, y: 50 },
-      onClick(event: MouseEvent) {
+      onOpenMenu(event: MouseEvent) {
+        event.preventDefault();
         event.stopPropagation();
-        (this as any).menuPosition = { x: event.offsetX, y: event.offsetY };
+        (this as any).menuPosition = { 
+          x: event.clientX, 
+          y: event.clientY 
+        };
         (this as any).menuVisible = true;
       },
       onClosed() {
@@ -97,12 +110,15 @@ export const Default: Story = {
       },
     },
     template: `
-      <div 
-        (click)="onClick($event)"
-        style="position: relative; width: 400px; height: 300px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
-        <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
-          <strong>Click anywhere in this area</strong> to open the context menu
-        </p>
+      <div>
+        <div 
+          (click)="onOpenMenu($event)"
+          (contextmenu)="onOpenMenu($event)"
+          style="position: relative; width: 400px; height: 300px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
+          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
+            <strong>Click anywhere in this area</strong> to open the context menu
+          </p>
+        </div>
         <dcx-ng-context-menu
           [items]="items"
           [visible]="menuVisible"
@@ -113,7 +129,7 @@ export const Default: Story = {
     `,
   }),
   args: {
-    items: mockItems,
+    items: CONTEXT_MENU_ITEMS_BASIC,
   },
 };
 
@@ -124,9 +140,13 @@ export const SingleItem: Story = {
       ...args,
       menuVisible: false,
       menuPosition: { x: 50, y: 50 },
-      onClick(event: MouseEvent) {
+      onOpenMenu(event: MouseEvent) {
+        event.preventDefault();
         event.stopPropagation();
-        (this as any).menuPosition = { x: event.offsetX, y: event.offsetY };
+        (this as any).menuPosition = { 
+          x: event.clientX, 
+          y: event.clientY 
+        };
         (this as any).menuVisible = true;
       },
       onClosed() {
@@ -134,12 +154,15 @@ export const SingleItem: Story = {
       },
     },
     template: `
-      <div 
-        (click)="onClick($event)"
-        style="position: relative; width: 400px; height: 300px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
-        <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
-          <strong>Click here</strong> - Menu with single item
-        </p>
+      <div>
+        <div 
+          (click)="onOpenMenu($event)"
+          (contextmenu)="onOpenMenu($event)"
+          style="position: relative; width: 400px; height: 300px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
+          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
+            <strong>Click here</strong> - Menu with single item
+          </p>
+        </div>
         <dcx-ng-context-menu
           [items]="items"
           [visible]="menuVisible"
@@ -150,12 +173,7 @@ export const SingleItem: Story = {
     `,
   }),
   args: {
-    items: [
-      {
-        label: 'Single Option',
-        action: () => ({}),
-      },
-    ],
+    items: CONTEXT_MENU_ITEM_SINGLE,
   },
 };
 
@@ -165,9 +183,13 @@ export const ManyItems: Story = {
       ...args,
       menuVisible: false,
       menuPosition: { x: 50, y: 50 },
-      onClick(event: MouseEvent) {
+      onOpenMenu(event: MouseEvent) {
+        event.preventDefault();
         event.stopPropagation();
-        (this as any).menuPosition = { x: event.offsetX, y: event.offsetY };
+        (this as any).menuPosition = { 
+          x: event.clientX, 
+          y: event.clientY 
+        };
         (this as any).menuVisible = true;
       },
       onClosed() {
@@ -175,12 +197,15 @@ export const ManyItems: Story = {
       },
     },
     template: `
-      <div 
-        (click)="onClick($event)"
-        style="position: relative; width: 400px; height: 400px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
-        <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
-          <strong>Click here</strong> - Menu with multiple items
-        </p>
+      <div>
+        <div 
+          (click)="onOpenMenu($event)"
+          (contextmenu)="onOpenMenu($event)"
+          style="position: relative; width: 400px; height: 400px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
+          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
+            <strong>Click here</strong> - Menu with multiple items
+          </p>
+        </div>
         <dcx-ng-context-menu
           [items]="items"
           [visible]="menuVisible"
@@ -191,14 +216,7 @@ export const ManyItems: Story = {
     `,
   }),
   args: {
-    items: [
-      { label: 'Open', action: () => ({}) },
-      { label: 'Edit', action: () => ({}) },
-      { label: 'Copy', action: () => ({}) },
-      { label: 'Paste', action: () => ({}) },
-      { label: 'Delete', action: () => ({}) },
-      { label: 'Share', action: () => ({}) },
-    ],
+    items: CONTEXT_MENU_ITEMS_MANY,
   },
 };
 
@@ -208,56 +226,26 @@ export const InTable: Story = {
       ...args,
       activeMenuRow: -1,
       menuPosition: { x: 0, y: 0 },
-      tableHeaders: [
-        { key: 'id', name: 'ID', sortable: false },
-        { key: 'name', name: 'Name', sortable: true },
-        { key: 'email', name: 'Email', sortable: true },
-        { key: 'role', name: 'Role', sortable: false },
-        { 
-          key: 'actions', 
-          name: 'Actions', 
-          sortable: false,
-          template: 'actions',
-          align: 'center',
-          frozenRight: true
-        },
-      ] as DcxHeaderData[],
-      tableData: [
-        { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },
-        { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
-        { id: 3, name: 'Bob Johnson', email: 'bob@example.com', role: 'Editor' },
-        { id: 4, name: 'Alice Brown', email: 'alice@example.com', role: 'User' },
-        { id: 5, name: 'Charlie Davis', email: 'charlie@example.com', role: 'User' },
-      ],
-      onButtonClick(event: any, row: any, rowIndex: number) {
-        const actionCell = document.querySelector('.action-cell-' + rowIndex) as HTMLElement;
-        const tableContainer = document.querySelector('.table-container') as HTMLElement;
+      tableHeaders: TABLE_HEADERS_WITH_ACTIONS,
+      tableData: TABLE_DATA_WITH_ACTIONS,
+      onButtonClick(event: MouseEvent, row: any, rowIndex: number) {
+        event.preventDefault();
+        event.stopPropagation();
         
-        if (actionCell && tableContainer) {
-          const cellRect = actionCell.getBoundingClientRect();
-          const containerRect = tableContainer.getBoundingClientRect();
-          
-          (this as any).menuPosition = {
-            x: cellRect.left - containerRect.left + cellRect.width + 5,
-            y: cellRect.top - containerRect.top
-          };
-        } else {
-          (this as any).menuPosition = { x: 200, y: rowIndex * 50 };
-        }
+        const button = event.currentTarget as HTMLElement;
+        const buttonRect = button.getBoundingClientRect();
+        
+        (this as any).menuPosition = {
+          x: buttonRect.right + 5,
+          y: buttonRect.top
+        };
         
         (this as any).activeMenuRow = rowIndex;
       },
       onClosed() {
         (this as any).activeMenuRow = -1;
       },
-      getRowActions(row: any) {
-        return [
-          { label: 'Edit ' + row.name, action: () => ({}) },
-          { label: 'Delete ' + row.name, action: () => ({}) },
-          { label: 'View Details', action: () => ({}) },
-          { label: 'Send Email', action: () => ({}) },
-        ];
-      },
+      getRowActions: getRowContextMenuItems,
       onRowAction(event: any) {
       },
     },
@@ -305,5 +293,91 @@ export const InTable: Story = {
   }),
   args: {
     items: []
+  },
+};
+
+export const WithIcons: Story = {
+  render: (args) => ({
+    props: {
+      ...args,
+      menuVisible: false,
+      menuPosition: { x: 50, y: 50 },
+      onOpenMenu(event: MouseEvent) {
+        event.preventDefault();
+        event.stopPropagation();
+        (this as any).menuPosition = { 
+          x: event.clientX, 
+          y: event.clientY 
+        };
+        (this as any).menuVisible = true;
+      },
+      onClosed() {
+        (this as any).menuVisible = false;
+      },
+    },
+    template: `
+      <div>
+        <div 
+          (click)="onOpenMenu($event)"
+          (contextmenu)="onOpenMenu($event)"
+          style="position: relative; width: 400px; height: 300px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
+          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
+            <strong>Click here</strong> - Menu with icons
+          </p>
+        </div>
+        <dcx-ng-context-menu
+          [items]="items"
+          [visible]="menuVisible"
+          [position]="menuPosition"
+          (closed)="onClosed()">
+        </dcx-ng-context-menu>
+      </div>
+    `,
+  }),
+  args: {
+    items: CONTEXT_MENU_ITEMS_WITH_ICONS,
+  },
+};
+
+export const AdvancedMenu: Story = {
+  render: (args) => ({
+    props: {
+      ...args,
+      menuVisible: false,
+      menuPosition: { x: 50, y: 50 },
+      onOpenMenu(event: MouseEvent) {
+        event.preventDefault();
+        event.stopPropagation();
+        (this as any).menuPosition = { 
+          x: event.clientX, 
+          y: event.clientY 
+        };
+        (this as any).menuVisible = true;
+      },
+      onClosed() {
+        (this as any).menuVisible = false;
+      },
+    },
+    template: `
+      <div>
+        <div 
+          (click)="onOpenMenu($event)"
+          (contextmenu)="onOpenMenu($event)"
+          style="position: relative; width: 400px; height: 500px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
+          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
+            <strong>Click here</strong> - Advanced menu with icons, separators, and disabled items
+          </p>
+        </div>
+        <dcx-ng-context-menu
+          [items]="items"
+          [visible]="menuVisible"
+          [position]="menuPosition"
+          (closed)="onClosed()">
+        </dcx-ng-context-menu>
+      </div>
+    `,
+  }),
+  args: {
+    items: CONTEXT_MENU_ITEMS_ADVANCED,
   },
 };
