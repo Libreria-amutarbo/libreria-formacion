@@ -1,103 +1,277 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DcxNgAccordionComponent, DcxNgAccordionItem } from './dcx-ng-accordion.component';
-import { Component } from '@angular/core';
-import { DcxAccordionMock } from '@dcx-ng-components/dcx-ng-lib';
+import { Component, signal } from '@angular/core';
 
-// describe('DcxNgAccordionComponent', () => {
-//   let component: DcxNgAccordionComponent;
-//   let fixture: ComponentFixture<TestHostComponent>;
+const mockItems: DcxNgAccordionItem[] = [
+  {
+    id: '1',
+    title: 'Item 1',
+    content: 'Content 1',
+  },
+  {
+    id: '2',
+    title: 'Item 2',
+    content: 'Content 2',
+  },
+  {
+    id: '3',
+    title: 'Item 3 (Disabled)',
+    content: 'Content 3',
+    disabled: true,
+  },
+];
 
-//   @Component({
-//     selector: 'test-host',
-//     template: `<dcx-ng-accordion [items]="items" (itemToggled)="onItemToggled($event)" />`,
-//     imports: [DcxNgAccordionComponent]
-//   })
-//   class TestHostComponent {
-//     items = DcxAccordionMock;
-//     toggledItem: DcxNgAccordionItem | null = null;
+describe('DcxNgAccordionComponent', () => {
+  let component: DcxNgAccordionComponent;
+  let fixture: ComponentFixture<DcxNgAccordionComponent>;
 
-//     onItemToggled(item: DcxNgAccordionItem) {
-//       this.toggledItem = item;
-//     }
-//   }
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DcxNgAccordionComponent],
+    }).compileComponents();
 
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [DcxNgAccordionComponent, BrowserAnimationsModule, TestHostComponent],
-//     }).compileComponents();
+    fixture = TestBed.createComponent(DcxNgAccordionComponent);
+    component = fixture.componentInstance;
+    fixture.componentRef.setInput('items', mockItems);
+    fixture.detectChanges();
+  });
 
-//     fixture = TestBed.createComponent(TestHostComponent);
-//     fixture.detectChanges();
-//     component = fixture.debugElement.children[0].componentInstance;
-//   });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
+  describe('Basic functionality', () => {
+    it('should render all items', () => {
+      const compiled = fixture.nativeElement as HTMLElement;
+      const items = compiled.querySelectorAll('.accordion-item');
+      expect(items.length).toBe(3);
+    });
 
-//   describe('toggleItem', () => {
-//     it('should toggle item expansion (open/close)', () => {
-//       const item = DcxAccordionMock[0];
+    it('should display item titles', () => {
+      const compiled = fixture.nativeElement as HTMLElement;
+      const titles = compiled.querySelectorAll('.accordion-title');
+      expect(titles[0].textContent?.trim()).toBe('Item 1');
+      expect(titles[1].textContent?.trim()).toBe('Item 2');
+      expect(titles[2].textContent?.trim()).toBe('Item 3 (Disabled)');
+    });
+  });
 
-//       component.toggleItem(item);
-//       fixture.detectChanges();
-//       expect(component.isExpanded(item.id)).toBe(true);
+  describe('toggleItem', () => {
+    it('should expand item when clicked', () => {
+      const item = mockItems[0];
+      component.toggleItem(item);
+      fixture.detectChanges();
+      
+      expect(component.isExpanded(item.id)).toBe(true);
+    });
 
-//       component.toggleItem(item);
-//       fixture.detectChanges();
-//       expect(component.isExpanded(item.id)).toBe(false);
-//     });
+    it('should collapse expanded item when clicked again', () => {
+      const item = mockItems[0];
+      
+      component.toggleItem(item);
+      fixture.detectChanges();
+      expect(component.isExpanded(item.id)).toBe(true);
 
-//     it('should not toggle disabled items', () => {
-//       const disabledItem = DcxAccordionMock[2];
-//       component.toggleItem(disabledItem);
-//       fixture.detectChanges();
+      component.toggleItem(item);
+      fixture.detectChanges();
+      expect(component.isExpanded(item.id)).toBe(false);
+    });
 
-//       expect(component.isExpanded(disabledItem.id)).toBe(false);
-//     });
+    it('should not toggle disabled items', () => {
+      const disabledItem = mockItems[2];
+      
+      component.toggleItem(disabledItem);
+      fixture.detectChanges();
 
-//     it('should allow multiple items expanded simultaneously', () => {
-//       const item1 = DcxAccordionMock[0];
-//       const item2 = DcxAccordionMock[1];
+      expect(component.isExpanded(disabledItem.id)).toBe(false);
+    });
 
-//       component.toggleItem(item1);
-//       component.toggleItem(item2);
-//       fixture.detectChanges();
+    it('should emit itemToggled event', () => {
+      const item = mockItems[0];
+      let emittedItem: DcxNgAccordionItem | undefined;
+      
+      component.itemToggled.subscribe((emitted) => {
+        emittedItem = emitted;
+      });
 
-//       expect(component.isExpanded(item1.id)).toBe(true);
-//       expect(component.isExpanded(item2.id)).toBe(true);
-//     });
+      component.toggleItem(item);
+      
+      expect(emittedItem).toEqual(item);
+    });
 
-//     it('should allow closing an item independently', () => {
-//       const item1 = DcxAccordionMock[0];
-//       const item2 = DcxAccordionMock[1];
+    it('should emit itemExpanded event when expanding', () => {
+      const item = mockItems[0];
+      let emittedItem: DcxNgAccordionItem | undefined;
+      
+      component.itemExpanded.subscribe((emitted) => {
+        emittedItem = emitted;
+      });
 
-//       component.toggleItem(item1);
-//       component.toggleItem(item2);
-//       fixture.detectChanges();
+      component.toggleItem(item);
+      
+      expect(emittedItem).toEqual(item);
+    });
 
-//       component.toggleItem(item1);
-//       fixture.detectChanges();
-//       expect(component.isExpanded(item1.id)).toBe(false);
-//       expect(component.isExpanded(item2.id)).toBe(true);
-//     });
+    it('should emit itemCollapsed event when collapsing', () => {
+      const item = mockItems[0];
+      let emittedItem: DcxNgAccordionItem | undefined;
+      
+      // First expand
+      component.toggleItem(item);
+      
+      component.itemCollapsed.subscribe((emitted) => {
+        emittedItem = emitted;
+      });
 
-//     it('should emit itemToggled event when item is toggled', () => {
-//       spyOn(component.itemToggled, 'emit');
-//       const item = DcxAccordionMock[0];
+      // Then collapse
+      component.toggleItem(item);
+      
+      expect(emittedItem).toEqual(item);
+    });
+  });
 
-//       component.toggleItem(item);
+  describe('closeOthers behavior', () => {
+    it('should close other items when closeOthers is true', () => {
+      fixture.componentRef.setInput('closeOthers', true);
+      fixture.detectChanges();
 
-//       expect(component.itemToggled.emit).toHaveBeenCalledWith(item);
-//     });
-//   });
+      const item1 = mockItems[0];
+      const item2 = mockItems[1];
 
-//   describe('isExpanded', () => {
-//     it('should return true if item is expanded', () => {
-//       const item = DcxAccordionMock[0];
-//       component.toggleItem(item);
-//       fixture.detectChanges();
+      component.toggleItem(item1);
+      fixture.detectChanges();
+      expect(component.isExpanded(item1.id)).toBe(true);
+
+      component.toggleItem(item2);
+      fixture.detectChanges();
+      expect(component.isExpanded(item1.id)).toBe(false);
+      expect(component.isExpanded(item2.id)).toBe(true);
+    });
+
+    it('should allow multiple items open when closeOthers is false', () => {
+      fixture.componentRef.setInput('closeOthers', false);
+      fixture.detectChanges();
+
+      const item1 = mockItems[0];
+      const item2 = mockItems[1];
+
+      component.toggleItem(item1);
+      component.toggleItem(item2);
+      fixture.detectChanges();
+
+      expect(component.isExpanded(item1.id)).toBe(true);
+      expect(component.isExpanded(item2.id)).toBe(true);
+    });
+  });
+
+  describe('expandedIds input', () => {
+    it('should expand items specified in expandedIds', () => {
+      fixture.componentRef.setInput('expandedIds', ['1', '2']);
+      fixture.detectChanges();
+
+      expect(component.isExpanded('1')).toBe(true);
+      expect(component.isExpanded('2')).toBe(true);
+      expect(component.isExpanded('3')).toBe(false);
+    });
+
+    it('should expand items with expanded=true property', () => {
+      const itemsWithExpanded: DcxNgAccordionItem[] = [
+        { id: '1', title: 'Item 1', content: 'Content 1', expanded: true },
+        { id: '2', title: 'Item 2', content: 'Content 2' },
+      ];
+
+      fixture.componentRef.setInput('items', itemsWithExpanded);
+      fixture.componentRef.setInput('expandedIds', []);
+      fixture.detectChanges();
+
+      expect(component.isExpanded('1')).toBe(true);
+      expect(component.isExpanded('2')).toBe(false);
+    });
+  });
+
+  describe('expandItemById and collapseItemById', () => {
+    it('should expand item by ID', () => {
+      component.expandItemById('1');
+      fixture.detectChanges();
+
+      expect(component.isExpanded('1')).toBe(true);
+    });
+
+    it('should not expand disabled item by ID', () => {
+      component.expandItemById('3');
+      fixture.detectChanges();
+
+      expect(component.isExpanded('3')).toBe(false);
+    });
+
+    it('should collapse item by ID', () => {
+      component.expandItemById('1');
+      fixture.detectChanges();
+      expect(component.isExpanded('1')).toBe(true);
+
+      component.collapseItemById('1');
+      fixture.detectChanges();
+      expect(component.isExpanded('1')).toBe(false);
+    });
+
+    it('should not fail when collapsing non-expanded item', () => {
+      expect(() => {
+        component.collapseItemById('1');
+        fixture.detectChanges();
+      }).not.toThrow();
+    });
+  });
+
+  describe('transition', () => {
+    it('should apply correct transition class', () => {
+      fixture.componentRef.setInput('transition', 'fast');
+      fixture.detectChanges();
+
+      expect(component.getTransitionClass()).toBe('transition-fast');
+    });
+
+    it('should default to smooth transition', () => {
+      expect(component.getTransitionClass()).toBe('transition-smooth');
+    });
+  });
+
+  describe('Icons', () => {
+    it('should render icons when provided', () => {
+      const itemsWithIcons: DcxNgAccordionItem[] = [
+        { id: '1', title: 'Item 1', content: 'Content 1', icon: 'star-fill' },
+      ];
+
+      fixture.componentRef.setInput('items', itemsWithIcons);
+      fixture.detectChanges();
+
+      const compiled = fixture.nativeElement as HTMLElement;
+      const icon = compiled.querySelector('.accordion-icon-left');
+      expect(icon).toBeTruthy();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('should set aria-expanded attribute correctly', () => {
+      const compiled = fixture.nativeElement as HTMLElement;
+      const button = compiled.querySelector('.accordion-header') as HTMLButtonElement;
+
+      expect(button.getAttribute('aria-expanded')).toBe('false');
+
+      component.toggleItem(mockItems[0]);
+      fixture.detectChanges();
+
+      expect(button.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('should disable button for disabled items', () => {
+      const compiled = fixture.nativeElement as HTMLElement;
+      const buttons = compiled.querySelectorAll('.accordion-header');
+      const disabledButton = buttons[2] as HTMLButtonElement;
+
+      expect(disabledButton.disabled).toBe(true);
+    });
+  });
+});
 
 //       expect(component.isExpanded(item.id)).toBe(true);
 //     });
