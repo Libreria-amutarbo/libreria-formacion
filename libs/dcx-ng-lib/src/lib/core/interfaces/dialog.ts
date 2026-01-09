@@ -25,9 +25,9 @@ export interface DcxDialogMockData {
   dialogId: string;
   title: string;
   bodyHtml: string;
-  footerHtml?: string;
-  showClose?: boolean;
-  position?: DcxDialogPosition;
-  closeOnBackdrop?: boolean;
-  visible?: boolean;
+  footerHtml: string;
+  showClose: boolean;
+  position: DcxDialogPosition;
+  closeOnBackdrop: boolean;
+  visible: boolean;
 }
