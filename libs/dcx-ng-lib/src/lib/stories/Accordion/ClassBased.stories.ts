@@ -1,55 +1,396 @@
-import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgAccordionComponent, DcxNgAccordionItem } from '../../dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
-import { DcxAccordionMock } from '../../core/mock';
+import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Component, TemplateRef, viewChild } from '@angular/core';
+import { DcxNgAccordionComponent } from '../../dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
+import { DcxNgAccordionItem, AccordionTransition } from '../../core/interfaces/accordion';
+import { DcxNgButtonComponent } from '../../dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
+import { DcxNgListComponent } from '../../dcx-ng-components/dcx-ng-list/dcx-ng-list.component';
+import { CommonModule } from '@angular/common';
+import { 
+  DcxAccordionMock, 
+  ACCORDION_ITEMS_WITH_ICONS, 
+  ACCORDION_ITEMS_WITH_EXPANDED,
+  ACCORDION_ITEMS_COMPLEX,
+  ACCORDION_ITEMS_LARGE_CONTENT
+} from '../../core/mock/accordion';
 
 const meta: Meta<DcxNgAccordionComponent> = {
-  title: 'DCXLibrary/Accordion/Class based',
+  title: 'DCXLibrary/Accordion/ClassBased',
   component: DcxNgAccordionComponent,
+  decorators: [
+    moduleMetadata({
+      imports: [CommonModule, DcxNgAccordionComponent, DcxNgButtonComponent, DcxNgListComponent],
+    }),
+  ],
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     controls: { expanded: true },
   },
   argTypes: {
     items: {
       name: 'items',
       control: { type: 'object' },
-      description: 'Items del accordion',
+      description: 'Array of accordion items with title, content, and optional properties',
       table: {
-        category: 'Atributos',
+        category: 'Attributes',
         type: { summary: 'DcxNgAccordionItem[]' },
-        defaultValue: { summary: 'DcxNgAccordionItem' },
+        defaultValue: { summary: '[]' },
+      },
+    },
+    transition: {
+      name: 'transition',
+      control: { type: 'select' },
+      options: ['smooth', 'fast', 'slow', 'none'],
+      description: 'Transition effect when expanding/collapsing items',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'AccordionTransition' },
+        defaultValue: { summary: 'smooth' },
+      },
+    },
+    closeOthers: {
+      name: 'closeOthers',
+      control: { type: 'boolean' },
+      description: 'When true, opening one item closes all others (accordion mode)',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
+    },
+    expandedIds: {
+      name: 'expandedIds',
+      control: { type: 'object' },
+      description: 'Array of item IDs that should be expanded by default',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'string[]' },
+        defaultValue: { summary: '[]' },
+      },
+    },
+    itemToggled: {
+      name: 'itemToggled',
+      action: 'itemToggled',
+      description: 'Event emitted when any item is toggled',
+      table: {
+        category: 'Events',
+        type: { summary: '(item: DcxNgAccordionItem) => void' },
+      },
+    },
+    itemExpanded: {
+      name: 'itemExpanded',
+      action: 'itemExpanded',
+      description: 'Event emitted when an item is expanded',
+      table: {
+        category: 'Events',
+        type: { summary: '(item: DcxNgAccordionItem) => void' },
+      },
+    },
+    itemCollapsed: {
+      name: 'itemCollapsed',
+      action: 'itemCollapsed',
+      description: 'Event emitted when an item is collapsed',
+      table: {
+        category: 'Events',
+        type: { summary: '(item: DcxNgAccordionItem) => void' },
       },
     },
   },
-  args: { items: DcxAccordionMock },
+  args: {
+    items: DcxAccordionMock,
+    transition: 'smooth',
+    closeOthers: true,
+    expandedIds: [],
+  },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgAccordionComponent>;
 
-export const Default: Story = {};
-
-export const WithDisabledItem: Story = {
+export const Default: Story = {
   args: {
-    items: [
-      {
-        id: '1',
-        title: 'Item 1',
-        content: 'Item 1',
-        disabled: false,
-      },
-      {
-        id: '2',
-        title: 'Item 2 (Disabled)',
-        content: 'Item 2',
-        disabled: true,
-      },
-      {
-        id: '3',
-        title: 'Item 3',
-        content: 'Item 3',
-        disabled: false,
-      },
-    ],
+    items: DcxAccordionMock,
   },
+};
+
+export const WithIcons: Story = {
+  args: {
+    items: ACCORDION_ITEMS_WITH_ICONS,
+  },
+};
+
+export const WithDisabledItems: Story = {
+  args: {
+    items: ACCORDION_ITEMS_COMPLEX,
+  },
+};
+
+export const MultipleOpen: Story = {
+  args: {
+    items: DcxAccordionMock,
+    closeOthers: false,
+  },
+};
+
+export const DefaultExpanded: Story = {
+  args: {
+    items: ACCORDION_ITEMS_WITH_EXPANDED,
+    closeOthers: false,
+  },
+};
+
+export const FastTransition: Story = {
+  args: {
+    items: DcxAccordionMock,
+    transition: 'fast',
+  },
+};
+
+export const SlowTransition: Story = {
+  args: {
+    items: DcxAccordionMock,
+    transition: 'slow',
+  },
+};
+
+export const NoTransition: Story = {
+  args: {
+    items: DcxAccordionMock,
+    transition: 'none',
+  },
+};
+
+@Component({
+  selector: 'dcx-ng-accordion-with-controls',
+  standalone: true,
+  imports: [DcxNgAccordionComponent, DcxNgButtonComponent],
+  template: `
+    <div style="margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap;">
+      <dcx-ng-button
+        (buttonClick)="expandItem(0)"
+        [label]="'Open Item 1'"
+        [variant]="'secondary'"
+        [size]="'s'">
+      </dcx-ng-button>
+      <dcx-ng-button
+        (buttonClick)="expandItem(1)"
+        [label]="'Open Item 2'"
+        [variant]="'secondary'"
+        [size]="'s'">
+      </dcx-ng-button>
+      <dcx-ng-button
+        (buttonClick)="expandItem(2)"
+        [label]="'Open Item 3'"
+        [variant]="'secondary'"
+        [size]="'s'">
+      </dcx-ng-button>
+      <dcx-ng-button
+        (buttonClick)="collapseItem(0)"
+        [label]="'Close Item 1'"
+        [variant]="'outline'"
+        [size]="'s'">
+      </dcx-ng-button>
+      <dcx-ng-button
+        (buttonClick)="collapseItem(1)"
+        [label]="'Close Item 2'"
+        [variant]="'outline'"
+        [size]="'s'">
+      </dcx-ng-button>
+      <dcx-ng-button
+        (buttonClick)="collapseItem(2)"
+        [label]="'Close Item 3'"
+        [variant]="'outline'"
+        [size]="'s'">
+      </dcx-ng-button>
+    </div>
+    
+    <dcx-ng-accordion
+      #accordion
+      [items]="items"
+      [transition]="transition"
+      [closeOthers]="closeOthers"
+      (itemToggled)="itemToggled($event)"
+      (itemExpanded)="itemExpanded($event)"
+      (itemCollapsed)="itemCollapsed($event)">
+    </dcx-ng-accordion>
+  `,
+})
+class AccordionWithControlsComponent {
+  accordion = viewChild.required<DcxNgAccordionComponent>('accordion');
+  
+  items = DcxAccordionMock;
+  transition: AccordionTransition = 'smooth';
+  closeOthers = true;
+  itemToggled = (item: DcxNgAccordionItem) => console.log('Item toggled:', item);
+  itemExpanded = (item: DcxNgAccordionItem) => console.log('Item expanded:', item);
+  itemCollapsed = (item: DcxNgAccordionItem) => console.log('Item collapsed:', item);
+  
+  expandItem(index: number): void {
+    const accordionInstance = this.accordion();
+    if (accordionInstance) {
+      accordionInstance.expandItemById(String(index + 1));
+    }
+  }
+  
+  collapseItem(index: number): void {
+    const accordionInstance = this.accordion();
+    if (accordionInstance) {
+      accordionInstance.collapseItemById(String(index + 1));
+    }
+  }
+}
+
+export const WithControlButtons: Story = {
+  render: (args) => ({
+    props: args,
+    Component: AccordionWithControlsComponent,
+  }),
+  args: {
+    items: DcxAccordionMock,
+    transition: 'smooth',
+    closeOthers: true,
+  },
+};
+
+export const LargeContent: Story = {
+  args: {
+    items: ACCORDION_ITEMS_LARGE_CONTENT,
+  },
+};
+
+export const WithComponents: Story = {
+  render: (args) => ({
+    props: {
+      ...args,
+      buttonTemplate: null as any,
+      formTemplate: null as any,
+      listTemplate: null as any,
+      listItems: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+      handleClick(type: string) {
+        console.log(`${type} button clicked!`);
+        alert(`${type} button clicked!`);
+      },
+      handleSubmit() {
+        console.log('Form submitted!');
+        alert('Form submitted!');
+      },
+      addItem() {
+        const currentItems = this['listItems'] as string[];
+        const newItemNumber = currentItems.length + 1;
+        this['listItems'] = [...currentItems, `Item ${newItemNumber}`];
+      },
+      removeLastItem() {
+        const currentItems = this['listItems'] as string[];
+        if (currentItems.length > 0) {
+          this['listItems'] = currentItems.slice(0, -1);
+        }
+      },
+    },
+    template: `
+      <ng-template #buttonTemplate>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; padding: 8px 0;">
+          <dcx-ng-button
+            [label]="'Primary Action'"
+            [variant]="'primary'"
+            [size]="'m'"
+            (buttonClick)="handleClick('primary')">
+          </dcx-ng-button>
+          <dcx-ng-button
+            [label]="'Secondary Action'"
+            [variant]="'secondary'"
+            [size]="'m'"
+            (buttonClick)="handleClick('secondary')">
+          </dcx-ng-button>
+          <dcx-ng-button
+            [label]="'Outline Action'"
+            [variant]="'outline'"
+            [size]="'m'"
+            (buttonClick)="handleClick('outline')">
+          </dcx-ng-button>
+        </div>
+      </ng-template>
+
+      <ng-template #formTemplate>
+        <div style="display: flex; flex-direction: column; gap: 12px; padding: 8px 0;">
+          <div>
+            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Name:</label>
+            <input 
+              type="text" 
+              style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"
+              placeholder="Enter your name">
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Email:</label>
+            <input 
+              type="email" 
+              style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"
+              placeholder="Enter your email">
+          </div>
+          <dcx-ng-button
+            [label]="'Submit'"
+            [variant]="'primary'"
+            [size]="'m'"
+            (buttonClick)="handleSubmit()">
+          </dcx-ng-button>
+        </div>
+      </ng-template>
+
+      <ng-template #listTemplate>
+        <div style="padding: 8px 0;">
+          <dcx-ng-list [items]="listItems"></dcx-ng-list>
+          
+          <div style="margin-top: 12px; display: flex; gap: 8px;">
+            <dcx-ng-button
+              [label]="'Add Item'"
+              [iconStart]="'plus'"
+              [variant]="'primary'"
+              [size]="'s'"
+              (buttonClick)="addItem()">
+            </dcx-ng-button>
+            <dcx-ng-button
+              [label]="'Remove Last'"
+              [iconStart]="'trash'"
+              [variant]="'outline'"
+              [size]="'s'"
+              (buttonClick)="removeLastItem()">
+            </dcx-ng-button>
+          </div>
+        </div>
+      </ng-template>
+
+      <dcx-ng-accordion
+        [items]="[
+          {
+            id: '1',
+            title: 'Interactive Buttons',
+            icon: 'hand-pointer',
+            contentTemplate: buttonTemplate
+          },
+          {
+            id: '2',
+            title: 'Form Components',
+            icon: 'file-text',
+            contentTemplate: formTemplate
+          },
+          {
+            id: '3',
+            title: 'Dynamic List',
+            icon: 'list',
+            contentTemplate: listTemplate
+          }
+        ]"
+        [transition]="'smooth'"
+        [closeOthers]="true">
+      </dcx-ng-accordion>
+      
+      <div style="margin-top: 20px; padding: 16px; background: var(--background-info); border-radius: 8px;">
+        <h4 style="margin: 0 0 8px 0;">💡 Using Components in Accordion</h4>
+        <p style="margin: 0; font-size: 14px;">
+          Each item uses <code>contentTemplate</code> to render Angular components 
+          (dcx-ng-button) instead of plain HTML. This allows for full interactivity 
+          and component reuse within accordion items.
+        </p>
+      </div>
+    `,
+  }),
 };

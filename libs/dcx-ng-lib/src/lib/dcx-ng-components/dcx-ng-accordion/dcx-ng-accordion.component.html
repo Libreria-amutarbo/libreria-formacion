@@ -1,45 +1,40 @@
-@if (hasItems()) {
-  <div class="accordion">
-    @for (item of items(); track item.id) {
-      <div class="accordion-item" [class.disabled]="item.disabled">
-        <button
+<div class="accordion" [class]="getTransitionClass()">
+  @for (item of items(); track item.id; let i = $index) {
+    <div 
+      class="accordion-item" 
+      [class.disabled]="item.disabled"
+      [class.expanded]="isExpanded(item.id)"
+    >
+        <dcx-ng-button
           class="accordion-header"
           [class.expanded]="isExpanded(item.id)"
-          (click)="toggleItem(item)"
-          [disabled]="item.disabled"
+          [label]="item.title"
+          [disabled]="item.disabled ?? false"
+          [iconStart]="item.icon || ''"
+          iconEnd="chevron-down"
+          [ariaLabel]="'Toggle ' + item.title"
+          (buttonClick)="onButtonClick(item)"
           [attr.aria-expanded]="isExpanded(item.id)"
-          [attr.aria-controls]="'accordion-' + item.id"
+          [attr.aria-controls]="'accordion-content-' + item.id"
         >
-          <span class="accordion-title">{{ item.title }}</span>
-          <span class="accordion-icon" [class.expanded]="isExpanded(item.id)">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7 8L10 11L13 8"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-        </button>
+        </dcx-ng-button>
 
         <div
           class="accordion-content-wrapper"
           [class.expanded]="isExpanded(item.id)"
-          [attr.id]="'accordion-' + item.id"
+          [class.disabled-content]="item.disabledContent"
+          [attr.id]="'accordion-content-' + item.id"
+          [attr.aria-labelledby]="'accordion-header-' + item.id"
+          role="region"
         >
           <div class="accordion-content">
-            {{ item.content }}
+            @if (item.contentTemplate) {
+              <ng-container *ngTemplateOutlet="item.contentTemplate"></ng-container>
+            } @else {
+              <div [innerHTML]="item.content"></div>
+            }
           </div>
         </div>
       </div>
     }
   </div>
-}

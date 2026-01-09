@@ -1,6 +1,173 @@
 <div class="accordion-page">
-  <dcx-ng-accordion
-    [items]="accordionItems"
-    (itemToggled)="onItemToggled($event)">
-  </dcx-ng-accordion>
+  <div class="page-header">
+    <h1>Accordion Component</h1>
+    <p class="subtitle">
+      A vertically stacked set of interactive headings that each reveal a section of content.
+    </p>
+  </div>
+
+  <!-- Last Action Display -->
+  @if (lastAction()) {
+    <div class="action-feedback">
+      <strong>Last Action:</strong> {{ lastAction() }}
+    </div>
+  }
+
+  <!-- Basic Accordion -->
+  <section class="demo-section">
+    <h2>Basic Accordion</h2>
+    <p class="description">
+      Simple accordion with text content. Click on any header to expand/collapse the content.
+    </p>
+    <dcx-ng-accordion
+      [items]="basicItems"
+      [transition]="'smooth'"
+      [closeOthers]="true"
+      (itemToggled)="onItemToggled($event, 'Basic')"
+      (itemExpanded)="onItemExpanded($event, 'Basic')"
+      (itemCollapsed)="onItemCollapsed($event, 'Basic')">
+    </dcx-ng-accordion>
+  </section>
+
+  <!-- Accordion with Icons -->
+  <section class="demo-section">
+    <h2>Accordion with Icons</h2>
+    <p class="description">
+      Each item can have an icon to provide visual context.
+    </p>
+    <dcx-ng-accordion
+      [items]="itemsWithIcons"
+      [transition]="'smooth'"
+      [closeOthers]="true"
+      [expandedIds]="['icon-1']"
+      (itemToggled)="onItemToggled($event, 'Icons')">
+    </dcx-ng-accordion>
+  </section>
+
+  <!-- Disabled States -->
+  <section class="demo-section">
+    <h2>Disabled States</h2>
+    <p class="description">
+      Items can be disabled entirely, or just their content can be disabled.
+    </p>
+    <dcx-ng-accordion
+      [items]="itemsWithDisabled"
+      [transition]="'smooth'"
+      [closeOthers]="false"
+      (itemToggled)="onItemToggled($event, 'Disabled')">
+    </dcx-ng-accordion>
+  </section>
+
+  <!-- Transition Effects -->
+  <section class="demo-section">
+    <h2>Transition Effects</h2>
+    <p class="description">
+      Current transition: <strong>{{ selectedTransition() }}</strong>
+    </p>
+    <div class="controls-row">
+      <dcx-ng-button
+        [label]="'Toggle Transition (' + selectedTransition() + ')'"
+        [variant]="'secondary'"
+        [size]="'m'"
+        (buttonClick)="toggleTransition()">
+      </dcx-ng-button>
+    </div>
+    <dcx-ng-accordion
+      [items]="basicItems"
+      [transition]="selectedTransition()"
+      [closeOthers]="true"
+      (itemToggled)="onItemToggled($event, 'Transitions')">
+    </dcx-ng-accordion>
+  </section>
+
+  <!-- Multiple Items Open -->
+  <section class="demo-section">
+    <h2>Multiple Items Open (closeOthers: {{ closeOthersEnabled() ? 'enabled' : 'disabled' }})</h2>
+    <p class="description">
+      When closeOthers is false, multiple items can be expanded simultaneously.
+    </p>
+    <div class="controls-row">
+      <dcx-ng-button
+        [label]="closeOthersEnabled() ? 'Allow Multiple Open' : 'Enable Close Others'"
+        [variant]="'secondary'"
+        [size]="'m'"
+        (buttonClick)="toggleCloseOthers()">
+      </dcx-ng-button>
+    </div>
+    <dcx-ng-accordion
+      [items]="basicItems"
+      [transition]="'smooth'"
+      [closeOthers]="closeOthersEnabled()"
+      (itemToggled)="onItemToggled($event, 'Multiple')">
+    </dcx-ng-accordion>
+  </section>
+
+  <!-- Programmatic Control -->
+  <section class="demo-section">
+    <h2>Programmatic Control</h2>
+    <p class="description">
+      Control the accordion programmatically using buttons. This demonstrates the expandItemById() and collapseItemById() methods.
+    </p>
+    <div class="controls-grid">
+      <dcx-ng-button
+        [label]="'Open Section 1'"
+        [variant]="'primary'"
+        [size]="'s'"
+        (buttonClick)="openSection(0)">
+      </dcx-ng-button>
+      <dcx-ng-button
+        [label]="'Open Section 2'"
+        [variant]="'primary'"
+        [size]="'s'"
+        (buttonClick)="openSection(1)">
+      </dcx-ng-button>
+      <dcx-ng-button
+        [label]="'Open Section 3'"
+        [variant]="'primary'"
+        [size]="'s'"
+        (buttonClick)="openSection(2)">
+      </dcx-ng-button>
+      <dcx-ng-button
+        [label]="'Close Section 1'"
+        [variant]="'secondary'"
+        [size]="'s'"
+        (buttonClick)="closeSection(0)">
+      </dcx-ng-button>
+      <dcx-ng-button
+        [label]="'Close Section 2'"
+        [variant]="'secondary'"
+        [size]="'s'"
+        (buttonClick)="closeSection(1)">
+      </dcx-ng-button>
+      <dcx-ng-button
+        [label]="'Close Section 3'"
+        [variant]="'secondary'"
+        [size]="'s'"
+        (buttonClick)="closeSection(2)">
+      </dcx-ng-button>
+    </div>
+    <dcx-ng-accordion
+      #controlledAccordion
+      [items]="controlledItems"
+      [transition]="'smooth'"
+      [closeOthers]="true"
+      (itemToggled)="onItemToggled($event, 'Controlled')">
+    </dcx-ng-accordion>
+  </section>
+
+  <!-- Features Summary -->
+  <section class="demo-section features">
+    <h2>Features</h2>
+    <ul class="features-list">
+      <li>✅ Disabled items and disabled content support</li>
+      <li>✅ Customizable transition effects (smooth, fast, slow, none)</li>
+      <li>✅ Single or multiple items open (closeOthers toggle)</li>
+      <li>✅ Default expanded items configuration</li>
+      <li>✅ Icon support for each item</li>
+      <li>✅ Support for complex content (strings, components, templates)</li>
+      <li>✅ Programmatic control with expandItemById() and collapseItemById()</li>
+      <li>✅ Full accessibility support (ARIA attributes, keyboard navigation)</li>
+      <li>✅ Event emissions (itemToggled, itemExpanded, itemCollapsed)</li>
+    </ul>
+  </section>
 </div>
