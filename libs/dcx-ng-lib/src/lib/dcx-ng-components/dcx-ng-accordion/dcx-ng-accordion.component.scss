@@ -13,8 +13,10 @@
     .accordion-content-wrapper {
       transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
     }
-    .accordion-chevron {
-      transition: transform 0.3s ease-in-out;
+    .accordion-header {
+      ::ng-deep .icon--end {
+        transition: transform 0.3s ease-in-out;
+      }
     }
   }
 
@@ -22,8 +24,10 @@
     .accordion-content-wrapper {
       transition: max-height 0.15s ease-in-out, opacity 0.15s ease-in-out, padding 0.15s ease-in-out;
     }
-    .accordion-chevron {
-      transition: transform 0.15s ease-in-out;
+    .accordion-header {
+      ::ng-deep .icon--end {
+        transition: transform 0.15s ease-in-out;
+      }
     }
   }
 
@@ -31,8 +35,10 @@
     .accordion-content-wrapper {
       transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
     }
-    .accordion-chevron {
-      transition: transform 0.5s ease-in-out;
+    .accordion-header {
+      ::ng-deep .icon--end {
+        transition: transform 0.5s ease-in-out;
+      }
     }
   }
 
@@ -40,8 +46,10 @@
     .accordion-content-wrapper {
       transition: none;
     }
-    .accordion-chevron {
-      transition: none;
+    .accordion-header {
+      ::ng-deep .icon--end {
+        transition: none;
+      }
     }
   }
 
@@ -120,6 +128,13 @@
         justify-content: center;
         font-weight: var(--font-weight-medium);
       }
+      
+      // Rotate the end icon (chevron) when expanded
+      &.expanded {
+        ::ng-deep .icon--end {
+          transform: rotate(180deg);
+        }
+      }
 
       .accordion-icon {
         @include flex-center;
@@ -149,6 +164,7 @@
         max-height: 2000px;
         opacity: 1;
         padding: 0 20px 16px 20px;
+        overflow-y: auto;
       }
 
       &.disabled-content {
@@ -166,6 +182,10 @@
         color: var(--text-body);
         line-height: var(--line-height-normal);
         font-size: var(--font-size-body-small);
+        max-height: 600px;
+        overflow-y: auto;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
       }
     }
   }

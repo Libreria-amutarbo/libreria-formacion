@@ -1,49 +1,23 @@
-@if (hasItems()) {
-  <div class="accordion" [class]="getTransitionClass()">
-    @for (item of items(); track item.id; let i = $index) {
-      <div 
-        class="accordion-item" 
-        [class.disabled]="item.disabled"
-        [class.expanded]="isExpanded(item.id)"
-      >
-        <button
+<div class="accordion" [class]="getTransitionClass()">
+  @for (item of items(); track item.id; let i = $index) {
+    <div 
+      class="accordion-item" 
+      [class.disabled]="item.disabled"
+      [class.expanded]="isExpanded(item.id)"
+    >
+        <dcx-ng-button
           class="accordion-header"
           [class.expanded]="isExpanded(item.id)"
-          [class.disabled]="item.disabled"
-          (click)="toggleItem(item)"
-          [disabled]="item.disabled"
+          [label]="item.title"
+          [disabled]="item.disabled ?? false"
+          [iconStart]="item.icon || ''"
+          iconEnd="chevron-down"
+          [ariaLabel]="'Toggle ' + item.title"
+          (buttonClick)="onButtonClick(item)"
           [attr.aria-expanded]="isExpanded(item.id)"
           [attr.aria-controls]="'accordion-content-' + item.id"
-          [attr.aria-label]="'Toggle ' + item.title"
         >
-          @if (item.icon) {
-            <dcx-ng-icon 
-              [name]="item.icon" 
-              [size]="'m'"
-              class="accordion-icon-left">
-            </dcx-ng-icon>
-          }
-          
-          <span class="accordion-title">{{ item.title }}</span>
-          
-          <span class="accordion-chevron" [class.expanded]="isExpanded(item.id)">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 7.5L10 12.5L15 7.5"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-        </button>
+        </dcx-ng-button>
 
         <div
           class="accordion-content-wrapper"
@@ -57,11 +31,10 @@
             @if (item.contentTemplate) {
               <ng-container *ngTemplateOutlet="item.contentTemplate"></ng-container>
             } @else {
-              {{ item.content }}
+              <div [innerHTML]="item.content"></div>
             }
           </div>
         </div>
       </div>
     }
   </div>
-}

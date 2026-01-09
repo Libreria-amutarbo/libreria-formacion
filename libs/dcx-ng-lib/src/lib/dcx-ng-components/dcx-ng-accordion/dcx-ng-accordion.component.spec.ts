@@ -1,25 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgAccordionComponent, DcxNgAccordionItem } from './dcx-ng-accordion.component';
+import { DcxNgAccordionComponent } from './dcx-ng-accordion.component';
+import { DcxNgAccordionItem } from '../../core/interfaces/accordion';
 import { Component, signal } from '@angular/core';
+import { DcxAccordionMock } from '../../core/mock/accordion';
 
-const mockItems: DcxNgAccordionItem[] = [
-  {
-    id: '1',
-    title: 'Item 1',
-    content: 'Content 1',
-  },
-  {
-    id: '2',
-    title: 'Item 2',
-    content: 'Content 2',
-  },
-  {
-    id: '3',
-    title: 'Item 3 (Disabled)',
-    content: 'Content 3',
-    disabled: true,
-  },
-];
+const mockItems = DcxAccordionMock;
 
 describe('DcxNgAccordionComponent', () => {
   let component: DcxNgAccordionComponent;
@@ -49,10 +34,10 @@ describe('DcxNgAccordionComponent', () => {
 
     it('should display item titles', () => {
       const compiled = fixture.nativeElement as HTMLElement;
-      const titles = compiled.querySelectorAll('.accordion-title');
-      expect(titles[0].textContent?.trim()).toBe('Item 1');
-      expect(titles[1].textContent?.trim()).toBe('Item 2');
-      expect(titles[2].textContent?.trim()).toBe('Item 3 (Disabled)');
+      const buttons = compiled.querySelectorAll('.accordion-header .label');
+      expect(buttons[0].textContent?.trim()).toBe('Item 1');
+      expect(buttons[1].textContent?.trim()).toBe('Item 2');
+      expect(buttons[2].textContent?.trim()).toBe('Item 3 (Disabled)');
     });
   });
 
@@ -245,7 +230,7 @@ describe('DcxNgAccordionComponent', () => {
       fixture.detectChanges();
 
       const compiled = fixture.nativeElement as HTMLElement;
-      const icon = compiled.querySelector('.accordion-icon-left');
+      const icon = compiled.querySelector('.accordion-header .icon--start');
       expect(icon).toBeTruthy();
     });
   });
@@ -253,19 +238,19 @@ describe('DcxNgAccordionComponent', () => {
   describe('Accessibility', () => {
     it('should set aria-expanded attribute correctly', () => {
       const compiled = fixture.nativeElement as HTMLElement;
-      const button = compiled.querySelector('.accordion-header') as HTMLButtonElement;
+      const buttonElement = compiled.querySelector('.accordion-header button') as HTMLButtonElement;
 
-      expect(button.getAttribute('aria-expanded')).toBe('false');
+      expect(buttonElement.getAttribute('aria-expanded')).toBe('false');
 
       component.toggleItem(mockItems[0]);
       fixture.detectChanges();
 
-      expect(button.getAttribute('aria-expanded')).toBe('true');
+      expect(buttonElement.getAttribute('aria-expanded')).toBe('true');
     });
 
     it('should disable button for disabled items', () => {
       const compiled = fixture.nativeElement as HTMLElement;
-      const buttons = compiled.querySelectorAll('.accordion-header');
+      const buttons = compiled.querySelectorAll('.accordion-header button');
       const disabledButton = buttons[2] as HTMLButtonElement;
 
       expect(disabledButton.disabled).toBe(true);

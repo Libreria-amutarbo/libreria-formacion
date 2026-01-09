@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { 
   DcxNgAccordionComponent, 
   DcxNgAccordionItem, 
-  AccordionTransition 
+  AccordionTransition,
+  DcxAccordionMock,
+  ACCORDION_ITEMS_WITH_ICONS,
+  ACCORDION_ITEMS_COMPLEX
 } from '@dcx-ng-components/dcx-ng-lib';
 import { DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
 
@@ -15,80 +18,14 @@ import { DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
   styleUrl: './dcx-ng-page-accordion.component.scss',
 })
 export class DcxNgPageAccordionComponent {
-  // Signals for state management
   selectedTransition = signal<AccordionTransition>('smooth');
   closeOthersEnabled = signal<boolean>(true);
   lastAction = signal<string>('');
 
-  // Basic accordion items
-  basicItems: DcxNgAccordionItem[] = [
-    {
-      id: 'basic-1',
-      title: 'What is an Accordion?',
-      content: 'An accordion is a vertically stacked list of headers that can be clicked to reveal or hide content associated with them. It is one of the most popular UI components.',
-    },
-    {
-      id: 'basic-2',
-      title: 'When to use an Accordion?',
-      content: 'Use an accordion when you have multiple sections of content and want to allow users to show/hide them independently. This is useful for FAQs, settings panels, or any grouped content.',
-    },
-    {
-      id: 'basic-3',
-      title: 'Accessibility Considerations',
-      content: 'Accordions should be keyboard accessible, have proper ARIA attributes, and provide visual feedback for focus states. This component implements all these best practices.',
-    },
-  ];
+  basicItems = DcxAccordionMock;
+  itemsWithIcons = ACCORDION_ITEMS_WITH_ICONS;
+  itemsWithDisabled = ACCORDION_ITEMS_COMPLEX;
 
-  // Items with icons
-  itemsWithIcons: DcxNgAccordionItem[] = [
-    {
-      id: 'icon-1',
-      title: 'User Profile',
-      icon: 'person-fill',
-      content: 'Manage your personal information, avatar, and public profile settings.',
-    },
-    {
-      id: 'icon-2',
-      title: 'Notifications',
-      icon: 'bell-fill',
-      content: 'Configure how and when you receive notifications from the application.',
-    },
-    {
-      id: 'icon-3',
-      title: 'Security & Privacy',
-      icon: 'shield-lock-fill',
-      content: 'Update your password, enable two-factor authentication, and manage privacy settings.',
-    },
-    {
-      id: 'icon-4',
-      title: 'Appearance',
-      icon: 'palette-fill',
-      content: 'Customize the look and feel of the application with themes and display options.',
-    },
-  ];
-
-  // Items with disabled states
-  itemsWithDisabled: DcxNgAccordionItem[] = [
-    {
-      id: 'disabled-1',
-      title: 'Available Content',
-      content: 'This section is fully available and can be expanded normally.',
-    },
-    {
-      id: 'disabled-2',
-      title: 'Disabled Item',
-      content: 'This content should not be visible because the entire item is disabled.',
-      disabled: true,
-    },
-    {
-      id: 'disabled-3',
-      title: 'Disabled Content Only',
-      content: 'This section can be opened, but the content itself is disabled and appears grayed out.',
-      disabledContent: true,
-    },
-  ];
-
-  // Programmatic control items
   controlledItems: DcxNgAccordionItem[] = [
     {
       id: 'ctrl-1',
@@ -107,10 +44,8 @@ export class DcxNgPageAccordionComponent {
     },
   ];
 
-  // Reference to controlled accordion
   controlledAccordion = viewChild<DcxNgAccordionComponent>('controlledAccordion');
 
-  // Event handlers
   onItemToggled(item: DcxNgAccordionItem, section: string): void {
     this.lastAction.set(`${section}: Toggled "${item.title}"`);
   }
@@ -123,7 +58,6 @@ export class DcxNgPageAccordionComponent {
     this.lastAction.set(`${section}: Collapsed "${item.title}"`);
   }
 
-  // Programmatic controls
   openSection(index: number): void {
     const accordion = this.controlledAccordion();
     if (accordion) {
