@@ -1,9 +1,9 @@
-export type ButtonType = 'button' | 'submit' | 'reset';
-export type ButtonVariant = 'primary' | 'secondary' | 'link' | 'icon';
+export type DcxButtonType = 'button' | 'submit' | 'reset';
+export type DcxButtonVariant = 'primary' | 'secondary' | 'link';
 
 export const ICON_POSITION = {
-    start: 'start',
-    end: 'end',
+  start: 'start',
+  end: 'end',
 };
 
-export type IconPosition = typeof ICON_POSITION[keyof typeof ICON_POSITION];
+export type IconPosition = (typeof ICON_POSITION)[keyof typeof ICON_POSITION];

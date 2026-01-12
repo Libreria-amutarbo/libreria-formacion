@@ -53,8 +53,8 @@
     }
 
     &:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(var(--background-primary), 0.2);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 4px; // espacio entre el borde y el outline
     }
   }
 

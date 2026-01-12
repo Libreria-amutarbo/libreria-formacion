@@ -102,41 +102,23 @@ const meta: Meta<DcxNgButtonComponent> = {
 export default meta;
 type Story = StoryObj<DcxNgButtonComponent>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: { variant: 'primary', label: 'Primary' },
 };
 
-export const Secondary: Story = {
-  args: { variant: 'secondary', label: 'Secondary' },
-};
-
-export const Link: Story = {
-  args: { variant: 'link', label: 'Link' },
-};
-
-export const WithStartIcon: Story = {
-  args: {
-    variant: 'primary',
-    label: 'Guardar',
-    iconStart: 'save',
-  },
-};
-
-export const WithEndIcon: Story = {
-  args: {
-    variant: 'secondary',
-    label: 'Siguiente',
-    iconEnd: 'arrow-right',
-  },
-};
-
-export const IconOnlyAccessible: Story = {
-  args: {
-    variant: 'icon',
-    label: '',
-    ariaLabel: 'Abrir ajustes',
-    iconStart: 'settings',
-  },
+export const Variants: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Primary"  size="m" variant="primary"></dcx-ng-button>
+        <dcx-ng-button label="Medium" size="m" variant="secondary"></dcx-ng-button>
+        <dcx-ng-button label="Link"  size="m" variant="link"></dcx-ng-button>
+    </div>
+       
+       
+    `,
+  }),
 };
 
 export const Sizes: Story = {
@@ -147,32 +129,51 @@ export const Sizes: Story = {
         <dcx-ng-button label="Small"  size="s" variant="primary" iconStart="check"></dcx-ng-button>
         <dcx-ng-button label="Medium" size="m" variant="primary" iconEnd="check"></dcx-ng-button>
         <dcx-ng-button label="Large"  size="l" variant="primary" iconStart="check"></dcx-ng-button>
+         <dcx-ng-button label="Block"  size="block" variant="primary" iconStart="check"></dcx-ng-button>
       </div>
     `,
   }),
 };
 
-export const Block: Story = {
+export const WithtIcons: Story = {
   render: args => ({
     props: { ...args },
     template: `
-      <div style="display:flex; flex-direction:column; gap:8px; width:320px;">
-        <dcx-ng-button label="Block Primary" size="block" variant="primary" iconStart="arrow_forward"></dcx-ng-button>
-        <dcx-ng-button label="Block Secondary" size="block" variant="secondary"></dcx-ng-button>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Guardar"  size="m" variant="primary" iconStart="save" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Siguiente" size="m" variant="primary" iconEnd="arrow-right" iconSize="m"></dcx-ng-button>
       </div>
     `,
   }),
+};
+
+export const IconsButtonSizes: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Small"  size="m" variant="primary" iconStart="save" iconSize="s"></dcx-ng-button>
+        <dcx-ng-button label="Medium" size="m" variant="primary" iconStart="save" iconSize="m"></dcx-ng-button>
+         <dcx-ng-button label="Large" size="m" variant="primary" iconStart="save" iconSize="l"></dcx-ng-button>
+          <dcx-ng-button label="Extra large" size="m" variant="primary" iconStart="save" iconSize="xl"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const IconOnlyAccessible: Story = {
+  args: {
+    label: '',
+    ariaLabel: 'Abrir ajustes',
+    iconStart: 'settings',
+  },
 };
 
 export const Disabled: Story = {
   render: args => ({
     props: { ...args },
     template: `
-      <div style="display:flex; gap:12px; align-items:center;">
         <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
-        <dcx-ng-button label="Disabled" variant="secondary" [disabled]="true"></dcx-ng-button>
-        <dcx-ng-button label="Disabled" variant="link" [disabled]="true"></dcx-ng-button>
-      </div>
     `,
   }),
 };

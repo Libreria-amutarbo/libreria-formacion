@@ -5,9 +5,14 @@ import {
   input,
   output,
 } from '@angular/core';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { ButtonType, ButtonVariant, DcxSize } from '../../core/interfaces';
-import { IconSpacing } from '../../core/interfaces/icon';
+
+import {
+  DcxNgIconComponent,
+  DcxButtonType,
+  DcxButtonVariant,
+  DcxSize,
+  IconSpacing,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-button',
@@ -20,9 +25,9 @@ export class DcxNgButtonComponent {
   // Inputs
   label = input<string>('');
   ariaLabel = input<string>('');
-  type = input<ButtonType>('button');
+  type = input<DcxButtonType>('button');
   disabled = input<boolean>(false);
-  variant = input<ButtonVariant | undefined>(undefined);
+  variant = input<DcxButtonVariant | undefined>(undefined);
   size = input<DcxSize>('m');
   class = input<string>('');
 
