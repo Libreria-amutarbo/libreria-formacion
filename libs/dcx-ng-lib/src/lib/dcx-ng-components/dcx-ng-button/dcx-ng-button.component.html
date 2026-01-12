@@ -5,10 +5,10 @@
   (click)="onClick()"
   [attr.aria-label]="computedAriaLabel()"
 >
-  @if (iconStart()) {
+  @if (icon()) {
     <dcx-ng-icon
       class="icon icon--start"
-      [name]="iconStart()"
+      [name]="iconName()"
       [size]="iconSize()"
       [spacing]="iconSpacing()"
       [color]="iconColor()"
@@ -20,10 +20,10 @@
     <span class="label">{{ label() }}</span>
   }
 
-  @if (iconEnd()) {
+  @if (icon()) {
     <dcx-ng-icon
       class="icon icon--end"
-      [name]="iconEnd()"
+      [name]="iconName()"
       [size]="iconSize()"
       [spacing]="iconSpacing()"
       [color]="iconColor()"

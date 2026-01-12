@@ -1,5 +1,10 @@
-import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
-import { IconSpacing, DcxSize } from '../../core/interfaces';
+import {
+  Component,
+  input,
+  computed,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { DcxIconSpacing, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-icon',
@@ -13,7 +18,7 @@ import { IconSpacing, DcxSize } from '../../core/interfaces';
 export class DcxNgIconComponent {
   readonly name = input.required<string>();
   readonly size = input<DcxSize>('m');
-  readonly spacing = input<IconSpacing>('none');
+  readonly spacing = input<DcxIconSpacing>('none');
   readonly color = input<string>('');
   readonly extraClass = input<string>('');
 
@@ -38,4 +43,3 @@ export class DcxNgIconComponent {
     return classes.join(' ');
   });
 }
-

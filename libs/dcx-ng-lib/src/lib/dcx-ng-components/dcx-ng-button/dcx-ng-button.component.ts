@@ -11,7 +11,8 @@ import {
   DcxButtonType,
   DcxButtonVariant,
   DcxSize,
-  IconSpacing,
+  DcxIconSpacing,
+  DcxIconPosition,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -27,16 +28,17 @@ export class DcxNgButtonComponent {
   ariaLabel = input<string>('');
   type = input<DcxButtonType>('button');
   disabled = input<boolean>(false);
-  variant = input<DcxButtonVariant | undefined>(undefined);
+  variant = input<DcxButtonVariant>('primary');
   size = input<DcxSize>('m');
   class = input<string>('');
 
   // Iconos
-  iconStart = input<string>('');
-  iconEnd = input<string>('');
+  icon = input<boolean>(false);
+  iconName = input<string>('');
   iconSize = input<DcxSize>('s');
-  iconSpacing = input<IconSpacing>('none');
+  iconSpacing = input<DcxIconSpacing>('none');
   iconColor = input<string>('');
+  iconPosition = input<DcxIconPosition>('start');
 
   // Output usando signals
   buttonClick = output<{ clicked: boolean }>();
@@ -54,11 +56,11 @@ export class DcxNgButtonComponent {
     const variantValue = this.variant();
     const sizeValue = this.size();
     const labelValue = this.label();
-    const iconStartValue = this.iconStart();
-    const iconEndValue = this.iconEnd();
+    const iconPositionValue = this.iconPosition();
+    const iconName = this.iconName();
     const classValue = this.class();
 
-    const hasAnyIcon = iconStartValue || iconEndValue;
+    const hasAnyIcon = iconPositionValue || iconName;
 
     return [
       base,

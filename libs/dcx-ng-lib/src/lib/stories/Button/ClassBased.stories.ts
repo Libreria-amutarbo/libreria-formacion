@@ -41,14 +41,14 @@ const meta: Meta<DcxNgButtonComponent> = {
       table: { category: 'Attributes' },
     },
     // Icono (usando dcx-ng-icon internamente)
-    iconStart: {
+    iconPosition: {
       control: 'select',
       options: BOOTSTRAP_ICONS,
       description:
         'Icono de Bootstrap Icons al inicio (p.ej. "save", "chevron-left")',
       table: { category: 'Attributes' },
     },
-    iconEnd: {
+    iconName: {
       control: 'select',
       options: BOOTSTRAP_ICONS,
       description:
@@ -87,8 +87,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     disabled: false,
     variant: 'primary',
     size: 'm',
-    iconStart: '',
-    iconEnd: '',
+    iconPosition: 'start',
     iconSize: undefined,
     iconSpacing: 'none',
     iconColor: '',
@@ -126,10 +125,10 @@ export const Sizes: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Small"  size="s" variant="primary" iconStart="check"></dcx-ng-button>
+        <dcx-ng-button label="Small"  size="s" variant="primary" iconPosition="check"></dcx-ng-button>
         <dcx-ng-button label="Medium" size="m" variant="primary" iconEnd="check"></dcx-ng-button>
-        <dcx-ng-button label="Large"  size="l" variant="primary" iconStart="check"></dcx-ng-button>
-         <dcx-ng-button label="Block"  size="block" variant="primary" iconStart="check"></dcx-ng-button>
+        <dcx-ng-button label="Large"  size="l" variant="primary" iconPosition="check"></dcx-ng-button>
+         <dcx-ng-button label="Block"  size="block" variant="primary" iconPosition="check"></dcx-ng-button>
       </div>
     `,
   }),
@@ -140,7 +139,7 @@ export const WithtIcons: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Guardar"  size="m" variant="primary" iconStart="save" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Guardar"  size="m" variant="primary" iconPosition="save" iconSize="m"></dcx-ng-button>
         <dcx-ng-button label="Siguiente" size="m" variant="primary" iconEnd="arrow-right" iconSize="m"></dcx-ng-button>
       </div>
     `,
@@ -152,10 +151,10 @@ export const IconsButtonSizes: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Small"  size="m" variant="primary" iconStart="save" iconSize="s"></dcx-ng-button>
-        <dcx-ng-button label="Medium" size="m" variant="primary" iconStart="save" iconSize="m"></dcx-ng-button>
-         <dcx-ng-button label="Large" size="m" variant="primary" iconStart="save" iconSize="l"></dcx-ng-button>
-          <dcx-ng-button label="Extra large" size="m" variant="primary" iconStart="save" iconSize="xl"></dcx-ng-button>
+        <dcx-ng-button label="Small"  size="m" variant="primary" iconPosition="save" iconSize="s"></dcx-ng-button>
+        <dcx-ng-button label="Medium" size="m" variant="primary" iconPosition="save" iconSize="m"></dcx-ng-button>
+         <dcx-ng-button label="Large" size="m" variant="primary" iconPosition="save" iconSize="l"></dcx-ng-button>
+          <dcx-ng-button label="Extra large" size="m" variant="primary" iconPosition="save" iconSize="xl"></dcx-ng-button>
       </div>
     `,
   }),
@@ -165,7 +164,7 @@ export const IconOnlyAccessible: Story = {
   args: {
     label: '',
     ariaLabel: 'Abrir ajustes',
-    iconStart: 'settings',
+    iconPosition: 'settings',
   },
 };
 

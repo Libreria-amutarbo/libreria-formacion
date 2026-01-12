@@ -6,4 +6,5 @@ export const ICON_POSITION = {
   end: 'end',
 };
 
-export type IconPosition = (typeof ICON_POSITION)[keyof typeof ICON_POSITION];
+export type DcxIconPosition =
+  (typeof ICON_POSITION)[keyof typeof ICON_POSITION];
