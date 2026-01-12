@@ -1,19 +1,18 @@
-<div
-  class="context-menu"
-  *ngIf="visible"
-  [ngStyle]="{ 'left.px': position.x, 'top.px': position.y }"
-  (click)="$event.stopPropagation()"
-  tabindex="0"
-  role="button"
->
-  <ul>
-    <li
-      *ngFor="let item of items"
-      (click)="item.action()"
-      tabindex="0"
-      role="menuitem"
-    >
-      {{ item.label }}
-    </li>
-  </ul>
-</div>
+@if (visible()) {
+  <div
+    class="context-menu"
+    [style.left.px]="position().x"
+    [style.top.px]="position().y"
+    (click)="$event.stopPropagation()"
+    role="none"
+    aria-label="Context menu"
+  >
+    <dcx-ng-list
+      [items]="listItems()"
+      [role]="'menu'"
+      [ariaLabel]="'Context menu options'"
+      [interactive]="true"
+      (itemClick)="onListItemClick($event)"
+    />
+  </div>
+}

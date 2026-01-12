@@ -21,14 +21,14 @@ describe('DcxNgButtonComponent', () => {
   });
 
   it('should render the button label', () => {
-    component.label = 'Click Me';
+    fixture.componentRef.setInput('label', 'Click Me');
     fixture.detectChanges();
     const buttonElement = fixture.debugElement.query(By.css('button'));
     expect(buttonElement.nativeElement.textContent).toContain('Click Me');
   });
 
   it('should disable the button when disabled input is true', () => {
-    component.disabled = true;
+    fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();
     const buttonElement = fixture.debugElement.query(By.css('button'));
     expect(buttonElement.nativeElement.disabled).toBeTruthy();
@@ -37,21 +37,23 @@ describe('DcxNgButtonComponent', () => {
   it('should emit an event when clicked', () => {
     const emitSpy = jest.spyOn(component.buttonClick, 'emit');
     const buttonElement = fixture.debugElement.query(By.css('button'));
-    buttonElement.triggerEventHandler('click', null);
-    expect(emitSpy).toHaveBeenCalled();
+    const mockEvent = new MouseEvent('click');
+    buttonElement.triggerEventHandler('click', mockEvent);
+    expect(emitSpy).toHaveBeenCalledWith(mockEvent);
   });
 
   it('should not emit event when disabled', () => {
     const emitSpy = jest.spyOn(component.buttonClick, 'emit');
-    component.disabled = true;
+    fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();
     const buttonElement = fixture.debugElement.query(By.css('button'));
-    buttonElement.triggerEventHandler('click', null);
+    const mockEvent = new MouseEvent('click');
+    buttonElement.triggerEventHandler('click', mockEvent);
     expect(emitSpy).not.toHaveBeenCalled();
   });
 
   it('should apply ARIA label correctly', () => {
-    component.ariaLabel = 'Submit Button';
+    fixture.componentRef.setInput('ariaLabel', 'Submit Button');
     fixture.detectChanges();
     const buttonElement = fixture.debugElement.query(By.css('button'));
     expect(buttonElement.nativeElement.getAttribute('aria-label')).toBe(
@@ -60,7 +62,7 @@ describe('DcxNgButtonComponent', () => {
   });
 
   it('should apply custom classes', () => {
-    component.class = 'custom-class';
+    fixture.componentRef.setInput('class', 'custom-class');
     fixture.detectChanges();
     const buttonElement = fixture.debugElement.query(By.css('button'));
     expect(buttonElement.nativeElement.classList).toContain('custom-class');

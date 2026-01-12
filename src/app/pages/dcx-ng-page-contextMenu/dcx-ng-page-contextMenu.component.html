@@ -1,17 +1,115 @@
-<ng-template #defaultMenuCellTpl let-rowData>
-  <button
-    type="button"
-    class="btn icon"
-    title="Context menu (TODO)"
-    (click)="openMenu($event, rowData)"
-  >
-    ⋮
-  </button>
-</ng-template>
+<div class="page-container">
+  <h1>Context Menu Examples</h1>
+  <p class="page-description">
+    El componente Context Menu permite mostrar un menú contextual con opciones personalizadas.
+    Usa <strong>click izquierdo o derecho</strong> para abrir el menú.
+  </p>
 
-<dcx-ng-context-menu
-  [items]="menuItems"
-  [visible]="menuVisible"
-  [position]="menuPosition"
-  (closed)="menuVisible = false"
-></dcx-ng-context-menu>
+  <!-- Example 1: Basic Context Menu -->
+  <section class="example-section">
+    <h2>1. Basic Context Menu</h2>
+    <p>Click (izquierdo o derecho) en el área para ver el menú básico con opciones de Edit, Delete y Share.</p>
+    
+    <div 
+      class="demo-area"
+      (click)="onBasicContextMenu($event)"
+      (contextmenu)="onBasicContextMenu($event)">
+      <p class="demo-hint">
+        <strong>Click anywhere in this area</strong> to open the context menu
+      </p>
+      <dcx-ng-context-menu
+        [items]="basicMenuItems"
+        [visible]="basicMenuVisible()"
+        [position]="basicMenuPosition()"
+        (closed)="basicMenuVisible.set(false)">
+      </dcx-ng-context-menu>
+    </div>
+  </section>
+
+  <!-- Example 2: Single Item Menu -->
+  <section class="example-section">
+    <h2>2. Single Item Menu</h2>
+    <p>Menú contextual con un único elemento.</p>
+    
+    <div 
+      class="demo-area"
+      (click)="onSingleContextMenu($event)"
+      (contextmenu)="onSingleContextMenu($event)">
+      <p class="demo-hint">
+        <strong>Click here</strong> - Menu with single item
+      </p>
+      <dcx-ng-context-menu
+        [items]="singleMenuItems"
+        [visible]="singleMenuVisible()"
+        [position]="singleMenuPosition()"
+        (closed)="singleMenuVisible.set(false)">
+      </dcx-ng-context-menu>
+    </div>
+  </section>
+
+  <!-- Example 3: Many Items Menu -->
+  <section class="example-section">
+    <h2>3. Multiple Items Menu</h2>
+    <p>Menú contextual con múltiples opciones.</p>
+    
+    <div 
+      class="demo-area demo-area-tall"
+      (click)="onManyContextMenu($event)"
+      (contextmenu)="onManyContextMenu($event)">
+      <p class="demo-hint">
+        <strong>Click here</strong> - Menu with multiple items
+      </p>
+      <dcx-ng-context-menu
+        [items]="manyMenuItems"
+        [visible]="manyMenuVisible()"
+        [position]="manyMenuPosition()"
+        (closed)="manyMenuVisible.set(false)">
+      </dcx-ng-context-menu>
+    </div>
+  </section>
+
+  <!-- Example 4: Context Menu in Table -->
+  <section class="example-section">
+    <h2>4. Context Menu in Table</h2>
+    <p>Menú contextual integrado en una tabla con acciones por fila.</p>
+    
+    <div class="table-container">
+      <p class="demo-hint">
+        <strong>Click the button (⋮)</strong> in the Actions column to open context menu for each row
+      </p>
+      
+      <dcx-ng-full-table
+        [headers]="tableHeaders"
+        [rows]="tableData"
+        [showGrid]="true"
+        [showStripped]="true"
+        [scroll]="false"
+        [paginator]="false"
+        [showRowIndex]="true"
+        [rowIndexLabel]="'#'">
+        
+        <ng-template dcxNgFullTableTemplate="actions" let-row let-key="key" let-rowIndex="rowIndex">
+          <div class="action-cell-{{rowIndex}}" style="position: relative; display: inline-block;">
+            <dcx-ng-button
+              (buttonClick)="onButtonClick($event, row, rowIndex)"
+              [label]="''"
+              [ariaLabel]="'Open menu for ' + row.name"
+              variant="icon"
+              size="s"
+              iconStart="three-dots-vertical">
+            </dcx-ng-button>
+            @if (activeMenuRow() === rowIndex) {
+              <dcx-ng-context-menu
+                [items]="getRowActions(row)"
+                [visible]="true"
+                [position]="tableMenuPosition()"
+                (closed)="onTableMenuClosed()">
+              </dcx-ng-context-menu>
+            }
+          </div>
+        </ng-template>
+        
+      </dcx-ng-full-table>
+    </div>
+  </section>
+</div>
