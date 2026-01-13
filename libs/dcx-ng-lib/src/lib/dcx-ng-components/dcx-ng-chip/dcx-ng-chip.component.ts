@@ -13,8 +13,8 @@ import {
   DcxNgChipComponentInputs,
   ThemeColors,
   ThemeColorsType,
-  ChipVariant,
-} from '../../core/interfaces';
+  ChipVariantType,
+} from '@dcx-ng-components/dcx-ng-lib';
 import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -31,7 +31,7 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
   removable = input<boolean>(false);
   icon = input<string>('');
   image = input<string>('');
-  variant = input<ChipVariant>('choice');
+  variant = input<ChipVariantType>('choice');
 
   @Output() removeChip = new EventEmitter<void>();
 
@@ -51,20 +51,6 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
   handleRemove(event: Event): void {
     event.stopPropagation();
     if (this.variant() === 'filter') {
-      this.removeChip.emit();
-    }
-  }
-
-  handleKeydown(event: KeyboardEvent): void {
-    const key = event.key;
-    if (
-      (key === 'Enter' ||
-        key === ' ' ||
-        key === 'Delete' ||
-        key === 'Backspace') &&
-      this.variant() === 'filter'
-    ) {
-      event.preventDefault();
       this.removeChip.emit();
     }
   }

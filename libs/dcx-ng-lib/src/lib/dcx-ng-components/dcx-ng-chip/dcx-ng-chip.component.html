@@ -4,7 +4,6 @@
   [attr.data-chip-type]="chipType()"
   [attr.data-variant]="variant()"
   tabindex="0"
-  (keydown)="handleKeydown($event)"
 >
   @if (chipType() === ChipTypeValues.WITH_IMAGE && image()) {
     <img

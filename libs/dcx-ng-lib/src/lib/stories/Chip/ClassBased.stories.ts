@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { ThemeColors } from '../../core/interfaces';
-import { DcxNgChipComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgChipComponent, ThemeColors, ChipVariant } from '@dcx-ng-components/dcx-ng-lib';
 import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
 
 const meta: Meta<DcxNgChipComponent> = {
@@ -8,7 +7,7 @@ const meta: Meta<DcxNgChipComponent> = {
   component: DcxNgChipComponent,
   tags: ['autodocs'],
   args: {
-    variant: 'choice',
+    variant: ChipVariant.CHOICE,
     color: ThemeColors.PRIMARY,
   },
   argTypes: {
@@ -33,7 +32,7 @@ const meta: Meta<DcxNgChipComponent> = {
     },
     variant: {
       control: { type: 'select' },
-      options: ['choice', 'filter'],
+      options: Object.values(ChipVariant),
       description:
         'Variante del chip: `choice` (no removible) o `filter` (muestra botón de eliminar)',
       table: {
@@ -109,7 +108,7 @@ export const Removable: Story = {
   args: {
     label: 'Removible',
     color: ThemeColors.WARNING,
-    variant: 'filter',
+    variant: ChipVariant.FILTER,
   },
 };
 
@@ -118,7 +117,7 @@ export const RemovableWithIcon: Story = {
     label: 'Angular',
     icon: 'code-slash',
     color: ThemeColors.ERROR,
-    variant: 'filter',
+    variant: ChipVariant.FILTER,
   },
 };
 
@@ -127,7 +126,7 @@ export const RemovableWithImage: Story = {
     label: 'Usuario',
     image: 'https://picsum.photos/360/240',
     color: ThemeColors.SUCCESS,
-    variant: 'filter',
+    variant: ChipVariant.FILTER,
   },
 };
 
