@@ -14,6 +14,7 @@ import {
   ThemeColors,
   ThemeColorsType,
   ChipVariantType,
+  ChipVariant,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 
@@ -37,6 +38,7 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
 
   readonly ThemeColors = ThemeColors;
   readonly ChipTypeValues = ChipTypeValues;
+  readonly ChipVariant = ChipVariant;
 
   chipType = computed((): ChipType => {
     if (this.image()) return ChipTypeValues.WITH_IMAGE;
@@ -50,8 +52,7 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
 
   handleRemove(event: Event): void {
     event.stopPropagation();
-    if (this.variant() ===ChipVariant.FILTER
-    ) {
+    if (this.variant() === ChipVariant.FILTER) {
       this.removeChip.emit();
     }
   }
