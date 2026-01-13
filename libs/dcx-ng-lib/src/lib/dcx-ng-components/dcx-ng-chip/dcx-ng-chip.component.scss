@@ -1,31 +1,71 @@
 @use 'sass:map';
 @use 'sass:color';
 @use '../../../scss/main' as *;
+@use '../../../scss/utils/_mixins' as mixins;
 
 :host {
   display: inline-flex;
 }
 
 .dcx-ng-chip {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   height: 2rem;
   padding: 0.5rem 0.75rem;
-  border-radius: 1rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  --dcx-chip-radius: 1rem;
+  border-radius: var(--dcx-chip-radius);
+
+  --dcx-gray-100: #{map.get($color-grey, 100)};
+  --dcx-gray-300: #{map.get($color-grey, 300)};
+
+  font-family: var(
+    --font-family-base,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial
+  );
+  font-weight: var(--font-weight-medium, 500);
+  font-size: var(--font-size-small, 0.875rem);
+  line-height: var(--line-height-small, 1.2);
+
   border: 1px solid transparent;
   cursor: default;
-  
-  &--primary   { background-color: map.get($color, "primary");    color: map.get($color, "text-inverse"); }
-  &--secondary { background-color: map.get($color, "secondary");  color: map.get($color, "text-inverse"); }
-  &--success   { background-color: map.get($color, "success");    color: map.get($color, "text-inverse"); }
-  &--warning   { background-color: map.get($color, "warning");    color: map.get($color, "text-primary"); }
-  &--error     { background-color: map.get($color, "error");      color: map.get($color, "text-inverse"); }
-  &--info      { background-color: map.get($color, "info");       color: map.get($color, "text-inverse"); }
-  &--gray      { background-color: map.get($color, "gray");       color: map.get($color, "text-inverse"); }
-  &--gray-light{ background-color: map.get($color, "gray-light"); color: map.get($color, "text-primary"); }
+
+  &--primary {
+    background-color: var(--background-primary);
+    color: var(--content-default-white);
+  }
+  &--secondary {
+    background-color: var(--background-default);
+    color: var(--content-default-dark);
+    border-color: var(--border-default);
+  }
+  &--success {
+    background-color: var(--status-success);
+    color: var(--content-default-white);
+  }
+  &--warning {
+    background-color: var(--status-warning);
+    color: var(--content-default-dark);
+  }
+  &--error {
+    background-color: var(--status-error);
+    color: var(--content-default-white);
+  }
+  &--info {
+    background-color: var(--status-info);
+    color: var(--content-default-white);
+  }
+  &--gray,
+  &--grey {
+    background-color: var(--dcx-gray-300);
+    color: var(--content-default-dark);
+  }
 
   &__image {
     width: 1.5rem;
@@ -37,34 +77,49 @@
 
   &__icon {
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
+    @include mixins.flex-center;
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+    line-height: 1;
   }
 
   &__label {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @include mixins.truncate();
   }
 
   &__remove-btn {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
     border: none;
     background: none;
-    color: #000000;
+    color: inherit;
     cursor: pointer;
     padding: 0;
-    margin: 0;
-    margin-left: 0.25rem;
     flex-shrink: 0;
     font-size: 0.875rem;
     line-height: 1;
-    transform: translateY(-0.2rem);
+    margin-left: 0;
+    margin-right: 0;
+
+    svg,
+    i {
+      width: 1rem;
+      height: 1rem;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    svg,
+    path {
+      fill: currentColor;
+    }
 
     &:hover {
-      opacity: 0.7;
+      opacity: 0.85;
     }
 
     &:focus {
@@ -72,7 +127,35 @@
     }
 
     &:active {
-      opacity: 0.5;
+      opacity: 0.6;
     }
+  }
+
+  &:hover {
+    .dcx-ng-chip__label {
+      text-decoration: underline;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: calc(var(--dcx-chip-radius) + 4px);
+    border: 2px solid map.get($border, 'focus');
+    pointer-events: none;
+  }
+
+  &--secondary:focus::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: calc(var(--dcx-chip-radius) + 4px);
+    border: 2px solid map.get($border, 'focus');
+    pointer-events: none;
   }
 }

@@ -2,6 +2,9 @@
   class="dcx-ng-chip"
   [ngClass]="chipClasses"
   [attr.data-chip-type]="chipType()"
+  [attr.data-variant]="variant()"
+  tabindex="0"
+  (keydown)="handleKeydown($event)"
 >
   @if (chipType() === ChipTypeValues.WITH_IMAGE && image()) {
     <img
@@ -13,21 +16,21 @@
   }
 
   @if (chipType() === ChipTypeValues.WITH_ICON && icon()) {
-    <dcx-ng-icon class="dcx-ng-chip__icon" [name]="icon()" size="s" />
+    <dcx-ng-icon class="dcx-ng-chip__icon" [name]="icon()" size="m" />
   }
 
   @if (label()) {
     <span class="dcx-ng-chip__label">{{ label() }}</span>
   }
 
-  @if (removable()) {
+  @if (variant() === 'filter') {
     <button
       type="button"
       class="dcx-ng-chip__remove-btn"
       [attr.aria-label]="'Remover ' + label()"
       (click)="handleRemove($event)"
     >
-      <dcx-ng-icon name="close" size="s"> </dcx-ng-icon>
+      <dcx-ng-icon name="x" size="l"> </dcx-ng-icon>
     </button>
   }
 </div>
