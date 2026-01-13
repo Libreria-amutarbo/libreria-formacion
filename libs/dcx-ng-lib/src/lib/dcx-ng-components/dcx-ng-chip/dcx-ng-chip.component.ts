@@ -50,7 +50,8 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
 
   handleRemove(event: Event): void {
     event.stopPropagation();
-    if (this.variant() === 'filter') {
+    if (this.variant() ===ChipVariant.FILTER
+    ) {
       this.removeChip.emit();
     }
   }
