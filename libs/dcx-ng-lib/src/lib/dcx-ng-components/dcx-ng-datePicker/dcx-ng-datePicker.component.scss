@@ -1,128 +1,181 @@
-@import '../../../scss/main.scss';
+@use 'sass:map';
+@import '../../../scss/base/color';
+@import '../../../scss/base/spacing';
+@import '../../../scss/base/radius';
+@import '../../../scss/base/shadows';
+@import '../../../scss/base/typography';
+
+:host {
+  display: block;
+  font-family: map.get($fonts, primary);
+}
 
 .dcx-datepicker {
   position: relative;
   width: 100%;
+  font-family: map.get($fonts, primary);
+  font-size: map.get($font-size, body);
+  line-height: map.get($line-height, normal);
+  color: map.get($text, title);
+  background: map.get($background, default);
+  border: 1.5px solid map.get($color-primary, 500);
+  border-radius: map.get($radius, md);
+  box-shadow: map.get($shadows, 1);
+  padding: map.get($spacing, xs);
+
+  &__months-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: map.get($spacing, xs);
+    margin-bottom: map.get($spacing, s);
+  }
+  &__years-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: map.get($spacing, xs);
+    margin-bottom: map.get($spacing, s);
+  }
 
   &__input-wrapper {
     display: flex;
     align-items: center;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: border-color 0.2s;
+    border-radius: map.get($radius, md);
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
     &:hover:not(&--disabled) {
-      border-color: var(--color-primary);
-    }
-    &--open {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+      box-shadow: none;
     }
     &--disabled {
-      background: #f5f5f5;
+      background: map.get($background, disabled);
+      opacity: 0.5;
       cursor: not-allowed;
-      opacity: 0.6;
     }
   }
-
   &__input {
     flex: 1;
     border: none;
-    padding: 0.5rem 0.75rem;
     background: transparent;
-    cursor: pointer;
-    outline: none;
+    color: map.get($text, title);
+    padding: map.get($spacing, xs) map.get($spacing, m);
+    font-size: map.get($font-size, body);
+    line-height: map.get($line-height, normal);
     &:disabled {
       cursor: not-allowed;
+      opacity: 0.5;
     }
   }
-
   &__clear {
     background: none;
     border: none;
-    padding: 0.25rem 0.5rem;
+    color: map.get($text, link);
     cursor: pointer;
-    color: #999;
+    padding: map.get($spacing, xs) map.get($spacing, s);
     &:hover {
-      color: #e53e3e;
+      text-decoration: underline;
+      color: map.get($text, error);
     }
   }
-
   &__calendar {
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: 100%;
     left: 0;
-    background: white;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    z-index: 1000;
-    min-width: 280px;
+    min-width: 260px;
+    background: map.get($background, default);
+    border: 1.5px solid map.get($color-primary, 500);
+    border-radius: 0 0 map.get($radius, md) map.get($radius, md);
+    box-shadow: map.get($shadows, 3);
+    padding: map.get($spacing, m);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
   }
-
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: map.get($spacing, s);
+    color: map.get($text, title);
+    font-size: map.get($font-size, body-large);
+    font-weight: map.get($weight, semibold);
   }
-
   &__nav-button {
     background: none;
     border: none;
-    padding: 0.25rem 0.5rem;
+    color: map.get($text, link);
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: map.get($radius, sm);
+    padding: map.get($spacing, xs) map.get($spacing, s);
+    font-size: map.get($font-size, body);
     &:hover {
-      background: var(--color-background-alt);
+      background: map.get($background, hover);
     }
   }
-
-  &__weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.25rem;
-    margin-bottom: 0.5rem;
-  }
-  &__weekday {
-    text-align: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #666;
-  }
+  &__weekdays,
   &__days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 0.25rem;
+    gap: map.get($spacing, xs);
+    margin-bottom: map.get($spacing, s);
   }
 
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: map.get($spacing, xs);
+  }
+
+  &__today-btn {
+    font-size: map.get($font-size, body);
+    color: map.get($color-primary, 500);
+    background: map.get($background, default);
+    padding: map.get($spacing, xs) map.get($spacing, s);
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover {
+      background: map.get($background, hover);
+    }
+  }
+  &__weekday {
+    text-align: center;
+    color: map.get($text, body);
+    margin-bottom: map.get($spacing, xs);
+    font-size: map.get($font-size, caption);
+    line-height: map.get($line-height, normal);
+    font-weight: map.get($weight, semibold);
+  }
   &__day {
     aspect-ratio: 1;
     border: none;
     background: none;
-    border-radius: 4px;
+    border-radius: map.get($radius, sm);
     cursor: pointer;
+    font-family: map.get($fonts, primary);
+    color: map.get($text, title);
+    font-size: map.get($font-size, body);
+    line-height: map.get($line-height, normal);
+    letter-spacing: map.get($letter-spacing, normal);
     transition: background 0.2s;
     &:hover:not(&--disabled) {
-      background: var(--color-background-alt);
+      background: map.get($background, hover);
     }
     &--other-month {
-      color: #ccc;
+      color: map.get($text, disabled);
     }
     &--today {
-      font-weight: 700;
-      color: var(--color-primary);
+      font-weight: map.get($weight, bold);
+      color: map.get($color-primary, 500);
     }
     &--selected {
-      background: var(--color-primary);
-      color: white;
-      font-weight: 600;
+      background: map.get($color-primary, 500);
+      color: map.get($background, default);
+      font-weight: map.get($weight, semibold);
     }
     &--disabled {
-      color: #ddd;
+      color: map.get($text, disabled-dark);
       cursor: not-allowed;
-      text-decoration: line-through;
+      opacity: 0.5;
     }
   }
 }
