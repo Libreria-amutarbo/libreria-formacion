@@ -1,9 +1,11 @@
 export type DcxButtonType = 'button' | 'submit' | 'reset';
-export type DcxButtonVariant = 'primary' | 'secondary' | 'link';
+export type DcxButtonVariant = 'primary' | 'secondary' | 'terciary';
 
 export const ICON_POSITION = {
-  start: 'start',
-  end: 'end',
+  left: 'left',
+  right: 'right',
+  top: 'top',
+  bottom: 'bottom',
 };
 
 export type DcxIconPosition =

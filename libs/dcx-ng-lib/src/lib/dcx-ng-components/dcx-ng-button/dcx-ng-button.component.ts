@@ -38,9 +38,8 @@ export class DcxNgButtonComponent {
   iconSize = input<DcxSize>('s');
   iconSpacing = input<DcxIconSpacing>('none');
   iconColor = input<string>('');
-  iconPosition = input<DcxIconPosition>('start');
+  iconPosition = input<DcxIconPosition>('left');
 
-  // Output usando signals
   buttonClick = output<{ clicked: boolean }>();
 
   computedAriaLabel = computed<string | null>(() => {
@@ -60,17 +59,34 @@ export class DcxNgButtonComponent {
     const iconName = this.iconName();
     const classValue = this.class();
 
-    const hasAnyIcon = iconPositionValue || iconName;
+    const hasAnyIcon = this.icon() || !!iconName;
 
     return [
       base,
       `${base}--${variantValue ?? 'primary'}`,
       sizeValue ? `${base}--${sizeValue}` : '',
       !labelValue && hasAnyIcon ? `${base}--icon-only` : '',
+      iconPositionValue ? `${base}--icon-${iconPositionValue}` : '',
       classValue ?? '',
     ]
       .filter(Boolean)
       .join(' ');
+  });
+
+  iconClasses = computed<string>(() => {
+    const pos = this.iconPosition();
+    const base = 'icon';
+    const mapped =
+      pos === 'left'
+        ? 'icon--start'
+        : pos === 'right'
+          ? 'icon--end'
+          : pos === 'top'
+            ? 'icon--top'
+            : pos === 'bottom'
+              ? 'icon--bottom'
+              : '';
+    return [base, mapped].filter(Boolean).join(' ');
   });
 
   onClick(): void {

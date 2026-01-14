@@ -83,6 +83,12 @@
   justify-content: center;
 }
 
+@mixin flex-center-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @mixin flex-between {
   display: flex;
   align-items: center;

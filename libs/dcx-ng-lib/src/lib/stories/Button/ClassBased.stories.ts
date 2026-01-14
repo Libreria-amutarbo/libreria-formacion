@@ -2,6 +2,10 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { fn } from '@storybook/test';
 import { DcxNgButtonComponent } from '../../dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
 import { BOOTSTRAP_ICONS } from '../../../../.storybook/bootstrap-icons';
+import {
+  BUTTON_VARIANT_LIST,
+  DcxIconPositionList,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const ActionsData = { buttonClick: fn() };
 
@@ -24,28 +28,56 @@ const meta: Meta<DcxNgButtonComponent> = {
       control: 'select',
       options: ['button', 'submit', 'reset'],
       description: 'Tipo nativo del botón',
-      table: { category: 'Attributes' },
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'button',
+        },
+      },
     },
     disabled: {
       control: 'boolean',
-      table: { category: 'Attributes' },
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'false',
+        },
+      },
     },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'link', 'icon'],
-      table: { category: 'Attributes' },
+      options: BUTTON_VARIANT_LIST,
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'primary',
+        },
+      },
     },
     size: {
       control: 'select',
       options: ['s', 'm', 'l', 'block'],
-      table: { category: 'Attributes' },
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'm',
+        },
+      },
+    },
+    icon: {
+      control: 'boolean',
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'false',
+        },
+      },
     },
     // Icono (usando dcx-ng-icon internamente)
     iconPosition: {
       control: 'select',
-      options: BOOTSTRAP_ICONS,
-      description:
-        'Icono de Bootstrap Icons al inicio (p.ej. "save", "chevron-left")',
+      options: DcxIconPositionList,
+      description: 'Posición del icono para cuando el button tiene label',
       table: { category: 'Attributes' },
     },
     iconName: {
@@ -78,7 +110,7 @@ const meta: Meta<DcxNgButtonComponent> = {
         defaultValue: { summary: '-' },
       },
     },
-    class: { control: 'text', table: { category: 'Styling' } },
+    // class: { control: 'text', table: { category: 'Styling' } },
   },
   args: {
     label: 'Click me',
@@ -87,6 +119,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     disabled: false,
     variant: 'primary',
     size: 'm',
+    icon: false,
     iconPosition: 'start',
     iconSize: undefined,
     iconSpacing: 'none',
@@ -102,7 +135,29 @@ export default meta;
 type Story = StoryObj<DcxNgButtonComponent>;
 
 export const Default: Story = {
-  args: { variant: 'primary', label: 'Primary' },
+  args: { variant: 'primary', label: 'Button' },
+};
+
+export const Types: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+      <form onsubmit="event.preventDefault()" style="display:flex; gap:12px; align-items:center;">
+        <dcx-ng-button label="Submit" type="submit" variant="primary"></dcx-ng-button>
+        <dcx-ng-button label="Reset"  type="reset"  variant="primary"></dcx-ng-button>
+        <dcx-ng-button label="Button" type="button" variant="primary"></dcx-ng-button>
+      </form>
+    `,
+  }),
+};
+
+export const Disabled: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+        <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
+    `,
+  }),
 };
 
 export const Variants: Story = {
@@ -112,7 +167,7 @@ export const Variants: Story = {
      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
         <dcx-ng-button label="Primary"  size="m" variant="primary"></dcx-ng-button>
         <dcx-ng-button label="Medium" size="m" variant="secondary"></dcx-ng-button>
-        <dcx-ng-button label="Link"  size="m" variant="link"></dcx-ng-button>
+        <dcx-ng-button label="Terciary"  size="m" variant="terciary"></dcx-ng-button>
     </div>
        
        
@@ -139,8 +194,22 @@ export const WithtIcons: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Guardar"  size="m" variant="primary" iconPosition="save" iconSize="m"></dcx-ng-button>
-        <dcx-ng-button label="Siguiente" size="m" variant="primary" iconEnd="arrow-right" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Guardar"  size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Siguiente" size="m" variant="primary" icon="true" iconName="arrow-right" iconPosition="left" iconSize="m"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const IconsButtonPositions: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Small"  size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="l"></dcx-ng-button>
+        <dcx-ng-button label="Medium" size="m" variant="primary" icon="true" iconName="save" iconPosition="top" iconSize="l"></dcx-ng-button>
+         <dcx-ng-button label="Large" size="m" variant="primary" icon="true" iconName="save" iconPosition="right" iconSize="l"></dcx-ng-button>
+          <dcx-ng-button label="Extra large" size="m" variant="primary" icon="true" iconName="save" iconPosition="bottom" iconSize="l"></dcx-ng-button>
       </div>
     `,
   }),
@@ -151,10 +220,10 @@ export const IconsButtonSizes: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Small"  size="m" variant="primary" iconPosition="save" iconSize="s"></dcx-ng-button>
-        <dcx-ng-button label="Medium" size="m" variant="primary" iconPosition="save" iconSize="m"></dcx-ng-button>
-         <dcx-ng-button label="Large" size="m" variant="primary" iconPosition="save" iconSize="l"></dcx-ng-button>
-          <dcx-ng-button label="Extra large" size="m" variant="primary" iconPosition="save" iconSize="xl"></dcx-ng-button>
+        <dcx-ng-button label="Small"  size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="s"></dcx-ng-button>
+        <dcx-ng-button label="Medium" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
+         <dcx-ng-button label="Large" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="l"></dcx-ng-button>
+          <dcx-ng-button label="Extra large" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="xl"></dcx-ng-button>
       </div>
     `,
   }),
@@ -166,26 +235,4 @@ export const IconOnlyAccessible: Story = {
     ariaLabel: 'Abrir ajustes',
     iconPosition: 'settings',
   },
-};
-
-export const Disabled: Story = {
-  render: args => ({
-    props: { ...args },
-    template: `
-        <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
-    `,
-  }),
-};
-
-export const Types: Story = {
-  render: args => ({
-    props: { ...args },
-    template: `
-      <form onsubmit="event.preventDefault()" style="display:flex; gap:12px; align-items:center;">
-        <dcx-ng-button label="Submit" type="submit" variant="primary"></dcx-ng-button>
-        <dcx-ng-button label="Reset"  type="reset"  variant="secondary"></dcx-ng-button>
-        <dcx-ng-button label="Button" type="button" variant="link"></dcx-ng-button>
-      </form>
-    `,
-  }),
 };

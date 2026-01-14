@@ -5,9 +5,20 @@
   (click)="onClick()"
   [attr.aria-label]="computedAriaLabel()"
 >
-  @if (icon()) {
+  @if (icon() && iconPosition() === 'left') {
     <dcx-ng-icon
-      class="icon icon--start"
+      [class]="iconClasses()"
+      [name]="iconName()"
+      [size]="iconSize()"
+      [spacing]="iconSpacing()"
+      [color]="iconColor()"
+      aria-hidden="true"
+    />
+  }
+
+  @if (icon() && iconPosition() === 'top') {
+    <dcx-ng-icon
+      [class]="iconClasses()"
       [name]="iconName()"
       [size]="iconSize()"
       [spacing]="iconSpacing()"
@@ -20,9 +31,20 @@
     <span class="label">{{ label() }}</span>
   }
 
-  @if (icon()) {
+  @if (icon() && iconPosition() === 'right') {
     <dcx-ng-icon
-      class="icon icon--end"
+      [class]="iconClasses()"
+      [name]="iconName()"
+      [size]="iconSize()"
+      [spacing]="iconSpacing()"
+      [color]="iconColor()"
+      aria-hidden="true"
+    />
+  }
+
+  @if (icon() && iconPosition() === 'bottom') {
+    <dcx-ng-icon
+      [class]="iconClasses()"
       [name]="iconName()"
       [size]="iconSize()"
       [spacing]="iconSpacing()"
