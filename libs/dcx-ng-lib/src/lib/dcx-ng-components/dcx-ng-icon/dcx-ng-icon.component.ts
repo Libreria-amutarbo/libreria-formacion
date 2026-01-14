@@ -8,6 +8,7 @@ import { DcxIconSpacing, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-icon',
+  standalone: true,
   templateUrl: './dcx-ng-icon.component.html',
   styleUrls: ['./dcx-ng-icon.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

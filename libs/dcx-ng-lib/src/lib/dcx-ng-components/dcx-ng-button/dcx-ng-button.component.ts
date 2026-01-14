@@ -16,9 +16,10 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
-  selector: 'dcx-ng-button',
   imports: [DcxNgIconComponent],
-  styleUrl: './dcx-ng-button.component.scss',
+  selector: 'dcx-ng-button',
+  standalone: true,
+  styleUrls: ['./dcx-ng-button.component.scss'],
   templateUrl: './dcx-ng-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -78,9 +79,9 @@ export class DcxNgButtonComponent {
     const base = 'icon';
     const mapped =
       pos === 'left'
-        ? 'icon--start'
+        ? 'icon--left'
         : pos === 'right'
-          ? 'icon--end'
+          ? 'icon--right'
           : pos === 'top'
             ? 'icon--top'
             : pos === 'bottom'
