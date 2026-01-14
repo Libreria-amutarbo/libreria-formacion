@@ -20,17 +20,12 @@ export type ChipType = `${ChipTypeValues}`;
 
 export type ThemeColorsType = `${ThemeColors}`;
 
-export enum ChipVariant {
-  FILTER = 'filter',
-  CHOICE = 'choice',
-}
-
-export type ChipVariantType = `${ChipVariant}`;
+export type ChipVariant = 'filter' | 'choice';
 
 export interface DcxNgChipComponentInputs {
   label: Signal<string>;
   color: Signal<ThemeColorsType>;
   icon: Signal<string>;
   image: Signal<string>;
-  variant: Signal<ChipVariantType>;
+  variant: Signal<ChipVariant>;
 }
