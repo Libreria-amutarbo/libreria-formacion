@@ -31,7 +31,7 @@ describe('DcxNgDatePickerComponent', () => {
     });
 
     it('should format selected date in Spanish', () => {
-        const testDate = new Date(2025, 0, 15); // 15 enero 2025
+        const testDate = new Date(2025, 0, 15);
         componentRef.setInput('selectedDate', testDate);
         fixture.detectChanges();
 
@@ -85,7 +85,7 @@ describe('DcxNgDatePickerComponent', () => {
         componentRef.setInput('selectedDate', testDate);
         fixture.detectChanges();
 
-        const emitSpy = jest.spyOn(component.dateChange, 'emit');
+        const emitSpy = jest.spyOn(component.selectedDateChange, 'emit');
         const clearButton = fixture.nativeElement.querySelector('.dcx-datepicker__clear');
 
         clearButton.click();
@@ -119,7 +119,7 @@ describe('DcxNgDatePickerComponent', () => {
     });
 
     it('should emit date when selecting a day', () => {
-        const emitSpy = jest.spyOn(component.dateChange, 'emit');
+        const emitSpy = jest.spyOn(component.selectedDateChange, 'emit');
         const testDate = new Date(2025, 0, 15);
         const day = {
             date: testDate,
@@ -136,7 +136,7 @@ describe('DcxNgDatePickerComponent', () => {
     });
 
     it('should not select disabled date', () => {
-        const emitSpy = jest.spyOn(component.dateChange, 'emit');
+        const emitSpy = jest.spyOn(component.selectedDateChange, 'emit');
         const day = {
             date: new Date(2025, 0, 15),
             isCurrentMonth: true,
