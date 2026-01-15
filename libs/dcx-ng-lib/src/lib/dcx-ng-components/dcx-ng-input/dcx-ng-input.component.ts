@@ -14,6 +14,7 @@ import { DcxInputErrorMessage, DcxInputType } from '../../core/interfaces/input'
   styleUrls: ['./dcx-ng-input.component.scss'],
 })
 export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
+  @Input() readonly = false;
   @Input() type: DcxInputType = DcxInputType.TEXT;
   @Input() placeholder: string | null = null;
   @Input() size: DcxSize = 'm';
@@ -25,6 +26,7 @@ export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
   @Input() noMargin = false;
   @Input() inline = false;
   @Input() search = false;
+  @Input()
   set value(val: string) {
     if (this.inputControl) {
       this.inputControl.setValue(val, { emitEvent: false });

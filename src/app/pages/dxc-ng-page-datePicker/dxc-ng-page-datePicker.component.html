@@ -3,7 +3,8 @@
 
     <div class="demo-datepicker">
         <dcx-ng-date-picker [selectedDate]="selectedDate()" [minDate]="minDate()" [maxDate]="maxDate()"
-            [disabled]="isDisabled()" [placeholder]="'Selecciona una fecha'" (dateChange)="handleDateChange($event)">
+            [disabled]="isDisabled()" [placeholder]="'Selecciona una fecha'"
+            (selectedDateChange)="handleDateChange($event)">
         </dcx-ng-date-picker>
     </div>
 
