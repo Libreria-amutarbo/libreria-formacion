@@ -19,6 +19,7 @@
       <dcx-ng-button
         class="dcx-datepicker__clear"
         variant="terciary"
+        [icon]="true"
         iconName="x-lg"
         ariaLabel="Limpiar fecha"
         (buttonClick)="clearDate($event)"
@@ -32,6 +33,7 @@
         <dcx-ng-button
           class="dcx-datepicker__nav-button"
           variant="terciary"
+          [icon]="true"
           iconName="arrow-left"
           ariaLabel="Mes anterior"
           (buttonClick)="previousMonth()"
@@ -44,6 +46,7 @@
         <dcx-ng-button
           class="dcx-datepicker__nav-button"
           variant="terciary"
+          [icon]="true"
           iconName="arrow-right"
           ariaLabel="Mes siguiente"
           (buttonClick)="nextMonth()"
