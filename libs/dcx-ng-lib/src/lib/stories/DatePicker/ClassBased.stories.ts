@@ -105,6 +105,7 @@ const meta: Meta<StorybookDatePickerWrapperComponent> = {
     }),
   ],
   parameters: {
+    controls: { expanded: true },
     layout: 'centered',
     docs: {
       description: {
