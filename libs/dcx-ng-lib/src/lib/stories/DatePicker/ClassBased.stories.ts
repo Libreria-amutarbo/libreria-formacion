@@ -28,14 +28,8 @@ class StorybookDatePickerWrapperComponent {
   get selectedDate(): Date | null {
     return this._selectedDate;
   }
-  set selectedDate(value: string | null) {
-    if (!value) {
-      this._selectedDate = null;
-    } else {
-      const date = new Date(value);
-      date.setHours(0, 0, 0, 0);
-      this._selectedDate = isNaN(date.getTime()) ? null : date;
-    }
+  set selectedDate(value: string | Date | null) {
+    this._selectedDate = parseDateInput(value);
   }
 
   private _minDate: Date | null = null;
@@ -43,14 +37,8 @@ class StorybookDatePickerWrapperComponent {
   get minDate(): Date | null {
     return this._minDate;
   }
-  set minDate(value: string | null) {
-    if (!value) {
-      this._minDate = null;
-    } else {
-      const date = new Date(value);
-      date.setHours(0, 0, 0, 0);
-      this._minDate = isNaN(date.getTime()) ? null : date;
-    }
+  set minDate(value: string | Date | null) {
+    this._minDate = parseDateInput(value);
   }
 
   private _maxDate: Date | null = null;
@@ -58,16 +46,9 @@ class StorybookDatePickerWrapperComponent {
   get maxDate(): Date | null {
     return this._maxDate;
   }
-  set maxDate(value: string | null) {
-    if (!value) {
-      this._maxDate = null;
-    } else {
-      const date = new Date(value);
-      date.setHours(0, 0, 0, 0);
-      this._maxDate = isNaN(date.getTime()) ? null : date;
-    }
+  set maxDate(value: string | Date | null) {
+    this._maxDate = parseDateInput(value);
   }
-
   @Input() disabled = false;
   @Input() placeholder = 'Selecciona una fecha';
   @Output() selectedDateChange = new EventEmitter<Date | null>();
@@ -82,6 +63,37 @@ class StorybookDatePickerWrapperComponent {
       ? this.selectedDate.toLocaleDateString('es-ES')
       : 'ninguna';
   }
+}
+
+function parseDateInput(value: string | Date | null): Date | null {
+  if (!value) return null;
+  if (value instanceof Date) return isNaN(value.getTime()) ? null : value;
+  if (typeof value === 'string') {
+    const ddmmyyyy = value.match(/^\s*(\d{1,2})[/-](\d{1,2})[/-](\d{4})\s*$/);
+    if (ddmmyyyy) {
+      const day = parseInt(ddmmyyyy[1], 10);
+      const month = parseInt(ddmmyyyy[2], 10) - 1;
+      const year = parseInt(ddmmyyyy[3], 10);
+      const date = new Date(year, month, day);
+      date.setHours(0, 0, 0, 0);
+      return isNaN(date.getTime()) ? null : date;
+    }
+
+    const yyyymmdd = value.match(/^\s*(\d{4})-(\d{1,2})-(\d{1,2})\s*$/);
+    if (yyyymmdd) {
+      const year = parseInt(yyyymmdd[1], 10);
+      const month = parseInt(yyyymmdd[2], 10) - 1;
+      const day = parseInt(yyyymmdd[3], 10);
+      const date = new Date(year, month, day);
+      date.setHours(0, 0, 0, 0);
+      return isNaN(date.getTime()) ? null : date;
+    }
+
+    const date = new Date(value);
+    date.setHours(0, 0, 0, 0);
+    return isNaN(date.getTime()) ? null : date;
+  }
+  return null;
 }
 const meta: Meta<StorybookDatePickerWrapperComponent> = {
   title: 'DCXLibrary/DatePicker/ClassBased',
@@ -113,8 +125,8 @@ Incluye calendario popup, navegación por meses, validación de fechas min/max.
   argTypes: {
     selectedDate: {
       name: 'selectedDate',
-      control: 'text',
-      description: 'Fecha seleccionada (YYYY-MM-DD)',
+      control: { type: 'text', placeholder: 'dd/mm/yyyy' },
+      description: 'Fecha seleccionada (dd/mm/yyyy)',
       table: {
         category: 'Atributos',
         type: { summary: 'Date | null' },
@@ -123,8 +135,8 @@ Incluye calendario popup, navegación por meses, validación de fechas min/max.
     },
     minDate: {
       name: 'minDate',
-      control: 'text',
-      description: 'Fecha mínima seleccionable (YYYY-MM-DD)',
+      control: { type: 'text', placeholder: 'dd/mm/yyyy' },
+      description: 'Fecha mínima seleccionable (dd/mm/yyyy)',
       table: {
         category: 'Atributos',
         type: { summary: 'Date | null' },
@@ -133,8 +145,8 @@ Incluye calendario popup, navegación por meses, validación de fechas min/max.
     },
     maxDate: {
       name: 'maxDate',
-      control: 'text',
-      description: 'Fecha máxima seleccionable (YYYY-MM-DD)',
+      control: { type: 'text', placeholder: 'dd/mm/yyyy' },
+      description: 'Fecha máxima seleccionable (dd/mm/yyyy)',
       table: {
         category: 'Atributos',
         type: { summary: 'Date | null' },
@@ -180,7 +192,7 @@ type Story = StoryObj<StorybookDatePickerWrapperComponent>;
 export const Default: Story = {
   args: {
     selectedDate: null,
-    placeholder: 'Selecciona una fecha',
+    placeholder: 'dd/mm/yyyy',
     disabled: false,
     minDate: null,
     maxDate: null,

@@ -1,15 +1,18 @@
+import { DcxInputType } from '../../core/interfaces/input';
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
-import { DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgButtonComponent, DcxNgInputComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { CalendarDay } from '../../core/interfaces/datePicker';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'dcx-ng-date-picker',
   standalone: true,
-  imports: [DcxNgButtonComponent],
+  imports: [DcxNgButtonComponent, CommonModule, DcxNgInputComponent],
   templateUrl: './dcx-ng-datePicker.component.html',
   styleUrl: './dcx-ng-datePicker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgDatePickerComponent {
+  public DcxInputType = DcxInputType;
   constructor() {
     document.addEventListener('mousedown', this._onDocumentClick.bind(this));
   }
