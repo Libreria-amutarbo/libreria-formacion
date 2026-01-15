@@ -8,15 +8,12 @@
   background-color: var(--background-default);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-  // Transition classes
   &.transition-smooth {
     .accordion-content-wrapper {
       transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
     }
-    .accordion-header {
-      ::ng-deep .icon--end {
-        transition: transform 0.3s ease-in-out;
-      }
+    .accordion-chevron {
+      transition: transform 0.3s ease-in-out;
     }
   }
 
@@ -24,10 +21,8 @@
     .accordion-content-wrapper {
       transition: max-height 0.15s ease-in-out, opacity 0.15s ease-in-out, padding 0.15s ease-in-out;
     }
-    .accordion-header {
-      ::ng-deep .icon--end {
-        transition: transform 0.15s ease-in-out;
-      }
+    .accordion-chevron {
+      transition: transform 0.15s ease-in-out;
     }
   }
 
@@ -35,10 +30,8 @@
     .accordion-content-wrapper {
       transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
     }
-    .accordion-header {
-      ::ng-deep .icon--end {
-        transition: transform 0.5s ease-in-out;
-      }
+    .accordion-chevron {
+      transition: transform 0.5s ease-in-out;
     }
   }
 
@@ -46,10 +39,8 @@
     .accordion-content-wrapper {
       transition: none;
     }
-    .accordion-header {
-      ::ng-deep .icon--end {
-        transition: none;
-      }
+    .accordion-chevron {
+      transition: none;
     }
   }
 
@@ -62,7 +53,7 @@
 
     &.disabled {
       .accordion-header {
-        cursor: not-allowed;
+        cursor: default;
         background-color: var(--background-disabled);
         color: var(--text-disabled);
         opacity: 0.6;
@@ -72,6 +63,10 @@
     &.expanded {
       .accordion-header {
         background-color: var(--background-hover);
+      }
+      
+      .accordion-chevron {
+        transform: rotate(180deg);
       }
     }
 
@@ -84,35 +79,30 @@
       @include flex-between;
       @include padding(m);
       background-color: var(--background-default);
-      border: none;
-      cursor: pointer;
       width: 100%;
-      text-align: left;
       font-size: var(--font-size-body);
       font-weight: var(--font-weight-medium);
       color: var(--text-title);
       transition: background-color 0.2s ease-in-out;
+      cursor: pointer;
 
-      &:hover:not(:disabled) {
+      &:hover:not(.disabled) {
         background-color: var(--background-hover);
       }
 
       &:focus-visible {
         outline: 2px solid var(--content-primary);
         outline-offset: -2px;
-        z-index: 1;
-      }
-
-      &:disabled {
-        cursor: not-allowed;
       }
 
       &.disabled {
-        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.6;
       }
 
-      .accordion-icon-left {
+      .accordion-icon {
         flex-shrink: 0;
+        margin-right: 8px;
         color: var(--content-primary);
       }
 
@@ -123,34 +113,9 @@
       }
 
       .accordion-chevron {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: var(--font-weight-medium);
-      }
-      
-      // Rotate the end icon (chevron) when expanded
-      &.expanded {
-        ::ng-deep .icon--end {
-          transform: rotate(180deg);
-        }
-      }
-
-      .accordion-icon {
-        @include flex-center;
-        margin-left: 12px;
         flex-shrink: 0;
+        color: var(--content-primary);
         transform: rotate(0deg);
-
-        &.expanded {
-          transform: rotate(180deg);
-        }
-
-        svg {
-          width: 20px;
-          height: 20px;
-          color: var(--text-body);
-        }
       }
     }
 

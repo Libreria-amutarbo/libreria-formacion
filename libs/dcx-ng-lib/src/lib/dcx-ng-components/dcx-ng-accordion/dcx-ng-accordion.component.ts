@@ -7,13 +7,13 @@ import {
   effect
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { AccordionTransition, DcxNgAccordionItem } from '../../core/interfaces/accordion';
 
 @Component({
   selector: 'dcx-ng-accordion',
   standalone: true,
-  imports: [CommonModule, DcxNgButtonComponent],
+  imports: [CommonModule, DcxNgIconComponent],
   templateUrl: './dcx-ng-accordion.component.html',
   styleUrl: './dcx-ng-accordion.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -51,6 +51,11 @@ export class DcxNgAccordionComponent {
   }
 
   onButtonClick(item: DcxNgAccordionItem): void {
+    this.toggleItem(item);
+  }
+
+  onHeaderKeydown(event: KeyboardEvent, item: DcxNgAccordionItem): void {
+    event.preventDefault();
     this.toggleItem(item);
   }
 
