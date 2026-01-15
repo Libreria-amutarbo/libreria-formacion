@@ -16,7 +16,7 @@
           [attr.tabindex]="item.disabled ? -1 : 0"
           (click)="!item.disabled && onButtonClick(item)"
           (keydown.enter)="!item.disabled && onButtonClick(item)"
-          (keydown.space)="!item.disabled && onHeaderKeydown($event, item)"
+          (keydown.space)="!item.disabled && onHeaderKeydown($any($event), item)"
         >
           @if (item.icon) {
             <dcx-ng-icon 

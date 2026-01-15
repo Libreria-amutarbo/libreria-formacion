@@ -1,72 +1,39 @@
-import { Component, signal, viewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { 
-  DcxNgAccordionComponent,
-  DcxNgButtonComponent,
-  DcxNgAccordionItem, 
-  AccordionTransition,
+  DcxNgAccordionComponent, 
+  DcxNgAccordionItem,
   DcxAccordionMock,
   ACCORDION_ITEMS_WITH_ICONS,
-  ACCORDION_ITEMS_COMPLEX
+  ACCORDION_ITEMS_WITH_EXPANDED,
+  ACCORDION_ITEMS_COMPLEX,
+  ACCORDION_ITEMS_LARGE_CONTENT
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-accordion-page',
   standalone: true,
-  imports: [CommonModule, DcxNgAccordionComponent, DcxNgButtonComponent],
+  imports: [CommonModule, DcxNgAccordionComponent],
   templateUrl: './dcx-ng-page-accordion.component.html',
   styleUrl: './dcx-ng-page-accordion.component.scss',
 })
 export class DcxNgPageAccordionComponent {
-  selectedTransition = signal<AccordionTransition>('smooth');
-  closeOthersEnabled = signal<boolean>(true);
-  lastAction = signal<string>('');
+  defaultItems = DcxAccordionMock;
 
-  basicItems = DcxAccordionMock;
-  itemsWithIcons = ACCORDION_ITEMS_WITH_ICONS;
-  itemsWithDisabled = ACCORDION_ITEMS_COMPLEX;
-  controlledItems = DcxAccordionMock;
+  withIconsItems = ACCORDION_ITEMS_WITH_ICONS;
 
-  controlledAccordion = viewChild<DcxNgAccordionComponent>('controlledAccordion');
+  withDisabledItems = ACCORDION_ITEMS_COMPLEX;
 
-  onItemToggled(item: DcxNgAccordionItem, section: string): void {
-    this.lastAction.set(`${section}: Toggled "${item.title}"`);
-  }
+  multipleOpenItems = DcxAccordionMock;
 
-  onItemExpanded(item: DcxNgAccordionItem, section: string): void {
-    this.lastAction.set(`${section}: Expanded "${item.title}"`);
-  }
+  defaultExpandedItems = ACCORDION_ITEMS_WITH_EXPANDED;
 
-  onItemCollapsed(item: DcxNgAccordionItem, section: string): void {
-    this.lastAction.set(`${section}: Collapsed "${item.title}"`);
-  }
+  fastTransitionItems = DcxAccordionMock;
 
-  openSection(index: number): void {
-    const accordion = this.controlledAccordion();
-    if (accordion) {
-      const itemId = String(index + 1);
-      accordion.expandItemById(itemId);
-      this.lastAction.set(`Programmatically opened Section ${index + 1}`);
-    }
-  }
+  slowTransitionItems = DcxAccordionMock;
 
-  closeSection(index: number): void {
-    const accordion = this.controlledAccordion();
-    if (accordion) {
-      const itemId = String(index + 1);
-      accordion.collapseItemById(itemId);
-      this.lastAction.set(`Programmatically closed Section ${index + 1}`);
-    }
-  }
+  noTransitionItems = DcxAccordionMock;
 
-  toggleTransition(): void {
-    const transitions: AccordionTransition[] = ['smooth', 'fast', 'slow', 'none'];
-    const currentIndex = transitions.indexOf(this.selectedTransition());
-    const nextIndex = (currentIndex + 1) % transitions.length;
-    this.selectedTransition.set(transitions[nextIndex]);
-  }
+  largeContentItems = ACCORDION_ITEMS_LARGE_CONTENT;
 
-  toggleCloseOthers(): void {
-    this.closeOthersEnabled.update(value => !value);
-  }
 }
