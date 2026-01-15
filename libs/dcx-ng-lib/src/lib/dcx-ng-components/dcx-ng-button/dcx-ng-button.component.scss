@@ -184,13 +184,16 @@
   &--icon-top,
   &--icon-bottom {
     &.dcx-ng-button--s {
-      padding-block: 0.5rem;
+      padding-block: 2rem;
     }
     &.dcx-ng-button--m {
-      padding-block: 0.75rem;
+      padding-block: 2rem;
     }
     &.dcx-ng-button--l {
-      padding-block: 1rem;
+      padding-block: 2rem;
+    }
+    &.dcx-ng-button--xl {
+      padding-block: 2.5rem;
     }
   }
 
