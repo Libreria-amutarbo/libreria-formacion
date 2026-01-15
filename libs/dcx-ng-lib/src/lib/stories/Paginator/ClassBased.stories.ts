@@ -9,32 +9,22 @@ const meta: Meta<DcxNgPaginatorComponent> = {
     currentPage: {
       control: { type: 'number', min: 1, max: 50 },
       description: 'Página actual',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     totalPages: {
       control: { type: 'number', min: 1, max: 50 },
       description: 'Total de páginas',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     itemsPerPage: {
       control: { type: 'number', min: 1, max: 100 },
       description: 'Items por página',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     disabled: {
       control: 'boolean',
       description: 'Deshabilitado',
-      table: { category: 'Attributes' }
-    },
-    nextButton: {
-      control: 'text',
-      description: 'Texto botón siguiente',
-      table: { category: 'Attributes' }
-    },
-    prevButton: {
-      control: 'text',
-      description: 'Texto botón anterior',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
   },
 };
@@ -72,7 +62,7 @@ class PaginatorInteractiveComponent {
 }
 
 export const Default: Story = {
-  render: (args) => ({
+  render: args => ({
     props: {
       ...args,
     },
@@ -94,8 +84,6 @@ export const Default: Story = {
     totalPages: 10,
     itemsPerPage: 10,
     disabled: false,
-    nextButton: 'Siguiente',
-    prevButton: 'Anterior',
   },
 };
 
@@ -105,7 +93,5 @@ export const Disabled: Story = {
     totalPages: 10,
     itemsPerPage: 10,
     disabled: true,
-    nextButton: 'Siguiente',
-    prevButton: 'Anterior',
   },
 };

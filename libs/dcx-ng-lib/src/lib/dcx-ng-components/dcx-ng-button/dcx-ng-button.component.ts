@@ -28,7 +28,7 @@ export class DcxNgButtonComponent {
   label = input<string>('');
   ariaLabel = input<string>('');
   type = input<DcxButtonType>('button');
-  disabled = input<boolean>(false);
+  disabled = input<boolean>(true);
   variant = input<DcxButtonVariant>('primary');
   size = input<DcxSize>('m');
   class = input<string>('');

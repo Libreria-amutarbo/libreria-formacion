@@ -1,68 +1,81 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  EventEmitter,
+  input,
+  Input,
+  Output,
+} from '@angular/core';
+import { DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-paginator',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DcxNgButtonComponent],
   templateUrl: './dcx-ng-paginator.component.html',
   styleUrl: './dcx-ng-paginator.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPaginatorComponent {
-  @Input() itemsPerPage = 10;
-  @Input() currentPage = 1;
-  @Input() pageSelected = 1;
-  @Input() nextButton = 'Siguiente';
-  @Input() nextButtonDisabled = '';
-  @Input() prevButton = 'Anterior';
-  @Input() prevButtonDisabled = false;
-  @Input() totalPages = 1;
-  @Input() disabled = false;
+  itemsPerPage = input<number>(10);
+  currentPage = input<number>(1);
+  pageSelected = input<number>(1);
+  nextButtonDisabled = input<boolean>(false);
+  prevButtonDisabled = input<boolean>(false);
+
+  totalPages = input<number>(4);
+  disabled = input<boolean>(false);
+
+  hasPrevious = computed<boolean>(() => {
+    return this.currentPage() > 1;
+  });
+  hasNext = computed<boolean>(() => {
+    return this.currentPage() < this.totalPages();
+  });
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() nextPage = new EventEmitter<void>();
   @Output() prevPage = new EventEmitter<void>();
 
-  get hasPrevious(): boolean {
-    return this.currentPage > 1;
-  }
+  // get isPrevDisabled(): boolean {
+  //   return !this.hasPrevious || this.disabled || this.prevButtonDisabled;
+  // }
 
-  get hasNext(): boolean {
-    return this.currentPage < this.totalPages;
-  }
-
-  get isPrevDisabled(): boolean {
-    return !this.hasPrevious || this.disabled || this.prevButtonDisabled;
-  }
-
-  get isNextDisabled(): boolean {
-    return !this.hasNext || this.disabled || !!this.nextButtonDisabled;
-  }
+  // get isNextDisabled(): boolean {
+  //   return !this.hasNext || this.disabled || !!this.nextButtonDisabled;
+  // }
 
   goToPrevious() {
-    if (!this.isPrevDisabled) {
-      this.pageChange.emit(this.currentPage - 1);
+    if (!this.prevButtonDisabled()) {
+      this.pageChange.emit(this.currentPage() - 1);
       this.prevPage.emit();
     }
   }
 
   goToNext() {
-    if (!this.isNextDisabled) {
-      this.pageChange.emit(this.currentPage + 1);
+    if (!this.nextButtonDisabled()) {
+      this.pageChange.emit(this.currentPage() + 1);
       this.nextPage.emit();
     }
   }
 
   goToPage(page: number) {
-    if (page !== this.currentPage && page >= 1 && page <= this.totalPages && !this.disabled) {
+    if (
+      page !== this.currentPage() &&
+      page >= 1 &&
+      page <= this.totalPages() &&
+      !this.disabled
+    ) {
       this.pageChange.emit(page);
     }
   }
+
+  getCurrentPage(): boolean {
+    return false;
+  }
+  getButtonLabel(index: number): string {
+    return (this.currentPage() + index).toString();
+  }
 }
-
-
-
-
-
-
-
