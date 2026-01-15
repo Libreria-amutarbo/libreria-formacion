@@ -5,7 +5,7 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
-  selector: 'dcx-ng-dcx-ng-page-breadcrumb',
+  selector: 'dcx-ng-page-breadcrumb',
   imports: [DcxNgBreadcrumbComponent],
   templateUrl: './dcx-ng-page-breadcrumb.html',
   styleUrl: './dcx-ng-page-breadcrumb.scss',

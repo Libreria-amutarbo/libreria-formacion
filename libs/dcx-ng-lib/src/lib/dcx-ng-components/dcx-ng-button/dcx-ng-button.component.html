@@ -5,10 +5,21 @@
   (click)="onClick()"
   [attr.aria-label]="computedAriaLabel()"
 >
-  @if (iconStart()) {
+  @if (icon() && iconPosition() === 'left') {
     <dcx-ng-icon
-      class="icon icon--start"
-      [name]="iconStart()"
+      [class]="iconClasses()"
+      [name]="iconName()"
+      [size]="iconSize()"
+      [spacing]="iconSpacing()"
+      [color]="iconColor()"
+      aria-hidden="true"
+    />
+  }
+
+  @if (icon() && iconPosition() === 'top') {
+    <dcx-ng-icon
+      [class]="iconClasses()"
+      [name]="iconName()"
       [size]="iconSize()"
       [spacing]="iconSpacing()"
       [color]="iconColor()"
@@ -20,10 +31,21 @@
     <span class="label">{{ label() }}</span>
   }
 
-  @if (iconEnd()) {
+  @if (icon() && iconPosition() === 'right') {
     <dcx-ng-icon
-      class="icon icon--end"
-      [name]="iconEnd()"
+      [class]="iconClasses()"
+      [name]="iconName()"
+      [size]="iconSize()"
+      [spacing]="iconSpacing()"
+      [color]="iconColor()"
+      aria-hidden="true"
+    />
+  }
+
+  @if (icon() && iconPosition() === 'bottom') {
+    <dcx-ng-icon
+      [class]="iconClasses()"
+      [name]="iconName()"
       [size]="iconSize()"
       [spacing]="iconSpacing()"
       [color]="iconColor()"

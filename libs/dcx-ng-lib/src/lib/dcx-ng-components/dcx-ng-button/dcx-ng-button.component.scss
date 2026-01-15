@@ -7,7 +7,6 @@
 }
 
 .dcx-ng-button {
-  // Reset
   margin: 0;
   border: none;
   background: none;
@@ -16,6 +15,10 @@
   appearance: none;
 
   @include button-base;
+
+  @include flex-center-inline;
+
+  gap: 0.25rem;
 
   border: 1px solid transparent;
   white-space: nowrap;
@@ -26,16 +29,19 @@
   &--s,
   &--small {
     @include button-size(s);
+    padding: 0.25rem 0.5rem;
   }
 
   &--m,
   &--medium {
     @include button-size(m);
+    padding: 0.375rem 0.75rem;
   }
 
   &--l,
   &--large {
     @include button-size(l);
+    padding: 0.5rem 1rem;
   }
 
   // ========== PRIMARY ==========
@@ -53,8 +59,8 @@
     }
 
     &:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(var(--background-primary), 0.2);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 4px;
     }
   }
 
@@ -74,16 +80,16 @@
     }
 
     &:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 3px var(--background-pressed);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 4px;
     }
   }
 
   // ========== TERTIARY ==========
 
-  &--link {
+  &--terciary {
     background-color: transparent;
-    color: var(--text-link);
+    color: var(--text-body);
     border: none;
     text-decoration: underline;
 
@@ -96,8 +102,8 @@
     }
 
     &:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 3px var(--background-pressed);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 4px;
     }
   }
 
@@ -139,20 +145,56 @@
   }
 
   // ========== CHILDREN ==========
+  &--icon-top,
+  &--icon-bottom {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.125rem;
+    padding-block: 0.5rem;
+  }
 
   .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    line-height: 1;
   }
 
-  .icon--start {
+  .icon--left {
+    margin-right: 0.25rem;
     order: -1;
   }
 
-  .icon--end {
+  .icon--right {
+    margin-left: 0.25rem;
     order: 1;
+  }
+
+  .icon--top {
+    margin-bottom: 0.125rem;
+  }
+
+  .icon--bottom {
+    margin-top: 0.125rem;
+  }
+
+  // Ensure enough vertical spacing per size when icon is stacked
+  &--icon-top,
+  &--icon-bottom {
+    &.dcx-ng-button--s {
+      padding-block: 2rem;
+    }
+    &.dcx-ng-button--m {
+      padding-block: 2rem;
+    }
+    &.dcx-ng-button--l {
+      padding-block: 2rem;
+    }
+    &.dcx-ng-button--xl {
+      padding-block: 2.5rem;
+    }
   }
 
   .label {

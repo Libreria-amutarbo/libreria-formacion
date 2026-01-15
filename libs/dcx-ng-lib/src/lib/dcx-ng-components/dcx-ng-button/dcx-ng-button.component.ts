@@ -5,14 +5,21 @@ import {
   input,
   output,
 } from '@angular/core';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { ButtonType, ButtonVariant, DcxSize } from '../../core/interfaces';
-import { IconSpacing } from '../../core/interfaces/icon';
+
+import {
+  DcxNgIconComponent,
+  DcxButtonType,
+  DcxButtonVariant,
+  DcxSize,
+  DcxIconSpacing,
+  DcxIconPosition,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
-  selector: 'dcx-ng-button',
   imports: [DcxNgIconComponent],
-  styleUrl: './dcx-ng-button.component.scss',
+  selector: 'dcx-ng-button',
+  standalone: true,
+  styleUrls: ['./dcx-ng-button.component.scss'],
   templateUrl: './dcx-ng-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -20,20 +27,20 @@ export class DcxNgButtonComponent {
   // Inputs
   label = input<string>('');
   ariaLabel = input<string>('');
-  type = input<ButtonType>('button');
+  type = input<DcxButtonType>('button');
   disabled = input<boolean>(false);
-  variant = input<ButtonVariant | undefined>(undefined);
+  variant = input<DcxButtonVariant>('primary');
   size = input<DcxSize>('m');
   class = input<string>('');
 
   // Iconos
-  iconStart = input<string>('');
-  iconEnd = input<string>('');
+  icon = input<boolean>(false);
+  iconName = input<string>('');
   iconSize = input<DcxSize>('s');
-  iconSpacing = input<IconSpacing>('none');
+  iconSpacing = input<DcxIconSpacing>('none');
   iconColor = input<string>('');
+  iconPosition = input<DcxIconPosition>('left');
 
-  // Output usando signals
   buttonClick = output<{ clicked: boolean }>();
 
   computedAriaLabel = computed<string | null>(() => {
@@ -49,21 +56,38 @@ export class DcxNgButtonComponent {
     const variantValue = this.variant();
     const sizeValue = this.size();
     const labelValue = this.label();
-    const iconStartValue = this.iconStart();
-    const iconEndValue = this.iconEnd();
+    const iconPositionValue = this.iconPosition();
+    const iconName = this.iconName();
     const classValue = this.class();
 
-    const hasAnyIcon = iconStartValue || iconEndValue;
+    const hasAnyIcon = this.icon() || !!iconName;
 
     return [
       base,
       `${base}--${variantValue ?? 'primary'}`,
       sizeValue ? `${base}--${sizeValue}` : '',
       !labelValue && hasAnyIcon ? `${base}--icon-only` : '',
+      iconPositionValue ? `${base}--icon-${iconPositionValue}` : '',
       classValue ?? '',
     ]
       .filter(Boolean)
       .join(' ');
+  });
+
+  iconClasses = computed<string>(() => {
+    const pos = this.iconPosition();
+    const base = 'icon';
+    const mapped =
+      pos === 'left'
+        ? 'icon--left'
+        : pos === 'right'
+          ? 'icon--right'
+          : pos === 'top'
+            ? 'icon--top'
+            : pos === 'bottom'
+              ? 'icon--bottom'
+              : '';
+    return [base, mapped].filter(Boolean).join(' ');
   });
 
   onClick(): void {

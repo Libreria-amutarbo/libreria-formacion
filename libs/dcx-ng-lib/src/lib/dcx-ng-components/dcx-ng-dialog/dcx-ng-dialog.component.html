@@ -13,9 +13,10 @@
         @if (showClose()) {
           <dcx-ng-button
             ariaLabel="Cerrar diálogo"
-            variant="icon"
+            variant="terciary"
             size="s"
-            iconStart="x-lg"
+            [icon]="true"
+            iconName="x-lg"
             iconSpacing="none"
             (buttonClick)="close()"
           />
