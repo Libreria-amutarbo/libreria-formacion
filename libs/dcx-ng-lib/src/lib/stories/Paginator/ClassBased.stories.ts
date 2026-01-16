@@ -80,7 +80,7 @@ export const Default: Story = {
     `,
   }),
   args: {
-    currentPage: 1,
+    currentPage: 4,
     totalPages: 10,
     itemsPerPage: 10,
     disabled: false,

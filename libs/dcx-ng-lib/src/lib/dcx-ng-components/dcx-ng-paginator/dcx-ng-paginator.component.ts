@@ -7,8 +7,12 @@ import {
   input,
   Input,
   Output,
+  signal,
 } from '@angular/core';
-import { DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxButtonVariant,
+  DcxNgButtonComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-paginator',
@@ -20,62 +24,61 @@ import { DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
 })
 export class DcxNgPaginatorComponent {
   itemsPerPage = input<number>(10);
-  currentPage = input<number>(1);
+  currentPageInput = input<number>(1);
+  currentPage = signal(0);
   pageSelected = input<number>(1);
-  nextButtonDisabled = input<boolean>(false);
-  prevButtonDisabled = input<boolean>(false);
+  isNextButtonDisabled = input<boolean>(true);
+  isPrevButtonDisabled = input<boolean>(true);
 
   totalPages = input<number>(4);
   disabled = input<boolean>(false);
-
-  hasPrevious = computed<boolean>(() => {
-    return this.currentPage() > 1;
-  });
-  hasNext = computed<boolean>(() => {
-    return this.currentPage() < this.totalPages();
-  });
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() nextPage = new EventEmitter<void>();
   @Output() prevPage = new EventEmitter<void>();
 
-  // get isPrevDisabled(): boolean {
-  //   return !this.hasPrevious || this.disabled || this.prevButtonDisabled;
-  // }
+  ngOnInit() {
+    this.currentPage.set(this.currentPageInput());
+  }
 
-  // get isNextDisabled(): boolean {
-  //   return !this.hasNext || this.disabled || !!this.nextButtonDisabled;
-  // }
+  hasPrevious = computed<boolean>(() => {
+    return this.currentPage() > 1;
+  });
+  hasNext = computed<boolean>(() => {
+    console.log(this.currentPage());
+    return this.currentPage() < this.totalPages();
+  });
 
   goToPrevious() {
-    if (!this.prevButtonDisabled()) {
-      this.pageChange.emit(this.currentPage() - 1);
+    if (!this.isPrevButtonDisabled()) {
+      this.currentPage.update(value => value - 1);
+      this.pageChange.emit(this.currentPage());
       this.prevPage.emit();
     }
   }
 
   goToNext() {
-    if (!this.nextButtonDisabled()) {
-      this.pageChange.emit(this.currentPage() + 1);
+    console.log(this.isNextButtonDisabled());
+    if (!this.isNextButtonDisabled()) {
+      this.currentPage.update(value => value + 1);
+      this.pageChange.emit(this.currentPage());
       this.nextPage.emit();
     }
   }
 
   goToPage(page: number) {
-    if (
-      page !== this.currentPage() &&
-      page >= 1 &&
-      page <= this.totalPages() &&
-      !this.disabled
-    ) {
-      this.pageChange.emit(page);
-    }
+    this.currentPage.set(page);
+
+    this.pageChange.emit(this.currentPage());
   }
 
-  getCurrentPage(): boolean {
-    return false;
+  getCurrentPage(pageNum: number): boolean {
+    return this.currentPage() === pageNum;
+  }
+  getButtonVariant(pageNumb: number): DcxButtonVariant {
+    return this.currentPage() === pageNumb ? 'primary' : 'secondary';
   }
   getButtonLabel(index: number): string {
-    return (this.currentPage() + index).toString();
+    return index.toString();
   }
 }

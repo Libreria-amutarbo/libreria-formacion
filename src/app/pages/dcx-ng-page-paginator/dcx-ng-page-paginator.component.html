@@ -43,21 +43,19 @@
     </div>
 
     <div class="paginator-container">
-      <!-- <dcx-ng-paginator
+      <dcx-ng-paginator
         [itemsPerPage]="itemsPerPage"
-        [currentPage]="currentPage"
+        [currentPageInput]="2"
         [pageSelected]="pageSelected"
         [totalPages]="totalPages"
-        [nextButton]="nextButton"
-        [nextButtonDisabled]="nextButtonDisabled"
-        [prevButton]="prevButton"
-        [prevButtonDisabled]="prevButtonDisabled"
         [disabled]="disabled"
+        [isPrevButtonDisabled]="false"
+        [isNextButtonDisabled]="false"
         (pageChange)="onPageChange($event)"
         (onNextPage)="onNextPage()"
         (onPrevPage)="onPrevPage()"
       >
-      </dcx-ng-paginator> -->
+      </dcx-ng-paginator>
     </div>
 
     <div class="demo-status">

@@ -4,7 +4,7 @@
     [ngClass]="{'dcx-paginator__button--disabled': hasPrevious()}"
     [icon]="true"
     iconName="chevron-left"
-    [disabled]="true"
+    [disabled]="!hasPrevious() || disabled()"
     (click)="goToPrevious()"
   >
   </dcx-ng-button>
@@ -12,13 +12,11 @@
   @for (page of [].constructor(totalPages()); track $index) {
     <dcx-ng-button
       class="dcx-paginator__page"
-      [ngClass]="{
-      'dcx-paginator__page--active': getCurrentPage(),
-      'dcx-paginator__page--disabled': disabled
-    }"
+      [ngClass]="{'dcx-paginator__page--active': getCurrentPage($index + 1)}"
+      [variant]="getButtonVariant($index+1)"
       [disabled]="disabled()"
       (click)="goToPage($index + 1)"
-      [label]="getButtonLabel($index)"
+      [label]="getButtonLabel($index + 1)"
     >
     </dcx-ng-button>
   }
