@@ -6,6 +6,7 @@ import {
   EventEmitter,
   input,
   Input,
+  output,
   Output,
   signal,
 } from '@angular/core';
@@ -24,45 +25,45 @@ import {
 })
 export class DcxNgPaginatorComponent {
   itemsPerPage = input<number>(10);
+  totalItems = input<number>(100);
   currentPageInput = input<number>(1);
   currentPage = signal(0);
   pageSelected = input<number>(1);
   isNextButtonDisabled = input<boolean>(true);
   isPrevButtonDisabled = input<boolean>(true);
 
-  totalPages = input<number>(4);
   disabled = input<boolean>(false);
 
-  @Output() pageChange = new EventEmitter<number>();
-  @Output() nextPage = new EventEmitter<void>();
-  @Output() prevPage = new EventEmitter<void>();
+  pageChange = output<number>();
 
-  ngOnInit() {
-    this.currentPage.set(this.currentPageInput());
-  }
+  limitedButtons = input<boolean>(false);
 
   hasPrevious = computed<boolean>(() => {
     return this.currentPage() > 1;
   });
   hasNext = computed<boolean>(() => {
-    console.log(this.currentPage());
     return this.currentPage() < this.totalPages();
   });
 
+  totalPages = computed<number>(() => {
+    return Math.ceil(this.totalItems() / this.itemsPerPage());
+  });
+
+  ngOnInit() {
+    this.currentPage.set(this.currentPageInput());
+  }
+
   goToPrevious() {
-    if (!this.isPrevButtonDisabled()) {
+    if (this.hasPrevious()) {
       this.currentPage.update(value => value - 1);
       this.pageChange.emit(this.currentPage());
-      this.prevPage.emit();
     }
   }
 
   goToNext() {
-    console.log(this.isNextButtonDisabled());
-    if (!this.isNextButtonDisabled()) {
+    if (this.hasNext()) {
       this.currentPage.update(value => value + 1);
       this.pageChange.emit(this.currentPage());
-      this.nextPage.emit();
     }
   }
 
@@ -80,5 +81,12 @@ export class DcxNgPaginatorComponent {
   }
   getButtonLabel(index: number): string {
     return index.toString();
+  }
+
+  goToStart() {
+    this.currentPage.set(1);
+  }
+  goToEnd() {
+    this.currentPage.set(this.totalPages());
   }
 }

@@ -181,6 +181,13 @@ $button-sizes: (
     font-size: 1rem,
     icon-size: 1.5rem,
   ),
+  xl: (
+    height: 3.75rem,
+    padding-y: 1.25rem,
+    padding-x: 1.75rem,
+    font-size: 1.25rem,
+    icon-size: 1.75rem,
+  ),
 );
 
 @mixin button-size($size) {

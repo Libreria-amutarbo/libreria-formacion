@@ -1,39 +1,47 @@
 <div class="dcx-paginator">
   <dcx-ng-button
     class="dcx-paginator__button"
-    [ngClass]="{'dcx-paginator__button--disabled': hasPrevious()}"
+    [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
     [icon]="true"
     iconName="chevron-left"
+    iconSize="m"
+    [disabled]="!hasPrevious() || disabled()"
+    (click)="goToStart()"
+  />
+  <dcx-ng-button
+    class="dcx-paginator__button"
+    [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+    [icon]="true"
+    iconName="chevron-left"
+    iconSize="m"
     [disabled]="!hasPrevious() || disabled()"
     (click)="goToPrevious()"
-  >
-  </dcx-ng-button>
+  />
 
   @for (page of [].constructor(totalPages()); track $index) {
     <dcx-ng-button
       class="dcx-paginator__page"
-      [ngClass]="{'dcx-paginator__page--active': getCurrentPage($index + 1)}"
+      [size]="getCurrentPage($index + 1) ? 'xl' : 'm'"
       [variant]="getButtonVariant($index+1)"
       [disabled]="disabled()"
       (click)="goToPage($index + 1)"
       [label]="getButtonLabel($index + 1)"
-    >
-    </dcx-ng-button>
+    />
   }
-
-  <!-- <dcx-ng-button
-    class="dcx-paginator__button"
-    [ngClass]="{'dcx-paginator__button--disabled': isNextDisabled}"
-    [icon]="true"
-    iconName="chevron-right"
-    [disabled]="isNextDisabled"
-    (click)="goToNext()"
-  > -->
   <dcx-ng-button
     class="dcx-paginator__button"
     [icon]="true"
+    iconSize="m"
     iconName="chevron-right"
+    [disabled]="!hasNext() || disabled()"
     (click)="goToNext()"
-  >
-  </dcx-ng-button>
+  />
+  <dcx-ng-button
+    class="dcx-paginator__button"
+    [icon]="true"
+    iconSize="m"
+    iconName="chevron-right"
+    [disabled]="!hasNext() || disabled()"
+    (click)="goToEnd()"
+  />
 </div>
