@@ -18,21 +18,19 @@
         ariaLabel="Anterior" (buttonClick)="previousMonth()"></dcx-ng-button>
 
       @if (isCalendarMode()) {
-      <span class="dcx-datepicker__month-name" (click)="openMonthSelector()" style="cursor:pointer;" tabindex="0"
-        role="button">
+      <span class="dcx-datepicker__month-name dcx-datepicker__month-name--clickable" (click)="openMonthSelector()"
+        tabindex="0" role="button">
         {{ monthName() }}
       </span>
-      <span class="dcx-datepicker__month-name" (click)="openYearSelector()" style="cursor:pointer; margin-left: 8px;"
-        tabindex="0" role="button">
+      <span class="dcx-datepicker__month-name dcx-datepicker__month-name--clickable dcx-datepicker__month-name--ml"
+        (click)="openYearSelector()" tabindex="0" role="button">
         {{ yearNumber() }}
       </span>
       }
-      @if (isMonthMode()) {
-      <span class="dcx-datepicker__month-name">Selecciona mes</span>
-      }
-      @if (isYearMode()) {
-      <span class="dcx-datepicker__month-name">Selecciona año</span>
-      }
+      <span class="dcx-datepicker__month-name">
+        @if (isMonthMode()) {Selecciona mes}
+        @if (isYearMode()) {Selecciona año}
+      </span>
 
       <dcx-ng-button class="dcx-datepicker__nav-button" [icon]="true" iconPosition="right" iconName="arrow-right"
         ariaLabel="Siguiente" (buttonClick)="nextMonth()"></dcx-ng-button>
