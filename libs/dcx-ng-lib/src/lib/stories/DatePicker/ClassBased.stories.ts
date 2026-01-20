@@ -59,9 +59,11 @@ class StorybookDatePickerWrapperComponent {
   }
 
   get formattedSelectedDate(): string {
-    return this.selectedDate
-      ? this.selectedDate.toLocaleDateString('es-ES')
-      : 'ninguna';
+    if (!this.selectedDate) return 'ninguna';
+    const day = this.selectedDate.getDate().toString().padStart(2, '0');
+    const month = (this.selectedDate.getMonth() + 1).toString().padStart(2, '0');
+    const year = this.selectedDate.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 }
 

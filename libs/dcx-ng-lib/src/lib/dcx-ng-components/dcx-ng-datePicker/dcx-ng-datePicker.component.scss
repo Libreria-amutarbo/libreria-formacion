@@ -170,3 +170,9 @@
     }
   }
 }
+.dcx-datepicker__month-name--clickable {
+  cursor: pointer;
+}
+.dcx-datepicker__month-name--ml {
+  margin-left: 8px;
+}
