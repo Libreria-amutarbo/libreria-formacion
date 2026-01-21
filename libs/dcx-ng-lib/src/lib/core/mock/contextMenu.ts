@@ -1,89 +1,83 @@
-import { ContextMenuItem } from '../../dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+import { DcxContextMenuItem } from '../interfaces/contextMenu';
 import { DcxHeaderData, DcxTableRow } from '../interfaces';
 
 // ==================== CONTEXT MENU ITEMS ====================
 
-/** Items básicos para context menu - usado en Default story */
-export const CONTEXT_MENU_ITEMS_BASIC: ContextMenuItem[] = [
+export const CONTEXT_MENU_ITEMS_BASIC: DcxContextMenuItem[] = [
   {
     label: 'Edit',
-    action: () => console.log('Edit clicked'),
+    action: () => {},
   },
   {
     label: 'Delete',
-    action: () => console.log('Delete clicked'),
+    action: () => {},
   },
   {
     label: 'Share',
-    action: () => console.log('Share clicked'),
+    action: () => {},
   },
 ];
 
-/** Items simples para context menu - usado en ejemplos básicos */
-export const CONTEXT_MENU_ITEMS_SIMPLE: ContextMenuItem[] = [
+export const CONTEXT_MENU_ITEMS_SIMPLE: DcxContextMenuItem[] = [
   {
     label: 'Option 1',
-    action: () => console.log('Option 1 clicked'),
+    action: () => {},
   },
   {
     label: 'Option 2',
-    action: () => console.log('Option 2 clicked'),
+    action: () => {},
   },
 ];
 
-/** Item único para context menu - usado en SingleItem story */
-export const CONTEXT_MENU_ITEM_SINGLE: ContextMenuItem[] = [
+export const CONTEXT_MENU_ITEM_SINGLE: DcxContextMenuItem[] = [
   {
     label: 'Single Option',
-    action: () => console.log('Single Option clicked'),
+    action: () => {},
   },
 ];
 
-/** Items múltiples para context menu - usado en ManyItems story */
-export const CONTEXT_MENU_ITEMS_MANY: ContextMenuItem[] = [
-  { label: 'Open', action: () => console.log('Open clicked') },
-  { label: 'Edit', action: () => console.log('Edit clicked') },
-  { label: 'Copy', action: () => console.log('Copy clicked') },
-  { label: 'Paste', action: () => console.log('Paste clicked') },
-  { label: 'Delete', action: () => console.log('Delete clicked') },
-  { label: 'Share', action: () => console.log('Share clicked') },
+export const CONTEXT_MENU_ITEMS_MANY: DcxContextMenuItem[] = [
+  { label: 'Open', action: () => {} },
+  { label: 'Edit', action: () => {} },
+  { label: 'Copy', action: () => {} },
+  { label: 'Paste', action: () => {} },
+  { label: 'Delete', action: () => {} },
+  { label: 'Share', action: () => {} },
 ];
 
-/** Items con iconos para context menu */
-export const CONTEXT_MENU_ITEMS_WITH_ICONS: ContextMenuItem[] = [
+export const CONTEXT_MENU_ITEMS_WITH_ICONS: DcxContextMenuItem[] = [
   {
     label: 'Edit',
     icon: 'pencil',
-    action: () => console.log('Edit clicked'),
+    action: () => {},
   },
   {
     label: 'Copy',
     icon: 'copy',
-    action: () => console.log('Copy clicked'),
+    action: () => {},
   },
   {
     label: 'Delete',
     icon: 'trash',
-    action: () => console.log('Delete clicked'),
+    action: () => {},
   },
   {
     label: 'Share',
     icon: 'share',
-    action: () => console.log('Share clicked'),
+    action: () => {},
   },
 ];
 
-/** Items con iconos, separadores y estado disabled */
-export const CONTEXT_MENU_ITEMS_ADVANCED: ContextMenuItem[] = [
+export const CONTEXT_MENU_ITEMS_ADVANCED: DcxContextMenuItem[] = [
   {
     label: 'New File',
     icon: 'file-earmark-plus',
-    action: () => console.log('New File'),
+    action: () => {},
   },
   {
     label: 'New Folder',
     icon: 'folder-plus',
-    action: () => console.log('New Folder'),
+    action: () => {},
   },
   {
     label: '',
@@ -92,17 +86,17 @@ export const CONTEXT_MENU_ITEMS_ADVANCED: ContextMenuItem[] = [
   {
     label: 'Cut',
     icon: 'scissors',
-    action: () => console.log('Cut'),
+    action: () => {},
   },
   {
     label: 'Copy',
     icon: 'copy',
-    action: () => console.log('Copy'),
+    action: () => {},
   },
   {
     label: 'Paste',
     icon: 'clipboard',
-    action: () => console.log('Paste'),
+    action: () => {},
     disabled: true,
   },
   {
@@ -112,12 +106,12 @@ export const CONTEXT_MENU_ITEMS_ADVANCED: ContextMenuItem[] = [
   {
     label: 'Delete',
     icon: 'trash',
-    action: () => console.log('Delete'),
+    action: () => {},
   },
   {
     label: 'Rename',
     icon: 'pencil-square',
-    action: () => console.log('Rename'),
+    action: () => {},
   },
   {
     label: '',
@@ -126,13 +120,12 @@ export const CONTEXT_MENU_ITEMS_ADVANCED: ContextMenuItem[] = [
   {
     label: 'Properties',
     icon: 'info-circle',
-    action: () => console.log('Properties'),
+    action: () => {},
   },
 ];
 
 // ==================== TABLE WITH CONTEXT MENU ====================
 
-/** Interface para datos de tabla con context menu */
 export interface TableRowWithActions extends DcxTableRow {
   id: number;
   name: string;
@@ -140,7 +133,6 @@ export interface TableRowWithActions extends DcxTableRow {
   role: string;
 }
 
-/** Headers de tabla con columna de acciones - usado en InTable story */
 export const TABLE_HEADERS_WITH_ACTIONS: DcxHeaderData[] = [
   { key: 'id', name: 'ID', sortable: false },
   { key: 'name', name: 'Name', sortable: true },
@@ -155,7 +147,6 @@ export const TABLE_HEADERS_WITH_ACTIONS: DcxHeaderData[] = [
   },
 ];
 
-/** Datos de tabla para demostración de context menu - usado en InTable story */
 export const TABLE_DATA_WITH_ACTIONS: TableRowWithActions[] = [
   { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },
   { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
@@ -164,28 +155,23 @@ export const TABLE_DATA_WITH_ACTIONS: TableRowWithActions[] = [
   { id: 5, name: 'Charlie Davis', email: 'charlie@example.com', role: 'User' },
 ];
 
-/**
- * Genera items de context menu específicos para una fila de tabla
- * @param row - Fila de datos de la tabla
- * @returns Array de items del context menu
- */
-export function getRowContextMenuItems(row: TableRowWithActions): ContextMenuItem[] {
+export function getRowContextMenuItems(row: TableRowWithActions): DcxContextMenuItem[] {
   return [
     {
       label: `Edit ${row.name}`,
-      action: () => console.log(`Edit action for ${row.name}`),
+      action: () => {},
     },
     {
       label: `Delete ${row.name}`,
-      action: () => console.log(`Delete action for ${row.name}`),
+      action: () => {},
     },
     {
       label: 'View Details',
-      action: () => console.log(`View details for ${row.name}`),
+      action: () => {},
     },
     {
       label: 'Send Email',
-      action: () => console.log(`Send email to ${row.email}`),
+      action: () => {},
     },
   ];
 }

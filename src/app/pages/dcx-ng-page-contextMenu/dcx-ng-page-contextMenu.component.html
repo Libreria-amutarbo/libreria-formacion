@@ -1,21 +1,18 @@
 <div class="page-container">
-  <h1>Context Menu Examples</h1>
+  <h1>Context Menu</h1>
   <p class="page-description">
     El componente Context Menu permite mostrar un menú contextual con opciones personalizadas.
-    Usa <strong>click izquierdo o derecho</strong> para abrir el menú.
   </p>
 
-  <!-- Example 1: Basic Context Menu -->
-  <section class="example-section">
-    <h2>1. Basic Context Menu</h2>
-    <p>Click (izquierdo o derecho) en el área para ver el menú básico con opciones de Edit, Delete y Share.</p>
+  <section>
+    <h2 class="example-title">Ejemplo 1 - Menú Básico</h2>
+    <p>Menú contextual con opciones básicas: Edit, Delete, Share.</p>
     
     <div 
       class="demo-area"
-      (click)="onBasicContextMenu($event)"
       (contextmenu)="onBasicContextMenu($event)">
       <p class="demo-hint">
-        <strong>Click anywhere in this area</strong> to open the context menu
+        <strong>Haz clic derecho</strong> en esta área para abrir el menú
       </p>
       <dcx-ng-context-menu
         [items]="basicMenuItems"
@@ -26,17 +23,17 @@
     </div>
   </section>
 
-  <!-- Example 2: Single Item Menu -->
-  <section class="example-section">
-    <h2>2. Single Item Menu</h2>
+  <hr />
+
+  <section>
+    <h2 class="example-title">Ejemplo 2 - Item Único</h2>
     <p>Menú contextual con un único elemento.</p>
     
     <div 
       class="demo-area"
-      (click)="onSingleContextMenu($event)"
       (contextmenu)="onSingleContextMenu($event)">
       <p class="demo-hint">
-        <strong>Click here</strong> - Menu with single item
+        <strong>Haz clic derecho</strong> aquí para ver menú con un solo item
       </p>
       <dcx-ng-context-menu
         [items]="singleMenuItems"
@@ -47,17 +44,17 @@
     </div>
   </section>
 
-  <!-- Example 3: Many Items Menu -->
-  <section class="example-section">
-    <h2>3. Multiple Items Menu</h2>
-    <p>Menú contextual con múltiples opciones.</p>
+  <hr />
+
+  <section>
+    <h2 class="example-title">Ejemplo 3 - Múltiples Items</h2>
+    <p>Menú contextual con varias opciones.</p>
     
     <div 
       class="demo-area demo-area-tall"
-      (click)="onManyContextMenu($event)"
       (contextmenu)="onManyContextMenu($event)">
       <p class="demo-hint">
-        <strong>Click here</strong> - Menu with multiple items
+        <strong>Haz clic derecho</strong> aquí para ver menú con múltiples opciones
       </p>
       <dcx-ng-context-menu
         [items]="manyMenuItems"
@@ -68,14 +65,57 @@
     </div>
   </section>
 
-  <!-- Example 4: Context Menu in Table -->
-  <section class="example-section">
-    <h2>4. Context Menu in Table</h2>
+  <hr />
+
+  <section>
+    <h2 class="example-title">Ejemplo 4 - Con Iconos</h2>
+    <p>Menú contextual con iconos en cada opción.</p>
+    
+    <div 
+      class="demo-area"
+      (contextmenu)="onIconsContextMenu($event)">
+      <p class="demo-hint">
+        <strong>Haz clic derecho</strong> aquí para ver menú con iconos
+      </p>
+      <dcx-ng-context-menu
+        [items]="iconsMenuItems"
+        [visible]="iconsMenuVisible()"
+        [position]="iconsMenuPosition()"
+        (closed)="iconsMenuVisible.set(false)">
+      </dcx-ng-context-menu>
+    </div>
+  </section>
+
+  <hr />
+
+  <section>
+    <h2 class="example-title">Ejemplo 5 - Menú Avanzado</h2>
+    <p>Menú con iconos, separadores y opciones deshabilitadas.</p>
+    
+    <div 
+      class="demo-area demo-area-tall"
+      (contextmenu)="onAdvancedContextMenu($event)">
+      <p class="demo-hint">
+        <strong>Haz clic derecho</strong> aquí para ver menú avanzado
+      </p>
+      <dcx-ng-context-menu
+        [items]="advancedMenuItems"
+        [visible]="advancedMenuVisible()"
+        [position]="advancedMenuPosition()"
+        (closed)="advancedMenuVisible.set(false)">
+      </dcx-ng-context-menu>
+    </div>
+  </section>
+
+  <hr />
+
+  <section>
+    <h2 class="example-title">Ejemplo 6 - Context Menu en Tabla</h2>
     <p>Menú contextual integrado en una tabla con acciones por fila.</p>
     
     <div class="table-container">
       <p class="demo-hint">
-        <strong>Click the button (⋮)</strong> in the Actions column to open context menu for each row
+        <strong>Haz click en el botón (⋮)</strong> de la columna Acciones
       </p>
       
       <dcx-ng-full-table

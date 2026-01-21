@@ -11,6 +11,8 @@ import {
   CONTEXT_MENU_ITEMS_BASIC,
   CONTEXT_MENU_ITEM_SINGLE,
   CONTEXT_MENU_ITEMS_MANY,
+  CONTEXT_MENU_ITEMS_WITH_ICONS,
+  CONTEXT_MENU_ITEMS_ADVANCED,
   TABLE_HEADERS_WITH_ACTIONS,
   TABLE_DATA_WITH_ACTIONS,
   getRowContextMenuItems,
@@ -30,22 +32,26 @@ import {
   styleUrl: './dcx-ng-page-contextMenu.component.scss',
 })
 export class PageContextMenuComponent {
-  // Example 1: Basic Context Menu
   basicMenuVisible = signal(false);
   basicMenuPosition = signal<Position>({ x: 0, y: 0 });
   basicMenuItems = CONTEXT_MENU_ITEMS_BASIC;
 
-  // Example 2: Single Item Menu
   singleMenuVisible = signal(false);
   singleMenuPosition = signal<Position>({ x: 0, y: 0 });
   singleMenuItems = CONTEXT_MENU_ITEM_SINGLE;
 
-  // Example 3: Many Items Menu
   manyMenuVisible = signal(false);
   manyMenuPosition = signal<Position>({ x: 0, y: 0 });
   manyMenuItems = CONTEXT_MENU_ITEMS_MANY;
 
-  // Example 4: Table with Context Menu
+  iconsMenuVisible = signal(false);
+  iconsMenuPosition = signal<Position>({ x: 0, y: 0 });
+  iconsMenuItems = CONTEXT_MENU_ITEMS_WITH_ICONS;
+
+  advancedMenuVisible = signal(false);
+  advancedMenuPosition = signal<Position>({ x: 0, y: 0 });
+  advancedMenuItems = CONTEXT_MENU_ITEMS_ADVANCED;
+
   tableHeaders = TABLE_HEADERS_WITH_ACTIONS;
   tableData = TABLE_DATA_WITH_ACTIONS;
   activeMenuRow = signal(-1);
@@ -79,6 +85,26 @@ export class PageContextMenuComponent {
       y: event.clientY 
     });
     this.manyMenuVisible.set(true);
+  }
+
+  onIconsContextMenu(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.iconsMenuPosition.set({ 
+      x: event.clientX, 
+      y: event.clientY 
+    });
+    this.iconsMenuVisible.set(true);
+  }
+
+  onAdvancedContextMenu(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.advancedMenuPosition.set({ 
+      x: event.clientX, 
+      y: event.clientY 
+    });
+    this.advancedMenuVisible.set(true);
   }
 
   onButtonClick(event: MouseEvent, row: TableRowWithActions, rowIndex: number) {

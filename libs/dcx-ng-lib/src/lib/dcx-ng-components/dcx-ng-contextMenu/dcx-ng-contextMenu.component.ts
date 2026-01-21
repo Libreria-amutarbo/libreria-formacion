@@ -1,90 +1,150 @@
-import { Component, ElementRef, Renderer2, effect, input, output, computed } from '@angular/core';
-import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
-import { DcxListItem } from '../../core/interfaces';
+import { Component, effect, input, output, computed, signal, Renderer2, ApplicationRef, createComponent, EnvironmentInjector } from '@angular/core';
+import { 
+  DcxNgListComponent,
+  DcxListItem,
+  DcxContextPosition, 
+  DcxContextMenuItem,
+  DEFAULT_CONTEXT_MENU_STYLES,
+  applyStylesToElement,
+  createContextMenuContainer
+} from '@dcx-ng-components/dcx-ng-lib';
 
-export interface Position {
-  x: number;
-  y: number;
-}
-
-export interface ContextMenuItem {
-  label: string;
-  action?: () => void;
-  icon?: string;
-  disabled?: boolean;
-  separator?: boolean;
-  subItems?: ContextMenuItem[];
-}
+export type Position = DcxContextPosition;
+export type ContextMenuItem = DcxContextMenuItem;
 
 @Component({
   selector: 'dcx-ng-context-menu',
   standalone: true,
-  imports: [DcxNgListComponent],
-  templateUrl: './dcx-ng-contextMenu.component.html',
-  styleUrl: './dcx-ng-contextMenu.component.scss',
+  template: '',
+  styles: []
 })
 export class ContextMenuComponent {
-  readonly items = input.required<ContextMenuItem[]>();
+  readonly items = input<DcxContextMenuItem[]>([]);
   readonly visible = input(false);
-  readonly position = input<Position>({ x: 0, y: 0 });
+  readonly position = input<DcxContextPosition>({ x: 0, y: 0 });
   readonly closeOnClickOutside = input(true);
 
   readonly closed = output<void>();
+  readonly itemsChanged = output<DcxContextMenuItem[]>();
 
-  // Convertir ContextMenuItem[] a DcxListItem[] para el componente de lista
-  readonly listItems = computed<DcxListItem[]>(() => 
-    this.items().map(item => ({
+  private readonly internalItems = signal<DcxContextMenuItem[]>([]);
+
+  readonly listItems = computed<DcxListItem[]>(() => {
+    const currentItems = this.internalItems().length > 0 ? this.internalItems() : this.items();
+    return currentItems.map(item => ({
       label: item.label,
       value: item,
       icon: item.icon,
       disabled: item.disabled,
       separator: item.separator
-    }))
-  );
+    }));
+  });
 
+  private menuElement: HTMLDivElement | null = null;
   private clickListener?: () => void;
+  private scrollListener?: () => void;
 
   constructor(
-    private readonly eRef: ElementRef,
-    private readonly renderer: Renderer2
+    private readonly renderer: Renderer2,
+    private readonly appRef: ApplicationRef,
+    private readonly injector: EnvironmentInjector
   ) {
     effect(() => {
-      const isVisible = this.visible();
-      const shouldClose = this.closeOnClickOutside();
+      const inputItems = this.items();
+      if (inputItems.length > 0 && this.internalItems().length === 0) {
+        this.internalItems.set([...inputItems]);
+      }
 
-      if (shouldClose && isVisible && !this.clickListener) {
-        this.clickListener = this.renderer.listen('document', 'click', (event: MouseEvent) => {
-          if (this.visible() && !this.eRef.nativeElement.contains(event.target)) {
-            this.hide();
-          }
-        });
-      } else if ((!isVisible || !shouldClose) && this.clickListener) {
+      if (this.visible()) {
+        this.createMenu();
+      } else {
+        this.destroyMenu();
+      }
+    });
+
+    effect(() => {
+      if (this.visible() && this.closeOnClickOutside() && !this.clickListener) {
+        setTimeout(() => {
+          this.clickListener = this.renderer.listen('document', 'click', (event: MouseEvent) => {
+            if (this.menuElement && !this.menuElement.contains(event.target as Node)) {
+              this.hide();
+            }
+          });
+        }, 0);
+      } else if (this.clickListener) {
         this.clickListener();
         this.clickListener = undefined;
       }
     });
 
+    effect(() => {
+      if (this.visible() && !this.scrollListener) {
+        this.scrollListener = this.renderer.listen('window', 'scroll', () => this.hide());
+      } else if (this.scrollListener) {
+        this.scrollListener();
+        this.scrollListener = undefined;
+      }
+    });
+
     effect((onCleanup) => {
       onCleanup(() => {
-        if (this.clickListener) {
-          this.clickListener();
-          this.clickListener = undefined;
-        }
+        this.destroyMenu();
+        this.clickListener?.();
+        this.scrollListener?.();
       });
     });
   }
 
-  hide() {
+  private createMenu(): void {
+    if (this.menuElement) return;
+
+    const container = createContextMenuContainer(this.renderer, this.position());
+    const menu = this.renderer.createElement('div');
+    applyStylesToElement(this.renderer, menu, DEFAULT_CONTEXT_MENU_STYLES as any);
+
+    const listComponentRef = createComponent(DcxNgListComponent, {
+      environmentInjector: this.injector,
+      elementInjector: this.injector
+    });
+
+    listComponentRef.setInput('items', this.listItems());
+    listComponentRef.setInput('interactive', true);
+    listComponentRef.instance.itemClick.subscribe((event: { item: string | number | DcxListItem; index: number }) => {
+      const contextMenuItem = (event.item as DcxListItem).value as DcxContextMenuItem;
+      contextMenuItem?.action?.();
+      this.hide();
+    });
+
+    this.appRef.attachView(listComponentRef.hostView);
+    const listElement = (listComponentRef.hostView as any).rootNodes[0];
+
+    this.renderer.appendChild(menu, listElement);
+    this.renderer.appendChild(container, menu);
+    this.renderer.appendChild(document.body, container);
+    
+    this.menuElement = container;
+  }
+
+  private destroyMenu(): void {
+    if (this.menuElement) {
+      this.renderer.removeChild(document.body, this.menuElement);
+      this.menuElement = null;
+    }
+  }
+
+  hide(): void {
     this.closed.emit();
   }
 
-  onListItemClick(event: { item: string | number | DcxListItem; index: number }): void {
-    const listItem = event.item as DcxListItem;
-    const contextMenuItem = listItem.value as ContextMenuItem;
-    
-    if (contextMenuItem && contextMenuItem.action) {
-      contextMenuItem.action();
-      this.hide();
-    }
+  addItem(_item: DcxContextMenuItem): void {
+    // TODO: Implement addItem
+  }
+
+  editItem(_index: number, _updatedItem: Partial<DcxContextMenuItem>): void {
+    // TODO: Implement editItem
+  }
+
+  removeItem(_index: number): void {
+    // TODO: Implement removeItem
   }
 }

@@ -32,7 +32,7 @@ const meta: Meta<ContextMenuComponent> = {
     items: {
       name: 'items',
       control: { type: 'object' },
-      description: 'Array of menu items with label and action',
+      description: 'Array de items del menú con label y action',
       table: {
         category: 'Attributes',
         type: { summary: 'ContextMenuItem[]' },
@@ -42,7 +42,7 @@ const meta: Meta<ContextMenuComponent> = {
     visible: {
       name: 'visible',
       control: { type: 'boolean' },
-      description: 'Controls visibility of the context menu',
+      description: 'Controla la visibilidad del context menu',
       table: {
         category: 'Attributes',
         type: { summary: 'boolean' },
@@ -52,7 +52,7 @@ const meta: Meta<ContextMenuComponent> = {
     position: {
       name: 'position',
       control: { type: 'object' },
-      description: 'Position of the context menu (x, y coordinates)',
+      description: 'Posición del context menu (coordenadas x, y)',
       table: {
         category: 'Attributes',
         type: { summary: 'Position' },
@@ -62,7 +62,7 @@ const meta: Meta<ContextMenuComponent> = {
     closeOnClickOutside: {
       name: 'closeOnClickOutside',
       control: { type: 'boolean' },
-      description: 'Close menu when clicking outside',
+      description: 'Cerrar menú al hacer click fuera',
       table: {
         category: 'Attributes',
         type: { summary: 'boolean' },
@@ -72,7 +72,7 @@ const meta: Meta<ContextMenuComponent> = {
     closed: {
       name: 'closed',
       action: 'closed',
-      description: 'Event emitted when the menu is closed',
+      description: 'Evento emitido cuando se cierra el menú',
       table: {
         category: 'Events',
         type: { summary: '() => void' },
@@ -90,7 +90,8 @@ const meta: Meta<ContextMenuComponent> = {
 export default meta;
 type Story = StoryObj<ContextMenuComponent>;
 
-export const Default: Story = {
+// Ejemplo 1: Menú Básico
+export const Basic: Story = {
   render: (args) => ({
     props: {
       ...args,
@@ -111,12 +112,12 @@ export const Default: Story = {
     },
     template: `
       <div>
+        <p style="margin: 0 0 10px 0; color: #666;">Menú contextual con opciones básicas: Edit, Delete, Share.</p>
         <div 
-          (click)="onOpenMenu($event)"
           (contextmenu)="onOpenMenu($event)"
-          style="position: relative; width: 400px; height: 300px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
-          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
-            <strong>Click anywhere in this area</strong> to open the context menu
+          style="width: 400px; height: 200px; border: 1px dashed #ccc; padding: 20px; cursor: context-menu; display: flex; align-items: center; justify-content: center;">
+          <p style="margin: 0; color: #666; user-select: none; text-align: center;">
+            <strong>Haz clic derecho</strong> en esta área
           </p>
         </div>
         <dcx-ng-context-menu
@@ -133,7 +134,7 @@ export const Default: Story = {
   },
 };
 
-
+// Ejemplo 2: Item Único
 export const SingleItem: Story = {
   render: (args) => ({
     props: {
@@ -155,12 +156,12 @@ export const SingleItem: Story = {
     },
     template: `
       <div>
+        <p style="margin: 0 0 10px 0; color: #666;">Menú contextual con un único elemento.</p>
         <div 
-          (click)="onOpenMenu($event)"
           (contextmenu)="onOpenMenu($event)"
-          style="position: relative; width: 400px; height: 300px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
-          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
-            <strong>Click here</strong> - Menu with single item
+          style="width: 400px; height: 200px; border: 1px dashed #ccc; padding: 20px; cursor: context-menu; display: flex; align-items: center; justify-content: center;">
+          <p style="margin: 0; color: #666; user-select: none; text-align: center;">
+            <strong>Haz clic derecho</strong> aquí
           </p>
         </div>
         <dcx-ng-context-menu
@@ -177,6 +178,7 @@ export const SingleItem: Story = {
   },
 };
 
+// Ejemplo 3: Múltiples Items
 export const ManyItems: Story = {
   render: (args) => ({
     props: {
@@ -198,12 +200,12 @@ export const ManyItems: Story = {
     },
     template: `
       <div>
+        <p style="margin: 0 0 10px 0; color: #666;">Menú contextual con varias opciones.</p>
         <div 
-          (click)="onOpenMenu($event)"
           (contextmenu)="onOpenMenu($event)"
-          style="position: relative; width: 400px; height: 400px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
-          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
-            <strong>Click here</strong> - Menu with multiple items
+          style="width: 400px; height: 250px; border: 1px dashed #ccc; padding: 20px; cursor: context-menu; display: flex; align-items: center; justify-content: center;">
+          <p style="margin: 0; color: #666; user-select: none; text-align: center;">
+            <strong>Haz clic derecho</strong> aquí
           </p>
         </div>
         <dcx-ng-context-menu
@@ -220,6 +222,95 @@ export const ManyItems: Story = {
   },
 };
 
+// Ejemplo 4: Con Iconos
+export const WithIcons: Story = {
+  render: (args) => ({
+    props: {
+      ...args,
+      menuVisible: false,
+      menuPosition: { x: 50, y: 50 },
+      onOpenMenu(event: MouseEvent) {
+        event.preventDefault();
+        event.stopPropagation();
+        (this as any).menuPosition = { 
+          x: event.clientX, 
+          y: event.clientY 
+        };
+        (this as any).menuVisible = true;
+      },
+      onClosed() {
+        (this as any).menuVisible = false;
+      },
+    },
+    template: `
+      <div>
+        <p style="margin: 0 0 10px 0; color: #666;">Menú contextual con iconos en cada opción.</p>
+        <div 
+          (contextmenu)="onOpenMenu($event)"
+          style="width: 400px; height: 200px; border: 1px dashed #ccc; padding: 20px; cursor: context-menu; display: flex; align-items: center; justify-content: center;">
+          <p style="margin: 0; color: #666; user-select: none; text-align: center;">
+            <strong>Haz clic derecho</strong> aquí
+          </p>
+        </div>
+        <dcx-ng-context-menu
+          [items]="items"
+          [visible]="menuVisible"
+          [position]="menuPosition"
+          (closed)="onClosed()">
+        </dcx-ng-context-menu>
+      </div>
+    `,
+  }),
+  args: {
+    items: CONTEXT_MENU_ITEMS_WITH_ICONS,
+  },
+};
+
+// Ejemplo 5: Menú Avanzado
+export const AdvancedMenu: Story = {
+  render: (args) => ({
+    props: {
+      ...args,
+      menuVisible: false,
+      menuPosition: { x: 50, y: 50 },
+      onOpenMenu(event: MouseEvent) {
+        event.preventDefault();
+        event.stopPropagation();
+        (this as any).menuPosition = { 
+          x: event.clientX, 
+          y: event.clientY 
+        };
+        (this as any).menuVisible = true;
+      },
+      onClosed() {
+        (this as any).menuVisible = false;
+      },
+    },
+    template: `
+      <div>
+        <p style="margin: 0 0 10px 0; color: #666;">Menú con iconos, separadores y opciones deshabilitadas.</p>
+        <div 
+          (contextmenu)="onOpenMenu($event)"
+          style="width: 400px; height: 300px; border: 1px dashed #ccc; padding: 20px; cursor: context-menu; display: flex; align-items: center; justify-content: center;">
+          <p style="margin: 0; color: #666; user-select: none; text-align: center;">
+            <strong>Haz clic derecho</strong> aquí
+          </p>
+        </div>
+        <dcx-ng-context-menu
+          [items]="items"
+          [visible]="menuVisible"
+          [position]="menuPosition"
+          (closed)="onClosed()">
+        </dcx-ng-context-menu>
+      </div>
+    `,
+  }),
+  args: {
+    items: CONTEXT_MENU_ITEMS_ADVANCED,
+  },
+};
+
+// Ejemplo 6: En Tabla
 export const InTable: Story = {
   render: (args) => ({
     props: {
@@ -246,13 +337,12 @@ export const InTable: Story = {
         (this as any).activeMenuRow = -1;
       },
       getRowActions: getRowContextMenuItems,
-      onRowAction(event: any) {
-      },
     },
     template: `
-      <div class="table-container" style="position: relative; width: 100%; max-width: 800px;">
+      <div style="width: 100%; max-width: 800px;">
+        <p style="margin: 0 0 16px 0; color: #666;">Menú contextual integrado en una tabla con acciones por fila.</p>
         <p style="margin: 0 0 16px 0; color: #666; user-select: none;">
-          <strong>Click the button (⋮)</strong> in the Actions column to open context menu for each row
+          <strong>Haz click en el botón (⋮)</strong> de la columna Acciones
         </p>
         
         <dcx-ng-full-table
@@ -293,91 +383,5 @@ export const InTable: Story = {
   }),
   args: {
     items: []
-  },
-};
-
-export const WithIcons: Story = {
-  render: (args) => ({
-    props: {
-      ...args,
-      menuVisible: false,
-      menuPosition: { x: 50, y: 50 },
-      onOpenMenu(event: MouseEvent) {
-        event.preventDefault();
-        event.stopPropagation();
-        (this as any).menuPosition = { 
-          x: event.clientX, 
-          y: event.clientY 
-        };
-        (this as any).menuVisible = true;
-      },
-      onClosed() {
-        (this as any).menuVisible = false;
-      },
-    },
-    template: `
-      <div>
-        <div 
-          (click)="onOpenMenu($event)"
-          (contextmenu)="onOpenMenu($event)"
-          style="position: relative; width: 400px; height: 300px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
-          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
-            <strong>Click here</strong> - Menu with icons
-          </p>
-        </div>
-        <dcx-ng-context-menu
-          [items]="items"
-          [visible]="menuVisible"
-          [position]="menuPosition"
-          (closed)="onClosed()">
-        </dcx-ng-context-menu>
-      </div>
-    `,
-  }),
-  args: {
-    items: CONTEXT_MENU_ITEMS_WITH_ICONS,
-  },
-};
-
-export const AdvancedMenu: Story = {
-  render: (args) => ({
-    props: {
-      ...args,
-      menuVisible: false,
-      menuPosition: { x: 50, y: 50 },
-      onOpenMenu(event: MouseEvent) {
-        event.preventDefault();
-        event.stopPropagation();
-        (this as any).menuPosition = { 
-          x: event.clientX, 
-          y: event.clientY 
-        };
-        (this as any).menuVisible = true;
-      },
-      onClosed() {
-        (this as any).menuVisible = false;
-      },
-    },
-    template: `
-      <div>
-        <div 
-          (click)="onOpenMenu($event)"
-          (contextmenu)="onOpenMenu($event)"
-          style="position: relative; width: 400px; height: 500px; border: 1px dashed #ccc; padding: 20px; cursor: pointer;">
-          <p style="margin: 0 0 10px 0; color: #666; user-select: none;">
-            <strong>Click here</strong> - Advanced menu with icons, separators, and disabled items
-          </p>
-        </div>
-        <dcx-ng-context-menu
-          [items]="items"
-          [visible]="menuVisible"
-          [position]="menuPosition"
-          (closed)="onClosed()">
-        </dcx-ng-context-menu>
-      </div>
-    `,
-  }),
-  args: {
-    items: CONTEXT_MENU_ITEMS_ADVANCED,
   },
 };
