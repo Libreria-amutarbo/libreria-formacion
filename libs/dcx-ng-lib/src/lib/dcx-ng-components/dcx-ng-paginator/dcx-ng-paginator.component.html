@@ -1,47 +1,66 @@
 <div class="dcx-paginator">
+  @if (limitedButtons()) {
+    <dcx-ng-button
+      class="dcx-paginator__button"
+      [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+      [icon]="true"
+      iconName="chevron-double-left"
+      iconSize="m"
+      [disabled]="!hasPrevious()"
+      (buttonClick)="goToStart()"
+    />
+  }
   <dcx-ng-button
     class="dcx-paginator__button"
     [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
     [icon]="true"
     iconName="chevron-left"
     iconSize="m"
-    [disabled]="!hasPrevious() || disabled()"
-    (click)="goToStart()"
-  />
-  <dcx-ng-button
-    class="dcx-paginator__button"
-    [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
-    [icon]="true"
-    iconName="chevron-left"
-    iconSize="m"
-    [disabled]="!hasPrevious() || disabled()"
-    (click)="goToPrevious()"
+    [disabled]="!hasPrevious()"
+    (buttonClick)="goToPrevious()"
   />
 
-  @for (page of [].constructor(totalPages()); track $index) {
-    <dcx-ng-button
-      class="dcx-paginator__page"
-      [size]="getCurrentPage($index + 1) ? 'xl' : 'm'"
-      [variant]="getButtonVariant($index+1)"
-      [disabled]="disabled()"
-      (click)="goToPage($index + 1)"
-      [label]="getButtonLabel($index + 1)"
-    />
+  @for (page of visiblePages(); track $index) {
+    @if (isEllipsis(page)) {
+      <dcx-ng-button
+        class="dcx-paginator__ellipsis"
+        [label]="'...'"
+        [size]="'m'"
+        [variant]="'secondary'"
+        (buttonClick)="goToPageRelative($index < visiblePages().indexOf(currentPage()) ? -1 : 1)"
+      />
+    } @else {
+      <dcx-ng-button
+        class="dcx-paginator__page"
+        [size]="getCurrentPage(getPageNumber(page)) ? 'xl' : 'm'"
+        [variant]="getButtonVariant(getPageNumber(page))"
+        (buttonClick)="goToPage(getPageNumber(page))"
+        [label]="getButtonLabel(getPageNumber(page))"
+      />
+    }
   }
   <dcx-ng-button
     class="dcx-paginator__button"
     [icon]="true"
     iconSize="m"
     iconName="chevron-right"
-    [disabled]="!hasNext() || disabled()"
-    (click)="goToNext()"
+    [disabled]="!hasNext()"
+    (buttonClick)="goToNext()"
   />
-  <dcx-ng-button
-    class="dcx-paginator__button"
-    [icon]="true"
-    iconSize="m"
-    iconName="chevron-right"
-    [disabled]="!hasNext() || disabled()"
-    (click)="goToEnd()"
-  />
+  @if (limitedButtons()) {
+    <dcx-ng-button
+      class="dcx-paginator__button"
+      [icon]="true"
+      iconSize="m"
+      iconName="chevron-double-right"
+      [disabled]="!hasNext()"
+      (buttonClick)="goToEnd()"
+    />
+  }
 </div>
+
+@if (showPageInfo()) {
+  <span class="page-info" aria-live="polite">
+    Página {{ currentPage() }} de {{ totalPages() }}
+  </span>
+}

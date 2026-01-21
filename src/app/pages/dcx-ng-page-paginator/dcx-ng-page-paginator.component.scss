@@ -1,1 +1,12 @@
 @use './../../app.component.scss';
+
+.paginator-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+dcx-ng-select {
+  width: 20%;
+}

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DcxNgPaginatorComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component';
-import { DcxNgSelectComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgSelectComponent,
+  DcxPaginator,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-paginator',
@@ -17,28 +20,47 @@ export class DcxNgPagePaginatorComponent {
   prevButtonDisabled: boolean = false;
   totalPages: number = 10;
   disabled: boolean = false;
+  totalPagesKnown: number = 0;
 
-  onPageChange(page: number) {
-    this.currentPage = page;
-  }
+  defaultPaginator: DcxPaginator = {
+    totalItems: 100,
+    itemsPerPage: 10,
+    currentPage: 2,
+  };
 
-  togglePrevDisabled() {
-    this.prevButtonDisabled = !this.prevButtonDisabled;
-  }
+  selectPerPage: DcxPaginator = {
+    totalItems: 21,
+    itemsPerPage: 10,
+    currentPage: 1,
+  };
 
-  toggleNextDisabled() {
-    this.nextButtonDisabled = this.nextButtonDisabled ? '' : 'disabled';
-  }
+  limitedPaginator: DcxPaginator = {
+    totalItems: 100,
+    itemsPerPage: 10,
+    currentPage: 2,
+  };
 
-  setTotalPages(pages: number) {
-    this.totalPages = pages;
-    this.currentPage = 1;
-  }
-  getItemsPerPage(): number {
-    return this.itemsPerPage;
-  }
+  knowPageSelected: DcxPaginator = {
+    totalItems: 10,
+    itemsPerPage: 2,
+    currentPage: 2,
+  };
 
   itemsPerPageChange(event: string | number | null) {
-    this.itemsPerPage = Number(event);
+    this.selectPerPage = {
+      ...this.selectPerPage,
+      itemsPerPage: Number(event),
+    };
+  }
+
+  onPageChange(page: number) {
+    this.knowPageSelected = {
+      ...this.knowPageSelected,
+      currentPage: page,
+    };
+  }
+
+  onTotalPagesChange(totalPages: number) {
+    this.totalPagesKnown = totalPages;
   }
 }

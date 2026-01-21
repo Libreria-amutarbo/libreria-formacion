@@ -3,16 +3,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  EventEmitter,
+  effect,
   input,
-  Input,
   output,
-  Output,
   signal,
 } from '@angular/core';
 import {
   DcxButtonVariant,
   DcxNgButtonComponent,
+  DcxPaginator,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -24,69 +23,145 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPaginatorComponent {
-  itemsPerPage = input<number>(10);
-  totalItems = input<number>(100);
-  currentPageInput = input<number>(1);
-  currentPage = signal(0);
-  pageSelected = input<number>(1);
-  isNextButtonDisabled = input<boolean>(true);
-  isPrevButtonDisabled = input<boolean>(true);
-
-  disabled = input<boolean>(false);
-
-  pageChange = output<number>();
-
+  // Inputs
+  paginator = input<DcxPaginator>({
+    itemsPerPage: 10,
+    totalItems: 100,
+    currentPage: 1,
+  });
+  showPageInfo = input<boolean>(false);
   limitedButtons = input<boolean>(false);
+
+  // Signals
+  currentPage = signal(0);
+
+  // Outputs
+  pageChange = output<number>();
+  totalPagesChange = output<number>();
+
+  // Configuración
+  private readonly pagesAroundCurrent = 2;
+
+  // Computeds
+  totalPages = computed<number>(() => {
+    return Math.ceil(
+      this.paginator().totalItems / this.paginator().itemsPerPage,
+    );
+  });
 
   hasPrevious = computed<boolean>(() => {
     return this.currentPage() > 1;
   });
+
   hasNext = computed<boolean>(() => {
     return this.currentPage() < this.totalPages();
   });
 
-  totalPages = computed<number>(() => {
-    return Math.ceil(this.totalItems() / this.itemsPerPage());
+  visiblePages = computed<(number | string)[]>(() => {
+    return this.calculateVisiblePages();
   });
 
-  ngOnInit() {
-    this.currentPage.set(this.currentPageInput());
+  constructor() {
+    effect(() => {
+      this.totalPagesChange.emit(this.totalPages());
+    });
+
+    effect(() => {
+      const page = this.paginator().currentPage;
+      const validPage = Math.max(1, Math.min(page, this.totalPages()));
+      this.currentPage.set(validPage);
+    });
   }
 
-  goToPrevious() {
+  goToPrevious(): void {
     if (this.hasPrevious()) {
       this.currentPage.update(value => value - 1);
       this.pageChange.emit(this.currentPage());
     }
   }
 
-  goToNext() {
+  goToNext(): void {
     if (this.hasNext()) {
       this.currentPage.update(value => value + 1);
       this.pageChange.emit(this.currentPage());
     }
   }
 
-  goToPage(page: number) {
+  goToPage(page: number): void {
     this.currentPage.set(page);
-
     this.pageChange.emit(this.currentPage());
+  }
+
+  goToStart(): void {
+    this.goToPage(1);
+  }
+
+  goToEnd(): void {
+    this.goToPage(this.totalPages());
+  }
+
+  goToPageRelative(direction: number): void {
+    const range = this.pagesAroundCurrent;
+    const newPage = this.currentPage() + (range + 1) * direction;
+    const clampedPage = Math.max(1, Math.min(newPage, this.totalPages()));
+    this.goToPage(clampedPage);
   }
 
   getCurrentPage(pageNum: number): boolean {
     return this.currentPage() === pageNum;
   }
-  getButtonVariant(pageNumb: number): DcxButtonVariant {
-    return this.currentPage() === pageNumb ? 'primary' : 'secondary';
-  }
-  getButtonLabel(index: number): string {
-    return index.toString();
+
+  getButtonVariant(pageNum: number): DcxButtonVariant {
+    return this.currentPage() === pageNum ? 'primary' : 'secondary';
   }
 
-  goToStart() {
-    this.currentPage.set(1);
+  getButtonLabel(page: number): string {
+    return page.toString();
   }
-  goToEnd() {
-    this.currentPage.set(this.totalPages());
+
+  getPageNumber(page: number | string): number {
+    return typeof page === 'number' ? page : 0;
+  }
+
+  isEllipsis(page: number | string): boolean {
+    return page === '...';
+  }
+
+  // Métodos privados
+  private calculateVisiblePages(): (number | string)[] {
+    const total = this.totalPages();
+    const current = this.currentPage();
+    const range = this.pagesAroundCurrent;
+    const pages: (number | string)[] = [];
+
+    const start = Math.max(1, current - range);
+    const end = Math.min(total, current + range);
+
+    // Primera página
+    if (start > 1) {
+      pages.push(1);
+    }
+
+    // Elipsis después de primera
+    if (start > 2) {
+      pages.push('...');
+    }
+
+    // Páginas del rango
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    // Elipsis antes de última
+    if (end < total - 1) {
+      pages.push('...');
+    }
+
+    // Última página
+    if (end < total) {
+      pages.push(total);
+    }
+
+    return pages;
   }
 }

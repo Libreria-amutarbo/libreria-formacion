@@ -1,15 +1,6 @@
 <section>
   <h2 class="example-title">Ejemplo 1 - Paginator por defecto</h2>
-  <dcx-ng-paginator
-    [itemsPerPage]="10"
-    [totalItems]="100"
-    [currentPageInput]="2"
-    [disabled]="disabled"
-    [isPrevButtonDisabled]="false"
-    [isNextButtonDisabled]="false"
-    (pageChange)="onPageChange($event)"
-  >
-  </dcx-ng-paginator>
+  <dcx-ng-paginator [paginator]="defaultPaginator"> </dcx-ng-paginator>
 </section>
 
 <hr />
@@ -18,38 +9,33 @@
   <h2 class="example-title">
     Ejemplo 2 - Paginator con selector de elementos por página
   </h2>
-  <dcx-ng-paginator
-    [itemsPerPage]="getItemsPerPage()"
-    [totalItems]="21"
-    [currentPageInput]="2"
-    [disabled]="disabled"
-    [isPrevButtonDisabled]="false"
-    [isNextButtonDisabled]="false"
-    (pageChange)="onPageChange($event)"
-  >
-  </dcx-ng-paginator>
-  <dcx-ng-select
-    [options]="[{value: 5, label:'5'},{value: 10, label:'10'}, {value: 20, label:'20'}]"
-    (valueChange)="itemsPerPageChange($event)"
-  ></dcx-ng-select>
+  <article class="paginator-control">
+    <dcx-ng-paginator [paginator]="selectPerPage" />
+    <dcx-ng-select
+      [options]="[{value: 5, label:'5'},{value: 10, label:'10'}, {value: 20, label:'20'}]"
+      (valueChange)="itemsPerPageChange($event)"
+    />
+  </article>
 </section>
 <hr />
 <section>
   <h2 class="example-title">
-    Ejemplo 2 - Paginator con selector de elementos por página
+    Ejemplo 3 - Paginator con navegación a la primera y ultima posición
   </h2>
-  <dcx-ng-paginator
-    [itemsPerPage]="getItemsPerPage()"
-    [totalItems]="21"
-    [currentPageInput]="2"
-    [disabled]="disabled"
-    [isPrevButtonDisabled]="false"
-    [isNextButtonDisabled]="false"
-    (pageChange)="onPageChange($event)"
-  >
-  </dcx-ng-paginator>
-  <dcx-ng-select
-    [options]="[{value: 5, label:'5'},{value: 10, label:'10'}, {value: 20, label:'20'}]"
-    (valueChange)="itemsPerPageChange($event)"
-  ></dcx-ng-select>
+  <dcx-ng-paginator [paginator]="limitedPaginator" [limitedButtons]="true" />
+</section>
+
+<hr />
+<section>
+  <h2 class="example-title">
+    Ejemplo 4 - Conociendo la página del total seleccionada
+  </h2>
+  <article class="paginator-control">
+    <dcx-ng-paginator
+      [paginator]="knowPageSelected"
+      (pageChange)="onPageChange($event)"
+      (totalPagesChange)="onTotalPagesChange($event)"
+    />
+    <span>Página {{knowPageSelected.currentPage}} de {{totalPagesKnown}}</span>
+  </article>
 </section>
