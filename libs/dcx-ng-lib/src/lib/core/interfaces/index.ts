@@ -14,4 +14,5 @@ export * from './table';
 export * from './search';
 export * from './dialog';
 export * from './card';
+export * from './select';
 export * from './paginator';

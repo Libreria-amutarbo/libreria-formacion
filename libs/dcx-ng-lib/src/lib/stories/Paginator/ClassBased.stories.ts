@@ -1,15 +1,17 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { DcxNgPaginatorComponent } from '../../dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component';
 import { Component, signal } from '@angular/core';
+
+import { CommonModule } from '@angular/common';
 import {
+  DcxNgPaginatorComponent,
+  DcxPaginator,
   defaultPaginator,
   knowPageSelected,
   limitedPaginator,
   selectPerPage,
-} from '../../core/mock';
-import { DcxNgSelectComponent } from '../../dcx-ng-components/dcx-ng-select/dcx-ng-select.component';
-import { CommonModule } from '@angular/common';
-import { DcxPaginator } from '@dcx-ng-components/dcx-ng-lib';
+  DcxNgSelectComponent,
+  optionsValue,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgPaginatorComponent> = {
   title: 'DCXLibrary/Paginator/ClassBased',
@@ -31,6 +33,16 @@ const meta: Meta<DcxNgPaginatorComponent> = {
       description: 'Botones de límite',
       table: { category: 'Attributes' },
     },
+    showItemsPerPageInfo: {
+      control: { type: 'boolean' },
+      description: 'Mostrar items por página',
+      table: { category: 'Attributes' },
+    },
+    showPageInfo: {
+      control: { type: 'boolean' },
+      description: 'Mostrar página que se está consultando',
+      table: { category: 'Attributes' },
+    },
   },
   args: {
     paginator: defaultPaginator,
@@ -49,10 +61,9 @@ export const ClassBased: Story = {};
   imports: [CommonModule, DcxNgPaginatorComponent, DcxNgSelectComponent],
   template: `
     <div class="paginator-control">
-      <dcx-ng-paginator [paginator]="selectPerPageSignal()" />
+      <dcx-ng-paginator [paginator]="selectPerPageSignal()" [showItemsPerPageInfo]="true" />
       <dcx-ng-select
-      [value]="5"
-        [options]="[{value: 5, label:'5'},{value: 10, label:'10'}, {value: 20, label:'20'}]"
+        [options]="optionsValue"
         (valueChange)="itemsPerPageChange($event)"
       />
     </div>
@@ -69,6 +80,7 @@ export const ClassBased: Story = {};
 })
 class SelectorWrapperComponent {
   selectPerPageSignal = signal<DcxPaginator>(selectPerPage);
+  optionsValue = optionsValue;
 
   itemsPerPageChange(event: string | number | null) {
     this.selectPerPageSignal.update(current => ({
@@ -105,22 +117,13 @@ export const LimitedButtons: Story = {
   template: `
     <div class="paginator-control">
       <dcx-ng-paginator
+      [showPageInfo]="true"
         [paginator]="knowPageSelectedSignal()"
         (pageChange)="onPageChange($event)"
         (totalPagesChange)="onTotalPagesChange($event)"
       />
-      <span>Página {{knowPageSelectedSignal().currentPage}} de {{totalPages()}}</span>
     </div>
   `,
-  styles: [
-    `
-    .paginator-control {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-  `,
-  ],
 })
 class CurrentPageWrapperComponent {
   knowPageSelectedSignal = signal<DcxPaginator>(knowPageSelected);
@@ -149,67 +152,3 @@ export const CurrentPageInformation: Story = {
     }),
   ],
 };
-
-// @Component({
-//   selector: 'dcx-ng-paginator-interactive',
-//   standalone: true,
-//   imports: [DcxNgPaginatorComponent],
-//   template: `
-//     <div>
-//       <p>Página actual: <strong>{{ currentPage() }}</strong></p>
-
-//       <dcx-ng-paginator
-//         [currentPage]="currentPage()"
-//         [totalPages]="totalPages"
-//         [itemsPerPage]="itemsPerPage"
-//         [disabled]="disabled"
-//         [nextButton]="nextButton"
-//         [prevButton]="prevButton"
-//         (pageChange)="currentPage.set($event)">
-//       </dcx-ng-paginator>
-//     </div>
-//   `,
-// })
-// class PaginatorInteractiveComponent {
-//   @Input() totalPages!: number;
-//   @Input() itemsPerPage!: number;
-//   @Input() disabled!: boolean;
-//   @Input() nextButton!: string;
-//   @Input() prevButton!: string;
-//   currentPage = signal(1);
-// }
-
-// export const Default: Story = {
-//   render: args => ({
-//     props: {
-//       ...args,
-//     },
-//     moduleMetadata: {
-//       imports: [PaginatorInteractiveComponent],
-//     },
-//     template: `
-//       <dcx-ng-paginator-interactive
-//         [totalPages]="totalPages"
-//         [itemsPerPage]="itemsPerPage"
-//         [disabled]="disabled"
-//         [nextButton]="nextButton"
-//         [prevButton]="prevButton">
-//       </dcx-ng-paginator-interactive>
-//     `,
-//   }),
-//   args: {
-//     currentPageInput: 4,
-//     //totalPages: 10,
-//     itemsPerPage: 10,
-//     disabled: false,
-//   },
-// };
-
-// export const Disabled: Story = {
-//   args: {
-//     currentPageInput: 3,
-//     //totalPages: 10,
-//     itemsPerPage: 10,
-//     disabled: true,
-//   },
-//};

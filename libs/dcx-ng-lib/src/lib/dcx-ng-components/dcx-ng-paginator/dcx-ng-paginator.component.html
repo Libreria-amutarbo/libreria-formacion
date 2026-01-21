@@ -1,4 +1,15 @@
 <div class="dcx-paginator">
+  @if (showPageInfo()) {
+    <span class="page-info" aria-live="polite">
+      Página {{ currentPage() }} de {{ totalPages() }}
+    </span>
+  }
+  @if (showItemsPerPageInfo()) {
+    <span class="items-per-page-info" aria-live="polite">
+      Items por página: {{ firstItem() }} - {{ lastItem() }} de
+      {{ paginator().totalItems }}
+    </span>
+  }
   @if (limitedButtons()) {
     <dcx-ng-button
       class="dcx-paginator__button"
@@ -58,9 +69,3 @@
     />
   }
 </div>
-
-@if (showPageInfo()) {
-  <span class="page-info" aria-live="polite">
-    Página {{ currentPage() }} de {{ totalPages() }}
-  </span>
-}

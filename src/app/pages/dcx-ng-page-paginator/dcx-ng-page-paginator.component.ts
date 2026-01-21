@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DcxNgPaginatorComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component';
 import {
   DcxNgSelectComponent,
   DcxPaginator,
+  DcxSelectOptions,
+  DcxNgPaginatorComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -30,9 +31,15 @@ export class DcxNgPagePaginatorComponent {
 
   selectPerPage: DcxPaginator = {
     totalItems: 21,
-    itemsPerPage: 10,
+    itemsPerPage: 5,
     currentPage: 1,
   };
+
+  optionsValue: DcxSelectOptions[] = [
+    { value: 5, label: '5' },
+    { value: 10, label: '10' },
+    { value: 20, label: '20' },
+  ];
 
   limitedPaginator: DcxPaginator = {
     totalItems: 100,

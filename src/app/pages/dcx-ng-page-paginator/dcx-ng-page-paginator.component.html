@@ -10,9 +10,12 @@
     Ejemplo 2 - Paginator con selector de elementos por página
   </h2>
   <article class="paginator-control">
-    <dcx-ng-paginator [paginator]="selectPerPage" />
+    <dcx-ng-paginator
+      [paginator]="selectPerPage"
+      [showItemsPerPageInfo]="true"
+    />
     <dcx-ng-select
-      [options]="[{value: 5, label:'5'},{value: 10, label:'10'}, {value: 20, label:'20'}]"
+      [options]="optionsValue"
       (valueChange)="itemsPerPageChange($event)"
     />
   </article>
@@ -32,10 +35,10 @@
   </h2>
   <article class="paginator-control">
     <dcx-ng-paginator
+      [showPageInfo]="true"
       [paginator]="knowPageSelected"
       (pageChange)="onPageChange($event)"
       (totalPagesChange)="onTotalPagesChange($event)"
     />
-    <span>Página {{knowPageSelected.currentPage}} de {{totalPagesKnown}}</span>
   </article>
 </section>

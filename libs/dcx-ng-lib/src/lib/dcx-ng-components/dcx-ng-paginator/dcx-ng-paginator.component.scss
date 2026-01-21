@@ -10,6 +10,13 @@
   gap: var(--spacing-xs);
 }
 
+.page-info,
+.items-per-page-info {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
 .dcx-paginator__button,
 .dcx-paginator__page {
   @include button-base;

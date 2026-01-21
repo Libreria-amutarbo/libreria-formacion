@@ -30,6 +30,7 @@ export class DcxNgPaginatorComponent {
     currentPage: 1,
   });
   showPageInfo = input<boolean>(false);
+  showItemsPerPageInfo = input<boolean>(false);
   limitedButtons = input<boolean>(false);
 
   // Signals
@@ -55,6 +56,17 @@ export class DcxNgPaginatorComponent {
 
   hasNext = computed<boolean>(() => {
     return this.currentPage() < this.totalPages();
+  });
+
+  firstItem = computed<number>(() => {
+    return (this.currentPage() - 1) * this.paginator().itemsPerPage + 1;
+  });
+
+  lastItem = computed<number>(() => {
+    return Math.min(
+      this.currentPage() * this.paginator().itemsPerPage,
+      this.paginator().totalItems,
+    );
   });
 
   visiblePages = computed<(number | string)[]>(() => {
