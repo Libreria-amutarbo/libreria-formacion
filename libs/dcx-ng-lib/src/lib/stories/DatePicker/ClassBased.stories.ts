@@ -211,7 +211,7 @@ Incluye calendario popup, navegación por meses, validación de fechas min/max.
 
 ### Características
 - Calendario interactivo con 42 días (6 semanas)
-- Múltiples formatos de fecha (dd/MM/yyyy, MM/dd/yyyy, dd/MM/yy, MM/dd/yy)
+- Múltiples formatos de fecha (dd/MM/yyyy, MM/dd/yyyy)
 - Validación de fechas mínimas y máximas
 - Estado disabled
 - Botón para limpiar selección
