@@ -1,6 +1,6 @@
-@if (label) {
+@if (label()) {
   <label class="dcx-ng-select__label" [attr.for]="selectId">
-    {{ label }}
+    {{ label() }}
   </label>
 }
 
@@ -13,13 +13,13 @@
     (blur)="handleBlur()"
     [attr.aria-label]="ariaLabel || null"
   >
-    @if (placeholder) {
+    @if (placeholder()) {
       <option value="" disabled hidden [selected]="value === null">
-        {{ placeholder }}
+        {{ placeholder() }}
       </option>
     }
 
-    @for (option of options; track option.value) {
+    @for (option of options(); track option.value) {
       <option [value]="option.value" [selected]="option.value === value">
         {{ option.label }}
       </option>
