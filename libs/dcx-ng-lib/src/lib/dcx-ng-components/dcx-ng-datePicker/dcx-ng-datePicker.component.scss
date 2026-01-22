@@ -8,6 +8,7 @@
 :host {
   display: block;
   font-family: var(--font-family-primary);
+  --color-primary-500: #1976d2;
 }
 
 .dcx-datepicker {
@@ -163,6 +164,10 @@
       color: var(--background-default);
       font-weight: var(--weight-semibold);
     }
+    &--in-range {
+      background: rgba(25, 118, 210, 0.1);
+      color: var(--color-primary-500);
+    }
     &--disabled {
       color: var(--text-disabled-dark);
       cursor: not-allowed;
@@ -175,4 +180,19 @@
 }
 .dcx-datepicker__month-name--ml {
   margin-left: 8px;
+}
+.dcx-datepicker__selected-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 8px 0 0 0;
+}
+.dcx-datepicker__chip {
+  color: var(--background-default);
+  color: var(--color-primary-500);
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
 }

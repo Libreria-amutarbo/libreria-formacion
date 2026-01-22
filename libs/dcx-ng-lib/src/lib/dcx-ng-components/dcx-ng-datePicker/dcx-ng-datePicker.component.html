@@ -5,7 +5,8 @@
       [disabled]="disabled()" [required]="false" [type]="DcxInputType.TEXT" [value]="formattedSelectedDate()"
       [readonly]="true" (valueChange)="null"></dcx-ng-input>
 
-    @if (selectedDate() && !disabled()) {
+    @if ((rangeSelect() ? (startDate() || endDate()) : (multiSelect() ? selectedDates().length > 0 : selectedDate())) &&
+    !disabled()) {
     <dcx-ng-button class="dcx-datepicker__clear" [icon]="true" iconName="x-lg" ariaLabel="Limpiar fecha"
       (buttonClick)="clearDate($event)"></dcx-ng-button>
     }
@@ -48,6 +49,7 @@
                                     'dcx-datepicker__day--other-month': !day.isCurrentMonth,
                                     'dcx-datepicker__day--today': day.isToday,
                                     'dcx-datepicker__day--selected': day.isSelected,
+                                    'dcx-datepicker__day--in-range': day.isInRange,
                                     'dcx-datepicker__day--disabled': day.isDisabled
                                 }" [label]="day.date.getDate().toString()" [disabled]="day.isDisabled"
         (buttonClick)="selectDate(day)">
