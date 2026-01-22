@@ -1,33 +1,71 @@
 <div class="dcx-paginator">
-  <button
-    class="dcx-paginator__button"
-    [ngClass]="{'dcx-paginator__button--disabled': isPrevDisabled}"
-    [disabled]="isPrevDisabled"
-    (click)="goToPrevious()"
-  >
-    {{ prevButton }}
-  </button>
-
-  @for (page of [].constructor(totalPages); track $index) {
-    <button
-      class="dcx-paginator__page"
-      [ngClass]="{
-      'dcx-paginator__page--active': currentPage === $index + 1 || pageSelected === $index + 1,
-      'dcx-paginator__page--disabled': disabled
-    }"
-      [disabled]="disabled"
-      (click)="goToPage($index + 1)"
-    >
-      {{ $index + 1 }}
-    </button>
+  @if (showPageInfo()) {
+    <span class="page-info" aria-live="polite">
+      Página {{ currentPage() }} de {{ totalPages() }}
+    </span>
   }
-
-  <button
+  @if (showItemsPerPageInfo()) {
+    <span class="items-per-page-info" aria-live="polite">
+      Items por página: {{ firstItem() }} - {{ lastItem() }} de
+      {{ paginator().totalItems }}
+    </span>
+  }
+  @if (limitedButtons()) {
+    <dcx-ng-button
+      class="dcx-paginator__button"
+      [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+      [icon]="true"
+      iconName="chevron-double-left"
+      iconSize="m"
+      [disabled]="!hasPrevious()"
+      (buttonClick)="goToStart()"
+    />
+  }
+  <dcx-ng-button
     class="dcx-paginator__button"
-    [ngClass]="{'dcx-paginator__button--disabled': isNextDisabled}"
-    [disabled]="isNextDisabled"
-    (click)="goToNext()"
-  >
-    {{ nextButton }}
-  </button>
+    [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+    [icon]="true"
+    iconName="chevron-left"
+    iconSize="m"
+    [disabled]="!hasPrevious()"
+    (buttonClick)="goToPrevious()"
+  />
+
+  @for (page of visiblePages(); track $index) {
+    @if (isEllipsis(page)) {
+      <dcx-ng-button
+        class="dcx-paginator__ellipsis"
+        [label]="'...'"
+        [size]="'m'"
+        [variant]="'secondary'"
+        (buttonClick)="goToPageRelative($index < visiblePages().indexOf(currentPage()) ? -1 : 1)"
+      />
+    } @else {
+      <dcx-ng-button
+        class="dcx-paginator__page"
+        [size]="getCurrentPage(getPageNumber(page)) ? 'xl' : 'm'"
+        [variant]="getButtonVariant(getPageNumber(page))"
+        (buttonClick)="goToPage(getPageNumber(page))"
+        [label]="getButtonLabel(getPageNumber(page))"
+      />
+    }
+  }
+  <dcx-ng-button
+    class="dcx-paginator__button"
+    [icon]="true"
+    iconSize="m"
+    iconName="chevron-right"
+    [disabled]="!hasNext()"
+    (buttonClick)="goToNext()"
+  />
+  @if (limitedButtons()) {
+    <dcx-ng-button
+      class="dcx-paginator__button"
+      [icon]="true"
+      iconSize="m"
+      iconName="chevron-double-right"
+      [disabled]="!hasNext()"
+      (buttonClick)="goToEnd()"
+    />
+  }
 </div>
