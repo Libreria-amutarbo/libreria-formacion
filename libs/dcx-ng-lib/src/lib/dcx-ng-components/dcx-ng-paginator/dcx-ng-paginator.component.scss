@@ -20,7 +20,7 @@
 .dcx-paginator__button,
 .dcx-paginator__page {
   @include button-base;
-  @include padding-horizontal('inset-s');
+  @include padding-horizontal('inset-xs');
   @include padding-vertical('inset-xs');
 }
 
