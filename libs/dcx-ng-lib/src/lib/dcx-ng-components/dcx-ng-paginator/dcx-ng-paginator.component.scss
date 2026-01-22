@@ -2,6 +2,7 @@
 
 :host {
   display: block;
+  font-family: var(--font-family-primary);
 }
 
 .dcx-paginator {
@@ -9,12 +10,19 @@
   gap: var(--spacing-xs);
 }
 
+.page-info,
+.items-per-page-info {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
 .dcx-paginator__button,
 .dcx-paginator__page {
   @include button-base;
   @include padding-horizontal('inset-s');
   @include padding-vertical('inset-xs');
-  background: var(--color-background);
+  background: var(--background-default);
   border: 1px solid var(--color-border);
   color: var(--color-text-primary);
 
@@ -32,7 +40,14 @@
 }
 
 .dcx-paginator__page--active {
-  background: var(--color-primary);
+  background: red;
   border-color: var(--color-primary);
-  color: var(--color-text-inverse);
+  color: white;
+}
+
+.dcx-paginator__page--active:hover {
+  background: var(--background-hover);
+  border: 1px solid;
+  border-color: var(--border-primary);
+  color: white;
 }
