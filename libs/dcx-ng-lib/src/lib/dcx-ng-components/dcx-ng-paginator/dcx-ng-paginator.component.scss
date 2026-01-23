@@ -13,41 +13,19 @@
 .page-info,
 .items-per-page-info {
   font-size: 0.875rem;
-  color: var(--color-text-secondary);
+  color: var(--text-body);
   white-space: nowrap;
 }
 
 .dcx-paginator__button,
 .dcx-paginator__page {
   @include button-base;
-  @include padding-horizontal('inset-s');
+  @include padding-horizontal('inset-xs');
   @include padding-vertical('inset-xs');
-  background: var(--background-default);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
-
-  &:hover:not(.dcx-paginator__button--disabled):not(
-      .dcx-paginator__page--disabled
-    ) {
-    background: var(--color-background-alt);
-  }
 }
 
 .dcx-paginator__button--disabled,
 .dcx-paginator__page--disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.dcx-paginator__page--active {
-  background: red;
-  border-color: var(--color-primary);
-  color: white;
-}
-
-.dcx-paginator__page--active:hover {
-  background: var(--background-hover);
-  border: 1px solid;
-  border-color: var(--border-primary);
-  color: white;
 }

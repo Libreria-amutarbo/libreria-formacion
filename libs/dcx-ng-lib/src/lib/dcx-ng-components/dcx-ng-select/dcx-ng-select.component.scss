@@ -2,6 +2,7 @@
   display: inline-block;
   width: 100%;
   color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
 }
 
 .dcx-ng-select__label {
@@ -19,11 +20,10 @@
   width: 100%;
   padding: var(--spacing-inset-m);
   padding-right: calc(var(--spacing-inset-m) * 2 + 20px);
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-  color: var(--color-text-primary);
-  background-color: var(--color-background);
-  border: 1px solid var(--color-border);
+  font-size: var(--font-size-body);
+  color: var(--text-body);
+  background-color: var(--background-default);
+  border: 1px solid var(--border-default);
   border-radius: 4px;
   cursor: pointer;
   appearance: none;
@@ -35,18 +35,18 @@
 }
 
 .dcx-ng-select:hover:not(:disabled) {
-  border-color: var(--color-primary);
+  border: 2px solid var(--border-default);
 }
 .dcx-ng-select:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--border-focus);
   box-shadow: 0 0 0 2px var(--color-primary-light);
 }
 .dcx-ng-select:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  background-color: var(--color-gray-lighter);
-  color: var(--color-text-disabled);
+  background-color: var(--background-default);
+  color: var(--text-disabled);
 }
 
 /* CHEVRON centrado respecto al wrapper (que sólo contiene el select) */
@@ -57,6 +57,7 @@
   top: 50%;
   right: 16px;
   transform: translateY(-50%);
+  border-color: var(--border-focus);
   width: 15px;
   height: 15px;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");

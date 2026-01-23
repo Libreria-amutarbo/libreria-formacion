@@ -3,7 +3,9 @@ import {
   Component,
   EventEmitter,
   forwardRef,
+  input,
   Input,
+  output,
   Output,
 } from '@angular/core';
 import {
@@ -11,8 +13,7 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { DcxSelectOptions } from '../../core/interfaces/select';
-
+import { DcxSelectOptions } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-select',
@@ -30,13 +31,13 @@ import { DcxSelectOptions } from '../../core/interfaces/select';
   host: { '[attr.disabled]': 'disabled ? "" : null' },
 })
 export class DcxNgSelectComponent implements ControlValueAccessor {
-  @Input() options: DcxSelectOptions[] = [];
-  @Input() placeholder = '';
-  @Input() label = '';
-  @Input() ariaLabel = '';
+  options = input<DcxSelectOptions[]>();
+  placeholder = input<string>('');
+  label = input<string>('');
+  ariaLabel = input<string>('');
 
   /** Emite el valor cuando cambia */
-  @Output() valueChange = new EventEmitter<string | number | null>();
+  valueChange = output<string | number | null>();
 
   /** id único para asociar <label for> con <select id> */
   selectId = `dcx-select-${Math.random().toString(36).slice(2)}`;
