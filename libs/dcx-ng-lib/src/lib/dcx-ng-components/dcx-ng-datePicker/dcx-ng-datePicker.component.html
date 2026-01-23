@@ -5,8 +5,7 @@
       [disabled]="disabled()" [required]="false" [type]="DcxInputType.TEXT" [value]="formattedSelectedDate()"
       [readonly]="true" (valueChange)="null"></dcx-ng-input>
 
-    @if ((rangeSelect() ? (startDate() || endDate()) : (multiSelect() ? selectedDates().length > 0 : selectedDate())) &&
-    !disabled()) {
+    @if (showClearButton()) {
     <dcx-ng-button class="dcx-datepicker__clear" [icon]="true" iconName="x-lg" ariaLabel="Limpiar fecha"
       (buttonClick)="clearDate($event)"></dcx-ng-button>
     }
@@ -45,14 +44,8 @@
     </div>
     <div class="dcx-datepicker__days">
       @for (day of calendarDays(); track day.date.getTime()) {
-      <dcx-ng-button class="dcx-datepicker__day" variant="secondary" [ngClass]="{
-                                    'dcx-datepicker__day--other-month': !day.isCurrentMonth,
-                                    'dcx-datepicker__day--today': day.isToday,
-                                    'dcx-datepicker__day--selected': day.isSelected,
-                                    'dcx-datepicker__day--in-range': day.isInRange,
-                                    'dcx-datepicker__day--disabled': day.isDisabled
-                                }" [label]="day.date.getDate().toString()" [disabled]="day.isDisabled"
-        (buttonClick)="selectDate(day)">
+      <dcx-ng-button class="dcx-datepicker__day" variant="secondary" [ngClass]="getDayClasses(day)"
+        [label]="day.date.getDate().toString()" [disabled]="day.isDisabled" (buttonClick)="selectDate(day)">
       </dcx-ng-button>
       }
     </div>
@@ -75,7 +68,7 @@
     }
     <div class="dcx-datepicker__footer">
       <dcx-ng-button class="dcx-datepicker__today-btn" variant="secondary" [icon]="true" iconName="calendar-fill"
-        ariaLabel="Ir a hoy" (buttonClick)="goToToday()">
+        ariaLabel="Ir a hoy" [label]="'dia actual'" (buttonClick)="goToToday()">
         Hoy
       </dcx-ng-button>
     </div>

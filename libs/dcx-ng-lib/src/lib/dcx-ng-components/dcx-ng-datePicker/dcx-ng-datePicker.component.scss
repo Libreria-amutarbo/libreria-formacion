@@ -157,7 +157,7 @@
     }
     &--today {
       font-weight: var(--weight-bold);
-      color: var(--color-primary-500);
+      color: var(--background-primary);
     }
     &--selected {
       background: var(--color-primary-500);
@@ -166,7 +166,7 @@
     }
     &--in-range {
       background: rgba(25, 118, 210, 0.1);
-      color: var(--color-primary-500);
+      color: var(--text--label-base);
     }
     &--disabled {
       color: var(--text-disabled-dark);
@@ -189,7 +189,7 @@
 }
 .dcx-datepicker__chip {
   color: var(--background-default);
-  color: var(--color-primary-500);
+  color: var(--background-primary);
   border-radius: 12px;
   padding: 2px 10px;
   font-size: 13px;
