@@ -12,8 +12,8 @@ import {
 import {
   DcxBreadcrumbItem,
   DcxBreadCrumbSeparatorIcons,
-} from '../../core/interfaces';
-import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
+  DcxNgIconComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
