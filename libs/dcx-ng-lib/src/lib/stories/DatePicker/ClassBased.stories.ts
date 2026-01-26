@@ -462,7 +462,7 @@ export const RangeSelect: Story = {
 
 export const FormatMMDDYYYY: Story = {
   args: {
-    selectedDate: new Date(2026, 0, 15),
+    selectedDate: null,
     selectedDates: [],
     multiSelect: false,
     rangeSelect: false,

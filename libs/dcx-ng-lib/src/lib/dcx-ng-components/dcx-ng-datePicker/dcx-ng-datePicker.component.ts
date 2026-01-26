@@ -369,14 +369,27 @@ export class DcxNgDatePickerComponent {
 
   clearDate(event: { clicked: boolean }): void {
     if (this.disabled()) return;
+
     if (this.rangeSelect()) {
-      this.startDateChange.emit(null);
-      this.endDateChange.emit(null);
+      this.clearRangeSelection();
     } else if (this.multiSelect()) {
-      this.selectedDatesChange.emit([]);
+      this.clearMultiSelection();
     } else {
-      this.selectedDateChange.emit(null);
+      this.clearSingleSelection();
     }
+  }
+
+  private clearRangeSelection(): void {
+    this.startDateChange.emit(null);
+    this.endDateChange.emit(null);
+  }
+
+  private clearMultiSelection(): void {
+    this.selectedDatesChange.emit([]);
+  }
+
+  private clearSingleSelection(): void {
+    this.selectedDateChange.emit(null);
   }
 
   private isDateDisabled(date: Date): boolean {
