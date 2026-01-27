@@ -1,11 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
-import { DcxInputType, DcxNgButtonComponent, DcxNgInputComponent, CalendarDay, DateFormat } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxInputType, DcxNgButtonComponent, DcxNgInputComponent, CalendarDay, DateFormat, DateFormatPattern } from '@dcx-ng-components/dcx-ng-lib';
 import { CommonModule, } from '@angular/common';
-
-type DateFormatPattern = {
-  [K in DateFormat]: (day: string, month: string, year: string) => string;
-};
-
 @Component({
   selector: 'dcx-ng-date-picker',
   standalone: true,
@@ -44,6 +39,15 @@ export class DcxNgDatePickerComponent {
   readonly endDateChange = output<Date | null>();
 
   readonly weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+  readonly labels = {
+    clearDate: 'Limpiar fecha',
+    previous: 'Anterior',
+    next: 'Siguiente',
+    selectMonth: 'Selecciona mes',
+    selectYear: 'Selecciona año',
+    today: 'Hoy',
+    goToToday: 'Ir a hoy',
+  };
 
   private readonly _currentMonth = signal<Date | null>(null);
   private readonly _isOpen = signal(false);

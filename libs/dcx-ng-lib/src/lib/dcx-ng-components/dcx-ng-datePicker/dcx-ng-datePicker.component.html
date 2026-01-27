@@ -6,7 +6,7 @@
       [readonly]="true" (valueChange)="null"></dcx-ng-input>
 
     @if (showClearButton()) {
-    <dcx-ng-button class="dcx-datepicker__clear" [icon]="true" iconName="x-lg" ariaLabel="Limpiar fecha"
+    <dcx-ng-button class="dcx-datepicker__clear" [icon]="true" iconName="x-lg" [ariaLabel]="labels.clearDate"
       (buttonClick)="clearDate($event)"></dcx-ng-button>
     }
   </div>
@@ -15,7 +15,7 @@
   <div class="dcx-datepicker__calendar">
     <div class="dcx-datepicker__header">
       <dcx-ng-button class="dcx-datepicker__nav-button" [icon]="true" iconPosition="left" iconName="arrow-left"
-        ariaLabel="Anterior" (buttonClick)="previousMonth()"></dcx-ng-button>
+        [ariaLabel]="labels.previous" (buttonClick)="previousMonth()"></dcx-ng-button>
 
       @if (isCalendarMode()) {
       <span class="dcx-datepicker__month-name dcx-datepicker__month-name--clickable" (click)="openMonthSelector()"
@@ -28,12 +28,12 @@
       </span>
       }
       <span class="dcx-datepicker__month-name">
-        @if (isMonthMode()) {Selecciona mes}
-        @if (isYearMode()) {Selecciona año}
+        @if (isMonthMode()) {{{ labels.selectMonth }}}
+        @if (isYearMode()) {{{ labels.selectYear }}}
       </span>
 
       <dcx-ng-button class="dcx-datepicker__nav-button" [icon]="true" iconPosition="right" iconName="arrow-right"
-        ariaLabel="Siguiente" (buttonClick)="nextMonth()"></dcx-ng-button>
+        [ariaLabel]="labels.next" (buttonClick)="nextMonth()"></dcx-ng-button>
     </div>
 
     @if (isCalendarMode()) {
@@ -68,8 +68,7 @@
     }
     <div class="dcx-datepicker__footer">
       <dcx-ng-button class="dcx-datepicker__today-btn" variant="secondary" [icon]="true" iconName="calendar-fill"
-        ariaLabel="Ir a hoy" [label]="'dia actual'" (buttonClick)="goToToday()">
-        Hoy
+        [ariaLabel]="labels.goToToday" [label]="labels.today" (buttonClick)="goToToday()">
       </dcx-ng-button>
     </div>
   </div>
