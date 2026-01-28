@@ -16,3 +16,4 @@ export * from './dialog';
 export * from './card';
 export * from './select';
 export * from './paginator';
+export * from './datePicker';
