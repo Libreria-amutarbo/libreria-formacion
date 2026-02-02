@@ -1,20 +1,8 @@
-<label
-  class="dcx-ng-radio"
-  [ngClass]="sizeClass"
-  [class.unstyled]="unstyled"
-  [attr.aria-label]="ariaLabelBinding"
-  [attr.aria-disabled]="disabled"
->
-  <input
-    type="radio"
-    [name]="name"
-    [value]="value"
-    [formControl]="formControl"
-    [disabled]="disabled"
-    (blur)="onTouched()"
-  />
-
+<label class="dcx-ng-radio" [class.unstyled]="unstyled" [class.error]="error" [class.hover]="hover"
+  [class.focus]="focus" [ngClass]="sizeClass">
+  <input type="radio" [formControl]="formControl" [name]="name" [value]="value" [attr.aria-label]="ariaLabelBinding"
+    (change)="onInputChange(value)" />
   @if (label) {
-    <span>{{ label }}</span>
+  <span>{{ label }}</span>
   }
 </label>

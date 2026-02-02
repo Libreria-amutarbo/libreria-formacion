@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, ChangeDetectorRef, OnInit, inject } from '@angular/core';
+import { Component, Input, signal, computed, effect, ChangeDetectorRef, inject } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -14,26 +14,81 @@ import { CommonModule } from '@angular/common';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DcxNgRadioComponent),
+      useExisting: DcxNgRadioComponent,
       multi: true,
     },
   ],
 })
 export class DcxNgRadioComponent implements ControlValueAccessor {
+
   @Input() name = '';
   @Input() value: string | null = null;
   @Input() label: string | null = null;
-  @Input() disabled = false;
   @Input() size: DcxSize = 'l';
   @Input() ariaLabel = '';
-  @Input() unstyled = false;
 
-  formControl = new FormControl<string | null>(null);
 
-  onChange: (value: string | null) => void = () => { };
-  onTouched: () => void = () => { };
+  private nameSignal = signal<string>('');
+  private valueSignal = signal<string | null>(null);
+  private labelSignal = signal<string | null>(null);
+  private sizeSignal = signal<DcxSize>('l');
+  private ariaLabelSignal = signal<string>('');
+
+  @Input()
+  set unstyled(value: boolean) {
+    this.unstyledSignal.set(value);
+  }
+  get unstyled(): boolean {
+    return this.unstyledSignal();
+  }
+  private unstyledSignal = signal<boolean>(false);
+
+  @Input()
+  set error(value: boolean) {
+    this.errorSignal.set(value);
+  }
+  get error(): boolean {
+    return this.errorSignal();
+  }
+  private errorSignal = signal<boolean>(false);
+
+  @Input()
+  set hover(value: boolean) {
+    this.hoverSignal.set(value);
+  }
+  get hover(): boolean {
+    return this.hoverSignal();
+  }
+  private hoverSignal = signal<boolean>(false);
+
+  @Input()
+  set focus(value: boolean) {
+    this.focusSignal.set(value);
+  }
+  get focus(): boolean {
+    return this.focusSignal();
+  }
+  private focusSignal = signal<boolean>(false);
+
+  @Input()
+  set disabled(value: boolean) {
+    this.disabledSignal.set(value);
+    this.updateDisabledState(value);
+  }
+  get disabled(): boolean {
+    return this.disabledSignal();
+  }
+  private disabledSignal = signal<boolean>(false);
+
+
+  readonly formControl = new FormControl<string | null>(null);
+
+
+  private onChange: (value: string | null) => void = () => { };
+  private onTouched: () => void = () => { };
 
   private readonly cdr = inject(ChangeDetectorRef);
+
 
   get isChecked(): boolean {
     return this.formControl.value === this.value;
@@ -48,6 +103,7 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   }
 
   constructor() {
+
     this.formControl.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe(value => this.onChange(value));
@@ -58,6 +114,7 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
       this.formControl.setValue(value);
     }
   }
+
 
   writeValue(value: string | null): void {
     this.formControl.setValue(value, { emitEvent: false });
@@ -74,12 +131,15 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    if(isDisabled) {
-      this.formControl.disable({ emitEvent: false })
-    } else {
-this.formControl.enable({ emitEvent: false });
-    }
     this.cdr.markForCheck();
   }
 
+  private updateDisabledState(isDisabled: boolean): void {
+    if (isDisabled) {
+      this.formControl.disable({ emitEvent: false });
+    } else {
+      this.formControl.enable({ emitEvent: false });
+    }
+    this.cdr.markForCheck();
+  }
 }

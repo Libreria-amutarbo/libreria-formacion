@@ -1,8 +1,10 @@
-
 @use '../../../scss/base/color' as color;
 @use 'sass:map';
 
-:host { display: inline-block; }
+:host {
+  display: inline-block;
+  font-family: var(--font-family-primary);
+}
 
 .dcx-ng-radio {
   display: inline-flex;
@@ -11,30 +13,165 @@
   cursor: pointer;
 
   input[type='radio'] {
-    width: var(--dcx-radio-size, 1rem);
-    height: var(--dcx-radio-size, 1rem);
-    accent-color: map.get(color.$color, "primary"); 
-    
-    &:disabled { 
+    width: var(--dcx-radio-width, 32px);
+    height: var(--dcx-radio-height, 32px);
+    accent-color: map.get(color.$border, 'primary');
+    cursor: pointer;
+    position: relative;
+
+    &:disabled {
       cursor: not-allowed;
       opacity: 0.6;
+    }
+
+    &:focus-visible::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% + 8px);
+      height: calc(100% + 8px);
+      border: 2px solid map.get(color.$border, 'focus');
+      border-radius: 100px;
+      pointer-events: none;
+      z-index: -1;
     }
   }
 
   &.unstyled input[type='radio'] {
-    accent-color: map.get(color.$color, "gray");
+    accent-color: var(--background-secondary);
   }
 
-  &--s { --dcx-radio-size: 0.875rem; }
-  &--m { --dcx-radio-size: 1rem; }
-  &--l { --dcx-radio-size: 1.25rem; }
+  &.hover input[type='radio'] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: var(--dcx-radio-width, 32px);
+    height: var(--dcx-radio-height, 32px);
+    border: 2px solid map.get(color.$border, 'primary');
+    border-radius: 100px;
+    background-color: transparent;
+    position: relative;
 
-  &.unstyled { 
-    color: map.get(color.$color, "gray");
+    &:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: var(--dcx-circle-width, 14px);
+      height: var(--dcx-circle-height, 14px);
+      border-radius: 100px;
+      background-color: map.get(color.$border, 'primary');
+    }
+
+    &:focus-visible::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% + 8px);
+      height: calc(100% + 8px);
+      border: 2px solid map.get(color.$border, 'focus');
+      border-radius: 100px;
+      pointer-events: none;
+      z-index: -1;
+    }
+  }
+
+  &.error input[type='radio'] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: var(--dcx-radio-width, 32px);
+    height: var(--dcx-radio-height, 32px);
+    border: 2px solid map.get(color.$border, 'error');
+    border-radius: 100px;
+    background-color: transparent;
+    position: relative;
+
+    &:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: var(--dcx-circle-width, 14px);
+      height: var(--dcx-circle-height, 14px);
+      border-radius: 100px;
+      background-color: map.get(color.$border, 'error');
+    }
+
+    &:focus-visible::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% + 8px);
+      height: calc(100% + 8px);
+      border: 2px solid map.get(color.$border, 'focus');
+      border-radius: 100px;
+      pointer-events: none;
+      z-index: -1;
+    }
+  }
+
+  &.error {
+    color: map.get(color.$text, 'error');
+  }
+
+  &.focus input[type='radio'] {
+    outline: none;
+  }
+
+  &.focus input[type='radio']::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    border: 2px solid map.get(color.$border, 'focus');
+    border-radius: 100px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  &--l {
+    --dcx-radio-width: 32px;
+    --dcx-radio-height: 32px;
+    --dcx-circle-width: 14px;
+    --dcx-circle-height: 14px;
+  }
+
+  &--m {
+    --dcx-radio-width: 24px;
+    --dcx-radio-height: 24px;
+    --dcx-circle-width: 10px;
+    --dcx-circle-height: 10px;
+  }
+
+  &--s {
+    --dcx-radio-width: 20px;
+    --dcx-radio-height: 20px;
+    --dcx-circle-width: 8px;
+    --dcx-circle-height: 8px;
+  }
+
+  &.unstyled {
+    color: map.get(color.$text, 'disabled');
   }
 
   &:has(input:disabled) {
     cursor: not-allowed;
-    color: map.get(color.$color, "gray-light");
+    color: map.get(color.$text, 'disabled');
+
+    input[type='radio'] {
+      accent-color: map.get(color.$border, 'disabled');
+    }
   }
 }
