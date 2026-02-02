@@ -1,5 +1,6 @@
+import { DcxNgRadioComponent } from '@dcx-ng-components/dcx-ng-lib';
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgRadioComponent } from '../../dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component';
+
 
 const meta: Meta<DcxNgRadioComponent> = {
   title: 'DCXLibrary/Radio/Class based',
@@ -91,7 +92,7 @@ const meta: Meta<DcxNgRadioComponent> = {
 export default meta;
 type Story = StoryObj<DcxNgRadioComponent>;
 
-export const Basico: Story = {
+export const Basic: Story = {
   args: {
     name: 'ejemplo',
     value: 'valor1',
@@ -105,7 +106,7 @@ export const Basico: Story = {
   },
 };
 
-export const Tamaños: Story = {
+export const Sizes: Story = {
   render: (args) => ({
     props: args,
     template: `
