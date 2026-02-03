@@ -225,17 +225,3 @@ export const Focus: Story = {
     focus: true,
   },
 };
-
-export const GrupoCompleto: Story = {
-  render: (args) => ({
-    props: args,
-    template: `
-      <div>
-        <dcx-ng-radio [name]="'opciones'" [value]="'opcion1'" [label]="'Opción 1'" [size]="'m'"></dcx-ng-radio>
-        <dcx-ng-radio [name]="'opciones'" [value]="'opcion2'" [label]="'Opción 2'" [size]="'m'"></dcx-ng-radio>
-        <dcx-ng-radio [name]="'opciones'" [value]="'opcion3'" [label]="'Opción 3'" [size]="'m'"></dcx-ng-radio>
-        <dcx-ng-radio [name]="'opciones'" [value]="'opcion4'" [label]="'Opción 4 (Error)'" [size]="'m'" [error]="true"></dcx-ng-radio>
-      </div>
-    `,
-  }),
-};

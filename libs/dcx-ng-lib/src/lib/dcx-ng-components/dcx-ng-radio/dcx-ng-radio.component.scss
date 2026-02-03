@@ -43,7 +43,7 @@
     accent-color: var(--background-secondary);
   }
 
-  &.hover input[type='radio'] {
+  &.hover:hover:not(:has(input:disabled)) input[type='radio'] {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
