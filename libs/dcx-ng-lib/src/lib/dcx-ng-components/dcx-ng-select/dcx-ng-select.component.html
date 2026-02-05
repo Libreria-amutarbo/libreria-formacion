@@ -1,28 +1,108 @@
+<!-- LABEL -->
 @if (label()) {
-  <label class="dcx-ng-select__label" [attr.for]="selectId">
+  <label class="dcx-ng-select__label" [attr.for]="selectId" [attr.id]="labelId">
     {{ label() }}
+    @if (required()) {
+      <span class="dcx-ng-select__required">*</span>
+    }
   </label>
 }
 
-<div class="dcx-ng-select__wrapper" [class.is-disabled]="disabled">
-  <select
-    [id]="selectId"
-    class="dcx-ng-select"
-    [disabled]="disabled"
-    (change)="handleChange($event)"
-    (blur)="handleBlur()"
-    [attr.aria-label]="ariaLabel || null"
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="dcx-ng-select__wrapper" [class.is-disabled]="disabled()">
+  <!-- CONTROL (simula un select nativo) -->
+  <div
+    [class]="selectContolClasses()"
+    [class.is-disabled]="disabled()"
+    [class.is-invalid]="isInvalid()"
+    tabindex="0"
+    (click)="toggle()"
+    (keydown.enter)="toggle()"
+    (keydown.space)="toggle(); $event.preventDefault()"
+    role="combobox"
+    [attr.id]="selectId"
+    [attr.aria-expanded]="isOpen()"
+    [attr.aria-labelledby]="labelId"
+    aria-haspopup="listbox"
+    [attr.aria-controls]="selectId + '-panel'"
   >
-    @if (placeholder()) {
-      <option value="" disabled hidden [selected]="value === null">
-        {{ placeholder() }}
-      </option>
-    }
+    <span class="selected-value">
+      {{ selectedLabel() }}
+    </span>
 
-    @for (option of options(); track option.value) {
-      <option [value]="option.value" [selected]="option.value === value">
-        {{ option.label }}
-      </option>
-    }
-  </select>
+    <div class="dcx-ng-select__buttons">
+      @if (clearable() && value()) {
+        <dcx-ng-button
+          class="dcx-ng-select__clear-btn"
+          (click)="clearValue($event)"
+          aria-label="Borrar selección"
+          icon
+          variant="icon-only"
+          iconName="x"
+          iconSize="l"
+        ></dcx-ng-button>
+      }
+
+      <dcx-ng-button
+        class="dcx-ng-select__chevron"
+        icon
+        variant="icon-only"
+        iconName="chevron-down"
+        iconSize="l"
+        aria-hidden="true"
+        tabindex="-1"
+      ></dcx-ng-button>
+    </div>
+  </div>
+
+  @if (isInvalid() && errorMessage()) {
+    <div class="dcx-ng-select__error">
+      <dcx-ng-icon [name]="errorIcon()"></dcx-ng-icon>
+
+      <span>
+        {{ errorMessage() }}
+      </span>
+    </div>
+  }
+
+  @if (isOpen()) {
+    <div
+      class="dcx-ng-select__panel"
+      role="listbox"
+      [attr.id]="selectId + '-panel'"
+      [attr.aria-labelledby]="labelId"
+    >
+      @if (searchable()) {
+        <input
+          #searchInput
+          class="dcx-ng-select__search"
+          placeholder="Buscar..."
+          [value]="search()"
+          (input)="search.set($any($event.target).value)"
+          aria-label="Buscar opciones"
+        />
+      }
+
+      <div class="dcx-ng-select__options">
+        @for (opt of filtered(); track $index) {
+          <div
+            #optionEl
+            class="dcx-ng-select__option"
+            [class.is-disabled]="opt.disabled"
+            [class.is-selected]="opt.value === value()"
+            (click)="!opt.disabled && selectOption(opt)"
+            (keydown.enter)="!opt.disabled && selectOption(opt)"
+            (keydown.space)="onOptionSpace($event, opt)"
+            role="option"
+            [attr.aria-selected]="opt.value === value()"
+            [attr.id]="selectId + '-opt-' + $index"
+            [attr.tabindex]="opt.disabled ? null : '0'"
+            [attr.aria-disabled]="opt.disabled ? 'true' : null"
+          >
+            {{ opt.label }}
+          </div>
+        }
+      </div>
+    </div>
+  }
 </div>
