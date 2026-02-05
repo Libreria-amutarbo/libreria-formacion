@@ -1,4 +1,3 @@
-<!-- LABEL -->
 @if (label()) {
   <label class="dcx-ng-select__label" [attr.for]="selectId" [attr.id]="labelId">
     {{ label() }}
@@ -8,9 +7,7 @@
   </label>
 }
 
-<!-- CONTENEDOR PRINCIPAL -->
 <div class="dcx-ng-select__wrapper" [class.is-disabled]="disabled()">
-  <!-- CONTROL (simula un select nativo) -->
   <div
     [class]="selectContolClasses()"
     [class.is-disabled]="disabled()"
