@@ -1,5 +1,8 @@
+import { TemplateRef, Type } from '@angular/core';
+
 export interface DcxTabItem {
   id: string;
   label: string;
-  content?: string;
+  disabled?: boolean;
+  icon?: string;
 }

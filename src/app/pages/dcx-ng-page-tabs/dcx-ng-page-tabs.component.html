@@ -1,5 +1,77 @@
-<dcx-ng-tabs
-  [tabs]="tabs"
-  [activeTabId]="selectedTabId()"
-  (tabChange)="onTabChange($event)"
-></dcx-ng-tabs>
+<section>
+  <h2 class="example-title">Ejemplo 1 - Tab por defecto</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsDefault"
+    [activeTabId]="selectedTabId"
+    (tabChange)="onTabChange($event)"
+  ></dcx-ng-tabs>
+</section>
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Tab con controles</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsDefault"
+    controls
+    [activeTabId]="selectedTabId"
+    (tabChange)="onTabChange($event)"
+  ></dcx-ng-tabs>
+</section>
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Un tab en disabled</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsDisabled"
+    [activeTabId]="selectedTabId"
+    (tabChange)="onTabChange($event)"
+  ></dcx-ng-tabs>
+</section>
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Tabs con iconos</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsWithIcons"
+    [activeTabId]="selectedTabId"
+    (tabChange)="onTabChange($event)"
+  ></dcx-ng-tabs>
+</section>
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Tab con scroll</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsWithScroll"
+    [activeTabId]="selectedTabId"
+    (tabChange)="onTabChange($event)"
+  ></dcx-ng-tabs>
+  @if (selectedTabId === 'tab1') {
+    Tab1
+  } @else {
+    Resto
+  }
+</section>
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Tabs texto, ruta y componente</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsWithComponents"
+    [activeTabId]="selectedTabId"
+    (tabChange)="onTabChange($event)"
+  ></dcx-ng-tabs>
+  @if (selectedTabId === 'tab1') {
+    <dcx-ng-button label="Button" />
+  } @else if (selectedTabId === 'tab2') {
+    <dcx-ng-select />
+  } @else if (selectedTabId === 'tab3') {
+    <dcx-ng-card
+      layout="vertical"
+      align="center"
+      maxContentWidth="560px"
+      maxImageWidth="50%"
+    />
+  }
+</section>
+<hr />

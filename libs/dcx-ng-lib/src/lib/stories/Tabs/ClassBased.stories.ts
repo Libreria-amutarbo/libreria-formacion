@@ -12,15 +12,15 @@ const meta: Meta<DcxNgTabsComponent> = {
       table: {
         category: 'Attributes',
         type: { summary: 'DcxTabItem[]' },
-      }
+      },
     },
     activeTabId: {
       control: 'text',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
     disabled: {
       control: 'boolean',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
   },
 };
@@ -31,7 +31,7 @@ type Story = StoryObj<DcxNgTabsComponent>;
 export const Basic: Story = {
   args: {
     tabs: DcxTabItemMock,
-    activeTabId: 'tab1',
+    activeTabId: 'tab3',
     disabled: false,
   },
   parameters: {

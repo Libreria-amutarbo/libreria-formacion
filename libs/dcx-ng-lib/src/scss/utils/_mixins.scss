@@ -89,6 +89,12 @@
   justify-content: center;
 }
 
+@mixin flex-right {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
 @mixin flex-between {
   display: flex;
   align-items: center;

@@ -1,27 +1,27 @@
 <div class="dcx-tabs" [class.dcx-disabled]="disabled()">
-  <div class="dcx-tabs__header">
+  @if (controls()) {
+    <div class="dcx-tabs__control">
+      @for (tab of tabs(); track $index) {
+        <dcx-ng-button [label]="tab.id" (buttonClick)="selectTab(tab.id)">
+        </dcx-ng-button>
+      }
+    </div>
+  }
+  <div class="dcx-tabs__header" #header>
     @for (tab of tabs(); track tab.id) {
       <dcx-ng-button
         class="dcx-tab__button"
         [class.active]="isActive(tab.id)"
         [label]="tab.label"
-        [disabled]="disabled()"
+        [disabled]="tab.disabled ? tab.disabled : false"
         (buttonClick)="selectTab(tab.id)"
         [attr.aria-selected]="isActive(tab.id)"
-        variant="terciary"
+        variant="text"
+        size="l"
+        [icon]="tab.icon ? true : false"
+        [iconName]="tab.icon ? tab.icon : ''"
+        [iconSize]="'m'"
       ></dcx-ng-button>
-    }
-  </div>
-
-  <div class="dcx-tabs__content">
-    @if (activeTab(); as tab) {
-      <div class="dcx-tab__panel" role="tabpanel">
-        @if (tab.content) {
-          <p>{{ tab.content }}</p>
-        } @else {
-          <ng-content></ng-content>
-        }
-      </div>
     }
   </div>
 </div>

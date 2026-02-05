@@ -16,20 +16,27 @@
     display: flex;
     border-bottom: 1px solid var(--border-terciary);
     gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
   }
 
   &__content {
     padding: var(--spacing-m);
     animation: fadeIn 0.3s ease;
   }
+
+  &__control {
+    @include flex-right;
+    gap: var(--spacing-s);
+  }
 }
 
 .dcx-tab {
   &__button {
-    padding: var(--spacing-s) var(--spacing-m);
+    //padding: var(--spacing-s) var(--spacing-m);
     background: none;
     border: none;
-    border-bottom: 3px solid transparent;
+    border-bottom: 1px solid transparent;
     color: var(--text-disabled);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
@@ -49,6 +56,21 @@
     &:disabled {
       cursor: not-allowed;
       opacity: 0.6;
+    }
+  }
+
+  &__nav-button {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--text-body);
+    cursor: pointer;
+    font-size: var(--font-size-s);
+    padding: var(--spacing-xs);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: var(--background-hover);
     }
   }
 
