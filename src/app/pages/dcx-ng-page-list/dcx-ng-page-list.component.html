@@ -1,1 +1,3 @@
 <dcx-ng-list [items]="elementos"></dcx-ng-list>
+<h3>Lista con iconos y seleccionable</h3>
+<dcx-ng-list [items]="elementosConIcono" [selectable]="true" (itemSelected)="onItemSelected($event)"></dcx-ng-list>

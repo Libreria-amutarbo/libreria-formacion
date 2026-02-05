@@ -1,5 +1,19 @@
 <ul aria-label="Lista de elementos">
-  @for (item of items; track $index) {
-    <li>{{ item }}</li>
+  @for (item of items(); track $index) {
+  <li class="dcx-list-item" [class.selectable]="selectable()" [class.selected]="isSelected($index)"
+    (click)="onItemClick(item, $index)" [attr.tabindex]="selectable() ? 0 : null"
+    [attr.role]="selectable() ? 'button' : null">
+    <div class="dcx-list-item-content">
+      @if (getItemIcon(item)) {
+      <i class="dcx-list-icon bi bi-{{ getItemIcon(item) }}"></i>
+      }
+      <span class="dcx-list-text">{{ getItemText(item) }}</span>
+    </div>
+    @if (hasChildren(item)) {
+    <dcx-ng-list class="dcx-list-nested" [items]="getItemChildren(item)!" [selectable]="selectable()"
+      (itemSelected)="itemSelected.emit($event)">
+    </dcx-ng-list>
+    }
+  </li>
   }
 </ul>
