@@ -18,6 +18,7 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
   icon = input<string>('');
   image = input<string>('');
 
+  //Output que avisa si se borra el chip
   @Output() removeChip = new EventEmitter<void>();
 
   readonly ThemeColors = ThemeColors;
