@@ -1,22 +1,70 @@
 :host {
   display: block;
-  font-family:
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Ubuntu,
-    Cantarell,
-    Arial,
-    'Noto Sans',
-    sans-serif;
+  font-family: var(--font-primary);
+  color: var(--text-body);
 }
 
 ul {
   margin: 0;
   padding-left: 16px;
+  list-style: none;
 }
 
-li {
+.dcx-list-item {
   line-height: 1.6;
+
+  .dcx-list-item-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+
+  &.selectable {
+    .dcx-list-item-content {
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      &:active {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    &.selected>.dcx-list-item-content {
+      color: var(--background-primary);
+      font-weight: 500;
+
+      &:hover {
+        background-color: var(--background-primary);
+      }
+    }
+  }
+}
+
+.dcx-list-icon {
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  width: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dcx-list-text {
+  flex: 1;
+}
+
+.dcx-list-nested {
+  margin-top: 0.25rem;
+  margin-left: 1.5rem;
+
+  ul {
+    padding-left: 0;
+  }
 }

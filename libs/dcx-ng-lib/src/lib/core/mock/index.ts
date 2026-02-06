@@ -8,4 +8,5 @@ export * from './card';
 export * from './dialog';
 export * from './button';
 export * from './paginator';
+export * from './list';
 export * from './select';
