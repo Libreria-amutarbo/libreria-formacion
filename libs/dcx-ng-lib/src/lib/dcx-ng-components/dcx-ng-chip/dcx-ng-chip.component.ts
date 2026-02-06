@@ -1,7 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, EventEmitter, input, Output } from '@angular/core';
-import { ChipType, ChipTypeValues, DcxNgChipComponentInputs, ThemeColors, ThemeColorsType } from '../../core/interfaces';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  EventEmitter,
+  input,
+  Output,
+} from '@angular/core';
+import {
+  ChipType,
+  ChipTypeValues,
+  DcxNgChipComponentInputs,
+  ThemeColors,
+  ThemeColorsType,
+  ChipVariantType,
+  ChipVariant,
+} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-chip',
@@ -19,13 +34,11 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
   image = input<string>('');
   variant = input<ChipVariantType>('choice');
 
-  //comment
-
-  //Output que avisa si se borra el chip
   @Output() removeChip = new EventEmitter<void>();
 
   readonly ThemeColors = ThemeColors;
   readonly ChipTypeValues = ChipTypeValues;
+  readonly ChipVariant = ChipVariant;
 
   chipType = computed((): ChipType => {
     if (this.image()) return ChipTypeValues.WITH_IMAGE;
@@ -39,7 +52,7 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
 
   handleRemove(event: Event): void {
     event.stopPropagation();
-    if (this.removable()) {
+    if (this.variant() === ChipVariant.FILTER) {
       this.removeChip.emit();
     }
   }
