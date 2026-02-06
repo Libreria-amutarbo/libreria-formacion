@@ -12,107 +12,48 @@
       <dcx-ng-chip label="Success" color="success"></dcx-ng-chip>
       <dcx-ng-chip label="Warning" color="warning"></dcx-ng-chip>
       <dcx-ng-chip label="Error" color="error"></dcx-ng-chip>
-      <dcx-ng-chip label="Info" color="info"></dcx-ng-chip>
-      <dcx-ng-chip label="Gray" color="grey"></dcx-ng-chip>
     </div>
   </div>
 
   <div class="chip-test-container">
     <h4>Chips con iconos</h4>
     <div class="chip-row">
-      <dcx-ng-chip label="Home" icon="house" color="primary"></dcx-ng-chip>
+      <dcx-ng-chip label="Home" icon="home" color="primary"></dcx-ng-chip>
       <dcx-ng-chip label="Usuario" icon="person" color="success"></dcx-ng-chip>
       <dcx-ng-chip
         label="Configuración"
-        icon="gear"
+        icon="settings"
         color="secondary"
       ></dcx-ng-chip>
     </div>
   </div>
 
   <div class="chip-test-container">
-    <h4>Ejemplos: tipos y variantes</h4>
-    <div
-      class="chip-row"
-      style="gap:0.75rem; align-items:center; flex-wrap:wrap;"
-    >
+    <h4>Chips removibles</h4>
+    <div class="chip-row">
       <dcx-ng-chip
-        label="Etiqueta (choice)"
+        label="Removible"
         color="primary"
-        variant="choice"
-      ></dcx-ng-chip>
+        [removable]="true"
+        (onRemove)="onChipRemove('Removible')"
+      >
+      </dcx-ng-chip>
       <dcx-ng-chip
-        label="Etiqueta (filter)"
-        color="primary"
-        variant="filter"
-        (removeChip)="onChipRemove('Etiqueta')"
-      ></dcx-ng-chip>
-
-      <dcx-ng-chip
-        label="Con icono (choice)"
+        label="Con icono"
         icon="star"
         color="warning"
-        variant="choice"
-      ></dcx-ng-chip>
-      <dcx-ng-chip
-        label="Con icono (filter)"
-        icon="star"
-        color="warning"
-        variant="filter"
-        (removeChip)="onChipRemove('Con icono')"
-      ></dcx-ng-chip>
+        [removable]="true"
+        (onRemove)="onChipRemove('Con icono')"
+      >
+      </dcx-ng-chip>
+    </div>
+  </div>
 
-      <dcx-ng-chip
-        label="Con imagen (choice)"
-        image="https://picsum.photos/360/240"
-        color="success"
-        variant="choice"
-      ></dcx-ng-chip>
-      <dcx-ng-chip
-        label="Con imagen (filter)"
-        image="https://picsum.photos/360/240"
-        color="success"
-        variant="filter"
-        (removeChip)="onChipRemove('Con imagen')"
-      ></dcx-ng-chip>
-
-      <dcx-ng-chip
-        label="Info (choice)"
-        icon="info-circle"
-        color="info"
-        variant="choice"
-      ></dcx-ng-chip>
-      <dcx-ng-chip
-        label="Info (filter)"
-        icon="info-circle"
-        color="info"
-        variant="filter"
-        (removeChip)="onChipRemove('Info')"
-      ></dcx-ng-chip>
-
-      <dcx-ng-chip
-        label="Gray (choice)"
-        color="grey"
-        variant="choice"
-      ></dcx-ng-chip>
-      <dcx-ng-chip
-        label="Gray (filter)"
-        color="grey"
-        variant="filter"
-        (removeChip)="onChipRemove('Gray')"
-      ></dcx-ng-chip>
-
-      <dcx-ng-chip
-        label="Secondary (choice)"
-        color="secondary"
-        variant="choice"
-      ></dcx-ng-chip>
-      <dcx-ng-chip
-        label="Secondary (filter)"
-        color="secondary"
-        variant="filter"
-        (removeChip)="onChipRemove('Secondary')"
-      ></dcx-ng-chip>
+  <div class="chip-test-container">
+    <h4>Diferentes tamaños y colores</h4>
+    <div class="chip-row">
+      <dcx-ng-chip label="Gray" color="gray"></dcx-ng-chip>
+      <dcx-ng-chip label="Gray Light" color="gray-light"></dcx-ng-chip>
     </div>
   </div>
 </div>
