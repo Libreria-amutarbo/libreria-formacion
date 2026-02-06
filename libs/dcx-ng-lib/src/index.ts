@@ -1,5 +1,5 @@
-export * from './lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
 export * from './lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
+export * from './lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
 export * from './lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
 export * from './lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component';
 export * from './lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component';

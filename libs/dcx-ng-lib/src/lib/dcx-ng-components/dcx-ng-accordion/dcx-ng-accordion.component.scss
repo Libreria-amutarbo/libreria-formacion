@@ -3,9 +3,46 @@
 .accordion {
   font-family: var(--font-family-primary);
   border: 1px solid var(--border-terciary);
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
   background-color: var(--background-default);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  &.transition-smooth {
+    .accordion-content-wrapper {
+      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+    }
+    .accordion-chevron {
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  &.transition-fast {
+    .accordion-content-wrapper {
+      transition: max-height 0.15s ease-in-out, opacity 0.15s ease-in-out, padding 0.15s ease-in-out;
+    }
+    .accordion-chevron {
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+
+  &.transition-slow {
+    .accordion-content-wrapper {
+      transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
+    }
+    .accordion-chevron {
+      transition: transform 0.5s ease-in-out;
+    }
+  }
+
+  &.transition-none {
+    .accordion-content-wrapper {
+      transition: none;
+    }
+    .accordion-chevron {
+      transition: none;
+    }
+  }
 
   .accordion-item {
     border-bottom: 1px solid var(--border-terciary);
@@ -16,59 +53,69 @@
 
     &.disabled {
       .accordion-header {
-        cursor: not-allowed;
+        cursor: default;
         background-color: var(--background-disabled);
         color: var(--text-disabled);
+        opacity: 0.6;
+      }
+    }
+
+    &.expanded {
+      .accordion-header {
+        background-color: var(--background-hover);
+      }
+      
+      .accordion-chevron {
+        transform: rotate(180deg);
       }
     }
 
     .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
       @include flex-between;
       @include padding(m);
       background-color: var(--background-default);
-      border: none;
-      cursor: pointer;
       width: 100%;
-      text-align: left;
       font-size: var(--font-size-body);
       font-weight: var(--font-weight-medium);
       color: var(--text-title);
-      transition: all 0.2s ease-in-out;
+      transition: background-color 0.2s ease-in-out;
+      cursor: pointer;
 
-      &:hover:not(:disabled) {
+      &:hover:not(.disabled) {
         background-color: var(--background-hover);
       }
 
-      &:focus {
+      &:focus-visible {
         outline: 2px solid var(--content-primary);
         outline-offset: -2px;
       }
 
-      &:disabled {
+      &.disabled {
         cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      .accordion-icon {
+        flex-shrink: 0;
+        margin-right: 8px;
+        color: var(--content-primary);
       }
 
       .accordion-title {
         flex: 1;
-        font-weight: var(--font-weight-medium);
+        font-weight: 500;
+        line-height: 1.4;
       }
 
-      .accordion-icon {
-        @include flex-center;
-        margin-left: 12px;
+      .accordion-chevron {
         flex-shrink: 0;
-        transition: transform 0.3s ease-in-out;
+        color: var(--content-primary);
         transform: rotate(0deg);
-
-        &.expanded {
-          transform: rotate(180deg);
-        }
-
-        svg {
-          width: 20px;
-          height: 20px;
-          color: var(--text-body);
-        }
       }
     }
 
@@ -76,21 +123,34 @@
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transition:
-        max-height 0.3s ease-in-out,
-        opacity 0.3s ease-in-out;
+      padding: 0 20px;
 
       &.expanded {
-        max-height: 1000px;
+        max-height: 2000px;
         opacity: 1;
+        padding: 0 20px 16px 20px;
+        overflow-y: auto;
+      }
+
+      &.disabled-content {
+        .accordion-content {
+          opacity: 0.5;
+          pointer-events: none;
+          user-select: none;
+        }
       }
 
       .accordion-content {
+        padding-top: 16px;
         @include padding(m);
         background-color: var(--background-default);
         color: var(--text-body);
         line-height: var(--line-height-normal);
         font-size: var(--font-size-body-small);
+        max-height: 600px;
+        overflow-y: auto;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
       }
     }
   }

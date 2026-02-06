@@ -1,1 +1,1 @@
-export type IconSpacing = 'none' | 'compact' | 'spacious';
+export type DcxIconSpacing = 'none' | 'compact' | 'spacious';

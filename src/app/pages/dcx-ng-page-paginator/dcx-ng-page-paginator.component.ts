@@ -1,45 +1,73 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DcxNgPaginatorComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-paginator/dcx-ng-paginator.component';
+import {
+  DcxNgSelectComponent,
+  DcxPaginator,
+  DcxSelectOptions,
+  DcxNgPaginatorComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
-    selector: 'app-dcx-ng-page-paginator',
-    standalone: true,
-    imports: [FormsModule, DcxNgPaginatorComponent],
-    templateUrl: './dcx-ng-page-paginator.component.html',
-    styleUrl: './dcx-ng-page-paginator.component.scss'
+  selector: 'app-dcx-ng-page-paginator',
+  standalone: true,
+  imports: [FormsModule, DcxNgPaginatorComponent, DcxNgSelectComponent],
+  templateUrl: './dcx-ng-page-paginator.component.html',
+  styleUrl: './dcx-ng-page-paginator.component.scss',
 })
 export class DcxNgPagePaginatorComponent {
-    itemsPerPage: number = 10;
-    currentPage: number = 1;
-    pageSelected: number = 1;
-    nextButton: string = 'Siguiente';
-    nextButtonDisabled: string = '';
-    prevButton: string = 'Anterior';
-    prevButtonDisabled: boolean = false;
-    totalPages: number = 10;
-    disabled: boolean = false;
+  itemsPerPage: number = 10;
+  currentPage: number = 1;
+  nextButtonDisabled: string = '';
+  prevButtonDisabled: boolean = false;
+  totalPages: number = 10;
+  disabled: boolean = false;
+  totalPagesKnown: number = 0;
 
-    onPageChange(page: number) {
-        this.currentPage = page;
-        this.pageSelected = page;
-    }
+  defaultPaginator: DcxPaginator = {
+    totalItems: 100,
+    itemsPerPage: 10,
+    currentPage: 2,
+  };
 
-    onNextPage() { }
+  selectPerPage: DcxPaginator = {
+    totalItems: 21,
+    itemsPerPage: 5,
+    currentPage: 1,
+  };
 
-    onPrevPage() { }
+  optionsValue: DcxSelectOptions[] = [
+    { value: 5, label: '5' },
+    { value: 10, label: '10' },
+    { value: 20, label: '20' },
+  ];
 
-    togglePrevDisabled() {
-        this.prevButtonDisabled = !this.prevButtonDisabled;
-    }
+  limitedPaginator: DcxPaginator = {
+    totalItems: 100,
+    itemsPerPage: 10,
+    currentPage: 2,
+  };
 
-    toggleNextDisabled() {
-        this.nextButtonDisabled = this.nextButtonDisabled ? '' : 'disabled';
-    }
+  knowPageSelected: DcxPaginator = {
+    totalItems: 10,
+    itemsPerPage: 2,
+    currentPage: 2,
+  };
 
-    setTotalPages(pages: number) {
-        this.totalPages = pages;
-        this.currentPage = 1;
-        this.pageSelected = 1;
-    }
+  itemsPerPageChange(event: string | number | null) {
+    this.selectPerPage = {
+      ...this.selectPerPage,
+      itemsPerPage: Number(event),
+    };
+  }
+
+  onPageChange(page: number) {
+    this.knowPageSelected = {
+      ...this.knowPageSelected,
+      currentPage: page,
+    };
+  }
+
+  onTotalPagesChange(totalPages: number) {
+    this.totalPagesKnown = totalPages;
+  }
 }
