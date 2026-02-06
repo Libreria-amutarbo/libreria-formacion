@@ -2,77 +2,155 @@
   display: inline-block;
   width: 100%;
   color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
 }
 
 .dcx-ng-select__label {
   display: inline-block;
   margin-bottom: var(--spacing-inset-xs, 4px);
-  /* (opcional) tipografía del label */
+  font-size: var(--font-size-body);
+  font-weight: 500;
 }
 
 .dcx-ng-select__wrapper {
-  position: relative; /* ancla del chevron */
+  position: relative;
+  width: 100%;
 }
 
-/* SELECT */
-.dcx-ng-select {
+.dcx-ng-select__control {
+  width: 100%;
+
+  background-color: var(--background-default);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  font-size: var(--font-size-body);
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 2px var(--color-primary-light);
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--background-disabled);
+    color: var(--text-disabled);
+  }
+
+  &.is-invalid {
+    border-color: var(--border-error);
+    box-shadow: 0 0 0 1px var(--border-error);
+    color: var(--text-error);
+  }
+
+  &--xs {
+    padding: var(--spacing-inset-xs);
+  }
+  &--s {
+    padding: var(--spacing-inset-s);
+  }
+  &--m {
+    padding: var(--spacing-inset-m);
+  }
+  &--l {
+    padding: var(--spacing-inset-l);
+  }
+  &--xl {
+    padding: var(--spacing-inset-xl);
+  }
+}
+
+.selected-value {
+  flex: 1;
+}
+.dcx-ng-select__required {
+  color: var(--content-error);
+}
+
+.dcx-ng-select__error {
+  margin-top: var(--spacing-inset-xs);
+  color: var(--text-error);
+  font-size: var(--font-size-body-small);
+}
+
+.dcx-ng-select__buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dcx-ng-select__control:hover:not(.is-disabled) {
+  box-shadow: 0 0 0 2px var(--border-hover);
+}
+
+.dcx-ng-select__clear-btn {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.dcx-ng-select__chevron {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.dcx-ng-select__panel {
+  position: absolute;
+  margin-top: 4px;
+  width: 100%;
+  background: var(--background-default);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.dcx-ng-select__search {
   width: 100%;
   padding: var(--spacing-inset-m);
-  padding-right: calc(var(--spacing-inset-m) * 2 + 20px);
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-  color: var(--color-text-primary);
-  background-color: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border: none;
+  border-bottom: 1px solid var(--border-default);
+  font-size: var(--font-size-body);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.dcx-ng-select__options {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dcx-ng-select__option {
+  padding: var(--spacing-inset-m);
   cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-repeat: no-repeat;
-  background-position: right 12px center; /* por si usas bg-image en el select */
-  background-size: 12px;
+  font-size: var(--font-size-body);
+
+  &:hover {
+    background: var(--background-hover);
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
-.dcx-ng-select:hover:not(:disabled) {
-  border-color: var(--color-primary);
-}
-.dcx-ng-select:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-primary-light);
-}
-.dcx-ng-select:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background-color: var(--color-gray-lighter);
-  color: var(--color-text-disabled);
-}
-
-/* CHEVRON centrado respecto al wrapper (que sólo contiene el select) */
-.dcx-ng-select__wrapper::after {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  right: 16px;
-  transform: translateY(-50%);
-  width: 15px;
-  height: 15px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-  background-repeat: no-repeat;
-  background-size: 25px 25px;
-  background-position: center center;
-  opacity: 0.95;
-}
-
-/* Estado disabled (sin :has) usando una clase */
-.dcx-ng-select__wrapper.is-disabled::after {
-  opacity: 0.5;
-  filter: grayscale(100%);
-}
-
-/* Modo oscuro: cambia el trazo del SVG */
-:host(.theme-dark) .dcx-ng-select__wrapper::after {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+.dcx-ng-select__option.is-selected {
+  background: var(--background-pressed);
+  font-weight: 600;
 }

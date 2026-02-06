@@ -2,6 +2,7 @@
 
 :host {
   display: block;
+  font-family: var(--font-family-primary);
 }
 
 .dcx-paginator {
@@ -9,30 +10,22 @@
   gap: var(--spacing-xs);
 }
 
+.page-info,
+.items-per-page-info {
+  font-size: 0.875rem;
+  color: var(--text-body);
+  white-space: nowrap;
+}
+
 .dcx-paginator__button,
 .dcx-paginator__page {
   @include button-base;
-  @include padding-horizontal('inset-s');
+  @include padding-horizontal('inset-xs');
   @include padding-vertical('inset-xs');
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
-
-  &:hover:not(.dcx-paginator__button--disabled):not(
-      .dcx-paginator__page--disabled
-    ) {
-    background: var(--color-background-alt);
-  }
 }
 
 .dcx-paginator__button--disabled,
 .dcx-paginator__page--disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.dcx-paginator__page--active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-text-inverse);
 }

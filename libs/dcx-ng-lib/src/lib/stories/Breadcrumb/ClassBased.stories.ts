@@ -26,7 +26,6 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
       table: {
         category: 'Atributos',
         type: { summary: 'DcxBreadcrumbItem[]' },
-        defaultValue: { summary: DcxBreadCrumbSlashIcon },
       },
     },
     iconSeparator: {
@@ -38,7 +37,7 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
       table: {
         category: 'Atributos',
         type: { summary: 'DcxBreadCrumbSeparatorIcons (string)' },
-        defaultValue: { summary: 'slash-lg' },
+        defaultValue: { summary: DcxBreadCrumbSlashIcon },
       },
     },
     itemSelected: {

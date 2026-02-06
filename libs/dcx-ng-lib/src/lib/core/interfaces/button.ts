@@ -1,9 +1,16 @@
-export type ButtonType = 'button' | 'submit' | 'reset';
-export type ButtonVariant = 'primary' | 'secondary' | 'link' | 'icon';
+export type DcxButtonType = 'button' | 'submit' | 'reset';
+export type DcxButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'terciary'
+  | 'icon-only';
 
 export const ICON_POSITION = {
-    start: 'start',
-    end: 'end',
+  left: 'left',
+  right: 'right',
+  top: 'top',
+  bottom: 'bottom',
 };
 
-export type IconPosition = typeof ICON_POSITION[keyof typeof ICON_POSITION];
+export type DcxIconPosition =
+  (typeof ICON_POSITION)[keyof typeof ICON_POSITION];

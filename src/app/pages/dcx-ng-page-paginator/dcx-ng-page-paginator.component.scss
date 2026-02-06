@@ -1,52 +1,12 @@
-.paginator-demo {
-  padding: 1rem;
+@use './../../app.component.scss';
 
-  .demo-card {
-    padding: 1rem;
+.paginator-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
 
-    h2 {
-      margin-bottom: 1rem;
-    }
-
-    .demo-controls {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-
-      .control-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-
-        label {
-          font-weight: 600;
-        }
-
-        input {
-          padding: 0.5rem;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-        }
-      }
-    }
-
-    .paginator-container {
-      margin: 1rem 0;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-
-    .demo-status {
-      background: #f8f9fa;
-      padding: 1rem;
-      border-radius: 4px;
-      margin-top: 1rem;
-
-      p {
-        margin: 0.5rem 0;
-      }
-    }
-  }
+dcx-ng-select {
+  width: 20%;
 }

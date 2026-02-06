@@ -1,6 +1,83 @@
-<div class="accordion-page">
+<section>
+  <h2 class="example-title">Ejemplo 1 - Default</h2>
   <dcx-ng-accordion
-    [items]="accordionItems"
-    (itemToggled)="onItemToggled($event)">
+    [items]="defaultItems">
   </dcx-ng-accordion>
-</div>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - With Icons</h2>
+  <dcx-ng-accordion
+    [items]="withIconsItems">
+  </dcx-ng-accordion>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - With Disabled Items</h2>
+  <dcx-ng-accordion
+    [items]="withDisabledItems">
+  </dcx-ng-accordion>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Multiple Open</h2>
+  <dcx-ng-accordion
+    [items]="multipleOpenItems"
+    [closeOthers]="false">
+  </dcx-ng-accordion>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Default Expanded</h2>
+  <dcx-ng-accordion
+    [items]="defaultExpandedItems"
+    [closeOthers]="false">
+  </dcx-ng-accordion>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 6 - Fast Transition</h2>
+  <dcx-ng-accordion
+    [items]="fastTransitionItems"
+    [transition]="'fast'">
+  </dcx-ng-accordion>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 7 - Slow Transition</h2>
+  <dcx-ng-accordion
+    [items]="slowTransitionItems"
+    [transition]="'slow'">
+  </dcx-ng-accordion>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 8 - No Transition</h2>
+  <dcx-ng-accordion
+    [items]="noTransitionItems"
+    [transition]="'none'">
+  </dcx-ng-accordion>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 9 - Large Content</h2>
+  <dcx-ng-accordion
+    [items]="largeContentItems">
+  </dcx-ng-accordion>
+</section>

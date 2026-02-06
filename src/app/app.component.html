@@ -1,6 +1,7 @@
 <div>
   <dcx-ng-select
     label="Selecciona tu componente de la lista"
+    [valueInput]="valueDefault"
     [options]="getSelectOptions()"
     (valueChange)="routeTo($event)"
   ></dcx-ng-select>
