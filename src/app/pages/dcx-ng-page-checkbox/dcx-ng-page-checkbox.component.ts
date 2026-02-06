@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { DcxNgButtonComponent, DcxNgCheckboxComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgButtonComponent,
+  DcxNgCheckboxComponent,
+  DcxPosition,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-checkbox',
@@ -13,6 +17,8 @@ import { DcxNgButtonComponent, DcxNgCheckboxComponent } from '@dcx-ng-components
 export class DcxNgPageCheckboxComponent {
   checked1 = false;
   checked2 = false;
+
+  readonly DcxPosition = DcxPosition;
 
   sportsOptions = signal([
     { value: 'futbol', label: 'Fútbol' },
