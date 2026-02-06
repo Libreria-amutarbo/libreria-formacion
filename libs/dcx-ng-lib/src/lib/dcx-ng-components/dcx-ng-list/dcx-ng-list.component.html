@@ -4,13 +4,13 @@
     (click)="onItemClick(item, $index)" [attr.tabindex]="selectable() ? 0 : null"
     [attr.role]="selectable() ? 'button' : null">
     <div class="dcx-list-item-content">
-      @if (getItemIcon(item)) {
-      <i class="dcx-list-icon bi bi-{{ getItemIcon(item) }}"></i>
+      @if (isObject(item) && item.icon) {
+      <dcx-ng-icon class="dcx-list-icon" [name]="item.icon"></dcx-ng-icon>
       }
-      <span class="dcx-list-text">{{ getItemText(item) }}</span>
+      <span class="dcx-list-text">{{ isObject(item) ? item.text : item }}</span>
     </div>
-    @if (hasChildren(item)) {
-    <dcx-ng-list class="dcx-list-nested" [items]="getItemChildren(item)!" [selectable]="selectable()"
+    @if (isObject(item) && item.children && item.children.length > 0) {
+    <dcx-ng-list class="dcx-list-nested" [items]="item.children" [selectable]="selectable()"
       (itemSelected)="itemSelected.emit($event)">
     </dcx-ng-list>
     }

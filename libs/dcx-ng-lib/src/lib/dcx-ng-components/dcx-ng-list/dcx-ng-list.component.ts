@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
-import { DcxListItemType } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxListItem, DcxListItemType } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   selector: 'dcx-ng-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DcxNgIconComponent],
   templateUrl: './dcx-ng-list.component.html',
   styleUrls: ['./dcx-ng-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,20 +19,8 @@ export class DcxNgListComponent {
 
   selectedIndex = signal<number | null>(null);
 
-  getItemText(item: DcxListItemType): string {
-    return typeof item === 'object' ? item.text : String(item);
-  }
-
-  getItemIcon(item: DcxListItemType): string | undefined {
-    return typeof item === 'object' ? item.icon : undefined;
-  }
-
-  getItemChildren(item: DcxListItemType): DcxListItemType[] | undefined {
-    return typeof item === 'object' ? item.children : undefined;
-  }
-
-  hasChildren(item: DcxListItemType): boolean {
-    return typeof item === 'object' && !!item.children && item.children.length > 0;
+  isObject(item: DcxListItemType): item is DcxListItem {
+    return typeof item === 'object';
   }
 
   onItemClick(item: DcxListItemType, index: number): void {

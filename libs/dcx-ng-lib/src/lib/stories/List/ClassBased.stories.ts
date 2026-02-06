@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgListComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_SUBLISTS, SELECTABLE_LIST_ITEMS, SIMPLE_LIST_ITEMS } from '@dcx-ng-components/dcx-ng-lib';
+
 
 const meta: Meta<DcxNgListComponent> = {
   title: 'DCXLibrary/List/Class based',
@@ -10,7 +11,7 @@ const meta: Meta<DcxNgListComponent> = {
     selectable: { control: 'boolean' },
   },
   args: {
-    items: ['Uno', 'Dos', 'Tres', 'Cuatro'],
+    items: SIMPLE_LIST_ITEMS,
     selectable: false,
   },
 };
@@ -36,12 +37,7 @@ export const Simple: Story = {
 export const WithIcons: Story = {
   render: () => ({
     props: {
-      items: [
-        { text: 'Home', icon: 'house-door' },
-        { text: 'Settings', icon: 'gear' },
-        { text: 'Profile', icon: 'person' },
-        { text: 'Messages', icon: 'envelope' },
-      ],
+      items: LIST_ITEMS_WITH_ICONS,
     },
     template: `
       <div>
@@ -55,29 +51,7 @@ export const WithIcons: Story = {
 export const WithSubLists: Story = {
   render: () => ({
     props: {
-      items: [
-        {
-          text: 'Frutas',
-          icon: 'basket',
-          children: [
-            { text: 'Manzana' },
-            { text: 'Naranja' },
-            { text: 'Plátano' },
-          ]
-        },
-        {
-          text: 'Verduras',
-          icon: 'basket2',
-          children: [
-            { text: 'Zanahoria' },
-            { text: 'Lechuga' },
-          ]
-        },
-        {
-          text: 'Lácteos',
-          icon: 'cup',
-        },
-      ],
+      items: LIST_ITEMS_WITH_SUBLISTS,
     },
     template: `
       <div>
@@ -91,12 +65,7 @@ export const WithSubLists: Story = {
 export const Selectable: Story = {
   render: () => ({
     props: {
-      items: [
-        { text: 'Option 1', icon: 'check-circle' },
-        { text: 'Option 2', icon: 'check-circle' },
-        { text: 'Option 3', icon: 'check-circle' },
-        { text: 'Option 4', icon: 'check-circle' },
-      ],
+      items: SELECTABLE_LIST_ITEMS,
       selectedItem: null as any,
       onItemSelected(event: any) {
         this['selectedItem'] = event;

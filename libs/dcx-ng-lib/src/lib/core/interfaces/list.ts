@@ -1,7 +1,8 @@
 export interface DcxListItem {
     text: string;
     icon?: string;
-    children?: DcxListItemType[];
+    disabled?: boolean;
+    children?: DcxListItem[];
 }
 
 export type DcxListItemType = string | number | DcxListItem;

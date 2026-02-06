@@ -1,3 +1,17 @@
+<h3>Lista simple</h3>
+<dcx-ng-list [items]="simpleItems"></dcx-ng-list>
+
+<h3>Lista mixta (strings y números)</h3>
 <dcx-ng-list [items]="elementos"></dcx-ng-list>
-<h3>Lista con iconos y seleccionable</h3>
-<dcx-ng-list [items]="elementosConIcono" [selectable]="true" (itemSelected)="onItemSelected($event)"></dcx-ng-list>
+
+<h3>Lista con iconos</h3>
+<dcx-ng-list [items]="itemsWithIcons"></dcx-ng-list>
+
+<h3>Lista con iconos alternativa</h3>
+<dcx-ng-list [items]="elementosConIcono"></dcx-ng-list>
+
+<h3>Lista con sublistas</h3>
+<dcx-ng-list [items]="itemsWithSublists"></dcx-ng-list>
+
+<h3>Lista seleccionable</h3>
+<dcx-ng-list [items]="selectableItems" [selectable]="true" (itemSelected)="onItemSelected($event)"></dcx-ng-list>
