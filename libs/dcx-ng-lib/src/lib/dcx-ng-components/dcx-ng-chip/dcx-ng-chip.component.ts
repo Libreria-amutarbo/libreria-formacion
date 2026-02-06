@@ -34,6 +34,8 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
   image = input<string>('');
   variant = input<ChipVariantType>('choice');
 
+  //comment
+
   @Output() removeChip = new EventEmitter<void>();
 
   readonly ThemeColors = ThemeColors;
