@@ -1,30 +1,30 @@
 <div class="demo-container">
-    <h1>DatePicker Component Demo</h1>
-
-    <div class="demo-datepicker">
-        <dcx-ng-date-picker [selectedDate]="selectedDate()" [minDate]="minDate()" [maxDate]="maxDate()"
-            [disabled]="isDisabled()" [placeholder]="'Selecciona una fecha'" (dateChange)="handleDateChange($event)">
+    <section class="demo-section">
+        <h2>Ejemplo básico</h2>
+        <dcx-ng-date-picker [selectedDate]="selectedDate()" [placeholder]="'Selecciona una fecha'"
+            (selectedDateChange)="handleDateChange($event)">
         </dcx-ng-date-picker>
-    </div>
+        <div class="demo-state">
+            <strong>Fecha seleccionada:</strong> {{ formattedSelectedDate }}
+        </div>
+    </section>
 
-    <div class="demo-button">
-        <dcx-ng-button [label]="toggleButtonLabel" (buttonClick)="toggleDisabled()"></dcx-ng-button>
-    </div>
+    <section class="demo-section">
+        <hr class="demo-separator">
+        <h2>Ejemplo deshabilitado</h2>
+        <dcx-ng-date-picker [selectedDate]="selectedDate()" [disabled]="true" [placeholder]="'Deshabilitado'">
+        </dcx-ng-date-picker>
+    </section>
 
-    <div class="demo-state">
-        <h3>Estado actual:</h3>
-        <p>
-            <strong>Fecha seleccionada:</strong>
-            {{ formattedSelectedDate }}
-        </p>
-        <p>
-            <strong>Fecha mínima:</strong>
-            {{ formattedMinDate }}
-        </p>
-        <p>
-            <strong>Fecha máxima:</strong>
-            {{ formattedMaxDate }}
-        </p>
-        <p><strong>Deshabilitado:</strong> {{ disabledStatus }}</p>
-    </div>
+    <section class="demo-section">
+        <hr class="demo-separator">
+        <h2>Ejemplo con fecha mínima y máxima</h2>
+        <dcx-ng-date-picker [selectedDate]="selectedDate()" [minDate]="minDate()" [maxDate]="maxDate()"
+            [placeholder]="'Rango de fechas'" (selectedDateChange)="handleDateChange($event)">
+        </dcx-ng-date-picker>
+        <div class="demo-state">
+            <strong>Fecha mínima:</strong> {{ formattedMinDate }}<br>
+            <strong>Fecha máxima:</strong> {{ formattedMaxDate }}
+        </div>
+    </section>
 </div>

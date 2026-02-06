@@ -16,22 +16,47 @@ export class DcxNgPageRadioComponent implements OnInit {
   resumen = false;
 
   get tamanioControl(): FormControl {
-    return this.formulario.get('size') as FormControl;
+    return this.formulario.get('tamanioControl') as FormControl;
   }
 
   get colorControl(): FormControl {
-    return this.formulario.get('color') as FormControl;
+    return this.formulario.get('colorControl') as FormControl;
   }
 
   get bebidaControl(): FormControl {
-    return this.formulario.get('drink') as FormControl;
+    return this.formulario.get('bebidaControl') as FormControl;
+  }
+
+  get errorControl(): FormControl {
+    return this.formulario.get('errorControl') as FormControl;
+  }
+
+  get hoverControl(): FormControl {
+    return this.formulario.get('hoverControl') as FormControl;
+  }
+
+  get focusControl(): FormControl {
+    return this.formulario.get('focusControl') as FormControl;
+  }
+
+  get disabledControl(): FormControl {
+    return this.formulario.get('disabledControl') as FormControl;
+  }
+
+  get unstyledControl(): FormControl {
+    return this.formulario.get('unstyledControl') as FormControl;
   }
 
   ngOnInit(): void {
     this.formulario = this.fb.group({
-      size: [''],
-      color: [''],
-      drink: ['']
+      tamanioControl: [''],
+      colorControl: [''],
+      bebidaControl: [''],
+      errorControl: [''],
+      hoverControl: [''],
+      focusControl: [''],
+      disabledControl: [{ value: '', disabled: true }],
+      unstyledControl: ['']
     });
   }
 

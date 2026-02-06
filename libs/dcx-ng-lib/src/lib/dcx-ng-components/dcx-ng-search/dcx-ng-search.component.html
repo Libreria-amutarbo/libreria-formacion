@@ -14,8 +14,8 @@
       <dcx-ng-button
         class="dcx-search__clear-button"
         ariaLabel="Limpiar"
-        variant="icon"
-        iconStart="x-lg"
+        [icon]="true"
+        iconName="x-lg"
         (buttonClick)="onClearClick()"
       />
     }
@@ -23,8 +23,8 @@
     <dcx-ng-button
       class="dcx-search__search-button"
       ariaLabel="Buscar"
-      variant="icon"
-      iconStart="search"
+      [icon]="true"
+      iconName="search"
       (buttonClick)="onSearchClick()"
     />
 
@@ -32,8 +32,8 @@
       <dcx-ng-button
         class="dcx-search__dropdown-button"
         ariaLabel="Abrir opciones"
-        variant="icon"
-        iconStart="chevron-down"
+        [icon]="true"
+        iconName="chevron-down"
         (buttonClick)="onDropdownClick()"
       />
     }
@@ -42,7 +42,7 @@
       <div class="dcx-search__dropdown">
         <ul class="dcx-search__dropdown-list">
           @for (item of filteredItems(); track item.id) {
-            <li 
+            <li
               class="dcx-search__dropdown-item"
               (click)="onItemClick(item)"
               tabindex="0"
@@ -54,7 +54,9 @@
       </div>
     }
 
-    @if (dropdown() && isDropdownOpen() && filteredItems().length === 0 && searchValue()) {
+    @if (
+      dropdown() && isDropdownOpen() && filteredItems().length === 0 && searchValue()
+    ) {
       <div class="dcx-search__dropdown">
         <p class="dcx-search__dropdown-empty">No se encontraron resultados</p>
       </div>

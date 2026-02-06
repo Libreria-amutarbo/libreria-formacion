@@ -1,128 +1,198 @@
-@import '../../../scss/main.scss';
+@use 'sass:map';
+@import '../../../scss/base/color';
+@import '../../../scss/base/spacing';
+@import '../../../scss/base/radius';
+@import '../../../scss/base/shadows';
+@import '../../../scss/base/typography';
+
+:host {
+  display: block;
+  font-family: var(--font-family-primary);
+  --color-primary-500: #1976d2;
+}
 
 .dcx-datepicker {
   position: relative;
   width: 100%;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
+  color: var(--text-title);
+  background: var(--background-default);
+  border: 1.5px solid var(--color-primary-500);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+  padding: var(--spacing-xs);
+
+  &__months-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-s);
+  }
+  &__years-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-s);
+  }
 
   &__input-wrapper {
     display: flex;
     align-items: center;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: border-color 0.2s;
+    border-radius: var(--radius-md);
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
     &:hover:not(&--disabled) {
-      border-color: var(--color-primary);
-    }
-    &--open {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+      box-shadow: none;
     }
     &--disabled {
-      background: #f5f5f5;
+      background: map.get($background, disabled);
+      opacity: 0.5;
       cursor: not-allowed;
-      opacity: 0.6;
     }
   }
-
   &__input {
     flex: 1;
     border: none;
-    padding: 0.5rem 0.75rem;
     background: transparent;
-    cursor: pointer;
-    outline: none;
+    color: var(--text-title);
+    padding: var(--spacing-xs) var(--spacing-m);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-normal);
     &:disabled {
       cursor: not-allowed;
+      opacity: 0.5;
     }
   }
-
   &__clear {
     background: none;
     border: none;
-    padding: 0.25rem 0.5rem;
+    color: var(--text-link);
     cursor: pointer;
-    color: #999;
+    padding: var(--spacing-xs) var(--spacing-s);
     &:hover {
-      color: #e53e3e;
+      text-decoration: underline;
+      color: var(--text-error);
     }
   }
-
   &__calendar {
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: 100%;
     left: 0;
-    background: white;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    z-index: 1000;
-    min-width: 280px;
+    min-width: 260px;
+    background: var(--background-default);
+    border: 1.5px solid var(--color-primary-500);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    box-shadow: var(--shadow-3);
+    padding: var(--spacing-m);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
   }
-
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-s);
+    color: var(--text-title);
+    font-size: var(--font-size-body-large);
+    font-weight: var(--weight-semibold);
   }
-
   &__nav-button {
     background: none;
     border: none;
-    padding: 0.25rem 0.5rem;
+    color: var(--text-link);
     cursor: pointer;
-    border-radius: 4px;
-    &:hover {
-      background: var(--color-background-alt);
-    }
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-xs) var(--spacing-s);
+    font-size: var(--font-size-body);
   }
-
-  &__weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.25rem;
-    margin-bottom: 0.5rem;
-  }
-  &__weekday {
-    text-align: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #666;
-  }
+  &__weekdays,
   &__days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 0.25rem;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-s);
   }
 
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing-xs);
+  }
+
+  &__today-btn {
+    font-size: var(--font-size-body);
+    color: var(--color-primary-500);
+    background: var(--background-default);
+    padding: var(--spacing-xs) var(--spacing-s);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  &__weekday {
+    text-align: center;
+    color: var(--text-body);
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-normal);
+    font-weight: var(--weight-semibold);
+  }
   &__day {
     aspect-ratio: 1;
     border: none;
     background: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
+    font-family: var(--font-primary);
+    color: var(--text-title);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
     transition: background 0.2s;
-    &:hover:not(&--disabled) {
-      background: var(--color-background-alt);
-    }
     &--other-month {
-      color: #ccc;
+      color: var(--text-disabled);
     }
     &--today {
-      font-weight: 700;
-      color: var(--color-primary);
+      font-weight: var(--weight-bold);
+      color: var(--background-primary);
     }
     &--selected {
-      background: var(--color-primary);
-      color: white;
-      font-weight: 600;
+      background: var(--color-primary-500);
+      color: var(--background-default);
+      font-weight: var(--weight-semibold);
+    }
+    &--in-range {
+      background: rgba(25, 118, 210, 0.1);
+      color: var(--text--label-base);
     }
     &--disabled {
-      color: #ddd;
+      color: var(--text-disabled-dark);
       cursor: not-allowed;
-      text-decoration: line-through;
+      opacity: 0.5;
     }
   }
+}
+.dcx-datepicker__month-name--clickable {
+  cursor: pointer;
+}
+.dcx-datepicker__month-name--ml {
+  margin-left: 8px;
+}
+.dcx-datepicker__selected-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 8px 0 0 0;
+}
+.dcx-datepicker__chip {
+  color: var(--background-default);
+  color: var(--background-primary);
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
 }

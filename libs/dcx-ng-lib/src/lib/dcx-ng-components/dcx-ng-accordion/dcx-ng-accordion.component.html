@@ -1,45 +1,54 @@
-@if (hasItems()) {
-  <div class="accordion">
-    @for (item of items(); track item.id) {
-      <div class="accordion-item" [class.disabled]="item.disabled">
-        <button
+<div class="accordion" [class]="getTransitionClass()">
+  @for (item of items(); track item.id; let i = $index) {
+    <div 
+      class="accordion-item" 
+      [class.disabled]="item.disabled"
+      [class.expanded]="isExpanded(item.id)"
+    >
+        <div 
           class="accordion-header"
           [class.expanded]="isExpanded(item.id)"
-          (click)="toggleItem(item)"
-          [disabled]="item.disabled"
+          [class.disabled]="item.disabled"
+          [attr.id]="'accordion-header-' + item.id"
           [attr.aria-expanded]="isExpanded(item.id)"
-          [attr.aria-controls]="'accordion-' + item.id"
+          [attr.aria-controls]="'accordion-content-' + item.id"
+          [attr.role]="'button'"
+          [attr.tabindex]="item.disabled ? -1 : 0"
+          (click)="!item.disabled && onButtonClick(item)"
+          (keydown.enter)="!item.disabled && onButtonClick(item)"
+          (keydown.space)="!item.disabled && onHeaderKeydown($any($event), item)"
         >
+          @if (item.icon) {
+            <dcx-ng-icon 
+              class="accordion-icon" 
+              [name]="item.icon"
+              [size]="'m'">
+            </dcx-ng-icon>
+          }
           <span class="accordion-title">{{ item.title }}</span>
-          <span class="accordion-icon" [class.expanded]="isExpanded(item.id)">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7 8L10 11L13 8"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-        </button>
+          <dcx-ng-icon
+            class="accordion-chevron"
+            name="chevron-down"
+            [size]="'s'">
+          </dcx-ng-icon>
+        </div>
 
         <div
           class="accordion-content-wrapper"
           [class.expanded]="isExpanded(item.id)"
-          [attr.id]="'accordion-' + item.id"
+          [class.disabled-content]="item.disabledContent"
+          [attr.id]="'accordion-content-' + item.id"
+          [attr.aria-labelledby]="'accordion-header-' + item.id"
+          role="region"
         >
           <div class="accordion-content">
-            {{ item.content }}
+            @if (item.contentTemplate) {
+              <ng-container *ngTemplateOutlet="item.contentTemplate"></ng-container>
+            } @else {
+              <div [innerHTML]="item.content"></div>
+            }
           </div>
         </div>
       </div>
     }
   </div>
-}
