@@ -1,6 +1,66 @@
-<h2>Select Examples</h2>
+<section>
+  <h2 class="example-title">Ejemplo 1 - Select por defecto</h2>
+  <dcx-ng-select [options]="optionList" searchable></dcx-ng-select>
+</section>
 
-<form [formGroup]="form">
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Select con buscador y clearable</h2>
+  <dcx-ng-select [options]="optionList" searchable clearable></dcx-ng-select>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Select deshabilitado</h2>
+  <dcx-ng-select
+    [options]="optionList"
+    searchable
+    clearable
+    disabled
+  ></dcx-ng-select>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Select requerido</h2>
+  <dcx-ng-select
+    [options]="optionList"
+    searchable
+    clearable
+    required
+  ></dcx-ng-select>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Select inválido</h2>
+  <dcx-ng-select
+    [options]="optionList"
+    searchable
+    clearable
+    isInvalid
+    errorMessage="Error"
+  ></dcx-ng-select>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 6 - Select con diferentes tamaños</h2>
+  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+    <dcx-ng-select spacing="xs" placeholder="XS"></dcx-ng-select>
+    <dcx-ng-select spacing="s" placeholder="S"></dcx-ng-select>
+    <dcx-ng-select spacing="m" placeholder="M"></dcx-ng-select>
+    <dcx-ng-select spacing="l" placeholder="L"></dcx-ng-select>
+    <dcx-ng-select spacing="xl" placeholder="XL"></dcx-ng-select>
+  </article>
+</section>
+
+<!-- <form [formGroup]="form">
   <div class="examples-container">
     <section class="example-section">
       <dcx-ng-select
@@ -62,4 +122,4 @@
       </p>
     </section>
   </div>
-</form>
+</form> -->

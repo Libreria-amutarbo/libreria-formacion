@@ -34,7 +34,10 @@ export class DcxNgButtonComponent {
   class = input<string>('');
 
   // Iconos
-  icon = input<boolean>(false);
+  icon = input(false, {
+    transform: (value: boolean | string) =>
+      typeof value === 'string' ? value === '' : value,
+  });
   iconName = input<string>('');
   iconSize = input<DcxSize>('s');
   iconSpacing = input<DcxIconSpacing>('none');

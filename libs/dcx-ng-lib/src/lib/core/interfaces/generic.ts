@@ -10,3 +10,5 @@ export enum DcxPosition {
 export type DcxLayout = 'vertical' | 'horizontal';
 
 export type DcxAlign = 'start' | 'center' | 'end';
+
+export type DcxSpacing = 'xs' | 's' | 'm' | 'l' | 'xl';

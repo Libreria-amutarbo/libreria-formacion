@@ -4,6 +4,7 @@ import {
   DcxSize,
   DcxPosition,
   DcxIconSpacing,
+  DcxSpacing,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 export const LAYOUT_LIST: DcxLayout[] = ['vertical', 'horizontal'];
@@ -26,4 +27,9 @@ export const ALIGN_DEFAULT: DcxAlign = 'center';
 
 export const SIZE_DEFAULT: DcxSize = 's';
 
+export const SPACING_DEFAULT: DcxSpacing = 'xs';
+export const SPACING_LIST: DcxSpacing[] = ['xs', 's', 'm', 'l', 'xl'];
+
 export const ICON_SPACING_DEFAULT: DcxIconSpacing = 'none';
+
+export const DISABLED = false;
