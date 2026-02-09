@@ -7,15 +7,50 @@
   flex-direction: column;
   width: 100%;
 
-  &.dcx-disabled {
-    opacity: 0.5;
-    pointer-events: none;
+  &__controls {
+    @include flex-end;
+    dcx-ng-button {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &__header-container {
+    display: flex;
+    align-items: center;
+    gap: 0;
   }
 
   &__header {
     display: flex;
     border-bottom: 1px solid var(--border-terciary);
     gap: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex: 1;
+    scroll-behavior: smooth;
+
+    /* Ocultar scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__scroll-button {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--left {
+      order: -1;
+    }
+
+    &--right {
+      order: 1;
+    }
   }
 
   &__content {
@@ -35,6 +70,8 @@
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    flex-shrink: 0;
+    white-space: nowrap;
 
     &:hover:not(:disabled) {
       color: var(--text-body);

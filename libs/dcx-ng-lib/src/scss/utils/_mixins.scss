@@ -95,6 +95,12 @@
   justify-content: space-between;
 }
 
+@mixin flex-end {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
 @mixin flex-column {
   display: flex;
   flex-direction: column;

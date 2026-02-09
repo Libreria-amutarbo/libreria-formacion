@@ -1,22 +1,38 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
+  DcxNgButtonComponent,
+  DcxNgCardComponent,
+  DcxNgSelectComponent,
   DcxNgTabsComponent,
-  DcxTabItemMock,
+  DcxTabItemDefault,
+  DcxTabItemWithComponents,
+  DcxTabItemWithDisabled,
+  DcxTabItemWithIcons,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-page-tabs',
   standalone: true,
-  imports: [DcxNgTabsComponent],
+  imports: [
+    DcxNgTabsComponent,
+    DcxNgButtonComponent,
+    DcxNgSelectComponent,
+    DcxNgCardComponent,
+  ],
   templateUrl: './dcx-ng-page-tabs.component.html',
   styleUrls: ['./dcx-ng-page-tabs.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageTabsComponent {
-  tabs = DcxTabItemMock;
+  tabsDefault = DcxTabItemDefault;
+  tabsWithDisabled = DcxTabItemWithDisabled;
+  tabsWithIcons = DcxTabItemWithIcons;
   selectedTabId = signal<string>('tab1');
 
+  tabItemWithComponents = DcxTabItemWithComponents;
+  selectedTabIdContent = signal<string>('button');
+
   onTabChange(tabId: string): void {
-    this.selectedTabId.set(tabId);
+    this.selectedTabIdContent.set(tabId);
   }
 }
