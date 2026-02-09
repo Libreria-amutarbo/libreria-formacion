@@ -4,5 +4,3 @@ export interface DcxListItem {
     disabled?: boolean;
     children?: DcxListItem[];
 }
-
-export type DcxListItemType = string | number | DcxListItem;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxListItemType, DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_ICONS_ALT, LIST_ITEMS_WITH_SUBLISTS, MIXED_LIST_ITEMS, SELECTABLE_LIST_ITEMS, SIMPLE_LIST_ITEMS } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxListItem, DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_ICONS_ALT, LIST_ITEMS_WITH_SUBLISTS, SELECTABLE_LIST_ITEMS, SIMPLE_LIST_ITEMS, MULTI_SELECT_LIST_ITEMS } from '@dcx-ng-components/dcx-ng-lib';
 
 
 @Component({
@@ -11,14 +11,24 @@ import { DcxListItemType, DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_
   styleUrl: './dcx-ng-page-list.component.scss',
 })
 export class DcxNgPageListComponent {
-  elementos = MIXED_LIST_ITEMS;
   elementosConIcono = LIST_ITEMS_WITH_ICONS_ALT;
   simpleItems = SIMPLE_LIST_ITEMS;
   itemsWithIcons = LIST_ITEMS_WITH_ICONS;
   itemsWithSublists = LIST_ITEMS_WITH_SUBLISTS;
   selectableItems = SELECTABLE_LIST_ITEMS;
+  multiSelectItems = MULTI_SELECT_LIST_ITEMS;
 
-  onItemSelected($event: { item: DcxListItemType; index: number; }) {
-    console.log('Item seleccionado:', $event);
+  selectedItem: { item: DcxListItem } | null = null;
+  selectedMultiItems: { item: DcxListItem; index: number }[] = [];
+
+  onItemSelected($event: { item: DcxListItem }) {
+    this.selectedItem = $event;
+  }
+
+  onMultiItemSelected($event: { item: DcxListItem; index: number }) {
+    const exists = this.selectedMultiItems.find(item => item.index === $event.index);
+    if (!exists) {
+      this.selectedMultiItems = [...this.selectedMultiItems, $event];
+    }
   }
 }

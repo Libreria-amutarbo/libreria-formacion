@@ -1,17 +1,53 @@
-<h3>Lista simple</h3>
-<dcx-ng-list [items]="simpleItems"></dcx-ng-list>
+<section>
+    <h2 class="example-title">Ejemplo 1 - Lista simple</h2>
+    <dcx-ng-list [items]="simpleItems"></dcx-ng-list>
+</section>
 
-<h3>Lista mixta (strings y números)</h3>
-<dcx-ng-list [items]="elementos"></dcx-ng-list>
+<hr />
 
-<h3>Lista con iconos</h3>
-<dcx-ng-list [items]="itemsWithIcons"></dcx-ng-list>
+<section>
+    <h2 class="example-title">Ejemplo 2 - Lista con iconos</h2>
+    <dcx-ng-list [items]="itemsWithIcons"></dcx-ng-list>
+</section>
 
-<h3>Lista con iconos alternativa</h3>
-<dcx-ng-list [items]="elementosConIcono"></dcx-ng-list>
+<hr />
 
-<h3>Lista con sublistas</h3>
-<dcx-ng-list [items]="itemsWithSublists"></dcx-ng-list>
+<section>
+    <h2 class="example-title">Ejemplo 3 - Lista con iconos alternativa</h2>
+    <dcx-ng-list [items]="elementosConIcono"></dcx-ng-list>
+</section>
 
-<h3>Lista seleccionable</h3>
-<dcx-ng-list [items]="selectableItems" [selectable]="true" (itemSelected)="onItemSelected($event)"></dcx-ng-list>
+<hr />
+
+<section>
+    <h2 class="example-title">Ejemplo 4 - Lista con sublistas</h2>
+    <dcx-ng-list [items]="itemsWithSublists"></dcx-ng-list>
+</section>
+
+<hr />
+
+<section>
+    <h2 class="example-title">Ejemplo 5 - Lista seleccionable</h2>
+    <dcx-ng-list [items]="selectableItems" [selectable]="true" (itemSelected)="onItemSelected($event)"></dcx-ng-list>
+    @if (selectedItem) {
+    <div>
+        <strong>Seleccionado:</strong> {{ selectedItem.item.text }}
+    </div>
+    }
+</section>
+
+<hr />
+
+<section>
+    <h2 class="example-title">Ejemplo 6 - Lista con multiselección</h2>
+    <dcx-ng-list [items]="multiSelectItems" [selectable]="true" [multiSelect]="true"
+        (itemSelected)="onMultiItemSelected($event)"></dcx-ng-list>
+    @if (selectedMultiItems.length > 0) {
+    <div>
+        <strong>Seleccionados ({{ selectedMultiItems.length }}):</strong>
+        @for (selected of selectedMultiItems; track selected.index) {
+        <span>{{ selected.item.text }}</span>{{ $last ? '' : ', ' }}
+        }
+    </div>
+    }
+</section>

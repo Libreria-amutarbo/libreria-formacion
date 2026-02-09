@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_SUBLISTS, SELECTABLE_LIST_ITEMS, SIMPLE_LIST_ITEMS } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_SUBLISTS, SELECTABLE_LIST_ITEMS, SIMPLE_LIST_ITEMS, MULTI_SELECT_LIST_ITEMS } from '@dcx-ng-components/dcx-ng-lib';
 
 
 const meta: Meta<DcxNgListComponent> = {
@@ -9,6 +9,7 @@ const meta: Meta<DcxNgListComponent> = {
   argTypes: {
     items: { control: { type: 'object' } },
     selectable: { control: 'boolean' },
+    multiSelect: { control: 'boolean' },
   },
   args: {
     items: SIMPLE_LIST_ITEMS,
@@ -83,6 +84,41 @@ export const Selectable: Story = {
         @if (selectedItem) {
           <div>
             <strong>Seleccionado:</strong> {{ selectedItem.item.text || selectedItem.item }} (index: {{ selectedItem.index }})
+          </div>
+        }
+      </div>
+    `,
+  }),
+};
+
+export const MultiSelectable: Story = {
+  render: () => ({
+    props: {
+      items: MULTI_SELECT_LIST_ITEMS,
+      selectedItems: [] as any[],
+      onItemSelected(event: any) {
+        const exists = this['selectedItems'].find((item: any) => item.index === event.index);
+        if (!exists) {
+          this['selectedItems'] = [...this['selectedItems'], event];
+        }
+        console.log('Item selected:', event);
+      }
+    },
+    template: `
+      <div>
+        <h3>Lista con multiselección</h3>
+        <dcx-ng-list 
+          [items]="items" 
+          [selectable]="true"
+          [multiSelect]="true"
+          (itemSelected)="onItemSelected($event)">
+        </dcx-ng-list>
+        @if (selectedItems.length > 0) {
+          <div>
+            <strong>Seleccionados ({{ selectedItems.length }}):</strong>
+            @for (selected of selectedItems; track selected.index) {
+              <span>{{ selected.item.text }}</span>{{ $last ? '' : ', ' }}
+            }
           </div>
         }
       </div>

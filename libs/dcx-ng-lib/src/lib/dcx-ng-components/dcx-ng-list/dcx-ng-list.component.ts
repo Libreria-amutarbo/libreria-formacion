@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
-import { DcxListItem, DcxListItemType } from '@dcx-ng-components/dcx-ng-lib';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import { DcxListItem, DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-list',
@@ -12,25 +11,36 @@ import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgListComponent {
-  items = input.required<DcxListItemType[]>();
+  items = input.required<DcxListItem[]>();
   selectable = input<boolean>(false);
+  multiSelect = input<boolean>(false);
 
-  itemSelected = output<{ item: DcxListItemType; index: number }>();
+  itemSelected = output<{ item: DcxListItem; index: number }>();
 
-  selectedIndex = signal<number | null>(null);
+  selectedIndices = signal<number[]>([]);
 
-  isObject(item: DcxListItemType): item is DcxListItem {
-    return typeof item === 'object';
-  }
+  onItemClick(item: DcxListItem, index: number): void {
+    if (!this.selectable()) return;
 
-  onItemClick(item: DcxListItemType, index: number): void {
-    if (this.selectable()) {
-      this.selectedIndex.set(index);
-      this.itemSelected.emit({ item, index });
+    if (this.multiSelect()) {
+      const currentIndices = this.selectedIndices();
+      const indexPosition = currentIndices.indexOf(index);
+
+      if (indexPosition > -1) {
+        this.selectedIndices.set(currentIndices.filter(i => i !== index));
+      } else {
+        this.selectedIndices.set([...currentIndices, index]);
+        this.itemSelected.emit({ item, index });
+      }
+    } else {
+      if (!this.isSelected(index)) {
+        this.selectedIndices.set([index]);
+        this.itemSelected.emit({ item, index });
+      }
     }
   }
 
   isSelected(index: number): boolean {
-    return this.selectedIndex() === index;
+    return this.selectedIndices().includes(index);
   }
 }
