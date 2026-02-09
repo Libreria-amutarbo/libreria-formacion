@@ -105,7 +105,11 @@ export class DcxNgTabsComponent {
     const container = this.tabsHeader.nativeElement;
     const btn = container.querySelector(`[data-tab="${tabId}"]`) as HTMLElement;
     if (btn) {
-      btn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      btn.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
     }
   }
 
