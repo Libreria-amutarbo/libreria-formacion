@@ -7,12 +7,10 @@ import {
   output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BorderStyleCard, ShadowPresetCard } from '../../core/interfaces/card';
 import {
   BORDER_STYLE_DEFAULT,
   BORDER_WIDTH,
   BORDERED,
-  DISABLED,
   IMAGE,
   IMAGE_ALT,
   INTERACTIVE,
@@ -21,9 +19,16 @@ import {
   SHADOW_DEFAULT,
   SUBTITLE,
   TITLE_DEFAULT,
-} from '../../core/mock/card';
-import { DcxAlign, DcxLayout, DcxSize } from '../../core/interfaces';
-import { LAYOUT_DEFAULT, ALIGN_DEFAULT, SIZE_DEFAULT } from '../../core/mock';
+  DcxAlign,
+  DcxLayout,
+  DcxSize,
+  LAYOUT_DEFAULT,
+  ALIGN_DEFAULT,
+  SIZE_DEFAULT,
+  BorderStyleCard,
+  ShadowPresetCard,
+  DISABLED,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-card',

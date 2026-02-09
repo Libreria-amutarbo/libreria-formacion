@@ -9,13 +9,11 @@ import {
   LAYOUT_LIST,
   SIZE_DEFAULT,
   SIZE_LIST,
-} from '@dcx-ng-components/dcx-ng-lib';
-import {
   BORDER_STYLE_DEFAULT,
   BORDER_STYLE_LIST,
   DEFAULTARGS,
   SHADOW_LIST,
-} from '../../core/mock/card';
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgCardComponent> = {
   title: 'DCXLibrary/Card/Class based',

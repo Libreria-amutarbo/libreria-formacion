@@ -1,5 +1,10 @@
 import { BorderStyleCard, ShadowPresetCard } from '../interfaces/card';
-import { ALIGN_DEFAULT, LAYOUT_DEFAULT, SIZE_DEFAULT } from './generic';
+import {
+  ALIGN_DEFAULT,
+  DISABLED,
+  LAYOUT_DEFAULT,
+  SIZE_DEFAULT,
+} from './generic';
 
 export const TITLE_DEFAULT = 'Título de la carta';
 
@@ -27,8 +32,6 @@ export const BORDER_STYLE_LIST: BorderStyleCard[] = [
 ];
 
 export const INTERACTIVE = true;
-
-export const DISABLED = false;
 
 export const SHADOW_DEFAULT: ShadowPresetCard = 1;
 export const SHADOW_LIST: ShadowPresetCard[] = [0, 1, 2, 3];

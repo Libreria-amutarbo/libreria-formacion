@@ -12,13 +12,14 @@ import { DcxNgSelectComponent } from '@dcx-ng-components/dcx-ng-lib';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  valueDefault = APP_ROUTES.SELECT;
   paths = Object.values(APP_ROUTES);
   title = 'dcx-ng-components';
 
   private readonly _router = inject(Router);
 
   ngOnInit() {
-    this._router.navigateByUrl(APP_ROUTES.ACCORDION);
+    this._router.navigateByUrl(this.valueDefault);
   }
 
   getSelectOptions(): DcxSelectOptions[] {
@@ -31,6 +32,7 @@ export class AppComponent {
   }
 
   routeTo(event: string | number | null) {
+    console.log(event, 'f');
     if (event) {
       this._router.navigateByUrl(event.toString());
     }
