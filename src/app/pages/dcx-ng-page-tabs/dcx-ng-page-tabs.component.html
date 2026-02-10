@@ -3,7 +3,6 @@
   <dcx-ng-tabs
     [tabs]="tabsDefault"
     [activeTabId]="selectedTabId()"
-    hasControls
   ></dcx-ng-tabs>
 </section>
 
@@ -31,7 +30,7 @@
 <section>
   <h2 class="example-title">Ejemplo 4 - Tabs con scroll</h2>
   <dcx-ng-tabs
-    [tabs]="tabsWithIcons"
+    [tabs]="tabItemWithScroll"
     [activeTabId]="selectedTabId()"
   ></dcx-ng-tabs>
 </section>
@@ -39,7 +38,18 @@
 <hr />
 
 <section>
-  <h2 class="example-title">Ejemplo 5 - Tabs con content de componentes</h2>
+  <h2 class="example-title">Ejemplo 5 - Con controles</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsDefault"
+    [activeTabId]="selectedTabId()"
+    hasControls
+  ></dcx-ng-tabs>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 6 - Tabs con content de componentes</h2>
   <dcx-ng-tabs
     [tabs]="tabItemWithComponents"
     [activeTabId]="selectedTabIdContent()"
@@ -48,7 +58,7 @@
   <section>
     @switch (selectedTabIdContent()) {
       @case ('button') {
-        <dcx-ng-button></dcx-ng-button>
+        <dcx-ng-button [label]="'Button'"></dcx-ng-button>
       }
       @case ('select') {
         <dcx-ng-select></dcx-ng-select>

@@ -3,7 +3,7 @@
     <div class="dcx-tabs__controls">
       @for (tab of tabs(); track tab.id; let i = $index) {
         <dcx-ng-button
-          label="{{i.toString()}}"
+          label="{{(i+1).toString()}}"
           (buttonClick)="selectTab(tab.id)"
         >
         </dcx-ng-button>
@@ -14,9 +14,10 @@
     @if (hasOverflow() && canScrollLeft()) {
       <dcx-ng-button
         class="dcx-tabs__scroll-button dcx-tabs__scroll-button--left"
-        label="<"
         variant="text"
         size="m"
+        icon
+        iconName="'chevron-left'"
         (buttonClick)="scrollLeft()"
         [attr.aria-label]="'Scroll left'"
       ></dcx-ng-button>
@@ -49,9 +50,10 @@
     @if (hasOverflow() && canScrollRight()) {
       <dcx-ng-button
         class="dcx-tabs__scroll-button dcx-tabs__scroll-button--right"
-        label=">"
         variant="text"
         size="m"
+        icon
+        iconName="'chevron-left'"
         (buttonClick)="scrollRight()"
         [attr.aria-label]="'Scroll right'"
       ></dcx-ng-button>

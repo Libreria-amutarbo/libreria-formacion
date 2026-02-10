@@ -5,6 +5,7 @@ import {
   DcxNgSelectComponent,
   DcxNgTabsComponent,
   DcxTabItemDefault,
+  DcxTabItemScroll,
   DcxTabItemWithComponents,
   DcxTabItemWithDisabled,
   DcxTabItemWithIcons,
@@ -28,6 +29,8 @@ export class DcxNgPageTabsComponent {
   tabsWithDisabled = DcxTabItemWithDisabled;
   tabsWithIcons = DcxTabItemWithIcons;
   selectedTabId = signal<string>('tab1');
+
+  tabItemWithScroll = DcxTabItemScroll;
 
   tabItemWithComponents = DcxTabItemWithComponents;
   selectedTabIdContent = signal<string>('button');
