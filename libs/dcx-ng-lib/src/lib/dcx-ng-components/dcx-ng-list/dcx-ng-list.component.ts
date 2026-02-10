@@ -20,13 +20,10 @@ export class DcxNgListComponent {
   selectedIndices = signal<number[]>([]);
 
   onItemClick(item: DcxListItem, index: number): void {
-    if (!this.selectable()) return;
-
     if (this.multiSelect()) {
       const currentIndices = this.selectedIndices();
-      const indexPosition = currentIndices.indexOf(index);
 
-      if (indexPosition > -1) {
+      if (this.isSelected(index)) {
         this.selectedIndices.set(currentIndices.filter(i => i !== index));
       } else {
         this.selectedIndices.set([...currentIndices, index]);
@@ -41,6 +38,7 @@ export class DcxNgListComponent {
   }
 
   isSelected(index: number): boolean {
+    if (!this.selectable()) return false;
     return this.selectedIndices().includes(index);
   }
 }

@@ -1,4 +1,5 @@
-import { DcxListItem } from '../interfaces/list';
+import { DcxListItem } from "@dcx-ng-components/dcx-ng-lib";
+
 
 export const SIMPLE_LIST_ITEMS: DcxListItem[] = [
   { text: 'Uno' },
