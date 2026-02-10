@@ -18,6 +18,8 @@ export class DcxNgPageCheckboxComponent {
   checked1 = false;
   checked2 = false;
 
+  readonly DcxPosition = DcxPosition;
+
   sportsOptions = signal([
     { value: 'futbol', label: 'Fútbol' },
     { value: 'baloncesto', label: 'Baloncesto', disabled: false },
@@ -32,7 +34,6 @@ export class DcxNgPageCheckboxComponent {
 
   sportsControl = new FormControl(['futbol']);
   genreControl = new FormControl('action');
-  dcxPositions = DcxPosition;
 
   toggleDisableBasketball(): void {
     const currentOptions = this.sportsOptions();

@@ -1,4 +1,4 @@
-import { Signal } from "@angular/core";
+import { Signal } from '@angular/core';
 
 export enum ThemeColors {
   PRIMARY = 'primary',
@@ -7,23 +7,30 @@ export enum ThemeColors {
   WARNING = 'warning',
   ERROR = 'error',
   INFO = 'info',
-  GRAY = 'gray',
-  GRAY_LIGHT = 'gray-light'
+  GRAY = 'grey',
 }
 
-export type ChipType = 'label-only' | 'with-icon' | 'with-image';
 export enum ChipTypeValues {
   LABEL_ONLY = 'label-only',
   WITH_ICON = 'with-icon',
-  WITH_IMAGE = 'with-image'
-};
+  WITH_IMAGE = 'with-image',
+}
+
+export type ChipType = `${ChipTypeValues}`;
 
 export type ThemeColorsType = `${ThemeColors}`;
+
+export enum ChipVariant {
+  FILTER = 'filter',
+  CHOICE = 'choice',
+}
+
+export type ChipVariantType = `${ChipVariant}`;
 
 export interface DcxNgChipComponentInputs {
   label: Signal<string>;
   color: Signal<ThemeColorsType>;
-  removable: Signal<boolean>;
   icon: Signal<string>;
   image: Signal<string>;
+  variant: Signal<ChipVariantType>;
 }
