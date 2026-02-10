@@ -61,6 +61,14 @@ export default meta;
 type Story = StoryObj<DcxNgSpinnerComponent>;
 
 export const Default: Story = {
+  args: {
+    size: 'm',
+    title: 'Loading...',
+    description: 'Please wait',
+    wrapper: false,
+    delay: 0,
+    color: null,
+  },
   render: args => ({
     props: args,
     template: `
@@ -80,29 +88,55 @@ export const Default: Story = {
 };
 
 export const SpinnerDelayShowcase: Story = {
+  args: {
+    size: 'm',
+    title: 'Loading with delay...',
+    description: 'This spinner appears after 1 second',
+    wrapper: false,
+    delay: 1000,
+    color: null,
+  },
   render: args => ({
     props: args,
     template: `
-      <dcx-ng-spinner [size]="size" [color]="color" [delay]="1000" title="Loading with delay..."></dcx-ng-spinner>
+      <dcx-ng-spinner 
+        [size]="size" 
+        [color]="color" 
+        [delay]="delay" 
+        [title]="title"
+        [description]="description">
+      </dcx-ng-spinner>
     `,
   }),
 };
 
 export const SpinnerWrapperShowcase: Story = {
+  args: {
+    size: 'm',
+    title: 'Loading content...',
+    description: 'Please wait while we load',
+    wrapper: true,
+    delay: 0,
+    color: null,
+  },
   render: args => ({
     props: args,
     template: `
-      <dcx-ng-spinner [size]="size" [color]="color" [wrapper]="true" title="Loading content..."  [title]="title"
-      [description]="description">
-      <div class="content-box">
-        <h4>Wrapper Content</h4>
-        <p>
-          This is an example of content displayed below the spinner when in
-          wrapper mode.
-        </p>
-        <p>The spinner will be shown as an overlay on this content.</p>
-      </div>
-    </dcx-ng-spinner>
+      <dcx-ng-spinner 
+        [size]="size" 
+        [color]="color" 
+        [wrapper]="wrapper" 
+        [title]="title"
+        [description]="description">
+        <div class="content-box">
+          <h4>Wrapper Content</h4>
+          <p>
+            This is an example of content displayed below the spinner when in
+            wrapper mode.
+          </p>
+          <p>The spinner will be shown as an overlay on this content.</p>
+        </div>
+      </dcx-ng-spinner>
     `,
   }),
 };
