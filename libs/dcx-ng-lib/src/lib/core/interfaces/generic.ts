@@ -7,6 +7,8 @@ export enum DcxPosition {
   RIGHT = 'right',
 }
 
+export type DcxPositionType = `${DcxPosition}`;
+
 export type DcxLayout = 'vertical' | 'horizontal';
 
 export type DcxAlign = 'start' | 'center' | 'end';

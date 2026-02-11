@@ -7,7 +7,11 @@ import {
   HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxPosition, DcxSize } from '../../core/interfaces';
+import {
+  DcxPosition,
+  DcxPositionType,
+  DcxSize,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-toggle',
@@ -21,9 +25,8 @@ export class DcxNgToggleComponent {
   @Input() disabled = false;
   @Input() label: string | null = null;
   @Input() size: DcxSize = 'm';
-  @Input() color = '#000';
   @Input() ariaLabel = '';
-  @Input() textPosition: DcxPosition = DcxPosition.RIGHT;
+  @Input() textPosition: DcxPositionType = DcxPosition.RIGHT;
 
   @Output() toggled = new EventEmitter<boolean>();
 
@@ -35,7 +38,7 @@ export class DcxNgToggleComponent {
     return [
       'dcx-ng-toggle',
       this.size ? `dcx-ng-toggle--${this.size}` : '',
-      `dcx-ng-toggle--${this.textPosition}`
+      `dcx-ng-toggle--${this.textPosition}`,
     ].join(' ');
   }
 

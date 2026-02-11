@@ -7,10 +7,7 @@
   [attr.tabindex]="disabled ? -1 : 0"
   (click)="toggle()"
 >
-  <div
-    class="dcx-ng-toggle__track"
-    [ngStyle]="{ backgroundColor: checked ? color : '#ccc' }"
-  >
+  <div class="dcx-ng-toggle__track">
     <div class="dcx-ng-toggle__thumb" [class.checked]="checked"></div>
   </div>
 

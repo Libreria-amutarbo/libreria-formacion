@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgToggleComponent } from '../../dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
+import { DcxNgToggleComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgToggleComponent> = {
   title: 'DCXLibrary/Toggle/Class based',
@@ -7,29 +7,30 @@ const meta: Meta<DcxNgToggleComponent> = {
   tags: ['autodocs'],
   argTypes: {
     checked: {
-      control: 'boolean', 
-      table: { category: 'Attributes' }
+      control: 'boolean',
+      table: { category: 'Attributes' },
     },
     disabled: {
-      control: 'boolean', 
-      table: { category: 'Attributes' }
+      control: 'boolean',
+      table: { category: 'Attributes' },
     },
     label: {
-      control: 'text', 
-      table: { category: 'Attributes' }
+      control: 'text',
+      table: { category: 'Attributes' },
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'], 
-      table: { category: 'Attributes' }
-    },
-    color: {
-      control: 'color', 
-      table: { category: 'Attributes' }
+      options: ['s', 'm', 'l'],
+      table: { category: 'Attributes' },
     },
     ariaLabel: {
-      control: 'text', 
-      table: { category: 'Attributes' }
+      control: 'text',
+      table: { category: 'Attributes' },
+    },
+    textPosition: {
+      control: 'select',
+      options: ['left', 'right', 'top', 'bottom'],
+      table: { category: 'Attributes' },
     },
   },
 };
@@ -43,8 +44,8 @@ export const DefaultToggle: Story = {
     disabled: false,
     label: 'Enable feature',
     size: 'm',
-    color: '#0056b3',
     ariaLabel: 'Enable feature',
+    textPosition: 'right',
   },
 };
 
@@ -54,8 +55,8 @@ export const CheckedByDefault: Story = {
     disabled: false,
     label: 'Active by default',
     size: 'm',
-    color: '#0056b3',
     ariaLabel: 'Active toggle',
+    textPosition: 'right',
   },
 };
 
@@ -65,8 +66,8 @@ export const DisabledToggle: Story = {
     disabled: true,
     label: 'Cannot interact',
     size: 'm',
-    color: '#0056b3',
     ariaLabel: 'Disabled toggle',
+    textPosition: 'right',
   },
 };
 
@@ -76,8 +77,8 @@ export const AriaOnlyToggle: Story = {
     disabled: false,
     label: null,
     size: 'm',
-    color: '#0056b3',
     ariaLabel: 'Toggle without visible label',
+    textPosition: 'right',
   },
 };
 
@@ -87,8 +88,8 @@ export const SmallToggle: Story = {
     disabled: false,
     label: 'Small toggle',
     size: 's',
-    color: '#0056b3',
     ariaLabel: 'Small toggle',
+    textPosition: 'right',
   },
 };
 
@@ -98,8 +99,8 @@ export const MediumToggle: Story = {
     disabled: false,
     label: 'Medium toggle',
     size: 'm',
-    color: '#0056b3',
     ariaLabel: 'Medium toggle',
+    textPosition: 'right',
   },
 };
 
@@ -109,18 +110,51 @@ export const LargeToggle: Story = {
     disabled: false,
     label: 'Large toggle',
     size: 'l',
-    color: '#0056b3',
     ariaLabel: 'Large toggle',
+    textPosition: 'right',
   },
 };
 
-export const ColorToggle: Story = {
+export const RightLabelToggle: Story = {
   args: {
-    checked: false,
+    checked: true,
     disabled: false,
-    label: 'Colored toggle',
+    label: 'Right label toggle',
     size: 'm',
-    color: 'orange',
-    ariaLabel: 'Colored toggle',
+    ariaLabel: 'Right label toggle',
+    textPosition: 'right',
+  },
+};
+
+export const LeftLabelToggle: Story = {
+  args: {
+    checked: true,
+    disabled: false,
+    label: 'Left label toggle',
+    size: 'm',
+    ariaLabel: 'Left label toggle',
+    textPosition: 'left',
+  },
+};
+
+export const TopLabelToggle: Story = {
+  args: {
+    checked: true,
+    disabled: false,
+    label: 'Top label toggle',
+    size: 'm',
+    ariaLabel: 'Top label toggle',
+    textPosition: 'top',
+  },
+};
+
+export const BottomLabelToggle: Story = {
+  args: {
+    checked: true,
+    disabled: false,
+    label: 'Bottom label toggle',
+    size: 'm',
+    ariaLabel: 'Bottom label toggle',
+    textPosition: 'bottom',
   },
 };
