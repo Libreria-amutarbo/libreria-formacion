@@ -1,5 +1,19 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal, viewChild } from '@angular/core';
-import { DcxNgButtonComponent, DcxNgInputComponent, DcxSize, SearchItem } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
+import {
+  DcxNgButtonComponent,
+  DcxNgInputComponent,
+  DcxSize,
+  SearchItem,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-search',
@@ -31,18 +45,16 @@ export class DcxNgSearchComponent {
   readonly searchValue = signal<string>('');
   readonly isDropdownOpen = signal<boolean>(false);
   readonly searchInput = viewChild<DcxNgInputComponent>('searchInput');
-  
+
   readonly filteredItems = computed(() => {
     const query = this.searchValue().toLowerCase().trim();
     const allItems = this.items();
-    
+
     if (!query) {
       return allItems;
     }
-    
-    return allItems.filter(item => 
-      item.label.toLowerCase().includes(query)
-    );
+
+    return allItems.filter(item => item.label.toLowerCase().includes(query));
   });
 
   constructor() {
@@ -56,7 +68,7 @@ export class DcxNgSearchComponent {
     const newValue = value || '';
     this.searchValue.set(newValue);
     this.searchChange.emit(newValue);
-    
+
     if (this.dropdown() && newValue) {
       this.isDropdownOpen.set(true);
     }
@@ -74,7 +86,7 @@ export class DcxNgSearchComponent {
     this.searchValue.set(item.label);
     const inputComponent = this.searchInput();
     if (inputComponent) {
-      inputComponent.value = item.label;
+      //inputComponent.value = item.label;
     }
     this.itemSelected.emit(item);
     this.isDropdownOpen.set(false);
@@ -84,7 +96,7 @@ export class DcxNgSearchComponent {
     this.searchValue.set('');
     const inputComponent = this.searchInput();
     if (inputComponent) {
-      inputComponent.value = '';
+      //inputComponent.value = '';
     }
     this.searchChange.emit('');
     this.isDropdownOpen.set(false);

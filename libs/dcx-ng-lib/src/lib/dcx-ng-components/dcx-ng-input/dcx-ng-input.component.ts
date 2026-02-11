@@ -1,10 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  input,
+  output,
+  Signal,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 import { DcxSize } from '../../core/interfaces';
-import { DcxInputErrorMessage, DcxInputType } from '../../core/interfaces/input';
+import {
+  DcxInputErrorMessage,
+  DcxInputType,
+} from '../../core/interfaces/input';
 
 @Component({
   selector: 'dcx-ng-input',
@@ -13,101 +21,109 @@ import { DcxInputErrorMessage, DcxInputType } from '../../core/interfaces/input'
   templateUrl: './dcx-ng-input.component.html',
   styleUrls: ['./dcx-ng-input.component.scss'],
 })
-export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() readonly = false;
-  @Input() type: DcxInputType = DcxInputType.TEXT;
-  @Input() placeholder: string | null = null;
-  @Input() size: DcxSize = 'm';
-  @Input() disabled = false;
-  @Input() required = false;
+export class DcxNgInputComponent {
+  // -----------------------
+  // Inputs con signals()
+  // -----------------------
+  readonly = input(false);
+  type = input<DcxInputType>(DcxInputType.TEXT);
+  placeholder = input<string | null>(null);
+  size = input<DcxSize>('m');
+  disabled = input(false);
+  required = input(false);
 
-  @Input() label: string | null = null;
-  @Input() errorMessages: DcxInputErrorMessage[] = [];
-  @Input() noMargin = false;
-  @Input() inline = false;
-  @Input() search = false;
-  @Input()
-  set value(val: string) {
-    if (this.inputControl) {
-      this.inputControl.setValue(val, { emitEvent: false });
-    }
-  }
+  label = input<string | null>(null);
+  errorMessages = input<DcxInputErrorMessage[]>([]);
+  noMargin = input(false);
+  inline = input(false);
+  search = input(false);
 
-  @Output() valueChange = new EventEmitter<string | null>();
+  // Valor externo
+  value = input<string>('');
 
-  inputControl: FormControl = new FormControl('');
+  // Output con signal-based output()
+  valueChange = output<string | null>();
+
+  // ---------------------------------------
+  // FormControl (aún necesario en Angular 20)
+  // ---------------------------------------
+  inputControl = new FormControl<string | null>('');
+
+  // Id único
+  inputId = `dcx-input-${Math.random().toString(36).substring(2, 9)}`;
+
   isFocused = false;
-  inputId: string;
-  private destroy$ = new Subject<void>();
 
   constructor() {
-    this.inputId = `dcx-input-${Math.random().toString(36).substr(2, 9)}`;
-  }
+    // Reconfigurar validators cuando cambian signals
+    effect(() => {
+      const validators = [];
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  ngOnInit() {
-    this.setupFormControl();
-    this.setupValueChanges();
-  }
-
-  setupFormControl() {
-    const validators = [];
-    if (this.type === DcxInputType.EMAIL) {
-      validators.push(Validators.email);
-    }
-    if (this.type === DcxInputType.NUMBER) {
-      validators.push(Validators.pattern(/^-?(?:\d+(?:\.\d+)?|\.\d+)$/));
-    }
-
-    if (this.required) {
-      validators.push(Validators.required);
-    }
-
-    this.inputControl = new FormControl('', validators);
-
-    if (this.disabled) {
-      this.inputControl.disable();
-    }
-  }
-
-  private setupValueChanges() {
-    this.inputControl.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(value => {
-        this.valueChange.emit(value);
-      });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['required'] || changes['type'] || changes['disabled']) {
-      this.setupFormControl();
-    }
-  }
-
-  getErrorMessage(): string | null {
-    if (!this.inputControl.errors) {
-      return null;
-    }
-
-    const value = this.inputControl.value;
-    if (value && value.trim() !== '') {
-      if (this.inputControl.hasError('pattern') && this.type === DcxInputType.NUMBER) {
-        return this.errorMessages.find(msg => msg.type === 'pattern')?.message || 'Formato numérico inválido';
+      if (this.type() === DcxInputType.EMAIL) {
+        validators.push(Validators.email);
       }
 
-      if (this.inputControl.hasError('email')) {
-        return this.errorMessages.find(msg => msg.type === 'email')?.message || 'Formato correo inválido';
+      if (this.type() === DcxInputType.NUMBER) {
+        validators.push(Validators.pattern(/^-?(?:\d+(?:\.\d+)?|\.\d+)$/));
       }
+
+      if (this.required()) {
+        validators.push(Validators.required);
+      }
+
+      this.inputControl.setValidators(validators);
+
+      if (this.disabled()) {
+        this.inputControl.disable();
+      } else {
+        this.inputControl.enable();
+      }
+    });
+
+    // Cuando value() cambia desde fuera → actualizar formControl
+    effect(() => {
+      const newValue = this.value();
+      if (newValue !== this.inputControl.value) {
+        this.inputControl.setValue(newValue, { emitEvent: false });
+      }
+    });
+
+    // Emitir cambios del FormControl → hacia fuera
+    this.inputControl.valueChanges.subscribe(v => {
+      this.valueChange.emit(v);
+    });
+  }
+
+  // -----------------------------
+  // Mensaje de error computado
+  // -----------------------------
+  errorMessage: Signal<string | null> = computed(() => {
+    const errors = this.inputControl.errors;
+    if (!errors) return null;
+
+    const errorList = this.errorMessages();
+
+    if (errors['required']) {
+      return (
+        errorList.find(e => e.type === 'required')?.message ??
+        'Campo obligatorio'
+      );
     }
 
-    if (this.inputControl.hasError('required')) {
-      return this.errorMessages.find(msg => msg.type === 'required')?.message || 'Campo obligatorio';
+    if (errors['email']) {
+      return (
+        errorList.find(e => e.type === 'email')?.message ??
+        'Formato correo inválido'
+      );
+    }
+
+    if (errors['pattern'] && this.type() === DcxInputType.NUMBER) {
+      return (
+        errorList.find(e => e.type === 'pattern')?.message ??
+        'Formato numérico inválido'
+      );
     }
 
     return null;
-  }
+  });
 }
