@@ -1,10 +1,11 @@
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
   HostBinding,
   HostListener,
+  computed,
+  input,
+  output,
+  model,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -21,37 +22,40 @@ import {
   styleUrl: './dcx-ng-toggle.component.scss',
 })
 export class DcxNgToggleComponent {
-  @Input() checked = false;
-  @Input() disabled = false;
-  @Input() label: string | null = null;
-  @Input() size: DcxSize = 'm';
-  @Input() ariaLabel = '';
-  @Input() textPosition: DcxPositionType = DcxPosition.RIGHT;
+  checked = model<boolean>(false);
+  disabled = input<boolean>(false);
+  label = input<string | null>(null);
+  size = input<DcxSize>('m');
+  ariaLabel = input<string | null>(null);
+  textPosition = input<DcxPositionType>(DcxPosition.RIGHT);
 
-  @Output() toggled = new EventEmitter<boolean>();
+  toggled = output<boolean>();
 
-  @HostBinding('attr.aria-label') get ariaLabelBinding() {
-    return this.ariaLabel || 'Toggle';
-  }
+  @HostBinding('attr.aria-label')
+  ariaLabelBinding = computed(() => this.ariaLabel() || 'Toggle');
 
-  get sizeClasses(): string {
-    return [
+  sizeClasses = computed(() =>
+    [
       'dcx-ng-toggle',
-      this.size ? `dcx-ng-toggle--${this.size}` : '',
-      `dcx-ng-toggle--${this.textPosition}`,
-    ].join(' ');
-  }
+      this.size() ? `dcx-ng-toggle--${this.size()}` : '',
+      `dcx-ng-toggle--${this.textPosition()}`,
+    ]
+      .filter(Boolean)
+      .join(' '),
+  );
 
   toggle(): void {
-    if (this.disabled) return;
-    this.checked = !this.checked;
-    this.toggled.emit(this.checked);
+    if (this.disabled()) return;
+
+    const next = !this.checked();
+    this.checked.set(next);
+    this.toggled.emit(next);
   }
 
   @HostListener('keydown.enter', ['$event'])
   @HostListener('keydown.space', ['$event'])
   handleKeyboardToggle(event: Event): void {
-    if (!this.disabled) {
+    if (!this.disabled()) {
       event.preventDefault();
       this.toggle();
     }

@@ -1,185 +1,157 @@
-<h1>Toggle Demo</h1>
+<h1 class="demo-title">Toggle Demo</h1>
 
-<h2>Text Bottom</h2>
-<dcx-ng-toggle
-  [checked]="isDarkMode"
-  label="Dark mode"
-  size="m"
-  (toggled)="handleToggle($event)"
-  [textPosition]="DcxPosition.BOTTOM"
-></dcx-ng-toggle>
+<section class="demo-section">
+  <h2 class="demo-subtitle">Text Position Examples</h2>
 
-<h2>Text Top</h2>
-<dcx-ng-toggle
-  [checked]="isDarkMode"
-  label="Dark mode"
-  size="m"
-  (toggled)="handleToggle($event)"
-  [textPosition]="DcxPosition.TOP"
-></dcx-ng-toggle>
+  <div class="toggle-list-horizontal">
+    <dcx-ng-toggle
+      [checked]="isDarkMode"
+      label="Dark mode"
+      size="m"
+      (toggled)="handleToggle($event)"
+      textPosition="bottom"
+    ></dcx-ng-toggle>
 
-<h2>Text Left</h2>
-<dcx-ng-toggle
-  [checked]="isDarkMode"
-  label="Dark mode"
-  size="m"
-  (toggled)="handleToggle($event)"
-  [textPosition]="DcxPosition.LEFT"
-></dcx-ng-toggle>
+    <dcx-ng-toggle
+      [checked]="isDarkMode"
+      label="Dark mode"
+      size="m"
+      (toggled)="handleToggle($event)"
+      textPosition="top"
+    ></dcx-ng-toggle>
 
-<h2>Text Right</h2>
-<dcx-ng-toggle
-  [checked]="isDarkMode"
-  label="Dark mode"
-  size="m"
-  (toggled)="handleToggle($event)"
-  [textPosition]="DcxPosition.RIGHT"
-></dcx-ng-toggle>
+    <dcx-ng-toggle
+      [checked]="isDarkMode"
+      label="Dark mode"
+      size="m"
+      (toggled)="handleToggle($event)"
+      textPosition="left"
+    ></dcx-ng-toggle>
 
-<p>Dark mode is {{ isDarkMode ? 'ON' : 'OFF' }}</p>
-
-<h2>Examples</h2>
-<section
-  style="margin-top:1rem; display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1rem;"
->
-  <div
-    style="padding:1rem; border:1px solid var(--color-border); border-radius:8px; background:var(--color-background-alt);"
-  >
-    <strong>Sizes</strong>
-    <div style="display:flex; gap:1rem; align-items:center; margin-top:0.6rem;">
-      <div
-        style="display:flex; flex-direction:column; align-items:center; gap:0.5rem;"
-      >
-        <span style="font-size:0.85rem; color:var(--color-text-secondary)"
-          >Small</span
-        >
-        <dcx-ng-toggle
-          [checked]="true"
-          size="s"
-          label=""
-          [textPosition]="DcxPosition.RIGHT"
-        ></dcx-ng-toggle>
-      </div>
-      <div
-        style="display:flex; flex-direction:column; align-items:center; gap:0.5rem;"
-      >
-        <span style="font-size:0.85rem; color:var(--color-text-secondary)"
-          >Medium</span
-        >
-        <dcx-ng-toggle
-          [checked]="true"
-          size="m"
-          label=""
-          [textPosition]="DcxPosition.RIGHT"
-        ></dcx-ng-toggle>
-      </div>
-      <div
-        style="display:flex; flex-direction:column; align-items:center; gap:0.5rem;"
-      >
-        <span style="font-size:0.85rem; color:var(--color-text-secondary)"
-          >Large</span
-        >
-        <dcx-ng-toggle
-          [checked]="true"
-          size="l"
-          label=""
-          [textPosition]="DcxPosition.RIGHT"
-        ></dcx-ng-toggle>
-      </div>
-    </div>
+    <dcx-ng-toggle
+      [checked]="isDarkMode"
+      label="Dark mode"
+      size="m"
+      (toggled)="handleToggle($event)"
+      textPosition="right"
+    ></dcx-ng-toggle>
   </div>
 
-  <div
-    style="padding:1rem; border:1px solid var(--color-border); border-radius:8px; background:#fff;"
-  >
-    <strong>States</strong>
-    <div
-      style="display:flex; gap:1.25rem; align-items:center; margin-top:0.6rem;"
-    >
-      <div
-        style="display:flex; flex-direction:column; gap:0.3rem; align-items:center;"
-      >
-        <span style="font-size:0.85rem; color:var(--color-text-secondary)"
-          >On</span
-        >
-        <dcx-ng-toggle
-          [checked]="true"
-          size="m"
-          label="On"
-          [textPosition]="DcxPosition.RIGHT"
-        ></dcx-ng-toggle>
-      </div>
-      <div
-        style="display:flex; flex-direction:column; gap:0.3rem; align-items:center;"
-      >
-        <span style="font-size:0.85rem; color:var(--color-text-secondary)"
-          >Off</span
-        >
-        <dcx-ng-toggle
-          [checked]="false"
-          size="m"
-          label="Off"
-          [textPosition]="DcxPosition.RIGHT"
-        ></dcx-ng-toggle>
-      </div>
-      <div
-        style="display:flex; flex-direction:column; gap:0.3rem; align-items:center;"
-      >
-        <span style="font-size:0.85rem; color:var(--color-text-secondary)"
-          >Disabled On</span
-        >
-        <dcx-ng-toggle
-          [checked]="true"
-          [disabled]="true"
-          size="m"
-          label=""
-          [textPosition]="DcxPosition.RIGHT"
-        ></dcx-ng-toggle>
-      </div>
-      <div
-        style="display:flex; flex-direction:column; gap:0.3rem; align-items:center;"
-      >
-        <span style="font-size:0.85rem; color:var(--color-text-secondary)"
-          >Disabled Off</span
-        >
-        <dcx-ng-toggle
-          [checked]="false"
-          [disabled]="true"
-          size="m"
-          label=""
-          [textPosition]="DcxPosition.RIGHT"
-        ></dcx-ng-toggle>
+  <p class="demo-status">
+    Dark mode is <strong>{{ isDarkMode ? 'ON' : 'OFF' }}</strong>
+  </p>
+</section>
+
+<section class="demo-section">
+  <h2 class="demo-subtitle">Examples</h2>
+
+  <div class="toggle-grid">
+    <div class="toggle-card">
+      <strong class="card-title">Sizes</strong>
+
+      <div class="toggle-stack">
+        <div class="toggle-col">
+          <span class="toggle-help">Small</span>
+          <dcx-ng-toggle
+            [checked]="true"
+            size="s"
+            textPosition="right"
+          ></dcx-ng-toggle>
+        </div>
+
+        <div class="toggle-col">
+          <span class="toggle-help">Medium</span>
+          <dcx-ng-toggle
+            [checked]="true"
+            size="m"
+            textPosition="right"
+          ></dcx-ng-toggle>
+        </div>
+
+        <div class="toggle-col">
+          <span class="toggle-help">Large</span>
+          <dcx-ng-toggle
+            [checked]="true"
+            size="l"
+            textPosition="right"
+          ></dcx-ng-toggle>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div
-    style="padding:1rem; border:1px solid var(--color-border); border-radius:8px; background:var(--color-background-alt);"
-  >
-    <strong>Label positions</strong>
-    <div
-      style="display:flex; flex-direction:column; gap:0.6rem; margin-top:0.6rem;"
-    >
-      <div style="display:flex; gap:1rem; align-items:center;">
+    <div class="toggle-card">
+      <strong class="card-title">States</strong>
+
+      <div class="toggle-stack">
+        <div class="toggle-col">
+          <span class="toggle-help">On</span>
+          <dcx-ng-toggle
+            [checked]="true"
+            size="m"
+            label="On"
+            textPosition="right"
+          ></dcx-ng-toggle>
+        </div>
+
+        <div class="toggle-col">
+          <span class="toggle-help">Off</span>
+          <dcx-ng-toggle
+            [checked]="false"
+            size="m"
+            label="Off"
+            textPosition="right"
+          ></dcx-ng-toggle>
+        </div>
+
+        <div class="toggle-col">
+          <span class="toggle-help">Disabled On</span>
+          <dcx-ng-toggle
+            [checked]="true"
+            [disabled]="true"
+            size="m"
+            textPosition="right"
+          ></dcx-ng-toggle>
+        </div>
+
+        <div class="toggle-col">
+          <span class="toggle-help">Disabled Off</span>
+          <dcx-ng-toggle
+            [checked]="false"
+            [disabled]="true"
+            size="m"
+            textPosition="right"
+          ></dcx-ng-toggle>
+        </div>
+      </div>
+    </div>
+
+    <div class="toggle-card">
+      <strong class="card-title">Label Positions</strong>
+
+      <div class="toggle-list-vertical">
         <dcx-ng-toggle
           [checked]="true"
           label="Top"
-          [textPosition]="DcxPosition.TOP"
+          size="m"
+          textPosition="top"
         ></dcx-ng-toggle>
         <dcx-ng-toggle
           [checked]="true"
           label="Bottom"
-          [textPosition]="DcxPosition.BOTTOM"
+          size="m"
+          textPosition="bottom"
         ></dcx-ng-toggle>
         <dcx-ng-toggle
           [checked]="true"
           label="Left"
-          [textPosition]="DcxPosition.LEFT"
+          size="m"
+          textPosition="left"
         ></dcx-ng-toggle>
         <dcx-ng-toggle
           [checked]="true"
           label="Right"
-          [textPosition]="DcxPosition.RIGHT"
+          size="m"
+          textPosition="right"
         ></dcx-ng-toggle>
       </div>
     </div>

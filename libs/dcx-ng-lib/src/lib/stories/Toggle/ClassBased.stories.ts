@@ -1,5 +1,9 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgToggleComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgToggleComponent,
+  POSITION_LIST,
+  SIZE_LIST,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgToggleComponent> = {
   title: 'DCXLibrary/Toggle/Class based',
@@ -20,7 +24,7 @@ const meta: Meta<DcxNgToggleComponent> = {
     },
     size: {
       control: 'select',
-      options: ['s', 'm', 'l'],
+      options: SIZE_LIST,
       table: { category: 'Attributes' },
     },
     ariaLabel: {
@@ -29,7 +33,7 @@ const meta: Meta<DcxNgToggleComponent> = {
     },
     textPosition: {
       control: 'select',
-      options: ['left', 'right', 'top', 'bottom'],
+      options: POSITION_LIST,
       table: { category: 'Attributes' },
     },
   },
