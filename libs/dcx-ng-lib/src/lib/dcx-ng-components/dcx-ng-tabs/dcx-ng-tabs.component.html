@@ -14,10 +14,11 @@
     @if (hasOverflow() && canScrollLeft()) {
       <dcx-ng-button
         class="dcx-tabs__scroll-button dcx-tabs__scroll-button--left"
-        variant="text"
+        variant="icon-only"
         size="m"
         icon
-        iconName="'chevron-left'"
+        [iconName]="'chevron-left'"
+        [iconSize]="'l'"
         (buttonClick)="scrollLeft()"
         [attr.aria-label]="'Scroll left'"
       ></dcx-ng-button>
@@ -50,10 +51,11 @@
     @if (hasOverflow() && canScrollRight()) {
       <dcx-ng-button
         class="dcx-tabs__scroll-button dcx-tabs__scroll-button--right"
-        variant="text"
+        variant="icon-only"
         size="m"
         icon
-        iconName="'chevron-left'"
+        [iconName]="'chevron-right'"
+        [iconSize]="'l'"
         (buttonClick)="scrollRight()"
         [attr.aria-label]="'Scroll right'"
       ></dcx-ng-button>
