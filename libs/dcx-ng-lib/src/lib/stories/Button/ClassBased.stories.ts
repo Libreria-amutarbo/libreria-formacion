@@ -44,6 +44,16 @@ const meta: Meta<DcxNgButtonComponent> = {
         },
       },
     },
+    pressed: {
+      control: 'boolean',
+      description: 'Estado presionado del botón',
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
     variant: {
       control: 'select',
       options: BUTTON_VARIANT_LIST,
@@ -117,6 +127,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     ariaLabel: '',
     type: 'button',
     disabled: false,
+    pressed: false,
     variant: 'primary',
     size: 'm',
     icon: false,
@@ -224,6 +235,19 @@ export const IconsButtonSizes: Story = {
         <dcx-ng-button label="Medium" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
          <dcx-ng-button label="Large" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="l"></dcx-ng-button>
           <dcx-ng-button label="Extra large" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="xl"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const PressedStates: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Primary Pressed" size="m" variant="primary" [pressed]="true"></dcx-ng-button>
+        <dcx-ng-button label="Secondary Pressed" size="m" variant="secondary" [pressed]="true"></dcx-ng-button>
+        <dcx-ng-button label="Terciary Pressed" size="m" variant="terciary" [pressed]="true"></dcx-ng-button>
       </div>
     `,
   }),

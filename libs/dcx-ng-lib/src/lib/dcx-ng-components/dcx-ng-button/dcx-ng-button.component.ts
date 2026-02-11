@@ -29,6 +29,7 @@ export class DcxNgButtonComponent {
   ariaLabel = input<string>('');
   type = input<DcxButtonType>('button');
   disabled = input<boolean>(false);
+  pressed = input<boolean>(false);
   variant = input<DcxButtonVariant>('primary');
   size = input<DcxSize>('m');
   class = input<string>('');
@@ -62,6 +63,7 @@ export class DcxNgButtonComponent {
     const iconPositionValue = this.iconPosition();
     const iconName = this.iconName();
     const classValue = this.class();
+    const pressedValue = this.pressed();
 
     const hasAnyIcon = this.icon() || !!iconName;
 
@@ -71,6 +73,7 @@ export class DcxNgButtonComponent {
       sizeValue ? `${base}--${sizeValue}` : '',
       !labelValue && hasAnyIcon ? `${base}--icon-only` : '',
       iconPositionValue ? `${base}--icon-${iconPositionValue}` : '',
+      pressedValue ? `${base}--pressed` : '',
       classValue ?? '',
     ]
       .filter(Boolean)

@@ -43,6 +43,7 @@
     @include button-size(l);
     padding: 0.5rem 1rem;
   }
+
   &--xl,
   &--extra-large {
     @include button-size(xl);
@@ -67,6 +68,10 @@
       outline: 2px solid var(--border-focus);
       outline-offset: 4px;
     }
+
+    &.dcx-ng-button--pressed {
+      background-color: var(--background-primary-pressed);
+    }
   }
 
   // ========== SECONDARY ==========
@@ -87,6 +92,10 @@
     &:focus-visible {
       outline: 2px solid var(--border-focus);
       outline-offset: 4px;
+    }
+
+    &.dcx-ng-button--pressed {
+      background-color: var(--background-pressed);
     }
   }
 
@@ -109,6 +118,10 @@
     &:focus-visible {
       outline: 2px solid var(--border-focus);
       outline-offset: 4px;
+    }
+
+    &.dcx-ng-button--pressed {
+      background-color: var(--background-pressed);
     }
   }
 
@@ -191,12 +204,15 @@
     &.dcx-ng-button--s {
       padding-block: 2rem;
     }
+
     &.dcx-ng-button--m {
       padding-block: 2rem;
     }
+
     &.dcx-ng-button--l {
       padding-block: 2rem;
     }
+
     &.dcx-ng-button--xl {
       padding-block: 2.5rem;
     }
