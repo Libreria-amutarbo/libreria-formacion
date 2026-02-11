@@ -5,6 +5,7 @@ import { BOOTSTRAP_ICONS } from '../../../../.storybook/bootstrap-icons';
 import {
   BUTTON_VARIANT_LIST,
   DcxIconPositionList,
+  SIZE_LIST,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const ActionsData = { buttonClick: fn() };
@@ -44,6 +45,16 @@ const meta: Meta<DcxNgButtonComponent> = {
         },
       },
     },
+    pressed: {
+      control: 'boolean',
+      description: 'Estado presionado del botón',
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
     variant: {
       control: 'select',
       options: BUTTON_VARIANT_LIST,
@@ -56,7 +67,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     },
     size: {
       control: 'select',
-      options: ['s', 'm', 'l', 'block'],
+      options: SIZE_LIST,
       table: {
         category: 'Attributes',
         defaultValue: {
@@ -117,6 +128,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     ariaLabel: '',
     type: 'button',
     disabled: false,
+    pressed: false,
     variant: 'primary',
     size: 'm',
     icon: false,
@@ -224,6 +236,19 @@ export const IconsButtonSizes: Story = {
         <dcx-ng-button label="Medium" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
          <dcx-ng-button label="Large" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="l"></dcx-ng-button>
           <dcx-ng-button label="Extra large" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="xl"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const PressedStates: Story = {
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Primary Pressed" size="m" variant="primary" pressed></dcx-ng-button>
+        <dcx-ng-button label="Secondary Pressed" size="m" variant="secondary"></dcx-ng-button>
+        <dcx-ng-button label="Terciary Pressed" size="m" variant="terciary"></dcx-ng-button>
       </div>
     `,
   }),
