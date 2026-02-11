@@ -108,6 +108,7 @@
 @mixin flex-align-center {
   @include flex-column;
   align-items: center;
+  justify-content: center;
 }
 
 // Mixins de Grid

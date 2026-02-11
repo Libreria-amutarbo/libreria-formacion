@@ -5,6 +5,14 @@ const meta: Meta<DcxNgSpinnerComponent> = {
   title: 'DCXLibrary/Spinner/Class based',
   component: DcxNgSpinnerComponent,
   tags: ['autodocs'],
+  args: {
+    size: 'm',
+    title: 'Loading...',
+    description: 'Please wait',
+    wrapper: false,
+    delay: 0,
+    color: null,
+  },
   argTypes: {
     color: {
       control: 'color',
@@ -61,14 +69,6 @@ export default meta;
 type Story = StoryObj<DcxNgSpinnerComponent>;
 
 export const Default: Story = {
-  args: {
-    size: 'm',
-    title: 'Loading...',
-    description: 'Please wait',
-    wrapper: false,
-    delay: 0,
-    color: null,
-  },
   render: args => ({
     props: args,
     template: `
@@ -89,12 +89,9 @@ export const Default: Story = {
 
 export const SpinnerDelayShowcase: Story = {
   args: {
-    size: 'm',
     title: 'Loading with delay...',
     description: 'This spinner appears after 1 second',
-    wrapper: false,
     delay: 1000,
-    color: null,
   },
   render: args => ({
     props: args,
@@ -112,12 +109,9 @@ export const SpinnerDelayShowcase: Story = {
 
 export const SpinnerWrapperShowcase: Story = {
   args: {
-    size: 'm',
     title: 'Loading content...',
     description: 'Please wait while we load',
     wrapper: true,
-    delay: 0,
-    color: null,
   },
   render: args => ({
     props: args,
