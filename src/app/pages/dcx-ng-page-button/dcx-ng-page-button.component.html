@@ -8,9 +8,17 @@
 <section>
   <h2 class="example-title">Ejemplo 2 - Tipos de botón</h2>
   <form style="display:flex; gap:12px; align-items:center;">
-    <dcx-ng-button label="Submit" type="submit" variant="primary"></dcx-ng-button>
+    <dcx-ng-button
+      label="Submit"
+      type="submit"
+      variant="primary"
+    ></dcx-ng-button>
     <dcx-ng-button label="Reset" type="reset" variant="primary"></dcx-ng-button>
-    <dcx-ng-button label="Button" type="button" variant="primary"></dcx-ng-button>
+    <dcx-ng-button
+      label="Button"
+      type="button"
+      variant="primary"
+    ></dcx-ng-button>
   </form>
 </section>
 
@@ -18,7 +26,11 @@
 
 <section>
   <h2 class="example-title">Ejemplo 3 - Botón deshabilitado</h2>
-  <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
+  <dcx-ng-button
+    label="Disabled"
+    variant="primary"
+    [disabled]="true"
+  ></dcx-ng-button>
 </section>
 
 <hr />
@@ -35,9 +47,24 @@
 <section>
   <h2 class="example-title">Ejemplo 5 - Tamaños de Botón</h2>
   <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Small" size="s" variant="primary" iconPosition="check"></dcx-ng-button>
-    <dcx-ng-button label="Medium" size="m" variant="primary" iconEnd="check"></dcx-ng-button>
-    <dcx-ng-button label="Large" size="l" variant="primary" iconPosition="check"></dcx-ng-button>
+    <dcx-ng-button
+      label="Small"
+      size="s"
+      variant="primary"
+      iconPosition="check"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Medium"
+      size="m"
+      variant="primary"
+      iconEnd="check"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Large"
+      size="l"
+      variant="primary"
+      iconPosition="check"
+    ></dcx-ng-button>
     <!-- <dcx-ng-button label="Block"  size="block" variant="primary" iconPosition="check"></dcx-ng-button> -->
   </article>
 </section>
@@ -45,10 +72,24 @@
 <section>
   <h2 class="example-title">Ejemplo 6 - Botón con icono</h2>
   <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Guardar" size="m" variant="primary" [icon]="true" iconName="save" iconPosition="left"
-      iconSize="m"></dcx-ng-button>
-    <dcx-ng-button label="Siguiente" size="m" variant="primary" [icon]="true" iconName="arrow-right" iconPosition="left"
-      iconSize="m"></dcx-ng-button>
+    <dcx-ng-button
+      label="Guardar"
+      size="m"
+      variant="primary"
+      icon
+      iconName="save"
+      iconPosition="left"
+      iconSize="m"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Siguiente"
+      size="m"
+      variant="primary"
+      icon
+      iconName="arrow-right"
+      iconPosition="left"
+      iconSize="m"
+    ></dcx-ng-button>
   </article>
 </section>
 <hr />
@@ -57,28 +98,84 @@
     Ejemplo 7 - Posición de los iconos cuando el botón tiene label
   </h2>
   <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Izquierda" size="l" variant="primary" [icon]="true" iconName="save" iconPosition="left"
-      iconSize="l"></dcx-ng-button>
-    <dcx-ng-button label="Arriba" size="l" variant="primary" [icon]="true" iconName="save" iconPosition="top"
-      iconSize="l"></dcx-ng-button>
-    <dcx-ng-button label="Derecha" size="l" variant="primary" [icon]="true" iconName="save" iconPosition="right"
-      iconSize="l"></dcx-ng-button>
-    <dcx-ng-button label="Abajo" size="l" variant="primary" [icon]="true" iconName="save" iconPosition="bottom"
-      iconSize="l"></dcx-ng-button>
+    <dcx-ng-button
+      label="Izquierda"
+      size="l"
+      variant="primary"
+      icon
+      iconName="save"
+      iconPosition="left"
+      iconSize="l"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Arriba"
+      size="l"
+      variant="primary"
+      icon
+      iconName="save"
+      iconPosition="top"
+      iconSize="l"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Derecha"
+      size="l"
+      variant="primary"
+      icon
+      iconName="save"
+      iconPosition="right"
+      iconSize="l"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Abajo"
+      size="l"
+      variant="primary"
+      icon
+      iconName="save"
+      iconPosition="bottom"
+      iconSize="l"
+    ></dcx-ng-button>
   </article>
 </section>
 <hr />
 <section>
   <h2 class="example-title">Ejemplo 8 - Tamaño de los iconos en un botón</h2>
   <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Small" size="m" variant="primary" [icon]="true" iconName="save" iconPosition="left"
-      iconSize="s"></dcx-ng-button>
-    <dcx-ng-button label="Medium" size="m" variant="primary" [icon]="true" iconName="save" iconPosition="left"
-      iconSize="m"></dcx-ng-button>
-    <dcx-ng-button label="Large" size="m" variant="primary" [icon]="true" iconName="save" iconPosition="left"
-      iconSize="l"></dcx-ng-button>
-    <dcx-ng-button label="Extra large" size="m" variant="primary" [icon]="true" iconName="save" iconPosition="left"
-      iconSize="xl"></dcx-ng-button>
+    <dcx-ng-button
+      label="Small"
+      size="m"
+      variant="primary"
+      icon
+      iconName="save"
+      iconPosition="left"
+      iconSize="s"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Medium"
+      size="m"
+      variant="primary"
+      icon
+      iconName="save"
+      iconPosition="left"
+      iconSize="m"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Large"
+      size="m"
+      variant="primary"
+      icon
+      iconName="save"
+      iconPosition="left"
+      iconSize="l"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Extra large"
+      size="m"
+      variant="primary"
+      icon
+      iconName="save"
+      iconPosition="left"
+      iconSize="xl"
+    ></dcx-ng-button>
   </article>
 </section>
 
@@ -87,8 +184,23 @@
 <section>
   <h2 class="example-title">Ejemplo 9 - Estados presionados</h2>
   <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Primary Pressed" size="m" variant="primary" [pressed]="true"></dcx-ng-button>
-    <dcx-ng-button label="Secondary Pressed" size="m" variant="secondary" [pressed]="true"></dcx-ng-button>
-    <dcx-ng-button label="Terciary Pressed" size="m" variant="terciary" [pressed]="true"></dcx-ng-button>
+    <dcx-ng-button
+      label="Primary Pressed"
+      size="m"
+      variant="primary"
+      [pressed]="true"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Secondary Pressed"
+      size="m"
+      variant="secondary"
+      [pressed]="true"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Terciary Pressed"
+      size="m"
+      variant="terciary"
+      [pressed]="true"
+    ></dcx-ng-button>
   </article>
 </section>

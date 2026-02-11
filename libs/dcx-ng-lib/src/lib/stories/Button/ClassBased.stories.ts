@@ -5,6 +5,7 @@ import { BOOTSTRAP_ICONS } from '../../../../.storybook/bootstrap-icons';
 import {
   BUTTON_VARIANT_LIST,
   DcxIconPositionList,
+  SIZE_LIST,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const ActionsData = { buttonClick: fn() };
@@ -66,7 +67,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     },
     size: {
       control: 'select',
-      options: ['s', 'm', 'l', 'block'],
+      options: SIZE_LIST,
       table: {
         category: 'Attributes',
         defaultValue: {
@@ -245,9 +246,9 @@ export const PressedStates: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Primary Pressed" size="m" variant="primary" [pressed]="true"></dcx-ng-button>
-        <dcx-ng-button label="Secondary Pressed" size="m" variant="secondary" [pressed]="true"></dcx-ng-button>
-        <dcx-ng-button label="Terciary Pressed" size="m" variant="terciary" [pressed]="true"></dcx-ng-button>
+        <dcx-ng-button label="Primary Pressed" size="m" variant="primary" pressed></dcx-ng-button>
+        <dcx-ng-button label="Secondary Pressed" size="m" variant="secondary"></dcx-ng-button>
+        <dcx-ng-button label="Terciary Pressed" size="m" variant="terciary"></dcx-ng-button>
       </div>
     `,
   }),
