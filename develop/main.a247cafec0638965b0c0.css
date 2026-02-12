@@ -500,6 +500,7 @@ template {
   --background-pressed: #e1e3e6;
   --background-disabled: #e1e3e6;
   --background-hover: #f7f8fa;
+  --background-off: #696e75;
   --background-error: #fee2e2;
   --content-default-white: #ffffff;
   --content-default-dark: #2a2e33;
