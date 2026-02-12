@@ -10,12 +10,12 @@ import { DcxPosition } from '../../core/interfaces';
   styleUrls: ['./dcx-ng-tooltip.component.scss'],
 })
 export class DcxNgTooltipComponent implements AfterViewInit {
-  @Input() position: DcxPosition = DcxPosition.TOP;
+  @Input() position: DcxPosition = 'top';
   @Input() hideTooltipOnClick = false;
   @Input() content = '';
 
   visible = false;
-  actualPosition: DcxPosition = DcxPosition.TOP;
+  actualPosition: DcxPosition = 'top';
 
   private readonly elementRef = inject(ElementRef);
 
@@ -99,32 +99,32 @@ export class DcxNgTooltipComponent implements AfterViewInit {
 
     // Check if preferred position fits
     switch (preferredPosition) {
-      case DcxPosition.TOP:
+      case 'top':
 
         break;
-      case DcxPosition.BOTTOM:
+      case 'bottom':
         if (availableSpace.spaceBottom >= tooltipHeight + margin) {
-          return DcxPosition.BOTTOM;
+          return 'bottom';
         }
         break;
-      case DcxPosition.LEFT:
+      case 'left':
         if (availableSpace.spaceLeft >= tooltipWidth + margin) {
-          return DcxPosition.LEFT;
+          return 'left';
         }
         break;
-      case DcxPosition.RIGHT:
+      case 'right':
         if (availableSpace.spaceRight >= tooltipWidth + margin) {
-          return DcxPosition.RIGHT;
+          return 'right';
         }
         break;
     }
 
     // If preferred position doesn't fit, find the best alternative
     const alternatives: { position: DcxPosition; space: number }[] = [
-      { position: DcxPosition.TOP, space: availableSpace.spaceTop },
-      { position: DcxPosition.BOTTOM, space: availableSpace.spaceBottom },
-      { position: DcxPosition.LEFT, space: availableSpace.spaceLeft },
-      { position: DcxPosition.RIGHT, space: availableSpace.spaceRight }
+      { position: 'top', space: availableSpace.spaceTop },
+      { position: 'bottom', space: availableSpace.spaceBottom },
+      { position: 'left', space: availableSpace.spaceLeft },
+      { position: 'right', space: availableSpace.spaceRight }
     ];
 
     // Sort by available space (descending)
@@ -132,7 +132,7 @@ export class DcxNgTooltipComponent implements AfterViewInit {
 
     // Return the position with the most space that fits
     for (const alt of alternatives) {
-      const requiredSpace = (alt.position === DcxPosition.LEFT || alt.position === DcxPosition.RIGHT)
+      const requiredSpace = (alt.position === 'left' || alt.position === 'right')
         ? tooltipWidth + margin
         : tooltipHeight + margin;
 

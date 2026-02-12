@@ -14,6 +14,7 @@ import {
   DcxPosition,
   DcxSize,
 } from '../../core/interfaces';
+import { DcxIconPositionList } from '../../core/mock';
 
 @Component({
   selector: 'dcx-ng-checkbox',
@@ -32,7 +33,7 @@ import {
 })
 export class DcxNgCheckboxComponent implements ControlValueAccessor {
   readonly label = input<string>('');
-  readonly labelPosition = input<DcxPosition>(DcxPosition.RIGHT);
+  readonly labelPosition = input<DcxPosition>('right');
   readonly color = input<string>('#1976d2');
   readonly checked = input<boolean>(false);
   readonly disabled = input<boolean>(false);
@@ -71,7 +72,7 @@ export class DcxNgCheckboxComponent implements ControlValueAccessor {
   });
 
   readonly customColorStyle = computed(() => this.color());
-  readonly DcxPosition = DcxPosition;
+  readonly DcxPosition = DcxIconPositionList;
 
   constructor() {
     effect(() => {
