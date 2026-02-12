@@ -11,7 +11,7 @@ export const LAYOUT_LIST: DcxLayout[] = ['vertical', 'horizontal'];
 
 export const ALIGN_LIST: DcxAlign[] = ['start', 'center', 'end'];
 
-export const SIZE_LIST: DcxSize[] = ['s', 'm', 'l'];
+export const SIZE_LIST: DcxSize[] = ['s', 'm', 'l', 'xl', 'auto'];
 
 export const POSITION_LIST: DcxPosition[] = ['top', 'bottom', 'left', 'right'];
 

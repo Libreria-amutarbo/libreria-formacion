@@ -1,32 +1,27 @@
 @use 'sass:map';
 
 $spinner-sizes: (
-  xs: (
-    circle: 1rem,
+  xs: (circle: 2rem,
     border-width: 0.125rem,
     title-size: 0.75rem,
     description-size: 0.6875rem,
   ),
-  s: (
-    circle: 2rem,
+  s: (circle: 2rem,
     border-width: 0.1875rem,
     title-size: 0.875rem,
     description-size: 0.75rem,
   ),
-  m: (
-    circle: 2.5rem,
+  m: (circle: 2.5rem,
     border-width: 0.25rem,
     title-size: 1rem,
     description-size: 0.875rem,
   ),
-  l: (
-    circle: 3rem,
+  l: (circle: 3rem,
     border-width: 0.3125rem,
     title-size: 1.125rem,
     description-size: 1rem,
   ),
-  xl: (
-    circle: 5rem,
+  xl: (circle: 5rem,
     border-width: 0.375rem,
     title-size: 1.25rem,
     description-size: 1.125rem,
@@ -36,22 +31,17 @@ $spinner-sizes: (
 // clave: tamaño canónico
 // valor: lista de clases alias que mapearán a ese tamaño
 $spinner-size-aliases: (
-  xs: (
-    xs,
+  xs: (xs,
   ),
-  s: (
-    s,
+  s: (s,
     small,
   ),
-  m: (
-    m,
+  m: (m,
     medium,
   ),
-  l: (
-    l,
+  l: (l,
     large,
   ),
-  xl: (
-    xl,
+  xl: (xl,
   ),
 );
