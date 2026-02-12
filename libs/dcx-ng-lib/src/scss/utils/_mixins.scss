@@ -111,6 +111,12 @@
   flex-direction: row;
 }
 
+@mixin flex-align-center {
+  @include flex-column;
+  align-items: center;
+  justify-content: center;
+}
+
 // Mixins de Grid
 @mixin grid-center {
   display: grid;
@@ -166,29 +172,25 @@ $breakpoints: (
 
 // Tamaños del botón
 $button-sizes: (
-  s: (
-    height: 2.5rem,
+  s: (height: 2.5rem,
     padding-y: 0.5rem,
     padding-x: 0.75rem,
     font-size: 0.875rem,
     icon-size: 1rem,
   ),
-  m: (
-    height: 3rem,
+  m: (height: 3rem,
     padding-y: 0.75rem,
     padding-x: 1.5rem,
     font-size: 1rem,
     icon-size: 1rem,
   ),
-  l: (
-    height: 3.5rem,
+  l: (height: 3.5rem,
     padding-y: 1rem,
     padding-x: 1.5rem,
     font-size: 1rem,
     icon-size: 1.5rem,
   ),
-  xl: (
-    height: 3.75rem,
+  xl: (height: 3.75rem,
     padding-y: 1.25rem,
     padding-x: 1.75rem,
     font-size: 1.25rem,
@@ -199,7 +201,7 @@ $button-sizes: (
 @mixin button-size($size) {
   $config: map.get($button-sizes, $size);
 
-  @if $config == null {
+  @if $config ==null {
     @error "button-size: el size `#{$size}` no existe en \$button-sizes.";
   }
 
@@ -216,7 +218,7 @@ $button-sizes: (
 @mixin button-icon-only-size($size) {
   $config: map.get($button-sizes, $size);
 
-  @if $config == null {
+  @if $config ==null {
     @error "button-icon-only-size: el size `#{$size}` no existe en \$button-sizes.";
   }
 
@@ -229,10 +231,12 @@ $button-sizes: (
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }
   }
+
   animation: fadeIn var(--transition-normal) var(--transition-timing);
 }
 
@@ -240,21 +244,30 @@ $button-sizes: (
   @keyframes slideIn {
     from {
       opacity: 0;
-      @if $direction == 'up' {
+
+      @if $direction =='up' {
         transform: translateY($distance);
-      } @else if $direction == 'down' {
+      }
+
+      @else if $direction =='down' {
         transform: translateY(-$distance);
-      } @else if $direction == 'left' {
+      }
+
+      @else if $direction =='left' {
         transform: translateX($distance);
-      } @else if $direction == 'right' {
+      }
+
+      @else if $direction =='right' {
         transform: translateX(-$distance);
       }
     }
+
     to {
       opacity: 1;
       transform: translate(0);
     }
   }
+
   animation: slideIn var(--transition-normal) var(--transition-timing);
 }
 
