@@ -10,7 +10,6 @@ import {
 import { CommonModule } from '@angular/common';
 import {
   DcxPosition,
-  DcxPositionType,
   DcxSize,
 } from '@dcx-ng-components/dcx-ng-lib';
 
@@ -27,7 +26,7 @@ export class DcxNgToggleComponent {
   label = input<string | null>(null);
   size = input<DcxSize>('m');
   ariaLabel = input<string | null>(null);
-  textPosition = input<DcxPositionType>(DcxPosition.RIGHT);
+  textPosition = input<DcxPosition>('right');
 
   toggled = output<boolean>();
 
