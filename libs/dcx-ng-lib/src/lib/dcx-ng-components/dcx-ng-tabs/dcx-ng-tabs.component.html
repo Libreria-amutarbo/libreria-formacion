@@ -5,6 +5,7 @@
         <dcx-ng-button
           label="{{(i+1).toString()}}"
           (buttonClick)="selectTab(tab.id)"
+          [pressed]="isButtonPressed(tab.id)"
         >
         </dcx-ng-button>
       }

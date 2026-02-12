@@ -62,6 +62,10 @@ export class DcxNgTabsComponent {
     });
   }
 
+  isButtonPressed(tabId: string): boolean {
+    return this._activeTabId() === tabId;
+  }
+
   selectTab(tabId: string): void {
     const tab = this.tabs().find(t => t.id === tabId);
     if (!tab || tab.disabled) return;
