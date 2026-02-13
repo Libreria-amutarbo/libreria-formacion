@@ -1,5 +1,5 @@
 <div class="container">
-  <dcx-ng-input
+  <!-- <dcx-ng-input
     label="tamaño s"
     placeholder="Escriba algo..."
     size="s"
@@ -29,19 +29,20 @@
     [type]="DcxInputType.NUMBER"
     [errorMessages]="[{type: 'required', message: 'Es obligatorio rellenar este campo'}, {type: 'pattern', message: 'El formato numérico no es válido'}]"
     (valueChange)="showValue($event)"
-  ></dcx-ng-input>
+  ></dcx-ng-input> -->
 
-  <dcx-ng-input
+  <!-- <dcx-ng-input
     label="tamaño l"
     placeholder="Escriba algo... opcional"
     size="l"
+    isInvalid
     [disabled]="false"
     [required]="false"
     [type]="DcxInputType.PASSWORD"
     (valueChange)="showValue($event)"
-  ></dcx-ng-input>
+  ></dcx-ng-input> -->
 
-  <dcx-ng-input
+  <!-- <dcx-ng-input
     label="tamaño xl"
     placeholder="Escriba algo... disabled"
     size="xl"
@@ -50,9 +51,9 @@
     [type]="DcxInputType.EMAIL"
     [errorMessages]="[{type: 'email', message: 'El formato de correo no es correcto'}]"
     (valueChange)="showValue($event)"
-  ></dcx-ng-input>
+  ></dcx-ng-input> -->
 
-  <dcx-ng-input
+  <!-- <dcx-ng-input
     label="tamaño auto"
     placeholder="Escriba algo..."
     size="auto"
@@ -89,5 +90,14 @@
     [required]="false"
     [type]="DcxInputType.TEXT"
     (valueChange)="showValue($event)"
+  ></dcx-ng-input>
+</div> -->
+  <dcx-ng-input
+    label="tamaño auto"
+    placeholder="Escriba algo..."
+    size="auto"
+    [disabled]="false"
+    [required]="false"
+    [type]="DcxInputType.TEXT"
   ></dcx-ng-input>
 </div>

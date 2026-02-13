@@ -1,8 +1,10 @@
 import {
+  booleanAttribute,
   Component,
   computed,
   effect,
   input,
+  model,
   output,
   Signal,
 } from '@angular/core';
@@ -14,6 +16,7 @@ import {
   DcxInputType,
 } from '../../core/interfaces/input';
 
+let uuid = 0;
 @Component({
   selector: 'dcx-ng-input',
   standalone: true,
@@ -22,108 +25,78 @@ import {
   styleUrls: ['./dcx-ng-input.component.scss'],
 })
 export class DcxNgInputComponent {
-  // -----------------------
-  // Inputs con signals()
-  // -----------------------
-  readonly = input(false);
+  id = input<string>(`my-input-${++uuid}`);
+  value = model<string | number | null>(null);
+  disabled = input(false, {
+    transform: booleanAttribute,
+  });
+  readonly = input(false, {
+    transform: booleanAttribute,
+  });
+  placeholder = input<string>('');
   type = input<DcxInputType>(DcxInputType.TEXT);
-  placeholder = input<string | null>(null);
-  size = input<DcxSize>('m');
-  disabled = input(false);
-  required = input(false);
+  name = input<string>('');
+  inputId = `dcx-input-${Math.random().toString(36).substring(2, 9)}`;
+  required = input(false, {
+    transform: booleanAttribute,
+  });
+  autocomplete = input<string>('');
+  inputMode = input<string>('');
+
+  isInvalid = input(false, {
+    transform: booleanAttribute,
+  });
 
   label = input<string | null>(null);
-  errorMessages = input<DcxInputErrorMessage[]>([]);
-  noMargin = input(false);
-  inline = input(false);
-  search = input(false);
+  labelId = `${this.inputId}-label`;
+  ariaLabel = input<string | null>(null);
+  ariaDescribedBy = input<string | null>(null);
+  errorMessage = input<string | null>('');
 
-  // Valor externo
-  value = input<string>('');
+  size = input<DcxSize>('m');
 
-  // Output con signal-based output()
   valueChange = output<string | null>();
 
-  // ---------------------------------------
-  // FormControl (aún necesario en Angular 20)
-  // ---------------------------------------
-  inputControl = new FormControl<string | null>('');
+  blurEvent = output<void>();
+  focusEvent = output<void>();
+  enterPressed = output<void>();
 
-  // Id único
-  inputId = `dcx-input-${Math.random().toString(36).substring(2, 9)}`;
+  private onChange: (val: any) => void = () => {};
+  private onTouched: () => void = () => {};
+  errorId = computed(() => `${this.id()}-error`);
 
-  isFocused = false;
+  describedBy = computed(() => {
+    const ids = [
+      this.ariaDescribedBy(),
+      this.isInvalid() ? this.errorId() : null,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .trim();
+    return ids.length ? ids : null;
+  });
 
   constructor() {
-    // Reconfigurar validators cuando cambian signals
     effect(() => {
-      const validators = [];
-
-      if (this.type() === DcxInputType.EMAIL) {
-        validators.push(Validators.email);
-      }
-
-      if (this.type() === DcxInputType.NUMBER) {
-        validators.push(Validators.pattern(/^-?(?:\d+(?:\.\d+)?|\.\d+)$/));
-      }
-
-      if (this.required()) {
-        validators.push(Validators.required);
-      }
-
-      this.inputControl.setValidators(validators);
-
-      if (this.disabled()) {
-        this.inputControl.disable();
-      } else {
-        this.inputControl.enable();
-      }
-    });
-
-    // Cuando value() cambia desde fuera → actualizar formControl
-    effect(() => {
-      const newValue = this.value();
-      if (newValue !== this.inputControl.value) {
-        this.inputControl.setValue(newValue, { emitEvent: false });
-      }
-    });
-
-    // Emitir cambios del FormControl → hacia fuera
-    this.inputControl.valueChanges.subscribe(v => {
-      this.valueChange.emit(v);
+      const v = this.value();
+      this.onChange(v);
     });
   }
 
-  // -----------------------------
-  // Mensaje de error computado
-  // -----------------------------
-  errorMessage: Signal<string | null> = computed(() => {
-    const errors = this.inputControl.errors;
-    if (!errors) return null;
+  writeValue(val: any): void {
+    this.value.set(val);
+  }
 
-    const errorList = this.errorMessages();
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
 
-    if (errors['required']) {
-      return (
-        errorList.find(e => e.type === 'required')?.message ??
-        'Campo obligatorio'
-      );
-    }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
 
-    if (errors['email']) {
-      return (
-        errorList.find(e => e.type === 'email')?.message ??
-        'Formato correo inválido'
-      );
-    }
-
-    if (errors['pattern'] && this.type() === DcxInputType.NUMBER) {
-      return (
-        errorList.find(e => e.type === 'pattern')?.message ??
-        'Formato numérico inválido'
-      );
-    }
-
-    return null;
-  });
+  onBlur() {
+    this.onTouched();
+    this.blurEvent.emit();
+  }
 }

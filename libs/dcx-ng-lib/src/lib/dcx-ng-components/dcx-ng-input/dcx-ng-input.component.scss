@@ -1,5 +1,19 @@
-p {
-  font-size: var(--font-size-body-large);
+:host {
+  display: inline-block;
+  width: 100%;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+}
+
+.dcx-ng-input__label {
+  display: inline-block;
+  margin-bottom: var(--spacing-inset-xs, 4px);
+  font-size: var(--font-size-body);
+  font-weight: 500;
+}
+
+.dcx-ng-input__required {
+  color: var(--content-error);
 }
 
 .input-container {
