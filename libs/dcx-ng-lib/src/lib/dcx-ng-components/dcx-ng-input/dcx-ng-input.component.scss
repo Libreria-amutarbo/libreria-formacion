@@ -12,150 +12,105 @@
   font-weight: 500;
 }
 
+.dcx-ng-input__wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.dcx-ng-input__control {
+  width: 100%;
+
+  background-color: var(--background-default);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  font-size: var(--font-size-body);
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  cursor: auto;
+  position: relative;
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 2px var(--color-primary-light);
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--background-disabled);
+    color: var(--text-disabled);
+  }
+
+  &.is-invalid {
+    border-color: var(--border-error);
+    box-shadow: 0 0 0 1px var(--border-error);
+    color: var(--text-error);
+  }
+
+  &--xs {
+    padding: var(--spacing-inset-xs);
+  }
+  &--s {
+    padding: var(--spacing-inset-s);
+  }
+  &--m {
+    padding: var(--spacing-inset-m);
+  }
+  &--l {
+    padding: var(--spacing-inset-l);
+  }
+  &--xl {
+    padding: var(--spacing-inset-xl);
+  }
+
+  &.has-action {
+    padding-right: 40px;
+  }
+}
+
+.input-value {
+  flex: 1;
+}
 .dcx-ng-input__required {
   color: var(--content-error);
 }
 
-.input-container {
+.dcx-ng-input__error {
+  margin-top: var(--spacing-inset-xs);
+  color: var(--text-error);
+  font-size: var(--font-size-body-small);
+}
+
+.dcx-ng-input__buttons {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-m);
-
-  &.no-margin {
-    margin-bottom: 0;
-  }
+  align-items: center;
+  gap: 4px;
 }
 
-.dcx-ng-input {
-  box-sizing: content-box;
-  --input-height: var(--spacing-s);
-  --input-width: var(--spacing-m);
-  --input-font-size: var(--font-size-body);
-  --input-padding-vertical: var(--spacing-inset-xs);
-  --input-padding-horizontal: var(--spacing-inset-m);
-
-  border-radius: var(--border-radius-sm);
-  background-color: var(--color-background);
-  border: 2px solid var(--color-primary-light);
-  color: var(--color-text-primary);
-
-  height: var(--input-height);
-  width: calc(var(--input-width) * 5);
-  font-size: var(--input-font-size);
-  padding: var(--input-padding-vertical) var(--input-padding-horizontal);
-
-  &--inline {
-    box-sizing: border-box;
-    width: 100%;
-  }
-
-  &--search {
-    box-sizing: border-box;
-    width: 100%;
-    flex: 1;
-    padding-right: calc(var(--spacing-inset-m, 12px) * 5);
-    height: 44px;
-  }
-
-  &-size--s {
-    --input-height: var(--spacing-xs);
-    --input-width: var(--spacing-s);
-    --input-font-size: var(--font-size-body-small);
-    --input-padding-vertical: var(--spacing-inset-xs);
-    --input-padding-horizontal: var(--spacing-inset-s);
-
-    &.dcx-ng-input--search {
-      padding-right: calc(var(--spacing-inset-s, 8px) * 5);
-      height: 38px;
-    }
-  }
-  &-size--m {
-    --input-height: var(--spacing-xs);
-    --input-width: var(--spacing-m);
-    --input-font-size: var(--font-size-body);
-    --input-padding-vertical: var(--spacing-inset-xs);
-    --input-padding-horizontal: var(--spacing-inset-m);
-
-    &.dcx-ng-input--search {
-      padding-right: calc(var(--spacing-inset-m, 12px) * 5);
-      height: 44px;
-    }
-  }
-  &-size--l {
-    --input-height: var(--spacing-s);
-    --input-width: var(--spacing-l);
-    --input-font-size: var(--font-size-body);
-    --input-padding-vertical: var(--spacing-inset-s);
-    --input-padding-horizontal: var(--spacing-inset-m);
-
-    &.dcx-ng-input--search {
-      padding-right: calc(var(--spacing-inset-l, 16px) * 5);
-      height: 50px;
-    }
-  }
-  &-size--xl {
-    --input-height: var(--spacing-s);
-    --input-width: var(--spacing-xl);
-    --input-font-size: var(--font-size-body-large);
-    --input-padding-vertical: var(--spacing-inset-s);
-    --input-padding-horizontal: var(--spacing-inset-m);
-  }
-  &-size--auto {
-    --input-height: var(--spacing-s);
-    --input-font-size: var(--font-size-body-large);
-    --input-padding-vertical: var(--spacing-inset-s);
-    --input-padding-horizontal: var(--spacing-inset-m);
-    width: calc(100% - var(--input-padding-horizontal) * 2);
-  }
-
-  &--no-styles {
-    background-color: transparent;
-    border: 2px solid black;
-    color: black;
-  }
-
-  &:focus {
-    border: 2px solid var(--color-primary);
-    background-color: var(--color-gray-lighter);
-    outline: none;
-  }
+.dcx-ng-input__control:hover:not(.is-disabled) {
+  box-shadow: 0 0 0 2px var(--border-hover);
 }
 
-.required {
-  border: 2px solid var(--color-error);
-}
-
-.required-icon {
-  color: var(--color-error);
-  font-size: var(--font-size-body-small);
-}
-
-.visually-hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
+.dcx-ng-input__action-button {
   position: absolute;
-  width: 1px;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  padding: 4px !important;
 }
 
-.disabled {
-  background-color: var(--color-gray-light);
-  border: 2px solid var(--color-primary-light);
-  color: var(--color-text-disabled);
-  pointer-events: none;
-}
+.dcx-ng-input__clear-btn {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.7;
 
-.invalid {
-  border: 2px solid var(--color-error);
-  color: var(--color-error);
-}
-
-.invalid-message {
-  width: auto;
-  color: var(--color-error);
-  font-size: var(--font-size-body-small);
+  &:hover {
+    opacity: 1;
+  }
 }

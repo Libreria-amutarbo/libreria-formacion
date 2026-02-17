@@ -24,10 +24,10 @@ import {
   PLACEHOLDER,
   REQUIRED,
   SEARCHABLE,
-  SPACING,
   VALUEINPUT,
   DcxSpacing,
   DISABLED,
+  SPACING_DEFAULT,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -86,7 +86,7 @@ export class DcxNgSelectComponent implements OnInit {
   // Icono del mensaje de error (por defecto info-circle)
   errorIcon = input<string>(ERRORICON);
   valueInput = input<string | null>(VALUEINPUT);
-  spacing = input<DcxSpacing>(SPACING);
+  spacing = input<DcxSpacing>(SPACING_DEFAULT);
 
   // Control de estado
   /**

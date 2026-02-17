@@ -1,103 +1,72 @@
-<div class="container">
-  <!-- <dcx-ng-input
-    label="tamaño s"
-    placeholder="Escriba algo..."
-    size="s"
-    [disabled]="false"
-    [required]="true"
-    [type]="DcxInputType.TEXT"
-    [errorMessages]="[{type: 'required', message: 'Este campo es obligatorio de rellenar'}]"
-    (valueChange)="showValue($event)"
-  ></dcx-ng-input>
+<section>
+  <h2 class="example-title">Ejemplo 1</h2>
+  <dcx-ng-input label="Input por defecto"></dcx-ng-input>
+</section>
 
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Con placeholder</h2>
+  <dcx-ng-input placeholder="Placeholder..."></dcx-ng-input>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Con valor</h2>
+  <dcx-ng-input value="Value"></dcx-ng-input>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Deshabilitado</h2>
+  <dcx-ng-input placeholder="Disabled" disabled></dcx-ng-input>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Solo lectura</h2>
+  <dcx-ng-input placeholder="Solo lectura" readonly></dcx-ng-input>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Diferentes tipos</h2>
+  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+    <dcx-ng-input label="Texto" [type]="DcxInputType.TEXT"></dcx-ng-input>
+    <dcx-ng-input label="Numero" [type]="DcxInputType.NUMBER"></dcx-ng-input>
+    <dcx-ng-input
+      label="Contraseña"
+      [type]="DcxInputType.PASSWORD"
+    ></dcx-ng-input>
+    <dcx-ng-input label="Búsqueda" [type]="DcxInputType.SEARCH"></dcx-ng-input>
+  </article>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 6 - Requerido</h2>
   <dcx-ng-input
-    label="tamaño m"
-    placeholder="Escriba algo..."
-    size="m"
-    [disabled]="false"
-    [required]="true"
-    [type]="DcxInputType.EMAIL"
-    [errorMessages]="[{type: 'required', message: 'Este campo es obligatorio'}, {type: 'email', message: 'El formato de correo no es válido'}]"
-    (valueChange)="showValue($event)"
+    label="Requerido"
+    placeholder="Solo lectura"
+    required
   ></dcx-ng-input>
+</section>
 
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 7 - Inválido</h2>
   <dcx-ng-input
-    label="tamaño default"
-    placeholder="Escriba algo..."
-    [disabled]="false"
-    [required]="true"
-    [type]="DcxInputType.NUMBER"
-    [errorMessages]="[{type: 'required', message: 'Es obligatorio rellenar este campo'}, {type: 'pattern', message: 'El formato numérico no es válido'}]"
-    (valueChange)="showValue($event)"
-  ></dcx-ng-input> -->
-
-  <!-- <dcx-ng-input
-    label="tamaño l"
-    placeholder="Escriba algo... opcional"
-    size="l"
+    label="Inválido"
+    placeholder="Solo lectura"
     isInvalid
-    [disabled]="false"
-    [required]="false"
-    [type]="DcxInputType.PASSWORD"
-    (valueChange)="showValue($event)"
-  ></dcx-ng-input> -->
-
-  <!-- <dcx-ng-input
-    label="tamaño xl"
-    placeholder="Escriba algo... disabled"
-    size="xl"
-    [disabled]="true"
-    [required]="false"
-    [type]="DcxInputType.EMAIL"
-    [errorMessages]="[{type: 'email', message: 'El formato de correo no es correcto'}]"
-    (valueChange)="showValue($event)"
-  ></dcx-ng-input> -->
-
-  <!-- <dcx-ng-input
-    label="tamaño auto"
-    placeholder="Escriba algo..."
-    size="auto"
-    [disabled]="false"
-    [required]="false"
-    [type]="DcxInputType.TEXT"
-    (valueChange)="showValue($event)"
+    errorMessage="Error"
   ></dcx-ng-input>
+</section>
 
-  <h1>Valor del input</h1>
-  <h2>{{ valor }}</h2>
-</div>
-
-<div class="container1">
-  <h1>container 300px</h1>
-  <dcx-ng-input
-    label="tamaño auto"
-    placeholder="Escriba algo..."
-    size="auto"
-    [disabled]="false"
-    [required]="false"
-    [type]="DcxInputType.TEXT"
-    (valueChange)="showValue($event)"
-  ></dcx-ng-input>
-</div>
-
-<div class="container2">
-  <h1>container 700px</h1>
-  <dcx-ng-input
-    label="tamaño auto"
-    placeholder="Escriba algo..."
-    size="auto"
-    [disabled]="false"
-    [required]="false"
-    [type]="DcxInputType.TEXT"
-    (valueChange)="showValue($event)"
-  ></dcx-ng-input>
-</div> -->
-  <dcx-ng-input
-    label="tamaño auto"
-    placeholder="Escriba algo..."
-    size="auto"
-    [disabled]="false"
-    [required]="false"
-    [type]="DcxInputType.TEXT"
-  ></dcx-ng-input>
-</div>
+<hr />

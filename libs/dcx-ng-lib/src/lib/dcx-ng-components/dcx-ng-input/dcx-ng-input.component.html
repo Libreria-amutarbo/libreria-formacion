@@ -1,5 +1,5 @@
 @if (label()) {
-  <label [attr.for]="inputId" [attr.id]="labelId" class="dcx-ng-input__label">
+  <label class="dcx-ng-input__label" [attr.for]="inputId" [attr.id]="labelId">
     {{ label() }}
     @if (required()) {
       <span class="dcx-ng-input__required">*</span>
@@ -9,32 +9,52 @@
 
 <div class="dcx-ng-input__wrapper" [class.is-disabled]="disabled()">
   <input
-    class="dcx-ng-input"
-    [class.disabled]="disabled()"
+    [class]="inputContolClasses()"
+    [class.is-disabled]="disabled()"
+    [class.is-invalid]="isInvalid()"
+    [class.has-icon]="getInputIcon() !== null"
+    [class.has-action]="showActionIcon()"
     [id]="id()"
     [name]="name()"
-    [type]="type()"
+    [type]="displayType()"
     [placeholder]="placeholder()"
-    [autocomplete]="autocomplete()"
     [inputMode]="inputMode()"
     [readOnly]="readonly()"
     [disabled]="disabled()"
     [required]="required()"
+    [autocomplete]="autocomplete()"
     [value]="value() ?? ''"
     [attr.aria-label]="label() ? null : ariaLabel()"
     [attr.aria-required]="required() ? 'true' : null"
     [attr.aria-invalid]="isInvalid()"
     [attr.aria-describedby]="describedBy()"
-    (
-    input)="onInput(($event.target as HTMLInputElement).value)"
+    (input)="onInput($event.target.value)"
     (focus)="focusEvent.emit()"
     (blur)="onBlur()"
     (keydown.enter)="enterPressed.emit()"
   />
 
-  @if (isInvalid()) {
-    <span class="invalid-message">
-      {{ errorMessage() }}
-    </span>
+  @if (showActionIcon()) {
+    <dcx-ng-button
+      class="dcx-ng-input__action-button"
+      variant="icon-only"
+      size="s"
+      icon
+      iconSize="l"
+      [iconName]="getActionButtonIcon()"
+      [ariaLabel]="getActionButtonAriaLabel()"
+      [disabled]="disabled()"
+      (buttonClick)="onActionButtonClick()"
+    ></dcx-ng-button>
+  }
+
+  @if (isInvalid() && errorMessage()) {
+    <div class="dcx-ng-input__error">
+      <dcx-ng-icon [name]="errorIcon()"></dcx-ng-icon>
+
+      <span>
+        {{ errorMessage() }}
+      </span>
+    </div>
   }
 </div>
