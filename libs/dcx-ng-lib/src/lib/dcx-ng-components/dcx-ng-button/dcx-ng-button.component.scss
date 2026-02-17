@@ -26,6 +26,12 @@
 
   // ========== SIZES ==========
 
+  &--xs,
+  &--extra-small {
+    @include button-size(xs);
+    padding: 0.15rem 0.25rem;
+  }
+
   &--s,
   &--small {
     @include button-size(s);

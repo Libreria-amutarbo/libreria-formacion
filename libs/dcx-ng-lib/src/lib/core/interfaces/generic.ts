@@ -1,4 +1,4 @@
-export type DcxSize = 's' | 'm' | 'l' | 'xl' | 'auto';
+export type DcxSize = 'xs' | 's' | 'm' | 'l' | 'xl' | 'auto';
 
 export enum DcxPosition {
   TOP = 'top',

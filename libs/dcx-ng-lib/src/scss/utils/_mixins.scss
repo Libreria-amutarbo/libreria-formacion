@@ -160,6 +160,13 @@ $breakpoints: (
 
 // Tamaños del botón
 $button-sizes: (
+  xs: (
+    height: 1.5rem,
+    padding-y: 0.25rem,
+    padding-x: 0.5rem,
+    font-size: 0.675rem,
+    icon-size: 0.5rem,
+  ),
   s: (
     height: 2.5rem,
     padding-y: 0.5rem,

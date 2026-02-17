@@ -14,11 +14,13 @@ import {
   DcxPosition,
   DcxSize,
 } from '../../core/interfaces';
+import { DcxNgBreadcrumbComponent } from "../dcx-ng-breadcrumb/dcx-ng-breadcrumb.component";
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 @Component({
   selector: 'dcx-ng-checkbox',
   standalone: true,
-  imports: [],
+  imports: [DcxNgButtonComponent],
   templateUrl: './dcx-ng-checkbox.component.html',
   styleUrls: ['./dcx-ng-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,7 +39,7 @@ export class DcxNgCheckboxComponent implements ControlValueAccessor {
   readonly checked = input<boolean>(false);
   readonly disabled = input<boolean>(false);
   readonly errorMessage = input<string>('');
-  readonly size = input<DcxSize>('m');
+  readonly size = input<DcxSize>('xs');
 
   readonly options = input<CheckboxOption[]>([]);
   readonly selectedValues = input<string[]>([]);

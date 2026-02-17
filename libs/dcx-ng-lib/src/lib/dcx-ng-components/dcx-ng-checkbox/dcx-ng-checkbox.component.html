@@ -14,22 +14,22 @@
           @if (labelPosition() === DcxPosition.LEFT) {
             <span class="dcx-checkbox-text">{{ option.label }}</span>
           }
-
-          <button
-            type="button"
+          <dcx-ng-button
+            iconName="check2"
+            [iconSize]="size()"
+            iconColor="white"
+            sizeValue="xs"
+            [size]="size()"
             [class]="containerClasses()"
-            [style.--color]="customColorStyle()"
-            [class.checked]="isChecked(option.value)"
             [disabled]="isOptionDisabled(option)"
             (click)="onGroupCheckboxChange(option.value, !isChecked(option.value))"
-          >
+            variant="primary">
             <span class="dcx-checkbox-box">
               @if (isChecked(option.value)) {
                 <span class="dcx-checkbox-check"></span>
               }
             </span>
-          </button>
-
+          </dcx-ng-button>
           @if (labelPosition() === DcxPosition.RIGHT) {
             <span class="dcx-checkbox-text">{{ option.label }}</span>
           }
@@ -47,19 +47,21 @@
       @if (labelPosition() === DcxPosition.LEFT) {
         <span class="dcx-checkbox-text">{{ label() }}</span>
       }
-
-      <button
-        type="button"
+      <dcx-ng-button
+        [icon]="true"
+        iconName="check2"
+        iconSize="xs"
+        iconColor="white"
+        sizeValue="xs"
         [class]="containerClasses()"
-        [style.--color]="customColorStyle()"
-        (click)="onToggle()"
-      >
+        (click)="onToggle()"  
+        variant="primary">
         <span class="dcx-checkbox-box">
           @if (isCheckedComputed()) {
             <span class="dcx-checkbox-check"></span>
           }
         </span>
-      </button>
+      </dcx-ng-button>
 
       @if (labelPosition() === DcxPosition.RIGHT) {
         <span class="dcx-checkbox-text">{{ label() }}</span>
