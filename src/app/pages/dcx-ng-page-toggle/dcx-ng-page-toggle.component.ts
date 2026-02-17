@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DcxNgToggleComponent, DcxPosition } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgToggleComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-toggle',
@@ -12,7 +12,7 @@ import { DcxNgToggleComponent, DcxPosition } from '@dcx-ng-components/dcx-ng-lib
 })
 export class DcxNgPageToggleComponent {
   isDarkMode = false;
-  readonly DcxPosition = DcxPosition;
+  eventState = signal<boolean>(false);
 
   handleToggle(value: boolean) {
     this.isDarkMode = value;

@@ -1,5 +1,6 @@
 export interface DcxTabItem {
   id: string;
   label: string;
-  content?: string;
+  disabled?: boolean;
+  icon?: string; // opcional si tu botón lo permite
 }

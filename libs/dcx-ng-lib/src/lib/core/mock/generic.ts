@@ -2,18 +2,18 @@ import {
   DcxLayout,
   DcxAlign,
   DcxSize,
-  DcxPosition,
   DcxIconSpacing,
   DcxSpacing,
+  DcxPosition,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 export const LAYOUT_LIST: DcxLayout[] = ['vertical', 'horizontal'];
 
 export const ALIGN_LIST: DcxAlign[] = ['start', 'center', 'end'];
 
-export const SIZE_LIST: DcxSize[] = ['s', 'm', 'l'];
+export const SIZE_LIST: DcxSize[] = ['s', 'm', 'l', 'xl', 'auto'];
 
-export const POSITION_LIST: DcxPosition[] = Object.values(DcxPosition);
+export const POSITION_LIST: DcxPosition[] = ['top', 'bottom', 'left', 'right'];
 
 export const ICON_SPACING_LIST: DcxIconSpacing[] = [
   'none',

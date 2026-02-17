@@ -9,9 +9,9 @@
         <label
           class="dcx-checkbox-label"
           [class.disabled]="isOptionDisabled(option)"
-          [class.label-left]="labelPosition() === DcxPosition.LEFT"
+          [class.label-left]="labelPosition() === 'left'"
         >
-          @if (labelPosition() === DcxPosition.LEFT) {
+          @if (labelPosition() === 'left') {
             <span class="dcx-checkbox-text">{{ option.label }}</span>
           }
 
@@ -30,7 +30,7 @@
             </span>
           </button>
 
-          @if (labelPosition() === DcxPosition.RIGHT) {
+          @if (labelPosition() === 'right') {
             <span class="dcx-checkbox-text">{{ option.label }}</span>
           }
         </label>
@@ -42,9 +42,9 @@
     <label
       class="dcx-checkbox-label"
       [class.disabled]="disabled()"
-      [class.label-left]="labelPosition() === DcxPosition.LEFT"
+      [class.label-left]="labelPosition() === 'left'"
     >
-      @if (labelPosition() === DcxPosition.LEFT) {
+      @if (labelPosition() === 'left') {
         <span class="dcx-checkbox-text">{{ label() }}</span>
       }
 
@@ -61,7 +61,7 @@
         </span>
       </button>
 
-      @if (labelPosition() === DcxPosition.RIGHT) {
+      @if (labelPosition() === 'right') {
         <span class="dcx-checkbox-text">{{ label() }}</span>
       }
     </label>
@@ -69,7 +69,7 @@
     @if (errorMessage() && !isCheckedComputed()) {
       <div
         class="dcx-checkbox-error"
-        [class.error-label-left]="labelPosition() === DcxPosition.LEFT"
+        [class.error-label-left]="labelPosition() === 'left'"
       >
         {{ errorMessage() }}
       </div>
