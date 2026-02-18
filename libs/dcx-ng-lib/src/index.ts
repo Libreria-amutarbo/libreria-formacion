@@ -10,7 +10,6 @@ export * from './lib/dcx-ng-components/dcx-ng-chip/dcx-ng-chip.component';
 export * from './lib/dcx-ng-components/dcx-ng-message/dcx-ng-message.component';
 export * from './lib/dcx-ng-components/dcx-ng-select/dcx-ng-select.component';
 export * from './lib/dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component';
-export * from './lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
 export * from './lib/dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component';
 export * from './lib/dcx-ng-components/dcx-ng-breadcrumb/dcx-ng-breadcrumb.component';
 export * from './lib/dcx-ng-components/dcx-ng-dropdown/dcx-ng-dropdown.component';
@@ -21,6 +20,7 @@ export * from './lib/dcx-ng-components/dcx-ng-datePicker/dcx-ng-datePicker.compo
 export * from './lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
 export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
 export * from './lib/dcx-ng-components/dcx-ng-tabs/dcx-ng-tabs.component';
+export * from './lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
 export * from './lib/services/icon.service';
 export * from './lib/dcx-ng-components/dcx-ng-dialog/dcx-ng-dialog.component';
 export * from './lib/dcx-ng-components/dcx-ng-search/dcx-ng-search.component';

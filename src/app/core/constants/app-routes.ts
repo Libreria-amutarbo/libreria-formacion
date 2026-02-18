@@ -24,4 +24,5 @@ export const APP_ROUTES = {
   SEARCH: 'search',
   TABS: 'tabs',
   BREADCRUMB: 'breadcrumb',
+  CONTEXTMENU: 'context-menu',
 };

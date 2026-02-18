@@ -25,6 +25,7 @@ import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-n
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
 import { DcxNgPageBreadcrumb } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
+import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.component/dcx-ng-page-contextMenu.component';
 
 export const appRoutes: Route[] = [
   {
@@ -131,4 +132,8 @@ export const appRoutes: Route[] = [
     path: APP_ROUTES.BREADCRUMB,
     component: DcxNgPageBreadcrumb,
   },
+  {
+    path: APP_ROUTES.CONTEXTMENU,
+    component: DcxNgPageContextMenuComponent
+  }
 ];

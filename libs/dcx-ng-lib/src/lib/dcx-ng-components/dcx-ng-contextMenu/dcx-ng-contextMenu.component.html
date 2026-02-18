@@ -1,0 +1,8 @@
+@if (isOpen()) {
+<div class="dcx-context-menu" [style.top]="menuStyle().top" [style.left]="menuStyle().left"
+    (click)="$event.stopPropagation()" tabindex="0" role="menu">
+    <dcx-ng-list class="dcx-context-menu-list" [items]="items()" [selectable]="true" [renderChildren]="true"
+        [showChildrenIndicator]="true" (itemSelected)="onListItemSelected($event)">
+    </dcx-ng-list>
+</div>
+}

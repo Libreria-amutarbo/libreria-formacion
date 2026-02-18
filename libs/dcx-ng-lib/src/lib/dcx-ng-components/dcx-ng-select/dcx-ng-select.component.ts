@@ -141,7 +141,7 @@ export class DcxNgSelectComponent implements OnInit {
   }
 
   // ControlValueAccessor
-  onChange = (v: any) => {};
+  onChange = (_v: any) => {};
   onTouched = () => {};
 
   onOptionSpace(event: Event, opt: any) {

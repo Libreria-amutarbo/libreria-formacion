@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.dcx-context-menu {
+  position: fixed;
+  z-index: 9999;
+  background: var(--background-default, #ffffff);
+  border: 1px solid var(--border-default, #e1e3e6);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  max-width: 300px;
+  padding: 0.25rem 0;
+}
