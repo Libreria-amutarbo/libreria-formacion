@@ -12,7 +12,7 @@ import { DcxNgSelectComponent } from '@dcx-ng-components/dcx-ng-lib';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  valueDefault = APP_ROUTES.TABS;
+  valueDefault = APP_ROUTES.INPUT;
   paths = Object.values(APP_ROUTES);
   title = 'dcx-ng-components';
 

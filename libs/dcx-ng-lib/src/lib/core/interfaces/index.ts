@@ -18,3 +18,4 @@ export * from './select';
 export * from './paginator';
 export * from './datePicker';
 export * from './list';
+export * from './input';

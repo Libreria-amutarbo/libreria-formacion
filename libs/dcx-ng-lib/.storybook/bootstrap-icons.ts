@@ -92,6 +92,8 @@ export const BOOTSTRAP_ICONS = [
   'clock-fill',
   'eye',
   'eye-fill',
+  'eye-slash',
+  'eye-slash-fill',
   'lock',
   'lock-fill',
   'cart',
