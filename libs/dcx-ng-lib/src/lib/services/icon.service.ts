@@ -22,7 +22,7 @@ export class IconService {
   constructor() { }
 
   loadIcons(): Observable<string[]> {
-    if(this._icons() !== null) {
+    if (this._icons() !== null) {
       return of(this._icons()!);
     }
 
