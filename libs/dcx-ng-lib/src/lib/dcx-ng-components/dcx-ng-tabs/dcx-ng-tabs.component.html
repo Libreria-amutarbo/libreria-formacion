@@ -1,27 +1,78 @@
-<div class="dcx-tabs" [class.dcx-disabled]="disabled()">
-  <div class="dcx-tabs__header">
-    @for (tab of tabs(); track tab.id) {
+<div class="dcx-tabs">
+  @if (hasControls()) {
+    <div class="dcx-tabs__controls">
+      @for (tab of tabs(); track tab.id; let i = $index) {
+        <dcx-ng-button
+          label="{{(i+1).toString()}}"
+          (buttonClick)="selectTab(tab.id)"
+          [pressed]="isButtonPressed(tab.id)"
+        >
+        </dcx-ng-button>
+      }
+    </div>
+  }
+  <div class="dcx-tabs__header-container">
+    @if (hasOverflow() && canScrollLeft()) {
       <dcx-ng-button
-        class="dcx-tab__button"
-        [class.active]="isActive(tab.id)"
-        [label]="tab.label"
-        [disabled]="disabled()"
-        (buttonClick)="selectTab(tab.id)"
-        [attr.aria-selected]="isActive(tab.id)"
-        variant="terciary"
+        class="dcx-tabs__scroll-button dcx-tabs__scroll-button--left"
+        variant="icon-only"
+        size="m"
+        icon
+        [iconName]="'chevron-left'"
+        [iconSize]="'l'"
+        (buttonClick)="scrollLeft()"
+        [attr.aria-label]="'Scroll left'"
+      ></dcx-ng-button>
+    }
+    <div
+      class="dcx-tabs__header"
+      role="tablist"
+      #tabsHeader
+      (scroll)="updateScrollButtons()"
+    >
+      @for (tab of tabs(); track tab.id) {
+        <dcx-ng-button
+          class="dcx-tab__button"
+          [class.active]="isActive(tab.id)"
+          [label]="tab.label"
+          [disabled]="!!tab.disabled"
+          [variant]="'text'"
+          size="l"
+          [icon]="!!tab.icon"
+          [iconName]="tab.icon ?? ''"
+          [iconSize]="'l'"
+          [attr.role]="'tab'"
+          [attr.aria-selected]="isActive(tab.id)"
+          [attr.aria-controls]="'panel-' + tab.id"
+          [attr.data-tab]="tab.id"
+          (buttonClick)="selectTab(tab.id)"
+        ></dcx-ng-button>
+      }
+    </div>
+    @if (hasOverflow() && canScrollRight()) {
+      <dcx-ng-button
+        class="dcx-tabs__scroll-button dcx-tabs__scroll-button--right"
+        variant="icon-only"
+        size="m"
+        icon
+        [iconName]="'chevron-right'"
+        [iconSize]="'l'"
+        (buttonClick)="scrollRight()"
+        [attr.aria-label]="'Scroll right'"
       ></dcx-ng-button>
     }
   </div>
 
-  <div class="dcx-tabs__content">
-    @if (activeTab(); as tab) {
-      <div class="dcx-tab__panel" role="tabpanel">
-        @if (tab.content) {
-          <p>{{ tab.content }}</p>
-        } @else {
-          <ng-content></ng-content>
-        }
+  @if (activeTab(); as tab) {
+    <div class="dcx-tabs__content">
+      <div
+        class="dcx-tab__panel"
+        role="tabpanel"
+        [id]="'panel-' + tab.id"
+        [attr.aria-labelledby]="tab.id"
+      >
+        <ng-content></ng-content>
       </div>
-    }
-  </div>
+    </div>
+  }
 </div>

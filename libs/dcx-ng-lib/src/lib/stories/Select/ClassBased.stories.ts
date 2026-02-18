@@ -12,7 +12,7 @@ import {
   PLACEHOLDER,
   REQUIRED,
   SEARCHABLE,
-  SPACING,
+  SPACING_DEFAULT,
   SPACING_LIST,
   VALUEINPUT,
 } from '@dcx-ng-components/dcx-ng-lib';
@@ -137,7 +137,7 @@ const meta: Meta<DcxNgSelectComponent> = {
       table: {
         category: 'Attributes',
         defaultValue: {
-          summary: SPACING,
+          summary: SPACING_DEFAULT,
         },
       },
     },
@@ -167,7 +167,7 @@ const meta: Meta<DcxNgSelectComponent> = {
     errorMessage: ERRORMESSAGE,
     errorIcon: ERRORICON,
     valueInput: VALUEINPUT,
-    spacing: SPACING,
+    spacing: SPACING_DEFAULT,
   },
   decorators: [
     moduleMetadata({
@@ -243,110 +243,3 @@ export const Spacing: Story = {
     `,
   }),
 };
-
-// export const SelectShowcase: Story = {
-//   render: () => {
-//     const form1 = new FormGroup({
-//       basic: new FormControl<string | null>(null),
-//     });
-//     const form2 = new FormGroup({
-//       withPlaceholder: new FormControl<string | null>(null),
-//     });
-//     const form3 = new FormGroup({
-//       disabled: new FormControl<string | null>({ value: null, disabled: true }),
-//     });
-//     const form4 = new FormGroup({ preselected: new FormControl<string>('2') });
-//     const form5 = new FormGroup({
-//       withChange: new FormControl<string | null>(null),
-//     });
-
-//     form5.get('withChange')?.valueChanges.subscribe(v => {
-//       console.log('New value selected (showcase): ', v);
-//     });
-
-//     return {
-//       props: { OPTIONS, form1, form2, form3, form4, form5 },
-//       template: `
-//         <div style="width:360px;">
-//           <!-- Basic -->
-//           <form [formGroup]="form1" style="margin-bottom:12px;">
-//             <section style="margin:8px 0;">
-//               <h4>Basic Select</h4>
-//               <dcx-ng-select
-//                 formControlName="basic"
-//                 [options]="optionList"
-//                 label="Basic select">
-//               </dcx-ng-select>
-//             </section>
-//           </form>
-
-//           <!-- With Placeholder -->
-//           <form [formGroup]="form2" style="margin-bottom:12px;">
-//             <section style="margin:8px 0;">
-//               <h4>Select with Placeholder</h4>
-//               <dcx-ng-select
-//                 formControlName="withPlaceholder"
-//                 [options]="optionList"
-//                 placeholder="Please choose an option"
-//                 label="Select with placeholder">
-//               </dcx-ng-select>
-//             </section>
-//           </form>
-
-//           <!-- Disabled (por estado del FormControl) -->
-//           <form [formGroup]="form3" style="margin-bottom:12px;">
-//             <section style="margin:8px 0;">
-//               <h4>Disabled Select</h4>
-//               <dcx-ng-select
-//                 formControlName="disabled"
-//                 [options]="optionList"
-//                 placeholder="This select is disabled"
-//                 label="Disabled select">
-//               </dcx-ng-select>
-//             </section>
-//           </form>
-
-//           <!-- Preselected binding -->
-//           <form [formGroup]="form4" style="margin-bottom:12px;">
-//             <section style="margin:8px 0;">
-//               <h4>Select with Form Control Binding</h4>
-//               <dcx-ng-select
-//                 formControlName="preselected"
-//                 [options]="optionList"
-//                 placeholder="Select with form control binding"
-//                 label="Select with form control">
-//               </dcx-ng-select>
-//             </section>
-//           </form>
-
-//           <!-- Change event -->
-//           <form [formGroup]="form5" style="margin-bottom:12px;">
-//             <section style="margin:8px 0;">
-//               <h4>Select with Change Event</h4>
-//               <dcx-ng-select
-//                 formControlName="withChange"
-//                 [options]="optionList"
-//                 placeholder="Select to trigger change event"
-//                 label="Select with change event">
-//               </dcx-ng-select>
-//               <p style="margin-top:8px; color:#666;">Check the console for change events</p>
-//             </section>
-//           </form>
-
-//           <!-- Sin label visible (solo aria-label) -->
-//           <form [formGroup]="form1" style="margin-bottom:12px;">
-//             <section style="margin:8px 0;">
-//               <h4>Accessible name only (no visible label)</h4>
-//               <dcx-ng-select
-//                 formControlName="basic"
-//                 [options]="optionList"
-//                 placeholder="This select has no visible label"
-//                 ariaLabel="Accessible only select">
-//               </dcx-ng-select>
-//             </section>
-//           </form>
-//         </div>
-//       `,
-//     };
-//   },
-// };

@@ -1,76 +1,140 @@
 <div class="dcx-datepicker">
-  <div class="dcx-datepicker__input-wrapper" [class.dcx-datepicker__input-wrapper--disabled]="disabled()"
-    [class.dcx-datepicker__input-wrapper--open]="isOpen()" (click)="toggleCalendar()" tabindex="0" role="button">
-    <dcx-ng-input class="dcx-datepicker__input" [label]="''" [placeholder]="placeholder() || 'dd/mm/yyyy'"
-      [disabled]="disabled()" [required]="false" [type]="DcxInputType.TEXT" [value]="formattedSelectedDate()"
-      [readonly]="true" (valueChange)="null"></dcx-ng-input>
+  <div
+    class="dcx-datepicker__input-wrapper"
+    [class.dcx-datepicker__input-wrapper--disabled]="disabled()"
+    [class.dcx-datepicker__input-wrapper--open]="isOpen()"
+    (click)="toggleCalendar()"
+    tabindex="0"
+    role="button"
+  >
+    <dcx-ng-input
+      class="dcx-datepicker__input"
+      [label]="''"
+      [placeholder]="placeholder() || 'dd/mm/yyyy'"
+      [disabled]="disabled()"
+      [required]="false"
+      [type]="DcxInputType.TEXT"
+      [value]="formattedSelectedDate()"
+      [readonly]="true"
+      (valueChange)="null"
+    ></dcx-ng-input>
 
     @if (showClearButton()) {
-    <dcx-ng-button class="dcx-datepicker__clear" [icon]="true" iconName="x-lg" [ariaLabel]="labels.clearDate"
-      (buttonClick)="clearDate($event)"></dcx-ng-button>
+      <dcx-ng-button
+        class="dcx-datepicker__clear"
+        [icon]="true"
+        iconName="x-lg"
+        [ariaLabel]="labels.clearDate"
+        (buttonClick)="clearDate($event)"
+      ></dcx-ng-button>
     }
   </div>
 
   @if (isOpen()) {
-  <div class="dcx-datepicker__calendar">
-    <div class="dcx-datepicker__header">
-      <dcx-ng-button class="dcx-datepicker__nav-button" [icon]="true" iconPosition="left" iconName="arrow-left"
-        [ariaLabel]="labels.previous" (buttonClick)="previousMonth()"></dcx-ng-button>
+    <div class="dcx-datepicker__calendar">
+      <div class="dcx-datepicker__header">
+        <dcx-ng-button
+          class="dcx-datepicker__nav-button"
+          [icon]="true"
+          iconPosition="left"
+          iconName="arrow-left"
+          [ariaLabel]="labels.previous"
+          (buttonClick)="previousMonth()"
+        ></dcx-ng-button>
+
+        @if (isCalendarMode()) {
+          <span
+            class="dcx-datepicker__month-name dcx-datepicker__month-name--clickable"
+            (click)="openMonthSelector()"
+            tabindex="0"
+            role="button"
+          >
+            {{ monthName() }}
+          </span>
+          <span
+            class="dcx-datepicker__month-name dcx-datepicker__month-name--clickable dcx-datepicker__month-name--ml"
+            (click)="openYearSelector()"
+            tabindex="0"
+            role="button"
+          >
+            {{ yearNumber() }}
+          </span>
+        }
+        <span class="dcx-datepicker__month-name">
+          @if (isMonthMode()) {
+            {{ labels.selectMonth }}
+          }
+          @if (isYearMode()) {
+            {{ labels.selectYear }}
+          }
+        </span>
+
+        <dcx-ng-button
+          class="dcx-datepicker__nav-button"
+          [icon]="true"
+          iconPosition="right"
+          iconName="arrow-right"
+          [ariaLabel]="labels.next"
+          (buttonClick)="nextMonth()"
+        ></dcx-ng-button>
+      </div>
 
       @if (isCalendarMode()) {
-      <span class="dcx-datepicker__month-name dcx-datepicker__month-name--clickable" (click)="openMonthSelector()"
-        tabindex="0" role="button">
-        {{ monthName() }}
-      </span>
-      <span class="dcx-datepicker__month-name dcx-datepicker__month-name--clickable dcx-datepicker__month-name--ml"
-        (click)="openYearSelector()" tabindex="0" role="button">
-        {{ yearNumber() }}
-      </span>
+        <div class="dcx-datepicker__weekdays">
+          @for (day of weekDays; track day) {
+            <span class="dcx-datepicker__weekday">{{ day }}</span>
+          }
+        </div>
+        <div class="dcx-datepicker__days">
+          @for (day of calendarDays(); track day.date.getTime()) {
+            <dcx-ng-button
+              class="dcx-datepicker__day"
+              variant="secondary"
+              [ngClass]="getDayClasses(day)"
+              [label]="day.date.getDate().toString()"
+              [disabled]="day.isDisabled"
+              (buttonClick)="selectDate(day)"
+            >
+            </dcx-ng-button>
+          }
+        </div>
       }
-      <span class="dcx-datepicker__month-name">
-        @if (isMonthMode()) {{{ labels.selectMonth }}}
-        @if (isYearMode()) {{{ labels.selectYear }}}
-      </span>
-
-      <dcx-ng-button class="dcx-datepicker__nav-button" [icon]="true" iconPosition="right" iconName="arrow-right"
-        [ariaLabel]="labels.next" (buttonClick)="nextMonth()"></dcx-ng-button>
-    </div>
-
-    @if (isCalendarMode()) {
-    <div class="dcx-datepicker__weekdays">
-      @for (day of weekDays; track day) {
-      <span class="dcx-datepicker__weekday">{{ day }}</span>
+      @if (isMonthMode()) {
+        <div class="dcx-datepicker__months-grid">
+          @for (month of monthsList; track month) {
+            <dcx-ng-button
+              class="dcx-datepicker__day"
+              [label]="month.toString()"
+              (buttonClick)="selectMonth($index)"
+            >
+            </dcx-ng-button>
+          }
+        </div>
       }
-    </div>
-    <div class="dcx-datepicker__days">
-      @for (day of calendarDays(); track day.date.getTime()) {
-      <dcx-ng-button class="dcx-datepicker__day" variant="secondary" [ngClass]="getDayClasses(day)"
-        [label]="day.date.getDate().toString()" [disabled]="day.isDisabled" (buttonClick)="selectDate(day)">
-      </dcx-ng-button>
+      @if (isYearMode()) {
+        <div class="dcx-datepicker__years-grid">
+          @for (year of yearsList(); track year) {
+            <dcx-ng-button
+              class="dcx-datepicker__day"
+              [label]="year.toString()"
+              (buttonClick)="selectYear(year)"
+            >
+            </dcx-ng-button>
+          }
+        </div>
       }
+      <div class="dcx-datepicker__footer">
+        <dcx-ng-button
+          class="dcx-datepicker__today-btn"
+          variant="secondary"
+          [icon]="true"
+          iconName="calendar-fill"
+          [ariaLabel]="labels.goToToday"
+          [label]="labels.today"
+          (buttonClick)="goToToday()"
+        >
+        </dcx-ng-button>
+      </div>
     </div>
-    }
-    @if (isMonthMode()) {
-    <div class="dcx-datepicker__months-grid">
-      @for (month of monthsList; track month) {
-      <dcx-ng-button class="dcx-datepicker__day" [label]="month.toString()" (buttonClick)="selectMonth($index)">
-      </dcx-ng-button>
-      }
-    </div>
-    }
-    @if (isYearMode()) {
-    <div class="dcx-datepicker__years-grid">
-      @for (year of yearsList(); track year) {
-      <dcx-ng-button class="dcx-datepicker__day" [label]="year.toString()" (buttonClick)="selectYear(year)">
-      </dcx-ng-button>
-      }
-    </div>
-    }
-    <div class="dcx-datepicker__footer">
-      <dcx-ng-button class="dcx-datepicker__today-btn" variant="secondary" [icon]="true" iconName="calendar-fill"
-        [ariaLabel]="labels.goToToday" [label]="labels.today" (buttonClick)="goToToday()">
-      </dcx-ng-button>
-    </div>
-  </div>
   }
 </div>

@@ -1,15 +1,69 @@
-import { DcxInputType } from '../../core/interfaces/input';
-import { DcxNgInputComponent } from '../../dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
-import { Meta, StoryObj } from '@storybook/angular';
+import {
+  DcxNgInputComponent,
+  DcxInputType,
+  INPUT_DEFAULT_ARIA_DESCRIBEDBY,
+  INPUT_DEFAULT_ARIA_LABEL,
+  INPUT_DEFAULT_AUTOCOMPLETE,
+  INPUT_DEFAULT_DISABLED,
+  INPUT_DEFAULT_ERROR_MESSAGE,
+  INPUT_DEFAULT_INPUTMODE,
+  INPUT_DEFAULT_INVALID,
+  INPUT_DEFAULT_LABEL,
+  INPUT_DEFAULT_NAME,
+  INPUT_DEFAULT_PLACEHOLDER,
+  INPUT_DEFAULT_READONLY,
+  INPUT_DEFAULT_REQUIRED,
+  INPUT_DEFAULT_SIZE,
+  INPUT_DEFAULT_TYPE,
+  INPUT_DEFAULT_VALUE,
+} from '@dcx-ng-components/dcx-ng-lib';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
+import { ReactiveFormsModule } from '@angular/forms';
 
 const meta: Meta<DcxNgInputComponent> = {
   title: 'DCXLibrary/Input/ClassBased',
   component: DcxNgInputComponent,
   tags: ['autodocs'],
   argTypes: {
+    id: {
+      description: 'Id del input',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: '-',
+        },
+      },
+    },
+    value: {
+      description: 'Value del input',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    disabled: {
+      description: 'Value del input',
+      control: { type: 'boolean' },
+      defaultValue: false,
+      table: { category: 'Attributes' },
+    },
+    readonly: {
+      description: 'Value del input',
+      control: { type: 'boolean' },
+      defaultValue: false,
+      table: { category: 'Attributes' },
+    },
+    placeholder: {
+      description: 'Value del input',
+      control: { type: 'text' },
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
     type: {
-      control: 'select',
+      description: 'Value del input',
+      control: { type: 'select' },
       options: [
         DcxInputType.TEXT,
         DcxInputType.NUMBER,
@@ -17,129 +71,220 @@ const meta: Meta<DcxNgInputComponent> = {
         DcxInputType.PASSWORD,
         DcxInputType.SEARCH,
         DcxInputType.TEL,
-        DcxInputType.URL
+        DcxInputType.URL,
       ],
       defaultValue: DcxInputType.TEXT,
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
+    },
+
+    name: {
+      description: 'Value del input',
+      control: { type: 'text' },
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
+    required: {
+      description: 'Value del input',
+      control: { type: 'boolean' },
+      defaultValue: false,
+      table: { category: 'Attributes' },
+    },
+
+    autocomplete: {
+      description: 'Value del input',
+      control: { type: 'text' },
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
+    inputMode: {
+      description: 'Value del input',
+      control: { type: 'text' },
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
+
+    isInvalid: {
+      description: 'Value del input',
+      control: { type: 'boolean' },
+      defaultValue: false,
+      table: { category: 'Attributes' },
+    },
+
+    label: {
+      control: 'text',
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
+    ariaLabel: {
+      control: 'text',
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
+    ariaDescribedBy: {
+      control: 'text',
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
+    errorMessage: {
+      control: 'text',
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
+    errorIcon: {
+      control: 'text',
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
+    spacing: {
+      control: 'select',
+      options: ['s', 'm', 'l', 'xl'],
+      defaultValue: 'm',
+      table: { category: 'Attributes' },
     },
     size: {
       control: 'select',
       options: ['s', 'm', 'l', 'xl'],
       defaultValue: 'm',
-      table: { category: 'Attributes' }
+      table: { category: 'Attributes' },
     },
-    placeholder: {
-      control: 'text',
-      defaultValue: null,
-      table: { category: 'Attributes' }
+    valueChange: {
+      action: 'clear',
+      description: 'Evento que se emite cuando se borra el valor seleccionado',
+      table: {
+        category: 'Events',
+        type: {
+          summary: '(item: void) => void',
+        },
+        defaultValue: {
+          summary: '-',
+        },
+      },
     },
-    disabled: {
-      control: 'boolean',
-      defaultValue: false,
-      table: { category: 'Attributes' }
+    blurEvent: {
+      action: 'clear',
+      description: 'Evento que se emite cuando se borra el valor seleccionado',
+      table: {
+        category: 'Events',
+        type: {
+          summary: '(item: void) => void',
+        },
+        defaultValue: {
+          summary: '-',
+        },
+      },
     },
-    required: {
-      control: 'boolean',
-      defaultValue: false,
-      table: { category: 'Attributes' }
+    focusEvent: {
+      action: 'clear',
+      description: 'Evento que se emite cuando se borra el valor seleccionado',
+      table: {
+        category: 'Events',
+        type: {
+          summary: '(item: void) => void',
+        },
+        defaultValue: {
+          summary: '-',
+        },
+      },
     },
-    label: {
-      control: 'text',
-      defaultValue: null,
-      table: { category: 'Attributes' }
-    }
+    enterPressed: {
+      action: 'clear',
+      description: 'Evento que se emite cuando se borra el valor seleccionado',
+      table: {
+        category: 'Events',
+        type: {
+          summary: '(item: void) => void',
+        },
+        defaultValue: {
+          summary: '-',
+        },
+      },
+    },
+  },
+  args: {
+    value: INPUT_DEFAULT_VALUE,
+    disabled: INPUT_DEFAULT_DISABLED,
+    readonly: INPUT_DEFAULT_READONLY,
+    placeholder: INPUT_DEFAULT_PLACEHOLDER,
+    type: INPUT_DEFAULT_TYPE,
+    name: INPUT_DEFAULT_NAME,
+    required: INPUT_DEFAULT_REQUIRED,
+    autocomplete: INPUT_DEFAULT_AUTOCOMPLETE,
+    inputMode: INPUT_DEFAULT_INPUTMODE,
+    isInvalid: INPUT_DEFAULT_INVALID,
+    label: INPUT_DEFAULT_LABEL,
+    ariaLabel: INPUT_DEFAULT_ARIA_LABEL,
+    ariaDescribedBy: INPUT_DEFAULT_ARIA_DESCRIBEDBY,
+    errorMessage: INPUT_DEFAULT_ERROR_MESSAGE,
+    size: INPUT_DEFAULT_SIZE,
+  },
+  decorators: [
+    moduleMetadata({
+      imports: [ReactiveFormsModule, DcxNgInputComponent],
+    }),
+  ],
+  parameters: {
+    controls: { expanded: true },
   },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgInputComponent>;
 
-export const TextSmall: Story = {
+export const ClassBased: Story = {};
+
+export const withPlaceholder: Story = {
   args: {
-    type: DcxInputType.TEXT,
-    size: 's',
     placeholder: 'Enter text...',
-    disabled: false,
-    required: false,
-    label: 'Input Label',
   },
 };
 
-export const NumberMedium: Story = {
+export const withValue: Story = {
   args: {
-    type: DcxInputType.NUMBER,
-    size: 'm',
-    placeholder: 'Enter number...',
-    disabled: false,
-    required: false,
-    label: 'Input Label',
+    value: 'Value',
   },
 };
 
-export const EmailLargeRequired: Story = {
+export const disabled: Story = {
   args: {
-    type: DcxInputType.EMAIL,
-    size: 'l',
-    placeholder: 'Enter email...',
-    disabled: false,
-    required: true,
-    label: 'Input Label',
+    disabled: true,
   },
 };
 
-export const PasswordExtraLarge: Story = {
+export const readOnly: Story = {
   args: {
-    type: DcxInputType.PASSWORD,
-    size: 'xl',
-    placeholder: 'Enter password...',
-    disabled: false,
-    required: false,
-    label: 'Input Label',
+    placeholder: 'Solo lectura',
+    readonly: true,
   },
 };
 
-export const AutoRequired: Story = {
-  args: {
-    type: DcxInputType.TEXT,
-    size: 'auto',
-    placeholder: 'Enter data auto size...',
-    disabled: false,
-    required: true,
-    label: 'Date Input',
-  },
-  render: (args) => ({
-    props: args,
+export const diferentsTypes: Story = {
+  render: () => ({
     template: `
-    <div style="width: 200px;">
-      <dcx-ng-input 
-  [label]="label" 
-  [placeholder]="placeholder" 
-  [disabled]="disabled" 
-  [required]="required"
-  [type]="type" 
-  [size]="size" 
-  (valueChange)="onValueChange($event)">
-</dcx-ng-input>
-    </div>
+      <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+    <dcx-ng-input label="Texto" [type]="DcxInputType.TEXT"></dcx-ng-input>
+    <dcx-ng-input label="Numero" [type]="DcxInputType.NUMBER"></dcx-ng-input>
+    <dcx-ng-input
+      label="Contraseña"
+      [type]="DcxInputType.PASSWORD"
+    ></dcx-ng-input>
+    <dcx-ng-input label="Búsqueda" [type]="DcxInputType.SEARCH"></dcx-ng-input>
+  </article>
     `,
+    props: { DcxInputType },
   }),
 };
 
-export const SearchDefault: Story = {
+export const required: Story = {
   args: {
-    type: DcxInputType.SEARCH,
-    placeholder: 'Search...',
-    label: 'Search Input'
+    required: true,
   },
 };
 
-export const TelDisabled: Story = {
+export const isInvalid: Story = {
   args: {
-    type: DcxInputType.TEL,
-    size: 'm',
-    placeholder: 'Enter phone number...',
-    disabled: true,
-    required: false,
-    label: 'Phone Input',
+    label: 'Inválido',
+    placeholder: 'Solo lectura',
+    isInvalid: true,
+    errorMessage: 'Error',
   },
 };
