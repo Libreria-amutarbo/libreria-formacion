@@ -228,7 +228,8 @@ export class DcxNgInputComponent {
   getActionButtonAriaLabel = computed<string>(() => {
     if (this.isPasswordType()) {
       return this.showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña';
-    } else if (this.isSearchType()) {
+    }
+    if (this.isSearchType()) {
       return 'Buscar';
     }
     return '';
@@ -237,7 +238,8 @@ export class DcxNgInputComponent {
   getActionButtonIcon = computed<string>(() => {
     if (this.isPasswordType()) {
       return this.showPassword() ? 'eye-slash-fill' : 'eye-fill';
-    } else if (this.isSearchType()) {
+    }
+    if (this.isSearchType()) {
       return 'search';
     }
     return '';
