@@ -1,19 +1,8 @@
-<div
-  class="context-menu"
-  *ngIf="visible"
-  [ngStyle]="{ 'left.px': position.x, 'top.px': position.y }"
-  (click)="$event.stopPropagation()"
-  tabindex="0"
-  role="button"
->
-  <ul>
-    <li
-      *ngFor="let item of items"
-      (click)="item.action()"
-      tabindex="0"
-      role="menuitem"
-    >
-      {{ item.label }}
-    </li>
-  </ul>
+@if (isOpen()) {
+<div class="dcx-context-menu" [style.top]="menuStyle().top" [style.left]="menuStyle().left"
+    (click)="$event.stopPropagation()" tabindex="0" role="menu">
+    <dcx-ng-list class="dcx-context-menu-list" [items]="items()" [selectable]="true" [renderChildren]="true"
+        [showChildrenIndicator]="true" (itemSelected)="onListItemSelected($event)">
+    </dcx-ng-list>
 </div>
+}

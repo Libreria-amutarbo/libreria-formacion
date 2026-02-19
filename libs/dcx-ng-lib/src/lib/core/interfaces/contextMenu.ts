@@ -1,9 +1,6 @@
-export interface DcxContextPosition {
-    x: number;
-    y: number;
-}
+import { DcxListItem } from './list';
 
-export interface DcxContextMenuItem {
-    label: string;
-    action: () => void;
+export interface DcxContextMenuItem extends DcxListItem {
+    action?: () => void;
+    children?: DcxContextMenuItem[];
 }

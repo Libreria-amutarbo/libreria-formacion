@@ -371,7 +371,7 @@ export class DcxNgDatePickerComponent {
     this.closeCalendar();
   }
 
-  clearDate(event: { clicked: boolean }): void {
+  clearDate(_event: { clicked: boolean }): void {
     if (this.disabled()) return;
 
     if (this.rangeSelect()) {

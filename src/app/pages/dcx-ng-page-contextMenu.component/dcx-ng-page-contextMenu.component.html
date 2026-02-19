@@ -1,0 +1,35 @@
+<section>
+    <h2 class="example-title">Ejemplo 1 - Context Menu Básico</h2>
+    <div class="context-area" (contextmenu)="openContextMenu($event, 1)">
+        <p>Haz clic derecho aquí para abrir el menú contextual</p>
+    </div>
+
+    <dcx-ng-context-menu #contextMenu1 [items]="menuItems" [position]="menuPosition1"
+        (itemSelected)="onItemSelected($event)">
+    </dcx-ng-context-menu>
+</section>
+
+<hr />
+
+<section>
+    <h2 class="example-title">Ejemplo 2 - Context Menu con Botón</h2>
+    <dcx-ng-button label="Abrir menú contextual" variant="primary" (buttonClick)="openContextMenuFromButton()">
+    </dcx-ng-button>
+
+    <dcx-ng-context-menu #contextMenu2 [items]="advancedMenuItems" [position]="menuPosition2"
+        (itemSelected)="onItemSelected($event)">
+    </dcx-ng-context-menu>
+</section>
+
+<hr />
+
+<section>
+    <h2 class="example-title">Ejemplo 3 - Context Menu con Sublistas</h2>
+    <div class="context-area" (contextmenu)="openContextMenu($event, 3)">
+        <p>Haz clic derecho aquí para abrir el menú con sublistas</p>
+    </div>
+
+    <dcx-ng-context-menu #contextMenu3 [items]="nestedMenuItems" [position]="menuPosition3"
+        (itemSelected)="onItemSelected($event)">
+    </dcx-ng-context-menu>
+</section>

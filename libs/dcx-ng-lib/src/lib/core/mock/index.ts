@@ -10,4 +10,5 @@ export * from './button';
 export * from './paginator';
 export * from './list';
 export * from './select';
+export * from './contextMenu';
 export * from './input';

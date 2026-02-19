@@ -1,19 +1,30 @@
 <ul aria-label="Lista de elementos">
   @for (item of items(); track $index) {
+  @if (item.divider) {
+  <li class="dcx-list-divider" role="separator"></li>
+  } @else {
   <li class="dcx-list-item" [class.selectable]="selectable()" [class.selected]="isSelected($index)"
-    (click)="onItemClick(item, $index)" [attr.tabindex]="selectable() ? 0 : null"
+    [class.disabled]="item.disabled" [class.has-children]="item.children && item.children.length > 0"
+    (click)="onItemClick(item, $index)" [attr.tabindex]="selectable() && !item.disabled ? 0 : null"
     [attr.role]="selectable() ? 'button' : null">
     <div class="dcx-list-item-content">
       @if (item.icon) {
       <dcx-ng-icon class="dcx-list-icon" [name]="item.icon"></dcx-ng-icon>
       }
+      @if (item.text !== undefined && item.text !== null) {
       <span class="dcx-list-text">{{ item.text }}</span>
+      }
+      @if (showChildrenIndicator() && item.children && item.children.length > 0) {
+      <dcx-ng-icon class="dcx-list-children-indicator" name="chevron-right"></dcx-ng-icon>
+      }
     </div>
-    @if (item.children && item.children.length > 0) {
+    @if (renderChildren() && item.children && item.children.length > 0) {
     <dcx-ng-list class="dcx-list-nested" [items]="item.children" [selectable]="selectable()"
-      (itemSelected)="itemSelected.emit($event)">
+      [multiSelect]="multiSelect()" [showChildrenIndicator]="showChildrenIndicator()"
+      [renderChildren]="renderChildren()" (itemSelected)="itemSelected.emit($event)">
     </dcx-ng-list>
     }
   </li>
+  }
   }
 </ul>

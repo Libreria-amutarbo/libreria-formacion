@@ -1,112 +1,145 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { ContextMenuComponent } from '../../dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
-import { DcxContextMenuItem } from '../../core/interfaces';
+import { moduleMetadata } from '@storybook/angular';
+import {
+    DcxNgContextMenuComponent,
+    DcxNgButtonComponent,
+    SIMPLE_CONTEXT_MENU_ITEMS,
+} from '@dcx-ng-components/dcx-ng-lib';
+const SUBLIST_CONTEXT_MENU_ITEMS = [
+    { text: 'Nuevo', icon: 'file-earmark-plus' },
+    { text: 'Abrir', icon: 'folder-open' },
+    { divider: true },
+    {
+        text: 'Editar',
+        icon: 'pencil',
+        children: [
+            { text: 'Deshacer', icon: 'arrow-counterclockwise' },
+            { text: 'Rehacer', icon: 'arrow-clockwise' },
+            { divider: true },
+            {
+                text: 'Transformar',
+                icon: 'magic',
+                children: [
+                    { text: 'Mayúsculas', icon: 'type' },
+                    { text: 'Minúsculas', icon: 'type' },
+                ],
+            },
+        ],
+    },
+    { divider: true },
+    { text: 'Eliminar', icon: 'trash', disabled: true },
+];
 
-const meta: Meta<ContextMenuComponent> = {
-  title: 'DCXLibrary/ContextMenu/ClassBased',
-  component: ContextMenuComponent,
-  tags: ['autodocs'],
-  argTypes: {
-    items: {
-      control: 'object',
-      description: 'Array of menu items with label and action',
+const meta: Meta<DcxNgContextMenuComponent> = {
+    title: 'DCXLibrary/ContextMenu/Class based',
+    component: DcxNgContextMenuComponent,
+    tags: ['autodocs'],
+    decorators: [
+        moduleMetadata({
+            imports: [DcxNgButtonComponent],
+        }),
+    ],
+    argTypes: {
+        items: {
+            control: { type: 'object' },
+            description: 'Array de elementos del menú contextual',
+        },
+        position: {
+            control: { type: 'object' },
+            description: 'Posición del menú (x, y)',
+        },
+        itemSelected: {
+            action: 'itemSelected',
+            description: 'Evento emitido cuando se selecciona un item',
+        },
+        menuClosed: {
+            action: 'menuClosed',
+            description: 'Evento emitido cuando se cierra el menú',
+        },
     },
-    visible: {
-      control: 'boolean',
-      defaultValue: true,
+    args: {
+        items: SIMPLE_CONTEXT_MENU_ITEMS,
+        position: { x: 100, y: 100 },
     },
-    position: {
-      control: 'object',
-      defaultValue: { x: 50, y: 50 },
-    },
-  },
 };
 
 export default meta;
-type Story = StoryObj<ContextMenuComponent>;
+type Story = StoryObj<DcxNgContextMenuComponent>;
 
-const mockItems: DcxContextMenuItem[] = [
-  {
-    label: 'Edit',
-    action: () => console.log('Edit clicked'),
-  },
-  {
-    label: 'Delete',
-    action: () => console.log('Delete clicked'),
-  },
-  {
-    label: 'Share',
-    action: () => console.log('Share clicked'),
-  },
-];
-
-const basicItems: DcxContextMenuItem[] = [
-  {
-    label: 'Option 1',
-    action: () => console.log('Option 1 clicked'),
-  },
-  {
-    label: 'Option 2',
-    action: () => console.log('Option 2 clicked'),
-  },
-];
-
-export const Default: Story = {
-  args: {
-    items: mockItems,
-    visible: true,
-    position: { x: 50, y: 50 },
-  },
+export const ContextMenuOnRightClick: Story = {
+    render: () => ({
+        props: {
+            items: SIMPLE_CONTEXT_MENU_ITEMS,
+            menuPosition: { x: 0, y: 0 },
+            openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent) {
+                event.preventDefault();
+                (this as any).menuPosition = { x: event.clientX, y: event.clientY };
+                setTimeout(() => menu.open(), 0);
+            },
+            onItemSelected(item: any) {
+                console.log('Item seleccionado:', item);
+            },
+        },
+        template: `
+      <div style="padding: 2rem;">
+        <div 
+          (contextmenu)="openContextMenu(contextMenu, $event)"
+          style="
+            border: 2px dashed #ccc; 
+            padding: 3rem; 
+            text-align: center; 
+            cursor: context-menu;
+            background: #f9f9f9;
+          ">
+          <p style="margin: 0;">Haz clic derecho aquí para abrir el menú contextual</p>
+        </div>
+        
+        <dcx-ng-context-menu 
+          #contextMenu
+          [items]="items"
+          [position]="menuPosition"
+          (itemSelected)="onItemSelected($event)">
+        </dcx-ng-context-menu>
+      </div>
+    `,
+    }),
 };
 
-export const BasicMenu: Story = {
-  args: {
-    items: basicItems,
-    visible: true,
-    position: { x: 100, y: 100 },
-  },
-};
-
-export const Hidden: Story = {
-  args: {
-    items: mockItems,
-    visible: false,
-    position: { x: 50, y: 50 },
-  },
-};
-
-export const CustomPosition: Story = {
-  args: {
-    items: mockItems,
-    visible: true,
-    position: { x: 200, y: 150 },
-  },
-};
-
-export const SingleItem: Story = {
-  args: {
-    items: [
-      {
-        label: 'Single Option',
-        action: () => console.log('Single option clicked'),
-      },
-    ],
-    visible: true,
-    position: { x: 50, y: 50 },
-  },
-};
-
-export const ManyItems: Story = {
-  args: {
-    items: [
-      { label: 'Open', action: () => console.log('Open') },
-      { label: 'Edit', action: () => console.log('Edit') },
-      { label: 'Copy', action: () => console.log('Copy') },
-      { label: 'Paste', action: () => console.log('Paste') },
-      { label: 'Delete', action: () => console.log('Delete') },
-      { label: 'Share', action: () => console.log('Share') },
-    ],
-    visible: true,
-    position: { x: 50, y: 50 },
-  },
+export const ContextMenuWithSublists: Story = {
+    render: () => ({
+        props: {
+            items: SUBLIST_CONTEXT_MENU_ITEMS,
+            menuPosition: { x: 0, y: 0 },
+            openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent) {
+                event.preventDefault();
+                (this as any).menuPosition = { x: event.clientX, y: event.clientY };
+                setTimeout(() => menu.open(), 0);
+            },
+            onItemSelected(item: any) {
+                console.log('Item seleccionado:', item);
+            },
+        },
+        template: `
+            <div style="padding: 2rem;">
+                <div 
+                    (contextmenu)="openContextMenu(contextMenu, $event)"
+                    style="
+                        border: 2px dashed #ccc; 
+                        padding: 3rem; 
+                        text-align: center; 
+                        cursor: context-menu;
+                        background: #f9f9f9;
+                    ">
+                    <p style="margin: 0;">Haz clic derecho aquí para abrir el menú con sublistas</p>
+                </div>
+        
+                <dcx-ng-context-menu 
+                    #contextMenu
+                    [items]="items"
+                    [position]="menuPosition"
+                    (itemSelected)="onItemSelected($event)">
+                </dcx-ng-context-menu>
+            </div>
+        `,
+    }),
 };

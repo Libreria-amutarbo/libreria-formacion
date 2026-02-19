@@ -14,12 +14,18 @@ export class DcxNgListComponent {
   items = input.required<DcxListItem[]>();
   selectable = input<boolean>(false);
   multiSelect = input<boolean>(false);
+  showChildrenIndicator = input<boolean>(false);
+  renderChildren = input<boolean>(true);
 
   itemSelected = output<{ item: DcxListItem; index: number }>();
 
   selectedIndices = signal<number[]>([]);
 
   onItemClick(item: DcxListItem, index: number): void {
+    if (item.disabled || item.divider) {
+      return;
+    }
+
     if (this.multiSelect()) {
       const currentIndices = this.selectedIndices();
 
