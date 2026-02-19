@@ -12,7 +12,6 @@ export const APP_ROUTES = {
   CHIP: 'chip',
   TOOLTIP: 'tooltip',
   CHECKBOX: 'checkbox',
-  DROPDOWN: 'dropdown',
   CARD: 'card',
   ICON_FIELD: 'icon-field',
   LIST: 'list',
