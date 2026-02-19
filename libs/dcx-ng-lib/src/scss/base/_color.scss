@@ -67,6 +67,7 @@ $background: (
   pressed: map.get($color-grey, 200),
   disabled: map.get($color-grey, 200),
   hover: map.get($color-grey, 100),
+  off: map.get($color-grey, 500),
   error: map.get($color-semantic, red-300),
 );
 
@@ -88,7 +89,7 @@ $border: (
   hover: map.get($color-grey, 200),
   terciary: map.get($color-grey, 200),
   disabled: map.get($color-primary, 400),
-  focus: map.get($color-semantic, light-blue-70),
+  focus: map.get($color-semantic, light-blue-700),
   error: map.get($content, error),
 );
 

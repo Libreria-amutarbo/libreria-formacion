@@ -1,102 +1,113 @@
-<h2>Formulario de ejemplo avanzado</h2>
 <form [formGroup]="formulario">
-  <fieldset>
-    <legend>Elige tu tamaño de radio favorito</legend>
-    <dcx-ng-radio
-      name="size"
-      value="pequeño"
-      label="Pequeño"
-      size="s"
-      [formControl]="tamanioControl"
-    ></dcx-ng-radio>
+  <section>
+    <h2 class="example-title">Ejemplo 1 - Radio Buttons con tamaño pequeño (s)</h2>
+    <fieldset>
+      <legend>Elige tu opción favorita</legend>
+      <dcx-ng-radio name="size-s" value="opcion1" label="Opción 1" size="s"
+        [formControl]="tamanioControl"></dcx-ng-radio>
+      <dcx-ng-radio name="size-s" value="opcion2" label="Opción 2" size="s"
+        [formControl]="tamanioControl"></dcx-ng-radio>
+      <dcx-ng-radio name="size-s" value="opcion3" label="Opción 3" size="s"
+        [formControl]="tamanioControl"></dcx-ng-radio>
+    </fieldset>
+  </section>
 
-    <dcx-ng-radio
-      name="size"
-      value="mediano"
-      label="Mediano"
-      size="m"
-      [formControl]="tamanioControl"
-    ></dcx-ng-radio>
+  <hr />
 
-    <dcx-ng-radio
-      name="size"
-      value="grande"
-      label="Grande"
-      size="l"
-      [formControl]="tamanioControl"
-    ></dcx-ng-radio>
-  </fieldset>
+  <section>
+    <h2 class="example-title">Ejemplo 2 - Radio Buttons con tamaño mediano (m)</h2>
+    <fieldset>
+      <legend>Elige tu color favorito</legend>
+      <dcx-ng-radio name="size-m" value="azul" label="Azul" size="m" [formControl]="colorControl"></dcx-ng-radio>
+      <dcx-ng-radio name="size-m" value="rojo" label="Rojo" size="m" [formControl]="colorControl"></dcx-ng-radio>
+      <dcx-ng-radio name="size-m" value="verde" label="Verde" size="m" [formControl]="colorControl"></dcx-ng-radio>
+    </fieldset>
+  </section>
 
-  <fieldset>
-    <legend>Elige tu color favorito</legend>
-    <dcx-ng-radio
-      name="colores"
-      value="azul"
-      label="Azul"
-      size="m"
-      [formControl]="colorControl"
-    ></dcx-ng-radio>
+  <hr />
 
-    <dcx-ng-radio
-      name="colores"
-      value="rojo"
-      label="Rojo"
-      size="m"
-      [formControl]="colorControl"
-    ></dcx-ng-radio>
+  <section>
+    <h2 class="example-title">Ejemplo 3 - Radio Buttons con tamaño grande (l)</h2>
+    <fieldset>
+      <legend>¿Prefieres café o té?</legend>
+      <dcx-ng-radio name="size-l" value="cafe" label="Café" size="l" [formControl]="bebidaControl"></dcx-ng-radio>
+      <dcx-ng-radio name="size-l" value="te" label="Té" size="l" [formControl]="bebidaControl"></dcx-ng-radio>
+      <dcx-ng-radio name="size-l" value="ninguno" label="Ninguno" size="l" [formControl]="bebidaControl"></dcx-ng-radio>
+    </fieldset>
+  </section>
 
-    <dcx-ng-radio
-      name="colores"
-      value="verde"
-      label="Verde"
-      size="m"
-      [formControl]="colorControl"
-    ></dcx-ng-radio>
-  </fieldset>
+  <hr />
 
-  <fieldset>
-    <legend>¿Prefieres café o té?</legend>
-    <dcx-ng-radio
-      name="bebida"
-      value="cafe"
-      label="Café"
-      size="m"
-      [formControl]="bebidaControl"
-    ></dcx-ng-radio>
+  <section>
+    <h2 class="example-title">Ejemplo 4 - Radio Buttons con estado error</h2>
+    <fieldset>
+      <legend>Selección con error</legend>
+      <dcx-ng-radio name="error-example" value="opcion1" label="Opción con error" size="m" [error]="true"
+        [formControl]="errorControl"></dcx-ng-radio>
+      <dcx-ng-radio name="error-example" value="opcion2" label="Opción normal" size="m"
+        [formControl]="errorControl"></dcx-ng-radio>
+      <dcx-ng-radio name="error-example" value="opcion3" label="Opción normal" size="m"
+        [formControl]="errorControl"></dcx-ng-radio>
+    </fieldset>
+  </section>
 
-    <dcx-ng-radio
-      name="bebida"
-      value="te"
-      label="Té"
-      size="m"
-      [formControl]="bebidaControl"
-    ></dcx-ng-radio>
+  <hr />
 
-    <dcx-ng-radio
-      name="bebida"
-      value="ninguno"
-      label="Ninguno"
-      size="m"
-      [formControl]="bebidaControl"
-    ></dcx-ng-radio>
-  </fieldset>
+  <section>
+    <h2 class="example-title">Ejemplo 5 - Radio Buttons con estado hover</h2>
+    <fieldset>
+      <legend>Radio con efecto hover</legend>
+      <dcx-ng-radio name="hover-example" value="opcion1" label="Opción con hover" size="m" [hover]="true"
+        [formControl]="hoverControl"></dcx-ng-radio>
+      <dcx-ng-radio name="hover-example" value="opcion2" label="Opción normal" size="m"
+        [formControl]="hoverControl"></dcx-ng-radio>
+      <dcx-ng-radio name="hover-example" value="opcion3" label="Opción normal" size="m"
+        [formControl]="hoverControl"></dcx-ng-radio>
+    </fieldset>
+  </section>
 
-  <button type="button" (click)="mostrarResumen()">Enviar</button>
+  <hr />
+
+  <section>
+    <h2 class="example-title">Ejemplo 6 - Radio Buttons con estado focus</h2>
+    <fieldset>
+      <legend>Radio con efecto focus</legend>
+      <dcx-ng-radio name="focus-example" value="opcion1" label="Opción con focus" size="m" [focus]="true"
+        [formControl]="focusControl"></dcx-ng-radio>
+      <dcx-ng-radio name="focus-example" value="opcion2" label="Opción normal" size="m"
+        [formControl]="focusControl"></dcx-ng-radio>
+      <dcx-ng-radio name="focus-example" value="opcion3" label="Opción normal" size="m"
+        [formControl]="focusControl"></dcx-ng-radio>
+    </fieldset>
+  </section>
+
+  <hr />
+
+  <section>
+    <h2 class="example-title">Ejemplo 7 - Radio Buttons deshabilitados</h2>
+    <fieldset>
+      <legend>Radio buttons en estado disabled</legend>
+      <dcx-ng-radio name="disabled-example" value="opcion1" label="Opción deshabilitada" size="m"
+        [formControl]="disabledControl"></dcx-ng-radio>
+      <dcx-ng-radio name="disabled-example" value="opcion2" label="Opción deshabilitada" size="m"
+        [formControl]="disabledControl"></dcx-ng-radio>
+      <dcx-ng-radio name="disabled-example" value="opcion3" label="Opción deshabilitada" size="m"
+        [formControl]="disabledControl"></dcx-ng-radio>
+    </fieldset>
+  </section>
+
+  <hr />
+
+  <section>
+    <h2 class="example-title">Ejemplo 8 - Radio Buttons sin estilos (unstyled)</h2>
+    <fieldset>
+      <legend>Radio sin estilos personalizados</legend>
+      <dcx-ng-radio name="unstyled-example" value="opcion1" label="Opción sin estilos" size="m" [unstyled]="true"
+        [formControl]="unstyledControl"></dcx-ng-radio>
+      <dcx-ng-radio name="unstyled-example" value="opcion2" label="Opción sin estilos" size="m" [unstyled]="true"
+        [formControl]="unstyledControl"></dcx-ng-radio>
+      <dcx-ng-radio name="unstyled-example" value="opcion3" label="Opción sin estilos" size="m" [unstyled]="true"
+        [formControl]="unstyledControl"></dcx-ng-radio>
+    </fieldset>
+  </section>
 </form>
-
-@if (resumen) {
-  <div>
-    <h3>Resumen de selección</h3>
-    <ul>
-      <li>
-        <strong>Tamaño:</strong> {{ formulario.get('tamanioControl')?.value }}
-      </li>
-      <li>
-        <strong>Color:</strong> {{ formulario.get('colorControl')?.value }}
-      </li>
-      <li>
-        <strong>Bebida:</strong> {{ formulario.get('bebidaControl')?.value }}
-      </li>
-    </ul>
-  </div>
-}

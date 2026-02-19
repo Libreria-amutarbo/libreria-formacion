@@ -1,5 +1,73 @@
-<dcx-ng-tabs
-  [tabs]="tabs"
-  [activeTabId]="selectedTabId()"
-  (tabChange)="onTabChange($event)"
-></dcx-ng-tabs>
+<section>
+  <h2 class="example-title">Ejemplo 1 - Tabs</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsDefault"
+    [activeTabId]="selectedTabId()"
+  ></dcx-ng-tabs>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Tabs deshabilitados</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsWithDisabled"
+    [activeTabId]="selectedTabId()"
+  ></dcx-ng-tabs>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Tabs con iconos</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsWithIcons"
+    [activeTabId]="selectedTabId()"
+  ></dcx-ng-tabs>
+</section>
+
+<hr />
+<section>
+  <h2 class="example-title">Ejemplo 4 - Tabs con scroll</h2>
+  <dcx-ng-tabs
+    [tabs]="tabItemWithScroll"
+    [activeTabId]="selectedTabId()"
+  ></dcx-ng-tabs>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Con controles</h2>
+  <dcx-ng-tabs
+    [tabs]="tabsDefault"
+    [activeTabId]="selectedTabId()"
+    hasControls
+  ></dcx-ng-tabs>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 6 - Tabs con content de componentes</h2>
+  <dcx-ng-tabs
+    [tabs]="tabItemWithComponents"
+    [activeTabId]="selectedTabIdContent()"
+    (tabChange)="onTabChange($event)"
+  ></dcx-ng-tabs>
+  <section>
+    @switch (selectedTabIdContent()) {
+      @case ('button') {
+        <dcx-ng-button [label]="'Button'"></dcx-ng-button>
+      }
+      @case ('select') {
+        <dcx-ng-select></dcx-ng-select>
+      }
+      @case ('card') {
+        <dcx-ng-card></dcx-ng-card>
+      }
+    }
+  </section>
+</section>
+
+<hr />

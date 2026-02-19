@@ -1,31 +1,39 @@
-<h2>Spinner Showcase</h2>
-
-<div class="spinner-container">
-  <h3>Available Sizes</h3>
+<section>
+  <h2 class="example-title">Ejemplo 1 - Tamaños disponibles</h2>
   <div class="size-examples">
     <div>
       <p>Small</p>
-      <dcx-ng-spinner size="s" title="Loading" description="description"/>
+      <dcx-ng-spinner size="s" title="Loading" description="description" />
     </div>
     <div>
       <p>Medium (default)</p>
-      <dcx-ng-spinner size="m" title="Loading" description="description"/>
+      <dcx-ng-spinner size="m" title="Loading" description="description" />
     </div>
     <div>
       <p>Large</p>
-      <dcx-ng-spinner size="l" title="Loading" description="description"/>
+      <dcx-ng-spinner size="l" title="Loading" description="description" />
     </div>
     <div>
-      <p>Extra large</p>
-      <dcx-ng-spinner size="xl" title="Loading" description="description" [color]="'#ff0000'"/>
+      <p>Extra Large</p>
+      <dcx-ng-spinner size="xl" title="Loading" description="description" />
     </div>
   </div>
+</section>
 
-  <h3>With custom delay (1000ms)</h3>
-  <dcx-ng-spinner [delay]="1000" title="Loading with delay..."></dcx-ng-spinner>
+<hr />
 
-  <div class="wrapper-example">
-    <h3>Wrapper mode (content with overlay)</h3>
+<section>
+  <h2 class="example-title">Ejemplo 2 - Con delay personalizado (1000ms)</h2>
+  <div class="spinner-wrapper">
+    <dcx-ng-spinner [delay]="1000" title="Loading with delay..."></dcx-ng-spinner>
+  </div>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Wrapper mode (overlay sobre contenido)</h2>
+  <div class="spinner-wrapper2">
     <dcx-ng-spinner [wrapper]="true" title="Loading content...">
       <div class="content-box">
         <h4>Wrapper Content</h4>
@@ -37,4 +45,4 @@
       </div>
     </dcx-ng-spinner>
   </div>
-</div>
+</section>

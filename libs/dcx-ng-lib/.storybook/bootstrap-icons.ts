@@ -12,7 +12,7 @@ export const BOOTSTRAP_ICONS = [
   'trash-fill',
   'pencil',
   'pencil-fill',
-  
+
   // Flechas y navegación
   'arrow-left',
   'arrow-right',
@@ -22,7 +22,11 @@ export const BOOTSTRAP_ICONS = [
   'chevron-right',
   'chevron-up',
   'chevron-down',
-  
+  'chevron-double-left',
+  'chevron-double-right',
+  'chevron-double-up',
+  'chevron-double-down',
+
   // Interfaz
   'house',
   'house-fill',
@@ -34,7 +38,7 @@ export const BOOTSTRAP_ICONS = [
   'person-fill',
   'people',
   'people-fill',
-  
+
   // Estados
   'check-circle',
   'check-circle-fill',
@@ -44,7 +48,7 @@ export const BOOTSTRAP_ICONS = [
   'exclamation-circle-fill',
   'info-circle',
   'info-circle-fill',
-  
+
   // Emociones
   'heart',
   'heart-fill',
@@ -52,7 +56,7 @@ export const BOOTSTRAP_ICONS = [
   'star-fill',
   'bookmark',
   'bookmark-fill',
-  
+
   // Archivos y documentos
   'file-earmark',
   'file-earmark-fill',
@@ -62,7 +66,7 @@ export const BOOTSTRAP_ICONS = [
   'upload',
   'cloud',
   'cloud-fill',
-  
+
   // Comunicación
   'envelope',
   'envelope-fill',
@@ -70,7 +74,7 @@ export const BOOTSTRAP_ICONS = [
   'chat-fill',
   'telephone',
   'telephone-fill',
-  
+
   // Multimedia
   'camera',
   'camera-fill',
@@ -80,7 +84,7 @@ export const BOOTSTRAP_ICONS = [
   'play-circle-fill',
   'pause-circle',
   'pause-circle-fill',
-  
+
   // Otros
   'calendar',
   'calendar-fill',
@@ -88,6 +92,8 @@ export const BOOTSTRAP_ICONS = [
   'clock-fill',
   'eye',
   'eye-fill',
+  'eye-slash',
+  'eye-slash-fill',
   'lock',
   'lock-fill',
   'cart',
