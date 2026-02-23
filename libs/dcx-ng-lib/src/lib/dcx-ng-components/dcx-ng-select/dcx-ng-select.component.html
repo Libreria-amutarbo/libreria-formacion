@@ -70,14 +70,15 @@
       [attr.aria-labelledby]="labelId"
     >
       @if (searchable()) {
-        <input
+        <dcx-ng-input
           #searchInput
-          class="dcx-ng-select__search"
           placeholder="Buscar..."
           [value]="search()"
-          (input)="search.set($any($event.target).value)"
-          aria-label="Buscar opciones"
-        />
+          [type]="inputType.TEXT"
+          (valueChange)="search.set($any($event))"
+          ariaLabel="Buscar opciones"
+        >
+        </dcx-ng-input>
       }
 
       <div class="dcx-ng-select__options">
