@@ -75,7 +75,7 @@
           placeholder="Buscar..."
           [value]="search()"
           [type]="inputType.TEXT"
-          (valueChange)="search.set($any($event))"
+          (valueChange)="onSearchChange($event)"
           ariaLabel="Buscar opciones"
         >
         </dcx-ng-input>

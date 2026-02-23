@@ -214,6 +214,10 @@ export class DcxNgSelectComponent implements OnInit {
     this.clear.emit();
   }
 
+  onSearchChange(value: string | number | null): void {
+    this.search.set(value === null ? '' : String(value));
+  }
+
   @HostListener('keydown', ['$event'])
   onKey(ev: KeyboardEvent): void {
     if (!this.isOpen()) return;
