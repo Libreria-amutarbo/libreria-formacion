@@ -1,13 +1,37 @@
-<div>
+<section>
+  <h2 class="example-title">Ejemplo 1 - Icono a la izquierda</h2>
+  <dcx-ng-icon-field iconSize="m" iconPosition="left" [iconName]="'search'">
+    <dcx-ng-input
+      [placeholder]="'Icon Field con icono a la izquierda'"
+    ></dcx-ng-input>
+  </dcx-ng-icon-field>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Icono a la derecha</h2>
+  <dcx-ng-icon-field iconSize="m" iconPosition="right" [iconName]="'search'">
+    <dcx-ng-input
+      [placeholder]="'Icon Field con icono a la derecha'"
+    ></dcx-ng-input>
+  </dcx-ng-icon-field>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Icono clickable</h2>
   <dcx-ng-icon-field
-    name="search"
-    size="m"
-    spacing="none"
-    color="blue"
     iconSize="m"
     iconPosition="left"
-    iconName="'search'"
-    placeholder="'Prueba'"
+    [iconName]="'search'"
+    (iconClick)="onIconClick()"
   >
+    <dcx-ng-input
+      [placeholder]="'Icon Field con icono clickable'"
+    ></dcx-ng-input>
   </dcx-ng-icon-field>
-</div>
+</section>
+
+<hr />

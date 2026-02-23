@@ -1,50 +1,37 @@
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  Input,
-  Output,
-  EventEmitter,
+  effect,
   input,
   output,
+  signal,
 } from '@angular/core';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { DcxPosition, DcxSize } from '../../core/interfaces';
-import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
+import {
+  DcxPosition,
+  DcxSize,
+  DcxNgButtonComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-icon-field',
   standalone: true,
-  imports: [DcxNgIconComponent, DcxNgInputComponent],
+  imports: [DcxNgButtonComponent],
   templateUrl: './dcx-ng-iconField.component.html',
   styleUrls: ['./dcx-ng-iconField.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DcxNgIconFieldComponent {
-  placeholder = input('');
-  iconPosition = input<DcxPosition>('left');
-  @Input() iconLeft = '';
-  @Input() iconRight = '';
   iconName = input('');
-  iconSize = input<DcxSize>('m');
-  disabled = input(false);
+  iconPosition = input<DcxPosition>('left');
 
-  valueChange = output<string>();
-  focusIconField = output();
-  blurIconField = output();
+  iconSize: DcxSize = 'm';
 
-  value = '';
+  iconClick = output();
 
-  onInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.value = input.value;
-    this.valueChange.emit(this.value);
-  }
+  constructor() {}
 
-  onFocus() {
-    this.focusIconField.emit();
-  }
-
-  onBlur() {
-    this.blurIconField.emit();
+  onIconClick() {
+    this.iconClick.emit();
   }
 }

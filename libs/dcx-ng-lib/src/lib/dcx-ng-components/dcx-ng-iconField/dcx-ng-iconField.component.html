@@ -1,47 +1,28 @@
-<div class="dcx-icon-field-wrapper">
-  <div class="dcx-icon-field-container">
-    <!-- @if (iconLeft) {
-      <div class="dcx-icon-left">
-        <dcx-ng-icon [name]="iconLeft" [size]="iconSize()"></dcx-ng-icon>
-      </div>
-    } -->
+<div
+  class="icon-field"
+  [class.has-left]="iconPosition() === 'left'"
+  [class.has-right]="iconPosition() === 'right'"
+>
+  @if (iconPosition() === 'left' && iconName() !== '') {
+    <dcx-ng-button
+      icon
+      [iconName]="iconName()"
+      [variant]="'icon-only'"
+      [iconSize]="iconSize"
+      (buttonClick)="onIconClick()"
+    ></dcx-ng-button>
+  }
 
-    @if (iconPosition() === 'left') {
-      <div class="dcx-icon-left">
-        <dcx-ng-icon
-          [name]="iconName()"
-          [size]="iconSize()"
-          aria-hidden="true"
-        />
-      </div>
-    }
+  <ng-content></ng-content>
 
-    <dcx-ng-input> </dcx-ng-input>
-
-    <!-- <input
-      type="text"
-      class="dcx-icon-field-input"
-      [placeholder]="placeholder"
-      [value]="value"
-      [disabled]="disabled"
-      (input)="onInput($event)"
-      (blur)="onBlur()"
-      (focus)="onFocus()"
-    /> -->
-
-    <!-- @if (iconRight) {
-      <div class="dcx-icon-right">
-        <dcx-ng-icon icon [name]="iconRight" [size]="iconSize()"></dcx-ng-icon>
-      </div>
-    } -->
-    @if (iconPosition() === 'right') {
-      <div class="dcx-icon-right">
-        <dcx-ng-icon
-          [name]="iconName()"
-          [size]="iconSize()"
-          aria-hidden="true"
-        />
-      </div>
-    }
-  </div>
+  @if (iconPosition() === 'right' && iconName() !== '') {
+    <dcx-ng-button
+      icon
+      [iconName]="iconName()"
+      [variant]="'icon-only'"
+      [iconSize]="iconSize"
+      isIconClickable
+      (buttonClick)="onIconClick()"
+    ></dcx-ng-button>
+  }
 </div>

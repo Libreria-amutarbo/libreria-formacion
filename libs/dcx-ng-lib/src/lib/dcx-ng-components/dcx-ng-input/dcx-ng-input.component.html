@@ -1,62 +1,60 @@
-@if (search) {
-  <input
-    [id]="inputId"
-    class="dcx-ng-input dcx-ng-input--search"
-    [class.disabled]="disabled"
-    [type]="type"
-    [placeholder]="placeholder"
-    [formControl]="inputControl"
-    [ngClass]="'dcx-ng-input-size--' + size"
-    [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
-    [class.invalid]="inputControl.invalid && inputControl.touched"
-    [attr.aria-required]="required"
-    [attr.aria-invalid]="inputControl.invalid && inputControl.touched"
-    [attr.aria-label]="label || placeholder"
-  />
-} @else if (inline) {
-  <input
-    [id]="inputId"
-    class="dcx-ng-input dcx-ng-input--inline"
-    [class.disabled]="disabled"
-    [type]="type"
-    [placeholder]="placeholder"
-    [formControl]="inputControl"
-    [ngClass]="'dcx-ng-input-size--' + size"
-    [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
-    [class.invalid]="inputControl.invalid && inputControl.touched"
-    [attr.aria-required]="required"
-    [attr.aria-invalid]="inputControl.invalid && inputControl.touched"
-    [attr.aria-label]="label || placeholder"
-  />
-} @else {
-  <div class="input-container" [class.no-margin]="noMargin">
-    @if (label) {
-      <label [for]="inputId" class="input-label">
-        {{ label }}
-        @if (required) {
-          <span class="required-icon" aria-hidden="true">*</span>
-          <span class="visually-hidden">(required)</span>
-        }
-      </label>
+@if (label()) {
+  <label class="dcx-ng-input__label" [attr.for]="inputId" [attr.id]="labelId">
+    {{ label() }}
+    @if (required()) {
+      <span class="dcx-ng-input__required">*</span>
     }
-
-    <input
-      [id]="inputId"
-      class="dcx-ng-input"
-      [class.disabled]="disabled"
-      [type]="type"
-      [placeholder]="placeholder"
-      [formControl]="inputControl"
-      [ngClass]="'dcx-ng-input-size--' + size"
-      [class.required]="inputControl.touched && !isFocused && required && !inputControl.value"
-      [class.invalid]="inputControl.invalid && inputControl.touched"
-      [attr.aria-required]="required"
-      [attr.aria-invalid]="inputControl.invalid && inputControl.touched"
-      [attr.aria-label]="label || placeholder"
-    />
-
-    @if (inputControl.invalid && inputControl.touched) {
-      <span class="invalid-message">{{ getErrorMessage() }}</span>
-    }
-  </div>
+  </label>
 }
+
+<div class="dcx-ng-input__wrapper" [class.is-disabled]="disabled()">
+  <input
+    [class]="inputContolClasses()"
+    [class.is-disabled]="disabled()"
+    [class.is-invalid]="isInvalid()"
+    [class.has-icon]="getInputIcon() !== null"
+    [class.has-action]="showActionIcon()"
+    [id]="id()"
+    [name]="name()"
+    [type]="displayType()"
+    [placeholder]="placeholder()"
+    [inputMode]="inputMode()"
+    [readOnly]="readonly()"
+    [disabled]="disabled()"
+    [required]="required()"
+    [autocomplete]="autocomplete()"
+    [value]="value() ?? ''"
+    [attr.aria-label]="label() ? null : ariaLabel()"
+    [attr.aria-required]="required() ? 'true' : null"
+    [attr.aria-invalid]="isInvalid()"
+    [attr.aria-describedby]="describedBy()"
+    (input)="onInput($event.target.value)"
+    (focus)="focusEvent.emit()"
+    (blur)="onBlur()"
+    (keydown.enter)="enterPressed.emit()"
+  />
+
+  @if (showActionIcon()) {
+    <dcx-ng-button
+      class="dcx-ng-input__action-button"
+      variant="icon-only"
+      size="s"
+      icon
+      iconSize="l"
+      [iconName]="getActionButtonIcon()"
+      [ariaLabel]="getActionButtonAriaLabel()"
+      [disabled]="disabled()"
+      (buttonClick)="onActionButtonClick()"
+    ></dcx-ng-button>
+  }
+
+  @if (isInvalid() && errorMessage()) {
+    <div class="dcx-ng-input__error">
+      <dcx-ng-icon [name]="errorIcon()"></dcx-ng-icon>
+
+      <span>
+        {{ errorMessage() }}
+      </span>
+    </div>
+  }
+</div>
