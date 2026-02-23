@@ -1,12 +1,24 @@
 <div class="dcx-icon-field-wrapper">
   <div class="dcx-icon-field-container">
-    @if (iconLeft) {
+    <!-- @if (iconLeft) {
       <div class="dcx-icon-left">
-        <dcx-ng-icon [name]="iconLeft" [size]="iconSize"></dcx-ng-icon>
+        <dcx-ng-icon [name]="iconLeft" [size]="iconSize()"></dcx-ng-icon>
+      </div>
+    } -->
+
+    @if (iconPosition() === 'left') {
+      <div class="dcx-icon-left">
+        <dcx-ng-icon
+          [name]="iconName()"
+          [size]="iconSize()"
+          aria-hidden="true"
+        />
       </div>
     }
 
-    <input
+    <dcx-ng-input> </dcx-ng-input>
+
+    <!-- <input
       type="text"
       class="dcx-icon-field-input"
       [placeholder]="placeholder"
@@ -15,11 +27,20 @@
       (input)="onInput($event)"
       (blur)="onBlur()"
       (focus)="onFocus()"
-    />
+    /> -->
 
-    @if (iconRight) {
+    <!-- @if (iconRight) {
       <div class="dcx-icon-right">
-        <dcx-ng-icon [name]="iconRight" [size]="iconSize"></dcx-ng-icon>
+        <dcx-ng-icon icon [name]="iconRight" [size]="iconSize()"></dcx-ng-icon>
+      </div>
+    } -->
+    @if (iconPosition() === 'right') {
+      <div class="dcx-icon-right">
+        <dcx-ng-icon
+          [name]="iconName()"
+          [size]="iconSize()"
+          aria-hidden="true"
+        />
       </div>
     }
   </div>
