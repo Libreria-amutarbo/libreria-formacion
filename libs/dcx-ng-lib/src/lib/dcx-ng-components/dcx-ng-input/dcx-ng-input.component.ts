@@ -81,6 +81,9 @@ export class DcxNgInputComponent {
   required = input(INPUT_DEFAULT_REQUIRED, {
     transform: booleanAttribute,
   });
+  checked = input(false, {
+    transform: booleanAttribute,
+  });
   autocomplete = input<string>(INPUT_DEFAULT_AUTOCOMPLETE);
   inputMode = input<string>(INPUT_DEFAULT_INPUTMODE);
 
@@ -106,8 +109,8 @@ export class DcxNgInputComponent {
 
   showPassword = signal(false);
 
-  private onChange: (val: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (val: any) => void = () => { };
+  private onTouched: () => void = () => { };
   errorId = computed(() => `${this.id()}-error`);
 
   displayType = computed<string>(() => {
@@ -117,6 +120,10 @@ export class DcxNgInputComponent {
     }
     return inputType;
   });
+
+  isRadioType = computed<boolean>(() => this.type() === DcxInputType.RADIO);
+
+  isRangeType = computed<boolean>(() => this.type() === DcxInputType.RANGE);
 
   getInputIcon = computed<string | null>(() => {
     const inputType = this.type();
@@ -128,6 +135,8 @@ export class DcxNgInputComponent {
       [DcxInputType.SEARCH]: 'search',
       [DcxInputType.TEL]: 'phone',
       [DcxInputType.URL]: 'link',
+      [DcxInputType.RADIO]: null,
+      [DcxInputType.RANGE]: null,
     };
     return iconMap[inputType] || null;
   });
@@ -184,9 +193,20 @@ export class DcxNgInputComponent {
   }
 
   onInput(newValue: string) {
+    if (this.isRadioType()) return;
     const formattedValue = this.formatValueByType(newValue);
     this.value.set(formattedValue);
     this.valueChange.emit(formattedValue);
+  }
+
+  onChangeEvent(event: Event) {
+    if (!this.isRadioType()) return;
+    const target = event.target as HTMLInputElement | null;
+    if (target?.checked) {
+      const currentValue = this.value();
+      this.onChange(currentValue);
+      this.valueChange.emit(currentValue);
+    }
   }
 
   togglePasswordVisibility() {
@@ -211,6 +231,8 @@ export class DcxNgInputComponent {
         return value.toLowerCase();
       case DcxInputType.TEXT:
       case DcxInputType.PASSWORD:
+      case DcxInputType.RADIO:
+      case DcxInputType.RANGE:
       default:
         return value;
     }

@@ -1,10 +1,11 @@
 <div class="dcx-slider-wrapper" [class.vertical]="vertical">
-  <input
-    type="range"
-    class="dcx-slider-bar"
+  <dcx-ng-input
+    class="dcx-slider-input"
+    [type]="inputType.RANGE"
     [value]="value"
-    [step]="step"
-    (input)="onInput($event)"
-    [attr.orient]="orientAttribute"
+    [attr.min]="min"
+    [attr.max]="max"
+    [attr.step]="step"
+    (valueChange)="onInput($event)"
   />
 </div>

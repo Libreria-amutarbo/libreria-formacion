@@ -23,18 +23,20 @@
     [disabled]="disabled()"
     [required]="required()"
     [autocomplete]="autocomplete()"
-    [value]="value() ?? ''"
+    [checked]="isRadioType() ? checked() : null"
+    [value]="value()"
     [attr.aria-label]="label() ? null : ariaLabel()"
     [attr.aria-required]="required() ? 'true' : null"
     [attr.aria-invalid]="isInvalid()"
     [attr.aria-describedby]="describedBy()"
     (input)="onInput($event.target.value)"
+    (change)="onChangeEvent($event)"
     (focus)="focusEvent.emit()"
     (blur)="onBlur()"
     (keydown.enter)="enterPressed.emit()"
   />
 
-  @if (showActionIcon()) {
+  @if (showActionIcon() && !isRangeType()) {
     <dcx-ng-button
       class="dcx-ng-input__action-button"
       variant="icon-only"

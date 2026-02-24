@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { DcxSize } from '../../core/interfaces';
+import { DcxInputType, DcxSize, DcxNgInputComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-icon-field',
   standalone: true,
-  imports: [DcxNgIconComponent],
+  imports: [DcxNgIconComponent, DcxNgInputComponent],
   templateUrl: './dcx-ng-iconField.component.html',
   styleUrls: ['./dcx-ng-iconField.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DcxNgIconFieldComponent {
+  readonly inputType = DcxInputType;
   @Input() placeholder = '';
   @Input() iconLeft = '';
   @Input() iconRight = '';
@@ -23,9 +24,9 @@ export class DcxNgIconFieldComponent {
 
   value = '';
 
-  onInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.value = input.value;
+  onValueChange(value: string | number | null) {
+    const newValue = value ?? '';
+    this.value = String(newValue);
     this.valueChange.emit(this.value);
   }
 

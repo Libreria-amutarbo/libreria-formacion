@@ -16,12 +16,12 @@ import {
   ChipVariantType,
   ChipVariant,
 } from '@dcx-ng-components/dcx-ng-lib';
-import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgButtonComponent, DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-chip',
   standalone: true,
-  imports: [CommonModule, DcxNgIconComponent],
+  imports: [CommonModule, DcxNgIconComponent, DcxNgButtonComponent],
   templateUrl: './dcx-ng-chip.component.html',
   styleUrl: './dcx-ng-chip.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,8 +50,8 @@ export class DcxNgChipComponent implements DcxNgChipComponentInputs {
     return `dcx-ng-chip--${this.color()}`;
   }
 
-  handleRemove(event: Event): void {
-    event.stopPropagation();
+  handleRemove(event?: Event): void {
+    event?.stopPropagation();
     if (this.variant() === ChipVariant.FILTER) {
       this.removeChip.emit();
     }

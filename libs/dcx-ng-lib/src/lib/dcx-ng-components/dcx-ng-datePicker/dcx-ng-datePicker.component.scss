@@ -30,6 +30,7 @@
     gap: var(--spacing-xs);
     margin-bottom: var(--spacing-s);
   }
+
   &__years-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -45,15 +46,18 @@
     background: transparent;
     box-shadow: none;
     padding: 0;
+
     &:hover:not(&--disabled) {
       box-shadow: none;
     }
+
     &--disabled {
       background: map.get($background, disabled);
       opacity: 0.5;
       cursor: not-allowed;
     }
   }
+
   &__input {
     flex: 1;
     border: none;
@@ -62,22 +66,26 @@
     padding: var(--spacing-xs) var(--spacing-m);
     font-size: var(--font-size-body);
     line-height: var(--line-height-normal);
+
     &:disabled {
       cursor: not-allowed;
       opacity: 0.5;
     }
   }
+
   &__clear {
     background: none;
     border: none;
     color: var(--text-link);
     cursor: pointer;
     padding: var(--spacing-xs) var(--spacing-s);
+
     &:hover {
       text-decoration: underline;
       color: var(--text-error);
     }
   }
+
   &__calendar {
     position: absolute;
     top: 100%;
@@ -92,6 +100,7 @@
     display: flex;
     flex-direction: column;
   }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -101,6 +110,7 @@
     font-size: var(--font-size-body-large);
     font-weight: var(--weight-semibold);
   }
+
   &__nav-button {
     background: none;
     border: none;
@@ -110,6 +120,7 @@
     padding: var(--spacing-xs) var(--spacing-s);
     font-size: var(--font-size-body);
   }
+
   &__weekdays,
   &__days {
     display: grid;
@@ -132,6 +143,7 @@
     cursor: pointer;
     transition: background 0.2s;
   }
+
   &__weekday {
     text-align: center;
     color: var(--text-body);
@@ -140,6 +152,7 @@
     line-height: var(--line-height-normal);
     font-weight: var(--weight-semibold);
   }
+
   &__day {
     aspect-ratio: 1;
     border: none;
@@ -152,22 +165,27 @@
     line-height: var(--line-height-normal);
     letter-spacing: var(--letter-spacing-normal);
     transition: background 0.2s;
+
     &--other-month {
       color: var(--text-disabled);
     }
+
     &--today {
       font-weight: var(--weight-bold);
       color: var(--background-primary);
     }
+
     &--selected {
       background: var(--color-primary-500);
       color: var(--background-default);
       font-weight: var(--weight-semibold);
     }
+
     &--in-range {
       background: rgba(25, 118, 210, 0.1);
       color: var(--text--label-base);
     }
+
     &--disabled {
       color: var(--text-disabled-dark);
       cursor: not-allowed;
@@ -175,18 +193,22 @@
     }
   }
 }
+
 .dcx-datepicker__month-name--clickable {
   cursor: pointer;
 }
+
 .dcx-datepicker__month-name--ml {
   margin-left: 8px;
 }
+
 .dcx-datepicker__selected-list {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
   margin: 8px 0 0 0;
 }
+
 .dcx-datepicker__chip {
   color: var(--background-default);
   color: var(--background-primary);

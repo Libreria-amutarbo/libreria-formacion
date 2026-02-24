@@ -4,7 +4,7 @@ import { Component, signal } from '@angular/core';
 @Component({
   selector: 'app-dxc-ng-page-date-picker',
   standalone: true,
-  imports: [DcxNgDatePickerComponent, DcxNgButtonComponent],
+  imports: [DcxNgDatePickerComponent],
   templateUrl: './dxc-ng-page-datePicker.component.html',
   styleUrl: './dxc-ng-page-datePicker.component.scss',
 })

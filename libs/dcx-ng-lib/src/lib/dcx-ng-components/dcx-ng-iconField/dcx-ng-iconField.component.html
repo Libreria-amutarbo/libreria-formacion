@@ -6,15 +6,15 @@
       </div>
     }
 
-    <input
-      type="text"
+    <dcx-ng-input
       class="dcx-icon-field-input"
+      [type]="inputType.TEXT"
       [placeholder]="placeholder"
       [value]="value"
       [disabled]="disabled"
-      (input)="onInput($event)"
-      (blur)="onBlur()"
-      (focus)="onFocus()"
+      (valueChange)="onValueChange($event)"
+      (blurEvent)="onBlur()"
+      (focusEvent)="onFocus()"
     />
 
     @if (iconRight) {

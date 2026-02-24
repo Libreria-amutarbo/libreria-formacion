@@ -1,4 +1,3 @@
-
 @use '../../../scss/utils/mixins' as *;
 
 
@@ -20,31 +19,7 @@
 
 .dcx-icon-field-input {
   flex: 1;
-  @include body-text;
-  @include padding-horizontal('inset-m');
-  @include padding-vertical('inset-s');
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-body-small);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-primary);
-  outline: none;
-  @include transition-base;
-
-  &:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(0, 112, 173, 0.1);
-  }
-
-  &:disabled {
-    background-color: var(--color-background-alt);
-    color: var(--color-text-disabled);
-    cursor: not-allowed;
-  }
-
-  &::placeholder {
-    color: var(--color-text-secondary);
-  }
+  width: 100%;
 }
 
 .dcx-icon-left {
@@ -60,7 +35,7 @@
   justify-content: center;
   top: 20px;
 
-  ~ .dcx-icon-field-input {
+  ~.dcx-icon-field-input ::ng-deep .dcx-ng-input__control {
     padding-left: calc(var(--spacing-inset-m) + var(--spacing-l));
   }
 }
@@ -78,15 +53,13 @@
   justify-content: center;
   top: 20px;
 
-  ~ .dcx-icon-field-input,
-  + .dcx-icon-field-input {
+  ~.dcx-icon-field-input ::ng-deep .dcx-ng-input__control,
+  +.dcx-icon-field-input ::ng-deep .dcx-ng-input__control {
     padding-right: calc(var(--spacing-inset-m) + var(--spacing-l));
   }
 }
 
-.dcx-icon-left ~ .dcx-icon-field-input {
-  &:has(~ .dcx-icon-right) {
-    padding-left: calc(var(--spacing-inset-m) + var(--spacing-l));
-    padding-right: calc(var(--spacing-inset-m) + var(--spacing-l));
-  }
+.dcx-icon-left~.dcx-icon-field-input:has(~ .dcx-icon-right) ::ng-deep .dcx-ng-input__control {
+  padding-left: calc(var(--spacing-inset-m) + var(--spacing-l));
+  padding-right: calc(var(--spacing-inset-m) + var(--spacing-l));
 }
