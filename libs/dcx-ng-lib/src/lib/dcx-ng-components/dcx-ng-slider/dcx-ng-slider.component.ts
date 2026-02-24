@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DcxInputType, DcxNgInputComponent } from '@dcx-ng-components/dcx-ng-lib';
+
 
 @Component({
   selector: 'dcx-ng-slider',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, DcxNgInputComponent],
   templateUrl: './dcx-ng-slider.component.html',
   styleUrls: ['./dcx-ng-slider.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,8 +19,11 @@ import { ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@a
   ],
 })
 export class DcxNgSliderComponent implements ControlValueAccessor {
+  readonly inputType = DcxInputType;
   @Input() value = 0;
   @Input() formControlName = '';
+  @Input() min = 0;
+  @Input() max = 100;
   @Input() step = 1;
   @Input() vertical = false;
 
@@ -32,9 +37,8 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
     return this.vertical ? 'vertical' : null;
   }
 
-  onInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const newValue = Number(input.value);
+  onInput(value: string | number | null): void {
+    const newValue = Number(value);
     this.value = newValue;
     this.valueChange.emit(newValue);
     this.onChange(newValue);
