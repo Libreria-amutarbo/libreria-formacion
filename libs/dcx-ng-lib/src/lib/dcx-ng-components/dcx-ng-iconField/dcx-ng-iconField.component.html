@@ -1,14 +1,14 @@
 <div
   class="icon-field"
-  [class.has-left]="iconPosition() === 'left'"
-  [class.has-right]="iconPosition() === 'right'"
+  [class.has-left]="iconPositionChange()"
+  [class.has-right]="iconPositionChange()"
 >
   @if (iconPosition() === 'left' && iconName() !== '') {
     <dcx-ng-button
       icon
       [iconName]="iconName()"
       [variant]="'icon-only'"
-      [iconSize]="iconSize"
+      [iconSize]="iconSize()"
       (buttonClick)="onIconClick()"
     ></dcx-ng-button>
   }
@@ -20,7 +20,7 @@
       icon
       [iconName]="iconName()"
       [variant]="'icon-only'"
-      [iconSize]="iconSize"
+      [iconSize]="iconSize()"
       isIconClickable
       (buttonClick)="onIconClick()"
     ></dcx-ng-button>

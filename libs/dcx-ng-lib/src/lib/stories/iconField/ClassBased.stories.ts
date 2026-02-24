@@ -1,103 +1,79 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgIconFieldComponent } from '../../dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component';
 import { moduleMetadata } from '@storybook/angular';
-
-import { Component, input } from '@angular/core';
-import { DcxNgInputComponent } from '../../dcx-ng-components/dcx-ng-input/dcx-ng-input.component';
-import { DcxPosition } from '../../core/interfaces';
+import {
+  DcxNgIconFieldComponent,
+  DcxNgInputComponent,
+  DcxIconFieldPositionList,
+  ICON_FIELD_ICON_NAME,
+  ICON_FIELD_ICON_POSITION,
+  ICON_FIELD_ICON_SIZE,
+  ICON_SIZE_LIST,
+} from '@dcx-ng-components/dcx-ng-lib';
+import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
 
 const meta: Meta<DcxNgIconFieldComponent> = {
   title: 'DCXLibrary/IconField/Class based',
   component: DcxNgIconFieldComponent,
   decorators: [
     moduleMetadata({
-      imports: [],
+      imports: [DcxNgIconFieldComponent, DcxNgInputComponent],
     }),
   ],
   tags: ['autodocs'],
   argTypes: {
     iconName: {
-      description: 'Icono por defecto',
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-        defaultValue: { summary: 'Search' },
-      },
+      control: 'select',
+      options: BOOTSTRAP_ICONS,
+      description:
+        'Icono de Bootstrap Icons al final (p.ej. "arrow-right", "chevron-right")',
+      table: { category: 'Attributes' },
     },
     iconPosition: {
       control: 'select',
-      options: ['left', 'right'],
+      options: DcxIconFieldPositionList,
       description: 'Posición del icono',
       table: {
         category: 'Attributes',
-        defaultValue: { summary: 'left' },
       },
+    },
+    iconSize: {
+      control: 'select',
+      options: ICON_SIZE_LIST,
+      table: { category: 'Attributes' },
     },
   },
   args: {
-    iconName: 'search',
-    iconPosition: 'left',
+    iconName: ICON_FIELD_ICON_NAME,
+    iconPosition: ICON_FIELD_ICON_POSITION,
+    iconSize: ICON_FIELD_ICON_SIZE,
   },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgIconFieldComponent>;
 
-export const ClassBased: Story = {};
-
-@Component({
-  selector: 'dcx-ng-sb-icon-field',
-  standalone: true,
-  imports: [DcxNgIconFieldComponent, DcxNgInputComponent],
-  template: `
-  <dcx-ng-icon-field iconSize="m" [iconPosition]="iconPosition()"
-   [iconName]="'search'" (iconClick)="onIconClick()">
-    <dcx-ng-input
-      [placeholder]="'Icon Field con icono a la izquierda'"
-    ></dcx-ng-input>
-  </dcx-ng-icon-field>
-  `,
-})
-class DcxNgIconFieldWrapperComponent {
-  iconPosition = input<DcxPosition>('left');
-  isClickable = input(false);
-  onIconClick() {
-    if (this.isClickable()) alert('Icono clickado');
-  }
-}
-
-export const IconInLeftPosition = {
-  render: () => ({
-    props: {},
-    template: `<dcx-ng-sb-icon-field/>`,
+export const ClassBased: Story = {
+  render: args => ({
+    props: args,
+    template: `
+      <dcx-ng-icon-field
+        [iconName]="iconName"
+        [iconPosition]="iconPosition"
+        [iconSize]="iconSize"
+        (iconClick)="iconClick()"
+      >
+        <dcx-ng-input [placeholder]="'Icon Field por defecto'"></dcx-ng-input>
+      </dcx-ng-icon-field>
+    `,
   }),
-  decorators: [
-    moduleMetadata({
-      imports: [DcxNgIconFieldWrapperComponent],
-    }),
-  ],
 };
 
-export const IconInRightPosition = {
-  render: () => ({
-    props: {},
-    template: `<dcx-ng-sb-icon-field [iconPosition]="'right'"/>`,
-  }),
-  decorators: [
-    moduleMetadata({
-      imports: [DcxNgIconFieldWrapperComponent],
-    }),
-  ],
+export const IconInRightPosition: Story = {
+  ...ClassBased,
+  args: { iconPosition: 'right' },
 };
 
-export const IconClickable = {
-  render: () => ({
-    props: {},
-    template: `<dcx-ng-sb-icon-field [isClickable]="true"/>`,
-  }),
-  decorators: [
-    moduleMetadata({
-      imports: [DcxNgIconFieldWrapperComponent],
-    }),
-  ],
+export const IconClickable: Story = {
+  ...ClassBased,
+  args: { iconClick: () => alert('Icono clickado') },
 };

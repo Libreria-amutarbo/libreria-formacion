@@ -1,16 +1,17 @@
 import {
-  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  effect,
+  computed,
   input,
   output,
-  signal,
 } from '@angular/core';
 import {
-  DcxPosition,
   DcxSize,
   DcxNgButtonComponent,
+  DcxIconFieldPosition,
+  ICON_FIELD_ICON_NAME,
+  ICON_FIELD_ICON_POSITION,
+  ICON_FIELD_ICON_SIZE,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -22,12 +23,22 @@ import {
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DcxNgIconFieldComponent {
-  iconName = input('');
-  iconPosition = input<DcxPosition>('left');
+  iconName = input(ICON_FIELD_ICON_NAME);
+  iconPosition = input<DcxIconFieldPosition>(ICON_FIELD_ICON_POSITION);
 
-  iconSize: DcxSize = 'm';
+  iconSize = input<DcxSize>(ICON_FIELD_ICON_SIZE);
 
   iconClick = output();
+
+  iconPositionChange = computed<string>(() => {
+    const mapped =
+      this.iconPosition() === 'left'
+        ? 'has-left'
+        : this.iconPosition() === 'right'
+          ? 'has-right'
+          : '';
+    return [mapped].filter(Boolean).join(' ');
+  });
 
   constructor() {}
 
