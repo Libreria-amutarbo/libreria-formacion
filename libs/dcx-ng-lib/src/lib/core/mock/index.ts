@@ -11,3 +11,4 @@ export * from './paginator';
 export * from './list';
 export * from './select';
 export * from './input';
+export * from './iconField';

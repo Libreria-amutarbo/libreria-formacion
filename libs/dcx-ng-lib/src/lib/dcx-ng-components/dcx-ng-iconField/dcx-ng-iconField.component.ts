@@ -1,40 +1,48 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { DcxInputType, DcxSize, DcxNgInputComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  output,
+} from '@angular/core';
+import {
+  DcxSize,
+  DcxNgButtonComponent,
+  DcxIconFieldPosition,
+  ICON_FIELD_ICON_NAME,
+  ICON_FIELD_ICON_POSITION,
+  ICON_FIELD_ICON_SIZE,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-icon-field',
   standalone: true,
-  imports: [DcxNgIconComponent, DcxNgInputComponent],
+  imports: [DcxNgButtonComponent],
   templateUrl: './dcx-ng-iconField.component.html',
   styleUrls: ['./dcx-ng-iconField.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DcxNgIconFieldComponent {
-  readonly inputType = DcxInputType;
-  @Input() placeholder = '';
-  @Input() iconLeft = '';
-  @Input() iconRight = '';
-  @Input() iconSize: DcxSize = 'm';
-  @Input() disabled = false;
+  iconName = input(ICON_FIELD_ICON_NAME);
+  iconPosition = input<DcxIconFieldPosition>(ICON_FIELD_ICON_POSITION);
 
-  @Output() valueChange = new EventEmitter<string>();
-  @Output() focusIconField = new EventEmitter<void>();
-  @Output() blurIconField = new EventEmitter<void>();
+  iconSize = input<DcxSize>(ICON_FIELD_ICON_SIZE);
 
-  value = '';
+  iconClick = output();
 
-  onValueChange(value: string | number | null) {
-    const newValue = value ?? '';
-    this.value = String(newValue);
-    this.valueChange.emit(this.value);
-  }
+  iconPositionChange = computed<string>(() => {
+    const mapped =
+      this.iconPosition() === 'left'
+        ? 'has-left'
+        : this.iconPosition() === 'right'
+          ? 'has-right'
+          : '';
+    return [mapped].filter(Boolean).join(' ');
+  });
 
-  onFocus() {
-    this.focusIconField.emit();
-  }
+  constructor() {}
 
-  onBlur() {
-    this.blurIconField.emit();
+  onIconClick() {
+    this.iconClick.emit();
   }
 }
