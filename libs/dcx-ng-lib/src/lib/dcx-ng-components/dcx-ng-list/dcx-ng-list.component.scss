@@ -14,7 +14,7 @@ ul {
   line-height: 1.6;
 
   &.disabled {
-    color: var(--text-disabled, #a9adb3);
+    color: var(--text-disabled, );
     cursor: not-allowed;
     pointer-events: none;
   }
