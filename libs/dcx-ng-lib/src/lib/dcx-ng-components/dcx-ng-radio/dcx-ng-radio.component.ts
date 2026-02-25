@@ -2,12 +2,13 @@ import { Component, input, computed, effect } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { DcxSize } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxInputType, DcxNgInputComponent, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
+
 
 @Component({
   selector: 'dcx-ng-radio',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, DcxNgInputComponent],
   templateUrl: './dcx-ng-radio.component.html',
   styleUrl: './dcx-ng-radio.component.scss',
   providers: [
@@ -31,12 +32,16 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   focus = input<boolean>(false);
   disabled = input<boolean>(false);
 
+  readonly inputType = DcxInputType.RADIO;
+
   readonly formControl = new FormControl<string | null>(null);
 
   private onChange: (value: string | null) => void = () => { };
   private onTouched: () => void = () => { };
 
   isChecked = computed(() => this.formControl.value === this.value());
+
+  displayValue = computed(() => (this.value() || '') as string | number);
 
   sizeClass = computed(() => `dcx-ng-radio--${this.size()}`);
 

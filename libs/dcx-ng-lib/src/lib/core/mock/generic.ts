@@ -31,6 +31,7 @@ export const SPACING_DEFAULT: DcxSpacing = 'xs';
 export const SPACING_LIST: DcxSpacing[] = ['xs', 's', 'm', 'l', 'xl'];
 
 export const ICON_SPACING_DEFAULT: DcxIconSpacing = 'none';
+export const ICON_SIZE_LIST: DcxSize[] = ['s', 'm', 'l', 'xl'];
 
 export const DISABLED = false;
 export const ERRORICON = 'info-circle';
