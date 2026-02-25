@@ -1,113 +1,247 @@
+import {
+  booleanAttribute,
+  Component,
+  computed,
+  effect,
+  forwardRef,
+  input,
+  model,
+  output,
+  Signal,
+  signal,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { DcxSize } from '../../core/interfaces';
-import { DcxInputErrorMessage, DcxInputType } from '../../core/interfaces/input';
+import {
+  DcxSize,
+  DcxSpacing,
+  DcxInputType,
+  ERRORICON,
+  SPACING_DEFAULT,
+  DcxNgIconComponent,
+  DcxNgButtonComponent,
+  INPUT_DEFAULT_ARIA_DESCRIBEDBY,
+  INPUT_DEFAULT_ARIA_LABEL,
+  INPUT_DEFAULT_AUTOCOMPLETE,
+  INPUT_DEFAULT_DISABLED,
+  INPUT_DEFAULT_ERROR_MESSAGE,
+  INPUT_DEFAULT_INPUTMODE,
+  INPUT_DEFAULT_INVALID,
+  INPUT_DEFAULT_LABEL,
+  INPUT_DEFAULT_NAME,
+  INPUT_DEFAULT_PLACEHOLDER,
+  INPUT_DEFAULT_READONLY,
+  INPUT_DEFAULT_REQUIRED,
+  INPUT_DEFAULT_SIZE,
+  INPUT_DEFAULT_TYPE,
+  INPUT_DEFAULT_VALUE,
+} from '@dcx-ng-components/dcx-ng-lib';
 
+let uuid = 0;
 @Component({
   selector: 'dcx-ng-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    DcxNgIconComponent,
+    DcxNgButtonComponent,
+  ],
   templateUrl: './dcx-ng-input.component.html',
   styleUrls: ['./dcx-ng-input.component.scss'],
+  providers: [
+    {
+      /**Con ControlValueAccessor podemos usar input en:
+        
+* - Reactive Forms
+   * - Template-driven forms
+   * - formControlName
+   * - ngModel
+
+        */
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DcxNgInputComponent),
+      multi: true,
+    },
+  ],
 })
-export class DcxNgInputComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() readonly = false;
-  @Input() type: DcxInputType = DcxInputType.TEXT;
-  @Input() placeholder: string | null = null;
-  @Input() size: DcxSize = 'm';
-  @Input() disabled = false;
-  @Input() required = false;
+export class DcxNgInputComponent {
+  id = input<string>(`my-input-${++uuid}`);
+  value = model<string | number>(INPUT_DEFAULT_VALUE);
+  disabled = input(INPUT_DEFAULT_DISABLED, {
+    transform: booleanAttribute,
+  });
+  readonly = input(INPUT_DEFAULT_READONLY, {
+    transform: booleanAttribute,
+  });
+  placeholder = input<string>(INPUT_DEFAULT_PLACEHOLDER);
+  type = input<DcxInputType>(INPUT_DEFAULT_TYPE);
+  name = input<string>(INPUT_DEFAULT_NAME);
+  inputId = `dcx-input-${Math.random().toString(36).substring(2, 9)}`;
+  required = input(INPUT_DEFAULT_REQUIRED, {
+    transform: booleanAttribute,
+  });
+  autocomplete = input<string>(INPUT_DEFAULT_AUTOCOMPLETE);
+  inputMode = input<string>(INPUT_DEFAULT_INPUTMODE);
 
-  @Input() label: string | null = null;
-  @Input() errorMessages: DcxInputErrorMessage[] = [];
-  @Input() noMargin = false;
-  @Input() inline = false;
-  @Input() search = false;
-  @Input()
-  set value(val: string) {
-    if (this.inputControl) {
-      this.inputControl.setValue(val, { emitEvent: false });
+  isInvalid = input(INPUT_DEFAULT_INVALID, {
+    transform: booleanAttribute,
+  });
+
+  label = input(INPUT_DEFAULT_LABEL);
+  labelId = `${this.inputId}-label`;
+  ariaLabel = input<string | null>(INPUT_DEFAULT_ARIA_LABEL);
+  ariaDescribedBy = input<string | null>(INPUT_DEFAULT_ARIA_DESCRIBEDBY);
+  errorMessage = input<string>(INPUT_DEFAULT_ERROR_MESSAGE);
+  errorIcon = input<string>(ERRORICON);
+  spacing = input<DcxSpacing>(SPACING_DEFAULT);
+
+  size = input<DcxSize>(INPUT_DEFAULT_SIZE);
+
+  valueChange = output<string | number | null>();
+
+  blurEvent = output<void>();
+  focusEvent = output<void>();
+  enterPressed = output<void>();
+
+  showPassword = signal(false);
+
+  private onChange: (val: any) => void = () => {};
+  private onTouched: () => void = () => {};
+  errorId = computed(() => `${this.id()}-error`);
+
+  displayType = computed<string>(() => {
+    const inputType = this.type();
+    if (inputType === DcxInputType.PASSWORD) {
+      return this.showPassword() ? 'text' : 'password';
     }
-  }
+    return inputType;
+  });
 
-  @Output() valueChange = new EventEmitter<string | null>();
+  getInputIcon = computed<string | null>(() => {
+    const inputType = this.type();
+    const iconMap: Record<DcxInputType, string | null> = {
+      [DcxInputType.TEXT]: null,
+      [DcxInputType.NUMBER]: 'pin',
+      [DcxInputType.EMAIL]: 'mail',
+      [DcxInputType.PASSWORD]: null,
+      [DcxInputType.SEARCH]: 'search',
+      [DcxInputType.TEL]: 'phone',
+      [DcxInputType.URL]: 'link',
+    };
+    return iconMap[inputType] || null;
+  });
 
-  inputControl: FormControl = new FormControl('');
-  isFocused = false;
-  inputId: string;
-  private destroy$ = new Subject<void>();
+  isPasswordType = computed<boolean>(
+    () => this.type() === DcxInputType.PASSWORD,
+  );
+
+  isSearchType = computed<boolean>(() => this.type() === DcxInputType.SEARCH);
+
+  showActionIcon = computed<boolean>(() => {
+    return (this.isPasswordType() || this.isSearchType()) && !this.readonly();
+  });
+
+  describedBy = computed(() => {
+    const ids = [
+      this.ariaDescribedBy(),
+      this.isInvalid() ? this.errorId() : null,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .trim();
+    return ids.length ? ids : null;
+  });
+
+  inputContolClasses = computed<string>(() => {
+    const base = 'dcx-ng-input__control';
+    const sizeValue = this.spacing();
+    return [base, `${base}--${sizeValue}`].filter(Boolean).join(' ');
+  });
 
   constructor() {
-    this.inputId = `dcx-input-${Math.random().toString(36).substr(2, 9)}`;
+    effect(() => {
+      const v = this.value();
+      this.onChange(v);
+    });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  writeValue(val: any): void {
+    this.value.set(val);
   }
 
-  ngOnInit() {
-    this.setupFormControl();
-    this.setupValueChanges();
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
   }
 
-  setupFormControl() {
-    const validators = [];
-    if (this.type === DcxInputType.EMAIL) {
-      validators.push(Validators.email);
-    }
-    if (this.type === DcxInputType.NUMBER) {
-      validators.push(Validators.pattern(/^-?(?:\d+(?:\.\d+)?|\.\d+)$/));
-    }
-
-    if (this.required) {
-      validators.push(Validators.required);
-    }
-
-    this.inputControl = new FormControl('', validators);
-
-    if (this.disabled) {
-      this.inputControl.disable();
-    }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
-  private setupValueChanges() {
-    this.inputControl.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(value => {
-        this.valueChange.emit(value);
-      });
+  onBlur() {
+    this.onTouched();
+    this.blurEvent.emit();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['required'] || changes['type'] || changes['disabled']) {
-      this.setupFormControl();
-    }
+  onInput(newValue: string) {
+    const formattedValue = this.formatValueByType(newValue);
+    this.value.set(formattedValue);
+    this.valueChange.emit(formattedValue);
   }
 
-  getErrorMessage(): string | null {
-    if (!this.inputControl.errors) {
-      return null;
-    }
+  togglePasswordVisibility() {
+    this.showPassword.update(val => !val);
+  }
 
-    const value = this.inputControl.value;
-    if (value && value.trim() !== '') {
-      if (this.inputControl.hasError('pattern') && this.type === DcxInputType.NUMBER) {
-        return this.errorMessages.find(msg => msg.type === 'pattern')?.message || 'Formato numérico inválido';
+  private formatValueByType(value: string): string | number {
+    const inputType = this.type();
+
+    switch (inputType) {
+      case DcxInputType.NUMBER: {
+        const numericValue = value.replace(/[^0-9.-]/g, '');
+        return numericValue === '' ? '' : parseFloat(numericValue);
       }
-
-      if (this.inputControl.hasError('email')) {
-        return this.errorMessages.find(msg => msg.type === 'email')?.message || 'Formato correo inválido';
-      }
+      case DcxInputType.EMAIL:
+        return value.toLowerCase();
+      case DcxInputType.TEL:
+        return value.replace(/[^0-9\s\-()]/g, '');
+      case DcxInputType.SEARCH:
+        return value.trim();
+      case DcxInputType.URL:
+        return value.toLowerCase();
+      case DcxInputType.TEXT:
+      case DcxInputType.PASSWORD:
+      default:
+        return value;
     }
-
-    if (this.inputControl.hasError('required')) {
-      return this.errorMessages.find(msg => msg.type === 'required')?.message || 'Campo obligatorio';
-    }
-
-    return null;
   }
+
+  onActionButtonClick() {
+    if (this.isPasswordType()) {
+      this.togglePasswordVisibility();
+    } else if (this.isSearchType()) {
+      // Aquí puedes agregar lógica para búsqueda si es necesario
+      this.valueChange.emit(this.value());
+    }
+  }
+
+  getActionButtonAriaLabel = computed<string>(() => {
+    if (this.isPasswordType()) {
+      return this.showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña';
+    }
+    if (this.isSearchType()) {
+      return 'Buscar';
+    }
+    return '';
+  });
+
+  getActionButtonIcon = computed<string>(() => {
+    if (this.isPasswordType()) {
+      return this.showPassword() ? 'eye-slash-fill' : 'eye-fill';
+    }
+    if (this.isSearchType()) {
+      return 'search';
+    }
+    return '';
+  });
 }
