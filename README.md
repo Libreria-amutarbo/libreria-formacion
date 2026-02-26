@@ -36,5 +36,5 @@ Then you select the option **@nx/angular:component**. We will create it in the f
 
 ## Consulta de la librería
 
-Develop: [inferred automatically](https://libreria-amutarbo.github.io/libreria-formacion/develop/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)
-Main: [inferred automatically](https://libreria-amutarbo.github.io/libreria-formacion/main/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)
+[Develop](https://libreria-amutarbo.github.io/libreria-formacion/develop/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)
+[Main](https://libreria-amutarbo.github.io/libreria-formacion/main/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)
