@@ -26,10 +26,17 @@ These targets are either [inferred automatically](https://nx.dev/concepts/inferr
 
 ## Generate component
 
-To generate a component, the first step is to navigate to the library folder _libs/dcx-ng-lib/src/lib/dcx-ng-components_, and run the command: 
+To generate a component, the first step is to navigate to the library folder _libs/dcx-ng-lib/src/lib/dcx-ng-components_, and run the command:
 
 ```sh
 npx nx g c
 ```
 
 Then you select the option **@nx/angular:component**. We will create it in the folder associated with that component (_e.g., dcx-ng-button/dcx-ng-button_) and with the name of the component to be developed (_e.g., button)_.
+
+## Consulta de la librería
+
+```sh
+Develop: [inferred automatically](https://libreria-amutarbo.github.io/libreria-formacion/develop/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)
+Main: [inferred automatically](https://libreria-amutarbo.github.io/libreria-formacion/main/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)
+```
