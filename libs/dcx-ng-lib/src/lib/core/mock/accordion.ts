@@ -1,22 +1,32 @@
-import { DcxNgAccordionItem } from '../interfaces/accordion';
+import {
+  DcxAccordionTransition,
+  DcxNgAccordionItem,
+} from '../interfaces/accordion';
+
+export const DcxAccordionTransitionList: DcxAccordionTransition[] = [
+  'fast',
+  'none',
+  'slow',
+  'smooth',
+];
 
 export const DcxAccordionMock: DcxNgAccordionItem[] = [
-    {
-        id: '1',
-        title: 'Item 1',
-        content: 'Content 1',
-    },
-    {
-        id: '2',
-        title: 'Item 2',
-        content: 'Content 2',
-    },
-    {
-        id: '3',
-        title: 'Item 3 (Disabled)',
-        content: 'Content 3',
-        disabled: true,
-    },
+  {
+    id: '1',
+    title: 'Item 1',
+    content: 'Content 1',
+  },
+  {
+    id: '2',
+    title: 'Item 2',
+    content: 'Content 2',
+  },
+  {
+    id: '3',
+    title: 'Item 3 (Disabled)',
+    content: 'Content 3',
+    disabled: true,
+  },
 ];
 
 export const ACCORDION_ITEMS_WITH_ICONS: DcxNgAccordionItem[] = [
@@ -94,7 +104,8 @@ export const ACCORDION_ITEMS_LARGE_CONTENT: DcxNgAccordionItem[] = [
     id: '1',
     title: 'Introduction',
     icon: 'book-fill',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    content:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
   {
     id: '2',
@@ -142,6 +153,9 @@ Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatib
     id: '3',
     title: 'Conclusion',
     icon: 'check-circle-fill',
-    content: 'Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+    content:
+      'Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
   },
 ];
+
+export const LIST_ITEMS_MOCK = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];

@@ -1,14 +1,17 @@
-import { 
-  Component, 
-  input, 
-  output, 
-  signal, 
-  ChangeDetectionStrategy, 
-  effect
+import {
+  Component,
+  input,
+  output,
+  signal,
+  ChangeDetectionStrategy,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
-import { AccordionTransition, DcxNgAccordionItem } from '../../core/interfaces/accordion';
+import {
+  DcxNgIconComponent,
+  DcxAccordionTransition,
+  DcxNgAccordionItem,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-accordion',
@@ -16,19 +19,19 @@ import { AccordionTransition, DcxNgAccordionItem } from '../../core/interfaces/a
   imports: [CommonModule, DcxNgIconComponent],
   templateUrl: './dcx-ng-accordion.component.html',
   styleUrl: './dcx-ng-accordion.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgAccordionComponent {
-  readonly items = input<DcxNgAccordionItem[]>([]);
-  readonly transition = input<AccordionTransition>('smooth');
-  readonly closeOthers = input<boolean>(true);
-  readonly expandedIds = input<string[]>([]);
-  
-  readonly itemToggled = output<DcxNgAccordionItem>();
-  readonly itemExpanded = output<DcxNgAccordionItem>();
-  readonly itemCollapsed = output<DcxNgAccordionItem>();
+  items = input<DcxNgAccordionItem[]>([]);
+  transition = input<DcxAccordionTransition>('smooth');
+  closeOthers = input<boolean>(true);
+  expandedIds = input<string[]>([]);
 
-  private readonly _expandedItems = signal<Set<string>>(new Set());
+  itemToggled = output<DcxNgAccordionItem>();
+  itemExpanded = output<DcxNgAccordionItem>();
+  itemCollapsed = output<DcxNgAccordionItem>();
+
+  private _expandedItems = signal<Set<string>>(new Set());
 
   constructor() {
     effect(() => {
@@ -66,7 +69,7 @@ export class DcxNgAccordionComponent {
 
     this._expandedItems.update(items => {
       const next = new Set(items);
-      
+
       if (isCurrentlyExpanded) {
         next.delete(item.id);
         this.itemCollapsed.emit(item);
@@ -77,7 +80,7 @@ export class DcxNgAccordionComponent {
         next.add(item.id);
         this.itemExpanded.emit(item);
       }
-      
+
       return next;
     });
 
@@ -90,12 +93,12 @@ export class DcxNgAccordionComponent {
 
     this._expandedItems.update(items => {
       const next = new Set(items);
-      
+
       if (this.closeOthers()) {
         next.clear();
       }
       next.add(itemId);
-      
+
       return next;
     });
 
