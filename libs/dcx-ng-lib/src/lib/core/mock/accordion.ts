@@ -10,7 +10,7 @@ export const DcxAccordionTransitionList: DcxAccordionTransition[] = [
   'smooth',
 ];
 
-export const DcxAccordionMock: DcxNgAccordionItem[] = [
+export const DcxAccordionDefault: DcxNgAccordionItem[] = [
   {
     id: '1',
     title: 'Item 1',
@@ -23,13 +23,18 @@ export const DcxAccordionMock: DcxNgAccordionItem[] = [
   },
   {
     id: '3',
-    title: 'Item 3 (Disabled)',
+    title: 'Item with disabled content',
     content: 'Content 3',
+    disabledContent: true,
+  },
+  {
+    id: '4',
+    title: 'Item with disabled',
     disabled: true,
   },
 ];
 
-export const ACCORDION_ITEMS_WITH_ICONS: DcxNgAccordionItem[] = [
+export const DcxAccordionItemsWithIcon: DcxNgAccordionItem[] = [
   {
     id: '1',
     title: 'Dashboard',
@@ -50,7 +55,7 @@ export const ACCORDION_ITEMS_WITH_ICONS: DcxNgAccordionItem[] = [
   },
 ];
 
-export const ACCORDION_ITEMS_WITH_EXPANDED: DcxNgAccordionItem[] = [
+export const DcxAccordionItemsWithExpanded: DcxNgAccordionItem[] = [
   {
     id: '1',
     title: 'Section 1',
@@ -61,27 +66,30 @@ export const ACCORDION_ITEMS_WITH_EXPANDED: DcxNgAccordionItem[] = [
     id: '2',
     title: 'Section 2',
     content: 'This section is collapsed by default.',
+    expanded: true,
   },
   {
     id: '3',
     title: 'Section 3',
     content: 'This section is also collapsed by default.',
+    expanded: true,
   },
 ];
 
-export const ACCORDION_ITEMS_COMPLEX: DcxNgAccordionItem[] = [
+export const DcxAccordionItemsDisabled: DcxNgAccordionItem[] = [
   {
     id: '1',
     title: 'Introduction',
     content: 'Welcome to our application! This is the introduction section.',
     icon: 'info-circle-fill',
-    expanded: true,
+    disabled: true,
   },
   {
     id: '2',
     title: 'Features',
     content: 'Explore the amazing features of our application.',
     icon: 'star-fill',
+    disabled: true,
   },
   {
     id: '3',
@@ -95,20 +103,44 @@ export const ACCORDION_ITEMS_COMPLEX: DcxNgAccordionItem[] = [
     title: 'Help & Support',
     content: 'Get help and support for any issues.',
     icon: 'question-circle-fill',
+    disabled: true,
+  },
+];
+
+export const DcxAccordionItemsContentDisabled: DcxNgAccordionItem[] = [
+  {
+    id: '1',
+    title: 'Introduction',
+    content: 'Welcome to our application! This is the introduction section.',
+    icon: 'info-circle-fill',
+    disabledContent: true,
+  },
+  {
+    id: '2',
+    title: 'Features',
+    content: 'Explore the amazing features of our application.',
+    icon: 'star-fill',
+    disabledContent: true,
+  },
+  {
+    id: '3',
+    title: 'Settings (Disabled)',
+    content: 'Advanced settings - Coming soon!',
+    icon: 'gear-fill',
+    disabledContent: true,
+  },
+  {
+    id: '4',
+    title: 'Help & Support',
+    content: 'Get help and support for any issues.',
+    icon: 'question-circle-fill',
     disabledContent: true,
   },
 ];
 
-export const ACCORDION_ITEMS_LARGE_CONTENT: DcxNgAccordionItem[] = [
+export const DcxAccordionLargeContent: DcxNgAccordionItem[] = [
   {
     id: '1',
-    title: 'Introduction',
-    icon: 'book-fill',
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  },
-  {
-    id: '2',
     title: 'Detailed Information with Very Long Content',
     icon: 'info-circle-fill',
     content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -148,13 +180,6 @@ At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praese
 Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
 
 Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    id: '3',
-    title: 'Conclusion',
-    icon: 'check-circle-fill',
-    content:
-      'Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
   },
 ];
 

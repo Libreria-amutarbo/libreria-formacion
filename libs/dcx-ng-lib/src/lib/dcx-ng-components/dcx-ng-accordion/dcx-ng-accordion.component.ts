@@ -132,4 +132,11 @@ export class DcxNgAccordionComponent {
     const transition = this.transition();
     return `transition-${transition}`;
   }
+
+  getIconItemExpanded(itemId: string): string {
+    if (this.isExpanded(itemId)) {
+      return 'chevron-up';
+    }
+    return 'chevron-down';
+  }
 }

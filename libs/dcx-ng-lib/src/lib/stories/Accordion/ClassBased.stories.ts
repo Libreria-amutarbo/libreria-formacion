@@ -6,13 +6,14 @@ import {
   DcxNgListComponent,
   DcxNgInputComponent,
   DcxInputType,
-  DcxAccordionMock,
-  ACCORDION_ITEMS_WITH_ICONS,
-  ACCORDION_ITEMS_WITH_EXPANDED,
-  ACCORDION_ITEMS_COMPLEX,
-  ACCORDION_ITEMS_LARGE_CONTENT,
-  LIST_ITEMS_MOCK,
   DcxAccordionTransitionList,
+  DcxAccordionDefault,
+  DcxAccordionItemsWithIcon,
+  DcxAccordionItemsWithExpanded,
+  DcxAccordionItemsDisabled,
+  DcxAccordionLargeContent,
+  DcxAccordionItemsContentDisabled,
+  LIST_ITEMS_MOCK,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgAccordionComponent> = {
@@ -104,7 +105,7 @@ const meta: Meta<DcxNgAccordionComponent> = {
     },
   },
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
     transition: 'smooth',
     closeOthers: true,
     expandedIds: [],
@@ -116,60 +117,59 @@ type Story = StoryObj<DcxNgAccordionComponent>;
 
 export const Default: Story = {
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
   },
 };
 
 export const WithIcons: Story = {
   args: {
-    items: ACCORDION_ITEMS_WITH_ICONS,
+    items: DcxAccordionItemsWithIcon,
   },
 };
 
 export const WithDisabledItems: Story = {
   args: {
-    items: ACCORDION_ITEMS_COMPLEX,
+    items: DcxAccordionItemsDisabled,
+  },
+};
+
+export const WithContentDisabledItems: Story = {
+  args: {
+    items: DcxAccordionItemsContentDisabled,
   },
 };
 
 export const MultipleOpen: Story = {
   args: {
-    items: DcxAccordionMock,
-    closeOthers: false,
-  },
-};
-
-export const DefaultExpanded: Story = {
-  args: {
-    items: ACCORDION_ITEMS_WITH_EXPANDED,
+    items: DcxAccordionItemsWithExpanded,
     closeOthers: false,
   },
 };
 
 export const FastTransition: Story = {
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
     transition: 'fast',
   },
 };
 
 export const SlowTransition: Story = {
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
     transition: 'slow',
   },
 };
 
 export const NoTransition: Story = {
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
     transition: 'none',
   },
 };
 
 export const LargeContent: Story = {
   args: {
-    items: ACCORDION_ITEMS_LARGE_CONTENT,
+    items: DcxAccordionLargeContent,
   },
 };
 

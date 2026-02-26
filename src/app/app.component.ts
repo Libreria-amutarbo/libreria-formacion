@@ -34,7 +34,6 @@ export class AppComponent {
   }
 
   routeTo(event: string | number | null) {
-    console.log(event, 'f');
     if (event) {
       this._router.navigateByUrl(event.toString());
     }
