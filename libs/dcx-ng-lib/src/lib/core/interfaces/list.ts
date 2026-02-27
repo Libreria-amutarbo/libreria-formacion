@@ -1,6 +1,7 @@
 export interface DcxListItem {
-    text: string;
+    text?: string;
     icon?: string;
     disabled?: boolean;
+    divider?: boolean;
     children?: DcxListItem[];
 }
