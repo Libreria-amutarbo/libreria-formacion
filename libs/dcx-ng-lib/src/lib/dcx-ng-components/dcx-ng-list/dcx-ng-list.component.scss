@@ -70,12 +70,12 @@ ul {
   flex-shrink: 0;
   margin-left: auto;
   font-size: 0.75rem;
-  color: var(--text-disabled, #a9adb3);
+  color: var(--text-disabled);
 }
 
 .dcx-list-divider {
   height: 1px;
-  background-color: var(--border-default, #e1e3e6);
+  background-color: var(--border-default);
   margin: 0.25rem 0;
 }
 
@@ -105,7 +105,7 @@ ul {
     &.selectable {
       .dcx-list-item-content {
         &:hover {
-          background-color: var(--background-hover, #f7f8fa);
+          background-color: var(--background-hover);
         }
       }
     }
@@ -118,8 +118,8 @@ ul {
     top: 0;
     left: 100%;
     min-width: 160px;
-    background: var(--background-default, #ffffff);
-    border: 1px solid var(--border-default, #e1e3e6);
+    background: var(--background-default);
+    border: 1px solid var(--border-default);
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     padding: 0.25rem 0;

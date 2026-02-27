@@ -94,8 +94,6 @@ export class DcxNgPageContextMenuComponent {
     setTimeout(() => this.contextMenu2.open(), 0);
   }
 
-  onItemSelected(item: DcxContextMenuItem): void {
-    console.log('Item seleccionado:', item);
-  }
+  onItemSelected(item: DcxContextMenuItem): void { }
 }
 

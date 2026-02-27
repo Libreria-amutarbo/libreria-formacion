@@ -18,20 +18,43 @@ const meta: Meta<DcxNgContextMenuComponent> = {
     ],
     argTypes: {
         items: {
+            name: 'items',
             control: { type: 'object' },
             description: 'Array de elementos del menú contextual',
+            table: {
+                category: 'Atributos',
+                type: { summary: 'DcxContextMenuItem[]' },
+            },
         },
         position: {
+            name: 'position',
             control: { type: 'object' },
             description: 'Posición del menú (x, y)',
+            table: {
+                category: 'Atributos',
+                type: { summary: '{ x: number; y: number }' },
+                defaultValue: { summary: '{ x: 100, y: 100 }' },
+            },
         },
         itemSelected: {
+            name: 'itemSelected',
             action: 'itemSelected',
             description: 'Evento emitido cuando se selecciona un item',
+            table: {
+                category: 'Eventos',
+                type: { summary: '(item: DcxContextMenuItem) => void' },
+                defaultValue: { summary: '-' },
+            },
         },
         menuClosed: {
+            name: 'menuClosed',
             action: 'menuClosed',
             description: 'Evento emitido cuando se cierra el menú',
+            table: {
+                category: 'Eventos',
+                type: { summary: '() => void' },
+                defaultValue: { summary: '-' },
+            },
         },
     },
     args: {
