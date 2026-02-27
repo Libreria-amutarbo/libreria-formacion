@@ -6,9 +6,7 @@
 
 .tooltip-container {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center-inline;
   margin: var(--spacing-inset-s);
   cursor: help;
 }
