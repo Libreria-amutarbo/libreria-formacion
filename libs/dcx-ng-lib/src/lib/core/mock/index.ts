@@ -12,3 +12,4 @@ export * from './list';
 export * from './select';
 export * from './contextMenu';
 export * from './input';
+export * from './iconField';
