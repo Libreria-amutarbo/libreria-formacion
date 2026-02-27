@@ -1,7 +1,7 @@
 import {
   DcxAccordionTransition,
   DcxNgAccordionItem,
-} from '../interfaces/accordion';
+} from '@dcx-ng-components/dcx-ng-lib';
 
 export const DcxAccordionTransitionList: DcxAccordionTransition[] = [
   'fast',
