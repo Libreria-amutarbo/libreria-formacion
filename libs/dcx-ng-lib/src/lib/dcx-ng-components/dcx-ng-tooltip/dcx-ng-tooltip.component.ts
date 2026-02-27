@@ -1,6 +1,10 @@
-import { Component, Input, HostListener, ElementRef, AfterViewInit, ViewChild, inject } from '@angular/core';
+import { Component, HostListener, ElementRef, AfterViewInit, inject, input, signal, computed, viewChild, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DcxPosition } from '../../core/interfaces';
+import { DomSanitizer } from '@angular/platform-browser';
+import { AvailableSpace, DcxPosition, TOOLTIP_DEFAULT_CONFIG, TooltipPositionOption } from '@dcx-ng-components/dcx-ng-lib';
+
+
+
 
 @Component({
   selector: 'dcx-ng-tooltip',
@@ -10,97 +14,111 @@ import { DcxPosition } from '../../core/interfaces';
   styleUrls: ['./dcx-ng-tooltip.component.scss'],
 })
 export class DcxNgTooltipComponent implements AfterViewInit {
-  @Input() position: DcxPosition = 'top';
-  @Input() hideTooltipOnClick = false;
-  @Input() content = '';
+  position = input<DcxPosition>('top');
+  hideTooltipOnClick = input<boolean>(false);
+  content = input<string>('');
+  contentHtml = input<string>('');
 
-  visible = false;
-  actualPosition: DcxPosition = 'top';
+  visible = signal<boolean>(false);
+  actualPosition = signal<DcxPosition>('top');
 
   private readonly elementRef = inject(ElementRef);
+  private readonly sanitizer = inject(DomSanitizer);
 
-  @ViewChild('tooltipElement') tooltipElement?: ElementRef;
+  tooltipElement = viewChild<ElementRef>('tooltipElement');
+
+  sanitizedHtml = computed(() => {
+    const html = this.contentHtml();
+    return html ? this.sanitizer.bypassSecurityTrustHtml(html) : null;
+  });
+
+  tooltipClasses = computed(() => {
+    const baseClass = 'dcx-ng-tooltip';
+    const positionClass = `${baseClass}--${this.actualPosition()}`;
+    return `${baseClass} ${positionClass}`.trim();
+  });
+
+  constructor() {
+    effect(() => {
+      if (this.visible()) {
+        setTimeout(() => this.adjustPosition(), 0);
+      }
+    });
+  }
 
   @HostListener('mouseenter')
   onMouseEnter() {
-    this.visible = true;
-    this.adjustPosition();
+    this.visible.set(true);
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
-    this.visible = false;
+    this.visible.set(false);
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event) {
-    if (this.hideTooltipOnClick) {
+    if (this.hideTooltipOnClick()) {
       const clickedInside = this.elementRef.nativeElement.contains(event.target);
       if (clickedInside) {
-        this.visible = false;
+        this.visible.set(false);
       }
     }
   }
 
-
   ngAfterViewInit() {
-    this.actualPosition = this.position;
+    this.actualPosition.set(this.position());
   }
 
   private adjustPosition() {
     setTimeout(() => {
-      const tooltipEl = this.tooltipElement!.nativeElement;
+      const tooltipEl = this.tooltipElement()?.nativeElement;
+      if (!tooltipEl) return;
+
       const hostEl = this.elementRef.nativeElement;
 
-      // Get viewport dimensions
       const viewport = {
         width: window.innerWidth,
         height: window.innerHeight
       };
 
-      // Get host element position and dimensions
       const hostRect = hostEl.getBoundingClientRect();
 
-      // Get tooltip dimensions
       const tooltipRect = tooltipEl.getBoundingClientRect();
 
-      // Calculate available space in each direction
-      const spaceTop = hostRect.top;
-      const spaceBottom = viewport.height - hostRect.bottom;
-      const spaceLeft = hostRect.left;
-      const spaceRight = viewport.width - hostRect.right;
+      const availableSpace: AvailableSpace = {
+        spaceTop: hostRect.top,
+        spaceBottom: viewport.height - hostRect.bottom,
+        spaceLeft: hostRect.left,
+        spaceRight: viewport.width - hostRect.right
+      };
 
-      // Determine the best position based on available space
       const optimalPosition = this.calculateOptimalPosition(
-        this.position,
+        this.position(),
         tooltipRect,
-        { spaceTop, spaceBottom, spaceLeft, spaceRight }
+        availableSpace
       );
 
-      if (optimalPosition !== this.actualPosition) {
-        this.actualPosition = optimalPosition;
+      if (optimalPosition !== this.actualPosition()) {
+        this.actualPosition.set(optimalPosition);
       }
-    }, 10);
+    }, TOOLTIP_DEFAULT_CONFIG.adjustDelay);
   }
 
   private calculateOptimalPosition(
     preferredPosition: DcxPosition,
     tooltipRect: DOMRect,
-    availableSpace: {
-      spaceTop: number;
-      spaceBottom: number;
-      spaceLeft: number;
-      spaceRight: number;
-    }
+    availableSpace: AvailableSpace
   ): DcxPosition {
-    const margin = 10; // Safety margin
+    const { margin } = TOOLTIP_DEFAULT_CONFIG;
     const tooltipHeight = tooltipRect.height;
     const tooltipWidth = tooltipRect.width;
 
-    // Check if preferred position fits
     switch (preferredPosition) {
       case 'top':
-
+        if (availableSpace.spaceTop >= tooltipHeight + margin) {
+          return 'top';
+        }
         break;
       case 'bottom':
         if (availableSpace.spaceBottom >= tooltipHeight + margin) {
@@ -119,18 +137,15 @@ export class DcxNgTooltipComponent implements AfterViewInit {
         break;
     }
 
-    // If preferred position doesn't fit, find the best alternative
-    const alternatives: { position: DcxPosition; space: number }[] = [
+    const alternatives: TooltipPositionOption[] = [
       { position: 'top', space: availableSpace.spaceTop },
       { position: 'bottom', space: availableSpace.spaceBottom },
       { position: 'left', space: availableSpace.spaceLeft },
       { position: 'right', space: availableSpace.spaceRight }
     ];
 
-    // Sort by available space (descending)
     alternatives.sort((a, b) => b.space - a.space);
 
-    // Return the position with the most space that fits
     for (const alt of alternatives) {
       const requiredSpace = (alt.position === 'left' || alt.position === 'right')
         ? tooltipWidth + margin
@@ -141,13 +156,6 @@ export class DcxNgTooltipComponent implements AfterViewInit {
       }
     }
 
-    // If nothing fits perfectly, return the one with most space
     return alternatives[0].position;
-  }
-
-  getTooltipClasses(): string {
-    const baseClass = 'dcx-ng-tooltip';
-    const positionClass = `${baseClass}--${this.actualPosition}`;
-    return `${baseClass} ${positionClass}`.trim();
   }
 }
