@@ -1,51 +1,68 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, HostListener, input, output, signal } from '@angular/core';
+import { DcxContextMenuItem, DcxNgListComponent } from '@dcx-ng-components/dcx-ng-lib';
 
-export interface Position {
-  x: number;
-  y: number;
-}
-
-export interface ContextMenuItem {
-  label: string;
-  action: () => void;
-}
 
 @Component({
   selector: 'dcx-ng-context-menu',
   standalone: true,
-  imports: [CommonModule],
+  imports: [DcxNgListComponent],
   templateUrl: './dcx-ng-contextMenu.component.html',
   styleUrl: './dcx-ng-contextMenu.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContextMenuComponent {
-  @Input() items: ContextMenuItem[] = [];
-  @Input() visible = false;
-  @Input() position: Position = { x: 0, y: 0 };
+export class DcxNgContextMenuComponent {
+  items = input.required<DcxContextMenuItem[]>();
+  position = input<{ x: number; y: number }>({ x: 0, y: 0 });
 
-  @Output() closed = new EventEmitter<void>();
+  itemSelected = output<DcxContextMenuItem>();
+  menuClosed = output<void>();
 
-  constructor(private eRef: ElementRef) { }
+  isOpen = signal<boolean>(false);
 
-  @HostListener('document:click', ['$event'])
-  onClickOutside(event: MouseEvent) {
-    if (!this.eRef.nativeElement.contains(event.target)) {
-      this.hide();
+  menuStyle = computed(() => {
+    const pos = this.position();
+    return {
+      top: `${pos.y}px`,
+      left: `${pos.x}px`,
+    };
+  });
+
+  open(): void {
+    this.isOpen.set(true);
+  }
+
+  close(): void {
+    this.isOpen.set(false);
+    this.menuClosed.emit();
+  }
+
+  onItemClick(item: DcxContextMenuItem, event?: Event): void {
+    event?.stopPropagation();
+
+    if (item.disabled || item.divider) {
+      return;
+    }
+
+    if (item.action) {
+      item.action();
+    }
+
+    this.itemSelected.emit(item);
+
+    if (!item.children || item.children.length === 0) {
+      this.close();
     }
   }
 
-  show(x: number, y: number) {
-    this.position = { x, y };
-    this.visible = true;
+  onListItemSelected(event: { item: DcxContextMenuItem; index: number }): void {
+    this.onItemClick(event.item);
   }
 
-  hide() {
-    this.visible = false;
-    this.closed.emit();
-  }
-
-  onItemClick(item: ContextMenuItem) {
-    item.action();
-    this.hide();
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    if (this.isOpen()) {
+      this.close();
+    }
   }
 }
+

@@ -41,6 +41,11 @@ const meta: Meta<DcxNgIconFieldComponent> = {
       options: ICON_SIZE_LIST,
       table: { category: 'Attributes' },
     },
+    iconClick: {
+      action: 'iconClick',
+      description: 'Emitted when the icon is clicked',
+      table: { category: 'Events' },
+    },
   },
   args: {
     iconName: ICON_FIELD_ICON_NAME,
@@ -74,6 +79,20 @@ export const IconInRightPosition: Story = {
 };
 
 export const IconClickable: Story = {
-  ...ClassBased,
-  args: { iconClick: () => alert('Icono clickado') },
+  render: args => ({
+    props: {
+      ...args,
+      iconClick: () => alert('Icono clickado'),
+    },
+    template: `
+      <dcx-ng-icon-field
+        [iconName]="iconName"
+        [iconPosition]="iconPosition"
+        [iconSize]="iconSize"
+        (iconClick)="iconClick()"
+      >
+        <dcx-ng-input [placeholder]="'Icon Field por defecto'"></dcx-ng-input>
+      </dcx-ng-icon-field>
+    `,
+  }),
 };
