@@ -1,11 +1,14 @@
-<div class="dcx-slider-wrapper" [class.vertical]="vertical">
-  <dcx-ng-input
-    class="dcx-slider-input"
-    [type]="inputType.RANGE"
-    [value]="value"
-    [attr.min]="min"
-    [attr.max]="max"
-    [attr.step]="step"
-    (valueChange)="onInput($event)"
-  />
-</div>
+<span class="dcx-slider-value-label">
+  {{ valueInput() }}
+</span>
+
+<dcx-ng-input
+  class="dcx-slider-input"
+  [type]="inputType.RANGE"
+  [value]="valueInput()"
+  [attr.min]="min()"
+  [attr.max]="maxInput()"
+  [style.width.px]="vertical() ? sliderWidth() : '100%'"
+  [orientation]="vertical() ? 'vertical' : 'horizontal'"
+  (valueChange)="onInput($event)"
+/>

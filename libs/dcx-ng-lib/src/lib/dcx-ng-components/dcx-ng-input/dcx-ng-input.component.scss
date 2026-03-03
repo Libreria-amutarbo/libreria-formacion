@@ -5,6 +5,11 @@
   font-family: var(--font-family-primary);
 }
 
+:host(.vertical) .dcx-ng-input__control {
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
 .dcx-ng-input__label {
   display: inline-block;
   margin-bottom: var(--spacing-inset-xs, 4px);

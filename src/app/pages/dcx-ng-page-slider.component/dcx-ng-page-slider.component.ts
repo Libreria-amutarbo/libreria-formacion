@@ -22,14 +22,14 @@ export class DcxNgPageSliderComponent {
       label: 'Horizontal Slider',
       value: 0,
       step: 1,
-      vertical: false
+      vertical: false,
     },
     {
       label: 'Vertical Slider',
       value: 0,
       step: 5,
-      vertical: true
-    }
+      vertical: true,
+    },
   ];
 
   onSliderValueChange(index: number, value: number): void {
