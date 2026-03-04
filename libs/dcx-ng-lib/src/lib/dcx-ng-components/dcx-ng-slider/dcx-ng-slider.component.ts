@@ -67,7 +67,10 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
 
       if (external < min) {
         this.valueInput.set(min);
-      } else if (external > max) {
+        return;
+      } 
+      
+      if (external > max) {
         this.valueInput.set(max);
       }
     });
