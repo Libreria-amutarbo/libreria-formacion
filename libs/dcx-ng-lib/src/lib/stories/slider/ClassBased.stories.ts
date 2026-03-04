@@ -1,4 +1,7 @@
-import { DcxNgSliderComponent } from '../../dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component';
+import {
+  SLIDER_DEFAULT_VALUES,
+  DcxNgSliderComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgSliderComponent> = {
@@ -6,6 +9,20 @@ const meta: Meta<DcxNgSliderComponent> = {
   component: DcxNgSliderComponent,
   tags: ['autodocs'],
   argTypes: {
+    showLabel: {
+      description: 'Mostrar label',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    textLabel: {
+      description: 'Texto del label',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     value: {
       control: { type: 'number' },
       description: 'Valor actual del slider',
@@ -45,22 +62,6 @@ const meta: Meta<DcxNgSliderComponent> = {
         category: 'Attributes',
       },
     },
-    sliderHeight: {
-      control: { type: 'number' },
-      description: 'Altura del slider en px',
-      table: {
-        defaultValue: { summary: '300px' },
-        category: 'Attributes',
-      },
-    },
-    sliderWidth: {
-      control: { type: 'range' },
-      description: 'Anchura del slider en px',
-      table: {
-        defaultValue: { summary: '100px' },
-        category: 'Attributes',
-      },
-    },
     valueChange: {
       action: 'value changed',
       description: 'Se emite cuando cambia el valor del slider.',
@@ -76,15 +77,13 @@ const meta: Meta<DcxNgSliderComponent> = {
     },
   },
   args: {
-    value: 0,
-    step: 1,
-    vertical: false,
-    max: 50,
-    sliderWidth: '300',
-    sliderHeight: '100',
-
-    // value: 10,
-    // step: 1,
+    showLabel: SLIDER_DEFAULT_VALUES.showLabel,
+    textLabel: SLIDER_DEFAULT_VALUES.textLabel,
+    value: SLIDER_DEFAULT_VALUES.value,
+    step: SLIDER_DEFAULT_VALUES.step,
+    vertical: SLIDER_DEFAULT_VALUES.showLabel,
+    min: SLIDER_DEFAULT_VALUES.min,
+    max: SLIDER_DEFAULT_VALUES.max,
   },
   decorators: [
     moduleMetadata({
@@ -101,13 +100,7 @@ type Story = StoryObj<DcxNgSliderComponent>;
 
 export const ClassBassed: Story = {};
 
-export const Default: Story = {
-  // args: {
-  //   value: 10,
-  //   step: 1,
-  //   vertical: false,
-  // },
-};
+export const Default: Story = {};
 
 export const Vertical: Story = {
   args: {

@@ -6,6 +6,7 @@ import {
   signal,
   effect,
   output,
+  computed,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -15,6 +16,7 @@ import {
 import {
   DcxInputType,
   DcxNgInputComponent,
+  SLIDER_DEFAULT_VALUES,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -33,19 +35,22 @@ import {
   ],
 })
 export class DcxNgSliderComponent implements ControlValueAccessor {
+  showLabel = input(SLIDER_DEFAULT_VALUES.showLabel);
+  textLabel = input(SLIDER_DEFAULT_VALUES.textLabel);
   readonly inputType = DcxInputType;
 
-  value = input(0);
+  value = input(SLIDER_DEFAULT_VALUES.value);
   valueInput = signal(0);
 
-  formControlName = input('');
-  min = input(0);
-  max = input(50);
-  maxInput = signal(50);
-  step = input(1);
-  vertical = input(false);
-  sliderHeight = input('300');
-  sliderWidth = input('100');
+  min = input(SLIDER_DEFAULT_VALUES.min);
+
+  max = input(SLIDER_DEFAULT_VALUES.max);
+
+  step = input(SLIDER_DEFAULT_VALUES.step);
+  stepInput = computed<number>(() => {
+    return this.step();
+  });
+  vertical = input(SLIDER_DEFAULT_VALUES.vertical);
 
   valueChange = output<number>();
 
@@ -54,10 +59,17 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
 
   constructor() {
     effect(() => {
-      this.valueInput.set(this.value());
-    });
-    effect(() => {
-      this.maxInput.set(this.max());
+      const external = this.value();
+      this.valueInput.set(external);
+
+      const min = this.min();
+      const max = this.max();
+
+      if (external < min) {
+        this.valueInput.set(min);
+      } else if (external > max) {
+        this.valueInput.set(max);
+      }
     });
   }
 

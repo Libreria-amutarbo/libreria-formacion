@@ -1,5 +1,5 @@
 :host {
-  display: inline-flex;
+  display: grid;
   flex-direction: column;
   align-items: center;
   gap: 4px;
@@ -10,19 +10,7 @@
 }
 
 .dcx-slider-value-label {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.dcx-slider-wrapper {
   display: flex;
   align-items: center;
-  width: 100%;
-}
-
-/* Vertical layout */
-.dcx-slider-wrapper.vertical {
-  .dcx-slider-input {
-    transform: rotate(-90deg);
-  }
+  justify-content: center;
 }

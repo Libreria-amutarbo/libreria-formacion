@@ -36,6 +36,7 @@ import {
   INPUT_DEFAULT_SIZE,
   INPUT_DEFAULT_TYPE,
   INPUT_DEFAULT_VALUE,
+  SLIDER_DEFAULT_VALUES,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 let uuid = 0;
@@ -112,10 +113,12 @@ export class DcxNgInputComponent {
   showPassword = signal(false);
 
   //Input for slider
-  min = input(0);
-  max = input(50);
-  maxInput = signal(50);
-  step = input(1);
+  min = input(SLIDER_DEFAULT_VALUES.min);
+  max = input(SLIDER_DEFAULT_VALUES.max);
+  step = input(SLIDER_DEFAULT_VALUES.step);
+  stepInput = computed<number>(() => {
+    return this.step();
+  });
 
   private onChange: (val: any) => void = () => {};
   private onTouched: () => void = () => {};
@@ -185,9 +188,6 @@ export class DcxNgInputComponent {
     effect(() => {
       const v = this.value();
       this.onChange(v);
-    });
-    effect(() => {
-      this.maxInput.set(this.max());
     });
   }
 

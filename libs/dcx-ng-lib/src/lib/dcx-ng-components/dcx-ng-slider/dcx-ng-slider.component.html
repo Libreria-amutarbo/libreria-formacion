@@ -1,14 +1,17 @@
-<span class="dcx-slider-value-label">
-  {{ valueInput() }}
-</span>
+@if (showLabel()) {
+  <span class="dcx-slider-value-label">
+    {{textLabel()}} {{ valueInput() }}
+  </span>
+}
 
 <dcx-ng-input
   class="dcx-slider-input"
   [type]="inputType.RANGE"
   [value]="valueInput()"
-  [attr.min]="min()"
-  [attr.max]="maxInput()"
-  [style.width.px]="vertical() ? sliderWidth() : '100%'"
+  [min]="min()"
+  [max]="max()"
+  [step]="1"
+  [style.width.px]="vertical() ? '100' : '100%'"
   [orientation]="vertical() ? 'vertical' : 'horizontal'"
   (valueChange)="onInput($event)"
 />
