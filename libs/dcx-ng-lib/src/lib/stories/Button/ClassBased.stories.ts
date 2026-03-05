@@ -180,6 +180,8 @@ export const Variants: Story = {
         <dcx-ng-button label="Primary"  size="m" variant="primary"></dcx-ng-button>
         <dcx-ng-button label="Medium" size="m" variant="secondary"></dcx-ng-button>
         <dcx-ng-button label="Terciary"  size="m" variant="terciary"></dcx-ng-button>
+        <dcx-ng-button size="m" variant="icon-only" icon iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Text"  size="m" variant="text"></dcx-ng-button>
     </div>
        
        
@@ -206,8 +208,8 @@ export const WithtIcons: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Guardar"  size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
-        <dcx-ng-button label="Siguiente" size="m" variant="primary" icon="true" iconName="arrow-right" iconPosition="left" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Guardar"  size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Siguiente" size="m" variant="primary" icon iconName="arrow-right" iconPosition="left" iconSize="m"></dcx-ng-button>
       </div>
     `,
   }),
@@ -218,10 +220,10 @@ export const IconsButtonPositions: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Left"  size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
-        <dcx-ng-button label="Top" size="m" variant="primary" icon="true" iconName="save" iconPosition="top" iconSize="m"></dcx-ng-button>
-         <dcx-ng-button label="Right" size="m" variant="primary" icon="true" iconName="save" iconPosition="right" iconSize="m"></dcx-ng-button>
-          <dcx-ng-button label="Bottom" size="m" variant="primary" icon="true" iconName="save" iconPosition="bottom" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Left"  size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Top" size="m" variant="primary" icon iconName="save" iconPosition="top" iconSize="m"></dcx-ng-button>
+         <dcx-ng-button label="Right" size="m" variant="primary" icon iconName="save" iconPosition="right" iconSize="m"></dcx-ng-button>
+          <dcx-ng-button label="Bottom" size="m" variant="primary" icon iconName="save" iconPosition="bottom" iconSize="m"></dcx-ng-button>
       </div>
     `,
   }),
@@ -232,10 +234,10 @@ export const IconsButtonSizes: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Small"  size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="s"></dcx-ng-button>
-        <dcx-ng-button label="Medium" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
-         <dcx-ng-button label="Large" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="l"></dcx-ng-button>
-          <dcx-ng-button label="Extra large" size="m" variant="primary" icon="true" iconName="save" iconPosition="left" iconSize="xl"></dcx-ng-button>
+        <dcx-ng-button label="Small"  size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="s"></dcx-ng-button>
+        <dcx-ng-button label="Medium" size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
+         <dcx-ng-button label="Large" size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="l"></dcx-ng-button>
+          <dcx-ng-button label="Extra large" size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="xl"></dcx-ng-button>
       </div>
     `,
   }),

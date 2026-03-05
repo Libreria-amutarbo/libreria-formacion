@@ -148,51 +148,54 @@ const meta: Meta<DcxNgInputComponent> = {
       table: { category: 'Attributes' },
     },
     valueChange: {
-      action: 'clear',
-      description: 'Evento que se emite cuando se borra el valor seleccionado',
+      action: 'value changed',
+      description: 'Se emite cuando cambia el valor del input.',
       table: {
         category: 'Events',
         type: {
-          summary: '(item: void) => void',
+          summary: '(value: string | number | null) => void',
         },
         defaultValue: {
           summary: '-',
         },
       },
     },
+
     blurEvent: {
-      action: 'clear',
-      description: 'Evento que se emite cuando se borra el valor seleccionado',
+      action: 'blur',
+      description: 'Se emite cuando el input pierde el foco.',
       table: {
         category: 'Events',
         type: {
-          summary: '(item: void) => void',
+          summary: '() => void',
         },
         defaultValue: {
           summary: '-',
         },
       },
     },
+
     focusEvent: {
-      action: 'clear',
-      description: 'Evento que se emite cuando se borra el valor seleccionado',
+      action: 'focus',
+      description: 'Se emite cuando el input recibe el foco.',
       table: {
         category: 'Events',
         type: {
-          summary: '(item: void) => void',
+          summary: '() => void',
         },
         defaultValue: {
           summary: '-',
         },
       },
     },
+
     enterPressed: {
-      action: 'clear',
-      description: 'Evento que se emite cuando se borra el valor seleccionado',
+      action: 'enter pressed',
+      description: 'Se emite cuando el usuario pulsa Enter dentro del input.',
       table: {
         category: 'Events',
         type: {
-          summary: '(item: void) => void',
+          summary: '() => void',
         },
         defaultValue: {
           summary: '-',

@@ -1,81 +1,109 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgSliderComponent } from '../../dcx-ng-components/dcx-ng-slider/dcx-ng-slider.component';
-import { moduleMetadata } from '@storybook/angular';
+import {
+  SLIDER_DEFAULT_VALUES,
+  DcxNgSliderComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgSliderComponent> = {
   title: 'DCXLibrary/Slider/ClassBased',
   component: DcxNgSliderComponent,
-  decorators: [
-    moduleMetadata({
-      imports: [DcxNgSliderComponent],
-    }),
-  ],
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component: `
-El componente Slider permite seleccionar valores numéricos de forma visual, tanto horizontal como vertical.
-Soporta personalización de paso, orientación y muestra el valor en tiempo real.
-        `,
+  tags: ['autodocs'],
+  argTypes: {
+    showLabel: {
+      description: 'Mostrar label',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
       },
     },
-  },
-  argTypes: {
+    textLabel: {
+      description: 'Texto del label',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     value: {
       control: { type: 'number' },
       description: 'Valor actual del slider',
       table: {
-        type: { summary: 'number' },
         defaultValue: { summary: '0' },
-        category: 'Attributes'
+        category: 'Attributes',
+      },
+    },
+    min: {
+      control: { type: 'number' },
+      description: 'Valor mínimo del slider',
+      table: {
+        defaultValue: { summary: '0' },
+        category: 'Attributes',
+      },
+    },
+    max: {
+      control: { type: 'number' },
+      description: 'Valor máximo del slider',
+      table: {
+        category: 'Attributes',
       },
     },
     step: {
       control: { type: 'number' },
       description: 'Incremento entre valores',
       table: {
-        type: { summary: 'number' },
         defaultValue: { summary: '1' },
-        category: 'Attributes'
+        category: 'Attributes',
+      },
+    },
+    vertical: {
+      control: { type: 'boolean' },
+      description: 'Valor actual del slider',
+      defaultValue: { summary: false },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    valueChange: {
+      action: 'value changed',
+      description: 'Se emite cuando cambia el valor del slider.',
+      table: {
+        category: 'Events',
+        type: {
+          summary: '(value: number) => void',
+        },
+        defaultValue: {
+          summary: '-',
+        },
       },
     },
   },
   args: {
-    value: 10,
-    step: 1,
+    showLabel: SLIDER_DEFAULT_VALUES.showLabel,
+    textLabel: SLIDER_DEFAULT_VALUES.textLabel,
+    value: SLIDER_DEFAULT_VALUES.value,
+    step: SLIDER_DEFAULT_VALUES.step,
+    vertical: SLIDER_DEFAULT_VALUES.showLabel,
+    min: SLIDER_DEFAULT_VALUES.min,
+    max: SLIDER_DEFAULT_VALUES.max,
+  },
+  decorators: [
+    moduleMetadata({
+      imports: [DcxNgSliderComponent],
+    }),
+  ],
+  parameters: {
+    controls: { expanded: true },
   },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgSliderComponent>;
 
-export const Default: Story = {
-  args: {
-    value: 10,
-    step: 1,
-    vertical: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Slider horizontal por defecto.'
-      }
-    }
-  }
-};
+export const ClassBassed: Story = {};
+
+export const Default: Story = {};
 
 export const Vertical: Story = {
   args: {
-    value: 50,
-    step: 5,
     vertical: true,
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Slider en orientación vertical.'
-      }
-    }
-  }
 };
