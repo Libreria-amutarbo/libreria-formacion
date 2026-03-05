@@ -24,6 +24,7 @@ export * from './lib/dcx-ng-components/dcx-ng-tabs/dcx-ng-tabs.component';
 export * from './lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
 export * from './lib/services/icon.service';
 export * from './lib/dcx-ng-components/dcx-ng-dialog/dcx-ng-dialog.component';
+export * from './lib/services/dialog.service';
 
 export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table.component';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table-template.directive';
