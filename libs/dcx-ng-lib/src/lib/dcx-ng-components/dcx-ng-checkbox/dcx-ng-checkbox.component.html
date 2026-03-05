@@ -14,21 +14,14 @@
           @if (labelPosition() === 'left') {
             <span class="dcx-checkbox-text">{{ option.label }}</span>
           }
-
-          <button
-            type="button"
-            [class]="containerClasses()"
-            [style.--color]="customColorStyle()"
-            [class.checked]="isChecked(option.value)"
-            [disabled]="isOptionDisabled(option)"
-            (click)="onGroupCheckboxChange(option.value, !isChecked(option.value))"
+          <dcx-ng-button
+            [variant]="buttonVariant()"
+            icon
+            [iconName]="iconName()"
+            [iconSize]="'l'"
+            (buttonClick)="prueba(option.id)"
           >
-            <span class="dcx-checkbox-box">
-              @if (isChecked(option.value)) {
-                <span class="dcx-checkbox-check"></span>
-              }
-            </span>
-          </button>
+          </dcx-ng-button>
 
           @if (labelPosition() === 'right') {
             <span class="dcx-checkbox-text">{{ option.label }}</span>
@@ -36,43 +29,5 @@
         </label>
       }
     </div>
-  </div>
-} @else {
-  <div class="dcx-checkbox-wrapper">
-    <label
-      class="dcx-checkbox-label"
-      [class.disabled]="disabled()"
-      [class.label-left]="labelPosition() === 'left'"
-    >
-      @if (labelPosition() === 'left') {
-        <span class="dcx-checkbox-text">{{ label() }}</span>
-      }
-
-      <button
-        type="button"
-        [class]="containerClasses()"
-        [style.--color]="customColorStyle()"
-        (click)="onToggle()"
-      >
-        <span class="dcx-checkbox-box">
-          @if (isCheckedComputed()) {
-            <span class="dcx-checkbox-check"></span>
-          }
-        </span>
-      </button>
-
-      @if (labelPosition() === 'right') {
-        <span class="dcx-checkbox-text">{{ label() }}</span>
-      }
-    </label>
-
-    @if (errorMessage() && !isCheckedComputed()) {
-      <div
-        class="dcx-checkbox-error"
-        [class.error-label-left]="labelPosition() === 'left'"
-      >
-        {{ errorMessage() }}
-      </div>
-    }
   </div>
 }

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
+  DcxCheckbox,
   DcxNgButtonComponent,
   DcxNgCheckboxComponent,
   DcxPosition,
@@ -9,7 +10,7 @@ import {
 @Component({
   selector: 'app-dcx-ng-page-checkbox',
   standalone: true,
-  imports: [DcxNgCheckboxComponent, DcxNgButtonComponent, ReactiveFormsModule],
+  imports: [DcxNgCheckboxComponent, ReactiveFormsModule],
   templateUrl: './dcx-ng-page-checkbox.component.html',
   styleUrl: './dcx-ng-page-checkbox.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,6 +18,14 @@ import {
 export class DcxNgPageCheckboxComponent {
   checked1 = false;
   checked2 = false;
+
+  default = signal<DcxCheckbox[]>([
+    {
+      id: '1',
+      value: true,
+      label: 'Prueba',
+    },
+  ]);
 
   sportsOptions = signal([
     { value: 'futbol', label: 'Fútbol' },

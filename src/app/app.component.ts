@@ -14,7 +14,7 @@ import {
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  valueDefault = APP_ROUTES.SLIDER;
+  valueDefault = APP_ROUTES.CHECKBOX;
   paths = Object.values(APP_ROUTES);
   title = 'dcx-ng-components';
 
