@@ -4,6 +4,7 @@ import {
   computed,
   effect,
   forwardRef,
+  HostBinding,
   input,
   model,
   output,
@@ -35,6 +36,7 @@ import {
   INPUT_DEFAULT_SIZE,
   INPUT_DEFAULT_TYPE,
   INPUT_DEFAULT_VALUE,
+  SLIDER_DEFAULT_VALUES,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 let uuid = 0;
@@ -98,6 +100,7 @@ export class DcxNgInputComponent {
   errorMessage = input<string>(INPUT_DEFAULT_ERROR_MESSAGE);
   errorIcon = input<string>(ERRORICON);
   spacing = input<DcxSpacing>(SPACING_DEFAULT);
+  orientation = input<'horizontal' | 'vertical'>('horizontal');
 
   size = input<DcxSize>(INPUT_DEFAULT_SIZE);
 
@@ -109,8 +112,15 @@ export class DcxNgInputComponent {
 
   showPassword = signal(false);
 
-  private onChange: (val: any) => void = () => { };
-  private onTouched: () => void = () => { };
+  //Input for slider
+  min = input(SLIDER_DEFAULT_VALUES.min);
+  max = input(SLIDER_DEFAULT_VALUES.max);
+  step = input(SLIDER_DEFAULT_VALUES.step);
+  stepInput = computed<number>(() => this.step());
+  });
+
+  private onChange: (val: any) => void = () => {};
+  private onTouched: () => void = () => {};
   errorId = computed(() => `${this.id()}-error`);
 
   displayType = computed<string>(() => {
@@ -118,6 +128,7 @@ export class DcxNgInputComponent {
     if (inputType === DcxInputType.PASSWORD) {
       return this.showPassword() ? 'text' : 'password';
     }
+    if (inputType === DcxInputType.RANGE) return 'range';
     return inputType;
   });
 
@@ -140,6 +151,10 @@ export class DcxNgInputComponent {
     };
     return iconMap[inputType] || null;
   });
+
+  @HostBinding('class.vertical') get verticalClass() {
+    return this.orientation() === 'vertical';
+  }
 
   isPasswordType = computed<boolean>(
     () => this.type() === DcxInputType.PASSWORD,

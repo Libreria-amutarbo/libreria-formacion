@@ -1,7 +1,23 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DcxInputType, DcxNgInputComponent } from '@dcx-ng-components/dcx-ng-lib';
-
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  input,
+  signal,
+  effect,
+  output,
+  computed,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import {
+  DcxInputType,
+  DcxNgInputComponent,
+  SLIDER_DEFAULT_VALUES,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-slider',
@@ -19,34 +35,57 @@ import { DcxInputType, DcxNgInputComponent } from '@dcx-ng-components/dcx-ng-lib
   ],
 })
 export class DcxNgSliderComponent implements ControlValueAccessor {
+  showLabel = input(SLIDER_DEFAULT_VALUES.showLabel);
+  textLabel = input(SLIDER_DEFAULT_VALUES.textLabel);
   readonly inputType = DcxInputType;
-  @Input() value = 0;
-  @Input() formControlName = '';
-  @Input() min = 0;
-  @Input() max = 100;
-  @Input() step = 1;
-  @Input() vertical = false;
 
-  @Output() valueChange = new EventEmitter<number>();
+  value = input(SLIDER_DEFAULT_VALUES.value);
+  valueInput = signal(0);
 
-  private onChange: (value: number) => void = () => { };
-  private onTouched: () => void = () => { };
-  private isDisabled = false;
+  min = input(SLIDER_DEFAULT_VALUES.min);
 
-  get orientAttribute(): string | null {
-    return this.vertical ? 'vertical' : null;
+  max = input(SLIDER_DEFAULT_VALUES.max);
+
+  step = input(SLIDER_DEFAULT_VALUES.step);
+  stepInput = computed<number>(() => {
+    return this.step();
+  });
+  vertical = input(SLIDER_DEFAULT_VALUES.vertical);
+
+  valueChange = output<number>();
+
+  private onChange: (value: number) => void = () => {};
+  private onTouched: () => void = () => {};
+
+  constructor() {
+    effect(() => {
+      const external = this.value();
+      this.valueInput.set(external);
+
+      const min = this.min();
+      const max = this.max();
+
+      if (external < min) {
+        this.valueInput.set(min);
+        return;
+      } 
+      
+      if (external > max) {
+        this.valueInput.set(max);
+      }
+    });
   }
 
   onInput(value: string | number | null): void {
     const newValue = Number(value);
-    this.value = newValue;
+    this.valueInput.set(newValue);
     this.valueChange.emit(newValue);
     this.onChange(newValue);
     this.onTouched();
   }
 
   writeValue(value: number): void {
-    this.value = value;
+    this.valueInput.set(value);
   }
 
   registerOnChange(fn: any): void {
@@ -55,9 +94,5 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
   }
 }
