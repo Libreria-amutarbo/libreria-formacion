@@ -117,7 +117,6 @@ export class DcxNgInputComponent {
   max = input(SLIDER_DEFAULT_VALUES.max);
   step = input(SLIDER_DEFAULT_VALUES.step);
   stepInput = computed<number>(() => this.step());
-  });
 
   private onChange: (val: any) => void = () => {};
   private onTouched: () => void = () => {};
