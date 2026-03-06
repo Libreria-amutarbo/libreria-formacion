@@ -1,32 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+﻿import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   DcxNgDropdownComponent,
 } from './dcx-ng-dropdown.component';
 import { DcxDropdownOptions } from '../../core/interfaces';
+import { DROPDOWN_OPTIONS, DROPDOWN_OPTIONS_NUMERIC } from '../../core/mock/dropdown';
 
 describe('DcxNgDropdownComponent (Jest)', () => {
   let fixture: ComponentFixture<DcxNgDropdownComponent>;
   let component: DcxNgDropdownComponent;
 
-  const OPTIONS: DcxDropdownOptions[] = [
-    { key: 'red', value: 'Rojo' },
-    { key: 'green', value: 'Verde' },
-    { key: 'blue', value: 'Azul' },
-  ];
+  const OPTIONS = DROPDOWN_OPTIONS;
 
   const getHost = () => fixture.nativeElement as HTMLElement;
-  const getTrigger = () =>
-    getHost().querySelector('button.dcx-trigger') as HTMLButtonElement | null;
+  // The trigger is a dcx-ng-button component with class dcx-trigger
+  const getTriggerButton = () =>
+    getHost().querySelector('dcx-ng-button.dcx-trigger button') as HTMLButtonElement | null;
   const getPanel = () =>
     getHost().querySelector('.dcx-panel') as HTMLElement | null;
   const getListItems = () =>
     Array.from(getHost().querySelectorAll('li.dcx-item')) as HTMLLIElement[];
   const getEmptyItem = () =>
     getHost().querySelector('li.dcx-empty') as HTMLLIElement | null;
-  const getTriggerLabelText = () =>
-    (
-      getHost().querySelector('.dcx-trigger__label') as HTMLElement | null
-    )?.textContent?.trim() ?? '';
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -43,26 +37,25 @@ describe('DcxNgDropdownComponent (Jest)', () => {
   }
 
   it('should create', () => {
-    setInputs({});
+    setInputs({ dropdownOptions: OPTIONS });
     expect(component).toBeTruthy();
   });
 
   it('should show placeholder when no selection', () => {
     setInputs({ dropdownOptions: OPTIONS, placeholder: 'Selecciona...' });
-    expect(getTriggerLabelText()).toBe('Selecciona...');
+    expect(component.displayLabel()).toBe('Selecciona...');
   });
 
   it('should open and close the panel with the trigger', () => {
     setInputs({ dropdownOptions: OPTIONS, placeholder: 'Selecciona...' });
-    const trigger = getTrigger()!;
     expect(getPanel()).toBeNull();
 
-    trigger.click();
+    component.toggle();
     fixture.detectChanges();
     expect(getPanel()).not.toBeNull();
     expect(getListItems().length).toBe(OPTIONS.length);
 
-    trigger.click();
+    component.toggle();
     fixture.detectChanges();
     expect(getPanel()).toBeNull();
   });
@@ -71,41 +64,34 @@ describe('DcxNgDropdownComponent (Jest)', () => {
     setInputs({ dropdownOptions: OPTIONS, placeholder: 'Elige' });
 
     const spy = jest.spyOn(component.selectedKeyChange, 'emit');
-    getTrigger()!.click();
+    component.toggle();
     fixture.detectChanges();
 
-    const items = getListItems();
-    const greenIndex = OPTIONS.findIndex(o => o.key === 'green');
-    items[greenIndex].click();
+    const greenOption = OPTIONS.find(o => o.key === 'green')!;
+    component.select(greenOption);
     fixture.detectChanges();
 
     expect(spy).toHaveBeenCalledWith('green');
     expect(getPanel()).toBeNull();
-    expect(getTriggerLabelText()).toBe('Verde');
+    expect(component.displayLabel()).toBe('Verde');
     expect(component.selectedKey).toBe('green');
   });
 
   it('should not open when disabled = true', () => {
     setInputs({ dropdownOptions: OPTIONS, disabled: true, placeholder: 'X' });
 
-    getTrigger()!.click();
+    component.toggle();
     fixture.detectChanges();
 
     expect(getPanel()).toBeNull();
+    expect(component._open()).toBe(false);
   });
 
-  it('when opened and then disabled, clicking an item should not select nor emit', () => {
-    setInputs({ dropdownOptions: OPTIONS, disabled: false });
-    getTrigger()!.click();
-    fixture.detectChanges();
-    expect(getPanel()).not.toBeNull();
-
-    component.disabled = true;
-    fixture.detectChanges();
+  it('should not select nor emit when disabled', () => {
+    setInputs({ dropdownOptions: OPTIONS, disabled: true });
 
     const spy = jest.spyOn(component.selectedKeyChange, 'emit');
-    const items = getListItems();
-    items[0].click();
+    component.select(OPTIONS[0]);
     fixture.detectChanges();
 
     expect(spy).not.toHaveBeenCalled();
@@ -115,7 +101,7 @@ describe('DcxNgDropdownComponent (Jest)', () => {
   it('should close when clicking outside (document click)', () => {
     setInputs({ dropdownOptions: OPTIONS });
 
-    getTrigger()!.click();
+    component._open.set(true);
     fixture.detectChanges();
     expect(getPanel()).not.toBeNull();
 
@@ -125,14 +111,19 @@ describe('DcxNgDropdownComponent (Jest)', () => {
     expect(getPanel()).toBeNull();
   });
 
-  it('should reflect selectedKey input from outside', () => {
+  it('should reflect selectedKey setter from outside', () => {
     setInputs({ dropdownOptions: OPTIONS, placeholder: 'Seleccione' });
 
     component.selectedKey = 'blue';
     fixture.detectChanges();
-    expect(getTriggerLabelText()).toBe('Azul');
+    expect(component.displayLabel()).toBe('Azul');
+    expect(component.selectedKey).toBe('blue');
+  });
 
-    getTrigger()!.click();
+  it('should show selected item in open panel', () => {
+    setInputs({ dropdownOptions: OPTIONS });
+    component.selectedKey = 'blue';
+    component._open.set(true);
     fixture.detectChanges();
 
     const items = getListItems();
@@ -143,7 +134,7 @@ describe('DcxNgDropdownComponent (Jest)', () => {
   it('should show empty state when dropdownOptions is empty', () => {
     setInputs({ dropdownOptions: [] });
 
-    getTrigger()!.click();
+    component._open.set(true);
     fixture.detectChanges();
 
     expect(getListItems().length).toBe(0);
@@ -151,38 +142,28 @@ describe('DcxNgDropdownComponent (Jest)', () => {
     expect(getEmptyItem()!.textContent?.trim()).toBe('(Sin opciones)');
   });
 
-  it('should update aria-expanded and chevron class', () => {
+  it('should update aria-expanded when open changes', () => {
     setInputs({ dropdownOptions: OPTIONS });
 
-    const chevron = getHost().querySelector(
-      '.dcx-trigger__chevron',
-    ) as HTMLElement;
-    const trigger = getTrigger()!;
+    const dcxButton = getHost().querySelector('dcx-ng-button.dcx-trigger') as HTMLElement;
+    expect(dcxButton.getAttribute('aria-expanded')).toBe('false');
 
-    expect(trigger.getAttribute('aria-expanded')).toBe('false');
-    expect(chevron.classList.contains('open')).toBe(false);
-
-    trigger.click();
+    component._open.set(true);
     fixture.detectChanges();
 
-    expect(trigger.getAttribute('aria-expanded')).toBe('true');
-    expect(chevron.classList.contains('open')).toBe(true);
+    expect(dcxButton.getAttribute('aria-expanded')).toBe('true');
 
-    document.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    component._open.set(false);
     fixture.detectChanges();
 
-    expect(trigger.getAttribute('aria-expanded')).toBe('false');
-    expect(chevron.classList.contains('open')).toBe(false);
+    expect(dcxButton.getAttribute('aria-expanded')).toBe('false');
   });
 
   it('should render numeric values using valueToString', () => {
-    const numeric: DcxDropdownOptions[] = [
-      { key: 'v17', value: 17 },
-      { key: 'v18', value: 18 },
-    ];
-    setInputs({ dropdownOptions: numeric, placeholder: 'Elige versión' });
+    const numeric = DROPDOWN_OPTIONS_NUMERIC;
+    setInputs({ dropdownOptions: numeric, placeholder: 'Elige versiÃ³n' });
 
-    getTrigger()!.click();
+    component._open.set(true);
     fixture.detectChanges();
 
     const items = getListItems();
@@ -190,10 +171,63 @@ describe('DcxNgDropdownComponent (Jest)', () => {
     expect(items[0].textContent).toContain('17');
     expect(items[1].textContent).toContain('18');
 
-    items[1].click();
+    component.select(numeric[1]);
     fixture.detectChanges();
 
     expect(component.selectedKey).toBe('v18');
-    expect(getTriggerLabelText()).toBe('18');
+    expect(component.displayLabel()).toBe('18');
+  });
+
+  it('should find option by key', () => {
+    setInputs({ dropdownOptions: OPTIONS });
+    const found = component.findByKey('green');
+    expect(found).toEqual({ key: 'green', value: 'Verde' });
+  });
+
+  it('should return undefined for unknown key', () => {
+    setInputs({ dropdownOptions: OPTIONS });
+    const found = component.findByKey('unknown');
+    expect(found).toBeUndefined();
+  });
+
+  it('should check isSelected correctly', () => {
+    setInputs({ dropdownOptions: OPTIONS });
+    component.selectedKey = 'red';
+    fixture.detectChanges();
+    expect(component.isSelected(OPTIONS[0])).toBe(true);
+    expect(component.isSelected(OPTIONS[1])).toBe(false);
+  });
+
+  it('should convert values to string', () => {
+    setInputs({ dropdownOptions: OPTIONS });
+    expect(component.valueToString(42)).toBe('42');
+    expect(component.valueToString('hello')).toBe('hello');
+  });
+
+  it('should not close when clicking inside the component', () => {
+    setInputs({ dropdownOptions: OPTIONS });
+    component._open.set(true);
+    fixture.detectChanges();
+
+    // click inside the component host element — root.contains(target) is true
+    const insideEl = fixture.debugElement.nativeElement;
+    const ev = new MouseEvent('click', { bubbles: true });
+    Object.defineProperty(ev, 'target', { value: insideEl, writable: false });
+    component.onDocumentClick(ev);
+    fixture.detectChanges();
+
+    expect(component._open()).toBe(true); // should remain open
+  });
+
+  it('should not close when dropdown is already closed', () => {
+    setInputs({ dropdownOptions: OPTIONS });
+    component._open.set(false);
+
+    const outsideEl = document.createElement('div');
+    const ev = new MouseEvent('click', { bubbles: true });
+    Object.defineProperty(ev, 'target', { value: outsideEl, writable: false });
+    component.onDocumentClick(ev);
+
+    expect(component._open()).toBe(false);
   });
 });

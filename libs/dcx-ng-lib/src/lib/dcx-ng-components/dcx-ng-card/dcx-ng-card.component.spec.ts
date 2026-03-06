@@ -2,6 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DcxNgCardComponent } from './dcx-ng-card.component';
+import {
+  TITLE_DEFAULT,
+  SUBTITLE,
+  IMAGE,
+  IMAGE_ALT,
+  BORDERED,
+  INTERACTIVE,
+  DISABLED,
+} from '../../core/mock/card';
 
 describe('DcxNgCardComponent', () => {
   let component: DcxNgCardComponent;
@@ -21,155 +30,212 @@ describe('DcxNgCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render default footer buttons', () => {
-    const cancelButton = fixture.debugElement.query(By.css('.dcx-btn--secondary'));
-    const acceptButton = fixture.debugElement.query(By.css('.dcx-btn--primary'));
-
-    expect(cancelButton).toBeTruthy();
-    expect(acceptButton).toBeTruthy();
-    expect(cancelButton.nativeElement.textContent.trim()).toBe('Cancelar');
-    expect(acceptButton.nativeElement.textContent.trim()).toBe('Aceptar');
+  it('should have correct default input values', () => {
+    expect(component.title()).toBe(TITLE_DEFAULT);
+    expect(component.subtitle()).toBe(SUBTITLE);
+    expect(component.image()).toBe(IMAGE);
+    expect(component.imageAlt()).toBe(IMAGE_ALT);
+    expect(component.bordered()).toBe(BORDERED);
+    expect(component.interactive()).toBe(INTERACTIVE);
+    expect(component.disabled()).toBe(DISABLED);
   });
 
-  it('should emit events when buttons are clicked', () => {
-    let acceptEmitted = false;
-    let cancelEmitted = false;
-    
-    component.onAccept.subscribe(() => acceptEmitted = true);
-    component.onCancel.subscribe(() => cancelEmitted = true);
-    
+  it('should set title via input', () => {
+    fixture.componentRef.setInput('title', 'My Card');
+    fixture.detectChanges();
+    expect(component.title()).toBe('My Card');
+  });
+
+  it('should set image via input', () => {
+    fixture.componentRef.setInput('image', 'test.jpg');
+    fixture.detectChanges();
+    expect(component.image()).toBe('test.jpg');
+  });
+
+  it('should set image to null', () => {
+    fixture.componentRef.setInput('image', null);
+    fixture.detectChanges();
+    expect(component.image()).toBeNull();
+  });
+
+  it('should compute role as "button" by default (interactive is true by default)', () => {
+    expect(component.role()).toBe('button');
+  });
+
+  it('should compute role as "region" when not interactive', () => {
+    fixture.componentRef.setInput('interactive', false);
+    fixture.detectChanges();
+    expect(component.role()).toBe('region');
+  });
+
+  it('should compute role as "region" when disabled (even if interactive)', () => {
+    fixture.componentRef.setInput('interactive', true);
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+    expect(component.role()).toBe('region');
+  });
+
+  it('should compute tabIndex as null when not interactive', () => {
+    fixture.componentRef.setInput('interactive', false);
+    fixture.detectChanges();
+    expect(component.tabIndex()).toBeNull();
+  });
+
+  it('should compute tabIndex as 0 when interactive and not disabled', () => {
+    fixture.componentRef.setInput('interactive', true);
+    fixture.componentRef.setInput('disabled', false);
+    fixture.detectChanges();
+    expect(component.tabIndex()).toBe(0);
+  });
+
+  it('should compute tabIndex as -1 when disabled', () => {
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+    expect(component.tabIndex()).toBe(-1);
+  });
+
+  it('should emit cardClick when host is clicked and not disabled', () => {
+    fixture.componentRef.setInput('interactive', true);
+    fixture.componentRef.setInput('disabled', false);
     fixture.detectChanges();
 
-    const acceptButton = fixture.debugElement.query(By.css('.dcx-btn--primary'));
-    const cancelButton = fixture.debugElement.query(By.css('.dcx-btn--secondary'));
-    
-    acceptButton.nativeElement.click();
-    cancelButton.nativeElement.click();
+    const spy = jest.fn();
+    component.cardClick.subscribe(spy);
 
-    expect(acceptEmitted).toBe(true);
-    expect(cancelEmitted).toBe(true);
+    const evt = new MouseEvent('click');
+    component.onHostClick(evt);
+
+    expect(spy).toHaveBeenCalledWith(evt);
   });
 
-  it('should have correct default values', () => {
-    expect(component.header).toBe('');
-    expect(component.subheader).toBe('');
-    expect(component.iconClass).toBe('');
-    expect(component.closable).toBe(false);
-    expect(component.visible).toBe(true);
-  });
-
-  it('should render body section', () => {
-    const bodyElement = fixture.debugElement.query(By.css('.dcx-card-body'));
-    expect(bodyElement).toBeTruthy();
-  });
-
-  it('should show card when visible is true', () => {
-    component.visible = true;
+  it('should NOT emit cardClick when disabled', () => {
+    fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();
 
-    const cardElement = fixture.debugElement.query(By.css('.dcx-card'));
-    expect(cardElement).toBeTruthy();
+    const spy = jest.fn();
+    component.cardClick.subscribe(spy);
+
+    component.onHostClick(new MouseEvent('click'));
+    expect(spy).not.toHaveBeenCalled();
   });
 
-  it('should update component properties', () => {
-    component.header = 'New Header';
-    component.subheader = 'New Subheader';
-    component.iconClass = 'new-icon';
-    component.closable = true;
-    component.visible = false;
-
-    expect(component.header).toBe('New Header');
-    expect(component.subheader).toBe('New Subheader');
-    expect(component.iconClass).toBe('new-icon');
-    expect(component.closable).toBe(true);
-    expect(component.visible).toBe(false);
-  });
-
-  it('should test handleAccept method directly', () => {
-    let acceptEmitted = false;
-    component.onAccept.subscribe(() => acceptEmitted = true);
-    
-    component.handleAccept();
-    
-    expect(acceptEmitted).toBe(true);
-  });
-
-  it('should test handleCancel method directly', () => {
-    let cancelEmitted = false;
-    component.onCancel.subscribe(() => cancelEmitted = true);
-    
-    component.handleCancel();
-    
-    expect(cancelEmitted).toBe(true);
-  });
-
-  it('should test handleClose method directly', () => {
-    let closeEmitted = false;
-    component.onClose.subscribe(() => closeEmitted = true);
-    component.visible = true;
-    
-    component.handleClose();
-    
-    expect(closeEmitted).toBe(true);
-    expect(component.visible).toBe(false);
-  });
-
-  it('should maintain visible state when set to true', () => {
-    component.visible = true;
-    expect(component.visible).toBe(true);
-    
-    component.visible = false;
-    expect(component.visible).toBe(false);
-  });
-
-  it('should allow setting all properties at once', () => {
-    const config = {
-      header: 'Test Title',
-      subheader: 'Test Subtitle', 
-      iconClass: 'fa fa-test',
-      closable: true,
-      visible: false
-    };
-
-    Object.assign(component, config);
-
-    expect(component.header).toBe(config.header);
-    expect(component.subheader).toBe(config.subheader);
-    expect(component.iconClass).toBe(config.iconClass);
-    expect(component.closable).toBe(config.closable);
-    expect(component.visible).toBe(config.visible);
-  });
-
-  it('should emit multiple events in sequence', () => {
-    let acceptCount = 0;
-    let cancelCount = 0;
-    let closeCount = 0;
-
-    component.onAccept.subscribe(() => acceptCount++);
-    component.onCancel.subscribe(() => cancelCount++);
-    component.onClose.subscribe(() => closeCount++);
-
-    component.handleAccept();
-    component.handleCancel();
-    component.handleClose();
-    component.handleAccept();
-
-    expect(acceptCount).toBe(2);
-    expect(cancelCount).toBe(1);
-    expect(closeCount).toBe(1);
-  });
-
-  it('should render footer buttons with correct classes', () => {
+  it('should emit cardClick on Enter keydown when interactive', () => {
+    fixture.componentRef.setInput('interactive', true);
+    fixture.componentRef.setInput('disabled', false);
     fixture.detectChanges();
-    
-    const footerElement = fixture.debugElement.query(By.css('.dcx-card-footer--default'));
-    const cancelButton = fixture.debugElement.query(By.css('.dcx-btn--secondary'));
-    const acceptButton = fixture.debugElement.query(By.css('.dcx-btn--primary'));
 
-    expect(footerElement).toBeTruthy();
-    expect(cancelButton.nativeElement.classList.contains('dcx-btn')).toBe(true);
-    expect(cancelButton.nativeElement.classList.contains('dcx-btn--secondary')).toBe(true);
-    expect(acceptButton.nativeElement.classList.contains('dcx-btn')).toBe(true);
-    expect(acceptButton.nativeElement.classList.contains('dcx-btn--primary')).toBe(true);
+    const spy = jest.fn();
+    component.cardClick.subscribe(spy);
+
+    const evt = new KeyboardEvent('keydown', { key: 'Enter' });
+    component.onKeydown(evt);
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should NOT emit cardClick on Enter keydown when disabled', () => {
+    fixture.componentRef.setInput('interactive', true);
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+
+    const spy = jest.fn();
+    component.cardClick.subscribe(spy);
+
+    component.onKeydown(new KeyboardEvent('keydown', { key: 'Enter' }));
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('should include layout and align in innerClassMap', () => {
+    fixture.componentRef.setInput('layout', 'vertical');
+    fixture.componentRef.setInput('align', 'center');
+    fixture.detectChanges();
+    const map = component.innerClassMap();
+    expect(map['layout-vertical']).toBe(true);
+    expect(map['align-center']).toBe(true);
+  });
+
+  it('should include size in innerClassMap', () => {
+    fixture.componentRef.setInput('size', 'l');
+    fixture.detectChanges();
+    expect(component.innerClassMap()['size-l']).toBe(true);
+  });
+
+  describe('shadowToCSS (via innerStyleVars)', () => {
+    it('should use shadow-1 for preset 1', () => {
+      fixture.componentRef.setInput('shadow', 1);
+      fixture.detectChanges();
+      expect(component.innerStyleVars()['--card-shadow']).toBe('var(--shadow-1)');
+    });
+
+    it('should use shadow-2 for preset 2', () => {
+      fixture.componentRef.setInput('shadow', 2);
+      fixture.detectChanges();
+      expect(component.innerStyleVars()['--card-shadow']).toBe('var(--shadow-2)');
+    });
+
+    it('should use shadow-3 for preset 3', () => {
+      fixture.componentRef.setInput('shadow', 3);
+      fixture.detectChanges();
+      expect(component.innerStyleVars()['--card-shadow']).toBe('var(--shadow-3)');
+    });
+
+    it('should use shadow-0 for default (0)', () => {
+      fixture.componentRef.setInput('shadow', 0);
+      fixture.detectChanges();
+      expect(component.innerStyleVars()['--card-shadow']).toBe('var(--shadow-0)');
+    });
+  });
+
+  describe('innerStyleVars border', () => {
+    it('should set border-style when bordered', () => {
+      fixture.componentRef.setInput('bordered', true);
+      fixture.componentRef.setInput('borderStyle', 'dashed');
+      fixture.detectChanges();
+      expect(component.innerStyleVars()['--card-border-style']).toBe('dashed');
+    });
+
+    it('should set border-style to solid when not bordered', () => {
+      fixture.componentRef.setInput('bordered', false);
+      fixture.detectChanges();
+      expect(component.innerStyleVars()['--card-border-style']).toBe('solid');
+    });
+
+    it('should set border-width to 0 when not bordered', () => {
+      fixture.componentRef.setInput('bordered', false);
+      fixture.detectChanges();
+      expect(component.innerStyleVars()['--card-border-width']).toBe(0);
+    });
+  });
+
+  describe('onKeydown', () => {
+    beforeEach(() => {
+      fixture.componentRef.setInput('interactive', true);
+      fixture.componentRef.setInput('disabled', false);
+      fixture.detectChanges();
+    });
+
+    it('should emit cardClick on Space keydown when interactive', () => {
+      const spy = jest.fn();
+      component.cardClick.subscribe(spy);
+      const evt = new KeyboardEvent('keydown', { key: ' ' });
+      component.onKeydown(evt);
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should NOT emit on other keys', () => {
+      const spy = jest.fn();
+      component.cardClick.subscribe(spy);
+      component.onKeydown(new KeyboardEvent('keydown', { key: 'Tab' }));
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should NOT emit when not interactive (even Enter)', () => {
+      fixture.componentRef.setInput('interactive', false);
+      fixture.detectChanges();
+      const spy = jest.fn();
+      component.cardClick.subscribe(spy);
+      component.onKeydown(new KeyboardEvent('keydown', { key: 'Enter' }));
+      expect(spy).not.toHaveBeenCalled();
+    });
   });
 });

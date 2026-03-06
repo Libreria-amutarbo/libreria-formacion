@@ -24,8 +24,37 @@ describe('DcxNgToggleComponent', () => {
     expect(component.checked).toBe(false);
     expect(component.disabled).toBe(false);
     expect(component.label).toBeNull();
-    expect(component.size).toBe('medium');
+    expect(component.size).toBe('m');
     expect(component.color).toBe('#000');
+  });
+
+  it('should toggle checked state when toggle() is called', () => {
+    expect(component.checked).toBe(false);
+    component.toggle();
+    expect(component.checked).toBe(true);
+    component.toggle();
+    expect(component.checked).toBe(false);
+  });
+
+  it('should not toggle when disabled', () => {
+    component.disabled = true;
+    component.toggle();
+    expect(component.checked).toBe(false);
+  });
+
+  it('should emit toggled event with new value', () => {
+    const spy = jest.fn();
+    component.toggled.subscribe(spy);
+    component.toggle();
+    expect(spy).toHaveBeenCalledWith(true);
+  });
+
+  it('should NOT emit toggled when disabled', () => {
+    const spy = jest.fn();
+    component.toggled.subscribe(spy);
+    component.disabled = true;
+    component.toggle();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('should apply size class', () => {
@@ -42,19 +71,34 @@ describe('DcxNgToggleComponent', () => {
     expect(label.nativeElement.textContent).toContain('Toggle me');
   });
 
-  it('should bind aria-label correctly', () => {
-    component.ariaLabel = 'Custom toggle';
+  it('should include textPosition class in sizeClasses', () => {
+    component.textPosition = 'right' as any;
     fixture.detectChanges();
-
-    const el = fixture.debugElement.query(By.css('[role="switch"]'));
-    expect(el.attributes['aria-label']).toBe('Custom toggle');
+    expect(component.sizeClasses).toContain('dcx-ng-toggle--right');
   });
 
-  it('should fallback to default aria-label if not set', () => {
-    component.ariaLabel = '';
-    fixture.detectChanges();
+  it('should return ariaLabelBinding from ariaLabel', () => {
+    component.ariaLabel = 'Custom toggle';
+    expect(component.ariaLabelBinding).toBe('Custom toggle');
+  });
 
-    const el = fixture.debugElement.query(By.css('[role="switch"]'));
-    expect(el.attributes['aria-label']).toBe('Toggle');
+  it('should fallback ariaLabelBinding to "Toggle" when ariaLabel is empty', () => {
+    component.ariaLabel = '';
+    expect(component.ariaLabelBinding).toBe('Toggle');
+  });
+
+  it('should handle keyboard Enter toggle', () => {
+    const event = new KeyboardEvent('keydown');
+    Object.defineProperty(event, 'preventDefault', { value: jest.fn() });
+    component.handleKeyboardToggle(event);
+    expect(component.checked).toBe(true);
+  });
+
+  it('should not handle keyboard toggle when disabled', () => {
+    component.disabled = true;
+    const event = new KeyboardEvent('keydown');
+    Object.defineProperty(event, 'preventDefault', { value: jest.fn() });
+    component.handleKeyboardToggle(event);
+    expect(component.checked).toBe(false);
   });
 });

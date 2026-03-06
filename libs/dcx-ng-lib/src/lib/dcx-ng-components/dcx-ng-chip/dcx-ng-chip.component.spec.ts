@@ -22,7 +22,7 @@ describe('DcxNgChipComponent', () => {
  
   it('should have default values', () => {
     expect(component.label()).toBe('');
-    expect(component.color()).toBe('gray');
+    expect(component.color()).toBe('primary');
     expect(component.removable()).toBe(false);
     expect(component.icon()).toBe('');
     expect(component.image()).toBe('');
@@ -42,11 +42,12 @@ describe('DcxNgChipComponent', () => {
     expect(component.chipType()).toBe('with-image');
   });
  
-  it('should emit onRemove when remove button is clicked and removable is true', () => {
+  it('should emit removeChip when remove button is clicked and removable is true', () => {
     const spy = jest.fn();
-    component.onRemove.subscribe(spy);
+    component.removeChip.subscribe(spy);
    
     fixture.componentRef.setInput('removable', true);
+    fixture.componentRef.setInput('variant', 'filter');
     fixture.detectChanges();
  
     const mockEvent = new Event('click');
@@ -55,9 +56,9 @@ describe('DcxNgChipComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
  
-  it('should not emit onRemove when removable is false', () => {
+  it('should not emit removeChip when removable is false', () => {
     const spy = jest.fn();
-    component.onRemove.subscribe(spy);
+    component.removeChip.subscribe(spy);
    
     fixture.componentRef.setInput('removable', false);
     fixture.detectChanges();

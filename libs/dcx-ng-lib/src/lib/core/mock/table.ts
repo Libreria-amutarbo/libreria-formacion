@@ -1,5 +1,19 @@
 import { DcxHeaderData, DcxTableRow } from '../interfaces';
 
+// ==================== TABLA TEST (para specs) ====================
+
+export const TEST_TABLE_HEADERS: DcxHeaderData[] = [
+  { key: 'name', name: 'Name', sortable: true },
+  { key: 'age', name: 'Age', sortable: true, type: 'number' },
+  { key: 'city', name: 'City', sortable: false },
+];
+
+export const TEST_TABLE_ROWS: DcxTableRow[] = [
+  { id: 1, name: 'Alice', age: 30, city: 'Madrid' },
+  { id: 2, name: 'Bob', age: 25, city: 'Barcelona' },
+  { id: 3, name: 'Charlie', age: 35, city: 'Seville' },
+];
+
 // ==================== USUARIOS BÁSICOS ====================
 
 export interface SimpleUserRow extends DcxTableRow {

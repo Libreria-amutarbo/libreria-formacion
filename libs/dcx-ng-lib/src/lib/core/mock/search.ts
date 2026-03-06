@@ -16,3 +16,11 @@ export const SEARCH_DEFAULTARGS = {
   showClear: true,
   items: SEARCH_ITEMS,
 };
+
+// ==================== TEST ITEMS (para specs) ====================
+
+export const SEARCH_TEST_ITEMS: SearchItem[] = [
+  { id: '1', label: 'Angular' },
+  { id: '2', label: 'React' },
+  { id: '3', label: 'Vue' },
+];

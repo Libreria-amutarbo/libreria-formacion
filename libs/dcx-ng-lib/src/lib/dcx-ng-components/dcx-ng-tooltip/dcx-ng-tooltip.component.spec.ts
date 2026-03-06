@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+﻿import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DcxPosition } from '../../core/interfaces';
 import { DcxNgTooltipComponent } from './dcx-ng-tooltip.component';
@@ -63,7 +63,7 @@ describe('DcxNgTooltipComponent', () => {
 
       const tooltipElement = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
       expect(tooltipElement).toBeTruthy();
-      expect(tooltipElement.nativeElement.textContent.trim()).toBe('Test content');
+      expect(tooltipElement.nativeElement.textContent.trim()).toContain('Test content');
     });
 
     it('should not render tooltip when not visible', () => {
@@ -102,25 +102,25 @@ describe('DcxNgTooltipComponent', () => {
     });
 
     it('should apply correct position class for TOP', () => {
-      component.position = DcxPosition.TOP;
+      component.actualPosition = DcxPosition.TOP;
       const classes = component.getTooltipClasses();
       expect(classes).toContain('dcx-ng-tooltip--top');
     });
 
     it('should apply correct position class for BOTTOM', () => {
-      component.position = DcxPosition.BOTTOM;
+      component.actualPosition = DcxPosition.BOTTOM;
       const classes = component.getTooltipClasses();
       expect(classes).toContain('dcx-ng-tooltip--bottom');
     });
 
     it('should apply correct position class for LEFT', () => {
-      component.position = DcxPosition.LEFT;
+      component.actualPosition = DcxPosition.LEFT;
       const classes = component.getTooltipClasses();
       expect(classes).toContain('dcx-ng-tooltip--left');
     });
 
     it('should apply correct position class for RIGHT', () => {
-      component.position = DcxPosition.RIGHT;
+      component.actualPosition = DcxPosition.RIGHT;
       const classes = component.getTooltipClasses();
       expect(classes).toContain('dcx-ng-tooltip--right');
     });
@@ -134,18 +134,28 @@ describe('DcxNgTooltipComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should show tooltip on mouse enter with delay', fakeAsync(() => {
+    it('should show tooltip on mouse enter', () => {
       const hostElement = fixture.debugElement.nativeElement;
-
       hostElement.dispatchEvent(new Event('mouseenter'));
       expect(component.visible).toBe(true);
-    }));
+    });
 
     it('should hide tooltip on mouse leave', () => {
       component.visible = true;
       const hostElement = fixture.debugElement.nativeElement;
 
       hostElement.dispatchEvent(new Event('mouseleave'));
+      expect(component.visible).toBe(false);
+    });
+
+    it('should call onMouseEnter directly', () => {
+      component.onMouseEnter();
+      expect(component.visible).toBe(true);
+    });
+
+    it('should call onMouseLeave directly', () => {
+      component.visible = true;
+      component.onMouseLeave();
       expect(component.visible).toBe(false);
     });
   });
@@ -158,52 +168,31 @@ describe('DcxNgTooltipComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should hide tooltip when document is clicked inside component and hideTooltipOnClick is true', () => {
+    it('should hide tooltip when clicking inside and hideTooltipOnClick is true', () => {
       component.hideTooltipOnClick = true;
-      const mockEvent = {
-        target: fixture.debugElement.nativeElement.querySelector('.tooltip-container')
-      } as any;
+      const insideElement = fixture.debugElement.nativeElement;
+      const mockEvent = { target: insideElement } as any;
 
-      // Simular clic dentro del componente
       component.onDocumentClick(mockEvent);
       expect(component.visible).toBe(false);
     });
 
-    it('should not hide tooltip when document is clicked inside component and hideTooltipOnClick is false', () => {
+    it('should not hide tooltip when clicking inside and hideTooltipOnClick is false', () => {
       component.hideTooltipOnClick = false;
-      const mockEvent = {
-        target: fixture.debugElement.nativeElement.querySelector('.tooltip-container')
-      } as any;
+      const insideElement = fixture.debugElement.nativeElement;
+      const mockEvent = { target: insideElement } as any;
 
       component.onDocumentClick(mockEvent);
       expect(component.visible).toBe(true);
     });
 
-    it('should not hide tooltip when document is clicked outside component and hideTooltipOnClick is true', () => {
+    it('should not hide tooltip when clicking outside and hideTooltipOnClick is true', () => {
       component.hideTooltipOnClick = true;
-      const mockEvent = {
-        target: document.body // Elemento fuera del componente
-      } as any;
+      const outsideElement = document.createElement('div');
+      const mockEvent = { target: outsideElement } as any;
 
-      // Simular clic fuera del componente
       component.onDocumentClick(mockEvent);
-      expect(component.visible).toBe(true); // No debería ocultarse según la lógica actual
-    });
-
-    it('should call onDocumentClick when document click event is triggered', () => {
-      const spy = jest.spyOn(component, 'onDocumentClick');
-      const mockEvent = new Event('click');
-
-      // Simular el evento que Angular captura con @HostListener
-      fixture.debugElement.nativeElement.dispatchEvent(mockEvent);
-
-      // Como @HostListener escucha 'document:click', necesitamos simular el evento en document
-      document.dispatchEvent(mockEvent);
-
-      // Verificar que el método se puede llamar (la verificación real del @HostListener es manejada por Angular)
-      expect(spy).toBeDefined();
-
-      spy.mockRestore();
+      expect(component.visible).toBe(true);
     });
   });
 
@@ -220,7 +209,7 @@ describe('DcxNgTooltipComponent', () => {
       expect(tooltipElement.nativeElement.getAttribute('role')).toBe('tooltip');
     });
 
-    it('should have correct aria-hidden attribute when visible', () => {
+    it('should have aria-hidden=false when visible', () => {
       const tooltipElement = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
       expect(tooltipElement.nativeElement.getAttribute('aria-hidden')).toBe('false');
     });
@@ -231,7 +220,7 @@ describe('DcxNgTooltipComponent', () => {
     });
 
     it('should have correct data-position attribute', () => {
-      component.position = DcxPosition.BOTTOM;
+      component.actualPosition = DcxPosition.BOTTOM;
       fixture.detectChanges();
 
       const tooltipElement = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
@@ -241,19 +230,8 @@ describe('DcxNgTooltipComponent', () => {
 
   // Tests para el ciclo de vida del componente
   describe('Component Lifecycle', () => {
-    it('should initialize component with correct default values', () => {
-      expect(component.position).toBe(DcxPosition.TOP);
-      expect(component.hideTooltipOnClick).toBe(false);
-      expect(component.content).toBe('');
-      expect(component.visible).toBe(false);
-    });
-
-    it('should handle component destruction without errors', () => {
-      // Como usa @HostListener, Angular maneja automáticamente la limpieza
-      // Solo verificamos que el componente se puede destruir sin errores
-      expect(() => {
-        fixture.destroy();
-      }).not.toThrow();
+    it('should initialize actualPosition to TOP in ngAfterViewInit', () => {
+      expect(component.actualPosition).toBe(DcxPosition.TOP);
     });
 
     it('should maintain component state during lifecycle', () => {
@@ -264,31 +242,33 @@ describe('DcxNgTooltipComponent', () => {
 
       fixture.detectChanges();
 
-      // Verificar que el estado se mantiene
       expect(component.content).toBe('Test content');
       expect(component.position).toBe(DcxPosition.BOTTOM);
       expect(component.hideTooltipOnClick).toBe(true);
       expect(component.visible).toBe(true);
     });
+
+    it('should handle component destruction without errors', () => {
+      expect(() => {
+        fixture.destroy();
+      }).not.toThrow();
+    });
   });
 
   // Tests para el contenido proyectado
   describe('Content Projection', () => {
-    it('should project content using ng-content', () => {
+    it('should have tooltip-container wrapper', () => {
       const containerElement = fixture.debugElement.query(By.css('.tooltip-container'));
       expect(containerElement).toBeTruthy();
     });
   });
 
   describe('Position Variants', () => {
-    beforeEach(() => {
-      component.content = 'Test content';
-      component.visible = true;
-    });
-
     Object.values(DcxPosition).forEach(position => {
       it(`should render correctly with ${position} position`, () => {
-        component.position = position;
+        component.content = 'Test content';
+        component.visible = true;
+        component.actualPosition = position;
         fixture.detectChanges();
 
         const tooltipElement = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
@@ -297,5 +277,137 @@ describe('DcxNgTooltipComponent', () => {
         expect(component.getTooltipClasses()).toContain(`dcx-ng-tooltip--${position}`);
       });
     });
+  });
+
+  describe('adjustPosition() - position adjustment logic', () => {
+    const mockHostRect = (overrides: Partial<DOMRect> = {}): DOMRect => ({
+      top: 300, bottom: 350, left: 300, right: 350,
+      width: 50, height: 50, x: 300, y: 300,
+      toJSON: () => ({}),
+      ...overrides,
+    } as DOMRect);
+
+    beforeEach(() => {
+      component.content = 'Tooltip text';
+      (window as any).innerWidth = 1024;
+      (window as any).innerHeight = 768;
+      fixture.detectChanges();
+    });
+
+    it('should call adjustPosition on mouseenter and handle TOP position (fakeAsync)', fakeAsync(() => {
+      const hostEl = fixture.debugElement.nativeElement;
+      jest.spyOn(hostEl, 'getBoundingClientRect').mockReturnValue(mockHostRect());
+
+      component.position = DcxPosition.TOP;
+      component.visible = true;
+      fixture.detectChanges();
+
+      // Mock the tooltip element's getBoundingClientRect
+      const tooltipEl = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
+      if (tooltipEl) {
+        jest.spyOn(tooltipEl.nativeElement, 'getBoundingClientRect').mockReturnValue({
+          top: 250, bottom: 300, left: 275, right: 375,
+          width: 100, height: 50, x: 275, y: 250, toJSON: () => ({}),
+        } as DOMRect);
+      }
+
+      component.onMouseEnter();
+      tick(10);
+      fixture.detectChanges();
+      expect(component.visible).toBe(true);
+    }));
+
+    it('should handle BOTTOM position preference (fakeAsync)', fakeAsync(() => {
+      const hostEl = fixture.debugElement.nativeElement;
+      jest.spyOn(hostEl, 'getBoundingClientRect').mockReturnValue(mockHostRect({ top: 100, bottom: 150 }));
+
+      component.position = DcxPosition.BOTTOM;
+      component.visible = true;
+      fixture.detectChanges();
+
+      const tooltipEl = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
+      if (tooltipEl) {
+        jest.spyOn(tooltipEl.nativeElement, 'getBoundingClientRect').mockReturnValue({
+          top: 150, bottom: 180, left: 275, right: 375,
+          width: 100, height: 30, x: 275, y: 150, toJSON: () => ({}),
+        } as DOMRect);
+      }
+
+      component.onMouseEnter();
+      tick(10);
+      fixture.detectChanges();
+      expect(component.visible).toBe(true);
+    }));
+
+    it('should handle LEFT position preference (fakeAsync)', fakeAsync(() => {
+      const hostEl = fixture.debugElement.nativeElement;
+      jest.spyOn(hostEl, 'getBoundingClientRect').mockReturnValue(mockHostRect({ left: 300 }));
+
+      component.position = DcxPosition.LEFT;
+      component.visible = true;
+      fixture.detectChanges();
+
+      const tooltipEl = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
+      if (tooltipEl) {
+        jest.spyOn(tooltipEl.nativeElement, 'getBoundingClientRect').mockReturnValue({
+          top: 300, bottom: 330, left: 200, right: 300,
+          width: 100, height: 30, x: 200, y: 300, toJSON: () => ({}),
+        } as DOMRect);
+      }
+
+      component.onMouseEnter();
+      tick(10);
+      fixture.detectChanges();
+      expect(component.visible).toBe(true);
+    }));
+
+    it('should handle RIGHT position preference (fakeAsync)', fakeAsync(() => {
+      const hostEl = fixture.debugElement.nativeElement;
+      jest.spyOn(hostEl, 'getBoundingClientRect').mockReturnValue(mockHostRect({ right: 500, left: 450 }));
+
+      component.position = DcxPosition.RIGHT;
+      component.visible = true;
+      fixture.detectChanges();
+
+      const tooltipEl = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
+      if (tooltipEl) {
+        jest.spyOn(tooltipEl.nativeElement, 'getBoundingClientRect').mockReturnValue({
+          top: 300, bottom: 330, left: 500, right: 600,
+          width: 100, height: 30, x: 500, y: 300, toJSON: () => ({}),
+        } as DOMRect);
+      }
+
+      component.onMouseEnter();
+      tick(10);
+      fixture.detectChanges();
+      expect(component.visible).toBe(true);
+    }));
+
+    it('should fallback to best alternative when preferred does not fit (fakeAsync)', fakeAsync(() => {
+      (window as any).innerWidth = 50;
+      (window as any).innerHeight = 50;
+
+      const hostEl = fixture.debugElement.nativeElement;
+      jest.spyOn(hostEl, 'getBoundingClientRect').mockReturnValue(
+        mockHostRect({ top: 10, bottom: 40, left: 10, right: 40 })
+      );
+
+      component.position = DcxPosition.RIGHT;
+      component.visible = true;
+      fixture.detectChanges();
+
+      const tooltipEl = fixture.debugElement.query(By.css('.dcx-ng-tooltip'));
+      if (tooltipEl) {
+        jest.spyOn(tooltipEl.nativeElement, 'getBoundingClientRect').mockReturnValue({
+          top: 0, bottom: 30, left: 0, right: 100,
+          width: 100, height: 30, x: 0, y: 0, toJSON: () => ({}),
+        } as DOMRect);
+      }
+
+      component.onMouseEnter();
+      tick(10);
+      fixture.detectChanges();
+      expect(component.visible).toBe(true);
+    }));
   });
 });

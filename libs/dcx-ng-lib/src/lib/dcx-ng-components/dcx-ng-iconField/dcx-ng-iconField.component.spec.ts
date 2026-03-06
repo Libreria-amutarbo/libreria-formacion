@@ -74,7 +74,7 @@ describe('DcxNgIconFieldComponent', () => {
             fixture.detectChanges();
 
             const iconComponent = fixture.debugElement.query(By.css('dcx-ng-icon'));
-            expect(iconComponent.componentInstance.size).toBe('l');
+            expect(iconComponent.componentInstance.size()).toBe('l');
         });
     });
 
@@ -92,7 +92,7 @@ describe('DcxNgIconFieldComponent', () => {
         });
 
         it('should emit focus event on input focus', () => {
-            const focusSpy = jest.spyOn(component.focus, 'emit');
+            const focusSpy = jest.spyOn(component.focusIconField, 'emit');
 
             inputElement.dispatchEvent(new Event('focus'));
 
@@ -100,7 +100,7 @@ describe('DcxNgIconFieldComponent', () => {
         });
 
         it('should emit blur event on input blur', () => {
-            const blurSpy = jest.spyOn(component.blur, 'emit');
+            const blurSpy = jest.spyOn(component.blurIconField, 'emit');
 
             inputElement.dispatchEvent(new Event('blur'));
 
@@ -208,7 +208,7 @@ describe('DcxNgIconFieldComponent', () => {
                     fixture.detectChanges();
 
                     const iconComponent = fixture.debugElement.query(By.css('dcx-ng-icon'));
-                    expect(iconComponent.componentInstance.size).toBe(size);
+                    expect(iconComponent.componentInstance.size()).toBe(size);
                 });
             });
         });
