@@ -1,15 +1,19 @@
 <div class="tooltip-container">
   <ng-content></ng-content>
-  @if (visible && content) {
+  @if (visible() && (content() || contentHtml())) {
     <div
       #tooltipElement
       role="tooltip"
-      [class]="getTooltipClasses()"
-      [attr.data-position]="actualPosition"
-      [attr.aria-hidden]="!visible"
+      [class]="tooltipClasses()"
+      [attr.data-position]="actualPosition()"
+      [attr.aria-hidden]="!visible()"
       [attr.aria-live]="'polite'"
     >
-      {{ content }}
+      @if (contentHtml()) {
+        <div [innerHTML]="sanitizedHtml()"></div>
+      } @else {
+        {{ content() }}
+      }
       <div class="tooltip-arrow"></div>
     </div>
   }

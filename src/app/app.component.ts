@@ -1,8 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { APP_ROUTES } from './core/constants/app-routes';
-import { DcxSelectOptions } from 'libs/dcx-ng-lib/src/lib/core/interfaces/select';
-import { DcxNgSelectComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgSelectComponent,
+  DcxSelectOptions,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   standalone: true,
@@ -12,7 +14,7 @@ import { DcxNgSelectComponent } from '@dcx-ng-components/dcx-ng-lib';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  valueDefault = APP_ROUTES.SELECT;
+  valueDefault = APP_ROUTES.SLIDER;
   paths = Object.values(APP_ROUTES);
   title = 'dcx-ng-components';
 
@@ -32,7 +34,6 @@ export class AppComponent {
   }
 
   routeTo(event: string | number | null) {
-    console.log(event, 'f');
     if (event) {
       this._router.navigateByUrl(event.toString());
     }

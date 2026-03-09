@@ -28,16 +28,16 @@ describe('DcxNgTooltipComponent', () => {
   // Tests para propiedades de entrada
   describe('Input Properties', () => {
     it('should set default values correctly', () => {
-      expect(component.position).toBe(DcxPosition.TOP);
+      expect(component.position).toBe('top');
       expect(component.hideTooltipOnClick).toBe(false);
       expect(component.content).toBe('');
       expect(component.visible).toBe(false);
     });
 
     it('should update position correctly', () => {
-      component.position = DcxPosition.BOTTOM;
+      component.position = 'bottom';
       fixture.detectChanges();
-      expect(component.position).toBe(DcxPosition.BOTTOM);
+      expect(component.position).toBe('bottom');
     });
 
     it('should update content correctly', () => {
@@ -236,14 +236,14 @@ describe('DcxNgTooltipComponent', () => {
 
     it('should maintain component state during lifecycle', () => {
       component.content = 'Test content';
-      component.position = DcxPosition.BOTTOM;
+      component.position = 'bottom';
       component.hideTooltipOnClick = true;
       component.visible = true;
 
       fixture.detectChanges();
 
       expect(component.content).toBe('Test content');
-      expect(component.position).toBe(DcxPosition.BOTTOM);
+      expect(component.position).toBe('bottom');
       expect(component.hideTooltipOnClick).toBe(true);
       expect(component.visible).toBe(true);
     });

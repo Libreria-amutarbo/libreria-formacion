@@ -15,6 +15,8 @@ export const BUTTON_VARIANT_LIST: DcxButtonVariant[] = [
   'primary',
   'secondary',
   'terciary',
+  'icon-only',
+  'text',
 ];
 
 export const BUTTON_TYPE_LIST: DcxButtonType[] = ['button', 'reset', 'submit'];

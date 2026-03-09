@@ -17,17 +17,19 @@ import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import {
   DcxNgButtonComponent,
   DcxNgIconComponent,
+  DcxNgInputComponent,
   DcxSelectOptions,
+  DcxInputType,
   CLEARABLE,
   ERRORICON,
   ISINVALID,
   PLACEHOLDER,
   REQUIRED,
   SEARCHABLE,
-  SPACING,
   VALUEINPUT,
   DcxSpacing,
   DISABLED,
+  SPACING_DEFAULT,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -40,6 +42,7 @@ import {
     CommonModule,
     DcxNgButtonComponent,
     DcxNgIconComponent,
+    DcxNgInputComponent,
   ],
   providers: [
     {
@@ -58,6 +61,8 @@ import {
   ],
 })
 export class DcxNgSelectComponent implements OnInit {
+  readonly inputType = DcxInputType;
+
   //Inputs
   label = input('');
   options = input<DcxSelectOptions[]>([]);
@@ -86,7 +91,7 @@ export class DcxNgSelectComponent implements OnInit {
   // Icono del mensaje de error (por defecto info-circle)
   errorIcon = input<string>(ERRORICON);
   valueInput = input<string | null>(VALUEINPUT);
-  spacing = input<DcxSpacing>(SPACING);
+  spacing = input<DcxSpacing>(SPACING_DEFAULT);
 
   // Control de estado
   /**
@@ -141,8 +146,8 @@ export class DcxNgSelectComponent implements OnInit {
   }
 
   // ControlValueAccessor
-  onChange = (v: any) => {};
-  onTouched = () => {};
+  onChange = (_v: any) => { };
+  onTouched = () => { };
 
   onOptionSpace(event: Event, opt: any) {
     (event as KeyboardEvent).preventDefault();
@@ -207,6 +212,10 @@ export class DcxNgSelectComponent implements OnInit {
     this.value.set(null);
     this.onChange(null);
     this.clear.emit();
+  }
+
+  onSearchChange(value: string | number | null): void {
+    this.search.set(value === null ? '' : String(value));
   }
 
   @HostListener('keydown', ['$event'])

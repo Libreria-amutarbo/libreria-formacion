@@ -1,154 +1,98 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgIconFieldComponent } from '../../dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.component';
 import { moduleMetadata } from '@storybook/angular';
-import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
-import { DcxSize } from '../../core/interfaces';
-
+import {
+  DcxNgIconFieldComponent,
+  DcxNgInputComponent,
+  DcxIconFieldPositionList,
+  ICON_FIELD_ICON_NAME,
+  ICON_FIELD_ICON_POSITION,
+  ICON_FIELD_ICON_SIZE,
+  ICON_SIZE_LIST,
+} from '@dcx-ng-components/dcx-ng-lib';
+import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
 
 const meta: Meta<DcxNgIconFieldComponent> = {
   title: 'DCXLibrary/IconField/Class based',
   component: DcxNgIconFieldComponent,
   decorators: [
     moduleMetadata({
-      imports: [DcxNgIconComponent],
+      imports: [DcxNgIconFieldComponent, DcxNgInputComponent],
     }),
   ],
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component: `
-El componente IconField proporciona un campo de entrada con iconos integrados.
-Funciona igual que un input normal pero permite añadir iconos a la izquierda y/o derecha.
-
-### Uso básico
-\`\`\`html
-<dcx-ng-icon-field 
-  placeholder="Buscar..."
-  iconLeft="search">
-</dcx-ng-icon-field>
-\`\`\`
-
-### Con ambos iconos
-\`\`\`html
-<dcx-ng-icon-field 
-  placeholder="Buscar..."
-  iconLeft="search"
-  iconRight="close"
-  [iconSize]="'m'">
-</dcx-ng-icon-field>
-\`\`\`
-        `,
-      },
-    },
-  },
+  tags: ['autodocs'],
   argTypes: {
-    placeholder: {
-      control: { type: 'text' },
-      description: 'Texto placeholder del input.',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '""' },
-      },
+    iconName: {
+      control: 'select',
+      options: BOOTSTRAP_ICONS,
+      description:
+        'Icono de Bootstrap Icons al final (p.ej. "arrow-right", "chevron-right")',
+      table: { category: 'Attributes' },
     },
-    iconLeft: {
-      control: { type: 'text' },
-      description: 'Nombre del icono a mostrar a la izquierda.',
+    iconPosition: {
+      control: 'select',
+      options: DcxIconFieldPositionList,
+      description: 'Posición del icono',
       table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '""' },
-      },
-    },
-    iconRight: {
-      control: { type: 'text' },
-      description: 'Nombre del icono a mostrar a la derecha.',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '""' },
+        category: 'Attributes',
       },
     },
     iconSize: {
-      control: { type: 'select' },
-      options: ['s', 'm', 'l', 'xl'] as DcxSize[],
-      description: 'Tamaño de los iconos.',
-      table: {
-        type: { summary: 'DcxSize' },
-        defaultValue: { summary: 'm' },
-      },
+      control: 'select',
+      options: ICON_SIZE_LIST,
+      table: { category: 'Attributes' },
     },
-    disabled: {
-      control: { type: 'boolean' },
-      description: 'Estado deshabilitado del campo.',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    value: {
-      control: { type: 'text' },
-      description: 'Valor actual del campo.',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '""' },
-      },
+    iconClick: {
+      action: 'iconClick',
+      description: 'Emitted when the icon is clicked',
+      table: { category: 'Events' },
     },
   },
   args: {
-    placeholder: 'Escribe aquí...',
-    iconLeft: '',
-    iconRight: '',
-    iconSize: 'm',
-    disabled: false,
-    value: '',
+    iconName: ICON_FIELD_ICON_NAME,
+    iconPosition: ICON_FIELD_ICON_POSITION,
+    iconSize: ICON_FIELD_ICON_SIZE,
   },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgIconFieldComponent>;
 
-export const IconLeft: Story = {
-  args: {
-    placeholder: 'Buscar...',
-    iconLeft: 'search',
-  },
+export const ClassBased: Story = {
+  render: args => ({
+    props: args,
+    template: `
+      <dcx-ng-icon-field
+        [iconName]="iconName"
+        [iconPosition]="iconPosition"
+        [iconSize]="iconSize"
+        (iconClick)="iconClick()"
+      >
+        <dcx-ng-input [placeholder]="'Icon Field por defecto'"></dcx-ng-input>
+      </dcx-ng-icon-field>
+    `,
+  }),
 };
 
-export const IconRight: Story = {
-  args: {
-    placeholder: 'Campo con icono derecho',
-    iconRight: 'close',
-  },
+export const IconInRightPosition: Story = {
+  ...ClassBased,
+  args: { iconPosition: 'right' },
 };
 
-export const BothIcons: Story = {
-  args: {
-    placeholder: 'Campo con ambos iconos',
-    iconLeft: 'search',
-    iconRight: 'close',
-  },
+export const IconClickable: Story = {
+  render: args => ({
+    props: {
+      ...args,
+      iconClick: () => alert('Icono clickado'),
+    },
+    template: `
+      <dcx-ng-icon-field
+        [iconName]="iconName"
+        [iconPosition]="iconPosition"
+        [iconSize]="iconSize"
+        (iconClick)="iconClick()"
+      >
+        <dcx-ng-input [placeholder]="'Icon Field por defecto'"></dcx-ng-input>
+      </dcx-ng-icon-field>
+    `,
+  }),
 };
-
-export const SizeSmall: Story = {
-  args: {
-    placeholder: 'Tamaño pequeño',
-    iconLeft: 'search',
-    iconSize: 's',
-  },
-};
-
-export const SizeMedium: Story = {
-  args: {
-    placeholder: 'Tamaño medio',
-    iconLeft: 'search',
-    iconSize: 'm',
-  },
-};
-
-export const SizeLarge: Story = {
-  args: {
-    placeholder: 'Tamaño grande',
-    iconLeft: 'search',
-    iconSize: 'l',
-  },
-};
-
