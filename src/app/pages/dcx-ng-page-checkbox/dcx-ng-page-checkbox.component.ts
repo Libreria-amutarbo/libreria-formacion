@@ -16,45 +16,80 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageCheckboxComponent {
-  checked1 = false;
-  checked2 = false;
-
-  default = signal<DcxCheckbox[]>([
+  singleCheck = signal<DcxCheckbox[]>([
     {
       id: '1',
       value: true,
-      label: 'Prueba',
+      label: 'Chceckbox único',
     },
   ]);
 
-  sportsOptions = signal([
-    { value: 'futbol', label: 'Fútbol' },
-    { value: 'baloncesto', label: 'Baloncesto', disabled: false },
-    { value: 'tenis', label: 'Tenis' },
+  errorCheck = signal<DcxCheckbox[]>([
+    {
+      id: '1',
+      value: true,
+      label: 'Chceckbox erróneo',
+      error: true,
+      errorMessage: 'Checkbox con error',
+    },
   ]);
 
-  genreOptions = signal([
-    { value: 'action', label: 'Acción' },
-    { value: 'comedy', label: 'Comedia', disabled: false },
-    { value: 'drama', label: 'Drama' },
+  disabledCheck = signal<DcxCheckbox[]>([
+    {
+      id: '1',
+      value: true,
+      label: 'Chceckbox dehabilitado',
+      disabled: true,
+    },
   ]);
 
-  sportsControl = new FormControl(['futbol']);
-  genreControl = new FormControl('action');
+  diferentsLabelPositionsCheck = signal<DcxCheckbox[]>([
+    {
+      id: '1',
+      value: true,
+      label: 'Izquierda',
+      labelPosition: 'left',
+    },
+    {
+      id: '2',
+      value: true,
+      label: 'Derecha',
+      labelPosition: 'right',
+    },
+  ]);
+  requiredCheck = signal<DcxCheckbox[]>([
+    {
+      id: '1',
+      value: true,
+      label: 'Required',
+      labelPosition: 'right',
+      required: true,
+    },
+  ]);
 
-  toggleDisableBasketball(): void {
-    const currentOptions = this.sportsOptions();
-    const updatedOptions = currentOptions.map(opt =>
-      opt.value === 'baloncesto' ? { ...opt, disabled: !opt.disabled } : opt,
-    );
-    this.sportsOptions.set(updatedOptions);
-  }
-
-  toggleDisableComedy(): void {
-    const currentOptions = this.genreOptions();
-    const updatedOptions = currentOptions.map(opt =>
-      opt.value === 'comedy' ? { ...opt, disabled: !opt.disabled } : opt,
-    );
-    this.genreOptions.set(updatedOptions);
-  }
+  checkboxGroup = signal<DcxCheckbox[]>([
+    {
+      id: '1',
+      value: true,
+      label: 'Válido',
+      labelPosition: 'right',
+      error: true,
+    },
+    {
+      id: '2',
+      value: false,
+      label: 'Inválido',
+      required: true,
+      labelPosition: 'right',
+      error: true,
+    },
+    {
+      id: '3',
+      value: null,
+      label: 'Sin valor',
+      labelPosition: 'right',
+      error: true,
+      errorMessage: 'Description',
+    },
+  ]);
 }
