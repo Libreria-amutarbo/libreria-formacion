@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgCheckboxComponent } from './dcx-ng-checkbox.component';
 import { By } from '@angular/platform-browser';
 import { ComponentRef } from '@angular/core';
+import { DcxCheckbox } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgCheckboxComponent', () => {
   let component: DcxNgCheckboxComponent;
@@ -10,98 +11,174 @@ describe('DcxNgCheckboxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgCheckboxComponent]
+      imports: [DcxNgCheckboxComponent],
     }).compileComponents();
     fixture = TestBed.createComponent(DcxNgCheckboxComponent);
     component = fixture.componentInstance;
     componentRef = fixture.componentRef;
-    componentRef.setInput('label', 'Acepto términos');
-    componentRef.setInput('checked', false);
     fixture.detectChanges();
   });
 
-  it('debe mostrar el label', () => {
-    componentRef.setInput('label', 'Recibir notificaciones');
-    fixture.detectChanges();
-    const labelDebug = fixture.debugElement.query(By.css('.dcx-checkbox-text'));
-    expect(labelDebug).toBeTruthy();
-    const label = labelDebug.nativeElement;
-    expect(label.textContent).toContain('Recibir notificaciones');
-  });
-
-  it('debe emitir checkedChange al hacer click', () => {
-    const spy = jest.spyOn(component.checkedChange, 'emit');
-    const button = fixture.debugElement.query(By.css('button.dcx-checkbox-container'));
-    button.nativeElement.click();
-    expect(spy).toHaveBeenCalledWith(true);
-  });
-
-  it('no debe emitir si está deshabilitado', () => {
-    componentRef.setInput('disabled', true);
-    fixture.detectChanges();
-    const spy = jest.spyOn(component.checkedChange, 'emit');
-    const button = fixture.debugElement.query(By.css('button.dcx-checkbox-container'));
-    button.nativeElement.click();
-    expect(spy).not.toHaveBeenCalled();
-  });
-
-  it('debe mostrar la V cuando checked=true', () => {
-    componentRef.setInput('checked', true);
-    fixture.detectChanges();
-    const check = fixture.debugElement.query(By.css('.dcx-checkbox-check'));
-    expect(check).toBeTruthy();
-  });
-
-  it('debe trabajar con grupos de opciones', () => {
-    componentRef.setInput('groupLabel', 'Selecciona tus intereses');
-    componentRef.setInput('options', [
-      { value: 'opt1', label: 'Opción 1' },
-      { value: 'opt2', label: 'Opción 2' }
-    ]);
-    componentRef.setInput('selectedValues', ['opt1']);
+  it('debe mostrar opciones de checkbox', () => {
+    const options: DcxCheckbox[] = [
+      { id: '1', label: 'Recibir notificaciones', value: false },
+      { id: '2', label: 'Aceptar términos', value: true },
+    ];
+    componentRef.setInput('options', options);
     fixture.detectChanges();
 
-    const groupLabel = fixture.debugElement.query(By.css('.dcx-checkbox-group__label'));
-    expect(groupLabel).toBeTruthy();
-    expect(groupLabel.nativeElement.textContent).toContain('Selecciona tus intereses');
-
-    const options = fixture.debugElement.queryAll(By.css('.dcx-checkbox-label'));
-    expect(options.length).toBe(2);
+    const labels = fixture.debugElement.queryAll(By.css('.dcx-checkbox-text'));
+    expect(labels.length).toBe(2);
+    expect(labels[0].nativeElement.textContent).toContain(
+      'Recibir notificaciones',
+    );
+    expect(labels[1].nativeElement.textContent).toContain('Aceptar términos');
   });
 
-  it('debe manejar opciones deshabilitadas en grupos', () => {
-    componentRef.setInput('options', [
-      { value: 'opt1', label: 'Opción 1' },
-      { value: 'opt2', label: 'Opción 2', disabled: true }
-    ]);
-    componentRef.setInput('selectedValues', []);
+  it('debe emitir changeOptions al hacer click en una opción', () => {
+    const options: DcxCheckbox[] = [
+      { id: '1', label: 'Opción 1', value: false },
+    ];
+    componentRef.setInput('options', options);
     fixture.detectChanges();
 
-    const buttons = fixture.debugElement.queryAll(By.css('button.dcx-checkbox-container'));
-    expect(buttons[0].nativeElement.disabled).toBe(false);
-    expect(buttons[1].nativeElement.disabled).toBe(true);
+    const spy = jest.spyOn(component.changeOptions, 'emit');
+    const button = fixture.debugElement.query(By.css('dcx-ng-button'));
+    button.componentInstance.buttonClick.emit();
+    fixture.detectChanges();
+
+    expect(spy).toHaveBeenCalled();
+    const emittedOptions = spy.mock.calls[0][0];
+    expect(emittedOptions[0].value).toBe(null);
   });
 
-  it('debe emitir selectionChange en grupo al hacer click', () => {
-    componentRef.setInput('options', [
-      { value: 'opt1', label: 'Opción 1' }
-    ]);
-    componentRef.setInput('selectedValues', []);
-    componentRef.setInput('multiple', true);
+  it('no debe permitir clicks en opciones deshabilitadas', () => {
+    const options: DcxCheckbox[] = [
+      { id: '1', label: 'Opción deshabilitada', value: false, disabled: true },
+    ];
+    componentRef.setInput('options', options);
     fixture.detectChanges();
 
-    const spy = jest.spyOn(component.selectionChange, 'emit');
-    const button = fixture.debugElement.query(By.css('button.dcx-checkbox-container'));
-    button.nativeElement.click();
-    expect(spy).toHaveBeenCalledWith(['opt1']);
+    const button = fixture.debugElement.query(By.css('dcx-ng-button'));
+    expect(button.componentInstance.disabled).toBe(true);
   });
 
-  it('debe cambiar posición del label', () => {
-    componentRef.setInput('label', 'Etiqueta a la izquierda');
-    componentRef.setInput('labelPosition', 'left');
+  it('debe manejar el estado tri-estado (true -> false -> null -> true)', () => {
+    const options: DcxCheckbox[] = [
+      { id: '1', label: 'Tri-estado', value: true },
+    ];
+    componentRef.setInput('options', options);
     fixture.detectChanges();
 
-    const labelContainer = fixture.debugElement.query(By.css('.dcx-checkbox-label'));
-    expect(labelContainer.nativeElement.classList.contains('label-left')).toBe(true);
+    const spy = jest.spyOn(component.changeOptions, 'emit');
+
+    // Click 1: true -> false
+    let button = fixture.debugElement.query(By.css('dcx-ng-button'));
+    button.componentInstance.buttonClick.emit();
+    fixture.detectChanges();
+    let emittedOptions = spy.mock.calls[0][0];
+    expect(emittedOptions[0].value).toBe(false);
+
+    // Click 2: false -> null
+    button = fixture.debugElement.query(By.css('dcx-ng-button'));
+    button.componentInstance.buttonClick.emit();
+    fixture.detectChanges();
+    emittedOptions = spy.mock.calls[1][0];
+    expect(emittedOptions[0].value).toBeNull();
+
+    // Click 3: null -> true
+    button = fixture.debugElement.query(By.css('dcx-ng-button'));
+    button.componentInstance.buttonClick.emit();
+    fixture.detectChanges();
+    emittedOptions = spy.mock.calls[2][0];
+    expect(emittedOptions[0].value).toBe(true);
+  });
+
+  it('debe mostrar múltiples opciones con diferentes estados', () => {
+    const options: DcxCheckbox[] = [
+      { id: '1', label: 'Opción 1', value: true },
+      { id: '2', label: 'Opción 2', value: false },
+      { id: '3', label: 'Opción 3', value: null },
+    ];
+    componentRef.setInput('options', options);
+    fixture.detectChanges();
+
+    const buttons = fixture.debugElement.queryAll(By.css('dcx-ng-button'));
+    expect(buttons.length).toBe(3);
+    expect(buttons[0].componentInstance.iconName).toBe('check');
+    expect(buttons[1].componentInstance.iconName).toBe('dash');
+    expect(buttons[2].componentInstance.iconName).toBe('');
+  });
+
+  it('debe manejar opciones con mensajes de error', () => {
+    const options: DcxCheckbox[] = [
+      {
+        id: '1',
+        label: 'Opción con error',
+        value: false,
+        error: true,
+        errorMessage: 'Campo requerido',
+      },
+    ];
+    componentRef.setInput('options', options);
+    fixture.detectChanges();
+
+    const errorMessage = fixture.debugElement.query(
+      By.css('.dcx-ng-checkbox__error'),
+    );
+    expect(errorMessage).toBeTruthy();
+    expect(errorMessage.nativeElement.textContent).toContain('Campo requerido');
+  });
+
+  it('debe respeta la posición del label', () => {
+    const options: DcxCheckbox[] = [
+      {
+        id: '1',
+        label: 'Label a la derecha',
+        value: false,
+        labelPosition: 'right',
+      },
+      {
+        id: '2',
+        label: 'Label a la izquierda',
+        value: false,
+        labelPosition: 'left',
+      },
+    ];
+    componentRef.setInput('options', options);
+    fixture.detectChanges();
+
+    const labels = fixture.debugElement.queryAll(By.css('.dcx-checkbox-label'));
+    expect(labels[0].nativeElement.classList.contains('label-left')).toBe(
+      false,
+    );
+    expect(labels[1].nativeElement.classList.contains('label-left')).toBe(true);
+  });
+
+  it('debe mostrar asterisco para opciones requeridas', () => {
+    const options: DcxCheckbox[] = [
+      { id: '1', label: 'Opción requerida', value: false, required: true },
+    ];
+    componentRef.setInput('options', options);
+    fixture.detectChanges();
+
+    const requiredMark = fixture.debugElement.query(
+      By.css('.dcx-ng-checkbox__required'),
+    );
+    expect(requiredMark).toBeTruthy();
+    expect(requiredMark.nativeElement.textContent).toBe('*');
+  });
+
+  it('debe cambiar la variante del botón según el valor', () => {
+    const options: DcxCheckbox[] = [
+      { id: '1', label: 'Seleccionado', value: true },
+      { id: '2', label: 'No seleccionado', value: null },
+    ];
+    componentRef.setInput('options', options);
+    fixture.detectChanges();
+
+    const buttons = fixture.debugElement.queryAll(By.css('dcx-ng-button'));
+    expect(buttons[0].componentInstance.variant).toBe('primary');
+    expect(buttons[1].componentInstance.variant).toBe('secondary');
   });
 });
