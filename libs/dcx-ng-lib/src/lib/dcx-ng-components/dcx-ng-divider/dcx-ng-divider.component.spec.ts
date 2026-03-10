@@ -71,4 +71,28 @@ describe('DcxNgDividerComponent', () => {
     fixture.detectChanges();
     expect(component.ariaLabelBinding()).toBe('');
   });
+
+  it('should handle empty orientation in dividerClasses', () => {
+    fixture.componentRef.setInput('orientation', '');
+    fixture.detectChanges();
+    const classes = component.dividerClasses();
+    expect(classes).toContain('dcx-ng-divider');
+    // Empty orientation should produce the base label without orientation suffix
+    expect(classes).not.toContain('dcx-ng-divider--horizontal');
+    expect(classes).not.toContain('dcx-ng-divider--vertical');
+  });
+
+  it('should handle empty size in dividerClasses', () => {
+    fixture.componentRef.setInput('size', '');
+    fixture.detectChanges();
+    const classes = component.dividerClasses();
+    expect(classes).toContain('dcx-ng-divider');
+  });
+
+  it('should handle empty type in dividerClasses', () => {
+    fixture.componentRef.setInput('type', '');
+    fixture.detectChanges();
+    const classes = component.dividerClasses();
+    expect(classes).toContain('dcx-ng-divider');
+  });
 });

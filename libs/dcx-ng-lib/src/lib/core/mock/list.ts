@@ -1,5 +1,43 @@
 import { DcxListItem } from "@dcx-ng-components/dcx-ng-lib";
 
+export const LIST_ABC_ITEMS: DcxListItem[] = [
+  { text: 'A' },
+  { text: 'B' },
+  { text: 'C' },
+];
+
+export const LIST_ITEMS_WITH_DIVIDER: DcxListItem[] = [
+  { text: 'Item 1' },
+  { divider: true },
+  { text: 'Item 2' },
+];
+
+export const LIST_ENABLED_DISABLED_ITEMS: DcxListItem[] = [
+  { text: 'Enabled' },
+  { text: 'Disabled', disabled: true },
+];
+
+export const LIST_TWO_OPTIONS: DcxListItem[] = [
+  { text: 'Option 1' },
+  { text: 'Option 2' },
+];
+
+export const LIST_DISABLED_ONLY: DcxListItem[] = [
+  { text: 'Disabled', disabled: true },
+];
+
+export const LIST_DIVIDER_ONLY: DcxListItem[] = [
+  { divider: true },
+];
+
+export const LIST_AB_ITEMS: DcxListItem[] = [
+  { text: 'A' },
+  { text: 'B' },
+];
+
+export const LIST_PARENT_WITH_CHILDREN: DcxListItem[] = [
+  { text: 'Parent', children: [{ text: 'Child' }] },
+];
 
 export const SIMPLE_LIST_ITEMS: DcxListItem[] = [
   { text: 'Uno' },

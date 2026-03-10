@@ -68,4 +68,13 @@ describe('DcxNgChipComponent', () => {
  
     expect(spy).not.toHaveBeenCalled();
   });
+
+  it('should handle remove without event argument', () => {
+    const spy = jest.fn();
+    component.removeChip.subscribe(spy);
+    fixture.componentRef.setInput('variant', 'filter');
+    fixture.detectChanges();
+    component.handleRemove();
+    expect(spy).toHaveBeenCalled();
+  });
 });

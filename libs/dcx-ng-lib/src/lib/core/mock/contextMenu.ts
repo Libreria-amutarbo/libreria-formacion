@@ -1,5 +1,11 @@
 import { DcxContextMenuItem } from "@dcx-ng-components/dcx-ng-lib";
 
+export const CONTEXT_MENU_TEST_ITEMS: DcxContextMenuItem[] = [
+    { text: 'Edit', action: () => {} },
+    { text: 'Delete', action: () => {} },
+    { text: 'Copy', action: () => {} },
+];
+
 export const SIMPLE_CONTEXT_MENU_ITEMS: DcxContextMenuItem[] = [
     { text: 'Nuevo archivo', icon: 'file-earmark-plus' },
     { text: 'Abrir', icon: 'folder-open' },

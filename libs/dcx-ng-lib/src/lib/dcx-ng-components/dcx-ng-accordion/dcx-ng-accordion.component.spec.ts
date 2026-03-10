@@ -1,11 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgAccordionComponent } from './dcx-ng-accordion.component';
 import { DcxNgAccordionItem } from '../../core/interfaces/accordion';
-import { DcxAccordionMock } from '../../core/mock/accordion';
+import {
+  DcxAccordionDefault,
+  ACCORDION_TEST_ITEMS,
+  ACCORDION_ITEMS_WITH_EXPANDED,
+  ACCORDION_ITEMS_WITH_ICON,
+} from '../../core/mock/accordion';
 
 describe('DcxNgAccordionComponent', () => {
   let component: DcxNgAccordionComponent;
   let fixture: ComponentFixture<DcxNgAccordionComponent>;
+
+  const mockItems = ACCORDION_TEST_ITEMS;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -14,7 +21,7 @@ describe('DcxNgAccordionComponent', () => {
 
     fixture = TestBed.createComponent(DcxNgAccordionComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('items', DcxAccordionMock);
+    fixture.componentRef.setInput('items', mockItems);
     fixture.detectChanges();
   });
 
@@ -22,18 +29,18 @@ describe('DcxNgAccordionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have correct default hasItems when items provided', () => {
-    expect(component.items().length > 0).toBe(true);
+  it('should have correct items when items provided', () => {
+    expect(component.items().length).toBe(3);
   });
 
-  it('should return false for hasItems when no items', () => {
+  it('should return empty when no items', () => {
     fixture.componentRef.setInput('items', []);
     fixture.detectChanges();
-    expect(component.items().length > 0).toBe(false);
+    expect(component.items().length).toBe(0);
   });
 
   it('should toggle item expansion (open then close)', () => {
-    const item = DcxAccordionMock[0];
+    const item = mockItems[0];
     component.toggleItem(item);
     expect(component.isExpanded(item.id)).toBe(true);
     component.toggleItem(item);
@@ -41,7 +48,7 @@ describe('DcxNgAccordionComponent', () => {
   });
 
   it('should not toggle disabled items', () => {
-    const disabledItem = DcxAccordionMock[2];
+    const disabledItem = mockItems[2];
     component.toggleItem(disabledItem);
     expect(component.isExpanded(disabledItem.id)).toBe(false);
   });
@@ -49,8 +56,8 @@ describe('DcxNgAccordionComponent', () => {
   it('should allow multiple items expanded simultaneously', () => {
     fixture.componentRef.setInput('closeOthers', false);
     fixture.detectChanges();
-    const item1 = DcxAccordionMock[0];
-    const item2 = DcxAccordionMock[1];
+    const item1 = mockItems[0];
+    const item2 = mockItems[1];
     component.toggleItem(item1);
     component.toggleItem(item2);
     expect(component.isExpanded(item1.id)).toBe(true);
@@ -60,8 +67,8 @@ describe('DcxNgAccordionComponent', () => {
   it('should close an item independently', () => {
     fixture.componentRef.setInput('closeOthers', false);
     fixture.detectChanges();
-    const item1 = DcxAccordionMock[0];
-    const item2 = DcxAccordionMock[1];
+    const item1 = mockItems[0];
+    const item2 = mockItems[1];
     component.toggleItem(item1);
     component.toggleItem(item2);
     component.toggleItem(item1);
@@ -72,7 +79,7 @@ describe('DcxNgAccordionComponent', () => {
   it('should emit itemToggled event when item is toggled', () => {
     const spy = jest.fn();
     component.itemToggled.subscribe(spy);
-    const item = DcxAccordionMock[0];
+    const item = mockItems[0];
     component.toggleItem(item);
     expect(spy).toHaveBeenCalledWith(item);
   });
@@ -82,14 +89,16 @@ describe('DcxNgAccordionComponent', () => {
   });
 
   it('should return true for isExpanded after toggling', () => {
-    component.toggleItem(DcxAccordionMock[0]);
+    component.toggleItem(mockItems[0]);
     expect(component.isExpanded('1')).toBe(true);
   });
 });
 
-describe('DcxNgAccordionComponent', () => {
+describe('DcxNgAccordionComponent - Extended', () => {
   let component: DcxNgAccordionComponent;
   let fixture: ComponentFixture<DcxNgAccordionComponent>;
+
+  const mockItems = ACCORDION_TEST_ITEMS;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -98,7 +107,7 @@ describe('DcxNgAccordionComponent', () => {
 
     fixture = TestBed.createComponent(DcxNgAccordionComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('items', DcxAccordionMock);
+    fixture.componentRef.setInput('items', mockItems);
     fixture.detectChanges();
   });
 
@@ -124,16 +133,14 @@ describe('DcxNgAccordionComponent', () => {
 
   describe('toggleItem', () => {
     it('should expand item when clicked', () => {
-      const item = DcxAccordionMock[0];
+      const item = mockItems[0];
       component.toggleItem(item);
       fixture.detectChanges();
-      
       expect(component.isExpanded(item.id)).toBe(true);
     });
 
     it('should collapse expanded item when clicked again', () => {
-      const item = DcxAccordionMock[0];
-      
+      const item = mockItems[0];
       component.toggleItem(item);
       fixture.detectChanges();
       expect(component.isExpanded(item.id)).toBe(true);
@@ -144,54 +151,41 @@ describe('DcxNgAccordionComponent', () => {
     });
 
     it('should not toggle disabled items', () => {
-      const disabledItem = DcxAccordionMock[2];
-      
+      const disabledItem = mockItems[2];
       component.toggleItem(disabledItem);
       fixture.detectChanges();
-
       expect(component.isExpanded(disabledItem.id)).toBe(false);
     });
 
     it('should emit itemToggled event', () => {
-      const item = DcxAccordionMock[0];
+      const item = mockItems[0];
       let emittedItem: DcxNgAccordionItem | undefined;
-      
       component.itemToggled.subscribe((emitted) => {
         emittedItem = emitted;
       });
-
       component.toggleItem(item);
-      
       expect(emittedItem).toEqual(item);
     });
 
     it('should emit itemExpanded event when expanding', () => {
-      const item = DcxAccordionMock[0];
+      const item = mockItems[0];
       let emittedItem: DcxNgAccordionItem | undefined;
-      
       component.itemExpanded.subscribe((emitted) => {
         emittedItem = emitted;
       });
-
       component.toggleItem(item);
-      
       expect(emittedItem).toEqual(item);
     });
 
     it('should emit itemCollapsed event when collapsing', () => {
-      const item = DcxAccordionMock[0];
+      const item = mockItems[0];
       let emittedItem: DcxNgAccordionItem | undefined;
-      
-      // First expand
       component.toggleItem(item);
-      
+
       component.itemCollapsed.subscribe((emitted) => {
         emittedItem = emitted;
       });
-
-      // Then collapse
       component.toggleItem(item);
-      
       expect(emittedItem).toEqual(item);
     });
   });
@@ -201,8 +195,8 @@ describe('DcxNgAccordionComponent', () => {
       fixture.componentRef.setInput('closeOthers', true);
       fixture.detectChanges();
 
-      const item1 = DcxAccordionMock[0];
-      const item2 = DcxAccordionMock[1];
+      const item1 = mockItems[0];
+      const item2 = mockItems[1];
 
       component.toggleItem(item1);
       fixture.detectChanges();
@@ -218,8 +212,8 @@ describe('DcxNgAccordionComponent', () => {
       fixture.componentRef.setInput('closeOthers', false);
       fixture.detectChanges();
 
-      const item1 = DcxAccordionMock[0];
-      const item2 = DcxAccordionMock[1];
+      const item1 = mockItems[0];
+      const item2 = mockItems[1];
 
       component.toggleItem(item1);
       component.toggleItem(item2);
@@ -241,12 +235,7 @@ describe('DcxNgAccordionComponent', () => {
     });
 
     it('should expand items with expanded=true property', () => {
-      const itemsWithExpanded: DcxNgAccordionItem[] = [
-        { id: '1', title: 'Item 1', content: 'Content 1', expanded: true },
-        { id: '2', title: 'Item 2', content: 'Content 2' },
-      ];
-
-      fixture.componentRef.setInput('items', itemsWithExpanded);
+      fixture.componentRef.setInput('items', ACCORDION_ITEMS_WITH_EXPANDED);
       fixture.componentRef.setInput('expandedIds', []);
       fixture.detectChanges();
 
@@ -259,14 +248,12 @@ describe('DcxNgAccordionComponent', () => {
     it('should expand item by ID', () => {
       component.expandItemById('1');
       fixture.detectChanges();
-
       expect(component.isExpanded('1')).toBe(true);
     });
 
     it('should not expand disabled item by ID', () => {
       component.expandItemById('3');
       fixture.detectChanges();
-
       expect(component.isExpanded('3')).toBe(false);
     });
 
@@ -292,7 +279,6 @@ describe('DcxNgAccordionComponent', () => {
     it('should apply correct transition class', () => {
       fixture.componentRef.setInput('transition', 'fast');
       fixture.detectChanges();
-
       expect(component.getTransitionClass()).toBe('transition-fast');
     });
 
@@ -303,11 +289,7 @@ describe('DcxNgAccordionComponent', () => {
 
   describe('Icons', () => {
     it('should render icons when provided', () => {
-      const itemsWithIcons: DcxNgAccordionItem[] = [
-        { id: '1', title: 'Item 1', content: 'Content 1', icon: 'star-fill' },
-      ];
-
-      fixture.componentRef.setInput('items', itemsWithIcons);
+      fixture.componentRef.setInput('items', ACCORDION_ITEMS_WITH_ICON);
       fixture.detectChanges();
 
       const compiled = fixture.nativeElement as HTMLElement;
@@ -323,7 +305,7 @@ describe('DcxNgAccordionComponent', () => {
 
       expect(headerElement.getAttribute('aria-expanded')).toBe('false');
 
-      component.toggleItem(DcxAccordionMock[0]);
+      component.toggleItem(mockItems[0]);
       fixture.detectChanges();
 
       expect(headerElement.getAttribute('aria-expanded')).toBe('true');
@@ -336,6 +318,17 @@ describe('DcxNgAccordionComponent', () => {
 
       expect(disabledHeader.getAttribute('tabindex')).toBe('-1');
       expect(disabledHeader.classList.contains('disabled')).toBe(true);
+    });
+  });
+
+  describe('getIconItemExpanded', () => {
+    it('should return chevron-up when expanded', () => {
+      component.toggleItem(mockItems[0]);
+      expect(component.getIconItemExpanded('1')).toBe('chevron-up');
+    });
+
+    it('should return chevron-down when collapsed', () => {
+      expect(component.getIconItemExpanded('1')).toBe('chevron-down');
     });
   });
 });

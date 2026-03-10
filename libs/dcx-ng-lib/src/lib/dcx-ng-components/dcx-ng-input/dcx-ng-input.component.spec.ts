@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DcxNgInputComponent } from './dcx-ng-input.component';
 import { DcxInputType } from '../../core/interfaces';
@@ -24,307 +23,451 @@ describe('DcxNgInputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Tests for Input Properties
-  describe('Input Properties', () => {
-    it('should set default values correctly', () => {
-      expect(component.type).toBe(DcxInputType.TEXT);
-      expect(component.placeholder).toBeNull();
-      expect(component.size).toBe('m');
-      expect(component.disabled).toBe(false);
-      expect(component.required).toBe(false);
-      expect(component.label).toBeNull();
+  describe('Input Properties - Default Values', () => {
+    it('should have default type as text', () => {
+      expect(component.type()).toBe(DcxInputType.TEXT);
     });
 
-    it('should update type correctly', () => {
+    it('should have default placeholder as empty string', () => {
+      expect(component.placeholder()).toBe('');
+    });
+
+    it('should have default size as m', () => {
+      expect(component.size()).toBe('m');
+    });
+
+    it('should have default disabled as false', () => {
+      expect(component.disabled()).toBe(false);
+    });
+
+    it('should have default required as false', () => {
+      expect(component.required()).toBe(false);
+    });
+
+    it('should have default label as empty string', () => {
+      expect(component.label()).toBe('');
+    });
+
+    it('should have default value as empty string', () => {
+      expect(component.value()).toBe('');
+    });
+
+    it('should have default isInvalid as false', () => {
+      expect(component.isInvalid()).toBe(false);
+    });
+
+    it('should have default readonly as false', () => {
+      expect(component.readonly()).toBe(false);
+    });
+
+    it('should have default errorMessage as empty string', () => {
+      expect(component.errorMessage()).toBe('');
+    });
+  });
+
+  describe('Input Properties - Updates', () => {
+    it('should update type', () => {
       const types: DcxInputType[] = [
         DcxInputType.TEXT,
         DcxInputType.EMAIL,
-        DcxInputType.PASSWORD,
         DcxInputType.NUMBER,
       ];
       types.forEach(type => {
-        component.type = type;
+        fixture.componentRef.setInput('type', type);
         fixture.detectChanges();
-        expect(inputElement.type).toBe(type);
+        expect(component.type()).toBe(type);
       });
     });
 
     it('should update placeholder', () => {
-      const placeholder = 'Test placeholder';
-      component.placeholder = placeholder;
+      fixture.componentRef.setInput('placeholder', 'Test placeholder');
       fixture.detectChanges();
-      expect(inputElement.placeholder).toBe(placeholder);
+      expect(inputElement.placeholder).toBe('Test placeholder');
     });
 
     it('should handle disabled state', () => {
-      component.disabled = true;
-      component.setupFormControl();
+      fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
-      expect(inputElement.classList.contains('disabled')).toBe(true);
+      expect(inputElement.disabled).toBe(true);
     });
 
     it('should show required indicator when required and label set', () => {
-      component.required = true;
-      component.label = 'Test Label';
+      fixture.componentRef.setInput('required', true);
+      fixture.componentRef.setInput('label', 'Test Label');
       fixture.detectChanges();
-      const requiredIndicator = fixture.debugElement.query(By.css('.required-icon'));
+      const requiredIndicator = fixture.debugElement.query(By.css('.dcx-ng-input__required'));
       expect(requiredIndicator).toBeTruthy();
       expect(requiredIndicator.nativeElement.textContent).toBe('*');
     });
 
-    it('should apply correct size class', () => {
-      const sizes: string[] = ['s', 'm', 'l', 'xl'];
-      sizes.forEach(size => {
-        component.size = size as any;
-        fixture.detectChanges();
-        expect(inputElement.classList.contains('dcx-ng-input-size--' + size)).toBe(true);
-      });
+    it('should render label when set', () => {
+      fixture.componentRef.setInput('label', 'My Label');
+      fixture.detectChanges();
+      const label = fixture.debugElement.query(By.css('.dcx-ng-input__label'));
+      expect(label).toBeTruthy();
+      expect(label.nativeElement.textContent).toContain('My Label');
     });
 
-    it('should set noMargin and inline inputs', () => {
-      component.noMargin = true;
-      component.inline = true;
+    it('should not render label when empty', () => {
+      fixture.componentRef.setInput('label', '');
       fixture.detectChanges();
-      expect(component.noMargin).toBe(true);
-      expect(component.inline).toBe(true);
-    });
-
-    it('should set search input and render search class', () => {
-      component.search = true;
-      fixture.detectChanges();
-      expect(component.search).toBe(true);
-      const searchInput = fixture.debugElement.query(By.css('.dcx-ng-input--search'));
-      expect(searchInput).toBeTruthy();
+      const label = fixture.debugElement.query(By.css('.dcx-ng-input__label'));
+      expect(label).toBeFalsy();
     });
   });
 
-  // Tests for Form Control and Validation
-  describe('Form Control and Validation', () => {
-    it('should initialize FormControl', () => {
-      expect(component.inputControl).toBeTruthy();
-    });
-
-    it('should validate required field', () => {
-      component.required = true;
-      component.ngOnInit();
+  describe('Computed properties', () => {
+    it('should compute displayType as text for TEXT type', () => {
+      fixture.componentRef.setInput('type', DcxInputType.TEXT);
       fixture.detectChanges();
-
-      expect(component.inputControl.errors?.['required']).toBe(true);
-
-      component.inputControl.setValue('test');
-      expect(component.inputControl.errors).toBeNull();
+      expect(component.displayType()).toBe('text');
     });
 
-    it('should validate email type', () => {
-      component.type = DcxInputType.EMAIL;
-      component.ngOnInit();
+    it('should compute displayType as password for PASSWORD type', () => {
+      fixture.componentRef.setInput('type', DcxInputType.PASSWORD);
       fixture.detectChanges();
-
-      component.inputControl.setValue('invalid-email');
-      expect(component.inputControl.errors?.['email']).toBeTruthy();
-
-      component.inputControl.setValue('valid@email.com');
-      expect(component.inputControl.errors).toBeNull();
+      expect(component.displayType()).toBe('password');
     });
 
-    it('should validate number type', () => {
-      component.type = DcxInputType.NUMBER;
-      component.ngOnInit();
+    it('should toggle password visibility', () => {
+      fixture.componentRef.setInput('type', DcxInputType.PASSWORD);
       fixture.detectChanges();
+      expect(component.displayType()).toBe('password');
 
-      component.inputControl.setValue('abc');
-      expect(component.inputControl.errors?.['pattern']).toBeTruthy();
+      component.togglePasswordVisibility();
+      expect(component.displayType()).toBe('text');
 
-      const validNumbers = ['123', '-123', '0.5', '-0.5', '.5', '-.5', ''];
-      validNumbers.forEach(num => {
-        component.inputControl.setValue(num);
-        expect(component.inputControl.errors).toBeNull();
-      });
-
-      const invalidNumbers = ['abc123', '12.34.56', '..5', '--1', '1-2'];
-      invalidNumbers.forEach(num => {
-        component.inputControl.setValue(num);
-        expect(component.inputControl.errors?.['pattern']).toBeTruthy();
-      });
+      component.togglePasswordVisibility();
+      expect(component.displayType()).toBe('password');
     });
 
-    it('should set errorMessages input', () => {
-      component.errorMessages = [{ type: 'required', message: 'Required field' }];
-      expect(component.errorMessages.length).toBe(1);
+    it('should compute isRadioType correctly', () => {
+      fixture.componentRef.setInput('type', DcxInputType.TEXT);
+      fixture.detectChanges();
+      expect(component.isRadioType()).toBe(false);
+
+      fixture.componentRef.setInput('type', DcxInputType.RADIO);
+      fixture.detectChanges();
+      expect(component.isRadioType()).toBe(true);
     });
 
-    it('should return error message for required', () => {
-      component.required = true;
-      component.ngOnInit();
-      component.inputControl.markAsTouched();
-      expect(component.getErrorMessage()).toBe('Campo obligatorio');
+    it('should compute isRangeType correctly', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RANGE);
+      fixture.detectChanges();
+      expect(component.isRangeType()).toBe(true);
     });
 
-    it('should return custom required error message', () => {
-      component.required = true;
-      component.errorMessages = [{ type: 'required', message: 'Custom required' }];
-      component.ngOnInit();
-      component.inputControl.markAsTouched();
-      expect(component.getErrorMessage()).toBe('Custom required');
+    it('should compute isPasswordType correctly', () => {
+      fixture.componentRef.setInput('type', DcxInputType.PASSWORD);
+      fixture.detectChanges();
+      expect(component.isPasswordType()).toBe(true);
     });
 
-    it('should return null error message when no errors', () => {
-      expect(component.getErrorMessage()).toBeNull();
+    it('should compute isSearchType correctly', () => {
+      fixture.componentRef.setInput('type', DcxInputType.SEARCH);
+      fixture.detectChanges();
+      expect(component.isSearchType()).toBe(true);
+    });
+
+    it('should compute getInputIcon for various types', () => {
+      fixture.componentRef.setInput('type', DcxInputType.TEXT);
+      fixture.detectChanges();
+      expect(component.getInputIcon()).toBeNull();
+
+      fixture.componentRef.setInput('type', DcxInputType.EMAIL);
+      fixture.detectChanges();
+      expect(component.getInputIcon()).toBe('mail');
+
+      fixture.componentRef.setInput('type', DcxInputType.NUMBER);
+      fixture.detectChanges();
+      expect(component.getInputIcon()).toBe('pin');
+
+      fixture.componentRef.setInput('type', DcxInputType.SEARCH);
+      fixture.detectChanges();
+      expect(component.getInputIcon()).toBe('search');
+    });
+
+    it('should compute inputContolClasses', () => {
+      expect(component.inputContolClasses()).toContain('dcx-ng-input__control');
+    });
+
+    it('should compute showActionIcon for password type', () => {
+      fixture.componentRef.setInput('type', DcxInputType.PASSWORD);
+      fixture.detectChanges();
+      expect(component.showActionIcon()).toBe(true);
+    });
+
+    it('should compute showActionIcon for search type', () => {
+      fixture.componentRef.setInput('type', DcxInputType.SEARCH);
+      fixture.detectChanges();
+      expect(component.showActionIcon()).toBe(true);
+    });
+
+    it('should not show action icon for text type', () => {
+      fixture.componentRef.setInput('type', DcxInputType.TEXT);
+      fixture.detectChanges();
+      expect(component.showActionIcon()).toBe(false);
+    });
+
+    it('should not show action icon when readonly', () => {
+      fixture.componentRef.setInput('type', DcxInputType.PASSWORD);
+      fixture.componentRef.setInput('readonly', true);
+      fixture.detectChanges();
+      expect(component.showActionIcon()).toBe(false);
     });
   });
 
   describe('Event Handling', () => {
-    it('should emit value changes', () => {
-      const testValue = 'test value';
-      const spy = jest.spyOn(component.valueChange, 'emit');
-
-      component.inputControl.setValue(testValue);
-      expect(spy).toHaveBeenCalledWith(testValue);
+    it('should emit valueChange on onInput', () => {
+      const spy = jest.fn();
+      component.valueChange.subscribe(spy);
+      component.onInput('test value');
+      expect(spy).toHaveBeenCalledWith('test value');
     });
 
-    it('should handle external value changes via setter', () => {
-      const testValue = 'external value';
-      component.value = testValue;
-      expect(component.inputControl.value).toBe(testValue);
+    it('should update value model on onInput', () => {
+      component.onInput('new value');
+      expect(component.value()).toBe('new value');
     });
 
-    it('should set isFocused to false by default', () => {
-      expect(component.isFocused).toBe(false);
+    it('should emit blurEvent on onBlur', () => {
+      const spy = jest.fn();
+      component.blurEvent.subscribe(spy);
+      component.onBlur();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should emit focusEvent on focus', () => {
+      const spy = jest.fn();
+      component.focusEvent.subscribe(spy);
+      inputElement.dispatchEvent(new Event('focus'));
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should emit enterPressed on Enter keydown', () => {
+      const spy = jest.fn();
+      component.enterPressed.subscribe(spy);
+      inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should format email to lowercase on input', () => {
+      fixture.componentRef.setInput('type', DcxInputType.EMAIL);
+      fixture.detectChanges();
+      component.onInput('TEST@EMAIL.COM');
+      expect(component.value()).toBe('test@email.com');
+    });
+
+    it('should format number type input', () => {
+      fixture.componentRef.setInput('type', DcxInputType.NUMBER);
+      fixture.detectChanges();
+      component.onInput('123');
+      expect(component.value()).toBe(123);
+    });
+
+    it('should return empty string for empty number input', () => {
+      fixture.componentRef.setInput('type', DcxInputType.NUMBER);
+      fixture.detectChanges();
+      component.onInput('');
+      expect(component.value()).toBe('');
+    });
+
+    it('should trim search type input', () => {
+      fixture.componentRef.setInput('type', DcxInputType.SEARCH);
+      fixture.detectChanges();
+      component.onInput('  test  ');
+      expect(component.value()).toBe('test');
+    });
+
+    it('should not process onInput when radio type', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RADIO);
+      fixture.detectChanges();
+      const spy = jest.fn();
+      component.valueChange.subscribe(spy);
+      component.onInput('something');
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should emit value on onChangeEvent for radio type when checked', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RADIO);
+      fixture.componentRef.setInput('value', 'option1');
+      fixture.detectChanges();
+      const spy = jest.fn();
+      component.valueChange.subscribe(spy);
+      const event = { target: { checked: true } } as unknown as Event;
+      component.onChangeEvent(event);
+      expect(spy).toHaveBeenCalledWith('option1');
+    });
+
+    it('should not emit on onChangeEvent for radio type when not checked', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RADIO);
+      fixture.detectChanges();
+      const spy = jest.fn();
+      component.valueChange.subscribe(spy);
+      const event = { target: { checked: false } } as unknown as Event;
+      component.onChangeEvent(event);
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should not emit on onChangeEvent when not radio type', () => {
+      fixture.componentRef.setInput('type', DcxInputType.TEXT);
+      fixture.detectChanges();
+      const spy = jest.fn();
+      component.valueChange.subscribe(spy);
+      const event = { target: { checked: true } } as unknown as Event;
+      component.onChangeEvent(event);
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should format tel type input', () => {
+      fixture.componentRef.setInput('type', DcxInputType.TEL);
+      fixture.detectChanges();
+      component.onInput('+1 (555) 123-4567abc');
+      expect(component.value()).toBe('1 (555) 123-4567');
+    });
+
+    it('should format url type input to lowercase', () => {
+      fixture.componentRef.setInput('type', DcxInputType.URL);
+      fixture.detectChanges();
+      component.onInput('HTTPS://EXAMPLE.COM');
+      expect(component.value()).toBe('https://example.com');
+    });
+
+    it('should handle range display type', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RANGE);
+      fixture.detectChanges();
+      expect(component.displayType()).toBe('range');
     });
   });
 
-  describe('CSS Classes', () => {
-    it('should add invalid class when invalid and touched', () => {
-      component.required = true;
-      component.ngOnInit();
-      component.inputControl.markAsTouched();
-      fixture.detectChanges();
-
-      expect(inputElement.classList.contains('invalid')).toBe(true);
+  describe('ControlValueAccessor', () => {
+    it('should implement writeValue', () => {
+      component.writeValue('test');
+      expect(component.value()).toBe('test');
     });
 
-    it('should add required class when touched, not focused, required and no value', () => {
-      component.required = true;
-      component.ngOnInit();
-      component.inputControl.markAsTouched();
-      component.isFocused = false;
-      fixture.detectChanges();
-
-      expect(inputElement.classList.contains('required')).toBe(true);
+    it('should implement registerOnChange', () => {
+      const fn = jest.fn();
+      component.registerOnChange(fn);
+      // The effect triggers onChange when value changes
+      component.writeValue('change');
+      // Effect runs asynchronously
+      TestBed.flushEffects();
+      expect(fn).toHaveBeenCalled();
     });
 
-    it('should have disabled CSS class when disabled via setupFormControl', () => {
-      component.disabled = true;
-      component.setupFormControl();
-      fixture.detectChanges();
-      expect(inputElement.classList.contains('disabled')).toBe(true);
+    it('should implement registerOnTouched', () => {
+      const fn = jest.fn();
+      component.registerOnTouched(fn);
+      component.onBlur();
+      expect(fn).toHaveBeenCalled();
     });
   });
 
-  describe('Component Lifecycle', () => {
-    it('should update validators when required status changes via ngOnChanges', () => {
-      component.required = true;
-      component.ngOnChanges({
-        required: {
-          currentValue: true,
-          previousValue: false,
-          firstChange: false,
-          isFirstChange: () => false
-        }
-      });
-
-      expect(component.inputControl.hasValidator(Validators.required)).toBe(true);
+  describe('Error display', () => {
+    it('should show error message when isInvalid and errorMessage set', () => {
+      fixture.componentRef.setInput('isInvalid', true);
+      fixture.componentRef.setInput('errorMessage', 'Field is required');
+      fixture.detectChanges();
+      const errorEl = fixture.debugElement.query(By.css('.dcx-ng-input__error'));
+      expect(errorEl).toBeTruthy();
+      expect(errorEl.nativeElement.textContent).toContain('Field is required');
     });
 
-    it('should update validators when type changes via ngOnChanges', () => {
-      component.type = DcxInputType.EMAIL;
-      component.ngOnChanges({
-        type: {
-          currentValue: DcxInputType.EMAIL,
-          previousValue: DcxInputType.TEXT,
-          firstChange: false,
-          isFirstChange: () => false
-        }
-      });
-
-      component.inputControl.setValue('bad-email');
-      expect(component.inputControl.errors?.['email']).toBeTruthy();
+    it('should not show error when isInvalid is false', () => {
+      fixture.componentRef.setInput('isInvalid', false);
+      fixture.componentRef.setInput('errorMessage', 'Some error');
+      fixture.detectChanges();
+      const errorEl = fixture.debugElement.query(By.css('.dcx-ng-input__error'));
+      expect(errorEl).toBeFalsy();
     });
 
-    it('should call ngOnDestroy without errors', () => {
-      expect(() => component.ngOnDestroy()).not.toThrow();
+    it('should not show error when errorMessage is empty', () => {
+      fixture.componentRef.setInput('isInvalid', true);
+      fixture.componentRef.setInput('errorMessage', '');
+      fixture.detectChanges();
+      const errorEl = fixture.debugElement.query(By.css('.dcx-ng-input__error'));
+      expect(errorEl).toBeFalsy();
     });
+  });
 
+  describe('inputId', () => {
     it('should generate unique inputId', () => {
       expect(component.inputId).toBeTruthy();
       expect(component.inputId.startsWith('dcx-input-')).toBe(true);
     });
+  });
 
-    it('should update validators when disabled changes via ngOnChanges', () => {
-      component.disabled = true;
-      component.ngOnChanges({
-        disabled: {
-          currentValue: true,
-          previousValue: false,
-          firstChange: false,
-          isFirstChange: () => false
-        }
-      });
-      expect(component.inputControl.disabled).toBe(true);
+  describe('Action Button', () => {
+    it('should call togglePasswordVisibility on action button click for password type', () => {
+      fixture.componentRef.setInput('type', DcxInputType.PASSWORD);
+      fixture.detectChanges();
+      const spy = jest.spyOn(component, 'togglePasswordVisibility');
+      component.onActionButtonClick();
+      expect(spy).toHaveBeenCalled();
     });
 
-    it('should not call setupFormControl when unrelated change', () => {
-      const spy = jest.spyOn(component, 'setupFormControl');
-      component.ngOnChanges({
-        label: {
-          currentValue: 'new label',
-          previousValue: '',
-          firstChange: false,
-          isFirstChange: () => false
-        }
-      });
-      expect(spy).not.toHaveBeenCalled();
+    it('should emit value for search type on action button click', () => {
+      fixture.componentRef.setInput('type', DcxInputType.SEARCH);
+      fixture.detectChanges();
+      const spy = jest.fn();
+      component.valueChange.subscribe(spy);
+      component.onInput('search term');
+      spy.mockClear();
+      component.onActionButtonClick();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should compute action button aria label for password', () => {
+      fixture.componentRef.setInput('type', DcxInputType.PASSWORD);
+      fixture.detectChanges();
+      expect(component.getActionButtonAriaLabel()).toBe('Mostrar contraseña');
+      component.togglePasswordVisibility();
+      expect(component.getActionButtonAriaLabel()).toBe('Ocultar contraseña');
+    });
+
+    it('should compute action button icon for password', () => {
+      fixture.componentRef.setInput('type', DcxInputType.PASSWORD);
+      fixture.detectChanges();
+      expect(component.getActionButtonIcon()).toBe('eye-fill');
+      component.togglePasswordVisibility();
+      expect(component.getActionButtonIcon()).toBe('eye-slash-fill');
+    });
+
+    it('should compute action button aria label for search', () => {
+      fixture.componentRef.setInput('type', DcxInputType.SEARCH);
+      fixture.detectChanges();
+      expect(component.getActionButtonAriaLabel()).toBe('Buscar');
+    });
+
+    it('should compute action button icon for search', () => {
+      fixture.componentRef.setInput('type', DcxInputType.SEARCH);
+      fixture.detectChanges();
+      expect(component.getActionButtonIcon()).toBe('search');
     });
   });
 
-  describe('getErrorMessage edge cases', () => {
-    it('should return custom pattern error when errorMessages has pattern entry', () => {
-      component.type = DcxInputType.NUMBER;
-      component.errorMessages = [{ type: 'pattern', message: 'Custom pattern error' }];
-      component.ngOnInit();
-      component.inputControl.setValue('abc');
-      expect(component.getErrorMessage()).toBe('Custom pattern error');
+  describe('describedBy', () => {
+    it('should return null when no aria-describedby and not invalid', () => {
+      expect(component.describedBy()).toBeNull();
     });
 
-    it('should return default pattern error when no custom message', () => {
-      component.type = DcxInputType.NUMBER;
-      component.errorMessages = [];
-      component.ngOnInit();
-      component.inputControl.setValue('abc');
-      expect(component.getErrorMessage()).toBe('Formato numérico inválido');
+    it('should include error id when invalid', () => {
+      fixture.componentRef.setInput('isInvalid', true);
+      fixture.detectChanges();
+      expect(component.describedBy()).toContain(component.errorId());
+    });
+  });
+
+  describe('Orientation', () => {
+    it('should default to horizontal', () => {
+      expect(component.orientation()).toBe('horizontal');
     });
 
-    it('should return custom email error when errorMessages has email entry', () => {
-      component.type = DcxInputType.EMAIL;
-      component.errorMessages = [{ type: 'email', message: 'Custom email error' }];
-      component.ngOnInit();
-      component.inputControl.setValue('not-an-email');
-      expect(component.getErrorMessage()).toBe('Custom email error');
-    });
-
-    it('should return default email error when no custom message', () => {
-      component.type = DcxInputType.EMAIL;
-      component.errorMessages = [];
-      component.ngOnInit();
-      component.inputControl.setValue('not-an-email');
-      expect(component.getErrorMessage()).toBe('Formato correo inválido');
-    });
-
-    it('should return required error when value is empty string', () => {
-      component.required = true;
-      component.ngOnInit();
-      component.inputControl.setValue('');
-      expect(component.getErrorMessage()).toBe('Campo obligatorio');
+    it('should apply vertical class when vertical', () => {
+      fixture.componentRef.setInput('orientation', 'vertical');
+      fixture.detectChanges();
+      expect(component.verticalClass).toBe(true);
     });
   });
 });
