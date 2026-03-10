@@ -15,7 +15,7 @@ describe('DcxNgCheckboxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgCheckboxComponent]
+      imports: [DcxNgCheckboxComponent],
     }).compileComponents();
     fixture = TestBed.createComponent(DcxNgCheckboxComponent);
     component = fixture.componentInstance;
@@ -36,7 +36,9 @@ describe('DcxNgCheckboxComponent', () => {
 
   it('debe emitir checkedChange al hacer click', () => {
     const spy = jest.spyOn(component.checkedChange, 'emit');
-    const button = fixture.debugElement.query(By.css('button.dcx-checkbox-container'));
+    const button = fixture.debugElement.query(
+      By.css('button.dcx-checkbox-container'),
+    );
     button.nativeElement.click();
     expect(spy).toHaveBeenCalledWith(true);
   });
@@ -45,7 +47,9 @@ describe('DcxNgCheckboxComponent', () => {
     componentRef.setInput('disabled', true);
     fixture.detectChanges();
     const spy = jest.spyOn(component.checkedChange, 'emit');
-    const button = fixture.debugElement.query(By.css('button.dcx-checkbox-container'));
+    const button = fixture.debugElement.query(
+      By.css('button.dcx-checkbox-container'),
+    );
     button.nativeElement.click();
     expect(spy).not.toHaveBeenCalled();
   });
@@ -63,11 +67,17 @@ describe('DcxNgCheckboxComponent', () => {
     componentRef.setInput('selectedValues', ['opt1']);
     fixture.detectChanges();
 
-    const groupLabel = fixture.debugElement.query(By.css('.dcx-checkbox-group__label'));
+    const groupLabel = fixture.debugElement.query(
+      By.css('.dcx-checkbox-group__label'),
+    );
     expect(groupLabel).toBeTruthy();
-    expect(groupLabel.nativeElement.textContent).toContain('Selecciona tus intereses');
+    expect(groupLabel.nativeElement.textContent).toContain(
+      'Selecciona tus intereses',
+    );
 
-    const options = fixture.debugElement.queryAll(By.css('.dcx-checkbox-label'));
+    const options = fixture.debugElement.queryAll(
+      By.css('.dcx-checkbox-label'),
+    );
     expect(options.length).toBe(2);
   });
 
@@ -76,7 +86,9 @@ describe('DcxNgCheckboxComponent', () => {
     componentRef.setInput('selectedValues', []);
     fixture.detectChanges();
 
-    const buttons = fixture.debugElement.queryAll(By.css('button.dcx-checkbox-container'));
+    const buttons = fixture.debugElement.queryAll(
+      By.css('button.dcx-checkbox-container'),
+    );
     expect(buttons[0].nativeElement.disabled).toBe(false);
     expect(buttons[1].nativeElement.disabled).toBe(true);
   });
@@ -88,7 +100,9 @@ describe('DcxNgCheckboxComponent', () => {
     fixture.detectChanges();
 
     const spy = jest.spyOn(component.selectionChange, 'emit');
-    const button = fixture.debugElement.query(By.css('button.dcx-checkbox-container'));
+    const button = fixture.debugElement.query(
+      By.css('button.dcx-checkbox-container'),
+    );
     button.nativeElement.click();
     expect(spy).toHaveBeenCalledWith(['opt1']);
   });
@@ -98,8 +112,12 @@ describe('DcxNgCheckboxComponent', () => {
     componentRef.setInput('labelPosition', 'left');
     fixture.detectChanges();
 
-    const labelContainer = fixture.debugElement.query(By.css('.dcx-checkbox-label'));
-    expect(labelContainer.nativeElement.classList.contains('label-left')).toBe(true);
+    const labelContainer = fixture.debugElement.query(
+      By.css('.dcx-checkbox-label'),
+    );
+    expect(labelContainer.nativeElement.classList.contains('label-left')).toBe(
+      true,
+    );
   });
 
   describe('ControlValueAccessor', () => {
@@ -147,7 +165,6 @@ describe('DcxNgCheckboxComponent', () => {
     it('setDisabledState should disable the checkbox via containerClasses', () => {
       component.setDisabledState(true);
       fixture.detectChanges();
-      // Single checkbox uses CSS class for disabled, not button[disabled]
       expect(component.containerClasses()).toContain('disabled');
     });
 
@@ -199,7 +216,9 @@ describe('DcxNgCheckboxComponent', () => {
     });
 
     it('should not change when option is disabled', () => {
-      componentRef.setInput('options', [{ value: 'opt1', label: 'Opción 1', disabled: true }]);
+      componentRef.setInput('options', [
+        { value: 'opt1', label: 'Opción 1', disabled: true },
+      ]);
       fixture.detectChanges();
       const spy = jest.spyOn(component.selectionChange, 'emit');
       component.onGroupCheckboxChange('opt1', true);
@@ -209,15 +228,25 @@ describe('DcxNgCheckboxComponent', () => {
     it('isOptionDisabled returns true when global disabled', () => {
       componentRef.setInput('disabled', true);
       fixture.detectChanges();
-      expect(component.isOptionDisabled({ value: 'opt1', label: 'Opción 1' })).toBe(true);
+      expect(
+        component.isOptionDisabled({ value: 'opt1', label: 'Opción 1' }),
+      ).toBe(true);
     });
 
     it('isOptionDisabled returns true when option.disabled', () => {
-      expect(component.isOptionDisabled({ value: 'opt1', label: 'Opción 1', disabled: true })).toBe(true);
+      expect(
+        component.isOptionDisabled({
+          value: 'opt1',
+          label: 'Opción 1',
+          disabled: true,
+        }),
+      ).toBe(true);
     });
 
     it('isOptionDisabled returns false when not disabled', () => {
-      expect(component.isOptionDisabled({ value: 'opt1', label: 'Opción 1' })).toBe(false);
+      expect(
+        component.isOptionDisabled({ value: 'opt1', label: 'Opción 1' }),
+      ).toBe(false);
     });
   });
 
@@ -241,10 +270,11 @@ describe('DcxNgCheckboxComponent', () => {
 
   describe('isOptionDisabled with form disabled', () => {
     it('isOptionDisabled returns true when _isDisabledByForm is true (disabled input is false)', () => {
-      // disabled() is false, but _isDisabledByForm() is true via setDisabledState
       component.setDisabledState(true);
       fixture.detectChanges();
-      expect(component.isOptionDisabled({ value: 'opt1', label: 'Option 1' })).toBe(true);
+      expect(
+        component.isOptionDisabled({ value: 'opt1', label: 'Option 1' }),
+      ).toBe(true);
     });
   });
 });

@@ -95,7 +95,9 @@ describe('DcxNgInputComponent', () => {
       fixture.componentRef.setInput('required', true);
       fixture.componentRef.setInput('label', 'Test Label');
       fixture.detectChanges();
-      const requiredIndicator = fixture.debugElement.query(By.css('.dcx-ng-input__required'));
+      const requiredIndicator = fixture.debugElement.query(
+        By.css('.dcx-ng-input__required'),
+      );
       expect(requiredIndicator).toBeTruthy();
       expect(requiredIndicator.nativeElement.textContent).toBe('*');
     });
@@ -247,7 +249,9 @@ describe('DcxNgInputComponent', () => {
     it('should emit enterPressed on Enter keydown', () => {
       const spy = jest.fn();
       component.enterPressed.subscribe(spy);
-      inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      inputElement.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter' }),
+      );
       expect(spy).toHaveBeenCalled();
     });
 
@@ -349,9 +353,7 @@ describe('DcxNgInputComponent', () => {
     it('should implement registerOnChange', () => {
       const fn = jest.fn();
       component.registerOnChange(fn);
-      // The effect triggers onChange when value changes
       component.writeValue('change');
-      // Effect runs asynchronously
       TestBed.flushEffects();
       expect(fn).toHaveBeenCalled();
     });
@@ -369,7 +371,9 @@ describe('DcxNgInputComponent', () => {
       fixture.componentRef.setInput('isInvalid', true);
       fixture.componentRef.setInput('errorMessage', 'Field is required');
       fixture.detectChanges();
-      const errorEl = fixture.debugElement.query(By.css('.dcx-ng-input__error'));
+      const errorEl = fixture.debugElement.query(
+        By.css('.dcx-ng-input__error'),
+      );
       expect(errorEl).toBeTruthy();
       expect(errorEl.nativeElement.textContent).toContain('Field is required');
     });
@@ -378,7 +382,9 @@ describe('DcxNgInputComponent', () => {
       fixture.componentRef.setInput('isInvalid', false);
       fixture.componentRef.setInput('errorMessage', 'Some error');
       fixture.detectChanges();
-      const errorEl = fixture.debugElement.query(By.css('.dcx-ng-input__error'));
+      const errorEl = fixture.debugElement.query(
+        By.css('.dcx-ng-input__error'),
+      );
       expect(errorEl).toBeFalsy();
     });
 
@@ -386,7 +392,9 @@ describe('DcxNgInputComponent', () => {
       fixture.componentRef.setInput('isInvalid', true);
       fixture.componentRef.setInput('errorMessage', '');
       fixture.detectChanges();
-      const errorEl = fixture.debugElement.query(By.css('.dcx-ng-input__error'));
+      const errorEl = fixture.debugElement.query(
+        By.css('.dcx-ng-input__error'),
+      );
       expect(errorEl).toBeFalsy();
     });
   });

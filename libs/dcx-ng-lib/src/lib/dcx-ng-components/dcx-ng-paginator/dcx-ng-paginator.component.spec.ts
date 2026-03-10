@@ -21,12 +21,16 @@ describe('DcxNgPaginatorComponent', () => {
 
   it('should have default values', () => {
     expect(component.currentPage()).toBe(1);
-    expect(component.totalPages()).toBe(10); // 100 totalItems / 10 itemsPerPage
+    expect(component.totalPages()).toBe(10);
   });
 
   it('should emit pageChange when clicking a page number', () => {
     const emitSpy = jest.spyOn(component.pageChange, 'emit');
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 1 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
     fixture.detectChanges();
     component.goToPage(3);
     expect(emitSpy).toHaveBeenCalledWith(3);
@@ -34,7 +38,11 @@ describe('DcxNgPaginatorComponent', () => {
 
   it('should emit pageChange when calling goToNext', () => {
     const pageChangeSpy = jest.spyOn(component.pageChange, 'emit');
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 2 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
     fixture.detectChanges();
     component.goToNext();
     expect(pageChangeSpy).toHaveBeenCalledWith(3);
@@ -42,27 +50,43 @@ describe('DcxNgPaginatorComponent', () => {
 
   it('should emit pageChange when calling goToPrevious', () => {
     const pageChangeSpy = jest.spyOn(component.pageChange, 'emit');
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 3 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
     fixture.detectChanges();
     component.goToPrevious();
     expect(pageChangeSpy).toHaveBeenCalledWith(2);
   });
 
   it('should disable previous on first page (hasPrevious false)', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 1 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
     fixture.detectChanges();
     expect(component.hasPrevious()).toBe(false);
   });
 
   it('should disable next on last page (hasNext false)', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 5 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 5,
+    });
     fixture.detectChanges();
     expect(component.hasNext()).toBe(false);
   });
 
   it('should not go to previous when already on first page', () => {
     const emitSpy = jest.spyOn(component.pageChange, 'emit');
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 1 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
     fixture.detectChanges();
     component.goToPrevious();
     expect(emitSpy).not.toHaveBeenCalled();
@@ -70,39 +94,63 @@ describe('DcxNgPaginatorComponent', () => {
 
   it('should not go to next when already on last page', () => {
     const emitSpy = jest.spyOn(component.pageChange, 'emit');
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 5 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 5,
+    });
     fixture.detectChanges();
     component.goToNext();
     expect(emitSpy).not.toHaveBeenCalled();
   });
 
   it('hasPrevious should be true when currentPage > 1', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 2 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
     fixture.detectChanges();
     expect(component.hasPrevious()).toBe(true);
   });
 
   it('hasNext should be true when currentPage < totalPages', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 30, itemsPerPage: 10, currentPage: 1 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 30,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
     fixture.detectChanges();
     expect(component.hasNext()).toBe(true);
   });
 
   it('should compute totalPages correctly', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 25, itemsPerPage: 10, currentPage: 1 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 25,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
     fixture.detectChanges();
     expect(component.totalPages()).toBe(3);
   });
 
   it('should emit totalPagesChange', () => {
     const spy = jest.spyOn(component.totalPagesChange, 'emit');
-    fixture.componentRef.setInput('paginator', { totalItems: 40, itemsPerPage: 10, currentPage: 1 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 40,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
     fixture.detectChanges();
     expect(spy).toHaveBeenCalledWith(4);
   });
 
   it('should go to start page', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 3 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
     fixture.detectChanges();
     const spy = jest.spyOn(component.pageChange, 'emit');
     component.goToStart();
@@ -111,7 +159,11 @@ describe('DcxNgPaginatorComponent', () => {
   });
 
   it('should go to end page', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 1 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
     fixture.detectChanges();
     const spy = jest.spyOn(component.pageChange, 'emit');
     component.goToEnd();
@@ -120,7 +172,11 @@ describe('DcxNgPaginatorComponent', () => {
   });
 
   it('should go to page relative forward', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 100, itemsPerPage: 10, currentPage: 3 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 100,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
     fixture.detectChanges();
     const spy = jest.spyOn(component.pageChange, 'emit');
     component.goToPageRelative(1);
@@ -128,7 +184,11 @@ describe('DcxNgPaginatorComponent', () => {
   });
 
   it('should go to page relative backward', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 100, itemsPerPage: 10, currentPage: 5 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 100,
+      itemsPerPage: 10,
+      currentPage: 5,
+    });
     fixture.detectChanges();
     const spy = jest.spyOn(component.pageChange, 'emit');
     component.goToPageRelative(-1);
@@ -137,28 +197,44 @@ describe('DcxNgPaginatorComponent', () => {
   });
 
   it('should clamp goToPageRelative to min 1', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 1 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
     fixture.detectChanges();
     component.goToPageRelative(-1);
     expect(component.currentPage()).toBe(1);
   });
 
   it('should clamp goToPageRelative to max totalPages', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 5 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 5,
+    });
     fixture.detectChanges();
     component.goToPageRelative(1);
     expect(component.currentPage()).toBeLessThanOrEqual(5);
   });
 
   it('getCurrentPage should return true for current page', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 3 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
     fixture.detectChanges();
     expect(component.getCurrentPage(3)).toBe(true);
     expect(component.getCurrentPage(1)).toBe(false);
   });
 
   it('getButtonVariant should return primary for current page', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 2 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
     fixture.detectChanges();
     expect(component.getButtonVariant(2)).toBe('primary');
     expect(component.getButtonVariant(1)).toBe('secondary');
@@ -182,19 +258,31 @@ describe('DcxNgPaginatorComponent', () => {
   });
 
   it('firstItem should compute correctly', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 50, itemsPerPage: 10, currentPage: 2 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
     fixture.detectChanges();
     expect(component.firstItem()).toBe(11);
   });
 
   it('lastItem should compute correctly', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 25, itemsPerPage: 10, currentPage: 3 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 25,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
     fixture.detectChanges();
     expect(component.lastItem()).toBe(25);
   });
 
   it('visiblePages should include ellipsis for many pages', () => {
-    fixture.componentRef.setInput('paginator', { totalItems: 200, itemsPerPage: 10, currentPage: 10 });
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 200,
+      itemsPerPage: 10,
+      currentPage: 10,
+    });
     fixture.detectChanges();
     const pages = component.visiblePages();
     expect(pages).toContain('...');

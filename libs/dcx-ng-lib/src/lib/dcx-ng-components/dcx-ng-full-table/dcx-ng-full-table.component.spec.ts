@@ -30,19 +30,41 @@ describe('DcxNgFullTableComponent', () => {
     frozenLeftSeparator?: boolean;
     frozenRightSeparator?: boolean;
   }) {
-    if (inputs.headers !== undefined) fixture.componentRef.setInput('headers', inputs.headers);
-    if (inputs.rows !== undefined) fixture.componentRef.setInput('rows', inputs.rows);
-    if (inputs.showGrid !== undefined) fixture.componentRef.setInput('showGrid', inputs.showGrid);
-    if (inputs.showStripped !== undefined) fixture.componentRef.setInput('showStripped', inputs.showStripped);
-    if (inputs.scroll !== undefined) fixture.componentRef.setInput('scroll', inputs.scroll);
-    if (inputs.scrollHeight !== undefined) fixture.componentRef.setInput('scrollHeight', inputs.scrollHeight);
-    if (inputs.paginator !== undefined) fixture.componentRef.setInput('paginator', inputs.paginator);
-    if (inputs.rowsPerPage !== undefined) fixture.componentRef.setInput('rowsPerPage', inputs.rowsPerPage);
-    if (inputs.rowsPerPageOptions !== undefined) fixture.componentRef.setInput('rowsPerPageOptions', inputs.rowsPerPageOptions);
-    if (inputs.showRowIndex !== undefined) fixture.componentRef.setInput('showRowIndex', inputs.showRowIndex);
-    if (inputs.rowIndexLabel !== undefined) fixture.componentRef.setInput('rowIndexLabel', inputs.rowIndexLabel);
-    if (inputs.frozenLeftSeparator !== undefined) fixture.componentRef.setInput('frozenLeftSeparator', inputs.frozenLeftSeparator);
-    if (inputs.frozenRightSeparator !== undefined) fixture.componentRef.setInput('frozenRightSeparator', inputs.frozenRightSeparator);
+    if (inputs.headers !== undefined)
+      fixture.componentRef.setInput('headers', inputs.headers);
+    if (inputs.rows !== undefined)
+      fixture.componentRef.setInput('rows', inputs.rows);
+    if (inputs.showGrid !== undefined)
+      fixture.componentRef.setInput('showGrid', inputs.showGrid);
+    if (inputs.showStripped !== undefined)
+      fixture.componentRef.setInput('showStripped', inputs.showStripped);
+    if (inputs.scroll !== undefined)
+      fixture.componentRef.setInput('scroll', inputs.scroll);
+    if (inputs.scrollHeight !== undefined)
+      fixture.componentRef.setInput('scrollHeight', inputs.scrollHeight);
+    if (inputs.paginator !== undefined)
+      fixture.componentRef.setInput('paginator', inputs.paginator);
+    if (inputs.rowsPerPage !== undefined)
+      fixture.componentRef.setInput('rowsPerPage', inputs.rowsPerPage);
+    if (inputs.rowsPerPageOptions !== undefined)
+      fixture.componentRef.setInput(
+        'rowsPerPageOptions',
+        inputs.rowsPerPageOptions,
+      );
+    if (inputs.showRowIndex !== undefined)
+      fixture.componentRef.setInput('showRowIndex', inputs.showRowIndex);
+    if (inputs.rowIndexLabel !== undefined)
+      fixture.componentRef.setInput('rowIndexLabel', inputs.rowIndexLabel);
+    if (inputs.frozenLeftSeparator !== undefined)
+      fixture.componentRef.setInput(
+        'frozenLeftSeparator',
+        inputs.frozenLeftSeparator,
+      );
+    if (inputs.frozenRightSeparator !== undefined)
+      fixture.componentRef.setInput(
+        'frozenRightSeparator',
+        inputs.frozenRightSeparator,
+      );
     fixture.detectChanges();
   }
 
@@ -79,7 +101,9 @@ describe('DcxNgFullTableComponent', () => {
     });
 
     it('should display header names', () => {
-      const headerCells = fixture.debugElement.queryAll(By.css('th[scope="col"]'));
+      const headerCells = fixture.debugElement.queryAll(
+        By.css('th[scope="col"]'),
+      );
       expect(headerCells[0].nativeElement.textContent).toContain('Name');
       expect(headerCells[1].nativeElement.textContent).toContain('Age');
       expect(headerCells[2].nativeElement.textContent).toContain('City');
@@ -120,19 +144,30 @@ describe('DcxNgFullTableComponent', () => {
 
   describe('Row Index', () => {
     it('should not show row index column by default', () => {
-      const indexHeader = fixture.debugElement.query(By.css('.row-index-header'));
+      const indexHeader = fixture.debugElement.query(
+        By.css('.row-index-header'),
+      );
       expect(indexHeader).toBeNull();
     });
 
     it('should show row index column when showRowIndex is true', () => {
       setInputs({ headers: HEADERS, rows: ROWS, showRowIndex: true });
-      const indexHeader = fixture.debugElement.query(By.css('.row-index-header'));
+      const indexHeader = fixture.debugElement.query(
+        By.css('.row-index-header'),
+      );
       expect(indexHeader).toBeTruthy();
     });
 
     it('should display custom rowIndexLabel', () => {
-      setInputs({ headers: HEADERS, rows: ROWS, showRowIndex: true, rowIndexLabel: 'N°' });
-      const indexHeader = fixture.debugElement.query(By.css('.row-index-header'));
+      setInputs({
+        headers: HEADERS,
+        rows: ROWS,
+        showRowIndex: true,
+        rowIndexLabel: 'N°',
+      });
+      const indexHeader = fixture.debugElement.query(
+        By.css('.row-index-header'),
+      );
       expect(indexHeader.nativeElement.textContent).toContain('N°');
     });
 
@@ -144,7 +179,9 @@ describe('DcxNgFullTableComponent', () => {
 
   describe('Sorting', () => {
     it('should mark sortable headers with sortable class', () => {
-      const sortableHeaders = fixture.debugElement.queryAll(By.css('th.sortable'));
+      const sortableHeaders = fixture.debugElement.queryAll(
+        By.css('th.sortable'),
+      );
       expect(sortableHeaders.length).toBe(2);
     });
 
@@ -257,12 +294,24 @@ describe('DcxNgFullTableComponent', () => {
     });
 
     it('should paginate when paginator=true', () => {
-      setInputs({ headers: HEADERS, rows: ROWS, paginator: true, rowsPerPage: 2, rowsPerPageOptions: [2, 5, 10] });
+      setInputs({
+        headers: HEADERS,
+        rows: ROWS,
+        paginator: true,
+        rowsPerPage: 2,
+        rowsPerPageOptions: [2, 5, 10],
+      });
       expect(component.paginatedRows().length).toBe(2);
     });
 
     it('goToPage() should change page', () => {
-      setInputs({ headers: HEADERS, rows: ROWS, paginator: true, rowsPerPage: 2, rowsPerPageOptions: [2, 5, 10] });
+      setInputs({
+        headers: HEADERS,
+        rows: ROWS,
+        paginator: true,
+        rowsPerPage: 2,
+        rowsPerPageOptions: [2, 5, 10],
+      });
       component.goToPage(1);
       fixture.detectChanges();
       expect(component.pageIndex()).toBe(1);
@@ -280,7 +329,12 @@ describe('DcxNgFullTableComponent', () => {
     it('goToPage() should emit pageChange', () => {
       const pageChangeSpy = jest.fn();
       component.pageChange.subscribe(pageChangeSpy);
-      setInputs({ headers: HEADERS, rows: ROWS, paginator: true, rowsPerPage: 2 });
+      setInputs({
+        headers: HEADERS,
+        rows: ROWS,
+        paginator: true,
+        rowsPerPage: 2,
+      });
       component.goToPage(1);
       expect(pageChangeSpy).toHaveBeenCalledWith(1);
     });
@@ -307,7 +361,13 @@ describe('DcxNgFullTableComponent', () => {
     });
 
     it('pageInfo should contain correct data', () => {
-      setInputs({ headers: HEADERS, rows: ROWS, paginator: true, rowsPerPage: 2, rowsPerPageOptions: [2, 5, 10] });
+      setInputs({
+        headers: HEADERS,
+        rows: ROWS,
+        paginator: true,
+        rowsPerPage: 2,
+        rowsPerPageOptions: [2, 5, 10],
+      });
       const info = component.pageInfo();
       expect(info.index).toBe(0);
       expect(info.size).toBe(2);
@@ -335,21 +395,35 @@ describe('DcxNgFullTableComponent', () => {
     });
 
     it('onCellDblClick() should not set editing for header with template', () => {
-      const templateHeader: DcxHeaderData = { key: 'name', name: 'Name', editable: true, template: 'custom' };
+      const templateHeader: DcxHeaderData = {
+        key: 'name',
+        name: 'Name',
+        editable: true,
+        template: 'custom',
+      };
       setInputs({ headers: [templateHeader], rows: ROWS });
       component.onCellDblClick(0, 'name', templateHeader);
       expect(component.isEditing(0, 'name')).toBe(false);
     });
 
     it('onCellDblClick() should not set editing for header with renderFn', () => {
-      const renderHeader: DcxHeaderData = { key: 'name', name: 'Name', editable: true, renderFn: (v) => String(v) };
+      const renderHeader: DcxHeaderData = {
+        key: 'name',
+        name: 'Name',
+        editable: true,
+        renderFn: v => String(v),
+      };
       setInputs({ headers: [renderHeader], rows: ROWS });
       component.onCellDblClick(0, 'name', renderHeader);
       expect(component.isEditing(0, 'name')).toBe(false);
     });
 
     it('onCellEditCancel() should clear editing cell', () => {
-      const editableHeader: DcxHeaderData = { key: 'name', name: 'Name', editable: true };
+      const editableHeader: DcxHeaderData = {
+        key: 'name',
+        name: 'Name',
+        editable: true,
+      };
       setInputs({ headers: [editableHeader], rows: ROWS });
       component.onCellDblClick(0, 'name', editableHeader);
       component.onCellEditCancel();
@@ -357,18 +431,30 @@ describe('DcxNgFullTableComponent', () => {
     });
 
     it('onCellEditComplete() should emit cellEdit when value changes', () => {
-      const editableHeader: DcxHeaderData = { key: 'name', name: 'Name', editable: true };
+      const editableHeader: DcxHeaderData = {
+        key: 'name',
+        name: 'Name',
+        editable: true,
+      };
       setInputs({ headers: [editableHeader], rows: ROWS });
       const cellEditSpy = jest.fn();
       component.cellEdit.subscribe(cellEditSpy);
       component.onCellEditComplete(ROWS[0], 'name', 'NewName', 0);
       expect(cellEditSpy).toHaveBeenCalledWith({
-        row: ROWS[0], key: 'name', oldValue: 'Alice', newValue: 'NewName', rowIndex: 0,
+        row: ROWS[0],
+        key: 'name',
+        oldValue: 'Alice',
+        newValue: 'NewName',
+        rowIndex: 0,
       });
     });
 
     it('onCellEditComplete() should not emit if value unchanged', () => {
-      const editableHeader: DcxHeaderData = { key: 'name', name: 'Name', editable: true };
+      const editableHeader: DcxHeaderData = {
+        key: 'name',
+        name: 'Name',
+        editable: true,
+      };
       setInputs({ headers: [editableHeader], rows: ROWS });
       const cellEditSpy = jest.fn();
       component.cellEdit.subscribe(cellEditSpy);
@@ -385,7 +471,7 @@ describe('DcxNgFullTableComponent', () => {
       component.cellEdit.subscribe(cellEditSpy);
       component.onCellEditComplete(ROWS[0], 'age', '99', 0);
       expect(cellEditSpy).toHaveBeenCalledWith(
-        expect.objectContaining({ newValue: 99 })
+        expect.objectContaining({ newValue: 99 }),
       );
     });
 
@@ -397,7 +483,6 @@ describe('DcxNgFullTableComponent', () => {
       const cellEditSpy = jest.fn();
       component.cellEdit.subscribe(cellEditSpy);
       component.onCellEditComplete(ROWS[0], 'age', 'abc', 0);
-      // NaN reverts to old value, so no change emitted
       expect(cellEditSpy).not.toHaveBeenCalled();
     });
   });
@@ -437,7 +522,11 @@ describe('DcxNgFullTableComponent', () => {
       const rowActionSpy = jest.fn();
       component.rowAction.subscribe(rowActionSpy);
       component.onActionClick('delete', ROWS[0], 0);
-      expect(rowActionSpy).toHaveBeenCalledWith({ actionId: 'delete', row: ROWS[0], rowIndex: 0 });
+      expect(rowActionSpy).toHaveBeenCalledWith({
+        actionId: 'delete',
+        row: ROWS[0],
+        rowIndex: 0,
+      });
     });
 
     it('getMenuIcon() should return default icon when no icon provided', () => {
@@ -457,8 +546,8 @@ describe('DcxNgFullTableComponent', () => {
       const action: { disabled?: (row: DcxTableRow) => boolean } = {
         disabled: (row: DcxTableRow) => (row['age'] as number) > 28,
       };
-      expect(component.isActionDisabled(action, ROWS[0])).toBe(true); // Alice age 30 > 28
-      expect(component.isActionDisabled(action, ROWS[1])).toBe(false); // Bob age 25
+      expect(component.isActionDisabled(action, ROWS[0])).toBe(true);
+      expect(component.isActionDisabled(action, ROWS[1])).toBe(false);
     });
   });
 
@@ -472,13 +561,21 @@ describe('DcxNgFullTableComponent', () => {
     });
 
     it('getCellTemplate() should return date template for date cellType', () => {
-      const dateHeader: DcxHeaderData = { key: 'date', name: 'Date', cellType: 'date' };
+      const dateHeader: DcxHeaderData = {
+        key: 'date',
+        name: 'Date',
+        cellType: 'date',
+      };
       setInputs({ headers: [dateHeader], rows: [] });
       expect(component.getCellTemplate(dateHeader)).toBeTruthy();
     });
 
     it('getCellTemplate() should return actions template for actions cellType', () => {
-      const actionsHeader: DcxHeaderData = { key: 'actions', name: 'Actions', cellType: 'actions' };
+      const actionsHeader: DcxHeaderData = {
+        key: 'actions',
+        name: 'Actions',
+        cellType: 'actions',
+      };
       setInputs({ headers: [actionsHeader], rows: [] });
       expect(component.getCellTemplate(actionsHeader)).toBeTruthy();
     });
@@ -504,8 +601,10 @@ describe('DcxNgFullTableComponent', () => {
 
     it('should compute frozenMeta with separators', () => {
       setInputs({
-        headers: frozenHeaders, rows: ROWS,
-        frozenLeftSeparator: true, frozenRightSeparator: true,
+        headers: frozenHeaders,
+        rows: ROWS,
+        frozenLeftSeparator: true,
+        frozenRightSeparator: true,
       });
       const meta = component.frozenMeta();
       expect(meta[0].separatorLeft).toBe(true);
@@ -534,9 +633,9 @@ describe('DcxNgFullTableComponent', () => {
       ];
       setInputs({ headers: mixedHeaders, rows: ROWS });
       const display = component.displayHeaders();
-      expect(display[0].key).toBe('name'); // frozen left first
-      expect(display[1].key).toBe('city'); // middle
-      expect(display[2].key).toBe('action'); // frozen right last
+      expect(display[0].key).toBe('name');
+      expect(display[1].key).toBe('city');
+      expect(display[2].key).toBe('action');
     });
   });
 
@@ -559,7 +658,9 @@ describe('DcxNgFullTableComponent', () => {
   describe('toggleActionsMenu with real wrapper element', () => {
     it('should add has-open-menu class to wrapper when opening menu', () => {
       const wrapper = fixture.debugElement.query(By.css('.table-wrapper'));
-      const btn = wrapper ? wrapper.nativeElement : fixture.debugElement.nativeElement;
+      const btn = wrapper
+        ? wrapper.nativeElement
+        : fixture.debugElement.nativeElement;
       const event = new MouseEvent('click', { bubbles: true });
       Object.defineProperty(event, 'target', { value: btn, writable: false });
       component.toggleActionsMenu(0, event);
@@ -568,36 +669,45 @@ describe('DcxNgFullTableComponent', () => {
 
     it('should remove has-open-menu class from wrapper when closing menu', () => {
       const wrapper = fixture.debugElement.query(By.css('.table-wrapper'));
-      const btn = wrapper ? wrapper.nativeElement : fixture.debugElement.nativeElement;
+      const btn = wrapper
+        ? wrapper.nativeElement
+        : fixture.debugElement.nativeElement;
       const event = new MouseEvent('click', { bubbles: true });
       Object.defineProperty(event, 'target', { value: btn, writable: false });
       component.toggleActionsMenu(0, event);
-      component.toggleActionsMenu(0, event); // toggle off
+      component.toggleActionsMenu(0, event);
       expect(component.isMenuOpen(0)).toBe(false);
     });
   });
 
   describe('getHeaderTemplate with headerTemplate input', () => {
     it('should return default header template when headerTemplate key not in cache', () => {
-      const headerWithTemplate: DcxHeaderData = { key: 'name', name: 'Name', headerTemplate: 'nonexistent' };
+      const headerWithTemplate: DcxHeaderData = {
+        key: 'name',
+        name: 'Name',
+        headerTemplate: 'nonexistent',
+      };
       const result = component.getHeaderTemplate(headerWithTemplate);
-      expect(result).toBeTruthy(); // falls back to defaultHeaderTpl
+      expect(result).toBeTruthy();
     });
   });
 
   describe('getCellTemplate with template input', () => {
     it('should return default cell template when template key not in cache', () => {
-      const headerWithTemplate: DcxHeaderData = { key: 'name', name: 'Name', template: 'nonexistent' };
+      const headerWithTemplate: DcxHeaderData = {
+        key: 'name',
+        name: 'Name',
+        template: 'nonexistent',
+      };
       const result = component.getCellTemplate(headerWithTemplate);
-      expect(result).toBeTruthy(); // falls through to switch default
+      expect(result).toBeTruthy();
     });
   });
 
   describe('getEmptyTemplate', () => {
     it('should return custom empty template when empty key is in cache', () => {
-      // default case - no custom template registered
       const result = component.getEmptyTemplate();
-      expect(result).toBeTruthy(); // returns defaultEmptyTpl
+      expect(result).toBeTruthy();
     });
   });
 
@@ -610,7 +720,6 @@ describe('DcxNgFullTableComponent', () => {
       setInputs({ headers: headersWithNoName, rows: ROWS });
       component.onHeaderClick(headersWithNoName[0]);
       fixture.detectChanges();
-      // header.name is undefined → sortLabel returns key
       expect(component.sortLabel()).toBe('id');
     });
   });
@@ -618,7 +727,6 @@ describe('DcxNgFullTableComponent', () => {
   describe('normalizedRowsPerPage with empty options', () => {
     it('should fallback to 10 when rowsPerPageOptions is empty', () => {
       setInputs({ rowsPerPage: 5, rowsPerPageOptions: [] });
-      // With empty options, normalizedRowsPerPage falls back to options[0] ?? 10 = 10
       expect(component.pageSize()).toBe(10);
     });
   });
@@ -656,13 +764,13 @@ describe('TableComparatorService', () => {
   });
 
   it('should handle NaN numbers', () => {
-    expect(service.compare('abc', 5, 'number')).toBeGreaterThan(0); // NaN sorts last
+    expect(service.compare('abc', 5, 'number')).toBeGreaterThan(0);
     expect(service.compare(5, 'abc', 'number')).toBeLessThan(0);
-    expect(service.compare('abc', 'xyz', 'number')).toBe(0); // both NaN
+    expect(service.compare('abc', 'xyz', 'number')).toBe(0);
   });
 
   it('should compare strings numerically', () => {
-    expect(service.compare('10', '2', 'string')).toBeGreaterThan(0); // numeric: 10 > 2
+    expect(service.compare('10', '2', 'string')).toBeGreaterThan(0);
   });
 });
 
@@ -742,36 +850,64 @@ describe('TableDataPipelineService', () => {
     };
 
     it('should return original order when no sort key', () => {
-      const result = service.sort(rows, { key: null, dir: null }, headers, compareFn);
+      const result = service.sort(
+        rows,
+        { key: null, dir: null },
+        headers,
+        compareFn,
+      );
       expect(result).toEqual(rows);
     });
 
     it('should sort ascending by name', () => {
-      const result = service.sort(rows, { key: 'name', dir: 'asc' }, headers, compareFn);
+      const result = service.sort(
+        rows,
+        { key: 'name', dir: 'asc' },
+        headers,
+        compareFn,
+      );
       expect(result[0]['name'] as string).toBe('Alice');
       expect(result[2]['name'] as string).toBe('Charlie');
     });
 
     it('should sort descending by name', () => {
-      const result = service.sort(rows, { key: 'name', dir: 'desc' }, headers, compareFn);
+      const result = service.sort(
+        rows,
+        { key: 'name', dir: 'desc' },
+        headers,
+        compareFn,
+      );
       expect(result[0]['name'] as string).toBe('Charlie');
     });
 
     it('should sort by number type', () => {
-      const result = service.sort(rows, { key: 'age', dir: 'asc' }, headers, compareFn);
+      const result = service.sort(
+        rows,
+        { key: 'age', dir: 'asc' },
+        headers,
+        compareFn,
+      );
       expect(result[0]['age'] as number).toBe(25);
       expect(result[2]['age'] as number).toBe(35);
     });
 
     it('should infer type when header has no type', () => {
       const headersNoType: DcxHeaderData[] = [{ key: 'age', name: 'Age' }];
-      const result = service.sort(rows, { key: 'age', dir: 'asc' }, headersNoType, compareFn);
+      const result = service.sort(
+        rows,
+        { key: 'age', dir: 'asc' },
+        headersNoType,
+        compareFn,
+      );
       expect(result[0]['age'] as number).toBe(25);
     });
   });
 
   describe('paginate()', () => {
-    const rows: DcxTableRow[] = Array.from({ length: 10 }, (_, i) => ({ id: i, name: `Row ${i}` }));
+    const rows: DcxTableRow[] = Array.from({ length: 10 }, (_, i) => ({
+      id: i,
+      name: `Row ${i}`,
+    }));
 
     it('should return first page', () => {
       const result = service.paginate(rows, 0, 5);
@@ -848,12 +984,15 @@ describe('TableState', () => {
 
   it('toggleSort() on non-sortable header should return current sort', () => {
     const state = createState();
-    const sort = state.toggleSort(HEADERS[2]); // city is not sortable
+    const sort = state.toggleSort(HEADERS[2]);
     expect(sort).toEqual({ key: null, dir: null });
   });
 
   it('setFilter() should filter rows and reset page', () => {
-    const state = createState({ paginator: signal(true), rowsPerPage: signal(2) });
+    const state = createState({
+      paginator: signal(true),
+      rowsPerPage: signal(2),
+    });
     state.goToPage(1);
     expect(state.pageIndex()).toBe(1);
     state.setFilter('name', 'Alice');
@@ -899,7 +1038,10 @@ describe('TableState', () => {
   });
 
   it('should paginate when paginator is true', () => {
-    const state = createState({ paginator: signal(true), rowsPerPage: signal(2) });
+    const state = createState({
+      paginator: signal(true),
+      rowsPerPage: signal(2),
+    });
     expect(state.paginatedRows().length).toBe(2);
   });
 

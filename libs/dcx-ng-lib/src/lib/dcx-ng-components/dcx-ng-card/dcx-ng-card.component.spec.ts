@@ -18,7 +18,7 @@ describe('DcxNgCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgCardComponent]
+      imports: [DcxNgCardComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DcxNgCardComponent);
@@ -164,25 +164,33 @@ describe('DcxNgCardComponent', () => {
     it('should use shadow-1 for preset 1', () => {
       fixture.componentRef.setInput('shadow', 1);
       fixture.detectChanges();
-      expect(component.innerStyleVars()['--card-shadow']).toBe('var(--shadow-1)');
+      expect(component.innerStyleVars()['--card-shadow']).toBe(
+        'var(--shadow-1)',
+      );
     });
 
     it('should use shadow-2 for preset 2', () => {
       fixture.componentRef.setInput('shadow', 2);
       fixture.detectChanges();
-      expect(component.innerStyleVars()['--card-shadow']).toBe('var(--shadow-2)');
+      expect(component.innerStyleVars()['--card-shadow']).toBe(
+        'var(--shadow-2)',
+      );
     });
 
     it('should use shadow-3 for preset 3', () => {
       fixture.componentRef.setInput('shadow', 3);
       fixture.detectChanges();
-      expect(component.innerStyleVars()['--card-shadow']).toBe('var(--shadow-3)');
+      expect(component.innerStyleVars()['--card-shadow']).toBe(
+        'var(--shadow-3)',
+      );
     });
 
     it('should use shadow-0 for default (0)', () => {
       fixture.componentRef.setInput('shadow', 0);
       fixture.detectChanges();
-      expect(component.innerStyleVars()['--card-shadow']).toBe('var(--shadow-0)');
+      expect(component.innerStyleVars()['--card-shadow']).toBe(
+        'var(--shadow-0)',
+      );
     });
   });
 

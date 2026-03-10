@@ -8,7 +8,7 @@ describe('DcxNgRadioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgRadioComponent]
+      imports: [DcxNgRadioComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DcxNgRadioComponent);
@@ -58,14 +58,13 @@ describe('DcxNgRadioComponent', () => {
   it('should disable via setDisabledState', () => {
     component.setDisabledState(true);
     fixture.detectChanges();
-    expect(component.disabled()).toBe(false); // disabled input stays false, form control is disabled
+    expect(component.disabled()).toBe(false);
     expect(component.formControl.disabled).toBe(true);
   });
 
   it('should call registerOnChange correctly', () => {
     const fn = jest.fn();
     component.registerOnChange(fn);
-    // onChange is private, test the effect instead
     component.writeValue('x');
     component.formControl.setValue('test');
     expect(fn).toHaveBeenCalledWith('test');
@@ -74,7 +73,6 @@ describe('DcxNgRadioComponent', () => {
   it('should call registerOnTouched correctly', () => {
     const fn = jest.fn();
     component.registerOnTouched(fn);
-    // onTouched is private, just verify it doesn't throw
     expect(component).toBeTruthy();
   });
 

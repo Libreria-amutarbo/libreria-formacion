@@ -21,7 +21,7 @@ export const DcxBreadCrumbDisabled: DcxBreadcrumbItem[] = [
 export const DcxBreadCrumbCurrentPage: DcxBreadcrumbItem[] = [
   { label: 'Inicio', href: '/', disabled: false },
   { label: 'Catálogo', href: '/catalogo', disabled: false },
-  { label: 'Portátiles', disabled: false }, // último sin href
+  { label: 'Portátiles', disabled: false },
 ];
 
 export const DcxBreadCrumbSlashIcon: DcxBreadCrumbSeparatorIcons = 'slash-lg';

@@ -160,7 +160,7 @@ describe('DcxNgAccordionComponent - Extended', () => {
     it('should emit itemToggled event', () => {
       const item = mockItems[0];
       let emittedItem: DcxNgAccordionItem | undefined;
-      component.itemToggled.subscribe((emitted) => {
+      component.itemToggled.subscribe(emitted => {
         emittedItem = emitted;
       });
       component.toggleItem(item);
@@ -170,7 +170,7 @@ describe('DcxNgAccordionComponent - Extended', () => {
     it('should emit itemExpanded event when expanding', () => {
       const item = mockItems[0];
       let emittedItem: DcxNgAccordionItem | undefined;
-      component.itemExpanded.subscribe((emitted) => {
+      component.itemExpanded.subscribe(emitted => {
         emittedItem = emitted;
       });
       component.toggleItem(item);
@@ -182,7 +182,7 @@ describe('DcxNgAccordionComponent - Extended', () => {
       let emittedItem: DcxNgAccordionItem | undefined;
       component.toggleItem(item);
 
-      component.itemCollapsed.subscribe((emitted) => {
+      component.itemCollapsed.subscribe(emitted => {
         emittedItem = emitted;
       });
       component.toggleItem(item);
@@ -301,7 +301,9 @@ describe('DcxNgAccordionComponent - Extended', () => {
   describe('Accessibility', () => {
     it('should set aria-expanded attribute correctly', () => {
       const compiled = fixture.nativeElement as HTMLElement;
-      const headerElement = compiled.querySelector('.accordion-header') as HTMLElement;
+      const headerElement = compiled.querySelector(
+        '.accordion-header',
+      ) as HTMLElement;
 
       expect(headerElement.getAttribute('aria-expanded')).toBe('false');
 

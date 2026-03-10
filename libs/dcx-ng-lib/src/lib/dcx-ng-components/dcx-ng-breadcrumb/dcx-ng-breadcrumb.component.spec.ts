@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DcxNgBreadcrumbComponent } from './dcx-ng-breadcrumb.component';
 import {
-  DcxNgBreadcrumbComponent,
-} from './dcx-ng-breadcrumb.component';
-import { DcxBreadCrumbItemDefault, DcxBreadChevronSlashIcon } from '../../core/mock/breadcrumb';
+  DcxBreadCrumbItemDefault,
+  DcxBreadChevronSlashIcon,
+} from '../../core/mock/breadcrumb';
 import { DcxBreadcrumbItem } from '../../core/interfaces';
 
 describe('DcxNgBreadcrumbComponent', () => {

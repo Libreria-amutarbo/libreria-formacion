@@ -38,7 +38,9 @@ describe('DcxNgSelectComponent', () => {
   it('should display options when panel is open', () => {
     component.toggle();
     fixture.detectChanges();
-    const options = fixture.debugElement.queryAll(By.css('.dcx-ng-select__option'));
+    const options = fixture.debugElement.queryAll(
+      By.css('.dcx-ng-select__option'),
+    );
     expect(options.length).toBe(OPTIONS.length);
     expect(options[0].nativeElement.textContent.trim()).toBe(OPTIONS[0].label);
     expect(options[1].nativeElement.textContent.trim()).toBe(OPTIONS[1].label);
@@ -60,7 +62,6 @@ describe('DcxNgSelectComponent', () => {
   it('should call onTouched via registerOnTouched', () => {
     const fn = jest.fn();
     component.registerOnTouched(fn);
-    // onTouched is stored, verify no error
     expect(component).toBeTruthy();
   });
 
@@ -225,7 +226,6 @@ describe('DcxNgSelectComponent', () => {
       component.isOpen.set(false);
       const ev = new KeyboardEvent('keydown', { key: 'ArrowDown' });
       component.onKey(ev);
-      // Value should not change
       expect(component.value()).toBe(OPTIONS[0].value);
     });
   });

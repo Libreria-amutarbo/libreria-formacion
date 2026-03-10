@@ -8,7 +8,6 @@ describe('DcxNgPageTabsComponent', () => {
   let fixture: ComponentFixture<DcxNgPageTabsComponent>;
 
   beforeEach(async () => {
-    // Mock scrollIntoView which is not available in JSDOM
     Element.prototype.scrollIntoView = jest.fn();
 
     await TestBed.configureTestingModule({

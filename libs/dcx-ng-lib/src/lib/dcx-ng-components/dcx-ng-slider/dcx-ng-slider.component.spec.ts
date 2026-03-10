@@ -1,11 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
-import {
-  ReactiveFormsModule,
-  FormGroup,
-  FormControl,
-} from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { DcxNgSliderComponent } from './dcx-ng-slider.component';
 import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 import { SLIDER_DEFAULT_VALUES } from '../../core/mock';
@@ -109,7 +105,7 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('textLabel', 'Volume');
       fixture.detectChanges();
       const label = fixture.debugElement.query(
-        By.css('.dcx-slider-value-label')
+        By.css('.dcx-slider-value-label'),
       );
       expect(label).toBeTruthy();
       expect(label.nativeElement.textContent).toContain('Volume');
@@ -119,7 +115,7 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('showLabel', false);
       fixture.detectChanges();
       const label = fixture.debugElement.query(
-        By.css('.dcx-slider-value-label')
+        By.css('.dcx-slider-value-label'),
       );
       expect(label).toBeNull();
     });
@@ -130,21 +126,21 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('value', 30);
       fixture.detectChanges();
       const label = fixture.debugElement.query(
-        By.css('.dcx-slider-value-label')
+        By.css('.dcx-slider-value-label'),
       );
       expect(label.nativeElement.textContent).toContain('30');
     });
 
     it('should render dcx-ng-input child component', () => {
       const inputEl = fixture.debugElement.query(
-        By.directive(DcxNgInputComponent)
+        By.directive(DcxNgInputComponent),
       );
       expect(inputEl).toBeTruthy();
     });
 
     it('should render a range input element inside dcx-ng-input', () => {
       const rangeInput = fixture.debugElement.query(
-        By.css('input[type=range]')
+        By.css('input[type=range]'),
       );
       expect(rangeInput).toBeTruthy();
     });
@@ -154,7 +150,7 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('max', 80);
       fixture.detectChanges();
       const rangeInput = fixture.debugElement.query(
-        By.css('input[type=range]')
+        By.css('input[type=range]'),
       );
       expect(rangeInput.nativeElement.min).toBe('5');
       expect(rangeInput.nativeElement.max).toBe('80');
@@ -164,7 +160,7 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('value', 20);
       fixture.detectChanges();
       const rangeInput = fixture.debugElement.query(
-        By.css('input[type=range]')
+        By.css('input[type=range]'),
       );
       expect(rangeInput.nativeElement.value).toBe('20');
     });
@@ -173,17 +169,18 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('vertical', true);
       fixture.detectChanges();
       const dcxInput = fixture.debugElement.query(
-        By.directive(DcxNgInputComponent)
+        By.directive(DcxNgInputComponent),
       );
-      expect(dcxInput.styles['width.px'] || dcxInput.nativeElement.style.width)
-        .toBeTruthy();
+      expect(
+        dcxInput.styles['width.px'] || dcxInput.nativeElement.style.width,
+      ).toBeTruthy();
     });
 
     it('should pass orientation horizontal when vertical is false', () => {
       fixture.componentRef.setInput('vertical', false);
       fixture.detectChanges();
       const dcxInput = fixture.debugElement.query(
-        By.directive(DcxNgInputComponent)
+        By.directive(DcxNgInputComponent),
       );
       const inputComponent = dcxInput.componentInstance as DcxNgInputComponent;
       expect(inputComponent.orientation()).toBe('horizontal');
@@ -193,7 +190,7 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('vertical', true);
       fixture.detectChanges();
       const dcxInput = fixture.debugElement.query(
-        By.directive(DcxNgInputComponent)
+        By.directive(DcxNgInputComponent),
       );
       const inputComponent = dcxInput.componentInstance as DcxNgInputComponent;
       expect(inputComponent.orientation()).toBe('vertical');
@@ -314,7 +311,7 @@ describe('DcxNgSliderComponent', () => {
       component.valueChange.subscribe(spy);
 
       const rangeInput = fixture.debugElement.query(
-        By.css('input[type=range]')
+        By.css('input[type=range]'),
       );
       rangeInput.nativeElement.value = '30';
       rangeInput.nativeElement.dispatchEvent(new Event('input'));
@@ -330,19 +327,18 @@ describe('DcxNgSliderComponent', () => {
       fixture.detectChanges();
 
       const rangeInput = fixture.debugElement.query(
-        By.css('input[type=range]')
+        By.css('input[type=range]'),
       );
       rangeInput.nativeElement.value = '40';
       rangeInput.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
 
       const label = fixture.debugElement.query(
-        By.css('.dcx-slider-value-label')
+        By.css('.dcx-slider-value-label'),
       );
       expect(label.nativeElement.textContent).toContain('40');
     });
   });
-
 });
 
 @Component({
@@ -379,20 +375,16 @@ describe('DcxNgSliderComponent - CVA integration', () => {
   });
 
   it('should reflect value input default when form control value is set without value binding', () => {
-    // When using formControlName without [value] binding, the value input
-    // signal stays at default (0). The effect syncs valueInput from value().
     const sliderEl = hostFixture.debugElement.query(
-      By.directive(DcxNgSliderComponent)
+      By.directive(DcxNgSliderComponent),
     );
     const sliderComp = sliderEl.componentInstance as DcxNgSliderComponent;
-    // writeValue was called with 20 by the form, but the effect that reads
-    // the value() input (default 0) overrides it
     expect(sliderComp.valueInput()).toBe(0);
   });
 
   it('should update form control when slider value changes', () => {
     const rangeInput = hostFixture.debugElement.query(
-      By.css('input[type=range]')
+      By.css('input[type=range]'),
     );
     rangeInput.nativeElement.value = '35';
     rangeInput.nativeElement.dispatchEvent(new Event('input'));
@@ -405,7 +397,7 @@ describe('DcxNgSliderComponent - CVA integration', () => {
     hostComponent.form.patchValue({ slider: 45 });
     hostFixture.detectChanges();
     const sliderEl = hostFixture.debugElement.query(
-      By.directive(DcxNgSliderComponent)
+      By.directive(DcxNgSliderComponent),
     );
     const sliderComp = sliderEl.componentInstance as DcxNgSliderComponent;
     expect(sliderComp.valueInput()).toBe(45);

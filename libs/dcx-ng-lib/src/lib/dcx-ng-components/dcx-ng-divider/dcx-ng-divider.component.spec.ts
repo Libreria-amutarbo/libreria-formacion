@@ -32,8 +32,12 @@ describe('DcxNgDividerComponent', () => {
     fixture.detectChanges();
 
     const hostElement = fixture.nativeElement as HTMLElement;
-    expect(hostElement.style.getPropertyValue('--dcx-divider-thickness')).toBe('0.5rem');
-    expect(hostElement.style.getPropertyValue('--dcx-divider-color')).toBe('#0056b3');
+    expect(hostElement.style.getPropertyValue('--dcx-divider-thickness')).toBe(
+      '0.5rem',
+    );
+    expect(hostElement.style.getPropertyValue('--dcx-divider-color')).toBe(
+      '#0056b3',
+    );
   });
 
   it('should apply correct vertical class', () => {
@@ -48,7 +52,9 @@ describe('DcxNgDividerComponent', () => {
     fixture.componentRef.setInput('thickness', 0.25);
     fixture.detectChanges();
     const hostElement = fixture.nativeElement as HTMLElement;
-    expect(hostElement.style.getPropertyValue('--dcx-divider-thickness')).toBe('0.25rem');
+    expect(hostElement.style.getPropertyValue('--dcx-divider-thickness')).toBe(
+      '0.25rem',
+    );
   });
 
   it('should compute dividerClasses correctly', () => {
@@ -77,7 +83,6 @@ describe('DcxNgDividerComponent', () => {
     fixture.detectChanges();
     const classes = component.dividerClasses();
     expect(classes).toContain('dcx-ng-divider');
-    // Empty orientation should produce the base label without orientation suffix
     expect(classes).not.toContain('dcx-ng-divider--horizontal');
     expect(classes).not.toContain('dcx-ng-divider--vertical');
   });

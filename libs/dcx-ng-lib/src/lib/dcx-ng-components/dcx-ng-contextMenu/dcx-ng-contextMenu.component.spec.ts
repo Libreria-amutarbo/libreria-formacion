@@ -3,7 +3,10 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DcxNgContextMenuComponent } from './dcx-ng-contextMenu.component';
 import { DcxContextMenuItem } from '../../core/interfaces';
-import { SIMPLE_CONTEXT_MENU_ITEMS, CONTEXT_MENU_TEST_ITEMS } from '../../core/mock';
+import {
+  SIMPLE_CONTEXT_MENU_ITEMS,
+  CONTEXT_MENU_TEST_ITEMS,
+} from '../../core/mock';
 
 describe('DcxNgContextMenuComponent', () => {
   let component: DcxNgContextMenuComponent;
@@ -13,7 +16,10 @@ describe('DcxNgContextMenuComponent', () => {
   let testItems: DcxContextMenuItem[];
 
   beforeEach(async () => {
-    testItems = CONTEXT_MENU_TEST_ITEMS.map(item => ({ ...item, action: jest.fn() }));
+    testItems = CONTEXT_MENU_TEST_ITEMS.map(item => ({
+      ...item,
+      action: jest.fn(),
+    }));
 
     await TestBed.configureTestingModule({
       imports: [DcxNgContextMenuComponent],
@@ -131,7 +137,11 @@ describe('DcxNgContextMenuComponent', () => {
 
     it('should not execute action on disabled item', () => {
       const mockAction = jest.fn();
-      const item: DcxContextMenuItem = { text: 'Test', action: mockAction, disabled: true };
+      const item: DcxContextMenuItem = {
+        text: 'Test',
+        action: mockAction,
+        disabled: true,
+      };
       component.onItemClick(item);
       expect(mockAction).not.toHaveBeenCalled();
     });

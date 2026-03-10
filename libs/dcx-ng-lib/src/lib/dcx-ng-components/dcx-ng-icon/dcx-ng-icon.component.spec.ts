@@ -70,7 +70,12 @@ describe('DcxNgIconComponent', () => {
     fixture.componentRef.setInput('extraClass', '');
     fixture.detectChanges();
     const classes = component.iconClass();
-    expect(classes.trim().split(/\s+/).filter(c => c === '')).toHaveLength(0);
+    expect(
+      classes
+        .trim()
+        .split(/\s+/)
+        .filter(c => c === ''),
+    ).toHaveLength(0);
   });
 
   it('should set color style on host via color input', () => {

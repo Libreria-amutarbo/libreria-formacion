@@ -1,4 +1,4 @@
-import { DcxListItem } from "@dcx-ng-components/dcx-ng-lib";
+import { DcxListItem } from '@dcx-ng-components/dcx-ng-lib';
 
 export const LIST_ABC_ITEMS: DcxListItem[] = [
   { text: 'A' },
@@ -26,14 +26,9 @@ export const LIST_DISABLED_ONLY: DcxListItem[] = [
   { text: 'Disabled', disabled: true },
 ];
 
-export const LIST_DIVIDER_ONLY: DcxListItem[] = [
-  { divider: true },
-];
+export const LIST_DIVIDER_ONLY: DcxListItem[] = [{ divider: true }];
 
-export const LIST_AB_ITEMS: DcxListItem[] = [
-  { text: 'A' },
-  { text: 'B' },
-];
+export const LIST_AB_ITEMS: DcxListItem[] = [{ text: 'A' }, { text: 'B' }];
 
 export const LIST_PARENT_WITH_CHILDREN: DcxListItem[] = [
   { text: 'Parent', children: [{ text: 'Child' }] },
@@ -57,19 +52,12 @@ export const LIST_ITEMS_WITH_SUBLISTS = [
   {
     text: 'Frutas',
     icon: 'basket',
-    children: [
-      { text: 'Manzana' },
-      { text: 'Naranja' },
-      { text: 'Plátano' },
-    ]
+    children: [{ text: 'Manzana' }, { text: 'Naranja' }, { text: 'Plátano' }],
   },
   {
     text: 'Verduras',
     icon: 'basket2',
-    children: [
-      { text: 'Zanahoria' },
-      { text: 'Lechuga' },
-    ]
+    children: [{ text: 'Zanahoria' }, { text: 'Lechuga' }],
   },
   {
     text: 'Lácteos',

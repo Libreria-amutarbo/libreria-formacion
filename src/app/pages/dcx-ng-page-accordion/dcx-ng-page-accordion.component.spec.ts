@@ -32,7 +32,7 @@ describe('DcxNgPageAccordionComponent', () => {
   });
 
   it('should have correct titles in defaultItems', () => {
-    const titles = component.defaultItems.map((item) => item.title);
+    const titles = component.defaultItems.map(item => item.title);
     expect(titles).toContain('Item 1');
     expect(titles).toContain('Item 2');
   });

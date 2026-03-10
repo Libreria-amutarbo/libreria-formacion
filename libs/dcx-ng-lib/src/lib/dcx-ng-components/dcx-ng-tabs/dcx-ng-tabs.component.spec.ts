@@ -7,7 +7,6 @@ describe('DcxNgTabsComponent', () => {
   let fixture: ComponentFixture<DcxNgTabsComponent>;
 
   beforeEach(async () => {
-    // Mock scrollIntoView which is not available in JSDOM
     Element.prototype.scrollIntoView = jest.fn();
 
     await TestBed.configureTestingModule({
@@ -25,15 +24,13 @@ describe('DcxNgTabsComponent', () => {
   });
 
   it('should render all tabs', () => {
-    const buttons = fixture.nativeElement.querySelectorAll('dcx-ng-button.dcx-tab__button');
+    const buttons = fixture.nativeElement.querySelectorAll(
+      'dcx-ng-button.dcx-tab__button',
+    );
     expect(buttons.length).toBe(3);
   });
 
   it('should select first tab by default', () => {
-    // The effect initializes _activeTabId from activeTabId or first tab
-    // Since no activeTabId is provided, the first selectTab or effect picks first tab
-    // Actually the tabs component relies on user to select initially
-    // Let's select tab1 explicitly
     component.selectTab('tab1');
     fixture.detectChanges();
     expect(component.isActive('tab1')).toBe(true);
@@ -61,7 +58,6 @@ describe('DcxNgTabsComponent', () => {
     fixture.detectChanges();
     expect(component.isActive('tab1')).toBe(true);
 
-    // tab2 is disabled in DcxTabItemWithDisabled
     component.selectTab('tab2');
     fixture.detectChanges();
     expect(component.isActive('tab1')).toBe(true);
@@ -153,9 +149,7 @@ describe('DcxNgTabsComponent', () => {
   describe('scroll methods', () => {
     it('should call updateScrollButtons', () => {
       fixture.detectChanges();
-      // updateScrollButtons uses tabsHeader ViewChild
       component.updateScrollButtons();
-      // Should not throw even if tabsHeader scroll values are 0
       expect(component.canScrollLeft()).toBe(false);
       expect(component.canScrollRight()).toBe(false);
     });
@@ -165,7 +159,9 @@ describe('DcxNgTabsComponent', () => {
       if (component['tabsHeader']) {
         component['tabsHeader'].nativeElement.scrollBy = jest.fn();
         component.scrollLeft();
-        expect(component['tabsHeader'].nativeElement.scrollBy).toHaveBeenCalledWith({
+        expect(
+          component['tabsHeader'].nativeElement.scrollBy,
+        ).toHaveBeenCalledWith({
           left: -150,
           behavior: 'smooth',
         });
@@ -177,7 +173,9 @@ describe('DcxNgTabsComponent', () => {
       if (component['tabsHeader']) {
         component['tabsHeader'].nativeElement.scrollBy = jest.fn();
         component.scrollRight();
-        expect(component['tabsHeader'].nativeElement.scrollBy).toHaveBeenCalledWith({
+        expect(
+          component['tabsHeader'].nativeElement.scrollBy,
+        ).toHaveBeenCalledWith({
           left: 150,
           behavior: 'smooth',
         });
@@ -187,7 +185,6 @@ describe('DcxNgTabsComponent', () => {
     it('should call scrollIntoView for a given tabId', () => {
       component.selectTab('tab1');
       fixture.detectChanges();
-      // scrollIntoView on element was mocked globally
       component['scrollIntoView']('tab1');
       expect(Element.prototype.scrollIntoView).toHaveBeenCalled();
     });
