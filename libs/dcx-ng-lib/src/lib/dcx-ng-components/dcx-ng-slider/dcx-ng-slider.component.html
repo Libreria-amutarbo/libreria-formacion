@@ -1,10 +1,17 @@
-<div class="dcx-slider-wrapper" [class.vertical]="vertical">
-  <input
-    type="range"
-    class="dcx-slider-bar"
-    [value]="value"
-    [step]="step"
-    (input)="onInput($event)"
-    [attr.orient]="orientAttribute"
-  />
-</div>
+@if (showLabel()) {
+  <span class="dcx-slider-value-label">
+    {{textLabel()}} {{ valueInput() }}
+  </span>
+}
+
+<dcx-ng-input
+  class="dcx-slider-input"
+  [type]="inputType.RANGE"
+  [value]="valueInput()"
+  [min]="min()"
+  [max]="max()"
+  [step]="1"
+  [style.width.px]="vertical() ? '100' : '100%'"
+  [orientation]="vertical() ? 'vertical' : 'horizontal'"
+  (valueChange)="onInput($event)"
+/>

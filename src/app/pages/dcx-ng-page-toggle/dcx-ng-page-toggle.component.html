@@ -1,43 +1,118 @@
-<h1>Toggle Demo</h1>
+<h1 class="demo-title">Ejemplos de Toggle</h1>
 
-<h2>Text Bottom</h2>
-<dcx-ng-toggle
-  [checked]="isDarkMode"
-  label="Dark mode"
-  size="m"
-  color="#0056b3"
-  (toggled)="handleToggle($event)"
-  [textPosition]="DcxPosition.BOTTOM"
-></dcx-ng-toggle>
+<section>
+  <h2 class="example-title">Ejemplo 1 - Toggle básico</h2>
+  <dcx-ng-toggle
+    [checked]="isDarkMode"
+    label="Dark mode"
+    size="m"
+    (toggled)="handleToggle($event)"
+    textPosition="right"
+  ></dcx-ng-toggle>
+</section>
 
-<h2>Text Top</h2>
-<dcx-ng-toggle
-  [checked]="isDarkMode"
-  label="Dark mode"
-  size="m"
-  color="#0056b3"
-  (toggled)="handleToggle($event)"
-  [textPosition]="DcxPosition.TOP"
-></dcx-ng-toggle>
+<hr />
 
-<h2>Text Left</h2>
-<dcx-ng-toggle
-  [checked]="isDarkMode"
-  label="Dark mode"
-  size="m"
-  color="#0056b3"
-  (toggled)="handleToggle($event)"
-  [textPosition]="DcxPosition.LEFT"
-></dcx-ng-toggle>
+<section>
+  <h2 class="example-title">Ejemplo 2 - Toggle deshabilitado</h2>
+  <dcx-ng-toggle
+    [checked]="true"
+    [disabled]="true"
+    label="Disabled"
+    size="m"
+    textPosition="right"
+  ></dcx-ng-toggle>
+</section>
 
-<h2>Text Right</h2>
-<dcx-ng-toggle
-  [checked]="isDarkMode"
-  label="Dark mode"
-  size="m"
-  color="#0056b3"
-  (toggled)="handleToggle($event)"
-  [textPosition]="DcxPosition.RIGHT"
-></dcx-ng-toggle>
+<hr />
 
-<p>Dark mode is {{ isDarkMode ? 'ON' : 'OFF' }}</p>
+<section>
+  <h2 class="example-title">Ejemplo 3 - Toggle sin label (solo aria-label)</h2>
+  <dcx-ng-toggle
+    [checked]="false"
+    ariaLabel="Toggle sin label visible"
+    size="m"
+    textPosition="right"
+  ></dcx-ng-toggle>
+  <p class="note">
+    Este toggle no muestra texto, pero sigue siendo accesible con
+    <code>aria-label</code>.
+  </p>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">
+    Ejemplo 4 - Toggle con diferentes posiciones del texto
+  </h2>
+  <article class="toggle-position-list">
+    <dcx-ng-toggle
+      [checked]="true"
+      label="Top"
+      textPosition="top"
+    ></dcx-ng-toggle>
+    <dcx-ng-toggle
+      [checked]="true"
+      label="Bottom"
+      textPosition="bottom"
+    ></dcx-ng-toggle>
+    <dcx-ng-toggle
+      [checked]="true"
+      label="Left"
+      textPosition="left"
+    ></dcx-ng-toggle>
+    <dcx-ng-toggle
+      [checked]="true"
+      label="Right"
+      textPosition="right"
+    ></dcx-ng-toggle>
+  </article>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Toggle en diferentes tamaños</h2>
+  <article class="toggle-size-row">
+    <dcx-ng-toggle
+      [checked]="true"
+      size="s"
+      label="Small"
+      textPosition="right"
+    ></dcx-ng-toggle>
+    <dcx-ng-toggle
+      [checked]="true"
+      size="m"
+      label="Medium"
+      textPosition="right"
+    ></dcx-ng-toggle>
+    <dcx-ng-toggle
+      [checked]="true"
+      size="l"
+      label="Large"
+      textPosition="right"
+    ></dcx-ng-toggle>
+    <dcx-ng-toggle
+      [checked]="true"
+      size="xl"
+      label="XL"
+      textPosition="right"
+    ></dcx-ng-toggle>
+  </article>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 6 - Toggle solo controlado por evento</h2>
+  <dcx-ng-toggle
+    [checked]="eventState()"
+    label="Click para cambiar"
+    size="m"
+    textPosition="right"
+    (toggled)="eventState.set($event)"
+  ></dcx-ng-toggle>
+
+  <p class="selected-value">Estado actual: {{ eventState() ? 'ON' : 'OFF' }}</p>
+</section>

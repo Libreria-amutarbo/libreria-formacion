@@ -6,33 +6,38 @@ import {
   DcxNgListComponent,
   DcxNgInputComponent,
   DcxInputType,
-  DcxAccordionMock,
-  ACCORDION_ITEMS_WITH_ICONS,
-  ACCORDION_ITEMS_WITH_EXPANDED,
-  ACCORDION_ITEMS_COMPLEX,
-  ACCORDION_ITEMS_LARGE_CONTENT
+  DcxAccordionTransitionList,
+  DcxAccordionDefault,
+  DcxAccordionItemsWithIcon,
+  DcxAccordionItemsWithExpanded,
+  DcxAccordionItemsDisabled,
+  DcxAccordionLargeContent,
+  DcxAccordionItemsContentDisabled,
+  LIST_ITEMS_MOCK,
 } from '@dcx-ng-components/dcx-ng-lib';
-
-const LIST_ITEMS_MOCK = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
 const meta: Meta<DcxNgAccordionComponent> = {
   title: 'DCXLibrary/Accordion',
   component: DcxNgAccordionComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, DcxNgAccordionComponent, DcxNgButtonComponent, DcxNgListComponent, DcxNgInputComponent],
+      imports: [
+        CommonModule,
+        DcxNgAccordionComponent,
+        DcxNgButtonComponent,
+        DcxNgListComponent,
+        DcxNgInputComponent,
+      ],
     }),
   ],
   tags: ['autodocs'],
-  parameters: {
-    layout: 'padded',
-    controls: { expanded: true },
-  },
+
   argTypes: {
     items: {
       name: 'items',
       control: { type: 'object' },
-      description: 'Array of accordion items with title, content, and optional properties',
+      description:
+        'Array of accordion items with title, content, and optional properties',
       table: {
         category: 'Attributes',
         type: { summary: 'DcxNgAccordionItem[]' },
@@ -42,18 +47,19 @@ const meta: Meta<DcxNgAccordionComponent> = {
     transition: {
       name: 'transition',
       control: { type: 'select' },
-      options: ['smooth', 'fast', 'slow', 'none'],
+      options: DcxAccordionTransitionList,
       description: 'Transition effect when expanding/collapsing items',
       table: {
         category: 'Attributes',
-        type: { summary: 'AccordionTransition' },
+        type: { summary: 'DcxAccordionTransition' },
         defaultValue: { summary: 'smooth' },
       },
     },
     closeOthers: {
       name: 'closeOthers',
       control: { type: 'boolean' },
-      description: 'When true, opening one item closes all others (accordion mode)',
+      description:
+        'When true, opening one item closes all others (accordion mode)',
       table: {
         category: 'Attributes',
         type: { summary: 'boolean' },
@@ -99,7 +105,7 @@ const meta: Meta<DcxNgAccordionComponent> = {
     },
   },
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
     transition: 'smooth',
     closeOthers: true,
     expandedIds: [],
@@ -111,65 +117,64 @@ type Story = StoryObj<DcxNgAccordionComponent>;
 
 export const Default: Story = {
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
   },
 };
 
 export const WithIcons: Story = {
   args: {
-    items: ACCORDION_ITEMS_WITH_ICONS,
+    items: DcxAccordionItemsWithIcon,
   },
 };
 
 export const WithDisabledItems: Story = {
   args: {
-    items: ACCORDION_ITEMS_COMPLEX,
+    items: DcxAccordionItemsDisabled,
+  },
+};
+
+export const WithContentDisabledItems: Story = {
+  args: {
+    items: DcxAccordionItemsContentDisabled,
   },
 };
 
 export const MultipleOpen: Story = {
   args: {
-    items: DcxAccordionMock,
-    closeOthers: false,
-  },
-};
-
-export const DefaultExpanded: Story = {
-  args: {
-    items: ACCORDION_ITEMS_WITH_EXPANDED,
+    items: DcxAccordionItemsWithExpanded,
     closeOthers: false,
   },
 };
 
 export const FastTransition: Story = {
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
     transition: 'fast',
   },
 };
 
 export const SlowTransition: Story = {
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
     transition: 'slow',
   },
 };
 
 export const NoTransition: Story = {
   args: {
-    items: DcxAccordionMock,
+    items: DcxAccordionDefault,
     transition: 'none',
   },
 };
 
 export const LargeContent: Story = {
   args: {
-    items: ACCORDION_ITEMS_LARGE_CONTENT,
+    items: DcxAccordionLargeContent,
   },
 };
 
 export const WithComponents: Story = {
-  render: (args) => ({
+  render: args => ({
     props: {
       ...args,
       buttonTemplate: null as any,

@@ -13,19 +13,17 @@ import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chi
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCheckboxComponent } from './pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component';
 import { DcxNgPageCardComponent } from './pages/dcx-ng-page-card/dcx-ng-page-card.component';
-import { ContextMenuComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { DcxNgPageSliderComponent } from './pages/dcx-ng-page-slider.component/dcx-ng-page-slider.component';
-import { DcxNgPageDropdownComponent } from './pages/dcx-ng-page-dropdown/dcx-ng-page-dropdown.component';
 import { DcxNgPageIconFieldComponent } from './pages/dcx-ng-page-iconField/dcx-ng-page-iconField.component';
 import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-list.component';
 import { APP_ROUTES } from './core/constants/app-routes';
 import { DxcNgPageDatePickerComponent } from './pages/dxc-ng-page-datePicker/dxc-ng-page-datePicker.component';
 import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
-import { DcxNgPageSearchComponent } from './pages/dcx-ng-page-search/dcx-ng-page-search.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
 import { DcxNgPageBreadcrumb } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
+import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.component/dcx-ng-page-contextMenu.component';
 
 export const appRoutes: Route[] = [
   {
@@ -89,16 +87,8 @@ export const appRoutes: Route[] = [
     component: DcxNgPageCheckboxComponent,
   },
   {
-    path: APP_ROUTES.DROPDOWN,
-    component: DcxNgPageDropdownComponent,
-  },
-  {
     path: APP_ROUTES.CARD,
     component: DcxNgPageCardComponent,
-  },
-  {
-    path: APP_ROUTES.CONTEXTMENU,
-    component: ContextMenuComponent,
   },
   {
     path: APP_ROUTES.ICON_FIELD,
@@ -125,10 +115,6 @@ export const appRoutes: Route[] = [
     component: DcxNgPageDialogComponent,
   },
   {
-    path: APP_ROUTES.SEARCH,
-    component: DcxNgPageSearchComponent,
-  },
-  {
     path: APP_ROUTES.TABS,
     component: DcxNgPageTabsComponent,
   },
@@ -136,4 +122,8 @@ export const appRoutes: Route[] = [
     path: APP_ROUTES.BREADCRUMB,
     component: DcxNgPageBreadcrumb,
   },
+  {
+    path: APP_ROUTES.CONTEXTMENU,
+    component: DcxNgPageContextMenuComponent
+  }
 ];

@@ -1,43 +1,42 @@
 @use '../../../scss/main' as *;
 
+:host {
+  font-family: var(--font-family-primary);
+}
+
 .tooltip-container {
   position: relative;
-  display: inline-block;
+  @include flex-center-inline;
   margin: var(--spacing-inset-s);
+  cursor: help;
 }
 
 .dcx-ng-tooltip {
-  --tooltip-bg-color: var(--color-primary-light);
-  --tooltip-text-color: var(--color-text-inverse);
-  --tooltip-padding: var(--spacing-inset-s) var(--spacing-inset-m);
-  --tooltip-border-radius: var(--border-radius-sm);
-  --tooltip-font-size: var(--font-size-body-small);
   --tooltip-arrow-size: 6px;
-  --tooltip-max-width: 250px;
 
-  background-color: var(--tooltip-bg-color);
-  color: var(--tooltip-text-color);
-  border-radius: var(--tooltip-border-radius);
-  padding: var(--tooltip-padding);
-  font-size: var(--tooltip-font-size);
-  max-width: var(--tooltip-max-width);
+  background-color: var(--background-secondary-light);
+  color: var(--content-default-white);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-inset-xs) var(--spacing-inset-s);
+  font-size: var(--font-size-body-small);
+  line-height: var(--line-height-tight);
+  font-family: var(--font-family-primary);
+  max-width: 250px;
   width: max-content;
   word-wrap: break-word;
   position: absolute;
   z-index: 1000;
+  box-shadow: var(--shadow-2);
   animation: fade-in linear 0.2s;
 
-  // Posición TOP
   &--top {
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
     margin-bottom: var(--tooltip-arrow-size);
-    position: absolute;
 
-    // Prevent overflow on the left
     &[data-position='top'] {
-      left: max(8px, min(50%, calc(100vw - var(--tooltip-max-width) - 8px)));
+      left: max(8px, min(50%, calc(100vw - 250px - 8px)));
       transform: translateX(max(-50%, calc(-50vw + 8px)));
     }
 
@@ -46,20 +45,18 @@
       left: 50%;
       transform: translateX(-50%);
       border-width: 4px 4px 0 4px;
-      border-color: var(--tooltip-bg-color) transparent transparent transparent;
+      border-color: var(--background-primary) transparent transparent transparent;
     }
   }
 
-  // Posición BOTTOM
   &--bottom {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
     margin-top: var(--tooltip-arrow-size);
 
-    // Prevent overflow on the left and right
     &[data-position='bottom'] {
-      left: max(8px, min(50%, calc(100vw - var(--tooltip-max-width) - 8px)));
+      left: max(8px, min(50%, calc(100vw - 250px - 8px)));
       transform: translateX(max(-50%, calc(-50vw + 8px)));
     }
 
@@ -68,18 +65,16 @@
       left: 50%;
       transform: translateX(-50%) rotateX(180deg);
       border-width: 4px 4px 0 4px;
-      border-color: var(--tooltip-bg-color) transparent transparent transparent;
+      border-color: transparent transparent var(--background-primary) transparent;
     }
   }
 
-  // Posición LEFT
   &--left {
     right: 100%;
     top: 50%;
     transform: translateY(-50%);
     margin-right: var(--tooltip-arrow-size);
 
-    // Prevent overflow on the top and bottom
     &[data-position='left'] {
       top: max(8px, min(50%, calc(100vh - 60px)));
       transform: translateY(max(-50%, -45vh));
@@ -90,18 +85,16 @@
       top: 50%;
       transform: translateY(-50%);
       border-width: 4px 0 4px 4px;
-      border-color: transparent transparent transparent var(--tooltip-bg-color);
+      border-color: transparent transparent transparent var(--background-primary);
     }
   }
 
-  // Posición RIGHT
   &--right {
     left: 100%;
     top: 50%;
     transform: translateY(-50%);
     margin-left: var(--tooltip-arrow-size);
 
-    // Prevent overflow on the top and bottom
     &[data-position='right'] {
       top: max(8px, min(50%, calc(100vh - 60px)));
       transform: translateY(max(-50%, -45vh));
@@ -112,15 +105,8 @@
       top: 50%;
       transform: translateY(-50%);
       border-width: 4px 4px 4px 0;
-      border-color: transparent var(--tooltip-bg-color) transparent transparent;
+      border-color: transparent var(--background-primary) transparent transparent;
     }
-  }
-
-  &--no-styles {
-    --tooltip-bg-color: black;
-    border: 2px solid black;
-    color: black;
-    background-color: white;
   }
 }
 
@@ -133,20 +119,38 @@
   display: block;
 }
 
-// RESPONSIVE
-@media (max-width: 768px) {
-  .dcx-ng-tooltip {
-    --tooltip-max-width: 200px;
-    --tooltip-font-size: var(--font-size-body-small, 11px);
-  }
-}
+div[innerHTML] {
+  a {
+    color: var(--content-default-white);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
 
-// ANIMACIONES
-@keyframes fade-in {
-  from {
-    opacity: 0;
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.7;
+    }
   }
-  to {
-    opacity: 1;
+
+  p {
+    margin: 0;
+
+    &:not(:last-child) {
+      margin-bottom: var(--spacing-inset-xs);
+    }
+  }
+
+  strong,
+  b {
+    font-weight: 600;
+  }
+
+  em,
+  i {
+    font-style: italic;
   }
 }

@@ -1,7 +1,1 @@
-:host {
-  display: block;
-}
-div {
-  border: 1px solid #ccc;
-  padding: 8px;
-}
+@use './../../app.component.scss';

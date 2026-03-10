@@ -1,13 +1,20 @@
+@use 'sass:map';
+@use '../../../scss/main' as *;
+@use '../../../scss/utils/_mixins' as mixins;
+
 :host {
   display: inline-flex;
   cursor: pointer;
 
   --toggle-width: 2.5rem;
   --toggle-height: 1.5rem;
-  --thumb-size: 1.5rem;
+  --thumb-size: calc(var(--toggle-height) - 0.4rem);
+  --toggle-transition-duration: 300ms;
+  --toggle-transition-timing: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .dcx-ng-toggle {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -15,6 +22,24 @@
   &.disabled {
     cursor: not-allowed;
     opacity: 0.6;
+  }
+
+  &.disabled[aria-checked='true'] {
+    .dcx-ng-toggle__track {
+      background-color: var(--background-secondary-light);
+    }
+  }
+
+  &.disabled[aria-checked='false'] {
+    .dcx-ng-toggle__track {
+      background-color: var(--background-default);
+      border: 1px solid var(--background-disabled);
+    }
+
+    .dcx-ng-toggle__thumb {
+      background-color: var(--background-disabled);
+      box-shadow: none;
+    }
   }
 
   &--s {
@@ -56,29 +81,67 @@
   &__track {
     width: var(--toggle-width);
     height: var(--toggle-height);
-    background-color: #ccc;
+    background-color: var(--background-off);
     border-radius: 999px;
     position: relative;
-    transition: background-color 0.3s;
+    transition: background-color var(--toggle-transition-duration)
+      var(--toggle-transition-timing);
+    @include mixins.flex-center;
   }
 
   &__thumb {
     width: var(--thumb-size);
     height: var(--thumb-size);
-    background-color: #ffffff;
+    background-color: var(--content-default-white);
     border-radius: 50%;
     position: absolute;
     top: 50%;
     left: 0.125rem;
-    transform: translateY(-50%);
-    transition: left 0.3s;
+
+    transform: translateX(0) translateY(-50%);
+    transition:
+      transform var(--toggle-transition-duration)
+        var(--toggle-transition-timing),
+      background-color var(--toggle-transition-duration)
+        var(--toggle-transition-timing),
+      box-shadow var(--toggle-transition-duration)
+        var(--toggle-transition-timing);
+    box-shadow: var(--shadow-sm);
 
     &.checked {
-      left: calc(100% - var(--thumb-size) - 0.125rem);
+      transform: translateX(
+          calc(var(--toggle-width) - var(--thumb-size) - 0.25rem)
+        )
+        translateY(-50%);
     }
   }
 
   &__label {
     font-size: 1rem;
+  }
+
+  &[aria-checked='true'] {
+    .dcx-ng-toggle__track {
+      background-color: var(--background-primary);
+    }
+
+    &:not(.disabled):hover {
+      .dcx-ng-toggle__track {
+        background-color: var(--background-primary-hover);
+      }
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus .dcx-ng-toggle__track::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: calc(var(--toggle-height) / 2 + 4px);
+    border: 2px solid map.get($border, 'focus');
+    pointer-events: none;
   }
 }

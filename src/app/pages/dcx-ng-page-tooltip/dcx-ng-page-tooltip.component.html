@@ -1,38 +1,40 @@
-<h2>Default component</h2>
-<dcx-ng-tooltip
-  content="Este es mi tooltip, como no cabe arriba se pone abajo automáticamente"
->
-  <button>Default</button>
-</dcx-ng-tooltip>
+<section>
+  <h2>Ejemplo 1 - Componente por defecto</h2>
+  <dcx-ng-tooltip content="Este es mi tooltip">
+    <dcx-ng-button label="Default"></dcx-ng-button>
+  </dcx-ng-tooltip>
+</section>
 
-<dcx-ng-tooltip content="Este es mi tooltip">
-  <button>Default</button>
-</dcx-ng-tooltip>
+<hr />
 
-<h2>Tooltip positions</h2>
-<dcx-ng-tooltip
-  content="Este es mi tooltip, muy largo para que se divida en varias lineas"
-  [position]="DcxPosition.LEFT"
->
-  <button>LEFT</button>
-</dcx-ng-tooltip>
+<section>
+  <h2>Ejemplo 2 - Posiciones del tooltip</h2>
 
-<dcx-ng-tooltip content="Este es mi tooltip" [position]="DcxPosition.RIGHT">
-  <button>RIGHT</button>
-</dcx-ng-tooltip>
+  <dcx-ng-tooltip content="Este es mi tooltip" position="top">
+    <dcx-ng-button label="TOP"></dcx-ng-button>
+  </dcx-ng-tooltip>
 
-<dcx-ng-tooltip content="Este es mi tooltip" [position]="DcxPosition.TOP">
-  <button>TOP</button>
-</dcx-ng-tooltip>
+  <dcx-ng-tooltip content="Este es mi tooltip" position="bottom">
+    <dcx-ng-button label="BOTTOM"></dcx-ng-button>
+  </dcx-ng-tooltip>
 
-<dcx-ng-tooltip
-  content="Este es mi tooltip"
-  [position]="DcxPosition.BOTTOM"
->
-  <button>BOTTOM</button>
-</dcx-ng-tooltip>
+  <dcx-ng-tooltip content="Este es mi tooltip" position="right">
+    <dcx-ng-button label="RIGHT"></dcx-ng-button>
+  </dcx-ng-tooltip>
 
-<h2>Hide on click</h2>
-<dcx-ng-tooltip content="Este es mi tooltip" [hideTooltipOnClick]="true">
-  <button>Hide on click</button>
-</dcx-ng-tooltip>
+  <dcx-ng-tooltip
+    content="Este es mi tooltip, muy largo para que se divida en varias lineas"
+    position="left"
+  >
+    <dcx-ng-button label="LEFT"></dcx-ng-button>
+  </dcx-ng-tooltip>
+</section>
+
+<hr />
+
+<section>
+  <h2>Ejemplo 3 - Ocultar al hacer clic</h2>
+  <dcx-ng-tooltip content="Este es mi tooltip" [hideTooltipOnClick]="true">
+    <dcx-ng-button label="Hide on click"></dcx-ng-button>
+  </dcx-ng-tooltip>
+</section>

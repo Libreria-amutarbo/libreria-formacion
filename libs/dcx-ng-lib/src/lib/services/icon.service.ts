@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
 interface BootstrapIcon {
@@ -22,14 +22,14 @@ export class IconService {
   constructor() { }
 
   loadIcons(): Observable<string[]> {
-    if(this._icons() !== null) {
+    if (this._icons() !== null) {
       return of(this._icons()!);
     }
 
     return this.http.get<BootstrapIcon[]>(this.BOOTSTRAP_ICONS_URL).pipe(
       map(icons => icons.map(icon => icon.name)),
       tap(icons => this._icons.set(icons)),
-      catchError(error => {
+      catchError(_error => {
         this._icons.set([]);
         return of([]);
       })

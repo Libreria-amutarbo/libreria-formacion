@@ -148,7 +148,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
         checked: false,
         disabled: false,
         size: 'm',
-        labelPosition: DcxPosition.RIGHT,
+        labelPosition: 'right',
         errorMessage: '',
     },
 };
@@ -164,14 +164,14 @@ export const Default: Story = {
         errorMessage: '',
         disabled: false,
         size: 'm',
-        labelPosition: DcxPosition.RIGHT,
+        labelPosition: 'right',
     },
 };
 
 export const Primary: Story = {
     args: {
         label: 'Checkbox Primary',
-        labelPosition: DcxPosition.RIGHT,
+        labelPosition: 'right',
         color: '#1976d2',
         checked: false,
         size: 'm',
@@ -196,7 +196,7 @@ export const WithErrorMessage: Story = {
         errorMessage: 'Debes aceptar los términos para continuar',
         disabled: false,
         size: 'm',
-        labelPosition: DcxPosition.RIGHT,
+        labelPosition: 'right',
     },
 };
 

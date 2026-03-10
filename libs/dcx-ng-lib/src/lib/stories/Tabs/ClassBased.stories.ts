@@ -1,6 +1,16 @@
-import { DcxNgTabsComponent } from '@dcx-ng-components/dcx-ng-lib';
-import { Meta, StoryObj } from '@storybook/angular';
-import { DcxTabItemMock } from '../../core/mock';
+import { Component, signal } from '@angular/core';
+import {
+  DcxNgButtonComponent,
+  DcxNgCardComponent,
+  DcxNgSelectComponent,
+  DcxNgTabsComponent,
+  DcxTabItemDefault,
+  DcxTabItemScroll,
+  DcxTabItemWithComponents,
+  DcxTabItemWithDisabled,
+  DcxTabItemWithIcons,
+} from '@dcx-ng-components/dcx-ng-lib';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgTabsComponent> = {
   title: 'DCXLibrary/Tabs',
@@ -8,64 +18,126 @@ const meta: Meta<DcxNgTabsComponent> = {
   tags: ['autodocs'],
   argTypes: {
     tabs: {
+      options: DcxTabItemDefault,
       control: 'object',
       description: 'Array de tabs con id, label y contenido',
       table: {
         category: 'Attributes',
         type: { summary: 'DcxTabItem[]' },
-      }
+      },
     },
     activeTabId: {
       control: 'text',
       description: 'ID del tab actualmente seleccionado',
-      table: { 
+      table: {
         category: 'Attributes',
         type: { summary: 'string' },
-        defaultValue: { summary: 'tab1' }
-      }
+        defaultValue: { summary: 'tab1' },
+      },
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Deshabilita todos los tabs',
-      table: { 
+    hasControls: {
+      description: 'Opción para poner botones de control',
+      control: { type: 'boolean' },
+      table: {
         category: 'Attributes',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
-      }
+      },
     },
+    tabChange: {
+      action: 'tabChange',
+      description: 'Evento que se emite cuando se selecciona un tab',
+      table: {
+        category: 'Events',
+        type: {
+          summary: '(string) => void',
+        },
+        defaultValue: {
+          summary: '-',
+        },
+      },
+    },
+  },
+  args: {
+    tabs: DcxTabItemDefault,
+    activeTabId: 'tab1',
+    hasControls: false,
   },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgTabsComponent>;
 
-export const Basic: Story = {
+export const ClassBased: Story = {};
+
+export const DisabledTabs: Story = {
   args: {
-    tabs: DcxTabItemMock,
-    activeTabId: 'tab1',
-    disabled: false,
+    tabs: DcxTabItemWithDisabled,
   },
-  parameters: {
-    docs: {
-      story: { height: '200px' },
-    },
+};
+
+export const TabsWithIcons: Story = {
+  args: {
+    tabs: DcxTabItemWithIcons,
   },
-  render: args => {
-    return {
-      template: `
-      <dcx-ng-tabs
-        [tabs]="tabs"
-        [activeTabId]="activeTabId"
-        [disabled]="disabled"
-        (tabChange)="onTabChange($event)"
-      ></dcx-ng-tabs>
-    `,
-      props: {
-        tabs: args.tabs,
-        activeTabId: args.activeTabId,
-        disabled: args.disabled,
-        onTabChange: (tabId: string) => console.log('Selected tab:', tabId),
-      },
-    };
+};
+
+export const TabsWithScroll: Story = {
+  args: {
+    tabs: DcxTabItemScroll,
   },
+};
+
+export const TabsWithControls: Story = {
+  args: {
+    hasControls: true,
+  },
+};
+
+@Component({
+  selector: 'dcx-ng-page-tabs',
+  standalone: true,
+  imports: [
+    DcxNgTabsComponent,
+    DcxNgButtonComponent,
+    DcxNgSelectComponent,
+    DcxNgCardComponent,
+  ],
+  template: `
+  <dcx-ng-tabs
+    [tabs]="tabItemWithComponents"
+    [activeTabId]="selectedTabIdContent()"
+    (tabChange)="onTabChange($event)"
+  ></dcx-ng-tabs>
+  <section>
+    @switch (selectedTabIdContent()) {
+      @case ('button') {
+        <dcx-ng-button [label]="'Button'"></dcx-ng-button>
+      }
+      @case ('select') {
+        <dcx-ng-select></dcx-ng-select>
+      }
+      @case ('card') {
+        <dcx-ng-card></dcx-ng-card>
+      }
+    }
+  </section>
+  `,
+})
+class DcxNgTabsWrapperComponent {
+  tabItemWithComponents = DcxTabItemWithComponents;
+  selectedTabIdContent = signal<string>('button');
+
+  onTabChange(tabId: string): void {
+    this.selectedTabIdContent.set(tabId);
+  }
+}
+export const TabsWithContentComponents: Story = {
+  render: () => ({
+    props: {},
+    template: `<dcx-ng-page-tabs/>`,
+  }),
+  decorators: [
+    moduleMetadata({
+      imports: [DcxNgTabsWrapperComponent],
+    }),
+  ],
 };

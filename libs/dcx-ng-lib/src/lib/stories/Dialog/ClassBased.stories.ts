@@ -32,11 +32,26 @@ const ActionsData = { closeDialog: fn() };
         </ng-template>
 
         <ng-template #dialogFooter>
-          <dcx-ng-button 
-            label="Aceptar" 
-            variant="primary" 
-            (buttonClick)="closeDialogFromFooter()"
-          />
+          @if (showConfirmationFooter()) {
+            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+              <dcx-ng-button
+                label="Cancelar"
+                variant="secondary"
+                (buttonClick)="cancelDialogFromFooter()"
+              />
+              <dcx-ng-button
+                label="Aceptar"
+                variant="primary"
+                (buttonClick)="closeDialogFromFooter()"
+              />
+            </div>
+          } @else {
+            <dcx-ng-button
+              label="Aceptar"
+              variant="primary"
+              (buttonClick)="closeDialogFromFooter()"
+            />
+          }
         </ng-template>
       </dcx-ng-dialog>
     </div>
@@ -48,6 +63,7 @@ class StoryHostDcxDialogComponent implements OnInit {
   title = input<string>('');
   visible = input<boolean>(false);
   showClose = input<boolean>(true);
+  showConfirmationFooter = input<boolean>(false);
   position = input<DcxDialogPosition>('center');
   closeOnBackdrop = input<boolean>(true);
   bodyHtml = input<string>('');
@@ -69,6 +85,11 @@ class StoryHostDcxDialogComponent implements OnInit {
   }
 
   closeDialogFromFooter() {
+    const id = this.dialogId();
+    if (id) this.dialog.close(id);
+  }
+
+  cancelDialogFromFooter() {
     const id = this.dialogId();
     if (id) this.dialog.close(id);
   }
@@ -134,6 +155,15 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         defaultValue: { summary: 'true' },
       },
     },
+    showConfirmationFooter: {
+      control: 'boolean',
+      description: 'Muestra footer de confirmación con botones Cancelar y Aceptar.',
+      table: {
+        category: 'Templates',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
     position: {
       control: 'select',
       options: DIALOG_POSITION_LIST,
@@ -184,34 +214,61 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
 export default meta;
 type Story = StoryObj<StoryHostDcxDialogComponent>;
 
-export const ClassBased: Story = {
-  args: DIALOG_DEFAULT_ARGS,
-  render: args => ({
-    moduleMetadata: {
-      imports: [StoryHostDcxDialogComponent],
-      providers: [DialogService],
-    },
-    props: {
-      dialogId: args.dialogId,
-      title: args.title,
-      showClose: args.showClose,
-      position: args.position,
-      bodyHtml: args.bodyHtml,
-      footerHtml: args.footerHtml,
-      closeOnBackdrop: args.closeOnBackdrop,
-      visible: args.visible,
-    },
-    template: `
-      <dcx-ng-dialog-story
-        [dialogId]="dialogId"
-        [title]="title"
-        [showClose]="showClose"
-        [position]="position"
-        [bodyHtml]="bodyHtml"
-        [footerHtml]="footerHtml"
-        [closeOnBackdrop]="closeOnBackdrop"
-        [visible]="visible"
-      />
-    `,
-  }),
+const renderDialogStory = (args: Story['args']) => ({
+  moduleMetadata: {
+    imports: [StoryHostDcxDialogComponent],
+    providers: [DialogService],
+  },
+  props: {
+    dialogId: args?.dialogId,
+    title: args?.title,
+    showClose: args?.showClose,
+    showConfirmationFooter: args?.showConfirmationFooter,
+    position: args?.position,
+    bodyHtml: args?.bodyHtml,
+    footerHtml: args?.footerHtml,
+    closeOnBackdrop: args?.closeOnBackdrop,
+    visible: args?.visible,
+  },
+  template: `
+    <dcx-ng-dialog-story
+      [dialogId]="dialogId"
+      [title]="title"
+      [showClose]="showClose"
+      [showConfirmationFooter]="showConfirmationFooter"
+      [position]="position"
+      [bodyHtml]="bodyHtml"
+      [footerHtml]="footerHtml"
+      [closeOnBackdrop]="closeOnBackdrop"
+      [visible]="visible"
+    />
+  `,
+});
+
+export const BasicDialog: Story = {
+  args: {
+    dialogId: 'basic-dialog',
+    title: 'Ejemplo 1 - Diálogo básico con información',
+    bodyHtml: '<p>Este es un mensaje informativo dentro del diálogo.</p>',
+    showClose: true,
+    showConfirmationFooter: false,
+    position: 'center',
+    closeOnBackdrop: true,
+    visible: false,
+  },
+  render: args => renderDialogStory(args),
+};
+
+export const ConfirmationDialog: Story = {
+  args: {
+    dialogId: 'confirmation-dialog',
+    title: 'Ejemplo 2 - Diálogo de confirmación con footer',
+    bodyHtml: '<p>¿Estás seguro de que quieres continuar?</p>',
+    showClose: true,
+    showConfirmationFooter: true,
+    position: 'center',
+    closeOnBackdrop: false,
+    visible: false,
+  },
+  render: args => renderDialogStory(args),
 };

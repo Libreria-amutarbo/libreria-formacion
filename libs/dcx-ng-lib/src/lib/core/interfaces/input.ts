@@ -5,7 +5,9 @@ export enum DcxInputType {
   PASSWORD = 'password',
   SEARCH = 'search',
   TEL = 'tel',
-  URL = 'url'
+  URL = 'url',
+  RADIO = 'radio',
+  RANGE = 'range',
 }
 
 export interface DcxInputErrorMessage {
