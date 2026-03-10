@@ -16,7 +16,10 @@ import {
   ChipVariantType,
   ChipVariant,
 } from '@dcx-ng-components/dcx-ng-lib';
-import { DcxNgButtonComponent, DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgButtonComponent,
+  DcxNgIconComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-chip',
