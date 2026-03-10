@@ -67,6 +67,7 @@ $background: (
   pressed: map.get($color-grey, 200),
   disabled: map.get($color-grey, 200),
   hover: map.get($color-grey, 100),
+  off: map.get($color-grey, 500),
   error: map.get($color-semantic, red-300),
 );
 

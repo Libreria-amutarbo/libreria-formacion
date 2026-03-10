@@ -23,7 +23,7 @@ No default styles are applied — only the structure and behavior remain.
 ## Class-Based Version
 
 This version includes default styling using BEM-based classes and minimal SCSS.  
-It supports customization through size and color inputs.
+It supports customization through size input. The active color follows the design tokens and is not configurable via component properties.
 
 <Canvas of={ToggleClassBasedStories.DefaultToggle} />
 <Canvas of={ToggleClassBasedStories.CheckedByDefault} />
@@ -52,12 +52,6 @@ You can pass a `size` to modify the appearance:
 
 ---
 
-## Custom Colors
-
-You can pass a `color` value to change the background when the toggle is checked:
-
-<Canvas of={ToggleClassBasedStories.ColorToggle} />
-
 ---
 
 ## Manual Usage Example
@@ -70,7 +64,7 @@ file.HTML
   [checked]="featureEnabled"
   label="Enable Feature"
   size="medium"
-  color="#0056b3"
+  
   (toggled)="handleToggle($event)"
 ></dcx-ng-toggle>
 

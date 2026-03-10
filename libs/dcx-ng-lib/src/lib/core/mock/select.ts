@@ -27,9 +27,8 @@ export const CLEARABLE = false;
 export const REQUIRED = false;
 export const ISINVALID = false;
 export const ERRORMESSAGE = '';
-export const ERRORICON = 'info-circle';
+
 export const VALUEINPUT: string | null = null;
-export const SPACING: DcxSpacing = SPACING_DEFAULT;
 
 export const SELECTDEFAULTARGS = {
   label: LABEL,
@@ -42,5 +41,5 @@ export const SELECTDEFAULTARGS = {
   invalid: ISINVALID,
   errorMessage: ERRORMESSAGE,
   valueInput: VALUEINPUT,
-  spacing: SPACING,
+  spacing: SPACING_DEFAULT,
 };

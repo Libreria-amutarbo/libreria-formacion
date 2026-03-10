@@ -1,9 +1,7 @@
-export interface DcxContextPosition {
-    x: number;
-    y: number;
-}
+import { DcxListItem } from "@dcx-ng-components/dcx-ng-lib";
 
-export interface DcxContextMenuItem {
-    label: string;
-    action: () => void;
+export interface DcxContextMenuItem extends DcxListItem {
+    id?: string;
+    action?: () => void;
+    children?: DcxContextMenuItem[];
 }

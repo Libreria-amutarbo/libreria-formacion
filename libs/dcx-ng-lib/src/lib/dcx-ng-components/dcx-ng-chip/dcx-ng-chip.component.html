@@ -23,13 +23,16 @@
   }
 
   @if (variant() === ChipVariant.FILTER) {
-    <button
+    <dcx-ng-button
       type="button"
       class="dcx-ng-chip__remove-btn"
-      [attr.aria-label]="'Remover ' + label()"
-      (click)="handleRemove($event)"
-    >
-      <dcx-ng-icon name="x" size="l"> </dcx-ng-icon>
-    </button>
+      variant="icon-only"
+      size="s"
+      icon
+      iconName="x"
+      iconSize="l"
+      [ariaLabel]="'Remover ' + label()"
+      (buttonClick)="handleRemove()"
+    ></dcx-ng-button>
   }
 </div>

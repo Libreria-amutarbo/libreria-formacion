@@ -18,8 +18,6 @@ export class DcxNgPageCheckboxComponent {
   checked1 = false;
   checked2 = false;
 
-  readonly DcxPosition = DcxPosition;
-
   sportsOptions = signal([
     { value: 'futbol', label: 'Fútbol' },
     { value: 'baloncesto', label: 'Baloncesto', disabled: false },

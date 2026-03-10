@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { Component, computed, input, Signal } from '@angular/core';
 import { DcxMessageType } from '../../core/interfaces/message';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 interface DcxNgMessageComponentInputs {
   body: Signal<string>;
@@ -15,7 +16,7 @@ interface DcxNgMessageComponentInputs {
 @Component({
   selector: 'dcx-ng-message',
   standalone: true,
-  imports: [CommonModule, DcxNgIconComponent],
+  imports: [CommonModule, DcxNgIconComponent, DcxNgButtonComponent],
   templateUrl: './dcx-ng-message.component.html',
   styleUrl: './dcx-ng-message.component.scss',
 })

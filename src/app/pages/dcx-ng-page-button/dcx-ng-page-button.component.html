@@ -76,7 +76,7 @@
       label="Guardar"
       size="m"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="save"
       iconPosition="left"
       iconSize="m"
@@ -85,7 +85,7 @@
       label="Siguiente"
       size="m"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="arrow-right"
       iconPosition="left"
       iconSize="m"
@@ -102,7 +102,7 @@
       label="Izquierda"
       size="l"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="save"
       iconPosition="left"
       iconSize="l"
@@ -111,7 +111,7 @@
       label="Arriba"
       size="l"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="save"
       iconPosition="top"
       iconSize="l"
@@ -120,7 +120,7 @@
       label="Derecha"
       size="l"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="save"
       iconPosition="right"
       iconSize="l"
@@ -129,7 +129,7 @@
       label="Abajo"
       size="l"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="save"
       iconPosition="bottom"
       iconSize="l"
@@ -144,7 +144,7 @@
       label="Small"
       size="m"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="save"
       iconPosition="left"
       iconSize="s"
@@ -153,7 +153,7 @@
       label="Medium"
       size="m"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="save"
       iconPosition="left"
       iconSize="m"
@@ -162,7 +162,7 @@
       label="Large"
       size="m"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="save"
       iconPosition="left"
       iconSize="l"
@@ -171,10 +171,36 @@
       label="Extra large"
       size="m"
       variant="primary"
-      [icon]="true"
+      icon
       iconName="save"
       iconPosition="left"
       iconSize="xl"
+    ></dcx-ng-button>
+  </article>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 9 - Estados presionados</h2>
+  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+    <dcx-ng-button
+      label="Primary Pressed"
+      size="m"
+      variant="primary"
+      [pressed]="true"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Secondary Pressed"
+      size="m"
+      variant="secondary"
+      [pressed]="true"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      label="Terciary Pressed"
+      size="m"
+      variant="terciary"
+      [pressed]="true"
     ></dcx-ng-button>
   </article>
 </section>

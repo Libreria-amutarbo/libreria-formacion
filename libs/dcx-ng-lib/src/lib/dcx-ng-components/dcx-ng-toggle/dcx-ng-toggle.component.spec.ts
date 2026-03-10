@@ -24,8 +24,7 @@ describe('DcxNgToggleComponent', () => {
     expect(component.checked).toBe(false);
     expect(component.disabled).toBe(false);
     expect(component.label).toBeNull();
-    expect(component.size).toBe('medium');
-    expect(component.color).toBe('#000');
+    expect(component.size).toBe('m');
   });
 
   it('should apply size class', () => {

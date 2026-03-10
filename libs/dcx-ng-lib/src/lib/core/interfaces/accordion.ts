@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 
-export type AccordionTransition = 'smooth' | 'fast' | 'slow' | 'none';
+export type DcxAccordionTransition = 'smooth' | 'fast' | 'slow' | 'none';
 
 export interface DcxNgAccordionItem {
   id: string;

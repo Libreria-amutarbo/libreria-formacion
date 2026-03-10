@@ -1,92 +1,78 @@
-
 @use '../../../scss/utils/mixins' as *;
 
-
-:host {
-  display: block;
-}
-
-.dcx-icon-field-wrapper {
-  @include flex-column;
-  width: 100%;
-}
-
-.dcx-icon-field-container {
-  position: relative;
-  @include flex-row;
-  align-items: center;
-  width: 100%;
-}
-
-.dcx-icon-field-input {
-  flex: 1;
-  @include body-text;
-  @include padding-horizontal('inset-m');
-  @include padding-vertical('inset-s');
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-body-small);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-primary);
-  outline: none;
-  @include transition-base;
-
-  &:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(0, 112, 173, 0.1);
-  }
-
-  &:disabled {
-    background-color: var(--color-background-alt);
-    color: var(--color-text-disabled);
-    cursor: not-allowed;
-  }
-
-  &::placeholder {
-    color: var(--color-text-secondary);
-  }
-}
-
-.dcx-icon-left {
-  position: absolute;
-  left: var(--spacing-inset-s);
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  color: var(--color-text-secondary);
-  pointer-events: none;
+.icon-field {
   display: flex;
   align-items: center;
-  justify-content: center;
-  top: 20px;
+  width: 100%;
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  background-color: var(--background-default);
+  height: 100%;
+  overflow: hidden;
 
-  ~ .dcx-icon-field-input {
-    padding-left: calc(var(--spacing-inset-m) + var(--spacing-l));
+  /* Icono izquierda */
+  dcx-ng-button:first-child {
+    flex-shrink: 0;
+    padding: var(--spacing-inset-xs);
+    height: 100%;
+    @include flex-center;
   }
-}
 
-.dcx-icon-right {
-  position: absolute;
-  right: var(--spacing-inset-s);
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  color: var(--color-text-secondary);
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 20px;
-
-  ~ .dcx-icon-field-input,
-  + .dcx-icon-field-input {
-    padding-right: calc(var(--spacing-inset-m) + var(--spacing-l));
+  /* Wrapper del input */
+  ::ng-deep .dcx-ng-input__wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
   }
-}
 
-.dcx-icon-left ~ .dcx-icon-field-input {
-  &:has(~ .dcx-icon-right) {
-    padding-left: calc(var(--spacing-inset-m) + var(--spacing-l));
-    padding-right: calc(var(--spacing-inset-m) + var(--spacing-l));
+  /* El input mismo */
+  ::ng-deep .dcx-ng-input__control {
+    flex: 1;
+    border: none !important;
+    background-color: transparent !important;
+    padding: var(--spacing-inset-xs) var(--spacing-inset-s) !important;
+    border-radius: 0 !important;
+    height: 100%;
+    font-size: var(--font-size-body);
+    color: var(--text-body);
+
+    &:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+
+    &:hover:not(.is-disabled) {
+      box-shadow: none !important;
+    }
+
+    &.is-disabled {
+      opacity: 0.5 !important;
+    }
+
+    &.is-invalid {
+      border: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  /* Icono derecha */
+  dcx-ng-button:last-child {
+    flex-shrink: 0;
+    padding: var(--spacing-inset-xs);
+    height: 100%;
+    @include flex-center;
+  }
+
+  /* Estados del contenedor completo */
+  &:focus-within {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 2px var(--color-primary-light);
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 2px var(--border-hover);
   }
 }
