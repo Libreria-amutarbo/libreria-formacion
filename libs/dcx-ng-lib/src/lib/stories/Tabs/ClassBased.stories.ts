@@ -3,12 +3,13 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { DcxTabItemMock } from '../../core/mock';
 
 const meta: Meta<DcxNgTabsComponent> = {
-  title: 'DCXLibrary/Tabs/Class Based',
+  title: 'DCXLibrary/Tabs',
   component: DcxNgTabsComponent,
   tags: ['autodocs'],
   argTypes: {
     tabs: {
       control: 'object',
+      description: 'Array de tabs con id, label y contenido',
       table: {
         category: 'Attributes',
         type: { summary: 'DcxTabItem[]' },
@@ -16,11 +17,21 @@ const meta: Meta<DcxNgTabsComponent> = {
     },
     activeTabId: {
       control: 'text',
-      table: { category: 'Attributes' }
+      description: 'ID del tab actualmente seleccionado',
+      table: { 
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'tab1' }
+      }
     },
     disabled: {
       control: 'boolean',
-      table: { category: 'Attributes' }
+      description: 'Deshabilita todos los tabs',
+      table: { 
+        category: 'Attributes',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
     },
   },
 };

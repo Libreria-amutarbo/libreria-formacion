@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgTooltipComponent } from '../../dcx-ng-components/dcx-ng-tooltip/dcx-ng-tooltip.component';
 
 const meta: Meta<DcxNgTooltipComponent> = {
-  title: 'DCXLibrary/Tooltip/ClassBased',
+  title: 'DCXLibrary/Tooltip',
   component: DcxNgTooltipComponent,
   tags: ['autodocs'],
   argTypes: {

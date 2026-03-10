@@ -13,7 +13,7 @@ import {
 } from '../../core/mock/search';
 
 const meta: Meta<DcxNgSearchComponent> = {
-  title: 'DCXLibrary/Search/Class based',
+  title: 'DCXLibrary/Search',
   component: DcxNgSearchComponent,
   decorators: [
     moduleMetadata({

@@ -4,7 +4,7 @@ import { Meta, StoryObj } from '@storybook/angular';
 
 
 const meta: Meta<DcxNgInputComponent> = {
-  title: 'DCXLibrary/Input/ClassBased',
+  title: 'DCXLibrary/Input',
   component: DcxNgInputComponent,
   tags: ['autodocs'],
   argTypes: {
@@ -19,34 +19,52 @@ const meta: Meta<DcxNgInputComponent> = {
         DcxInputType.TEL,
         DcxInputType.URL
       ],
-      defaultValue: DcxInputType.TEXT,
-      table: { category: 'Attributes' }
+      description: 'Tipo de input (text, number, email, password, etc.)',
+      table: { 
+        category: 'Attributes',
+        defaultValue: { summary: 'TEXT' }
+      }
     },
     size: {
       control: 'select',
       options: ['s', 'm', 'l', 'xl'],
-      defaultValue: 'm',
-      table: { category: 'Attributes' }
+      description: 'Tamaño del input según sistema de espaciado',
+      table: { 
+        category: 'Attributes',
+        defaultValue: { summary: 'm' }
+      }
     },
     placeholder: {
       control: 'text',
-      defaultValue: null,
-      table: { category: 'Attributes' }
+      description: 'Texto de placeholder mostrado cuando el input está vacío',
+      table: { 
+        category: 'Attributes',
+        defaultValue: { summary: 'null' }
+      }
     },
     disabled: {
       control: 'boolean',
-      defaultValue: false,
-      table: { category: 'Attributes' }
+      description: 'Deshabilita la interacción con el input',
+      table: { 
+        category: 'Attributes',
+        defaultValue: { summary: 'false' }
+      }
     },
     required: {
       control: 'boolean',
-      defaultValue: false,
-      table: { category: 'Attributes' }
+      description: 'Marca el input como requerido (validación HTML5)',
+      table: { 
+        category: 'Attributes',
+        defaultValue: { summary: 'false' }
+      }
     },
     label: {
       control: 'text',
-      defaultValue: null,
-      table: { category: 'Attributes' }
+      description: 'Etiqueta asociada al input',
+      table: { 
+        category: 'Attributes',
+        defaultValue: { summary: 'null' }
+      }
     }
   },
 };

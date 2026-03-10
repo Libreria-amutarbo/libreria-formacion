@@ -263,7 +263,7 @@ function parseDateInput(value: string | Date | null): Date | null {
 }
 
 const meta: Meta<StorybookDatePickerWrapperComponent> = {
-  title: 'DCXLibrary/DatePicker/ClassBased',
+  title: 'DCXLibrary/DatePicker',
   component: StorybookDatePickerWrapperComponent,
   tags: ['autodocs'],
   decorators: [

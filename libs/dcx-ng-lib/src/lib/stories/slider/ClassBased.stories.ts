@@ -3,7 +3,7 @@ import { DcxNgSliderComponent } from '../../dcx-ng-components/dcx-ng-slider/dcx-
 import { moduleMetadata } from '@storybook/angular';
 
 const meta: Meta<DcxNgSliderComponent> = {
-  title: 'DCXLibrary/Slider/ClassBased',
+  title: 'DCXLibrary/Slider',
   component: DcxNgSliderComponent,
   decorators: [
     moduleMetadata({

@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgListComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgListComponent> = {
-  title: 'DCXLibrary/List/Class based',
+  title: 'DCXLibrary/List',
   component: DcxNgListComponent,
   tags: ['autodocs'],
   argTypes: {

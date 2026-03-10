@@ -3,7 +3,7 @@ import { ContextMenuComponent } from '../../dcx-ng-components/dcx-ng-contextMenu
 import { DcxContextMenuItem } from '../../core/interfaces';
 
 const meta: Meta<ContextMenuComponent> = {
-  title: 'DCXLibrary/ContextMenu/ClassBased',
+  title: 'DCXLibrary/ContextMenu',
   component: ContextMenuComponent,
   tags: ['autodocs'],
   argTypes: {

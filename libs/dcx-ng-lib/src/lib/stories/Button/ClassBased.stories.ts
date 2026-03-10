@@ -10,7 +10,7 @@ import {
 const ActionsData = { buttonClick: fn() };
 
 const meta: Meta<DcxNgButtonComponent> = {
-  title: 'DCXLibrary/Button/Class based',
+  title: 'DCXLibrary/Button',
   component: DcxNgButtonComponent,
   tags: ['autodocs'],
   argTypes: {
@@ -37,6 +37,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     },
     disabled: {
       control: 'boolean',
+      description: 'Deshabilita el botón y previene interacción',
       table: {
         category: 'Attributes',
         defaultValue: {
@@ -47,6 +48,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     variant: {
       control: 'select',
       options: BUTTON_VARIANT_LIST,
+      description: 'Estilo visual del botón (primary, secondary, tertiary, etc.)',
       table: {
         category: 'Attributes',
         defaultValue: {
@@ -57,6 +59,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     size: {
       control: 'select',
       options: ['s', 'm', 'l', 'block'],
+      description: 'Tamaño del botón (pequeño, medio, grande, ancho completo)',
       table: {
         category: 'Attributes',
         defaultValue: {
@@ -189,7 +192,7 @@ export const Sizes: Story = {
   }),
 };
 
-export const WithtIcons: Story = {
+export const WithIcons: Story = {
   render: args => ({
     props: { ...args },
     template: `

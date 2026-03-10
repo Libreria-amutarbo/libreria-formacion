@@ -6,7 +6,7 @@ import { DcxSize } from '../../core/interfaces';
 
 
 const meta: Meta<DcxNgIconFieldComponent> = {
-  title: 'DCXLibrary/IconField/Class based',
+  title: 'DCXLibrary/IconField',
   component: DcxNgIconFieldComponent,
   decorators: [
     moduleMetadata({

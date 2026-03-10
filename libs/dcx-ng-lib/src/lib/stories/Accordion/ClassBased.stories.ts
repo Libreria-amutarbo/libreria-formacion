@@ -16,7 +16,7 @@ import {
 const LIST_ITEMS_MOCK = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
 const meta: Meta<DcxNgAccordionComponent> = {
-  title: 'DCXLibrary/Accordion/ClassBased',
+  title: 'DCXLibrary/Accordion',
   component: DcxNgAccordionComponent,
   decorators: [
     moduleMetadata({

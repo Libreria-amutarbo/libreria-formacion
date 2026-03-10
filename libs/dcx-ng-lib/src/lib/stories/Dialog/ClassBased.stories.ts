@@ -80,7 +80,7 @@ class StoryHostDcxDialogComponent implements OnInit {
 }
 
 const meta: Meta<StoryHostDcxDialogComponent> = {
-  title: 'DCXLibrary/Dialog/ClassBased',
+  title: 'DCXLibrary/Dialog',
   component: StoryHostDcxDialogComponent,
   decorators: [
     moduleMetadata({

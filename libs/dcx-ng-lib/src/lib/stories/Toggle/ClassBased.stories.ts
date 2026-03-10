@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgToggleComponent } from '../../dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 
 const meta: Meta<DcxNgToggleComponent> = {
-  title: 'DCXLibrary/Toggle/Class based',
+  title: 'DCXLibrary/Toggle',
   component: DcxNgToggleComponent,
   tags: ['autodocs'],
   argTypes: {
