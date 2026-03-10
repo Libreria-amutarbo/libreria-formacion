@@ -15,3 +15,4 @@ export * from './input';
 export * from './iconField';
 export * from './tooltip';
 export * from './slider';
+export * from './checkbox';

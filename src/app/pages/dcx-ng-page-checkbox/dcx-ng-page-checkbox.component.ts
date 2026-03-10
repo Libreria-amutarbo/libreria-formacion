@@ -1,95 +1,52 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   DcxCheckbox,
-  DcxNgButtonComponent,
+  DcxCheckboxGroup,
+  DcxDiferentsLabelPositionsCheck,
+  DcxDisabledCheck,
+  DcxErrorCheck,
   DcxNgCheckboxComponent,
-  DcxPosition,
+  DcxRequiredCheck,
+  DcxSingleCheck,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-checkbox',
   standalone: true,
-  imports: [DcxNgCheckboxComponent, ReactiveFormsModule],
+  imports: [DcxNgCheckboxComponent],
   templateUrl: './dcx-ng-page-checkbox.component.html',
   styleUrl: './dcx-ng-page-checkbox.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageCheckboxComponent {
-  singleCheck = signal<DcxCheckbox[]>([
-    {
-      id: '1',
-      value: true,
-      label: 'Chceckbox único',
-    },
-  ]);
+  singleCheck = signal<DcxCheckbox[]>(DcxSingleCheck);
 
-  errorCheck = signal<DcxCheckbox[]>([
-    {
-      id: '1',
-      value: true,
-      label: 'Chceckbox erróneo',
-      error: true,
-      errorMessage: 'Checkbox con error',
-    },
-  ]);
+  errorCheck = signal<DcxCheckbox[]>(DcxErrorCheck);
 
-  disabledCheck = signal<DcxCheckbox[]>([
-    {
-      id: '1',
-      value: true,
-      label: 'Chceckbox dehabilitado',
-      disabled: true,
-    },
-  ]);
+  disabledCheck = signal<DcxCheckbox[]>(DcxDisabledCheck);
 
-  diferentsLabelPositionsCheck = signal<DcxCheckbox[]>([
-    {
-      id: '1',
-      value: true,
-      label: 'Izquierda',
-      labelPosition: 'left',
-    },
-    {
-      id: '2',
-      value: true,
-      label: 'Derecha',
-      labelPosition: 'right',
-    },
-  ]);
-  requiredCheck = signal<DcxCheckbox[]>([
-    {
-      id: '1',
-      value: true,
-      label: 'Required',
-      labelPosition: 'right',
-      required: true,
-    },
-  ]);
+  diferentsLabelPositionsCheck = signal<DcxCheckbox[]>(
+    DcxDiferentsLabelPositionsCheck,
+  );
+  requiredCheck = signal<DcxCheckbox[]>(DcxRequiredCheck);
 
-  checkboxGroup = signal<DcxCheckbox[]>([
-    {
-      id: '1',
-      value: true,
-      label: 'Válido',
-      labelPosition: 'right',
-      error: true,
-    },
-    {
-      id: '2',
-      value: false,
-      label: 'Inválido',
-      required: true,
-      labelPosition: 'right',
-      error: true,
-    },
-    {
-      id: '3',
-      value: null,
-      label: 'Sin valor',
-      labelPosition: 'right',
-      error: true,
-      errorMessage: 'Description',
-    },
-  ]);
+  checkboxGroup = signal<DcxCheckbox[]>(DcxCheckboxGroup);
+
+  changeLabel(checkbox: DcxCheckbox[]) {
+    checkbox.map((cb: DcxCheckbox) => {
+      switch (cb.value) {
+        case true:
+          cb.label = 'Válido';
+          break;
+        case false:
+          cb.label = 'Inválido';
+          break;
+        case null:
+        default:
+          cb.label = 'Sin valor';
+          break;
+      }
+    });
+  }
 }

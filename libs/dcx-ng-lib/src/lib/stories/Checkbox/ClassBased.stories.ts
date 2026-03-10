@@ -1,10 +1,18 @@
+import { Component, signal } from '@angular/core';
 import {
+  DcxCheckbox,
+  DcxCheckboxGroup,
+  DcxDiferentsLabelPositionsCheck,
+  DcxDisabledCheck,
+  DcxErrorCheck,
   DcxNgCheckboxComponent,
   DcxPosition,
+  DcxRequiredCheck,
+  DcxSingleCheck,
   POSITION_LIST,
   SIZE_LIST,
 } from '@dcx-ng-components/dcx-ng-lib';
-import { Meta, StoryObj } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgCheckboxComponent> = {
   title: 'DCXLibrary/Checkbox/ClassBased',
@@ -26,14 +34,7 @@ const meta: Meta<DcxNgCheckboxComponent> = {
     },
   },
   args: {
-    options: [
-      {
-        id: '1',
-        value: true,
-        label: 'Válido',
-        labelPosition: 'left',
-      },
-    ],
+    options: DcxSingleCheck,
   },
 };
 export default meta;
@@ -44,50 +45,74 @@ export const Default: Story = {
   args: {},
 };
 
-export const DisabledCheckbox: Story = {
+export const ErrorCheckBox: Story = {
   args: {
-    options: [
-      {
-        id: '1',
-        value: true,
-        label: 'Válido',
-        labelPosition: 'left',
-        disabled: true,
-      },
-    ],
+    options: DcxErrorCheck,
   },
 };
 
-export const WithErrorMessage: Story = {
-  args: {},
+export const DisabledCheckBox: Story = {
+  args: { options: DcxDisabledCheck },
 };
 
-export const Group: Story = {
+export const DiferentsLabelPositions: Story = {
   args: {
-    options: [
-      {
-        id: '1',
-        value: true,
-        label: 'Válido',
-        labelPosition: 'right',
-      },
-      {
-        id: '2',
-        value: false,
-        label: 'Inválido',
-        labelPosition: 'right',
-      },
-      {
-        id: '3',
-        value: null,
-        label: 'Sin valor',
-        labelPosition: 'right',
-      },
-    ],
+    options: DcxDiferentsLabelPositionsCheck,
   },
 };
 
-export const GroupWithDisabledOptions: Story = {
-  name: 'Grupo con opciones deshabilitadas',
-  args: {},
+export const RequiredCheckbox: Story = {
+  args: {
+    options: DcxRequiredCheck,
+  },
+};
+
+export const CheckboxGroup: Story = {
+  args: {
+    options: DcxCheckboxGroup,
+  },
+};
+
+@Component({
+  selector: 'dcx-ng-checkbox-example',
+  standalone: true,
+  imports: [DcxNgCheckboxComponent],
+  template: `
+  <dcx-ng-checkbox
+    [options]="checkboxGroup()"
+    (changeOptions)="changeLabel($event)"
+  />
+  `,
+})
+class DcxNgCheckboxExampleComponent {
+  checkboxGroup = signal<DcxCheckbox[]>(DcxCheckboxGroup);
+
+  changeLabel(checkbox: DcxCheckbox[]) {
+    checkbox.map((cb: DcxCheckbox) => {
+      switch (cb.value) {
+        case true:
+          cb.label = 'Válido';
+          break;
+        case false:
+          cb.label = 'Inválido';
+          break;
+        case null:
+        default:
+          cb.label = 'Sin valor';
+          break;
+      }
+    });
+  }
+}
+
+export const CheckboxGroupWithChangeLabel: Story = {
+  render: () => ({
+    props: {},
+    template: `<dcx-ng-checkbox-example/>`,
+  }),
+  decorators: [
+    moduleMetadata({
+      imports: [DcxNgCheckboxExampleComponent],
+    }),
+  ],
 };

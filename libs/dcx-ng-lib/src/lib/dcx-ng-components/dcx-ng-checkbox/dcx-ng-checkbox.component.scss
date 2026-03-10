@@ -1,10 +1,12 @@
+@use '../../../scss/utils/mixins' as *;
+@use '../../../scss/utils' as utils;
 :host {
   display: block;
+  font-family: var(--font-family-primary);
 }
 
 .dcx-checkbox-label {
-  display: flex;
-  align-items: center;
+  @include flex-center;
   cursor: pointer;
   user-select: none;
   width: fit-content;
@@ -21,24 +23,20 @@
 }
 
 .dcx-checkbox-text {
-  font-size: 15px;
+  font-weight: var(--weight-regular);
+  font-size: var(--font-size-body-small);
+}
+
+.dcx-checkbox-text.error {
+  color: var(--text-error);
 }
 
 .dcx-checkbox-group {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   gap: 0.5rem;
 
-  &__label {
-    font-weight: 600;
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-    color: #333;
-  }
-
   &__options {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     gap: 0.75rem;
   }
 }

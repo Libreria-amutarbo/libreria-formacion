@@ -36,8 +36,18 @@
 <hr />
 
 <section>
-  <h2 class="example-title">Ejemplo 5 - Grupo de checkbox</h2>
+  <h2 class="example-title">Ejemplo 6 - Grupo de checkbox</h2>
   <dcx-ng-checkbox [options]="checkboxGroup()" />
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 7 - Con cambio de label según el value</h2>
+  <dcx-ng-checkbox
+    [options]="checkboxGroup()"
+    (changeOptions)="changeLabel($event)"
+  />
 </section>
 
 <hr />

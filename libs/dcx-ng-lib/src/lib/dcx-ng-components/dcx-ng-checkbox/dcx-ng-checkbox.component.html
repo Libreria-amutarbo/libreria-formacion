@@ -1,6 +1,6 @@
 <div class="dcx-checkbox-group">
   <div class="dcx-checkbox-group__options">
-    @for (option of options(); track option.value) {
+    @for (option of optionsList(); track option.value) {
       <label
         class="dcx-checkbox-label"
         [class.disabled]="option.disabled"
@@ -9,10 +9,9 @@
         @if (
           option.labelPosition === 'left' || option.labelPosition === undefined
         ) {
-          <span class="dcx-checkbox-text">{{ option.label }}</span>
-          @if (option.required) {
-            <span class="dcx-ng-checkbox__required">*</span>
-          }
+          <ng-container
+            *ngTemplateOutlet="textLabel; context: {option: option}"
+          ></ng-container>
         }
         <dcx-ng-button
           [variant]="getButtonVariant(option)"
@@ -27,10 +26,9 @@
         </dcx-ng-button>
 
         @if (option.labelPosition === 'right') {
-          <span class="dcx-checkbox-text">{{ option.label }}</span>
-          @if (option.required) {
-            <span class="dcx-ng-checkbox__required">*</span>
-          }
+          <ng-container
+            *ngTemplateOutlet="textLabel; context: {option: option}"
+          ></ng-container>
         }
       </label>
       @if (option.error && option.errorMessage !== '') {
@@ -45,3 +43,14 @@
     }
   </div>
 </div>
+
+<ng-template #textLabel let-option="option">
+  <span
+    class="dcx-checkbox-text"
+    [class.error]="option.error"
+    >{{ option.label }}</span
+  >
+  @if (option.required) {
+    <span class="dcx-ng-checkbox__required">*</span>
+  }
+</ng-template>

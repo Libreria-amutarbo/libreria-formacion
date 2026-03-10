@@ -1,19 +1,16 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   input,
-  output,
   computed,
   signal,
   effect,
-  forwardRef,
+  output,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
 import {
   DcxCheckbox,
-  DcxPosition,
-  DcxSize,
-  DcxIconPositionList,
   DcxNgButtonComponent,
   DcxButtonVariant,
   DcxCheckboxValue,
@@ -24,7 +21,7 @@ import {
 @Component({
   selector: 'dcx-ng-checkbox',
   standalone: true,
-  imports: [DcxNgButtonComponent, DcxNgIconComponent],
+  imports: [DcxNgButtonComponent, DcxNgIconComponent, NgTemplateOutlet],
   templateUrl: './dcx-ng-checkbox.component.html',
   styleUrls: ['./dcx-ng-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,7 +29,7 @@ import {
 export class DcxNgCheckboxComponent {
   options = input<DcxCheckbox[]>([]);
   private _options = signal<DcxCheckbox[]>([]);
-  optionsInputs = computed(() => {
+  optionsList = computed(() => {
     return this._options();
   });
 
@@ -40,6 +37,8 @@ export class DcxNgCheckboxComponent {
   buttonVariant = signal<DcxButtonVariant>('primary');
 
   errorIcon = input<string>(ERRORICON);
+
+  changeOptions = output<DcxCheckbox[]>();
 
   constructor() {
     effect(() => {
@@ -81,6 +80,7 @@ export class DcxNgCheckboxComponent {
         value: f.id === id ? this.getValue(f.value!) : f.value,
       })),
     );
+    this.changeOptions.emit(this._options());
   }
 
   getValue(value: boolean): DcxCheckboxValue {
