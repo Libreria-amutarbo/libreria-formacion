@@ -1,0 +1,95 @@
+@use 'sass:map';
+
+// Grid tokens / configuración
+$grid-columns: 12 !default;
+
+$grid-breakpoints: (
+    sm: 640px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1280px,
+    '2xl': 1536px,
+    ) !default;
+
+$grid-gaps: (
+    none: 0,
+    xs: var(--spacing-xs),
+    s: var(--spacing-s),
+    m: var(--spacing-m),
+    l: var(--spacing-l),
+    xl: var(--spacing-xl),
+    ) !default;
+
+// Clases utilitarias
+.dcx-grid {
+    display: grid;
+    grid-template-columns: repeat($grid-columns, minmax(0, 1fr)
+    );
+gap: map.get($grid-gaps, m);
+
+&--gap-none {
+    gap: map.get($grid-gaps, none);
+}
+
+&--gap-xs {
+    gap: map.get($grid-gaps, xs);
+}
+
+&--gap-s {
+    gap: map.get($grid-gaps, s);
+}
+
+&--gap-m {
+    gap: map.get($grid-gaps, m);
+}
+
+&--gap-l {
+    gap: map.get($grid-gaps, l);
+}
+
+&--gap-xl {
+    gap: map.get($grid-gaps, xl);
+}
+
+&--align-start {
+    align-items: start;
+}
+
+&--align-center {
+    align-items: center;
+}
+
+&--align-end {
+    align-items: end;
+}
+
+&--justify-start {
+    justify-items: start;
+}
+
+&--justify-center {
+    justify-items: center;
+}
+
+&--justify-end {
+    justify-items: end;
+}
+}
+
+.dcx-col {
+    min-width: 0;
+
+    &--auto {
+        grid-column: auto;
+    }
+
+    &--full {
+        grid-column: 1 / -1;
+    }
+
+    @for $i from 1 through $grid-columns {
+        &--#{$i} {
+            grid-column: span $i;
+        }
+    }
+}
