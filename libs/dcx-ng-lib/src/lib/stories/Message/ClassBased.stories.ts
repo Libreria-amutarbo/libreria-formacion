@@ -5,7 +5,7 @@ import { DcxNgIconComponent } from '../../dcx-ng-components/dcx-ng-icon/dcx-ng-i
 import { DcxMessageType } from '../../core/interfaces/message';
 
 const meta: Meta<DcxNgMessageComponent> = {
-  title: 'DCXLibrary/Message/Class based',
+  title: 'DCXLibrary/Message',
   component: DcxNgMessageComponent,
   decorators: [
     moduleMetadata({

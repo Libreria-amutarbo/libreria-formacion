@@ -5,8 +5,9 @@ import { SIZE_LIST, SIZE_DEFAULT, ICON_SPACING_LIST, ICON_SPACING_DEFAULT } from
 import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
 import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 
-const meta: Meta = {
-  title: 'DCXLibrary/Icon/Class based (Wrapper)',
+const meta: Meta<DcxNgIconComponent> = {
+  title: 'DCXLibrary/Icon',
+  component: DcxNgIconComponent,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
   decorators: [
@@ -16,31 +17,41 @@ const meta: Meta = {
   ],
   argTypes: {
     size: {
-      description: 'Tamaño (padding + tipografía).',
+      control: 'select',
       options: SIZE_LIST,
-      control: { type: 'select' },
+      description: 'Tamaño del icono (s, m, l, xl)',
       table: {
         category: 'Attributes',
+        type: { summary: 'DcxSize' },
         defaultValue: { summary: 'l' },
       },
     },
     color: {
       control: 'color',
-      defaultValue: '#0058ab',
-      table: { category: 'Attributes' },
+      description: 'Color del icono (hexadecimal o nombre CSS)',
+      table: { 
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: '#0058ab' },
+      },
     },
     extraClass: {
       control: 'text',
-      defaultValue: '',
-      table: { category: 'Attributes' },
+      description: 'Clases CSS personalizadas para estilos adicionales',
+      table: { 
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
+      },
     },
     spacing: {
-      description: 'Spacing',
+      control: 'select',
       options: ICON_SPACING_LIST,
-      control: { type: 'select' },
+      description: 'Espaciado externo del icono',
       table: {
         category: 'Attributes',
-        defaultValue: { summary: ICON_SPACING_DEFAULT },
+        type: { summary: 'IconSpacing' },
+        defaultValue: { summary: 'none' },
       },
     },
   },

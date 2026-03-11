@@ -22,7 +22,7 @@ import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 
 const meta: Meta<DcxNgInputComponent> = {
-  title: 'DCXLibrary/Input/ClassBased',
+  title: 'DCXLibrary/Input',
   component: DcxNgInputComponent,
   tags: ['autodocs'],
   argTypes: {
