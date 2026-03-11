@@ -1,5 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { IconService } from './icon.service';
 
 describe('IconService', () => {
@@ -11,6 +14,8 @@ describe('IconService', () => {
     { name: 'arrow-up' },
     { name: 'bootstrap' },
   ];
+  const ICONS_URL =
+    'https://raw.githubusercontent.com/twbs/icons/main/bootstrap-icons.json';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -41,78 +46,67 @@ describe('IconService', () => {
 
     it('should return icons after loading', () => {
       service.loadIcons().subscribe();
-      const req = httpMock.expectOne(
-        'https://raw.githubusercontent.com/twbs/icons/main/bootstrap-icons.json',
-      );
+      const req = httpMock.expectOne(ICONS_URL);
       req.flush(MOCK_ICONS);
 
-      expect(service.getIconsSync()).toEqual(['alarm', 'arrow-up', 'bootstrap']);
+      expect(service.getIconsSync()).toEqual([
+        'alarm',
+        'arrow-up',
+        'bootstrap',
+      ]);
     });
   });
 
   describe('loadIcons()', () => {
-    it('should make HTTP request and map icon names', (done) => {
+    it('should make HTTP request and map icon names', done => {
       service.loadIcons().subscribe(icons => {
         expect(icons).toEqual(['alarm', 'arrow-up', 'bootstrap']);
         done();
       });
 
-      const req = httpMock.expectOne(
-        'https://raw.githubusercontent.com/twbs/icons/main/bootstrap-icons.json',
-      );
+      const req = httpMock.expectOne(ICONS_URL);
       expect(req.request.method).toBe('GET');
       req.flush(MOCK_ICONS);
     });
 
     it('should cache icons and not re-request on second call', () => {
       service.loadIcons().subscribe();
-      const req = httpMock.expectOne(
-        'https://raw.githubusercontent.com/twbs/icons/main/bootstrap-icons.json',
-      );
+      const req = httpMock.expectOne(ICONS_URL);
       req.flush(MOCK_ICONS);
 
-      // Second call should NOT make a new HTTP request
       service.loadIcons().subscribe(icons => {
         expect(icons).toEqual(['alarm', 'arrow-up', 'bootstrap']);
       });
-      httpMock.expectNone(
-        'https://raw.githubusercontent.com/twbs/icons/main/bootstrap-icons.json',
-      );
+      httpMock.expectNone(ICONS_URL);
     });
 
-    it('should handle HTTP error gracefully and return empty array', (done) => {
+    it('should handle HTTP error gracefully and return empty array', done => {
       service.loadIcons().subscribe(icons => {
         expect(icons).toEqual([]);
         done();
       });
 
-      const req = httpMock.expectOne(
-        'https://raw.githubusercontent.com/twbs/icons/main/bootstrap-icons.json',
-      );
+      const req = httpMock.expectOne(ICONS_URL);
       req.error(new ProgressEvent('error'));
     });
 
-    it('should set icons signal to empty array on error', (done) => {
+    it('should set icons signal to empty array on error', done => {
       service.loadIcons().subscribe(() => {
         expect(service.icons()).toEqual([]);
         done();
       });
 
-      const req = httpMock.expectOne(
-        'https://raw.githubusercontent.com/twbs/icons/main/bootstrap-icons.json',
-      );
+      const req = httpMock.expectOne(ICONS_URL);
       req.error(new ProgressEvent('error'));
     });
 
-    it('should set icons signal after successful load', (done) => {
+    it('should set icons signal after successful load', done => {
       service.loadIcons().subscribe(() => {
         expect(service.icons()).toEqual(['alarm', 'arrow-up', 'bootstrap']);
         done();
       });
 
-      const req = httpMock.expectOne(
-        'https://raw.githubusercontent.com/twbs/icons/main/bootstrap-icons.json',
-      );
+      const req = httpMock.expectOne(ICONS_URL);
       req.flush(MOCK_ICONS);
     });
   });
