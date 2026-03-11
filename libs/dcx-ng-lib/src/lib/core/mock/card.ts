@@ -6,8 +6,6 @@ import {
   SIZE_DEFAULT,
 } from './generic';
 
-export { DISABLED };
-
 export const TITLE_DEFAULT = 'Título de la carta';
 
 export const SUBTITLE = 'Subtítulo de la carta';
