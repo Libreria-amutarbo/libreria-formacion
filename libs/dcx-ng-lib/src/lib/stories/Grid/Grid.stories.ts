@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/angular';
+import { palette } from '../../core/mock/colors';
 
 interface GridStory {
   columns: number;
@@ -36,10 +37,31 @@ export default meta;
 type Story = StoryObj<GridStory>;
 
 const createGridItem = (index: number) => `
-  <div style="background: #e0e7ff; padding: 1rem; border-radius: 4px; text-align: center; border: 2px solid #818cf8;">
+  <div style="background: ${palette.primary[100]}; padding: 1rem; border-radius: 4px; text-align: center; border: 2px solid ${palette.primary[400]}; color: ${palette.grey[700]}">
     Item ${index}
   </div>
 `;
+
+const createCol = (classes: string, content: string) => `
+  <div class="dcx-col ${classes}">
+    ${content}
+  </div>
+`;
+
+const createColsWithFor = (
+  count: number,
+  classes: string,
+  startIndex = 1,
+  suffix = ''
+) => {
+  let html = '';
+
+  for (let i = 0; i < count; i++) {
+    html += createCol(classes, `${createGridItem(startIndex + i)}${suffix}`);
+  }
+
+  return html;
+};
 
 export const BasicGrid: Story = {
   args: {
@@ -47,13 +69,12 @@ export const BasicGrid: Story = {
     gap: 'm',
   },
   render: (args) => ({
+    props: {
+      span: Math.max(1, Math.floor(12 / args.columns)),
+    },
     template: `
       <div class="dcx-grid dcx-grid--gap-${args.gap}">
-        ${Array.from({ length: 9 }, (_, i) => `
-          <div class="dcx-col--${12 / args.columns}">
-            ${createGridItem(i + 1)}
-          </div>
-        `).join('')}
+        ${createColsWithFor(9, `dcx-col--${Math.max(1, Math.floor(12 / args.columns))}`)}
       </div>
     `,
   }),
@@ -65,32 +86,16 @@ export const DifferentColumnSizes: Story = {
       <div style="margin-bottom: 2rem;">
         <h3 style="margin-bottom: 1rem;">Different Column Sizes</h3>
         <div class="dcx-grid dcx-grid--gap-m">
-          <div class="dcx-col--12">
-            <div style="background: #dbeafe; padding: 1rem; border-radius: 4px; text-align: center; border: 2px solid #60a5fa;">
+          ${createCol(
+      'dcx-col--12',
+      `<div style="background: ${palette.primary[200]}; padding: 1rem; border-radius: 4px; text-align: center; border: 2px solid ${palette.primary[400]}; color: ${palette.grey[700]}">
               Full Width (12 cols)
-            </div>
-          </div>
-          <div class="dcx-col--6">
-            ${createGridItem(1) + ' <br>(6 cols)'}
-          </div>
-          <div class="dcx-col--6">
-            ${createGridItem(2) + ' <br>(6 cols)'}
-          </div>
-          <div class="dcx-col--4">
-            ${createGridItem(3) + ' <br>(4 cols)'}
-          </div>
-          <div class="dcx-col--4">
-            ${createGridItem(4) + ' <br>(4 cols)'}
-          </div>
-          <div class="dcx-col--4">
-            ${createGridItem(5) + ' <br>(4 cols)'}
-          </div>
-          <div class="dcx-col--3">
-            ${createGridItem(6) + ' <br>(3 cols)'}
-          </div>
-          <div class="dcx-col--9">
-            ${createGridItem(7) + ' <br>(9 cols)'}
-          </div>
+            </div>`
+    )}
+          ${createColsWithFor(2, 'dcx-col--6', 1, ' <br>(6 cols)')}
+          ${createColsWithFor(3, 'dcx-col--4', 3, ' <br>(4 cols)')}
+          ${createColsWithFor(1, 'dcx-col--3', 6, ' <br>(3 cols)')}
+          ${createColsWithFor(1, 'dcx-col--9', 7, ' <br>(9 cols)')}
         </div>
       </div>
     `,
@@ -98,104 +103,82 @@ export const DifferentColumnSizes: Story = {
 };
 
 export const GapVariations: Story = {
-  render: () => ({
-    template: `
-      <div style="margin-bottom: 2rem;">
-        <h3 style="margin-bottom: 1rem;">Gap Variations</h3>
-        
-        <h4 style="margin: 1rem 0 0.5rem;">No Gap</h4>
-        <div class="dcx-grid dcx-grid--gap-none">
-          ${Array.from({ length: 4 }, (_, i) => `
-            <div class="dcx-col--3">
-              ${createGridItem(i + 1)}
-            </div>
-          `).join('')}
-        </div>
+  render: () => {
+    const gaps = [
+      { key: 'none', label: 'No Gap' },
+      { key: 's', label: 'Small Gap' },
+      { key: 'm', label: 'Medium Gap (default)' },
+      { key: 'l', label: 'Large Gap' },
+      { key: 'xl', label: 'Extra Large Gap' },
+    ];
 
-        <h4 style="margin: 1rem 0 0.5rem;">Small Gap</h4>
-        <div class="dcx-grid dcx-grid--gap-s">
-          ${Array.from({ length: 4 }, (_, i) => `
-            <div class="dcx-col--3">
-              ${createGridItem(i + 1)}
-            </div>
-          `).join('')}
-        </div>
+    let sections = '';
 
-        <h4 style="margin: 1rem 0 0.5rem;">Medium Gap (default)</h4>
-        <div class="dcx-grid dcx-grid--gap-m">
-          ${Array.from({ length: 4 }, (_, i) => `
-            <div class="dcx-col--3">
-              ${createGridItem(i + 1)}
-            </div>
-          `).join('')}
+    for (const gap of gaps) {
+      sections += `
+        <h4 style="margin: 1rem 0 0.5rem;">${gap.label}</h4>
+        <div class="dcx-grid dcx-grid--gap-${gap.key}">
+          ${createColsWithFor(4, 'dcx-col--3')}
         </div>
+      `;
+    }
 
-        <h4 style="margin: 1rem 0 0.5rem;">Large Gap</h4>
-        <div class="dcx-grid dcx-grid--gap-l">
-          ${Array.from({ length: 4 }, (_, i) => `
-            <div class="dcx-col--3">
-              ${createGridItem(i + 1)}
-            </div>
-          `).join('')}
+    return {
+      template: `
+        <div style="margin-bottom: 2rem;">
+          <h3 style="margin-bottom: 1rem;">Gap Variations</h3>
+          ${sections}
         </div>
-
-        <h4 style="margin: 1rem 0 0.5rem;">Extra Large Gap</h4>
-        <div class="dcx-grid dcx-grid--gap-xl">
-          ${Array.from({ length: 4 }, (_, i) => `
-            <div class="dcx-col--3">
-              ${createGridItem(i + 1)}
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    `,
-  }),
+      `,
+    };
+  },
 };
 
 export const AlignmentOptions: Story = {
-  render: () => ({
-    template: `
-      <div style="margin-bottom: 2rem;">
-        <h3 style="margin-bottom: 1rem;">Alignment Options</h3>
-        
-        <h4 style="margin: 1rem 0 0.5rem;">Align Start</h4>
-        <div class="dcx-grid dcx-grid--gap-m dcx-grid--align-start" style="min-height: 150px; background: #f3f4f6;">
-          ${Array.from({ length: 3 }, (_, i) => `
-            <div class="dcx-col--4">
-              ${createGridItem(i + 1)}
-            </div>
-          `).join('')}
-        </div>
+  render: () => {
+    const alignments = [
+      {
+        label: 'Align Start',
+        className: 'dcx-grid--align-start',
+        style: `min-height: 150px; background: ${palette.grey[100]};`,
+      },
+      {
+        label: 'Align Center',
+        className: 'dcx-grid--align-center',
+        style: `min-height: 150px; background: ${palette.grey[100]};`,
+      },
+      {
+        label: 'Align End',
+        className: 'dcx-grid--align-end',
+        style: `min-height: 150px; background: ${palette.grey[100]};`,
+      },
+      {
+        label: 'Justify Center',
+        className: 'dcx-grid--justify-center',
+        style: '',
+      },
+    ];
 
-        <h4 style="margin: 1rem 0 0.5rem;">Align Center</h4>
-        <div class="dcx-grid dcx-grid--gap-m dcx-grid--align-center" style="min-height: 150px; background: #f3f4f6;">
-          ${Array.from({ length: 3 }, (_, i) => `
-            <div class="dcx-col--4">
-              ${createGridItem(i + 1)}
-            </div>
-          `).join('')}
-        </div>
+    let sections = '';
 
-        <h4 style="margin: 1rem 0 0.5rem;">Align End</h4>
-        <div class="dcx-grid dcx-grid--gap-m dcx-grid--align-end" style="min-height: 150px; background: #f3f4f6;">
-          ${Array.from({ length: 3 }, (_, i) => `
-            <div class="dcx-col--4">
-              ${createGridItem(i + 1)}
-            </div>
-          `).join('')}
+    for (const alignment of alignments) {
+      sections += `
+        <h4 style="margin: 1rem 0 0.5rem;">${alignment.label}</h4>
+        <div class="dcx-grid dcx-grid--gap-m ${alignment.className}" style="${alignment.style}">
+          ${createColsWithFor(3, 'dcx-col--4')}
         </div>
+      `;
+    }
 
-        <h4 style="margin: 1rem 0 0.5rem;">Justify Center</h4>
-        <div class="dcx-grid dcx-grid--gap-m dcx-grid--justify-center">
-          ${Array.from({ length: 3 }, (_, i) => `
-            <div class="dcx-col--4">
-              ${createGridItem(i + 1)}
-            </div>
-          `).join('')}
+    return {
+      template: `
+        <div style="margin-bottom: 2rem;">
+          <h3 style="margin-bottom: 1rem;">Alignment Options</h3>
+          ${sections}
         </div>
-      </div>
-    `,
-  }),
+      `,
+    };
+  },
 };
 
 export const ComplexLayout: Story = {
@@ -204,30 +187,30 @@ export const ComplexLayout: Story = {
       <div style="margin-bottom: 2rem;">
         <h3 style="margin-bottom: 1rem;">Complex Layout Example</h3>
         <div class="dcx-grid dcx-grid--gap-m">
-          <div class="dcx-col--12">
-            <div style="background: #fef3c7; padding: 1.5rem; border-radius: 4px; text-align: center; border: 2px solid #fbbf24;">
+          ${createCol(
+      'dcx-col--12',
+      `<div style="background: ${palette.primary[100]}; padding: 1.5rem; border-radius: 4px; text-align: center; border: 2px solid ${palette.primary[400]}; color: ${palette.grey[700]}">
               <strong>Header (Full Width)</strong>
-            </div>
-          </div>
-          <div class="dcx-col--12 dcx-col--md-3">
-            <div style="background: #ddd6fe; padding: 1.5rem; border-radius: 4px; min-height: 200px; border: 2px solid #a78bfa;">
+            </div>`
+    )}
+          ${createCol(
+      'dcx-col--12 dcx-col--md-3',
+      `<div style="background: ${palette.primary[200]}; padding: 1.5rem; border-radius: 4px; min-height: 200px; border: 2px solid ${palette.primary[500]}; color: ${palette.grey[700]}">
               <strong>Sidebar</strong><br>(12 cols mobile, 3 cols tablet+)
-            </div>
-          </div>
-          <div class="dcx-col--12 dcx-col--md-9">
-            <div class="dcx-grid dcx-grid--gap-m">
-              ${Array.from({ length: 6 }, (_, i) => `
-                <div class="dcx-col--12 dcx-col--sm-6 dcx-col--lg-4">
-                  ${createGridItem(i + 1)}
-                </div>
-              `).join('')}
-            </div>
-          </div>
-          <div class="dcx-col--12">
-            <div style="background: #fce7f3; padding: 1.5rem; border-radius: 4px; text-align: center; border: 2px solid #f472b6;">
+            </div>`
+    )}
+          ${createCol(
+      'dcx-col--12 dcx-col--md-9',
+      `<div class="dcx-grid dcx-grid--gap-m">
+              ${createColsWithFor(6, 'dcx-col--12 dcx-col--sm-6 dcx-col--lg-4')}
+            </div>`
+    )}
+          ${createCol(
+      'dcx-col--12',
+      `<div style="background: ${palette.grey[200]}; padding: 1.5rem; border-radius: 4px; text-align: center; border: 2px solid ${palette.grey[400]}; color: ${palette.grey[700]}">
               <strong>Footer (Full Width)</strong>
-            </div>
-          </div>
+            </div>`
+    )}
         </div>
       </div>
     `,

@@ -24,4 +24,5 @@ export const APP_ROUTES = {
   TABS: 'tabs',
   BREADCRUMB: 'breadcrumb',
   CONTEXTMENU: 'context-menu',
+  GRID: 'grid',
 };

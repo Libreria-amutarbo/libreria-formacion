@@ -24,6 +24,7 @@ import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
 import { DcxNgPageBreadcrumb } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
 import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.component/dcx-ng-page-contextMenu.component';
+import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-grid.component';
 
 export const appRoutes: Route[] = [
   {
@@ -125,5 +126,9 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.CONTEXTMENU,
     component: DcxNgPageContextMenuComponent
+  },
+  {
+    path: APP_ROUTES.GRID,
+    component: DcxNgPageGridComponent,
   }
 ];
