@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgAccordionComponent } from './dcx-ng-accordion.component';
-import { DcxNgAccordionItem } from '../../core/interfaces/accordion';
 import {
+  DcxNgAccordionItem,
   DcxAccordionDefault,
-  ACCORDION_TEST_ITEMS,
-  ACCORDION_ITEMS_WITH_EXPANDED,
-  ACCORDION_ITEMS_WITH_ICON,
-} from '../../core/mock/accordion';
+  DcxAccordionItemsWithExpanded,
+  DcxAccordionItemsWithIcon,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgAccordionComponent', () => {
   let component: DcxNgAccordionComponent;
   let fixture: ComponentFixture<DcxNgAccordionComponent>;
 
-  const mockItems = ACCORDION_TEST_ITEMS;
+  const mockItems = DcxAccordionDefault;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -30,7 +29,7 @@ describe('DcxNgAccordionComponent', () => {
   });
 
   it('should have correct items when items provided', () => {
-    expect(component.items().length).toBe(3);
+    expect(component.items().length).toBe(4);
   });
 
   it('should return empty when no items', () => {
@@ -48,7 +47,7 @@ describe('DcxNgAccordionComponent', () => {
   });
 
   it('should not toggle disabled items', () => {
-    const disabledItem = mockItems[2];
+    const disabledItem = mockItems[3];
     component.toggleItem(disabledItem);
     expect(component.isExpanded(disabledItem.id)).toBe(false);
   });
@@ -98,7 +97,7 @@ describe('DcxNgAccordionComponent - Extended', () => {
   let component: DcxNgAccordionComponent;
   let fixture: ComponentFixture<DcxNgAccordionComponent>;
 
-  const mockItems = ACCORDION_TEST_ITEMS;
+  const mockItems = DcxAccordionDefault;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -119,7 +118,7 @@ describe('DcxNgAccordionComponent - Extended', () => {
     it('should render all items', () => {
       const compiled = fixture.nativeElement as HTMLElement;
       const items = compiled.querySelectorAll('.accordion-item');
-      expect(items.length).toBe(3);
+      expect(items.length).toBe(4);
     });
 
     it('should display item titles', () => {
@@ -127,7 +126,8 @@ describe('DcxNgAccordionComponent - Extended', () => {
       const titles = compiled.querySelectorAll('.accordion-title');
       expect(titles[0].textContent?.trim()).toBe('Item 1');
       expect(titles[1].textContent?.trim()).toBe('Item 2');
-      expect(titles[2].textContent?.trim()).toBe('Item 3 (Disabled)');
+      expect(titles[2].textContent?.trim()).toBe('Item with disabled content');
+      expect(titles[3].textContent?.trim()).toBe('Item with disabled');
     });
   });
 
@@ -151,7 +151,7 @@ describe('DcxNgAccordionComponent - Extended', () => {
     });
 
     it('should not toggle disabled items', () => {
-      const disabledItem = mockItems[2];
+      const disabledItem = mockItems[3];
       component.toggleItem(disabledItem);
       fixture.detectChanges();
       expect(component.isExpanded(disabledItem.id)).toBe(false);
@@ -235,12 +235,13 @@ describe('DcxNgAccordionComponent - Extended', () => {
     });
 
     it('should expand items with expanded=true property', () => {
-      fixture.componentRef.setInput('items', ACCORDION_ITEMS_WITH_EXPANDED);
+      fixture.componentRef.setInput('items', DcxAccordionItemsWithExpanded);
       fixture.componentRef.setInput('expandedIds', []);
       fixture.detectChanges();
 
       expect(component.isExpanded('1')).toBe(true);
-      expect(component.isExpanded('2')).toBe(false);
+      expect(component.isExpanded('2')).toBe(true);
+      expect(component.isExpanded('3')).toBe(true);
     });
   });
 
@@ -252,9 +253,9 @@ describe('DcxNgAccordionComponent - Extended', () => {
     });
 
     it('should not expand disabled item by ID', () => {
-      component.expandItemById('3');
+      component.expandItemById('4');
       fixture.detectChanges();
-      expect(component.isExpanded('3')).toBe(false);
+      expect(component.isExpanded('4')).toBe(false);
     });
 
     it('should collapse item by ID', () => {
@@ -289,7 +290,7 @@ describe('DcxNgAccordionComponent - Extended', () => {
 
   describe('Icons', () => {
     it('should render icons when provided', () => {
-      fixture.componentRef.setInput('items', ACCORDION_ITEMS_WITH_ICON);
+      fixture.componentRef.setInput('items', DcxAccordionItemsWithIcon);
       fixture.detectChanges();
 
       const compiled = fixture.nativeElement as HTMLElement;
@@ -316,7 +317,7 @@ describe('DcxNgAccordionComponent - Extended', () => {
     it('should disable button for disabled items', () => {
       const compiled = fixture.nativeElement as HTMLElement;
       const headers = compiled.querySelectorAll('.accordion-header');
-      const disabledHeader = headers[2] as HTMLElement;
+      const disabledHeader = headers[3] as HTMLElement;
 
       expect(disabledHeader.getAttribute('tabindex')).toBe('-1');
       expect(disabledHeader.classList.contains('disabled')).toBe(true);

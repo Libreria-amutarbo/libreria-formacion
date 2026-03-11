@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DcxNgCardComponent } from './dcx-ng-card.component';
+import { DcxNgCardComponent } from '@dcx-ng-components/dcx-ng-lib';
 import {
   TITLE_DEFAULT,
   SUBTITLE,
@@ -10,7 +10,7 @@ import {
   BORDERED,
   INTERACTIVE,
   DISABLED,
-} from '../../core/mock/card';
+} from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgCardComponent', () => {
   let component: DcxNgCardComponent;

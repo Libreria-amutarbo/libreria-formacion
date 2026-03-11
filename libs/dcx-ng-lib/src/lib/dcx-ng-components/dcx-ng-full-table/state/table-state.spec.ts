@@ -1,9 +1,12 @@
 import { signal } from '@angular/core';
-import { TableComparatorService } from '../services/table-comparator.service';
-import { TableDataPipelineService } from '../services/table-data-pipeline.service';
+import {
+  TableComparatorService,
+  TableDataPipelineService,
+  DcxHeaderData,
+  TEST_TABLE_HEADERS,
+  TEST_TABLE_ROWS,
+} from '@dcx-ng-components/dcx-ng-lib';
 import { TableState, TableStateConfig } from './table-state';
-import { DcxHeaderData } from '../../../core/interfaces';
-import { TEST_TABLE_HEADERS, TEST_TABLE_ROWS } from '../../../core/mock';
 
 const HEADERS = TEST_TABLE_HEADERS;
 const ROWS = TEST_TABLE_ROWS;

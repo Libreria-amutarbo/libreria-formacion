@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DcxNgContextMenuComponent } from './dcx-ng-contextMenu.component';
-import { DcxContextMenuItem } from '../../core/interfaces';
+import { DcxNgContextMenuComponent } from '@dcx-ng-components/dcx-ng-lib';
 import {
+  DcxContextMenuItem,
   SIMPLE_CONTEXT_MENU_ITEMS,
   CONTEXT_MENU_TEST_ITEMS,
-} from '../../core/mock';
+} from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgContextMenuComponent', () => {
   let component: DcxNgContextMenuComponent;

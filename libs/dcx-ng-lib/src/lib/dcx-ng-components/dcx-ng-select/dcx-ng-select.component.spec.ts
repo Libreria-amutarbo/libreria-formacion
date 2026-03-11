@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgSelectComponent } from './dcx-ng-select.component';
 import { By } from '@angular/platform-browser';
-import { OPTIONS, PLACEHOLDER } from '../../core/mock';
+import { OPTIONS, PLACEHOLDER } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgSelectComponent', () => {
   let component: DcxNgSelectComponent;

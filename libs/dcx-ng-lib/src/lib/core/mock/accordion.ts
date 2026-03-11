@@ -183,19 +183,4 @@ Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatib
   },
 ];
 
-export const ACCORDION_TEST_ITEMS: DcxNgAccordionItem[] = [
-  { id: '1', title: 'Item 1', content: 'Content 1' },
-  { id: '2', title: 'Item 2', content: 'Content 2' },
-  { id: '3', title: 'Item 3 (Disabled)', content: 'Content 3', disabled: true },
-];
-
-export const ACCORDION_ITEMS_WITH_EXPANDED: DcxNgAccordionItem[] = [
-  { id: '1', title: 'Item 1', content: 'Content 1', expanded: true },
-  { id: '2', title: 'Item 2', content: 'Content 2' },
-];
-
-export const ACCORDION_ITEMS_WITH_ICON: DcxNgAccordionItem[] = [
-  { id: '1', title: 'Item 1', content: 'Content 1', icon: 'star-fill' },
-];
-
 export const LIST_ITEMS_MOCK = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];

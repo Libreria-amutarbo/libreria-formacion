@@ -1,4 +1,4 @@
-import { CheckboxOption } from '../interfaces';
+import { CheckboxOption } from '@dcx-ng-components/dcx-ng-lib';
 
 export const CHECKBOX_OPTIONS: CheckboxOption[] = [
   { value: 'opt1', label: 'Opción 1' },

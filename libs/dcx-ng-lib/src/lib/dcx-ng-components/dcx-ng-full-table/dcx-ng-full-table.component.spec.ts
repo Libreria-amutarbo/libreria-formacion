@@ -1,8 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DcxNgFullTableComponent } from './dcx-ng-full-table.component';
-import { DcxHeaderData, DcxTableRow, DcxSortType } from '../../core/interfaces';
-import { TEST_TABLE_HEADERS, TEST_TABLE_ROWS } from '../../core/mock';
+import {
+  DcxHeaderData,
+  DcxTableRow,
+  DcxSortType,
+  TEST_TABLE_HEADERS,
+  TEST_TABLE_ROWS,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const HEADERS = TEST_TABLE_HEADERS;
 const ROWS = TEST_TABLE_ROWS;

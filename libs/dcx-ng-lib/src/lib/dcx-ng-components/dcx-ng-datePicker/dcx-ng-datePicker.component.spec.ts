@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgDatePickerComponent } from './dcx-ng-datePicker.component';
 import { ComponentRef } from '@angular/core';
-import { makeDay } from '../../core/mock';
+import { makeDay } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgDatePickerComponent', () => {
   let component: DcxNgDatePickerComponent;

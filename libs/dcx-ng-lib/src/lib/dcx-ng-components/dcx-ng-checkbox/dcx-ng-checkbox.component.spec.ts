@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgCheckboxComponent } from './dcx-ng-checkbox.component';
+import { DcxNgCheckboxComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { By } from '@angular/platform-browser';
 import { ComponentRef } from '@angular/core';
 import {
   CHECKBOX_OPTIONS,
   CHECKBOX_OPTIONS_WITH_DISABLED,
   CHECKBOX_SINGLE_OPTION,
-} from '../../core/mock';
+} from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgCheckboxComponent', () => {
   let component: DcxNgCheckboxComponent;

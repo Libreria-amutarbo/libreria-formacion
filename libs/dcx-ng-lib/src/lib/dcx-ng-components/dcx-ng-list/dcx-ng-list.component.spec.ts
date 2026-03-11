@@ -1,18 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgListComponent } from './dcx-ng-list.component';
 import {
+  DcxNgListComponent,
   SIMPLE_LIST_ITEMS,
   SELECTABLE_LIST_ITEMS,
-  LIST_ABC_ITEMS,
   LIST_ITEMS_WITH_DIVIDER,
   LIST_ENABLED_DISABLED_ITEMS,
-  LIST_TWO_OPTIONS,
   LIST_DISABLED_ONLY,
   LIST_DIVIDER_ONLY,
-  LIST_AB_ITEMS,
-  LIST_PARENT_WITH_CHILDREN,
+  LIST_ITEMS_WITH_SUBLISTS,
   LIST_ITEMS_WITH_ICONS,
-} from '../../core/mock';
+} from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgListComponent', () => {
   let fixture: ComponentFixture<DcxNgListComponent>;
@@ -35,13 +32,13 @@ describe('DcxNgListComponent', () => {
   });
 
   it('renders list items', () => {
-    fixture.componentRef.setInput('items', LIST_ABC_ITEMS);
+    fixture.componentRef.setInput('items', SIMPLE_LIST_ITEMS);
     fixture.detectChanges();
 
     const lis = host().querySelectorAll('.dcx-list-item');
-    expect(lis.length).toBe(3);
-    expect(lis[0].textContent?.trim()).toContain('A');
-    expect(lis[2].textContent?.trim()).toContain('C');
+    expect(lis.length).toBe(SIMPLE_LIST_ITEMS.length);
+    expect(lis[0].textContent?.trim()).toContain('Uno');
+    expect(lis[3].textContent?.trim()).toContain('Cuatro');
   });
 
   it('renders items with icons', () => {
@@ -76,23 +73,26 @@ describe('DcxNgListComponent', () => {
     });
 
     it('should emit itemSelected when selectable item is clicked', () => {
-      fixture.componentRef.setInput('items', LIST_TWO_OPTIONS);
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
       fixture.componentRef.setInput('selectable', true);
       fixture.detectChanges();
 
       const spy = jest.fn();
       component.itemSelected.subscribe(spy);
 
-      component.onItemClick(LIST_TWO_OPTIONS[0], 0);
-      expect(spy).toHaveBeenCalledWith({ item: LIST_TWO_OPTIONS[0], index: 0 });
+      component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
+      expect(spy).toHaveBeenCalledWith({
+        item: SELECTABLE_LIST_ITEMS[0],
+        index: 0,
+      });
     });
 
     it('should track selected indices', () => {
-      fixture.componentRef.setInput('items', LIST_TWO_OPTIONS);
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
       fixture.componentRef.setInput('selectable', true);
       fixture.detectChanges();
 
-      component.onItemClick(LIST_TWO_OPTIONS[0], 0);
+      component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
       expect(component.isSelected(0)).toBe(true);
       expect(component.isSelected(1)).toBe(false);
     });
@@ -128,43 +128,43 @@ describe('DcxNgListComponent', () => {
 
   describe('Multi-select', () => {
     it('should allow multiple selections in multiSelect mode', () => {
-      fixture.componentRef.setInput('items', LIST_ABC_ITEMS);
+      fixture.componentRef.setInput('items', SIMPLE_LIST_ITEMS);
       fixture.componentRef.setInput('selectable', true);
       fixture.componentRef.setInput('multiSelect', true);
       fixture.detectChanges();
 
-      component.onItemClick(LIST_ABC_ITEMS[0], 0);
-      component.onItemClick(LIST_ABC_ITEMS[1], 1);
+      component.onItemClick(SIMPLE_LIST_ITEMS[0], 0);
+      component.onItemClick(SIMPLE_LIST_ITEMS[1], 1);
 
       expect(component.isSelected(0)).toBe(true);
       expect(component.isSelected(1)).toBe(true);
     });
 
     it('should deselect in multiSelect mode', () => {
-      fixture.componentRef.setInput('items', LIST_AB_ITEMS);
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
       fixture.componentRef.setInput('selectable', true);
       fixture.componentRef.setInput('multiSelect', true);
       fixture.detectChanges();
 
-      component.onItemClick(LIST_AB_ITEMS[0], 0);
+      component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
       expect(component.isSelected(0)).toBe(true);
 
-      component.onItemClick(LIST_AB_ITEMS[0], 0);
+      component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
       expect(component.isSelected(0)).toBe(false);
     });
   });
 
   describe('Single select', () => {
     it('should replace selection in single select mode', () => {
-      fixture.componentRef.setInput('items', LIST_AB_ITEMS);
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
       fixture.componentRef.setInput('selectable', true);
       fixture.componentRef.setInput('multiSelect', false);
       fixture.detectChanges();
 
-      component.onItemClick(LIST_AB_ITEMS[0], 0);
+      component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
       expect(component.isSelected(0)).toBe(true);
 
-      component.onItemClick(LIST_AB_ITEMS[1], 1);
+      component.onItemClick(SELECTABLE_LIST_ITEMS[1], 1);
       expect(component.isSelected(0)).toBe(false);
       expect(component.isSelected(1)).toBe(true);
     });
@@ -172,7 +172,7 @@ describe('DcxNgListComponent', () => {
 
   describe('Children', () => {
     it('should render children indicator when showChildrenIndicator is true', () => {
-      fixture.componentRef.setInput('items', LIST_PARENT_WITH_CHILDREN);
+      fixture.componentRef.setInput('items', LIST_ITEMS_WITH_SUBLISTS);
       fixture.componentRef.setInput('showChildrenIndicator', true);
       fixture.detectChanges();
 
@@ -181,7 +181,7 @@ describe('DcxNgListComponent', () => {
     });
 
     it('should render nested list when renderChildren is true', () => {
-      fixture.componentRef.setInput('items', LIST_PARENT_WITH_CHILDREN);
+      fixture.componentRef.setInput('items', LIST_ITEMS_WITH_SUBLISTS);
       fixture.componentRef.setInput('renderChildren', true);
       fixture.detectChanges();
 
@@ -190,7 +190,7 @@ describe('DcxNgListComponent', () => {
     });
 
     it('should not render nested list when renderChildren is false', () => {
-      fixture.componentRef.setInput('items', LIST_PARENT_WITH_CHILDREN);
+      fixture.componentRef.setInput('items', LIST_ITEMS_WITH_SUBLISTS);
       fixture.componentRef.setInput('renderChildren', false);
       fixture.detectChanges();
 

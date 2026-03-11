@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgDialogComponent } from './dcx-ng-dialog.component';
 import { By } from '@angular/platform-browser';
-import { DialogService } from '../../services/dialog.service';
+import { DialogService } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgDialogComponent', () => {
   let component: DcxNgDialogComponent;

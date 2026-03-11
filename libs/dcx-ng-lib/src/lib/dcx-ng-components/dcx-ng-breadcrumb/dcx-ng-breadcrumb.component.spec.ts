@@ -4,8 +4,8 @@ import { DcxNgBreadcrumbComponent } from './dcx-ng-breadcrumb.component';
 import {
   DcxBreadCrumbItemDefault,
   DcxBreadChevronSlashIcon,
-} from '../../core/mock/breadcrumb';
-import { DcxBreadcrumbItem } from '../../core/interfaces';
+  DcxBreadcrumbItem,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgBreadcrumbComponent', () => {
   let fixture: ComponentFixture<DcxNgBreadcrumbComponent>;

@@ -3,8 +3,10 @@ import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { DcxNgSliderComponent } from './dcx-ng-slider.component';
-import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
-import { SLIDER_DEFAULT_VALUES } from '../../core/mock';
+import {
+  DcxNgInputComponent,
+  SLIDER_DEFAULT_VALUES,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgSliderComponent', () => {
   let component: DcxNgSliderComponent;

@@ -1,6 +1,6 @@
 import { TableComparatorService } from './table-comparator.service';
 import { TableDataPipelineService } from './table-data-pipeline.service';
-import { DcxHeaderData, DcxTableRow } from '../../../core/interfaces';
+import { DcxHeaderData, DcxTableRow } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('TableDataPipelineService', () => {
   let service: TableDataPipelineService;

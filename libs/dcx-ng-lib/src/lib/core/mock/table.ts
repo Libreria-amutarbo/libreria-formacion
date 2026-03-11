@@ -1,4 +1,4 @@
-import { DcxHeaderData, DcxTableRow } from '../interfaces';
+import { DcxHeaderData, DcxTableRow } from '@dcx-ng-components/dcx-ng-lib';
 
 // ==================== TABLA TEST (para specs) ====================
 

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DcxNgInputComponent } from './dcx-ng-input.component';
-import { DcxInputType } from '../../core/interfaces';
+import { DcxInputType } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgInputComponent', () => {
   let component: DcxNgInputComponent;
