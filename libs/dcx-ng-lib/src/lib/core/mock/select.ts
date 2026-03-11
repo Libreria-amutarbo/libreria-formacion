@@ -1,8 +1,7 @@
 import {
-  DISABLED,
-  SPACING_DEFAULT,
   DcxSelectOptions,
-  DcxSpacing,
+  DISABLED,
+  SPACING_DEFAULT
 } from '@dcx-ng-components/dcx-ng-lib';
 
 export const LABEL = 'Select';
