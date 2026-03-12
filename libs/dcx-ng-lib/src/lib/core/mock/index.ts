@@ -16,3 +16,4 @@ export * from './tooltip';
 export * from './slider';
 export * from './checkbox';
 export * from './datePicker';
+export * from './colors';
