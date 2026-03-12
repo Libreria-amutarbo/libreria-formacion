@@ -7,7 +7,7 @@ interface GridStory {
 }
 
 const meta: Meta<GridStory> = {
-  title: 'DCXLibrary/Grid System',
+  title: 'DCXLibrary/Utilities/Grid System',
   tags: ['autodocs'],
   argTypes: {
     columns: {

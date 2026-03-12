@@ -11,7 +11,7 @@ import {
 const ActionsData = { buttonClick: fn() };
 
 const meta: Meta<DcxNgButtonComponent> = {
-  title: 'DCXLibrary/Button',
+  title: 'DCXLibrary/Components/Button',
   component: DcxNgButtonComponent,
   tags: ['autodocs'],
   argTypes: {

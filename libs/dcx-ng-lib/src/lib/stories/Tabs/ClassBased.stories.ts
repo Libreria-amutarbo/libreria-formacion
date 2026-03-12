@@ -13,7 +13,7 @@ import {
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgTabsComponent> = {
-  title: 'DCXLibrary/Tabs',
+  title: 'DCXLibrary/Components/Tabs',
   component: DcxNgTabsComponent,
   tags: ['autodocs'],
   argTypes: {

@@ -1,14 +1,17 @@
 # Instrucciones para Storybook en DCX NG Library
 
 ## Contexto del Proyecto
+
 Storybook se utiliza como herramienta principal para documentación interactiva, testing visual y desarrollo de componentes. Cada componente debe tener stories completas que demuestren todas sus funcionalidades, estados y casos de uso.
 
 ## Estructura de Archivos
 
 ### 1. Stories TypeScript
+
 **Ubicación**: `src/lib/stories/[Componente]/ClassBased.stories.ts`
 
 **Estructura obligatoria**:
+
 ```typescript
 import { Dcx[Componente]Options, DcxNg[Componente]Component } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
@@ -23,7 +26,7 @@ const ActionsData = {
 };
 
 const meta: Meta<DcxNg[Componente]Component> = {
-  title: 'DCXLibrary/[Componente]',
+  title: 'DCXLibrary/Components/[Componente]',
   component: DcxNg[Componente]Component,
   tags: ['autodocs'],
   parameters: {
@@ -61,10 +64,12 @@ export const [NombreStory]: Story = {
 ```
 
 ### 2. Documentación MDX
+
 **Ubicación**: `src/lib/stories/[Componente]/Documentation.mdx`
 
 **Estructura**:
-```mdx
+
+````mdx
 import { Meta, Canvas } from '@storybook/blocks';
 import * as [Componente]Stories from './ClassBased.stories';
 
@@ -96,7 +101,7 @@ Descripción completa del componente y sus características principales.
   [prop]="valor"
   (evento)="handler($event)"
 ></dcx-ng-[componente]>
-```
+````
 
 ## Estados y Variantes
 
@@ -107,6 +112,7 @@ Descripción completa del componente y sus características principales.
 ## Configuración Global
 
 ### .storybook/main.ts
+
 ```typescript
 const config: StorybookConfig = {
   stories: ['../src/lib/stories/**/*.stories.ts'],
@@ -132,6 +138,7 @@ const config: StorybookConfig = {
 ```
 
 ### .storybook/preview.ts
+
 ```typescript
 const preview: Preview = {
   parameters: {
@@ -149,11 +156,13 @@ const preview: Preview = {
 ## Mejores Prácticas
 
 ### 1. Nomenclatura
+
 - **Títulos**: `'DCXLibrary/[Componente]'` (simplificado, sin "Class based")
 - **Stories**: PascalCase descriptivo (`BasicDropdown`, `DisabledState`)
 - **Archivos**: `ClassBased.stories.ts`, `Documentation.mdx`
 
 ### 2. Controles (argTypes)
+
 - **Categorías**: `'Attributes'` para inputs, `'Events'` para outputs
 - **Tipos de control**:
   - `text`: strings
@@ -164,19 +173,23 @@ const preview: Preview = {
 - **Default values**: Especificar en table
 
 ### 3. Mock Data
+
 - **Realista**: Usar datos que representen casos reales
 - **Variedad**: Incluir estados normales, edge cases, errores
 - **Consistencia**: Reutilizar mocks entre stories
 - **Ubicación**: En la parte superior del archivo
 
 ### 4. Stories Interactivas
+
 - **Render function**: Para lógica compleja o interactividad
 - **Template literal**: Para HTML personalizado
 - **Actions**: Usar `fn()` para capturar eventos
 - **State management**: Para demos con estado mutable
 
 ### 2. Documentación MDX
+
 **Obligatoria** para cada componente. Estructura estandarizada:
+
 - Descripción del componente
 - Demo principal
 - Lista de props
@@ -184,18 +197,21 @@ const preview: Preview = {
 - Estados y variantes
 
 ### 6. Accesibilidad
+
 - **Addon a11y**: Verificar automáticamente
 - **ARIA**: Demostrar atributos en stories
 - **Keyboard navigation**: Stories para navegación por teclado
 - **Screen readers**: Descripciones apropiadas
 
 ### 7. Testing Visual
+
 - **Stories como tests**: Cada story es un caso de prueba visual
 - **Chromatic**: Para regression testing visual
 - **Responsive**: Stories para diferentes breakpoints
 - **Estados**: Normal, hover, focus, disabled, loading, error
 
 ### 8. Performance
+
 - **Lazy compilation**: Habilitado en builder
 - **FS cache**: Para builds más rápidos
 - **Tree shaking**: Solo importar lo necesario
@@ -226,6 +242,7 @@ const preview: Preview = {
 ## Ejemplos de Patrones
 
 ### Story Básica
+
 ```typescript
 export const Basic: Story = {
   args: {
@@ -236,6 +253,7 @@ export const Basic: Story = {
 ```
 
 ### Story Interactiva
+
 ```typescript
 export const Interactive: Story = {
   render: (args) => ({
@@ -255,6 +273,7 @@ export const Interactive: Story = {
 ```
 
 ### Story con Estado
+
 ```typescript
 export const WithState: Story = {
   render: (args) => ({
@@ -289,32 +308,38 @@ export const WithState: Story = {
 **Chromatic** es una plataforma de testing visual que integra con Storybook para detectar cambios visuales automáticamente.
 
 ### ¿Qué es?
+
 - Toma snapshots de cada story
 - Compara visualmente en pull requests
 - Detecta regressions de UI
 - Aprobación manual de cambios intencionales
 
 ### Beneficios
+
 - **Automated**: Corre en CI/CD
 - **Precise**: Detecta cambios de 1px
 - **Collaborative**: Reviews visuales en PRs
 - **Fast**: Paraleliza tests
 
 ### Configuración Básica
+
 1. **Instalar**: `npm install --save-dev chromatic`
 2. **Configurar**: `npx chromatic --project-token=<token>`
 3. **GitHub Action**:
+
 ```yaml
 - name: Visual Testing
   run: npx chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 ```
 
 ### Uso
+
 - **Primera vez**: `npx chromatic --project-token=<token>` (obtiene token de Chromatic)
 - **En CI**: Automático en pushes/PRs
 - **Local**: `npx chromatic` para snapshots manuales
 
 ### Costos
+
 - **Free tier**: 5,000 snapshots/mes
 - **Pago**: Basado en snapshots adicionales
 

@@ -16,7 +16,7 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgCardComponent> = {
-  title: 'DCXLibrary/Card',
+  title: 'DCXLibrary/Components/Card',
   component: DcxNgCardComponent,
   decorators: [
     moduleMetadata({

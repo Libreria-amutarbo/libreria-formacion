@@ -2,7 +2,7 @@ import { DcxNgCheckboxComponent, DcxPosition, POSITION_LIST, SIZE_LIST } from '@
 import { Meta, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgCheckboxComponent> = {
-    title: 'DCXLibrary/Checkbox',
+    title: 'DCXLibrary/Components/Checkbox',
     component: DcxNgCheckboxComponent,
     tags: ['autodocs'],
     parameters: {

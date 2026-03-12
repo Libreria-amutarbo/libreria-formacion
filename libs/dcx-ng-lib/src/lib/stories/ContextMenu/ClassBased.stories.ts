@@ -8,7 +8,7 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgContextMenuComponent> = {
-    title: 'DCXLibrary/ContextMenu/Class based',
+    title: 'DCXLibrary/Components/ContextMenu',
     component: DcxNgContextMenuComponent,
     tags: ['autodocs'],
     decorators: [

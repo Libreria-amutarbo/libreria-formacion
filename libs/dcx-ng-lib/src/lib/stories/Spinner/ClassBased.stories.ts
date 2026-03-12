@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgSpinnerComponent } from '../../dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component';
 
 const meta: Meta<DcxNgSpinnerComponent> = {
-  title: 'DCXLibrary/Spinner',
+  title: 'DCXLibrary/Components/Spinner',
   component: DcxNgSpinnerComponent,
   tags: ['autodocs'],
   args: {

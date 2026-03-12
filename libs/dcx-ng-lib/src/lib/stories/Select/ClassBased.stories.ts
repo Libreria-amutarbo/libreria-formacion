@@ -18,7 +18,7 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgSelectComponent> = {
-  title: 'DCXLibrary/Select',
+  title: 'DCXLibrary/Components/Select',
   component: DcxNgSelectComponent,
   tags: ['autodocs'],
   argTypes: {

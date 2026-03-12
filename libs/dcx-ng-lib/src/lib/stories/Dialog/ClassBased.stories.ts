@@ -3,10 +3,12 @@ import { Component, inject, OnInit, input, output } from '@angular/core';
 import {
   DcxNgDialogComponent,
   DcxNgButtonComponent,
+  DcxDialogPosition,
+  DialogService,
+  DIALOG_POSITION_LIST,
+  DIALOG_DEFAULT_ARGS,
 } from '@dcx-ng-components/dcx-ng-lib';
-import { DIALOG_DEFAULT_ARGS } from '../../core/mock/dialog';
-import { DialogService } from '../../services/dialog.service';
-import { DcxDialogPosition, DIALOG_POSITION_LIST } from '../../core/interfaces';
+
 import { fn } from '@storybook/test';
 
 const ActionsData = { closeDialog: fn() };
@@ -101,7 +103,7 @@ class StoryHostDcxDialogComponent implements OnInit {
 }
 
 const meta: Meta<StoryHostDcxDialogComponent> = {
-  title: 'DCXLibrary/Dialog',
+  title: 'DCXLibrary/Components/Dialog',
   component: StoryHostDcxDialogComponent,
   decorators: [
     moduleMetadata({
