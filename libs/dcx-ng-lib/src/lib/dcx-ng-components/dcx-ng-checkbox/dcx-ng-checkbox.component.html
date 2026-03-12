@@ -1,6 +1,6 @@
 <div class="dcx-checkbox-group">
   <div class="dcx-checkbox-group__options">
-    @for (option of optionsList(); track option.value) {
+    @for (option of _options(); track option.value) {
       <label
         class="dcx-checkbox-label"
         [class.disabled]="option.disabled"

@@ -36,22 +36,22 @@ describe('DcxNgCheckboxComponent', () => {
 
   it('should have default values', () => {
     expect(component.options()).toEqual([]);
-    expect(component.optionsList()).toEqual([]);
+    expect(component._options()).toEqual([]);
     expect(component.iconName()).toBe('check');
     expect(component.buttonVariant()).toBe('primary');
     expect(component.errorIcon()).toBe(ERRORICON);
   });
 
   describe('input: options', () => {
-    it('should update optionsList when options input changes', () => {
+    it('should update _options when options input changes', () => {
       fixture.componentRef.setInput('options', mockCheckboxOptions);
       fixture.detectChanges();
 
-      expect(component.optionsList()).toEqual(mockCheckboxOptions);
+      expect(component._options()).toEqual(mockCheckboxOptions);
     });
 
     it('should initialize empty when options input is not set', () => {
-      expect(component.optionsList()).toEqual([]);
+      expect(component._options()).toEqual([]);
     });
   });
 
@@ -270,7 +270,7 @@ describe('DcxNgCheckboxComponent', () => {
       fixture.detectChanges();
 
       setTimeout(() => {
-        expect(component.optionsList()).toEqual(newOptions);
+        expect(component._options()).toEqual(newOptions);
         done();
       }, 10);
     });
@@ -285,11 +285,11 @@ describe('DcxNgCheckboxComponent', () => {
 
       fixture.componentRef.setInput('options', options1);
       fixture.detectChanges();
-      expect(component.optionsList()).toEqual(options1);
+      expect(component._options()).toEqual(options1);
 
       fixture.componentRef.setInput('options', options2);
       fixture.detectChanges();
-      expect(component.optionsList()).toEqual(options2);
+      expect(component._options()).toEqual(options2);
     });
   });
 

@@ -28,10 +28,7 @@ import {
 })
 export class DcxNgCheckboxComponent {
   options = input<DcxCheckbox[]>([]);
-  private _options = signal<DcxCheckbox[]>([]);
-  optionsList = computed(() => {
-    this._options();
-  });
+  _options = signal<DcxCheckbox[]>([]);
 
   iconName = signal('check');
   buttonVariant = signal<DcxButtonVariant>('primary');
