@@ -30,7 +30,7 @@ export class DcxNgCheckboxComponent {
   options = input<DcxCheckbox[]>([]);
   private _options = signal<DcxCheckbox[]>([]);
   optionsList = computed(() => {
-    return this._options();
+    this._options();
   });
 
   iconName = signal('check');

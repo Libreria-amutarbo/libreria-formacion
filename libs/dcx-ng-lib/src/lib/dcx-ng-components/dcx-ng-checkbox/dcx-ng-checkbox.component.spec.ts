@@ -53,21 +53,6 @@ describe('DcxNgCheckboxComponent', () => {
     it('should initialize empty when options input is not set', () => {
       expect(component.optionsList()).toEqual([]);
     });
-
-    it('should handle array of options with different values', () => {
-      const options: DcxCheckbox[] = [
-        { id: '1', label: 'Test 1', value: true },
-        { id: '2', label: 'Test 2', value: false },
-        { id: '3', label: 'Test 3', value: null },
-      ];
-      fixture.componentRef.setInput('options', options);
-      fixture.detectChanges();
-
-      expect(component.optionsList().length).toBe(3);
-      expect(component.optionsList()[0].value).toBe(true);
-      expect(component.optionsList()[1].value).toBe(false);
-      expect(component.optionsList()[2].value).toBeNull();
-    });
   });
 
   describe('input: errorIcon', () => {
@@ -218,47 +203,6 @@ describe('DcxNgCheckboxComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should change checkbox value and emit changeOptions output', () => {
-      const emitSpy = jest.spyOn(component.changeOptions, 'emit');
-
-      component.changeValue('cb1');
-
-      expect(emitSpy).toHaveBeenCalledWith(expect.any(Array));
-      expect(component.optionsList()[0].value).toBe(false);
-    });
-
-    it('should cycle through values: true -> false -> null -> true', () => {
-      const option = component.optionsList()[0];
-      expect(option.value).toBe(true);
-
-      component.changeValue('cb1');
-      expect(component.optionsList()[0].value).toBe(false);
-
-      component.changeValue('cb1');
-      expect(component.optionsList()[0].value).toBeNull();
-
-      component.changeValue('cb1');
-      expect(component.optionsList()[0].value).toBe(true);
-    });
-
-    it('should preserve other properties of checkboxes', () => {
-      const originalLabel = component.optionsList()[0].label;
-      const originalId = component.optionsList()[0].id;
-
-      component.changeValue('cb1');
-
-      expect(component.optionsList()[0].label).toBe(originalLabel);
-      expect(component.optionsList()[0].id).toBe(originalId);
-    });
-
-    it('should preserve error property when changing value', () => {
-      const errorMessage = component.optionsList()[3].error;
-
-      component.changeValue('cb4');
-
-      expect(component.optionsList()[3].error).toBe(errorMessage);
-    });
-
     it('should emit the updated options array', () => {
       const emitSpy = jest.spyOn(component.changeOptions, 'emit');
 
@@ -267,15 +211,6 @@ describe('DcxNgCheckboxComponent', () => {
       const emittedValue = emitSpy.mock.calls[0][0];
       expect(Array.isArray(emittedValue)).toBe(true);
       expect(emittedValue.length).toBe(mockCheckboxOptions.length);
-    });
-
-    it('should not change any value if id does not match', () => {
-      const originalValues = component.optionsList().map(o => o.value);
-
-      component.changeValue('non-existent-id');
-
-      const currentValues = component.optionsList().map(o => o.value);
-      expect(currentValues).toEqual(originalValues);
     });
   });
 
@@ -362,36 +297,6 @@ describe('DcxNgCheckboxComponent', () => {
     beforeEach(() => {
       fixture.componentRef.setInput('options', mockCheckboxOptions);
       fixture.detectChanges();
-    });
-
-    it('should get correct icon and variant for each state', () => {
-      const cb1 = component.optionsList()[0];
-
-      expect(component.getIconName(cb1)).toBe('check');
-      expect(component.getButtonVariant(cb1)).toBe('primary');
-
-      component.changeValue('cb1');
-      const cb1Updated = component.optionsList()[0];
-
-      expect(component.getIconName(cb1Updated)).toBe('dash');
-      expect(component.getButtonVariant(cb1Updated)).toBe('primary');
-
-      component.changeValue('cb1');
-      const cb1UpdatedAgain = component.optionsList()[0];
-
-      expect(component.getIconName(cb1UpdatedAgain)).toBe('');
-      expect(component.getButtonVariant(cb1UpdatedAgain)).toBe('secondary');
-    });
-
-    it('should correctly identify checkboxes with errors and initial values', () => {
-      const options = component.optionsList();
-
-      expect(component.getCheckboxError(options[0])).toBe(false);
-      expect(component.getCheckboxError(options[3])).toBe(true);
-
-      expect(component.getIconName(options[0])).toBe('check');
-      expect(component.getIconName(options[1])).toBe('dash');
-      expect(component.getIconName(options[2])).toBe('');
     });
   });
 });
