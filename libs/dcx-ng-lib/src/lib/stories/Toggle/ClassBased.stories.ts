@@ -6,7 +6,7 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgToggleComponent> = {
-  title: 'DCXLibrary/Toggle',
+  title: 'DCXLibrary/Components/Toggle',
   component: DcxNgToggleComponent,
   tags: ['autodocs'],
   argTypes: {

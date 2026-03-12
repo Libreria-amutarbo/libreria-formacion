@@ -14,7 +14,7 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgPaginatorComponent> = {
-  title: 'DCXLibrary/Paginator',
+  title: 'DCXLibrary/Components/Paginator',
   component: DcxNgPaginatorComponent,
   tags: ['autodocs'],
   decorators: [

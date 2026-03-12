@@ -6,7 +6,7 @@ import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
 import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgIconComponent> = {
-  title: 'DCXLibrary/Icon',
+  title: 'DCXLibrary/Components/Icon',
   component: DcxNgIconComponent,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
@@ -29,7 +29,7 @@ const meta: Meta<DcxNgIconComponent> = {
     color: {
       control: 'color',
       description: 'Color del icono (hexadecimal o nombre CSS)',
-      table: { 
+      table: {
         category: 'Attributes',
         type: { summary: 'string' },
         defaultValue: { summary: '#0058ab' },
@@ -38,7 +38,7 @@ const meta: Meta<DcxNgIconComponent> = {
     extraClass: {
       control: 'text',
       description: 'Clases CSS personalizadas para estilos adicionales',
-      table: { 
+      table: {
         category: 'Attributes',
         type: { summary: 'string' },
         defaultValue: { summary: '' },

@@ -3,7 +3,7 @@ import { DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_SUBLISTS, SE
 
 
 const meta: Meta<DcxNgListComponent> = {
-  title: 'DCXLibrary/List',
+  title: 'DCXLibrary/Components/List',
   component: DcxNgListComponent,
   tags: ['autodocs'],
   argTypes: {

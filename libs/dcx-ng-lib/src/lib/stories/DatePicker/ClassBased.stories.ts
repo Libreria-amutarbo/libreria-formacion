@@ -1,8 +1,8 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { Component, Input, signal, computed } from '@angular/core';
-import { DcxNgDatePickerComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DateFormat, DcxNgDatePickerComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { CommonModule } from '@angular/common';
-import { DateFormat } from '../../core/interfaces/datePicker';
+
 
 @Component({
   selector: 'dcx-ng-storybook-datepicker-wrapper',
@@ -263,7 +263,7 @@ function parseDateInput(value: string | Date | null): Date | null {
 }
 
 const meta: Meta<StorybookDatePickerWrapperComponent> = {
-  title: 'DCXLibrary/DatePicker',
+  title: 'DCXLibrary/Components/DatePicker',
   component: StorybookDatePickerWrapperComponent,
   tags: ['autodocs'],
   decorators: [

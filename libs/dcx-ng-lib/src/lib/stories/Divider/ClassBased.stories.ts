@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { argTypesDivider, builderDivider } from './utils';
 
 const meta: Meta<DcxNgDividerComponent> = {
-  title: 'DCXLibrary/Divider',
+  title: 'DCXLibrary/Components/Divider',
   component: DcxNgDividerComponent,
   tags: ['autodocs'],
   argTypes: argTypesDivider,

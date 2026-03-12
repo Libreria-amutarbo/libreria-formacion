@@ -5,7 +5,7 @@ import {
 import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgSliderComponent> = {
-  title: 'DCXLibrary/Slider',
+  title: 'DCXLibrary/Components/Slider',
   component: DcxNgSliderComponent,
   tags: ['autodocs'],
   argTypes: {
