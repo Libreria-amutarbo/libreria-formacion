@@ -37,6 +37,16 @@ export class DcxNgButtonComponent {
   size = input<DcxSize>('m');
   class = input<string>('');
 
+  // Checkbox-specific inputs
+  isCheckbox = input(false, {
+    transform: (value: boolean | string) =>
+      typeof value === 'string' ? value === '' : value,
+  });
+  checkboxError = input(false, {
+    transform: (value: boolean | string) =>
+      typeof value === 'string' ? value === '' : value,
+  });
+
   // Iconos
   icon = input(false, {
     transform: (value: boolean | string) =>
@@ -60,13 +70,15 @@ export class DcxNgButtonComponent {
 
   buttonClasses = computed<string>(() => {
     const base = 'dcx-ng-button';
+    const isCheckboxValue = this.isCheckbox();
     const variantValue = this.variant();
-    const sizeValue = this.size();
+    const sizeValue = isCheckboxValue ? 'checkbox' : this.size();
     const labelValue = this.label();
     const iconPositionValue = this.iconPosition();
     const iconName = this.iconName();
     const classValue = this.class();
     const pressedValue = this.pressed();
+    const checkboxErrorValue = this.checkboxError();
 
     const hasAnyIcon = this.icon() || !!iconName;
 
@@ -77,6 +89,10 @@ export class DcxNgButtonComponent {
       !labelValue && hasAnyIcon ? `${base}--icon-only` : '',
       iconPositionValue ? `${base}--icon-${iconPositionValue}` : '',
       pressedValue ? `${base}--pressed` : '',
+      isCheckboxValue ? `${base}--checkbox` : '',
+      isCheckboxValue && checkboxErrorValue
+        ? `${base}--checkbox-error--${this.variant()}`
+        : '',
       classValue ?? '',
     ]
       .filter(Boolean)

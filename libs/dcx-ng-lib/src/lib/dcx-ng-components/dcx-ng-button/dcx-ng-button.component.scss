@@ -49,6 +49,11 @@
     @include button-size(xl);
     padding: 0.75rem 1.25rem;
   }
+  &--checkbox {
+    height: 1.25rem;
+    width: 1.25rem;
+    padding: 0.7rem 0.7rem !important;
+  }
 
   // ========== PRIMARY ==========
 
@@ -200,7 +205,6 @@
   }
 
   .icon--left {
-    margin-right: 0.25rem;
     order: -1;
   }
 
@@ -240,5 +244,49 @@
   .label {
     display: inline-flex;
     align-items: center;
+  }
+}
+
+// ========== CHECKBOX MODE ==========
+
+.dcx-ng-button--checkbox {
+  &:focus-visible {
+    border-color: var(--border-focus);
+    outline: none;
+  }
+
+  &:active:not(:disabled) {
+    border-color: var(--border-focus);
+  }
+
+  // Error state
+  &.dcx-ng-button--checkbox-error {
+    border-color: var(--border-error);
+
+    &--primary {
+      background-color: var(--background-error);
+      &:hover:not(:disabled) {
+        color: var(--text-error);
+        border: 2px solid var(--border-error);
+        background-color: var(--background-error-hover);
+      }
+
+      &:focus-visible {
+        border-color: var(--border-error);
+        color: var(--text-error);
+        background-color: var(--background-error-hover);
+      }
+    }
+
+    &--secondary {
+      border-color: var(--border-error);
+      &:hover:not(:disabled) {
+        border: 2px solid var(--border-error);
+      }
+
+      &:focus-visible {
+        border-color: var(--border-error);
+      }
+    }
   }
 }

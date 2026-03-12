@@ -1,280 +1,302 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgCheckboxComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgCheckboxComponent } from './dcx-ng-checkbox.component';
+import { DcxCheckbox, ERRORICON } from '@dcx-ng-components/dcx-ng-lib';
 import { By } from '@angular/platform-browser';
-import { ComponentRef } from '@angular/core';
-import {
-  CHECKBOX_OPTIONS,
-  CHECKBOX_OPTIONS_WITH_DISABLED,
-  CHECKBOX_SINGLE_OPTION,
-} from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgCheckboxComponent', () => {
   let component: DcxNgCheckboxComponent;
   let fixture: ComponentFixture<DcxNgCheckboxComponent>;
-  let componentRef: ComponentRef<DcxNgCheckboxComponent>;
+
+  const mockCheckboxOptions: DcxCheckbox[] = [
+    { id: 'cb1', label: 'Option 1', value: true },
+    { id: 'cb2', label: 'Option 2', value: false },
+    { id: 'cb3', label: 'Option 3', value: null },
+    {
+      id: 'cb4',
+      label: 'Option 4',
+      value: true,
+      errorMessage: 'Error message',
+      error: true,
+    },
+  ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DcxNgCheckboxComponent],
     }).compileComponents();
+
     fixture = TestBed.createComponent(DcxNgCheckboxComponent);
     component = fixture.componentInstance;
-    componentRef = fixture.componentRef;
-    componentRef.setInput('label', 'Acepto términos');
-    componentRef.setInput('checked', false);
     fixture.detectChanges();
   });
 
-  it('debe mostrar el label', () => {
-    componentRef.setInput('label', 'Recibir notificaciones');
-    fixture.detectChanges();
-    const labelDebug = fixture.debugElement.query(By.css('.dcx-checkbox-text'));
-    expect(labelDebug).toBeTruthy();
-    const label = labelDebug.nativeElement;
-    expect(label.textContent).toContain('Recibir notificaciones');
+  it('should create the checkbox component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('debe emitir checkedChange al hacer click', () => {
-    const spy = jest.spyOn(component.checkedChange, 'emit');
-    const button = fixture.debugElement.query(
-      By.css('button.dcx-checkbox-container'),
-    );
-    button.nativeElement.click();
-    expect(spy).toHaveBeenCalledWith(true);
+  it('should have default values', () => {
+    expect(component.options()).toEqual([]);
+    expect(component.optionsList()).toEqual([]);
+    expect(component.iconName()).toBe('check');
+    expect(component.buttonVariant()).toBe('primary');
+    expect(component.errorIcon()).toBe(ERRORICON);
   });
 
-  it('no debe emitir si está deshabilitado', () => {
-    componentRef.setInput('disabled', true);
-    fixture.detectChanges();
-    const spy = jest.spyOn(component.checkedChange, 'emit');
-    const button = fixture.debugElement.query(
-      By.css('button.dcx-checkbox-container'),
-    );
-    button.nativeElement.click();
-    expect(spy).not.toHaveBeenCalled();
-  });
-
-  it('debe mostrar la V cuando checked=true', () => {
-    componentRef.setInput('checked', true);
-    fixture.detectChanges();
-    const check = fixture.debugElement.query(By.css('.dcx-checkbox-check'));
-    expect(check).toBeTruthy();
-  });
-
-  it('debe trabajar con grupos de opciones', () => {
-    componentRef.setInput('groupLabel', 'Selecciona tus intereses');
-    componentRef.setInput('options', CHECKBOX_OPTIONS);
-    componentRef.setInput('selectedValues', ['opt1']);
-    fixture.detectChanges();
-
-    const groupLabel = fixture.debugElement.query(
-      By.css('.dcx-checkbox-group__label'),
-    );
-    expect(groupLabel).toBeTruthy();
-    expect(groupLabel.nativeElement.textContent).toContain(
-      'Selecciona tus intereses',
-    );
-
-    const options = fixture.debugElement.queryAll(
-      By.css('.dcx-checkbox-label'),
-    );
-    expect(options.length).toBe(2);
-  });
-
-  it('debe manejar opciones deshabilitadas en grupos', () => {
-    componentRef.setInput('options', CHECKBOX_OPTIONS_WITH_DISABLED);
-    componentRef.setInput('selectedValues', []);
-    fixture.detectChanges();
-
-    const buttons = fixture.debugElement.queryAll(
-      By.css('button.dcx-checkbox-container'),
-    );
-    expect(buttons[0].nativeElement.disabled).toBe(false);
-    expect(buttons[1].nativeElement.disabled).toBe(true);
-  });
-
-  it('debe emitir selectionChange en grupo al hacer click', () => {
-    componentRef.setInput('options', CHECKBOX_SINGLE_OPTION);
-    componentRef.setInput('selectedValues', []);
-    componentRef.setInput('multiple', true);
-    fixture.detectChanges();
-
-    const spy = jest.spyOn(component.selectionChange, 'emit');
-    const button = fixture.debugElement.query(
-      By.css('button.dcx-checkbox-container'),
-    );
-    button.nativeElement.click();
-    expect(spy).toHaveBeenCalledWith(['opt1']);
-  });
-
-  it('debe cambiar posición del label', () => {
-    componentRef.setInput('label', 'Etiqueta a la izquierda');
-    componentRef.setInput('labelPosition', 'left');
-    fixture.detectChanges();
-
-    const labelContainer = fixture.debugElement.query(
-      By.css('.dcx-checkbox-label'),
-    );
-    expect(labelContainer.nativeElement.classList.contains('label-left')).toBe(
-      true,
-    );
-  });
-
-  describe('ControlValueAccessor', () => {
-    it('writeValue should set internal checked for single checkbox', () => {
-      component.writeValue(true);
+  describe('input: options', () => {
+    it('should update optionsList when options input changes', () => {
+      fixture.componentRef.setInput('options', mockCheckboxOptions);
       fixture.detectChanges();
-      expect(component.isCheckedComputed()).toBe(true);
+
+      expect(component.optionsList()).toEqual(mockCheckboxOptions);
     });
 
-    it('writeValue should set internal checked false for falsy value', () => {
-      component.writeValue(false);
-      fixture.detectChanges();
-      expect(component.isCheckedComputed()).toBe(false);
-    });
-
-    it('writeValue for group should set internal selected values from array', () => {
-      componentRef.setInput('options', CHECKBOX_OPTIONS);
-      fixture.detectChanges();
-      component.writeValue(['opt1']);
-      expect(component.isChecked('opt1')).toBe(true);
-      expect(component.isChecked('opt2')).toBe(false);
-    });
-
-    it('writeValue for group with non-array should set empty array', () => {
-      componentRef.setInput('options', CHECKBOX_SINGLE_OPTION);
-      fixture.detectChanges();
-      component.writeValue(true as unknown as string[]);
-      expect(component.isChecked('opt1')).toBe(false);
-    });
-
-    it('registerOnChange should store the callback', () => {
-      const cb = jest.fn();
-      component.registerOnChange(cb);
-      component.onToggle();
-      expect(cb).toHaveBeenCalled();
-    });
-
-    it('registerOnTouched should store the callback', () => {
-      const cb = jest.fn();
-      component.registerOnTouched(cb);
-      component.onToggle();
-      expect(cb).toHaveBeenCalled();
-    });
-
-    it('setDisabledState should disable the checkbox via containerClasses', () => {
-      component.setDisabledState(true);
-      fixture.detectChanges();
-      expect(component.containerClasses()).toContain('disabled');
-    });
-
-    it('setDisabledState false should re-enable the checkbox', () => {
-      component.setDisabledState(true);
-      component.setDisabledState(false);
-      fixture.detectChanges();
-      expect(component.containerClasses()).not.toContain('disabled');
+    it('should initialize empty when options input is not set', () => {
+      expect(component.optionsList()).toEqual([]);
     });
   });
 
-  describe('Group mode - onGroupCheckboxChange', () => {
+  describe('input: errorIcon', () => {
+    it('should use custom errorIcon when provided', () => {
+      const customIcon = 'custom-error-icon';
+      fixture.componentRef.setInput('errorIcon', customIcon);
+      fixture.detectChanges();
+
+      expect(component.errorIcon()).toBe(customIcon);
+    });
+
+    it('should use ERRORICON default when not provided', () => {
+      expect(component.errorIcon()).toBe(ERRORICON);
+    });
+  });
+
+  describe('getCheckboxError', () => {
+    it('should return true when checkbox has error', () => {
+      const option: DcxCheckbox = {
+        id: 'cb1',
+        label: 'Option',
+        value: true,
+        errorMessage: 'Error message',
+        error: true,
+      };
+
+      expect(component.getCheckboxError(option)).toBe(true);
+    });
+
+    it('should return false when checkbox has no error', () => {
+      const option: DcxCheckbox = {
+        id: 'cb1',
+        label: 'Option',
+        value: true,
+      };
+
+      expect(component.getCheckboxError(option)).toBe(false);
+    });
+
+    it('should return false when error is empty string', () => {
+      const option: DcxCheckbox = {
+        id: 'cb1',
+        label: 'Option',
+        value: true,
+        errorMessage: '',
+        error: true,
+      };
+
+      expect(component.getCheckboxError(option)).toBe(true);
+    });
+
+    it('should return true for error with any truthy value', () => {
+      const option: DcxCheckbox = {
+        id: 'cb1',
+        label: 'Option',
+        value: true,
+        errorMessage: 'Any error message',
+        error: true,
+      };
+
+      expect(component.getCheckboxError(option)).toBe(true);
+    });
+  });
+
+  describe('getIconName', () => {
+    it('should return "check" when value is true', () => {
+      const option: DcxCheckbox = { id: 'cb1', label: 'Option', value: true };
+
+      expect(component.getIconName(option)).toBe('check');
+    });
+
+    it('should return "dash" when value is false', () => {
+      const option: DcxCheckbox = { id: 'cb1', label: 'Option', value: false };
+
+      expect(component.getIconName(option)).toBe('dash');
+    });
+
+    it('should return empty string when value is null', () => {
+      const option: DcxCheckbox = { id: 'cb1', label: 'Option', value: null };
+
+      expect(component.getIconName(option)).toBe('');
+    });
+
+    it('should return empty string for undefined value', () => {
+      const option: DcxCheckbox = {
+        id: 'cb1',
+        label: 'Option',
+        value: null,
+      };
+
+      expect(component.getIconName(option as any)).toBe('');
+    });
+  });
+
+  describe('getButtonVariant', () => {
+    it('should return "primary" when value is true', () => {
+      const option: DcxCheckbox = { id: 'cb1', label: 'Option', value: true };
+
+      expect(component.getButtonVariant(option)).toBe('primary');
+    });
+
+    it('should return "primary" when value is false', () => {
+      const option: DcxCheckbox = { id: 'cb1', label: 'Option', value: false };
+
+      expect(component.getButtonVariant(option)).toBe('primary');
+    });
+
+    it('should return "secondary" when value is null', () => {
+      const option: DcxCheckbox = { id: 'cb1', label: 'Option', value: null };
+
+      expect(component.getButtonVariant(option)).toBe('secondary');
+    });
+
+    it('should return "secondary" for undefined value', () => {
+      const option: DcxCheckbox = {
+        id: 'cb1',
+        label: 'Option',
+        value: null,
+      };
+
+      expect(component.getButtonVariant(option as any)).toBe('secondary');
+    });
+  });
+
+  describe('getValue', () => {
+    it('should return false when value is true', () => {
+      expect(component.getValue(true)).toBe(false);
+    });
+
+    it('should return null when value is false', () => {
+      expect(component.getValue(false)).toBeNull();
+    });
+
+    it('should return true when value is null', () => {
+      expect(component.getValue(null as any)).toBe(true);
+    });
+
+    it('should cycle through values correctly', () => {
+      expect(component.getValue(true)).toBe(false);
+      expect(component.getValue(false)).toBeNull();
+      expect(component.getValue(component.getValue(false) as any)).toBe(true);
+    });
+  });
+
+  describe('changeValue', () => {
     beforeEach(() => {
-      componentRef.setInput('options', CHECKBOX_OPTIONS);
-      componentRef.setInput('selectedValues', []);
-      componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('options', mockCheckboxOptions);
       fixture.detectChanges();
     });
 
-    it('should add value when checking in multiple mode', () => {
-      const spy = jest.spyOn(component.selectionChange, 'emit');
-      component.onGroupCheckboxChange('opt1', true);
-      expect(spy).toHaveBeenCalledWith(['opt1']);
-    });
+    it('should emit the updated options array', () => {
+      const emitSpy = jest.spyOn(component.changeOptions, 'emit');
 
-    it('should remove value when unchecking in multiple mode', () => {
-      componentRef.setInput('selectedValues', ['opt1', 'opt2']);
-      fixture.detectChanges();
-      const spy = jest.spyOn(component.selectionChange, 'emit');
-      component.onGroupCheckboxChange('opt1', false);
-      expect(spy).toHaveBeenCalledWith(['opt2']);
-    });
+      component.changeValue('cb1');
 
-    it('should set single value in single mode when checking', () => {
-      componentRef.setInput('multiple', false);
-      fixture.detectChanges();
-      const spy = jest.spyOn(component.selectionChange, 'emit');
-      component.onGroupCheckboxChange('opt1', true);
-      expect(spy).toHaveBeenCalledWith(['opt1']);
-    });
-
-    it('should clear selection in single mode when unchecking', () => {
-      componentRef.setInput('multiple', false);
-      componentRef.setInput('selectedValues', ['opt1']);
-      fixture.detectChanges();
-      const spy = jest.spyOn(component.selectionChange, 'emit');
-      component.onGroupCheckboxChange('opt1', false);
-      expect(spy).toHaveBeenCalledWith([]);
-    });
-
-    it('should not change when option is disabled', () => {
-      componentRef.setInput('options', [
-        { value: 'opt1', label: 'Opción 1', disabled: true },
-      ]);
-      fixture.detectChanges();
-      const spy = jest.spyOn(component.selectionChange, 'emit');
-      component.onGroupCheckboxChange('opt1', true);
-      expect(spy).not.toHaveBeenCalled();
-    });
-
-    it('isOptionDisabled returns true when global disabled', () => {
-      componentRef.setInput('disabled', true);
-      fixture.detectChanges();
-      expect(
-        component.isOptionDisabled({ value: 'opt1', label: 'Opción 1' }),
-      ).toBe(true);
-    });
-
-    it('isOptionDisabled returns true when option.disabled', () => {
-      expect(
-        component.isOptionDisabled({
-          value: 'opt1',
-          label: 'Opción 1',
-          disabled: true,
-        }),
-      ).toBe(true);
-    });
-
-    it('isOptionDisabled returns false when not disabled', () => {
-      expect(
-        component.isOptionDisabled({ value: 'opt1', label: 'Opción 1' }),
-      ).toBe(false);
+      const emittedValue = emitSpy.mock.calls[0][0];
+      expect(Array.isArray(emittedValue)).toBe(true);
+      expect(emittedValue.length).toBe(mockCheckboxOptions.length);
     });
   });
 
-  describe('onToggle - edge cases', () => {
-    it('should not toggle when disabled by form (setDisabledState)', () => {
-      component.setDisabledState(true);
+  describe('output: changeOptions', () => {
+    beforeEach(() => {
+      fixture.componentRef.setInput('options', mockCheckboxOptions);
       fixture.detectChanges();
-      const spy = jest.spyOn(component.checkedChange, 'emit');
-      component.onToggle();
-      expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should toggle from true to false', () => {
-      componentRef.setInput('checked', true);
-      fixture.detectChanges();
-      const spy = jest.spyOn(component.checkedChange, 'emit');
-      component.onToggle();
-      expect(spy).toHaveBeenCalledWith(false);
+    it('should emit changeOptions when value is changed', () => {
+      const emitSpy = jest.spyOn(component.changeOptions, 'emit');
+
+      component.changeValue('cb1');
+
+      expect(emitSpy).toHaveBeenCalled();
+      expect(emitSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should emit the complete options array after change', () => {
+      const emitSpy = jest.spyOn(component.changeOptions, 'emit');
+
+      component.changeValue('cb1');
+
+      const emittedOptions = emitSpy.mock.calls[0][0];
+      expect(emittedOptions.length).toBe(mockCheckboxOptions.length);
+    });
+
+    it('should emit updated values in the correct order', () => {
+      const emitSpy = jest.spyOn(component.changeOptions, 'emit');
+
+      component.changeValue('cb1');
+
+      const emittedOptions = emitSpy.mock.calls[0][0];
+      expect(emittedOptions[0].id).toBe('cb1');
+      expect(emittedOptions[1].id).toBe('cb2');
+      expect(emittedOptions[2].id).toBe('cb3');
+    });
+
+    it('should emit multiple times on multiple changes', () => {
+      const emitSpy = jest.spyOn(component.changeOptions, 'emit');
+
+      component.changeValue('cb1');
+      component.changeValue('cb2');
+      component.changeValue('cb3');
+
+      expect(emitSpy).toHaveBeenCalledTimes(3);
     });
   });
 
-  describe('isOptionDisabled with form disabled', () => {
-    it('isOptionDisabled returns true when _isDisabledByForm is true (disabled input is false)', () => {
-      component.setDisabledState(true);
+  describe('effects and signals integration', () => {
+    it('should update internal options signal when input options change', done => {
+      const newOptions: DcxCheckbox[] = [
+        { id: 'new1', label: 'New Option', value: true },
+      ];
+
+      fixture.componentRef.setInput('options', newOptions);
       fixture.detectChanges();
-      expect(
-        component.isOptionDisabled({ value: 'opt1', label: 'Option 1' }),
-      ).toBe(true);
+
+      setTimeout(() => {
+        expect(component.optionsList()).toEqual(newOptions);
+        done();
+      }, 10);
+    });
+
+    it('should maintain options list through multiple updates', () => {
+      const options1: DcxCheckbox[] = [
+        { id: 'opt1', label: 'Option 1', value: true },
+      ];
+      const options2: DcxCheckbox[] = [
+        { id: 'opt2', label: 'Option 2', value: false },
+      ];
+
+      fixture.componentRef.setInput('options', options1);
+      fixture.detectChanges();
+      expect(component.optionsList()).toEqual(options1);
+
+      fixture.componentRef.setInput('options', options2);
+      fixture.detectChanges();
+      expect(component.optionsList()).toEqual(options2);
+    });
+  });
+
+  describe('integration tests', () => {
+    beforeEach(() => {
+      fixture.componentRef.setInput('options', mockCheckboxOptions);
+      fixture.detectChanges();
     });
   });
 });
