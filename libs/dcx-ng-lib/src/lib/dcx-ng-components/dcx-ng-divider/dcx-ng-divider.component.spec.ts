@@ -6,8 +6,8 @@ describe('DcxNgDividerComponent', () => {
   let component: DcxNgDividerComponent;
   let fixture: ComponentFixture<DcxNgDividerComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [DcxNgDividerComponent],
     }).compileComponents();
 
@@ -20,16 +20,18 @@ describe('DcxNgDividerComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should apply horizontal class by default', () => {
+    const hr = fixture.debugElement.query(By.css('hr')).nativeElement;
+    expect(hr.classList.toString()).toContain('dcx-ng-divider--horizontal');
+  });
+
   it('should apply correct horizontal class and CSS variables', () => {
-    component.orientation = 'horizontal';
-    component.thickness = 0.5;
-    component.color = '#0056b3';
+    fixture.componentRef.setInput('orientation', 'horizontal');
+    fixture.componentRef.setInput('thickness', 0.5);
+    fixture.componentRef.setInput('color', '#0056b3');
     fixture.detectChanges();
 
     const hostElement = fixture.nativeElement as HTMLElement;
-    const hr = fixture.debugElement.query(By.css('hr')).nativeElement;
-
-    expect(hr.classList).toContain('dcx-ng-divider--horizontal');
     expect(hostElement.style.getPropertyValue('--dcx-divider-thickness')).toBe(
       '0.5rem',
     );
@@ -38,45 +40,64 @@ describe('DcxNgDividerComponent', () => {
     );
   });
 
-  it('should apply correct vertical class and CSS variables', () => {
-    component.orientation = 'vertical';
-    component.thickness = 0.25;
-    component.color = '#0056b3';
+  it('should apply correct vertical class', () => {
+    fixture.componentRef.setInput('orientation', 'vertical');
     fixture.detectChanges();
 
-    const hostElement = fixture.nativeElement as HTMLElement;
     const hr = fixture.debugElement.query(By.css('hr')).nativeElement;
+    expect(hr.classList.toString()).toContain('dcx-ng-divider--vertical');
+  });
 
-    expect(hr.classList).toContain('dcx-ng-divider--vertical');
+  it('should bind CSS variable for thickness', () => {
+    fixture.componentRef.setInput('thickness', 0.25);
+    fixture.detectChanges();
+    const hostElement = fixture.nativeElement as HTMLElement;
     expect(hostElement.style.getPropertyValue('--dcx-divider-thickness')).toBe(
       '0.25rem',
     );
-    expect(hostElement.style.getPropertyValue('--dcx-divider-color')).toBe(
-      '#0056b3',
-    );
   });
 
-  it('should apply correct ARIA label', () => {
-    component.ariaLabel = 'Divider';
+  it('should compute dividerClasses correctly', () => {
+    fixture.componentRef.setInput('orientation', 'horizontal');
+    fixture.componentRef.setInput('size', 's');
+    fixture.componentRef.setInput('type', 'default');
     fixture.detectChanges();
-
-    const hr = fixture.debugElement.query(By.css('hr')).nativeElement;
-    expect(hr.getAttribute('aria-label')).toBe('Divider');
+    expect(component.dividerClasses()).toContain('dcx-ng-divider--horizontal');
+    expect(component.dividerClasses()).toContain('dcx-ng-divider--s');
   });
 
-  it('should apply the small size class', () => {
-    component.size = 's';
+  it('should compute ariaLabelBinding from ariaLabel', () => {
+    fixture.componentRef.setInput('ariaLabel', 'My divider');
     fixture.detectChanges();
-
-    const hr = fixture.debugElement.query(By.css('hr')).nativeElement;
-    expect(hr.classList).toContain('dcx-ng-divider--s');
+    expect(component.ariaLabelBinding()).toBe('My divider');
   });
 
-  it('should apply the vertical orientation class', () => {
-    component.orientation = 'vertical';
+  it('should fallback ariaLabelBinding to empty string when not set', () => {
+    fixture.componentRef.setInput('ariaLabel', '');
     fixture.detectChanges();
+    expect(component.ariaLabelBinding()).toBe('');
+  });
 
-    const hr = fixture.debugElement.query(By.css('hr')).nativeElement;
-    expect(hr.classList).toContain('dcx-ng-divider--vertical');
+  it('should handle empty orientation in dividerClasses', () => {
+    fixture.componentRef.setInput('orientation', '');
+    fixture.detectChanges();
+    const classes = component.dividerClasses();
+    expect(classes).toContain('dcx-ng-divider');
+    expect(classes).not.toContain('dcx-ng-divider--horizontal');
+    expect(classes).not.toContain('dcx-ng-divider--vertical');
+  });
+
+  it('should handle empty size in dividerClasses', () => {
+    fixture.componentRef.setInput('size', '');
+    fixture.detectChanges();
+    const classes = component.dividerClasses();
+    expect(classes).toContain('dcx-ng-divider');
+  });
+
+  it('should handle empty type in dividerClasses', () => {
+    fixture.componentRef.setInput('type', '');
+    fixture.detectChanges();
+    const classes = component.dividerClasses();
+    expect(classes).toContain('dcx-ng-divider');
   });
 });

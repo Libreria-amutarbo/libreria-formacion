@@ -1,4 +1,18 @@
-import { DcxHeaderData, DcxTableRow } from '../interfaces';
+import { DcxHeaderData, DcxTableRow } from '@dcx-ng-components/dcx-ng-lib';
+
+// ==================== TABLA TEST (para specs) ====================
+
+export const TEST_TABLE_HEADERS: DcxHeaderData[] = [
+  { key: 'name', name: 'Name', sortable: true },
+  { key: 'age', name: 'Age', sortable: true, type: 'number' },
+  { key: 'city', name: 'City', sortable: false },
+];
+
+export const TEST_TABLE_ROWS: DcxTableRow[] = [
+  { id: 1, name: 'Alice', age: 30, city: 'Madrid' },
+  { id: 2, name: 'Bob', age: 25, city: 'Barcelona' },
+  { id: 3, name: 'Charlie', age: 35, city: 'Seville' },
+];
 
 // ==================== USUARIOS BÁSICOS ====================
 
@@ -419,7 +433,6 @@ export const USER_HEADERS_FULL_WITH_MENU: DcxHeaderData[] = [
   },
 ];
 
-
 // ==================== USUARIOS CON AVATAR Y STATUS ====================
 
 export interface UserWithStatusRow extends DcxTableRow {
@@ -502,61 +515,60 @@ export const USER_WITH_STATUS_HEADERS: DcxHeaderData[] = [
     sortable: true,
   },
 ];
-export const SIMPLE_USER_HEADERS_RENDER:  DcxHeaderData[] = [
-    {
-      name: 'Usuario',
-      key: 'name',
-      sortable: true,
-      renderFn: row => `👤 ${(row['name'] as string).toUpperCase()}`,
-      frozen: 'left',
-      minWidth: '220px',
+export const SIMPLE_USER_HEADERS_RENDER: DcxHeaderData[] = [
+  {
+    name: 'Usuario',
+    key: 'name',
+    sortable: true,
+    renderFn: row => `👤 ${(row['name'] as string).toUpperCase()}`,
+    frozen: 'left',
+    minWidth: '220px',
+  },
+  {
+    name: 'Fecha corta',
+    key: 'createdAt',
+    sortable: true,
+    frozen: 'left',
+    cellType: 'date',
+    cellTypeConfig: {
+      dateFormat: 'dd/MM/yy HH:mm',
     },
-    {
-      name: 'Fecha corta',
-      key: 'createdAt',
-      sortable: true,
-      frozen: 'left',
-      cellType: 'date',
-      cellTypeConfig: {
-        dateFormat: 'dd/MM/yy HH:mm',
-      },
+  },
+  {
+    name: 'Fecha completa',
+    key: 'createdAt',
+    sortable: false,
+    cellType: 'date',
+    cellTypeConfig: {
+      dateFormat: 'dd/MM/yyyy hh:mm:ss a',
     },
-    {
-      name: 'Fecha completa',
-      key: 'createdAt',
-      sortable: false,
-      cellType: 'date',
-      cellTypeConfig: {
-        dateFormat: 'dd/MM/yyyy hh:mm:ss a',
-      },
+  },
+  {
+    name: 'Edad EUR',
+    key: 'age',
+    sortable: true,
+    renderFn: row => {
+      const age = row['age'] as number;
+      return new Intl.NumberFormat('es-ES', {
+        style: 'currency',
+        currency: 'EUR',
+      }).format(age);
     },
-    {
-      name: 'Edad EUR',
-      key: 'age',
-      sortable: true,
-      renderFn: row => {
-        const age = row['age'] as number;
-        return new Intl.NumberFormat('es-ES', {
-          style: 'currency',
-          currency: 'EUR',
-        }).format(age);
-      },
+  },
+  {
+    name: 'Edad USD',
+    key: 'age',
+    sortable: false,
+    renderFn: row => {
+      const age = row['age'] as number;
+      return `$${(age * 1.1).toFixed(2)}`;
     },
-    {
-      name: 'Edad USD',
-      key: 'age',
-      sortable: false,
-      renderFn: row => {
-        const age = row['age'] as number;
-        return `$${(age * 1.1).toFixed(2)}`;
-      },
-    },
-    {
-      name: 'País',
-      key: 'country',
-      sortable: true,
-      frozen: 'left',
-    },
-    ...USER_HEADERS_WITH_INLINE.filter(h => h.key === 'actions'),
-  ];
-
+  },
+  {
+    name: 'País',
+    key: 'country',
+    sortable: true,
+    frozen: 'left',
+  },
+  ...USER_HEADERS_WITH_INLINE.filter(h => h.key === 'actions'),
+];

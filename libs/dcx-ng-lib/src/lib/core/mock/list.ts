@@ -1,5 +1,21 @@
-import { DcxListItem } from "@dcx-ng-components/dcx-ng-lib";
+import { DcxListItem } from '@dcx-ng-components/dcx-ng-lib';
 
+export const LIST_ITEMS_WITH_DIVIDER: DcxListItem[] = [
+  { text: 'Item 1' },
+  { divider: true },
+  { text: 'Item 2' },
+];
+
+export const LIST_ENABLED_DISABLED_ITEMS: DcxListItem[] = [
+  { text: 'Enabled' },
+  { text: 'Disabled', disabled: true },
+];
+
+export const LIST_DISABLED_ONLY: DcxListItem[] = [
+  { text: 'Disabled', disabled: true },
+];
+
+export const LIST_DIVIDER_ONLY: DcxListItem[] = [{ divider: true }];
 
 export const SIMPLE_LIST_ITEMS: DcxListItem[] = [
   { text: 'Uno' },
@@ -19,19 +35,12 @@ export const LIST_ITEMS_WITH_SUBLISTS = [
   {
     text: 'Frutas',
     icon: 'basket',
-    children: [
-      { text: 'Manzana' },
-      { text: 'Naranja' },
-      { text: 'Plátano' },
-    ]
+    children: [{ text: 'Manzana' }, { text: 'Naranja' }, { text: 'Plátano' }],
   },
   {
     text: 'Verduras',
     icon: 'basket2',
-    children: [
-      { text: 'Zanahoria' },
-      { text: 'Lechuga' },
-    ]
+    children: [{ text: 'Zanahoria' }, { text: 'Lechuga' }],
   },
   {
     text: 'Lácteos',

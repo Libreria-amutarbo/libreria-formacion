@@ -1,4 +1,4 @@
-import { DcxDialogPosition, DcxDialogMockData } from '../interfaces';
+import { DcxDialogPosition, DcxDialogMockData } from '@dcx-ng-components/dcx-ng-lib';
 
 export const DCX_DIALOG_DEFAULTS = {
   title: '',
