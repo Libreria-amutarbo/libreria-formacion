@@ -123,24 +123,28 @@
   place-items: center;
 }
 
-@mixin grid-columns($columns: 12, $gap: var(--spacing-m)) {
+@mixin grid-container($columns: $grid-columns, $gap: map.get($grid-gaps, m)) {
   display: grid;
-  grid-template-columns: repeat($columns, 1fr);
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
   gap: $gap;
 }
 
-// Mixins Responsive
-$breakpoints: (
-  'sm': 640px,
-  'md': 768px,
-  'lg': 1024px,
-  'xl': 1280px,
-  '2xl': 1536px,
-);
+@mixin grid-breakpoint($breakpoint) {
+  @if map-has-key($grid-breakpoints, $breakpoint) {
+    @media (min-width: map.get($grid-breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}
 
+@mixin grid-columns($columns: 12, $gap: var(--spacing-m)) {
+  @include grid-container($columns, $gap);
+}
+
+// Mixins Responsive
 @mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map.get($breakpoints, $breakpoint)) {
+  @if map-has-key($grid-breakpoints, $breakpoint) {
+    @media (min-width: map.get($grid-breakpoints, $breakpoint)) {
       @content;
     }
   }

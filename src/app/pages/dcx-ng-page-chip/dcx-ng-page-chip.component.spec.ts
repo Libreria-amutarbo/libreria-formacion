@@ -7,10 +7,9 @@ describe('DcxNgPageChipComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgPageChipComponent]
-    })
-    .compileComponents();
-    
+      imports: [DcxNgPageChipComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DcxNgPageChipComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -22,11 +21,11 @@ describe('DcxNgPageChipComponent', () => {
 
   it('should handle chip removal', () => {
     const consoleSpy = jest.spyOn(console, 'log');
-    
+
     component.onChipRemove('Test Chip');
-    
+
     expect(consoleSpy).toHaveBeenCalledWith('Chip removido: Test Chip');
-    
+
     consoleSpy.mockRestore();
   });
 });

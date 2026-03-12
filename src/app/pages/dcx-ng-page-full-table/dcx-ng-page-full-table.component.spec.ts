@@ -1,16 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgPageTableRefactorComponent } from './dcx-ng-page-table-refactor.component';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import { DcxNgPageFullTableComponent } from './dcx-ng-page-full-table.component';
 
-describe('DcxNgPageTableRefactorComponent', () => {
-  let component: DcxNgPageTableRefactorComponent;
-  let fixture: ComponentFixture<DcxNgPageTableRefactorComponent>;
+registerLocaleData(localeEs);
+
+describe('DcxNgPageFullTableComponent', () => {
+  let component: DcxNgPageFullTableComponent;
+  let fixture: ComponentFixture<DcxNgPageFullTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgPageTableRefactorComponent],
+      imports: [DcxNgPageFullTableComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DcxNgPageTableRefactorComponent);
+    fixture = TestBed.createComponent(DcxNgPageFullTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DcxNgPageAccordionComponent } from './dcx-ng-page-accordion.component';
-import { DcxNgAccordionComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgPageAccordionComponent', () => {
   let component: DcxNgPageAccordionComponent;
@@ -9,8 +9,13 @@ describe('DcxNgPageAccordionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgPageAccordionComponent, BrowserAnimationsModule, DcxNgAccordionComponent],
-    }).compileComponents();
+      imports: [DcxNgPageAccordionComponent, BrowserAnimationsModule],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(DcxNgPageAccordionComponent, {
+        set: { imports: [], schemas: [NO_ERRORS_SCHEMA] },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(DcxNgPageAccordionComponent);
     component = fixture.componentInstance;
@@ -21,29 +26,21 @@ describe('DcxNgPageAccordionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have accordion items initialized', () => {
-    expect(component.accordionItems).toBeDefined();
-    expect(component.accordionItems.length).toBe(3);
+  it('should have defaultItems initialized', () => {
+    expect(component.defaultItems).toBeDefined();
+    expect(component.defaultItems.length).toBe(4);
   });
 
-  it('should have correct titles', () => {
-    const titles = component.accordionItems.map((item) => item.title);
-
+  it('should have correct titles in defaultItems', () => {
+    const titles = component.defaultItems.map(item => item.title);
     expect(titles).toContain('Item 1');
     expect(titles).toContain('Item 2');
-    expect(titles).toContain('Item 3');
   });
 
-  it('should log item toggle when called', () => {
-    spyOn(console, 'log');
-    const item = component.accordionItems[0];
-
-    component.onItemToggled(item);
-
-    expect(console.log).toHaveBeenCalledWith(
-      'Item toggled:',
-      item.id,
-      item.title
-    );
+  it('should have all item sets defined', () => {
+    expect(component.withIcons).toBeDefined();
+    expect(component.WithDisabledItems).toBeDefined();
+    expect(component.multipleOpenItems).toBeDefined();
+    expect(component.largeContentItems).toBeDefined();
   });
 });

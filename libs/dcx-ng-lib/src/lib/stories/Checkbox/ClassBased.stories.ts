@@ -6,11 +6,8 @@ import {
   DcxDisabledCheck,
   DcxErrorCheck,
   DcxNgCheckboxComponent,
-  DcxPosition,
   DcxRequiredCheck,
   DcxSingleCheck,
-  POSITION_LIST,
-  SIZE_LIST,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 

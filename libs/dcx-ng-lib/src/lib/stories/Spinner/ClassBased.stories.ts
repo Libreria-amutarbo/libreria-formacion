@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { DcxNgSpinnerComponent } from '../../dcx-ng-components/dcx-ng-spinner/dcx-ng-spinner.component';
 
 const meta: Meta<DcxNgSpinnerComponent> = {
-  title: 'DCXLibrary/Spinner/Class based',
+  title: 'DCXLibrary/Spinner',
   component: DcxNgSpinnerComponent,
   tags: ['autodocs'],
   args: {
@@ -16,8 +16,10 @@ const meta: Meta<DcxNgSpinnerComponent> = {
   argTypes: {
     color: {
       control: 'color',
+      description: 'Color del spinner (hexadecimal o nombre CSS)',
       table: {
         category: 'Attributes',
+        type: { summary: 'string' },
         defaultValue: { summary: '' },
       },
     },

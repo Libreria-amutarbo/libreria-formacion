@@ -17,7 +17,7 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgAccordionComponent> = {
-  title: 'DCXLibrary/Accordion/ClassBased',
+  title: 'DCXLibrary/Accordion',
   component: DcxNgAccordionComponent,
   decorators: [
     moduleMetadata({

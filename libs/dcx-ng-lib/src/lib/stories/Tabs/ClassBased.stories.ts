@@ -13,14 +13,14 @@ import {
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgTabsComponent> = {
-  title: 'DCXLibrary/Tabs/Class Based',
+  title: 'DCXLibrary/Tabs',
   component: DcxNgTabsComponent,
   tags: ['autodocs'],
   argTypes: {
     tabs: {
-      description: 'Objecto con la estructura de tabs',
       options: DcxTabItemDefault,
       control: 'object',
+      description: 'Array de tabs con id, label y contenido',
       table: {
         category: 'Attributes',
         type: { summary: 'DcxTabItem[]' },
@@ -28,7 +28,12 @@ const meta: Meta<DcxNgTabsComponent> = {
     },
     activeTabId: {
       control: 'text',
-      table: { category: 'Attributes' },
+      description: 'ID del tab actualmente seleccionado',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'tab1' },
+      },
     },
     hasControls: {
       description: 'Opción para poner botones de control',

@@ -12,7 +12,7 @@ import {
 import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
 
 const meta: Meta<DcxNgIconFieldComponent> = {
-  title: 'DCXLibrary/IconField/Class based',
+  title: 'DCXLibrary/IconField',
   component: DcxNgIconFieldComponent,
   decorators: [
     moduleMetadata({

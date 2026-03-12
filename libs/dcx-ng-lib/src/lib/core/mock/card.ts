@@ -1,4 +1,4 @@
-import { BorderStyleCard, ShadowPresetCard } from '../interfaces/card';
+import { BorderStyleCard, ShadowPresetCard } from '@dcx-ng-components/dcx-ng-lib';
 import {
   ALIGN_DEFAULT,
   DISABLED,
