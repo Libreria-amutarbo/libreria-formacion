@@ -1,0 +1,53 @@
+<nav
+  class="dcx-ng-navbar"
+  [class.is-menu-open]="isMenuOpen()"
+  [class.dcx-ng-navbar--vertical]="vertical()"
+>
+
+  <div class="dcx-ng-navbar__brand">
+    @if (brand().logo) {
+      <img
+        class="dcx-ng-navbar__brand-logo"
+        [src]="brand().logo"
+        [alt]="brand().title"
+      />
+    }
+    <span class="dcx-ng-navbar__brand-title">{{ brand().title }}</span>
+  </div>
+
+  <ul class="dcx-ng-navbar__items" role="list">
+    @for (item of items(); track item.value) {
+      <li class="dcx-ng-navbar__item">
+        <dcx-ng-button
+          class="dcx-ng-navbar__item-btn"
+          [class.is-active]="activeValue() === item.value"
+          [class.dcx-ng-navbar__item-btn--vertical]="vertical()"
+          [label]="item.label"
+          [icon]="!!item.icon"
+          [iconName]="item.icon ?? ''"
+          iconPosition="left"
+          iconSize="s"
+          variant="text"
+          size="s"
+          [disabled]="item.disabled ?? false"
+          (buttonClick)="onItemClick(item.value)"
+        />
+      </li>
+    }
+  </ul>
+
+  <div class="dcx-ng-navbar__actions">
+    <ng-content />
+  </div>
+
+  <dcx-ng-button
+    class="dcx-ng-navbar__toggle"
+    variant="text"
+    [icon]="true"
+    [iconName]="isMenuOpen() ? 'x' : 'list'"
+    iconSize="m"
+    ariaLabel="Toggle navigation"
+    (buttonClick)="toggleMenu()"
+  />
+
+</nav>

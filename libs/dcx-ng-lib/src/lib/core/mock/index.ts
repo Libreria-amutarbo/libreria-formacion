@@ -17,3 +17,4 @@ export * from './slider';
 export * from './checkbox';
 export * from './datePicker';
 export * from './colors';
+export * from './navbar';

@@ -1,0 +1,163 @@
+@use '../../../scss/utils/mixins' as *;
+
+$navbar-height: 3.5rem;
+$navbar-height-mobile: 3rem;
+$navbar-vertical-width: 15rem;
+$breakpoint-md: 768px;
+
+:host {
+  display: block;
+  font-family: var(--font-family-primary);
+}
+
+.dcx-ng-navbar {
+  @include flex-between;
+  position: relative;
+  height: $navbar-height;
+  padding: 0 var(--spacing-l);
+  background-color: var(--background-primary);
+  box-shadow: var(--shadow-1);
+
+  &__brand {
+    @include flex-row;
+    align-items: center;
+    gap: var(--spacing-s);
+    flex-shrink: 0;
+  }
+
+  &__brand-logo {
+    height: 2rem;
+    width: auto;
+    object-fit: contain;
+  }
+
+  &__brand-title {
+    font-size: var(--font-size-h6);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-label-base);
+    white-space: nowrap;
+  }
+
+  &__items {
+    @include flex-row;
+    align-items: center;
+    gap: var(--spacing-xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    justify-content: center;
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__actions {
+    @include flex-row;
+    align-items: center;
+    gap: var(--spacing-s);
+    flex-shrink: 0;
+  }
+
+  &__toggle {
+    display: none;
+  }
+
+  @media (max-width: #{$breakpoint-md - 1px}) {
+    height: $navbar-height-mobile;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 var(--spacing-m);
+
+    &__items {
+      display: none;
+      order: 3;
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: var(--spacing-s) 0;
+      background-color: var(--background-primary);
+      box-shadow: var(--shadow-2);
+    }
+
+    &__item {
+      width: 100%;
+    }
+
+    &__item-btn {
+      display: block;
+      width: 100%;
+    }
+
+    &__actions {
+      order: 2;
+      margin-left: auto;
+      margin-right: var(--spacing-s);
+    }
+
+    &__toggle {
+      display: inline-block;
+      order: 3;
+    }
+
+    &.is-menu-open {
+      .dcx-ng-navbar__items {
+        display: flex;
+      }
+    }
+  }
+
+  // ========== MODO VERTICAL (sidebar) ==========
+  &--vertical {
+    flex-direction: column;
+    height: 100%;
+    width: $navbar-vertical-width;
+    padding: var(--spacing-l) var(--spacing-m);
+    align-items: stretch;
+    justify-content: flex-start;
+    box-shadow: var(--shadow-2);
+
+    .dcx-ng-navbar__brand {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-xs);
+      padding-bottom: var(--spacing-l);
+      margin-bottom: var(--spacing-m);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dcx-ng-navbar__items {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      flex: 1;
+      gap: var(--spacing-xs);
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    .dcx-ng-navbar__item {
+      width: 100%;
+    }
+
+    .dcx-ng-navbar__item-btn {
+      display: block;
+      width: 100%;
+    }
+
+    .dcx-ng-navbar__actions {
+      flex-direction: column;
+      align-items: stretch;
+      padding-top: var(--spacing-l);
+      margin-top: var(--spacing-m);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      gap: var(--spacing-xs);
+    }
+
+    .dcx-ng-navbar__toggle {
+      display: none;
+    }
+  }
+}
