@@ -1,0 +1,20 @@
+// Styles for DcxNgPageNavbarComponent examples
+
+.example-hint {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: #696e75;
+}
+
+.vertical-demo {
+  display: flex;
+  height: 400px;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  &__content {
+    padding: 1.5rem;
+    flex: 1;
+  }
+}

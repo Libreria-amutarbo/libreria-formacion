@@ -19,8 +19,26 @@ When generating Storybook stories for a component:
    - `libs/dcx-ng-lib/src/index.ts`
 5. Check if a stories folder already exists:
    - `libs/dcx-ng-lib/src/lib/stories/[Name]/`
+6. Check if mock data already exists:
+   - `libs/dcx-ng-lib/src/lib/core/mock/[name].ts`
 
-## Step 2 — Generate `ClassBased.stories.ts`
+## Step 2 — Create mock data in `core/mock`
+
+If the component accepts arrays or objects as inputs, create (or update) the mock file:
+`libs/dcx-ng-lib/src/lib/core/mock/[name].ts`
+
+- Name constants with the component prefix to avoid collisions (e.g. `navbarItems`, `navbarDefaultBrand`)
+- Import types from `@dcx-ng-components/dcx-ng-lib`
+- Export all constants so they can be reused in unit tests
+
+Then add the export to `libs/dcx-ng-lib/src/lib/core/mock/index.ts`:
+```typescript
+export * from './[name]';
+```
+
+The stories file must import mocks from `@dcx-ng-components/dcx-ng-lib`, **never define mock data inline**.
+
+## Step 3 — Generate `ClassBased.stories.ts`
 
 Create the file at `libs/dcx-ng-lib/src/lib/stories/[Name]/ClassBased.stories.ts`.
 
@@ -30,10 +48,8 @@ Follow this structure strictly:
 import { Meta, StoryObj } from '@storybook/angular';
 import { fn } from '@storybook/test';
 import { DcxNg[Name]Component } from '@dcx-ng-components/dcx-ng-lib';
-// Import relevant type lists or enums from the lib if they exist
-
-// Realistic mock data (if the component accepts arrays/objects)
-const mockData = [/* ... */];
+// Import mock data and type lists from the lib
+import { [mockConstant], [TypeList] } from '@dcx-ng-components/dcx-ng-lib';
 
 // Actions — one fn() per output()
 const ActionsData = {
@@ -41,7 +57,7 @@ const ActionsData = {
 };
 
 const meta: Meta<DcxNg[Name]Component> = {
-  title: 'DCXLibrary/[Name]/Class based',
+  title: 'DCXLibrary/Components/[Name]',
   component: DcxNg[Name]Component,
   tags: ['autodocs'],
   parameters: {
@@ -71,7 +87,7 @@ const meta: Meta<DcxNg[Name]Component> = {
     },
   },
   args: {
-    // Sensible defaults matching the component's input defaults
+    // Sensible defaults — use imported mock constants
   },
 };
 
@@ -82,7 +98,7 @@ type Story = StoryObj<DcxNg[Name]Component>;
 
 export const Default: Story = {
   args: {
-    // minimal required args
+    // minimal required args using mock constants
   },
 };
 
@@ -124,7 +140,7 @@ export const Interactive: Story = {
   ```
 - If the component is complex and needs internal state (e.g. open/close toggle), use a `render` function with stateful props.
 
-## Step 3 — Generate `Documentation.mdx`
+## Step 4 — Generate `Documentation.mdx`
 
 Create the file at `libs/dcx-ng-lib/src/lib/stories/[Name]/Documentation.mdx`.
 
@@ -168,22 +184,25 @@ Brief description of what the component does and its main characteristics.
 <Canvas of={[Name]Stories.Interactive} />
 ```
 
-## Step 4 — Checklist before finishing
+## Step 5 — Checklist before finishing
 
 Verify that:
+- [ ] Mock data is in `core/mock/[name].ts` and exported from `core/mock/index.ts`
+- [ ] `ClassBased.stories.ts` imports all mocks from `@dcx-ng-components/dcx-ng-lib` (no inline data)
 - [ ] `ClassBased.stories.ts` has at least 3 stories
 - [ ] All `input()` signals have an `argType` with control, description, and table
 - [ ] All `output()` signals have an `argType` with `action` and `table: { category: 'Events' }`
-- [ ] Mock data is realistic (not just `foo`, `bar`, `test`)
 - [ ] `Documentation.mdx` references the correct story exports
 - [ ] No `console.log` left in stories
 - [ ] If types/lists are exported from the lib, they are imported from `@dcx-ng-components/dcx-ng-lib`
 
 ## Conventions
 
-- Title format: `'DCXLibrary/[Name]/Class based'`
+- Title format: `'DCXLibrary/Components/[Name]'` — no añadir "Class based" ni subpaths extra
+- Documentation title: `'DCXLibrary/[Name]/Documentation'` — sin "Components/"
 - Story names: PascalCase, descriptive (`Default`, `Disabled`, `WithIcon`, `Interactive`)
 - Inputs category: `'Attributes'`
 - Outputs category: `'Events'`
 - Use `fn()` from `@storybook/test` for all output actions
 - Import component types from `@dcx-ng-components/dcx-ng-lib`, not from relative paths — unless the component doesn't re-export from index yet
+- Mock constant names must be prefixed with the component name in camelCase (e.g. `navbarItems`, `buttonVariants`) to avoid collisions across mock files

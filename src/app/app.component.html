@@ -1,10 +1,14 @@
-<div>
-  <dcx-ng-select
-    label="Selecciona tu componente de la lista"
-    [valueInput]="valueDefault"
-    [options]="getSelectOptions()"
-    (valueChange)="routeTo($event)"
-  ></dcx-ng-select>
+<div class="app-shell">
+  <dcx-ng-navbar
+    class="app-navbar"
+    [brand]="brand"
+    [items]="navItems"
+    [activeValue]="activeRoute()"
+    [vertical]="true"
+    (itemClick)="onNavItemClick($event)"
+  />
 
-  <router-outlet></router-outlet>
+  <main class="app-content">
+    <router-outlet />
+  </main>
 </div>

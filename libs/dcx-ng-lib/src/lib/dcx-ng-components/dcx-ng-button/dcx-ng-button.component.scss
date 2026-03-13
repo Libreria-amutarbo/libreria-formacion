@@ -247,6 +247,100 @@
   }
 }
 
+// ========== NAVBAR CONTEXT ==========
+
+$navbar-breakpoint-md: 768px;
+
+:host(.dcx-ng-navbar__item-btn) {
+  .dcx-ng-button {
+    padding: var(--spacing-inset-xs) var(--spacing-inset-m);
+    background: transparent;
+    border: none;
+    border-radius: var(--border-radius-md);
+    color: var(--text-label-base);
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-regular);
+    opacity: 0.85;
+    transition:
+      background 0.15s ease,
+      opacity 0.15s ease;
+    white-space: nowrap;
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.12);
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      background: transparent !important;
+      color: var(--text-label-base) !important;
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  @media (max-width: #{$navbar-breakpoint-md - 1px}) {
+    display: block;
+    width: 100%;
+
+    .dcx-ng-button {
+      width: 100%;
+      justify-content: flex-start;
+      padding: var(--spacing-inset-s) var(--spacing-inset-l);
+      border-radius: 0;
+      font-size: var(--font-size-body);
+    }
+  }
+}
+
+:host(.dcx-ng-navbar__item-btn.is-active) {
+  .dcx-ng-button {
+    background: rgba(255, 255, 255, 0.18);
+    font-weight: var(--font-weight-semibold);
+    opacity: 1;
+  }
+}
+
+:host(.dcx-ng-navbar__item-btn--vertical) {
+  display: block;
+  width: 100%;
+
+  .dcx-ng-button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: var(--spacing-inset-s) var(--spacing-inset-m);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-body);
+  }
+}
+
+:host(.dcx-ng-navbar__toggle) {
+  .dcx-ng-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--border-radius-md);
+    color: var(--text-label-base);
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+  }
+}
+
 // ========== CHECKBOX MODE ==========
 
 .dcx-ng-button--checkbox {
