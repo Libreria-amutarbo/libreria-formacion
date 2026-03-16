@@ -25,11 +25,13 @@ import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tab
 import { DcxNgPageBreadcrumb } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
 import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.component/dcx-ng-page-contextMenu.component';
 import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-grid.component';
+import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
+import { AppComponent } from './app.component';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    component: DcxNgPageAccordionComponent,
+    component: AppComponent,
   },
   {
     path: APP_ROUTES.TABLE,
@@ -130,5 +132,9 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.GRID,
     component: DcxNgPageGridComponent,
-  }
+  },
+  {
+    path: APP_ROUTES.NAVBAR,
+    component: DcxNgPageNavbarComponent,
+  },
 ];

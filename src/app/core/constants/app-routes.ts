@@ -25,4 +25,5 @@ export const APP_ROUTES = {
   BREADCRUMB: 'breadcrumb',
   CONTEXTMENU: 'context-menu',
   GRID: 'grid',
+  NAVBAR: 'navbar',
 };
