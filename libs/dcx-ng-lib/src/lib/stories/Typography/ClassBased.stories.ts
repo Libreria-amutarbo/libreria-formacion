@@ -1,62 +1,69 @@
 import { Meta, StoryObj } from '@storybook/angular';
 
-type FontFamilyType = 'primary' | 'secondary' | 'system' | 'monospace';
+enum FontFamily {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  System = 'system',
+  Monospace = 'monospace',
+}
+
+type FontFamilyType = `${FontFamily}`;
 
 interface TypographyStoryArgs {
-    fontFamily: FontFamilyType;
-    sampleText: string;
+  fontFamily: FontFamilyType;
+  sampleText: string;
 }
 
 const meta: Meta<TypographyStoryArgs> = {
-    title: 'DCXLibrary/Utilities/Typography System',
-    tags: ['autodocs'],
-    parameters: {
-        layout: 'padded',
-        controls: { expanded: true },
+  title: 'DCXLibrary/Utilities/Typography System',
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'padded',
+    controls: { expanded: true },
+  },
+  argTypes: {
+    fontFamily: {
+      control: { type: 'select' },
+      options: Object.values(FontFamily),
+      description: 'Font family applied to typography previews',
+      table: {
+        category: 'Attributes',
+        type: { summary: "'primary' | 'secondary' | 'system' | 'monospace'" },
+        defaultValue: { summary: 'primary' },
+      },
     },
-    argTypes: {
-        fontFamily: {
-            control: { type: 'select' },
-            options: ['primary', 'secondary', 'system', 'monospace'],
-            description: 'Font family applied to typography previews',
-            table: {
-                category: 'Attributes',
-                type: { summary: "'primary' | 'secondary' | 'system' | 'monospace'" },
-                defaultValue: { summary: 'primary' },
-            },
-        },
-        sampleText: {
-            control: { type: 'text' },
-            description: 'Sample text rendered in typography examples',
-            table: {
-                category: 'Attributes',
-                type: { summary: 'string' },
-                defaultValue: { summary: 'Capgemini acelera la transformación digital con innovación y tecnología.' },
-            },
-        },
+    sampleText: {
+      control: { type: 'text' },
+      description: 'Sample text rendered in typography examples',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Capgemini acelera la transformación digital con innovación y tecnología.' },
+      },
     },
+  },
 };
 
 export default meta;
 type Story = StoryObj<TypographyStoryArgs>;
 
 const getFontFamilyVar = (fontFamily: FontFamilyType) => {
-    const map: Record<FontFamilyType, string> = {
-        primary: 'var(--font-family-primary)',
-        secondary: 'var(--font-family-secondary)',
-        system: 'var(--font-family-system)',
-        monospace: 'var(--font-family-monospace)',
-    };
+  const map: Record<FontFamilyType, string> = {
+    [FontFamily.Primary]: 'var(--font-family-primary)',
+    [FontFamily.Secondary]: 'var(--font-family-secondary)',
+    [FontFamily.System]: 'var(--font-family-system)',
+    [FontFamily.Monospace]: 'var(--font-family-monospace)',
+  };
 
-    return map[fontFamily];
+  return map[fontFamily];
 };
 
 const createScaleItem = (
-    label: string,
-    fontSizeVar: string,
-    lineHeightVar: string,
-    text: string,
-    familyVar: string
+  label: string,
+  fontSizeVar: string,
+  lineHeightVar: string,
+  text: string,
+  familyVar: string
 ) => `
   <div style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
     <div style="font-size: 0.75rem; color: var(--color-text-secondary); margin-bottom: 0.25rem; font-family: var(--font-family-monospace);">
@@ -69,10 +76,10 @@ const createScaleItem = (
 `;
 
 const createWeightItem = (
-    label: string,
-    weightVar: string,
-    text: string,
-    familyVar: string
+  label: string,
+  weightVar: string,
+  text: string,
+  familyVar: string
 ) => `
   <div style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
     <div style="font-size: 0.75rem; color: var(--color-text-secondary); margin-bottom: 0.25rem; font-family: var(--font-family-monospace);">
@@ -85,11 +92,11 @@ const createWeightItem = (
 `;
 
 const createSpacingItem = (
-    label: string,
-    lineHeightVar: string,
-    letterSpacingVar: string,
-    text: string,
-    familyVar: string
+  label: string,
+  lineHeightVar: string,
+  letterSpacingVar: string,
+  text: string,
+  familyVar: string
 ) => `
   <div style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
     <div style="font-size: 0.75rem; color: var(--color-text-secondary); margin-bottom: 0.25rem; font-family: var(--font-family-monospace);">
@@ -113,31 +120,31 @@ const createFamilyItem = (label: string, familyVar: string, text: string) => `
 `;
 
 export const TypeScale: Story = {
-    args: {
-        fontFamily: 'primary',
-        sampleText: 'Capgemini acelera la transformación digital con innovación y tecnología.',
-    },
-    render: (args) => {
-        const familyVar = getFontFamilyVar(args.fontFamily);
-        const scale = [
-            { label: 'H1', size: '--font-size-h1', line: '--line-height-tight' },
-            { label: 'H2', size: '--font-size-h2', line: '--line-height-tight' },
-            { label: 'H3', size: '--font-size-h3', line: '--line-height-tight' },
-            { label: 'H4', size: '--font-size-h4', line: '--line-height-normal' },
-            { label: 'Body Large', size: '--font-size-body-large', line: '--line-height-normal' },
-            { label: 'Body', size: '--font-size-body', line: '--line-height-normal' },
-            { label: 'Body Small', size: '--font-size-body-small', line: '--line-height-normal' },
-            { label: 'Caption', size: '--font-size-caption', line: '--line-height-normal' },
-            { label: 'Overline', size: '--font-size-overline', line: '--line-height-normal' },
-        ];
+  args: {
+    fontFamily: FontFamily.Primary,
+    sampleText: 'Capgemini acelera la transformación digital con innovación y tecnología.',
+  },
+  render: (args) => {
+    const familyVar = getFontFamilyVar(args.fontFamily);
+    const scale = [
+      { label: 'H1', size: '--font-size-h1', line: '--line-height-tight' },
+      { label: 'H2', size: '--font-size-h2', line: '--line-height-tight' },
+      { label: 'H3', size: '--font-size-h3', line: '--line-height-tight' },
+      { label: 'H4', size: '--font-size-h4', line: '--line-height-normal' },
+      { label: 'Body Large', size: '--font-size-body-large', line: '--line-height-normal' },
+      { label: 'Body', size: '--font-size-body', line: '--line-height-normal' },
+      { label: 'Body Small', size: '--font-size-body-small', line: '--line-height-normal' },
+      { label: 'Caption', size: '--font-size-caption', line: '--line-height-normal' },
+      { label: 'Overline', size: '--font-size-overline', line: '--line-height-normal' },
+    ];
 
-        let items = '';
-        for (const item of scale) {
-            items += createScaleItem(item.label, item.size, item.line, args.sampleText, familyVar);
-        }
+    let items = '';
+    for (const item of scale) {
+      items += createScaleItem(item.label, item.size, item.line, args.sampleText, familyVar);
+    }
 
-        return {
-            template: `
+    return {
+      template: `
         <section>
           <h3 style="margin: 0 0 1rem; color: var(--color-text-primary);">Type Scale</h3>
           <div style="border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); padding: 1rem;">
@@ -145,32 +152,32 @@ export const TypeScale: Story = {
           </div>
         </section>
       `,
-        };
-    },
+    };
+  },
 };
 
 export const FontWeights: Story = {
-    args: {
-        fontFamily: 'primary',
-        sampleText: 'Capgemini acompaña a sus clientes en su estrategia de negocio y TI.',
-    },
-    render: (args) => {
-        const familyVar = getFontFamilyVar(args.fontFamily);
-        const weights = [
-            { label: 'Light', weight: '--font-weight-light' },
-            { label: 'Regular', weight: '--font-weight-regular' },
-            { label: 'Medium', weight: '--font-weight-medium' },
-            { label: 'Semibold', weight: '--font-weight-semibold' },
-            { label: 'Bold', weight: '--font-weight-bold' },
-        ];
+  args: {
+    fontFamily: FontFamily.Primary,
+    sampleText: 'Capgemini acompaña a sus clientes en su estrategia de negocio y TI.',
+  },
+  render: (args) => {
+    const familyVar = getFontFamilyVar(args.fontFamily);
+    const weights = [
+      { label: 'Light', weight: '--font-weight-light' },
+      { label: 'Regular', weight: '--font-weight-regular' },
+      { label: 'Medium', weight: '--font-weight-medium' },
+      { label: 'Semibold', weight: '--font-weight-semibold' },
+      { label: 'Bold', weight: '--font-weight-bold' },
+    ];
 
-        let items = '';
-        for (const weight of weights) {
-            items += createWeightItem(weight.label, weight.weight, args.sampleText, familyVar);
-        }
+    let items = '';
+    for (const weight of weights) {
+      items += createWeightItem(weight.label, weight.weight, args.sampleText, familyVar);
+    }
 
-        return {
-            template: `
+    return {
+      template: `
         <section>
           <h3 style="margin: 0 0 1rem; color: var(--color-text-primary);">Font Weights</h3>
           <div style="border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); padding: 1rem;">
@@ -178,34 +185,34 @@ export const FontWeights: Story = {
           </div>
         </section>
       `,
-        };
-    },
+    };
+  },
 };
 
 export const FontFamilies: Story = {
-    args: {
-        sampleText: 'Capgemini impulsa experiencias digitales consistentes en todos los canales.',
-        fontFamily: 'primary',
-    },
-    render: (args) => {
-        const families: Array<{ label: string; value: FontFamilyType }> = [
-            { label: 'Primary', value: 'primary' },
-            { label: 'Secondary', value: 'secondary' },
-            { label: 'System', value: 'system' },
-            { label: 'Monospace', value: 'monospace' },
-        ];
+  args: {
+    sampleText: 'Capgemini impulsa experiencias digitales consistentes en todos los canales.',
+    fontFamily: FontFamily.Primary,
+  },
+  render: (args) => {
+    const families: Array<{ label: string; value: FontFamilyType }> = [
+      { label: 'Primary', value: FontFamily.Primary },
+      { label: 'Secondary', value: FontFamily.Secondary },
+      { label: 'System', value: FontFamily.System },
+      { label: 'Monospace', value: FontFamily.Monospace },
+    ];
 
-        let items = '';
-        for (const family of families) {
-            items += createFamilyItem(
-                family.label,
-                getFontFamilyVar(family.value),
-                args.sampleText
-            );
-        }
+    let items = '';
+    for (const family of families) {
+      items += createFamilyItem(
+        family.label,
+        getFontFamilyVar(family.value),
+        args.sampleText
+      );
+    }
 
-        return {
-            template: `
+    return {
+      template: `
       <section>
         <h3 style="margin: 0 0 1rem; color: var(--color-text-primary);">Font Families</h3>
         <div style="border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); padding: 1rem;">
@@ -213,31 +220,31 @@ export const FontFamilies: Story = {
         </div>
       </section>
       `,
-        };
-    },
+    };
+  },
 };
 
 export const LineHeightAndLetterSpacing: Story = {
-    args: {
-        fontFamily: 'primary',
-        sampleText: 'Equipos globales de Capgemini diseñan soluciones escalables y sostenibles.',
-    },
-    render: (args) => {
-        const familyVar = getFontFamilyVar(args.fontFamily);
-        const spacing = [
-            { label: 'Tight + Tight', line: '--line-height-tight', letter: '--letter-spacing-tight' },
-            { label: 'Normal + Normal', line: '--line-height-normal', letter: '--letter-spacing-normal' },
-            { label: 'Relaxed + Wide', line: '--line-height-relaxed', letter: '--letter-spacing-wide' },
-            { label: 'Relaxed + Wider', line: '--line-height-relaxed', letter: '--letter-spacing-wider' },
-        ];
+  args: {
+    fontFamily: FontFamily.Primary,
+    sampleText: 'Equipos globales de Capgemini diseñan soluciones escalables y sostenibles.',
+  },
+  render: (args) => {
+    const familyVar = getFontFamilyVar(args.fontFamily);
+    const spacing = [
+      { label: 'Tight + Tight', line: '--line-height-tight', letter: '--letter-spacing-tight' },
+      { label: 'Normal + Normal', line: '--line-height-normal', letter: '--letter-spacing-normal' },
+      { label: 'Relaxed + Wide', line: '--line-height-relaxed', letter: '--letter-spacing-wide' },
+      { label: 'Relaxed + Wider', line: '--line-height-relaxed', letter: '--letter-spacing-wider' },
+    ];
 
-        let items = '';
-        for (const item of spacing) {
-            items += createSpacingItem(item.label, item.line, item.letter, args.sampleText, familyVar);
-        }
+    let items = '';
+    for (const item of spacing) {
+      items += createSpacingItem(item.label, item.line, item.letter, args.sampleText, familyVar);
+    }
 
-        return {
-            template: `
+    return {
+      template: `
         <section>
           <h3 style="margin: 0 0 1rem; color: var(--color-text-primary);">Line Height & Letter Spacing</h3>
           <div style="border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); padding: 1rem;">
@@ -245,20 +252,20 @@ export const LineHeightAndLetterSpacing: Story = {
           </div>
         </section>
       `,
-        };
-    },
+    };
+  },
 };
 
 export const NewUserComponentExample: Story = {
-    args: {
-        fontFamily: 'primary',
-        sampleText: 'Capgemini acelera la transformación digital con innovación y tecnología.',
-    },
-    render: (args) => {
-        const familyVar = getFontFamilyVar(args.fontFamily);
+  args: {
+    fontFamily: FontFamily.Primary,
+    sampleText: 'Capgemini acelera la transformación digital con innovación y tecnología.',
+  },
+  render: (args) => {
+    const familyVar = getFontFamilyVar(args.fontFamily);
 
-        return {
-            template: `
+    return {
+      template: `
         <section>
           <h3 style="margin: 0 0 0.5rem; color: var(--color-text-primary);">Quick Start: Tipografía en un componente</h3>
           <p style="margin: 0 0 1rem; color: var(--color-text-secondary);">
@@ -328,6 +335,6 @@ export const NewUserComponentExample: Story = {
           </div>
         </section>
       `,
-        };
-    },
+    };
+  },
 };
