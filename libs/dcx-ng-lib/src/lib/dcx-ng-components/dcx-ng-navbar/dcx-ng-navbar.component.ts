@@ -20,7 +20,10 @@ export class DcxNgNavbarComponent {
   brand = input<DcxNavbarBrand>({ title: 'App' });
   items = input<DcxNavItem[]>([]);
   activeValue = input<string | null>(null);
-  vertical = input<boolean>(false);
+  vertical = input(false, {
+transform: (value: boolean | string) =>
+typeof value === 'string' ? value === '' : value,
+});
 
   itemClick = output<string>();
 
