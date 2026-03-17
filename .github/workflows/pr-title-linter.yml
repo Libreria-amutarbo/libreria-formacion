@@ -18,7 +18,7 @@ jobs:
 
             if (!regex.test(title)) {
               core.setFailed(`❌ Invalid PR title format: "${title}"
-              Expected format: Feat|fix|test: LC-Numero Titulo`);
+              Expected format: feat|fix|test: LC-Numero Titulo`);
             } else {
               console.log(`✅ PR title is valid: "${title}"`);
             }
