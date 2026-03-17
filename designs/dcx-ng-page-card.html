@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:#0058ab;--bg-primary-hover:#004080;--bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;
+    --bg-default:#fff;--bg-surface:#f4f5f7;
+    --text-dark:#2a2e33;--text-muted:#696e75;--text-disabled:#9ca3af;--text-white:#fff;
+    --border-default:#e5e7eb;--border-focus:#1db8f2;
+    --color-success:#16a34a;--color-success-bg:#f0fdf4;
+    --color-error:#dc2626;--color-error-bg:#fef2f2;
+    --color-warning:#d97706;--color-warning-bg:#fffbeb;
+    --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-6:24px;
+    --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;
+    --ff:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+  .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;color:#000;text-transform:uppercase;margin-bottom:.25rem}
+  .comp-title{font-size:24px;font-weight:700;color:#000;margin-bottom:.5rem}
+  .divider{border:none;border-top:1px solid #e5e7eb;margin-bottom:2rem}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:1rem}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2rem}
+
+  /* Card base */
+  .dcx-card{background:var(--bg-default);border-radius:var(--r-xl);border:1px solid var(--border-default);padding:var(--sp-4) var(--sp-4) var(--sp-4);overflow:hidden;position:relative}
+
+  /* Accent bar top */
+  .dcx-card-accent::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--bg-primary),#1db8f2)}
+
+  /* Avatar */
+  .avatar{width:40px;height:40px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--bg-primary);flex-shrink:0}
+
+  /* Card header */
+  .card-header{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-3)}
+  .card-name{font-size:15px;font-weight:600;color:var(--text-dark)}
+  .card-role{font-size:12px;color:var(--text-muted);margin-top:1px}
+
+  /* Divider */
+  .card-hr{border:none;border-top:1px solid var(--border-default);margin:var(--sp-3) 0}
+
+  /* Stats row */
+  .stat-row{display:flex;gap:var(--sp-2)}
+  .stat{flex:1;background:var(--bg-surface);border-radius:var(--r-md);padding:var(--sp-2) var(--sp-2);text-align:center}
+  .stat-val{font-size:18px;font-weight:700;color:var(--bg-primary)}
+  .stat-lbl{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+
+  /* Badge */
+  .badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--r-pill,999px);display:inline-flex}
+  .badge-blue{background:#dbeafe;color:#1d4ed8}
+  .badge-green{background:var(--color-success-bg);color:var(--color-success)}
+  .badge-yellow{background:var(--color-warning-bg);color:var(--color-warning)}
+  .badge-red{background:var(--color-error-bg);color:var(--color-error)}
+  .badge-gray{background:#f3f4f6;color:#374151}
+
+  /* Progress */
+  .progress-header{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:var(--sp-1);margin-top:var(--sp-3)}
+  .progress-header span:last-child{color:var(--bg-primary);font-weight:600}
+  .progress-track{height:4px;background:#e5e7eb;border-radius:2px}
+  .progress-fill{height:100%;border-radius:2px;background:var(--bg-primary)}
+
+  /* Card title / desc */
+  .card-title{font-size:15px;font-weight:600;color:var(--text-dark);margin-bottom:var(--sp-1)}
+  .card-desc{font-size:13px;color:var(--text-muted);line-height:1.5}
+
+  /* KPI */
+  .kpi-value{font-size:36px;font-weight:700;color:var(--text-dark);line-height:1;margin:var(--sp-2) 0 var(--sp-1)}
+  .kpi-label{font-size:12px;color:var(--text-muted)}
+  .kpi-trend{font-size:12px;color:var(--color-success);font-weight:600;margin-top:var(--sp-1)}
+
+  /* Buttons */
+  .dcx-btn{font-family:var(--ff);font-size:13px;font-weight:600;padding:var(--sp-2) var(--sp-3);border-radius:var(--r-sm);border:none;cursor:pointer;transition:all .15s}
+  .btn-primary{background:var(--bg-primary);color:var(--text-white)}
+  .btn-primary:hover{background:var(--bg-primary-hover)}
+  .btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border-default)}
+  .btn-ghost:hover{background:var(--bg-hover)}
+  .card-actions{display:flex;gap:var(--sp-2);margin-top:var(--sp-4)}
+
+  /* Tags row */
+  .tags{display:flex;gap:var(--sp-1);flex-wrap:wrap;margin-top:var(--sp-3)}
+</style>
+</head>
+<body>
+
+<p class="page-title">Components</p>
+<p class="comp-title">Card</p>
+<hr class="divider">
+
+<div class="section-label">Variantes</div>
+<div class="grid">
+
+  <!-- Perfil -->
+  <div class="dcx-card dcx-card-accent">
+    <div class="card-header">
+      <div class="avatar">MG</div>
+      <div>
+        <div class="card-name">María García</div>
+        <div class="card-role">Cloud Architect · Madrid</div>
+      </div>
+    </div>
+    <hr class="card-hr">
+    <div class="stat-row">
+      <div class="stat"><div class="stat-val">12</div><div class="stat-lbl">Proyectos</div></div>
+      <div class="stat"><div class="stat-val">98%</div><div class="stat-lbl">Satisf.</div></div>
+      <div class="stat"><div class="stat-val">7</div><div class="stat-lbl">Certif.</div></div>
+    </div>
+  </div>
+
+  <!-- Proyecto -->
+  <div class="dcx-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="card-title">Cloud Migration</div>
+      <span class="badge badge-green">Activo</span>
+    </div>
+    <div class="card-desc" style="margin-top:var(--sp-1)">Migración de infraestructura on-premise a Azure para BNP Paribas.</div>
+    <div class="progress-header"><span>Progreso</span><span>82%</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:82%"></div></div>
+    <div class="card-actions">
+      <button class="dcx-btn btn-primary">Ver detalle</button>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="dcx-card dcx-card-accent">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af">Satisfacción cliente</div>
+    <div class="kpi-value">98%</div>
+    <div class="kpi-trend">↑ +1.2% este mes</div>
+    <div class="kpi-label">Media de 24 proyectos activos</div>
+  </div>
+
+</div>
+
+<div class="section-label">Card con etiquetas y acciones</div>
+<div class="grid-2">
+
+  <div class="dcx-card">
+    <div class="card-title">SAP S/4HANA · Airbus</div>
+    <div class="card-desc">Implementación de módulos FI/CO y MM en Airbus, incluyendo migración de datos históricos.</div>
+    <div class="tags">
+      <span class="badge badge-blue">SAP</span>
+      <span class="badge badge-gray">Finanzas</span>
+      <span class="badge badge-yellow">En revisión</span>
+    </div>
+    <div class="card-actions">
+      <button class="dcx-btn btn-primary">Abrir</button>
+      <button class="dcx-btn btn-ghost">Archivar</button>
+    </div>
+  </div>
+
+  <div class="dcx-card">
+    <div class="card-title">Data Platform · Renault</div>
+    <div class="card-desc">Construcción de una plataforma centralizada de datos en Azure Synapse para el área de operaciones.</div>
+    <div class="tags">
+      <span class="badge badge-blue">Data & AI</span>
+      <span class="badge badge-gray">Azure</span>
+      <span class="badge badge-green">Planificado</span>
+    </div>
+    <div class="card-actions">
+      <button class="dcx-btn btn-primary">Abrir</button>
+      <button class="dcx-btn btn-ghost">Archivar</button>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

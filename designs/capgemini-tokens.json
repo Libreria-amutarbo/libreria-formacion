@@ -1,0 +1,178 @@
+{
+  "capgemini": {
+    "color": {
+      "background": {
+        "primary":         { "$value": "#0058ab", "$type": "color", "$description": "Fondo botón Primary default" },
+        "primary-hover":   { "$value": "#004080", "$type": "color", "$description": "Fondo botón Primary hover" },
+        "primary-pressed": { "$value": "#121a38", "$type": "color", "$description": "Fondo botón Primary pressed" },
+        "hover":           { "$value": "#f7f8fa", "$type": "color", "$description": "Fondo hover genérico (Secondary/Tertiary)" },
+        "pressed":         { "$value": "#e1e3e6", "$type": "color", "$description": "Fondo pressed / disabled" },
+        "default":         { "$value": "#ffffff", "$type": "color", "$description": "Fondo blanco de componentes" },
+        "surface":         { "$value": "#f4f5f7", "$type": "color", "$description": "Fondo de página / app" },
+        "sidebar":         { "$value": "#f0f2f5", "$type": "color", "$description": "Fondo sidebar y paneles secundarios" }
+      },
+      "content": {
+        "default-white":   { "$value": "#ffffff", "$type": "color", "$description": "Texto sobre fondo primario" },
+        "default-dark":    { "$value": "#2a2e33", "$type": "color", "$description": "Texto oscuro principal" },
+        "muted":           { "$value": "#696e75", "$type": "color", "$description": "Texto secundario / muted" },
+        "disabled":        { "$value": "#696e75", "$type": "color", "$description": "Texto deshabilitado (Tertiary)" },
+        "disabled-dark":   { "$value": "#4f545a", "$type": "color", "$description": "Texto deshabilitado sobre fondo claro" },
+        "placeholder":     { "$value": "#9ca3af", "$type": "color", "$description": "Placeholders de inputs" }
+      },
+      "border": {
+        "default":         { "$value": "#2a2e33", "$type": "color", "$description": "Borde botón Secondary / campos" },
+        "light":           { "$value": "#d1d5db", "$type": "color", "$description": "Borde inputs y cards" },
+        "focus":           { "$value": "#1db8f2", "$type": "color", "$description": "Focus ring – accesibilidad" },
+        "error":           { "$value": "#dc2626", "$type": "color", "$description": "Borde estado error" },
+        "success":         { "$value": "#16a34a", "$type": "color", "$description": "Borde estado éxito" },
+        "disabled":        { "$value": "#696e75", "$type": "color", "$description": "Borde botón Secondary disabled" }
+      },
+      "semantic": {
+        "success":         { "$value": "#16a34a", "$type": "color" },
+        "success-bg":      { "$value": "#f0fdf4", "$type": "color" },
+        "success-light":   { "$value": "#dcfce7", "$type": "color" },
+        "warning":         { "$value": "#d97706", "$type": "color" },
+        "warning-bg":      { "$value": "#fffbeb", "$type": "color" },
+        "warning-light":   { "$value": "#fef3c7", "$type": "color" },
+        "error":           { "$value": "#dc2626", "$type": "color" },
+        "error-bg":        { "$value": "#fef2f2", "$type": "color" },
+        "error-light":     { "$value": "#fee2e2", "$type": "color" },
+        "info":            { "$value": "#0058ab", "$type": "color" },
+        "info-bg":         { "$value": "#eff6ff", "$type": "color" },
+        "info-light":      { "$value": "#dbeafe", "$type": "color" }
+      }
+    },
+    "typography": {
+      "fontFamily": {
+        "base":    { "$value": "Inter, sans-serif", "$type": "fontFamily", "$description": "Fuente principal extraída del Figma" },
+        "display": { "$value": "Inter, sans-serif", "$type": "fontFamily", "$description": "Misma fuente para headings — Inter Bold/Light" }
+      },
+      "fontSize": {
+        "xs":   { "$value": "11px", "$type": "fontSize" },
+        "sm":   { "$value": "12px", "$type": "fontSize" },
+        "base": { "$value": "14px", "$type": "fontSize" },
+        "md":   { "$value": "16px", "$type": "fontSize", "$description": "Tamaño de botones y body principal" },
+        "lg":   { "$value": "18px", "$type": "fontSize" },
+        "xl":   { "$value": "20px", "$type": "fontSize", "$description": "Heading section (COMPONENTS label)" },
+        "2xl":  { "$value": "24px", "$type": "fontSize", "$description": "Título principal de página" }
+      },
+      "fontWeight": {
+        "light":    { "$value": "300", "$type": "fontWeight", "$description": "COMPONENTS label uppercase" },
+        "regular":  { "$value": "400", "$type": "fontWeight" },
+        "medium":   { "$value": "500", "$type": "fontWeight" },
+        "semibold": { "$value": "600", "$type": "fontWeight", "$description": "Botones y labels" },
+        "bold":     { "$value": "700", "$type": "fontWeight", "$description": "Títulos de página" }
+      },
+      "lineHeight": {
+        "tight":   { "$value": "1.2", "$type": "lineHeight" },
+        "normal":  { "$value": "1.5", "$type": "lineHeight", "$description": "Botones (line-height: 1.5)" },
+        "relaxed": { "$value": "1.6", "$type": "lineHeight", "$description": "Body text" }
+      },
+      "letterSpacing": {
+        "normal":  { "$value": "0em",    "$type": "letterSpacing" },
+        "wide":    { "$value": "0.03em", "$type": "letterSpacing", "$description": "COMPONENTS label" },
+        "wider":   { "$value": "0.06em", "$type": "letterSpacing" },
+        "widest":  { "$value": "0.10em", "$type": "letterSpacing" }
+      }
+    },
+    "textStyle": {
+      "page-label": {
+        "$value": {
+          "fontFamily": "{capgemini.typography.fontFamily.base}",
+          "fontSize":   "{capgemini.typography.fontSize.xl}",
+          "fontWeight": "{capgemini.typography.fontWeight.light}",
+          "letterSpacing": "{capgemini.typography.letterSpacing.wide}",
+          "lineHeight": "{capgemini.typography.lineHeight.normal}"
+        },
+        "$type": "typography",
+        "$description": "Etiqueta 'COMPONENTS' uppercase"
+      },
+      "page-title": {
+        "$value": {
+          "fontFamily": "{capgemini.typography.fontFamily.base}",
+          "fontSize":   "{capgemini.typography.fontSize.2xl}",
+          "fontWeight": "{capgemini.typography.fontWeight.bold}",
+          "letterSpacing": "{capgemini.typography.letterSpacing.normal}",
+          "lineHeight": "{capgemini.typography.lineHeight.tight}"
+        },
+        "$type": "typography",
+        "$description": "Nombre del componente (ej: Button)"
+      },
+      "button": {
+        "$value": {
+          "fontFamily": "{capgemini.typography.fontFamily.base}",
+          "fontSize":   "{capgemini.typography.fontSize.md}",
+          "fontWeight": "{capgemini.typography.fontWeight.semibold}",
+          "lineHeight": "{capgemini.typography.lineHeight.normal}",
+          "letterSpacing": "{capgemini.typography.letterSpacing.normal}"
+        },
+        "$type": "typography"
+      },
+      "body": {
+        "$value": {
+          "fontFamily": "{capgemini.typography.fontFamily.base}",
+          "fontSize":   "{capgemini.typography.fontSize.base}",
+          "fontWeight": "{capgemini.typography.fontWeight.regular}",
+          "lineHeight": "{capgemini.typography.lineHeight.relaxed}",
+          "letterSpacing": "{capgemini.typography.letterSpacing.normal}"
+        },
+        "$type": "typography"
+      },
+      "label": {
+        "$value": {
+          "fontFamily": "{capgemini.typography.fontFamily.base}",
+          "fontSize":   "{capgemini.typography.fontSize.sm}",
+          "fontWeight": "{capgemini.typography.fontWeight.medium}",
+          "lineHeight": "{capgemini.typography.lineHeight.normal}",
+          "letterSpacing": "{capgemini.typography.letterSpacing.normal}"
+        },
+        "$type": "typography"
+      },
+      "hint": {
+        "$value": {
+          "fontFamily": "{capgemini.typography.fontFamily.base}",
+          "fontSize":   "{capgemini.typography.fontSize.xs}",
+          "fontWeight": "{capgemini.typography.fontWeight.regular}",
+          "lineHeight": "{capgemini.typography.lineHeight.normal}",
+          "letterSpacing": "{capgemini.typography.letterSpacing.normal}"
+        },
+        "$type": "typography"
+      }
+    },
+    "spacing": {
+      "1":  { "$value": "4px",  "$type": "spacing" },
+      "2":  { "$value": "8px",  "$type": "spacing", "$description": "--sp-2: gap entre icon y texto en botón Small/Medium" },
+      "3":  { "$value": "12px", "$type": "spacing", "$description": "--sp-3: padding horizontal botón Small" },
+      "4":  { "$value": "16px", "$type": "spacing", "$description": "--sp-4: padding vertical botón Large / horizontal Medium" },
+      "5":  { "$value": "20px", "$type": "spacing" },
+      "6":  { "$value": "24px", "$type": "spacing", "$description": "--sp-6: padding horizontal botón Large" },
+      "8":  { "$value": "32px", "$type": "spacing" },
+      "10": { "$value": "40px", "$type": "spacing" },
+      "12": { "$value": "48px", "$type": "spacing" },
+      "16": { "$value": "64px", "$type": "spacing" }
+    },
+    "borderRadius": {
+      "xs":   { "$value": "2px",    "$type": "borderRadius" },
+      "sm":   { "$value": "4px",    "$type": "borderRadius", "$description": "Botones y inputs — valor del Figma" },
+      "md":   { "$value": "6px",    "$type": "borderRadius" },
+      "lg":   { "$value": "8px",    "$type": "borderRadius", "$description": "Cards y dialogs" },
+      "xl":   { "$value": "12px",   "$type": "borderRadius" },
+      "pill": { "$value": "999px",  "$type": "borderRadius", "$description": "Chips, badges, toggles" }
+    },
+    "borderWidth": {
+      "thin":   { "$value": "1px",  "$type": "borderWidth", "$description": "Inputs, cards, secondary button" },
+      "medium": { "$value": "1.5px","$type": "borderWidth" },
+      "focus":  { "$value": "2px",  "$type": "borderWidth", "$description": "Focus ring" }
+    },
+    "shadow": {
+      "sm": { "$value": "0 1px 2px rgba(0,0,0,0.06)", "$type": "shadow" },
+      "md": { "$value": "0 4px 12px rgba(0,0,0,0.08)", "$type": "shadow" },
+      "lg": { "$value": "0 8px 24px rgba(0,0,0,0.12)", "$type": "shadow" },
+      "dialog": { "$value": "0 20px 60px rgba(0,0,0,0.20)", "$type": "shadow" }
+    },
+    "opacity": {
+      "disabled": { "$value": "0.45", "$type": "opacity" },
+      "muted":    { "$value": "0.65", "$type": "opacity" }
+    }
+  }
+}

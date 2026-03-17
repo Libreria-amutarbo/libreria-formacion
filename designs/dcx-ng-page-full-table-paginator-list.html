@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:#0058ab;--bg-primary-hover:#004080;--bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;
+    --bg-default:#fff;--bg-surface:#f4f5f7;
+    --text-dark:#2a2e33;--text-muted:#696e75;--text-disabled:#9ca3af;--text-white:#fff;
+    --border-default:#e5e7eb;--border-focus:#1db8f2;
+    --color-success:#16a34a;--color-success-bg:#f0fdf4;
+    --color-error:#dc2626;--color-error-bg:#fef2f2;
+    --color-warning:#d97706;--color-warning-bg:#fffbeb;
+    --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;
+    --r-sm:4px;--r-md:6px;--r-lg:8px;--r-pill:999px;--ff:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+  .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;text-transform:uppercase;margin-bottom:.25rem}
+  .comp-title{font-size:24px;font-weight:700;margin-bottom:.5rem}
+  .hr{border:none;border-top:1px solid #e5e7eb;margin-bottom:2rem}
+  .sec{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:.75rem;margin-top:2rem}
+
+  /* ── FULL TABLE ── */
+  .table-wrap{background:var(--bg-default);border-radius:var(--r-lg);border:1px solid var(--border-default);overflow:hidden;margin-bottom:2rem}
+  .table-toolbar{padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--border-default);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3)}
+  .table-title{font-size:15px;font-weight:600;color:var(--text-dark)}
+  .table-actions{display:flex;gap:var(--sp-2);align-items:center}
+  .search-wrap{position:relative}
+  .search-input{font-family:var(--ff);font-size:13px;padding:6px 10px 6px 32px;border:1px solid var(--border-default);border-radius:var(--r-sm);outline:none;color:var(--text-dark);background:var(--bg-default);width:200px}
+  .search-input:focus{border-color:var(--border-focus)}
+  .search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text-muted)}
+  .table-btn{font-family:var(--ff);font-size:12px;font-weight:600;padding:6px 12px;border-radius:var(--r-sm);border:none;cursor:pointer;background:var(--bg-primary);color:var(--text-white)}
+  .table-btn:hover{background:var(--bg-primary-hover)}
+  .table-btn.ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border-default)}
+  .table-btn.ghost:hover{background:var(--bg-hover)}
+
+  .dcx-table{width:100%;border-collapse:collapse}
+  .dcx-table thead{background:var(--bg-surface)}
+  .dcx-table th{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);padding:var(--sp-3) var(--sp-4);text-align:left;border-bottom:1.5px solid var(--border-default);white-space:nowrap;cursor:pointer;user-select:none}
+  .dcx-table th:hover{color:var(--text-dark)}
+  .sort-icon{margin-left:4px;opacity:.4;font-size:10px}
+  .dcx-table th.sorted{color:var(--bg-primary)}
+  .dcx-table th.sorted .sort-icon{opacity:1}
+  .dcx-table td{padding:var(--sp-3) var(--sp-4);font-size:14px;color:var(--text-dark);border-bottom:1px solid var(--border-default);vertical-align:middle}
+  .dcx-table tr:last-child td{border-bottom:none}
+  .dcx-table tbody tr:hover td{background:var(--bg-hover)}
+  .dcx-table tbody tr.selected td{background:#eff6ff}
+
+  .badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--r-pill)}
+  .badge-green{background:var(--color-success-bg);color:var(--color-success)}
+  .badge-yellow{background:var(--color-warning-bg);color:var(--color-warning)}
+  .badge-blue{background:#dbeafe;color:#1d4ed8}
+  .badge-red{background:var(--color-error-bg);color:var(--color-error)}
+  .badge-gray{background:#f3f4f6;color:#374151}
+  .avatar-sm{width:28px;height:28px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--bg-primary);flex-shrink:0}
+  .user-cell{display:flex;align-items:center;gap:var(--sp-2)}
+  .row-actions{display:flex;gap:var(--sp-1)}
+  .icon-btn{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;cursor:pointer;border-radius:var(--r-sm);color:var(--text-muted)}
+  .icon-btn:hover{background:var(--bg-hover);color:var(--text-dark)}
+  .checkbox-cell{width:40px}
+  .row-check{width:16px;height:16px;border:1.5px solid var(--border-default);border-radius:3px;cursor:pointer}
+
+  /* ── PAGINATOR ── */
+  .dcx-paginator{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-3) var(--sp-4);background:var(--bg-default);border-top:1px solid var(--border-default);border-radius:0 0 var(--r-lg) var(--r-lg)}
+  .pag-info{font-size:13px;color:var(--text-muted)}
+  .pag-pages{display:flex;align-items:center;gap:var(--sp-1)}
+  .pag-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-default);border-radius:var(--r-sm);cursor:pointer;font-size:13px;font-weight:500;color:var(--text-dark);background:var(--bg-default);transition:all .15s;user-select:none}
+  .pag-btn:hover{background:var(--bg-hover);border-color:#d1d5db}
+  .pag-btn.active{background:var(--bg-primary);color:var(--text-white);border-color:var(--bg-primary)}
+  .pag-btn.disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+  .pag-btn.nav{color:var(--text-muted)}
+  .pag-size{display:flex;align-items:center;gap:var(--sp-2);font-size:13px;color:var(--text-muted)}
+  .pag-size select{font-family:var(--ff);font-size:13px;border:1px solid var(--border-default);border-radius:var(--r-sm);padding:4px 8px;outline:none;color:var(--text-dark)}
+
+  /* ── LIST ── */
+  .dcx-list{background:var(--bg-default);border-radius:var(--r-lg);border:1px solid var(--border-default);overflow:hidden;margin-bottom:1.5rem}
+  .list-item{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--border-default);cursor:pointer;transition:background .15s}
+  .list-item:last-child{border-bottom:none}
+  .list-item:hover{background:var(--bg-hover)}
+  .list-item.active{background:#eff6ff}
+  .list-item.disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
+  .list-icon{width:36px;height:36px;border-radius:var(--r-md);background:var(--bg-surface);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .list-body{flex:1;min-width:0}
+  .list-title{font-size:14px;font-weight:500;color:var(--text-dark)}
+  .list-desc{font-size:12px;color:var(--text-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .list-meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+  .list-date{font-size:11px;color:var(--text-muted)}
+  .list-badge{font-size:10px;font-weight:600;padding:1px 6px;border-radius:var(--r-pill);background:#dbeafe;color:#1d4ed8}
+</style>
+</head>
+<body>
+<p class="page-title">Components</p>
+<p class="comp-title">Table, Paginator & List</p>
+<hr class="hr">
+
+<!-- FULL TABLE + PAGINATOR -->
+<div class="sec">Full Table</div>
+<div class="table-wrap">
+  <div class="table-toolbar">
+    <span class="table-title">Proyectos activos</span>
+    <div class="table-actions">
+      <div class="search-wrap">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l-2.5-2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <input class="search-input" type="text" placeholder="Buscar proyecto...">
+      </div>
+      <button class="table-btn ghost">Exportar</button>
+      <button class="table-btn">Nuevo proyecto</button>
+    </div>
+  </div>
+  <table class="dcx-table">
+    <thead>
+      <tr>
+        <th class="checkbox-cell"><input type="checkbox" class="row-check"></th>
+        <th class="sorted">Proyecto <span class="sort-icon">↑</span></th>
+        <th>Cliente <span class="sort-icon">↕</span></th>
+        <th>Estado <span class="sort-icon">↕</span></th>
+        <th>Responsable <span class="sort-icon">↕</span></th>
+        <th>Fecha fin <span class="sort-icon">↕</span></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="selected">
+        <td><input type="checkbox" class="row-check" checked></td>
+        <td><strong>Cloud Migration</strong></td>
+        <td>BNP Paribas</td>
+        <td><span class="badge badge-green">Activo</span></td>
+        <td><div class="user-cell"><div class="avatar-sm">MG</div>M. García</div></td>
+        <td>31 mar 2026</td>
+        <td><div class="row-actions"><button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5 3.5V2.5h4v1M4 3.5l.5 8h5l.5-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td><strong>SAP S/4HANA</strong></td>
+        <td>Airbus</td>
+        <td><span class="badge badge-yellow">En revisión</span></td>
+        <td><div class="user-cell"><div class="avatar-sm">LM</div>L. Müller</div></td>
+        <td>15 abr 2026</td>
+        <td><div class="row-actions"><button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5 3.5V2.5h4v1M4 3.5l.5 8h5l.5-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td><strong>Data Platform</strong></td>
+        <td>Renault</td>
+        <td><span class="badge badge-blue">Planificado</span></td>
+        <td><div class="user-cell"><div class="avatar-sm">SM</div>S. Martín</div></td>
+        <td>01 jun 2026</td>
+        <td><div class="row-actions"><button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5 3.5V2.5h4v1M4 3.5l.5 8h5l.5-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td><strong>DevOps Toolchain</strong></td>
+        <td>Orange</td>
+        <td><span class="badge badge-gray">Completado</span></td>
+        <td><div class="user-cell"><div class="avatar-sm">AD</div>A. Dubois</div></td>
+        <td>10 feb 2026</td>
+        <td><div class="row-actions"><button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5 3.5V2.5h4v1M4 3.5l.5 8h5l.5-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- PAGINATOR inside table -->
+  <div class="dcx-paginator">
+    <div class="pag-size">
+      <span>Filas por página:</span>
+      <select><option>10</option><option>25</option><option>50</option></select>
+    </div>
+    <div class="pag-pages">
+      <div class="pag-btn nav disabled"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="pag-btn active">1</div>
+      <div class="pag-btn">2</div>
+      <div class="pag-btn">3</div>
+      <div class="pag-btn" style="border:none;pointer-events:none">…</div>
+      <div class="pag-btn">12</div>
+      <div class="pag-btn nav"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="pag-info">1–10 de 117 resultados</div>
+  </div>
+</div>
+
+<!-- LIST -->
+<div class="sec">List</div>
+<div class="dcx-list">
+  <div class="list-item active">
+    <div class="list-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="#0058ab" stroke-width="1.5"/><path d="M5 9h8M5 6h5M5 12h3" stroke="#0058ab" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="list-body"><div class="list-title">Cloud Migration · BNP Paribas</div><div class="list-desc">Migración de infraestructura on-premise a Azure — Fase 2 en curso</div></div>
+    <div class="list-meta"><span class="list-date">Hoy</span><span class="list-badge">Activo</span></div>
+  </div>
+  <div class="list-item">
+    <div class="list-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="#2a2e33" stroke-width="1.5"/><path d="M5 9h8M5 6h5M5 12h3" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="list-body"><div class="list-title">SAP S/4HANA · Airbus</div><div class="list-desc">Implementación módulos FI/CO y MM — Revisión pendiente</div></div>
+    <div class="list-meta"><span class="list-date">Ayer</span></div>
+  </div>
+  <div class="list-item">
+    <div class="list-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="#2a2e33" stroke-width="1.5"/><path d="M5 9h8M5 6h5M5 12h3" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="list-body"><div class="list-title">Data Platform · Renault</div><div class="list-desc">Azure Synapse — Inicio previsto junio 2026</div></div>
+    <div class="list-meta"><span class="list-date">14 mar</span></div>
+  </div>
+  <div class="list-item disabled">
+    <div class="list-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="#9ca3af" stroke-width="1.5"/><path d="M5 9h8M5 6h5M5 12h3" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="list-body"><div class="list-title">Elemento deshabilitado</div><div class="list-desc">Este elemento no está disponible actualmente</div></div>
+  </div>
+</div>
+</body>
+</html>

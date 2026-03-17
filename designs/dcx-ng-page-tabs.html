@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:#0058ab;--bg-primary-hover:#004080;
+    --bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;--bg-default:#fff;--bg-surface:#f4f5f7;
+    --text-dark:#2a2e33;--text-muted:#696e75;--text-white:#fff;
+    --border-default:#e5e7eb;--border-focus:#1db8f2;
+    --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;
+    --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;--r-pill:999px;
+    --ff:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+  .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;color:#000;text-transform:uppercase;margin-bottom:.25rem}
+  .comp-title{font-size:24px;font-weight:700;color:#000;margin-bottom:.5rem}
+  .divider{border:none;border-top:1px solid #e5e7eb;margin-bottom:2rem}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:1rem}
+  .mb-2{margin-bottom:2rem}
+  .panel-body{background:var(--bg-default);border:1px solid var(--border-default);border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg);padding:var(--sp-5)}
+  .panel-body p{font-size:14px;color:var(--text-muted);line-height:1.6}
+
+  /* Badge */
+  .badge{font-size:11px;font-weight:600;padding:1px 7px;border-radius:var(--r-pill);background:#dbeafe;color:#1d4ed8;margin-left:6px}
+  .badge.active{background:var(--bg-primary);color:var(--text-white)}
+
+  /* ── LINE tabs (default) ── */
+  .tabs-line{border-bottom:2px solid var(--border-default)}
+  .tabs-line .tab-list{display:flex}
+  .tabs-line .tab-item{font-size:14px;font-weight:500;color:var(--text-muted);padding:var(--sp-3) var(--sp-4);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;user-select:none;white-space:nowrap;display:flex;align-items:center}
+  .tabs-line .tab-item:hover{color:var(--text-dark);background:var(--bg-hover)}
+  .tabs-line .tab-item.active{color:var(--bg-primary);border-bottom-color:var(--bg-primary);font-weight:600}
+  .tabs-line .tab-item.disabled{color:#d1d5db;cursor:not-allowed;pointer-events:none}
+
+  /* ── PILL tabs ── */
+  .tabs-pill-wrap{display:inline-flex;background:#e5e7eb;border-radius:var(--r-pill);padding:3px;gap:2px}
+  .tabs-pill .tab-item{font-size:13px;font-weight:500;color:var(--text-muted);padding:var(--sp-1) var(--sp-4);border-radius:var(--r-pill);cursor:pointer;transition:all .15s;user-select:none;white-space:nowrap}
+  .tabs-pill .tab-item:hover{color:var(--text-dark)}
+  .tabs-pill .tab-item.active{background:var(--bg-default);color:var(--text-dark);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+
+  /* ── UNDERLINE thin (subtle) ── */
+  .tabs-subtle{border-bottom:1px solid var(--border-default)}
+  .tabs-subtle .tab-list{display:flex}
+  .tabs-subtle .tab-item{font-size:13px;font-weight:500;color:var(--text-muted);padding:var(--sp-2) var(--sp-4);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;user-select:none;white-space:nowrap}
+  .tabs-subtle .tab-item:hover{color:var(--text-dark)}
+  .tabs-subtle .tab-item.active{color:var(--bg-primary);border-bottom-color:var(--bg-primary);font-weight:600}
+
+  /* ── DARK / Brand tabs ── */
+  .tabs-dark-wrap{background:#003366;border-radius:var(--r-xl) var(--r-xl) 0 0;overflow:hidden}
+  .tabs-dark{background:var(--bg-primary);display:flex}
+  .tabs-dark .tab-item{font-size:13px;font-weight:500;color:rgba(255,255,255,.65);padding:var(--sp-3) var(--sp-4);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;user-select:none;white-space:nowrap}
+  .tabs-dark .tab-item:hover{color:#fff;background:rgba(255,255,255,.08)}
+  .tabs-dark .tab-item.active{color:#fff;border-bottom-color:#1db8f2;background:rgba(255,255,255,.1)}
+  .panel-dark{background:var(--bg-surface);padding:var(--sp-5)}
+  .panel-dark p{font-size:14px;color:var(--text-muted);line-height:1.6}
+</style>
+</head>
+<body>
+
+<p class="page-title">Components</p>
+<p class="comp-title">Tabs</p>
+<hr class="divider">
+
+<!-- LINE -->
+<div class="section-label mb-2">Line (default)</div>
+<div class="mb-2">
+  <div class="tabs-line">
+    <div class="tab-list">
+      <div class="tab-item active">Dashboard <span class="badge active">3</span></div>
+      <div class="tab-item">Proyectos <span class="badge">12</span></div>
+      <div class="tab-item">Equipo</div>
+      <div class="tab-item">Reportes</div>
+      <div class="tab-item disabled">Archivados</div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <p>Contenido del panel activo — Dashboard. Vista general de métricas, actividad reciente y KPIs del equipo.</p>
+  </div>
+</div>
+
+<!-- PILL -->
+<div class="section-label mb-2">Pill</div>
+<div class="mb-2">
+  <div class="tabs-pill tabs-pill-wrap">
+    <div class="tab-item active">Semana</div>
+    <div class="tab-item">Mes</div>
+    <div class="tab-item">Trimestre</div>
+    <div class="tab-item">Año</div>
+  </div>
+</div>
+
+<!-- SUBTLE -->
+<div class="section-label mb-2">Subtle / Small</div>
+<div class="mb-2">
+  <div class="tabs-subtle">
+    <div class="tab-list">
+      <div class="tab-item active">Resumen</div>
+      <div class="tab-item">Documentos</div>
+      <div class="tab-item">Hitos</div>
+      <div class="tab-item">Equipo</div>
+      <div class="tab-item">Actividad</div>
+    </div>
+  </div>
+</div>
+
+<!-- DARK BRAND -->
+<div class="section-label mb-2">Brand (sobre fondo primario)</div>
+<div class="tabs-dark-wrap mb-2">
+  <div class="tabs-dark">
+    <div class="tab-item active">Resumen</div>
+    <div class="tab-item">Documentos</div>
+    <div class="tab-item">Hitos</div>
+    <div class="tab-item">Equipo</div>
+  </div>
+  <div class="panel-dark">
+    <p>Contenido del panel Resumen — vista general del proyecto, métricas clave y estado actual del alcance.</p>
+  </div>
+</div>
+
+</body>
+</html>

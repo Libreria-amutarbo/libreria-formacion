@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:#0058ab;--bg-primary-hover:#004080;--bg-primary-pressed:#121a38;
+    --bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;--bg-default:#fff;--bg-surface:#f4f5f7;
+    --text-dark:#2a2e33;--text-muted:#696e75;--text-disabled:#9ca3af;--text-white:#fff;
+    --border-default:#e5e7eb;--border-focus:#1db8f2;
+    --border-btn:#2a2e33;
+    --color-error:#dc2626;--color-error-bg:#fef2f2;
+    --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;
+    --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;
+    --ff:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ff);background:#64748b;padding:2.5rem;display:flex;flex-direction:column;gap:2.5rem;align-items:center}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.75rem;text-align:center}
+
+  /* Overlay */
+  .overlay{width:100%;max-width:600px;background:rgba(0,0,0,.45);border-radius:var(--r-xl);padding:3rem;display:flex;align-items:center;justify-content:center}
+
+  /* Dialog */
+  .dcx-dialog{background:var(--bg-default);border-radius:var(--r-lg);width:420px;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);overflow:hidden}
+  .dialog-header{padding:var(--sp-4) var(--sp-5);border-bottom:1px solid var(--border-default);display:flex;align-items:center;justify-content:space-between}
+  .dialog-title{font-size:16px;font-weight:600;color:var(--text-dark)}
+  .dialog-close{background:transparent;border:none;cursor:pointer;color:var(--text-muted);padding:var(--sp-1);border-radius:var(--r-sm);font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center}
+  .dialog-close:hover{background:var(--bg-hover);color:var(--text-dark)}
+  .dialog-body{padding:var(--sp-5)}
+  .dialog-body p{font-size:14px;color:var(--text-muted);line-height:1.6}
+  .dialog-footer{padding:var(--sp-3) var(--sp-5);border-top:1px solid var(--border-default);background:var(--bg-surface);display:flex;justify-content:flex-end;gap:var(--sp-2)}
+
+  /* Buttons */
+  .dcx-btn{font-family:var(--ff);font-size:14px;font-weight:600;padding:var(--sp-2) var(--sp-4);border-radius:var(--r-sm);cursor:pointer;transition:all .15s;border:none;line-height:1.5}
+  .btn-primary{background:var(--bg-primary);color:var(--text-white)}
+  .btn-primary:hover{background:var(--bg-primary-hover)}
+  .btn-secondary{background:transparent;color:var(--text-dark);border:1px solid var(--border-btn)}
+  .btn-secondary:hover{background:var(--bg-hover)}
+  .btn-danger{background:var(--color-error);color:var(--text-white)}
+  .btn-danger:hover{background:#b91c1c}
+
+  /* Icon circle */
+  .dialog-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:var(--sp-3)}
+  .icon-danger{background:var(--color-error-bg)}
+  .icon-info{background:#dbeafe}
+
+  /* Form fields */
+  .dcx-field{display:flex;flex-direction:column;gap:var(--sp-1);margin-bottom:var(--sp-4)}
+  .dcx-field:last-child{margin-bottom:0}
+  .dcx-label{font-size:12px;font-weight:500;color:var(--text-dark)}
+  .dcx-input{font-family:var(--ff);font-size:14px;padding:var(--sp-2) var(--sp-3);border:1px solid var(--border-default);border-radius:var(--r-sm);color:var(--text-dark);background:var(--bg-default);outline:none;width:100%;transition:border-color .15s}
+  .dcx-input:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(29,184,242,.2)}
+  .dcx-select{font-family:var(--ff);font-size:14px;padding:var(--sp-2) var(--sp-3);padding-right:2rem;border:1px solid var(--border-default);border-radius:var(--r-sm);color:var(--text-dark);background:var(--bg-default);outline:none;width:100%;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%232a2e33' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+  .dcx-select:focus{border-color:var(--border-focus)}
+</style>
+</head>
+<body>
+
+<div style="width:100%;max-width:600px">
+  <div class="section-label">Dialog — Confirmación destructiva</div>
+  <div class="overlay">
+    <div class="dcx-dialog">
+      <div class="dialog-header">
+        <span class="dialog-title">Eliminar proyecto</span>
+        <button class="dialog-close">✕</button>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-icon icon-danger">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M8 4h4M3 6h14M5 6l1 10h8l1-10" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p>¿Estás seguro de que deseas eliminar el proyecto <strong style="color:var(--text-dark)">Cloud Migration</strong>? Esta acción es irreversible y no se puede deshacer.</p>
+      </div>
+      <div class="dialog-footer">
+        <button class="dcx-btn btn-secondary">Cancelar</button>
+        <button class="dcx-btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="width:100%;max-width:600px">
+  <div class="section-label">Dialog — Formulario</div>
+  <div class="overlay">
+    <div class="dcx-dialog">
+      <div class="dialog-header">
+        <span class="dialog-title">Nuevo proyecto</span>
+        <button class="dialog-close">✕</button>
+      </div>
+      <div class="dialog-body">
+        <div class="dcx-field">
+          <label class="dcx-label">Nombre del proyecto</label>
+          <input class="dcx-input" type="text" placeholder="Ej: Cloud Migration v2">
+        </div>
+        <div class="dcx-field">
+          <label class="dcx-label">Cliente</label>
+          <input class="dcx-input" type="text" placeholder="Ej: Airbus">
+        </div>
+        <div class="dcx-field">
+          <label class="dcx-label">Práctica</label>
+          <select class="dcx-select">
+            <option value="">Selecciona una práctica</option>
+            <option>Cloud Infrastructure</option>
+            <option>SAP</option>
+            <option>Data & AI</option>
+          </select>
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button class="dcx-btn btn-secondary">Cancelar</button>
+        <button class="dcx-btn btn-primary">Crear proyecto</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="width:100%;max-width:600px">
+  <div class="section-label">Dialog — Informativo</div>
+  <div class="overlay">
+    <div class="dcx-dialog">
+      <div class="dialog-header">
+        <span class="dialog-title">Información importante</span>
+        <button class="dialog-close">✕</button>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-icon icon-info">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#1d4ed8" stroke-width="1.5"/><path d="M10 9v5M10 7v.5" stroke="#1d4ed8" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <p>El proceso de migración comenzará el <strong style="color:var(--text-dark)">lunes 22 de abril</strong>. Durante este periodo algunos servicios podrían no estar disponibles temporalmente.</p>
+      </div>
+      <div class="dialog-footer">
+        <button class="dcx-btn btn-primary">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

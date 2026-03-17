@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-primary:#0058ab;--bg-hover:#f7f8fa;--bg-default:#fff;--bg-surface:#f4f5f7;
+        --text-dark:#2a2e33;--text-muted:#696e75;--text-disabled:#9ca3af;--text-white:#fff;
+        --border-default:#e5e7eb;--border-focus:#1db8f2;
+        --color-success:#16a34a;--color-success-bg:#f0fdf4;
+        --color-error:#dc2626;--color-error-bg:#fef2f2;
+        --color-warning:#d97706;--color-warning-bg:#fffbeb;
+        --color-info:#0058ab;--color-info-bg:#eff6ff;
+        --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;
+        --r-sm:4px;--r-md:6px;--r-lg:8px;--r-pill:999px;--ff:'Inter',sans-serif;
+      }
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+      .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;text-transform:uppercase;margin-bottom:.25rem}
+      .comp-title{font-size:24px;font-weight:700;margin-bottom:.5rem}
+      .hr{border:none;border-top:1px solid #e5e7eb;margin-bottom:2rem}
+      .sec{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:.75rem;margin-top:2rem}
+      .card{background:var(--bg-default);border-radius:var(--r-lg);border:1px solid var(--border-default);padding:var(--sp-4) var(--sp-5);margin-bottom:1rem}
+
+      /* ── BREADCRUMB ── */
+      .dcx-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:var(--sp-1)}
+      .bc-item{font-size:14px;color:var(--text-muted);display:flex;align-items:center;gap:var(--sp-1)}
+      .bc-item a{color:var(--bg-primary);text-decoration:none;font-weight:500}
+      .bc-item a:hover{text-decoration:underline}
+      .bc-item.active{color:var(--text-dark);font-weight:500}
+      .bc-sep{color:var(--text-disabled);font-size:12px;display:flex;align-items:center}
+      .bc-item.disabled a{color:var(--text-disabled);pointer-events:none}
+
+      /* ── DIVIDER ── */
+      .dcx-divider{border:none;border-top:1px solid var(--border-default);margin:var(--sp-4) 0}
+      .dcx-divider-strong{border-top-width:2px;border-top-color:var(--bg-primary)}
+      .dcx-divider-dashed{border-top-style:dashed;border-top-color:var(--text-disabled)}
+      .divider-label{display:flex;align-items:center;gap:var(--sp-3);margin:var(--sp-4) 0}
+      .divider-label::before,.divider-label::after{content:'';flex:1;border-top:1px solid var(--border-default)}
+      .divider-label span{font-size:12px;color:var(--text-muted);white-space:nowrap;font-weight:500}
+
+      /* ── ICON ── */
+      .icon-grid{display:flex;flex-wrap:wrap;gap:var(--sp-4)}
+      .icon-cell{display:flex;flex-direction:column;align-items:center;gap:var(--sp-1);width:56px}
+      .icon-box{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--bg-surface);border-radius:var(--r-md);border:1px solid var(--border-default)}
+      .icon-lbl{font-size:10px;color:var(--text-muted);text-align:center;line-height:1.3}
+      .icon-box.primary{background:#dbeafe;border-color:#93c5fd}
+      .icon-box svg{width:20px;height:20px}
+
+      /* ── MESSAGE (Alert / Toast) ── */
+      .dcx-message{display:flex;align-items:flex-start;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);border-left:4px solid;margin-bottom:var(--sp-3);font-size:14px}
+      .msg-info{background:var(--color-info-bg);border-color:var(--color-info);color:#1e3a5f}
+      .msg-success{background:var(--color-success-bg);border-color:var(--color-success);color:#14532d}
+      .msg-warning{background:var(--color-warning-bg);border-color:var(--color-warning);color:#78350f}
+      .msg-error{background:var(--color-error-bg);border-color:var(--color-error);color:#7f1d1d}
+      .msg-icon{width:18px;height:18px;flex-shrink:0;margin-top:1px}
+      .msg-content strong{display:block;font-weight:600;margin-bottom:2px}
+      .msg-content p{line-height:1.5;opacity:.85}
+      .msg-close{margin-left:auto;flex-shrink:0;background:transparent;border:none;cursor:pointer;opacity:.5;font-size:14px;padding:2px 4px;border-radius:var(--r-sm)}
+      .msg-close:hover{opacity:1}
+
+      /* Toast variant */
+      .dcx-toast{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-lg);background:var(--text-dark);color:var(--text-white);font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,.15);max-width:380px;margin-bottom:var(--sp-2)}
+      .toast-icon{width:18px;height:18px;flex-shrink:0}
+      .toast-action{margin-left:auto;background:transparent;border:none;cursor:pointer;color:#1db8f2;font-size:13px;font-weight:600;white-space:nowrap;padding:0 var(--sp-1)}
+    </style>
+  </head>
+  <body>
+    <p class="page-title">Components</p>
+    <p class="comp-title">Navigation & Feedback</p>
+    <hr class="hr" />
+
+    <!-- BREADCRUMB -->
+    <div class="sec">Breadcrumb</div>
+    <div class="card">
+      <nav class="dcx-breadcrumb" style="margin-bottom:1rem">
+        <div class="bc-item"><a href="#">Inicio</a></div>
+        <div class="bc-sep">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path
+              d="M4 2l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="bc-item"><a href="#">Proyectos</a></div>
+        <div class="bc-sep">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path
+              d="M4 2l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="bc-item active">Cloud Migration</div>
+      </nav>
+      <nav class="dcx-breadcrumb" style="margin-bottom:1rem">
+        <div class="bc-item"><a href="#">Inicio</a></div>
+        <div class="bc-sep">/</div>
+        <div class="bc-item"><a href="#">Clientes</a></div>
+        <div class="bc-sep">/</div>
+        <div class="bc-item"><a href="#">Airbus</a></div>
+        <div class="bc-sep">/</div>
+        <div class="bc-item active">SAP S/4HANA</div>
+      </nav>
+      <nav class="dcx-breadcrumb">
+        <div class="bc-item"><a href="#">Inicio</a></div>
+        <div class="bc-sep">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path
+              d="M4 2l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="bc-item disabled">
+          <a href="#">Práctica (deshabilitado)</a>
+        </div>
+        <div class="bc-sep">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path
+              d="M4 2l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="bc-item active">Página actual</div>
+      </nav>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="sec">Divider</div>
+    <div class="card">
+      <p
+        style="font-size:14px;color:var(--text-muted);margin-bottom:var(--sp-2)"
+      >
+        Sección superior de contenido
+      </p>
+      <hr class="dcx-divider" />
+      <p
+        style="font-size:14px;color:var(--text-muted);margin-bottom:var(--sp-2)"
+      >
+        Divider con acento primario
+      </p>
+      <hr class="dcx-divider dcx-divider-strong" />
+      <p
+        style="font-size:14px;color:var(--text-muted);margin-bottom:var(--sp-2)"
+      >
+        Divider punteado
+      </p>
+      <hr class="dcx-divider dcx-divider-dashed" />
+      <div class="divider-label"><span>O continúa con</span></div>
+      <p style="font-size:14px;color:var(--text-muted)">
+        Contenido debajo del divider con etiqueta
+      </p>
+    </div>
+
+    <!-- ICON -->
+    <div class="sec">Icon</div>
+    <div class="card">
+      <div class="icon-grid">
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 2a8 8 0 100 16A8 8 0 0010 2z"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+              />
+              <path
+                d="M10 6v5l3 2"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">clock</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box primary">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 2l2.5 5 5.5.8-4 3.9.95 5.5L10 14.5l-4.95 2.7.95-5.5L2 7.8l5.5-.8L10 2z"
+                stroke="#0058ab"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">star</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M4 10h12M10 4l6 6-6 6"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">arrow-right</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 3v14M3 10h14"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">plus</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M5 10l4 4 7-7"
+                stroke="#16a34a"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">check</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M5 5l10 10M15 5L5 15"
+                stroke="#dc2626"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">close</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <circle
+                cx="10"
+                cy="10"
+                r="7"
+                stroke="#0058ab"
+                stroke-width="1.5"
+              />
+              <path
+                d="M10 9v5M10 7v.01"
+                stroke="#0058ab"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">info</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M4 6h12M4 10h8M4 14h5"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">list</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <rect
+                x="3"
+                y="3"
+                width="6"
+                height="6"
+                rx="1"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+              />
+              <rect
+                x="11"
+                y="3"
+                width="6"
+                height="6"
+                rx="1"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+              />
+              <rect
+                x="3"
+                y="11"
+                width="6"
+                height="6"
+                rx="1"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+              />
+              <rect
+                x="11"
+                y="11"
+                width="6"
+                height="6"
+                rx="1"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">grid</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 2a5 5 0 015 5c0 3-5 11-5 11S5 10 5 7a5 5 0 015-5z"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+              />
+              <circle cx="10" cy="7" r="1.5" fill="#2a2e33" />
+            </svg>
+          </div>
+          <span class="icon-lbl">location</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M3 7l7-4 7 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V7z"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+              />
+              <path d="M8 17V11h4v6" stroke="#2a2e33" stroke-width="1.5" />
+            </svg>
+          </div>
+          <span class="icon-lbl">home</span>
+        </div>
+        <div class="icon-cell">
+          <div class="icon-box">
+            <svg viewBox="0 0 20 20" fill="none">
+              <circle cx="9" cy="9" r="5" stroke="#2a2e33" stroke-width="1.5" />
+              <path
+                d="M16 16l-3-3"
+                stroke="#2a2e33"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <span class="icon-lbl">search</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MESSAGE -->
+    <div class="sec">Message / Alert</div>
+    <div class="card">
+      <div class="dcx-message msg-info">
+        <svg class="msg-icon" viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="9" r="7" stroke="#0058ab" stroke-width="1.5" />
+          <path
+            d="M9 8v5M9 6v.5"
+            stroke="#0058ab"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+        <div class="msg-content">
+          <strong>Información</strong>
+          <p>
+            El proceso de migración comenzará el lunes 22 de abril. Revisa el
+            calendario.
+          </p>
+        </div>
+        <button class="msg-close">✕</button>
+      </div>
+      <div class="dcx-message msg-success">
+        <svg class="msg-icon" viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="9" r="7" stroke="#16a34a" stroke-width="1.5" />
+          <path
+            d="M5.5 9l3 3 4-5"
+            stroke="#16a34a"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <div class="msg-content">
+          <strong>Éxito</strong>
+          <p>Los cambios fueron guardados correctamente en el sistema.</p>
+        </div>
+        <button class="msg-close">✕</button>
+      </div>
+      <div class="dcx-message msg-warning">
+        <svg class="msg-icon" viewBox="0 0 18 18" fill="none">
+          <path
+            d="M9 2L16.5 15H1.5L9 2z"
+            stroke="#d97706"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M9 8v3M9 13v.5"
+            stroke="#d97706"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+        <div class="msg-content">
+          <strong>Atención</strong>
+          <p>
+            Hay campos obligatorios sin completar. Revisa el formulario antes de
+            continuar.
+          </p>
+        </div>
+        <button class="msg-close">✕</button>
+      </div>
+      <div class="dcx-message msg-error" style="margin-bottom:0">
+        <svg class="msg-icon" viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="9" r="7" stroke="#dc2626" stroke-width="1.5" />
+          <path
+            d="M6 6l6 6M12 6l-6 6"
+            stroke="#dc2626"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+        <div class="msg-content">
+          <strong>Error</strong>
+          <p>
+            No se pudo conectar con el servidor. Inténtalo de nuevo en unos
+            minutos.
+          </p>
+        </div>
+        <button class="msg-close">✕</button>
+      </div>
+    </div>
+
+    <div class="sec">Toast</div>
+    <div class="card" style="background:#475569">
+      <div class="dcx-toast">
+        <svg class="toast-icon" viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="9" r="7" stroke="#1db8f2" stroke-width="1.5" />
+          <path
+            d="M9 8v5M9 6v.5"
+            stroke="#1db8f2"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span>Proyecto guardado correctamente</span>
+        <button class="toast-action">Deshacer</button>
+      </div>
+      <div class="dcx-toast">
+        <svg class="toast-icon" viewBox="0 0 18 18" fill="none">
+          <path
+            d="M5.5 9l3 3 4-5"
+            stroke="#16a34a"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>Archivo exportado con éxito</span>
+      </div>
+    </div>
+  </body>
+</html>
