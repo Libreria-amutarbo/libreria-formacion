@@ -1,4 +1,4 @@
-# DcxNgComponents
+<img width="928" height="490" alt="image" src="https://github.com/user-attachments/assets/add7639d-152b-4a64-9efb-fcab8da5f3dd" /># DcxNgComponents
 
 ## Run tasks
 
@@ -36,5 +36,5 @@ Then you select the option **@nx/angular:component**. We will create it in the f
 
 ## Consulta de la librería
 
-[Develop](https://libreria-amutarbo.github.io/libreria-formacion/develop/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)
+[Develop](https://libreria-amutarbo.github.io/libreria-formacion/develop/?path=/docs/dcxlibrary-breadcrumb--docs)
 [Main](https://libreria-amutarbo.github.io/libreria-formacion/main/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)
