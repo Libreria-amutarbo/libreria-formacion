@@ -104,7 +104,9 @@ describe('DcxNgThemeGeneratorComponent', () => {
   it('should not render preview section when showPreview is false', () => {
     fixture.componentRef.setInput('showPreview', false);
     fixture.detectChanges();
-    const preview = fixture.nativeElement.querySelector('.theme-generator__preview');
+    const preview = fixture.nativeElement.querySelector(
+      '.theme-generator__preview',
+    );
     expect(preview).toBeNull();
   });
 
@@ -119,7 +121,9 @@ describe('DcxNgThemeGeneratorComponent', () => {
     component.cssGenerated.subscribe(spy);
     component.updateToken('--bg-primary', '#ff0000');
 
-    Object.assign(navigator, { clipboard: { writeText: jest.fn().mockResolvedValue(undefined) } });
+    Object.assign(navigator, {
+      clipboard: { writeText: jest.fn().mockResolvedValue(undefined) },
+    });
 
     component.copyCss();
     expect(spy).toHaveBeenCalledWith(component.generatedCss());
@@ -127,7 +131,13 @@ describe('DcxNgThemeGeneratorComponent', () => {
 
   it('should accept custom tokens via input', () => {
     const customTokens: ThemeToken[] = [
-      { name: '--custom-color', value: '#123456', defaultValue: '#123456', label: 'Custom', group: 'background' },
+      {
+        name: '--custom-color',
+        value: '#123456',
+        defaultValue: '#123456',
+        label: 'Custom',
+        group: 'background',
+      },
     ];
     fixture.componentRef.setInput('tokens', customTokens);
     fixture.detectChanges();

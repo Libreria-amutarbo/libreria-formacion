@@ -62,7 +62,9 @@
   font-weight: var(--fw-medium, 500);
   cursor: pointer;
   text-align: left;
-  transition: background 200ms ease, color 200ms ease;
+  transition:
+    background 200ms ease,
+    color 200ms ease;
 
   &:hover {
     background: var(--bg-hover, #f7f8fa);
@@ -155,8 +157,13 @@
   cursor: pointer;
   background: none;
 
-  &::-webkit-color-swatch-wrapper { padding: 0; }
-  &::-webkit-color-swatch { border: none; border-radius: 2px; }
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 2px;
+  }
 }
 
 .theme-generator__hex-input {
@@ -188,7 +195,9 @@
   color: var(--text-muted, #696e75);
   font-size: var(--fs-md, 16px);
   cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
 
   &:hover {
     background: var(--bg-pressed, #e1e3e6);
