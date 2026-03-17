@@ -1,4 +1,4 @@
-<img width="928" height="490" alt="image" src="https://github.com/user-attachments/assets/add7639d-152b-4a64-9efb-fcab8da5f3dd" /># DcxNgComponents
+# DcxNgComponents
 
 ## Run tasks
 
