@@ -1,16 +1,17 @@
-div {
-  padding: 50px;
-  dcx-ng-select {
-    margin-bottom: 2%;
-  }
+.app-shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
 
-section + hr {
-  margin: 1.5rem 0;
+.app-navbar {
+  height: 100%;
+  flex-shrink: 0;
 }
 
-.example-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 1.5rem 0;
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  background: #f7f8fa;
+  padding: 40px;
 }

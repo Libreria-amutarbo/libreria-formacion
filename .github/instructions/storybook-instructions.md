@@ -157,8 +157,9 @@ const preview: Preview = {
 
 ### 1. Nomenclatura
 
-- **Títulos**: `'DCXLibrary/[Componente]'` (simplificado, sin "Class based")
-- **Stories**: PascalCase descriptivo (`BasicDropdown`, `DisabledState`)
+- **Títulos stories**: `'DCXLibrary/Components/[Componente]'` — sin "Class based" ni subpaths extra
+- **Títulos documentation**: `'DCXLibrary/[Componente]/Documentation'` — sin "Components/"
+- **Stories**: PascalCase descriptivo (`Default`, `WithIcon`, `Disabled`, `Interactive`)
 - **Archivos**: `ClassBased.stories.ts`, `Documentation.mdx`
 
 ### 2. Controles (argTypes)
@@ -174,10 +175,12 @@ const preview: Preview = {
 
 ### 3. Mock Data
 
+- **Ubicación**: En `libs/dcx-ng-lib/src/lib/core/mock/[componente].ts` — nunca inline en el stories file
+- **Export**: Añadir `export * from './[componente]'` en `core/mock/index.ts` para que sean reutilizables en unit tests
+- **Prefijo**: Nombrar las constantes con el nombre del componente para evitar colisiones (ej. `navbarItems`, `buttonVariants`)
+- **Import en stories**: Desde `@dcx-ng-components/dcx-ng-lib` (como cualquier otro tipo o constante de la lib)
 - **Realista**: Usar datos que representen casos reales
-- **Variedad**: Incluir estados normales, edge cases, errores
-- **Consistencia**: Reutilizar mocks entre stories
-- **Ubicación**: En la parte superior del archivo
+- **Variedad**: Incluir estados normales, edge cases, y datos con propiedades opcionales ausentes
 
 ### 4. Stories Interactivas
 

@@ -1,0 +1,106 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as NavbarStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Navbar/Documentation" />
+
+# Navbar
+
+Barra de navegación principal de la aplicación. Admite brand con logo, items de navegación con icono y estado activo, un slot de acciones (botones Login, etc.) y un modo **vertical** para usarse como sidebar lateral.
+
+Incluye comportamiento responsive: en pantallas `< 768px` los items se ocultan y aparece un botón hamburger que despliega el menú.
+
+---
+
+## Uso básico
+
+```html
+<dcx-ng-navbar
+  [brand]="brand"
+  [items]="items"
+  [activeValue]="activeValue"
+  (itemClick)="onItemClick($event)"
+/>
+```
+
+## Con acciones en el slot
+
+```html
+<dcx-ng-navbar [brand]="brand" [items]="items">
+  <dcx-ng-button label="Login" size="s" variant="secondary" />
+  <dcx-ng-button label="Registrarse" size="s" variant="primary" />
+</dcx-ng-navbar>
+```
+
+---
+
+## Demo
+
+<Canvas of={NavbarStories.Default} />
+
+---
+
+## Con logo
+
+<Canvas of={NavbarStories.ConLogo} />
+
+---
+
+## Con acciones en el slot
+
+<Canvas of={NavbarStories.ConAcciones} />
+
+---
+
+## Con item deshabilitado
+
+<Canvas of={NavbarStories.ConItemDeshabilitado} />
+
+---
+
+## Modo vertical (sidebar)
+
+<Canvas of={NavbarStories.Vertical} />
+
+---
+
+## Props
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `brand` | `DcxNavbarBrand` | `{ title: 'App' }` | Título y logo opcional del brand |
+| `items` | `DcxNavItem[]` | `[]` | Lista de items de navegación |
+| `activeValue` | `string \| null` | `null` | Value del item marcado como activo |
+| `vertical` | `boolean` | `false` | Activa el modo sidebar vertical |
+
+## Eventos
+
+| Evento | Tipo | Descripción |
+|--------|------|-------------|
+| `itemClick` | `string` | Emite el `value` del item clickado |
+
+## Interfaces
+
+```typescript
+interface DcxNavbarBrand {
+  title: string;
+  logo?: string;        // URL del logo (ej. '/cap-logo.svg')
+}
+
+interface DcxNavItem {
+  label: string;
+  value: string;
+  icon?: string;        // Nombre de Bootstrap Icon (ej. 'house', 'grid')
+  disabled?: boolean;
+}
+```
+
+## Slot de acciones
+
+El componente expone un `<ng-content />` en la zona derecha de la navbar para proyectar cualquier contenido (botones, avatares, etc.).
+
+```html
+<dcx-ng-navbar [brand]="brand" [items]="items">
+  <!-- aquí va cualquier contenido -->
+  <dcx-ng-button label="Login" variant="secondary" size="s" />
+</dcx-ng-navbar>
+```
