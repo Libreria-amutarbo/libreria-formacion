@@ -1,0 +1,116 @@
+<div class="dcx-ng-theme-generator">
+  <div class="theme-generator__header">
+    <h2 class="theme-generator__title">Theme Generator</h2>
+    <dcx-ng-button
+      label="Restablecer"
+      variant="secondary"
+      size="s"
+      [disabled]="!hasChanges()"
+      (buttonClick)="resetAll()"
+    />
+  </div>
+
+  <div class="theme-generator__body">
+    <nav
+      class="theme-generator__groups"
+      role="tablist"
+      aria-label="Grupos de tokens"
+    >
+      @for (group of groups; track group) {
+        <button
+          class="theme-generator__group-btn"
+          role="tab"
+          [class.theme-generator__group-btn--active]="activeGroup() === group"
+          [attr.aria-selected]="activeGroup() === group"
+          (click)="setGroup(group)"
+        >
+          {{ groupLabels[group] }}
+          @if (modifiedCountByGroup()[group]) {
+            <span
+              class="theme-generator__badge"
+              >{{ modifiedCountByGroup()[group] }}</span
+            >
+          }
+        </button>
+      }
+    </nav>
+
+    <div class="theme-generator__tokens" role="tabpanel">
+      @for (token of tokensForActiveGroup(); track token.name) {
+        <div
+          class="theme-generator__token"
+          [class.theme-generator__token--modified]="isModified(token)"
+        >
+          <label
+            class="theme-generator__token-label"
+            [for]="token.name + '-color'"
+          >
+            {{ token.label }}
+            @if (isModified(token)) {
+              <span
+                class="theme-generator__modified-dot"
+                title="Modificado"
+              ></span>
+            }
+          </label>
+          <div class="theme-generator__token-controls">
+            <input
+              type="color"
+              class="theme-generator__color-picker"
+              [id]="token.name + '-color'"
+              [value]="token.value"
+              (input)="onColorInput($event, token.name)"
+            />
+            <input
+              type="text"
+              class="theme-generator__hex-input"
+              [attr.aria-label]="'Valor hex de ' + token.label"
+              [value]="token.value"
+              (change)="onHexChange($event, token.name)"
+              maxlength="7"
+            />
+            @if (isModified(token)) {
+              <button
+                class="theme-generator__reset-token"
+                (click)="resetToken(token.name)"
+                [attr.aria-label]="'Restaurar ' + token.label"
+                title="Restaurar valor original"
+              >
+                ↩
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="theme-generator__footer">
+    <span class="theme-generator__modified-count">
+      @if (hasChanges()) {
+        {{ modifiedTokens().length }}
+        token{{ modifiedTokens().length === 1 ? '' : 's' }}
+        modificado{{ modifiedTokens().length === 1 ? '' : 's' }}
+      } @else {
+        Sin cambios respecto al tema Capgemini
+      }
+    </span>
+
+    <div class="theme-generator__actions">
+      <dcx-ng-button
+        label="Copiar CSS"
+        variant="secondary"
+        size="s"
+        [disabled]="!hasChanges()"
+        (buttonClick)="copyCss()"
+      />
+      <dcx-ng-button
+        label="Descargar CSS"
+        variant="primary"
+        size="s"
+        [disabled]="!hasChanges()"
+        (buttonClick)="downloadCss()"
+      />
+    </div>
+  </div>
+</div>
