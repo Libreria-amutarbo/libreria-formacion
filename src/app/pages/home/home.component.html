@@ -1,0 +1,27 @@
+<h1>DCX NG Library</h1>
+<h2>Designs — Dev</h2>
+
+<dcx-ng-input
+  [type]="DcxInputType.SEARCH"
+  placeholder="Buscar..."
+  [value]="searchTerm()"
+  (valueChange)="onSearch($event)"
+  size="m"
+  class="search"
+></dcx-ng-input>
+
+<div class="grid">
+  <a
+    class="card"
+    [routerLink]="card.route"
+    *ngFor="let card of filteredCards()"
+  >
+    <div class="card-icon"><i class="bi bi-{{ card.icon }}"></i></div>
+    <div class="card-name">{{ card.name }}</div>
+    <div class="card-file">{{ card.route }}.html</div>
+  </a>
+
+  <div class="no-results" *ngIf="filteredCards().length === 0">
+    No hay componentes que coincidan.
+  </div>
+</div>

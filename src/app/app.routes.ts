@@ -27,12 +27,13 @@ import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.c
 import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-grid.component';
 import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
 import { DcxNgPageThemeGeneratorComponent } from './pages/dcx-ng-page-theme-generator/dcx-ng-page-theme-generator.component';
+import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    component: AppComponent,
+    component: HomeComponent,
   },
   {
     path: APP_ROUTES.TABLE,
