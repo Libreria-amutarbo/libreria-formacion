@@ -1,10 +1,7 @@
 import { Component, HostListener, ElementRef, AfterViewInit, inject, input, signal, computed, viewChild, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AvailableSpace, DcxPosition, TOOLTIP_DEFAULT_CONFIG, TooltipPositionOption } from '@dcx-ng-components/dcx-ng-lib';
-
-
-
+import { AvailableSpace, DcxPosition, TOOLTIP_DEFAULT_CONFIG, TooltipArrowAlignment, TooltipPositionOption } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-tooltip',
@@ -15,6 +12,7 @@ import { AvailableSpace, DcxPosition, TOOLTIP_DEFAULT_CONFIG, TooltipPositionOpt
 })
 export class DcxNgTooltipComponent implements AfterViewInit {
   position = input<DcxPosition>('top');
+  arrowAlignment = input<TooltipArrowAlignment>('center');
   hideTooltipOnClick = input<boolean>(false);
   content = input<string>('');
   contentHtml = input<string>('');
@@ -35,7 +33,8 @@ export class DcxNgTooltipComponent implements AfterViewInit {
   tooltipClasses = computed(() => {
     const baseClass = 'dcx-ng-tooltip';
     const positionClass = `${baseClass}--${this.actualPosition()}`;
-    return `${baseClass} ${positionClass}`.trim();
+    const arrowAlignmentClass = `${baseClass}--arrow-${this.arrowAlignment()}`;
+    return `${baseClass} ${positionClass} ${arrowAlignmentClass}`.trim();
   });
 
   constructor() {
