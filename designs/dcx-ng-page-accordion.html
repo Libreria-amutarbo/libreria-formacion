@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-primary:#0058ab;--bg-primary-hover:#004080;--bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;
+        --bg-default:#fff;--bg-surface:#f4f5f7;
+        --text-dark:#2a2e33;--text-muted:#696e75;--text-white:#fff;
+        --border-default:#e5e7eb;--border-focus:#1db8f2;
+        --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;
+        --r-sm:4px;--r-md:6px;--r-lg:8px;--ff:'Inter',sans-serif;
+      }
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+      .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;text-transform:uppercase;margin-bottom:.25rem}
+      .comp-title{font-size:24px;font-weight:700;margin-bottom:.5rem}
+      .divider{border:none;border-top:1px solid #e5e7eb;margin-bottom:2rem}
+      .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:1rem}
+      .mb-2{margin-bottom:2rem}
+      .max-w{max-width:680px}
+
+      /* Accordion */
+      .dcx-accordion{border:1px solid var(--border-default);border-radius:var(--r-lg);overflow:hidden;background:var(--bg-default)}
+      .acc-item{border-bottom:1px solid var(--border-default)}
+      .acc-item:last-child{border-bottom:none}
+      .acc-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-4) var(--sp-5);cursor:pointer;background:var(--bg-default);transition:background .15s;user-select:none}
+      .acc-header:hover{background:var(--bg-hover)}
+      .acc-header.active{background:var(--bg-hover)}
+      .acc-title{font-size:14px;font-weight:500;color:var(--text-dark)}
+      .acc-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s;color:var(--text-muted)}
+      .acc-header.active .acc-icon{transform:rotate(180deg);color:var(--bg-primary)}
+      .acc-body{padding:0 var(--sp-5) var(--sp-4);font-size:14px;color:var(--text-muted);line-height:1.6;display:none}
+      .acc-body.open{display:block}
+
+      /* Disabled */
+      .acc-item.disabled .acc-header{cursor:not-allowed;opacity:.45}
+      .acc-item.disabled .acc-header:hover{background:var(--bg-default)}
+
+      /* Variant: flush (sin borde exterior) */
+      .dcx-accordion-flush{background:var(--bg-default)}
+      .dcx-accordion-flush .acc-item{border-bottom:1px solid var(--border-default)}
+      .dcx-accordion-flush .acc-item:last-child{border-bottom:none}
+    </style>
+  </head>
+  <body>
+    <p class="page-title">Components</p>
+    <p class="comp-title">Accordion</p>
+    <hr class="divider" />
+
+    <div class="section-label mb-2">Default</div>
+    <div class="max-w mb-2">
+      <div class="dcx-accordion">
+        <div class="acc-item">
+          <div class="acc-header active">
+            <span class="acc-title">¿Qué es Capgemini?</span>
+            <span class="acc-icon"
+              ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M4 6l4 4 4-4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                /></svg
+            ></span>
+          </div>
+          <div class="acc-body open">
+            Capgemini es una empresa global de consultoría, servicios
+            tecnológicos y transformación digital, con presencia en más de 50
+            países y más de 350.000 empleados en todo el mundo.
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-header">
+            <span class="acc-title">¿Cuáles son nuestras prácticas?</span>
+            <span class="acc-icon"
+              ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M4 6l4 4 4-4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                /></svg
+            ></span>
+          </div>
+          <div class="acc-body">
+            Cloud, Data & AI, SAP, Cybersecurity, Digital Engineering y más.
+            Cada práctica está liderada por expertos con experiencia sectorial
+            profunda.
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-header">
+            <span class="acc-title">¿Cómo me uno a un proyecto?</span>
+            <span class="acc-icon"
+              ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M4 6l4 4 4-4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                /></svg
+            ></span>
+          </div>
+          <div class="acc-body">
+            Contacta con tu responsable de staffing o accede al portal interno
+            de proyectos donde puedes ver las oportunidades abiertas y
+            postularte directamente.
+          </div>
+        </div>
+        <div class="acc-item disabled">
+          <div class="acc-header">
+            <span class="acc-title">Sección no disponible</span>
+            <span class="acc-icon"
+              ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M4 6l4 4 4-4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                /></svg
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div><style>
+#_dnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.5rem;font-family:'Inter',sans-serif;font-size:13px;z-index:9999;box-shadow:0 -2px 10px rgba(0,0,0,.07)}
+#_dnav a{color:#0058ab;text-decoration:none;font-weight:500}
+#_dnav a:hover{text-decoration:underline}
+#_dnav .idx{color:#696e75;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+body{padding-bottom:56px!important}
+</style>
+<nav id="_dnav"><a href="dcx-ng-page-tabs.html">&larr; Tabs</a><a class="idx" href="index.html">&#8862;&nbsp;Designs</a><a href="dcx-ng-page-breadcrumb-divider-icon-message.html">Breadcrumb · Divider · Icon &rarr;</a></nav>
+
+  </body>
+</html>

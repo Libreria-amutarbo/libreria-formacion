@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:#0058ab;--bg-primary-hover:#004080;
+    --bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;--bg-default:#fff;--bg-surface:#f4f5f7;
+    --text-dark:#2a2e33;--text-muted:#696e75;--text-disabled:#9ca3af;--text-white:#fff;
+    --border-default:#d1d5db;--border-focus:#1db8f2;--border-btn:#2a2e33;
+    --color-success:#16a34a;
+    --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-6:24px;
+    --r-sm:4px;--r-md:6px;--r-lg:8px;--r-pill:999px;
+    --ff:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+  .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;color:#000;text-transform:uppercase;margin-bottom:.25rem}
+  .comp-title{font-size:24px;font-weight:700;color:#000;margin-bottom:.5rem}
+  .divider{border:none;border-top:1px solid #e5e7eb;margin-bottom:2rem}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .card{background:var(--bg-default);border-radius:var(--r-lg);border:1px solid #e5e7eb;padding:var(--sp-4)}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid #f3f4f6}
+
+  /* ── CHECKBOX ── */
+  .check-list{display:flex;flex-direction:column;gap:var(--sp-3)}
+  .dcx-check{display:flex;align-items:center;gap:var(--sp-2);cursor:pointer;user-select:none}
+  .dcx-check input[type=checkbox]{display:none}
+  .check-box{width:18px;height:18px;border:1.5px solid var(--border-default);border-radius:var(--r-sm);background:var(--bg-default);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+  .dcx-check:hover .check-box{border-color:var(--bg-primary)}
+  .dcx-check input:checked + .check-box{background:var(--bg-primary);border-color:var(--bg-primary)}
+  .dcx-check input:checked + .check-box::after{content:'';display:block;width:10px;height:7px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+  .check-label{font-size:14px;color:var(--text-dark)}
+  .dcx-check.disabled{opacity:.45;pointer-events:none}
+  .dcx-check.indeterminate .check-box{background:var(--bg-primary);border-color:var(--bg-primary)}
+  .dcx-check.indeterminate .check-box::after{content:'';display:block;width:10px;height:2px;background:#fff;border-radius:1px}
+
+  /* ── TOGGLE ── */
+  .toggle-list{display:flex;flex-direction:column;gap:var(--sp-4)}
+  .dcx-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+  .dcx-toggle input{display:none}
+  .toggle-info{display:flex;flex-direction:column;gap:2px}
+  .toggle-label{font-size:14px;color:var(--text-dark);font-weight:500}
+  .toggle-desc{font-size:12px;color:var(--text-muted)}
+  .toggle-track{width:40px;height:22px;border-radius:var(--r-pill);background:#d1d5db;position:relative;transition:background .2s;flex-shrink:0}
+  .toggle-track::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .dcx-toggle input:checked ~ .toggle-track{background:var(--bg-primary)}
+  .dcx-toggle input:checked ~ .toggle-track::after{transform:translateX(18px)}
+  .dcx-toggle.disabled{opacity:.45;pointer-events:none}
+
+  /* ── CHIP ── */
+  .chip-wrap{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+  .dcx-chip{display:inline-flex;align-items:center;gap:var(--sp-1);padding:4px 12px;border-radius:var(--r-pill);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid var(--border-default);user-select:none;background:var(--bg-default);color:var(--text-dark)}
+  .dcx-chip:hover{border-color:var(--bg-primary);color:var(--bg-primary);background:#eff6ff}
+  .dcx-chip.selected{background:#dbeafe;color:#1d4ed8;border-color:#93c5fd}
+  .dcx-chip.selected:hover{background:#bfdbfe}
+  .dcx-chip .chip-close{font-size:12px;opacity:.6;margin-left:2px}
+  .dcx-chip .chip-close:hover{opacity:1}
+  .chip-section{margin-bottom:var(--sp-3)}
+  .chip-section-label{font-size:11px;color:var(--text-muted);font-weight:500;margin-bottom:var(--sp-2)}
+
+  /* ── SELECT ── */
+  .select-list{display:flex;flex-direction:column;gap:var(--sp-4)}
+  .dcx-field{display:flex;flex-direction:column;gap:var(--sp-1)}
+  .dcx-label{font-size:12px;font-weight:500;color:var(--text-dark)}
+  .dcx-hint{font-size:11px;color:var(--text-muted)}
+  .dcx-select{font-family:var(--ff);font-size:14px;padding:var(--sp-2) var(--sp-3);padding-right:2.25rem;border:1px solid var(--border-default);border-radius:var(--r-sm);color:var(--text-dark);background:var(--bg-default);outline:none;width:100%;appearance:none;cursor:pointer;transition:border-color .15s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%232a2e33' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+  .dcx-select:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(29,184,242,.2);outline:none}
+  .dcx-select[disabled]{background:#f9fafb;color:var(--text-disabled);cursor:not-allowed}
+
+  /* ── SPINNER ── */
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .dcx-spinner{display:inline-block;border-radius:50%;border-style:solid;animation:spin .7s linear infinite}
+  .spinner-xs{width:14px;height:14px;border-width:2px;border-color:#dbeafe;border-top-color:var(--bg-primary)}
+  .spinner-sm{width:20px;height:20px;border-width:2px;border-color:#dbeafe;border-top-color:var(--bg-primary)}
+  .spinner-md{width:32px;height:32px;border-width:3px;border-color:#dbeafe;border-top-color:var(--bg-primary)}
+  .spinner-lg{width:48px;height:48px;border-width:4px;border-color:#dbeafe;border-top-color:var(--bg-primary)}
+  .spinner-xl{width:64px;height:64px;border-width:5px;border-color:#dbeafe;border-top-color:var(--bg-primary)}
+  .spinner-dark{border-color:#374151;border-top-color:#111827}
+  .spinner-wrap{display:flex;align-items:flex-end;gap:var(--sp-4);flex-wrap:wrap;margin-bottom:var(--sp-4)}
+  .spinner-cell{display:flex;flex-direction:column;align-items:center;gap:var(--sp-2)}
+  .spinner-cell-label{font-size:11px;color:var(--text-muted)}
+  .spinner-overlay{background:rgba(244,245,247,.85);border-radius:var(--r-lg);padding:var(--sp-6);display:flex;align-items:center;justify-content:center;gap:var(--sp-3);border:1px solid #e5e7eb}
+  .spinner-overlay-text{font-size:14px;color:var(--text-muted)}
+</style>
+</head>
+<body>
+
+<p class="page-title">Components</p>
+<p class="comp-title">Form Controls</p>
+<hr class="divider">
+
+<div class="grid">
+
+  <!-- CHECKBOX -->
+  <div class="card">
+    <div class="section-label">Checkbox</div>
+    <div class="check-list">
+      <label class="dcx-check">
+        <input type="checkbox" checked>
+        <div class="check-box"></div>
+        <span class="check-label">Seleccionado</span>
+      </label>
+      <label class="dcx-check">
+        <input type="checkbox">
+        <div class="check-box"></div>
+        <span class="check-label">Sin seleccionar</span>
+      </label>
+      <label class="dcx-check indeterminate">
+        <input type="checkbox">
+        <div class="check-box"></div>
+        <span class="check-label">Indeterminado</span>
+      </label>
+      <label class="dcx-check disabled">
+        <input type="checkbox" checked>
+        <div class="check-box"></div>
+        <span class="check-label">Deshabilitado activo</span>
+      </label>
+      <label class="dcx-check disabled">
+        <input type="checkbox">
+        <div class="check-box"></div>
+        <span class="check-label">Deshabilitado inactivo</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- TOGGLE -->
+  <div class="card">
+    <div class="section-label">Toggle</div>
+    <div class="toggle-list">
+      <label class="dcx-toggle">
+        <div class="toggle-info">
+          <span class="toggle-label">Notificaciones</span>
+          <span class="toggle-desc">Recibir alertas por email</span>
+        </div>
+        <input type="checkbox" checked><div class="toggle-track"></div>
+      </label>
+      <label class="dcx-toggle">
+        <div class="toggle-info">
+          <span class="toggle-label">Modo oscuro</span>
+          <span class="toggle-desc">Cambiar tema visual</span>
+        </div>
+        <input type="checkbox"><div class="toggle-track"></div>
+      </label>
+      <label class="dcx-toggle">
+        <div class="toggle-info">
+          <span class="toggle-label">2FA</span>
+          <span class="toggle-desc">Autenticación en dos pasos</span>
+        </div>
+        <input type="checkbox" checked><div class="toggle-track"></div>
+      </label>
+      <label class="dcx-toggle disabled">
+        <div class="toggle-info">
+          <span class="toggle-label">Deshabilitado</span>
+          <span class="toggle-desc">No disponible</span>
+        </div>
+        <input type="checkbox"><div class="toggle-track"></div>
+      </label>
+    </div>
+  </div>
+
+  <!-- CHIP -->
+  <div class="card">
+    <div class="section-label">Chip / Tag</div>
+    <div class="chip-section">
+      <div class="chip-section-label">Sin selección</div>
+      <div class="chip-wrap">
+        <div class="dcx-chip">Cloud</div>
+        <div class="dcx-chip">SAP</div>
+        <div class="dcx-chip">Data & AI</div>
+        <div class="dcx-chip">DevOps</div>
+        <div class="dcx-chip">Security</div>
+      </div>
+    </div>
+    <div class="chip-section">
+      <div class="chip-section-label">Con selección y cierre</div>
+      <div class="chip-wrap">
+        <div class="dcx-chip selected">Angular <span class="chip-close">✕</span></div>
+        <div class="dcx-chip selected">TypeScript <span class="chip-close">✕</span></div>
+        <div class="dcx-chip">React</div>
+        <div class="dcx-chip">Vue</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELECT -->
+  <div class="card">
+    <div class="section-label">Select</div>
+    <div class="select-list">
+      <div class="dcx-field">
+        <label class="dcx-label">País</label>
+        <select class="dcx-select">
+          <option value="">Selecciona un país</option>
+          <option selected>España</option>
+          <option>Francia</option>
+          <option>Alemania</option>
+          <option>Reino Unido</option>
+        </select>
+      </div>
+      <div class="dcx-field">
+        <label class="dcx-label">Práctica</label>
+        <select class="dcx-select">
+          <option>Cloud Infrastructure</option>
+          <option>SAP</option>
+          <option>Data & AI</option>
+          <option>Cybersecurity</option>
+        </select>
+        <span class="dcx-hint">Selecciona la práctica principal del proyecto</span>
+      </div>
+      <div class="dcx-field">
+        <label class="dcx-label">Estado (deshabilitado)</label>
+        <select class="dcx-select" disabled>
+          <option>Activo</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPINNER (full width) -->
+  <div class="card" style="grid-column:span 2">
+    <div class="section-label">Spinner</div>
+    <div class="spinner-wrap">
+      <div class="spinner-cell"><div class="dcx-spinner spinner-xs"></div><span class="spinner-cell-label">xs · 14px</span></div>
+      <div class="spinner-cell"><div class="dcx-spinner spinner-sm"></div><span class="spinner-cell-label">sm · 20px</span></div>
+      <div class="spinner-cell"><div class="dcx-spinner spinner-md"></div><span class="spinner-cell-label">md · 32px</span></div>
+      <div class="spinner-cell"><div class="dcx-spinner spinner-lg"></div><span class="spinner-cell-label">lg · 48px</span></div>
+      <div class="spinner-cell"><div class="dcx-spinner spinner-xl"></div><span class="spinner-cell-label">xl · 64px</span></div>
+      <div class="spinner-cell"><div class="dcx-spinner spinner-md spinner-dark"></div><span class="spinner-cell-label">dark</span></div>
+    </div>
+    <div class="spinner-overlay">
+      <div class="dcx-spinner spinner-sm"></div>
+      <span class="spinner-overlay-text">Cargando datos del proyecto...</span>
+    </div>
+  </div>
+
+</div><style>
+#_dnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.5rem;font-family:'Inter',sans-serif;font-size:13px;z-index:9999;box-shadow:0 -2px 10px rgba(0,0,0,.07)}
+#_dnav a{color:#0058ab;text-decoration:none;font-weight:500}
+#_dnav a:hover{text-decoration:underline}
+#_dnav .idx{color:#696e75;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+body{padding-bottom:56px!important}
+</style>
+<nav id="_dnav"><a href="dcx-ng-page-card.html">&larr; Card</a><a class="idx" href="index.html">&#8862;&nbsp;Designs</a><a href="dcx-ng-page-dialog.html">Dialog &rarr;</a></nav>
+
+</body>
+</html>

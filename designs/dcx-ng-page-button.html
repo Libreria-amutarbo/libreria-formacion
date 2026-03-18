@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:#0058ab;--bg-primary-hover:#004080;--bg-primary-pressed:#121a38;
+    --bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;--bg-default:#fff;--bg-surface:#f4f5f7;
+    --text-dark:#2a2e33;--text-muted:#696e75;--text-disabled:#9ca3af;--text-white:#fff;
+    --text-disabled-dark:#4f545a;
+    --border-default:#e5e7eb;--border-btn:#2a2e33;--border-focus:#1db8f2;--border-dis-sec:#696e75;
+    --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;
+    --r-sm:4px;--r-md:6px;--r-lg:8px;--r-pill:999px;--ff:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+
+  /* ── Header — idéntico al breadcrumb ── */
+  .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;text-transform:uppercase;margin-bottom:.25rem}
+  .comp-title{font-size:24px;font-weight:700;margin-bottom:.5rem}
+  .hr{border:none;border-top:1px solid #e5e7eb;margin-bottom:2rem}
+
+  /* ── Section label — idéntico al breadcrumb ── */
+  .sec{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:.75rem;margin-top:2rem}
+
+  /* ── Card — idéntico al breadcrumb ── */
+  .card{background:var(--bg-default);border-radius:var(--r-lg);border:1px solid var(--border-default);padding:var(--sp-4) var(--sp-5);margin-bottom:1rem}
+
+  /* ── State/type column headers dentro de card ── */
+  .btn-col-headers{display:flex;gap:0;margin-bottom:var(--sp-3);padding-left:96px}
+  .col-hdr{flex:0 0 148px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-disabled);text-align:center}
+
+  /* ── Fila de botones ── */
+  .btn-row{display:flex;align-items:center;margin-bottom:6px}
+  .btn-row-label{flex:0 0 96px;font-size:12px;font-weight:500;color:var(--text-muted);padding-right:var(--sp-3)}
+  .btn-cell{flex:0 0 148px;display:flex;justify-content:center;align-items:center;padding:10px 6px}
+
+  /* ── Separador entre grupos de tamaño ── */
+  .size-sep{height:1px;background:var(--border-default);margin:var(--sp-3) 0}
+  .size-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-disabled);margin-bottom:var(--sp-2)}
+
+  /* ── Button base ── */
+  .btn{
+    font-family:var(--ff);font-size:14px;font-weight:600;line-height:1.5;
+    display:inline-flex;align-items:center;justify-content:center;
+    gap:6px;border-radius:var(--r-sm);border:none;cursor:pointer;
+    position:relative;white-space:nowrap;
+  }
+  .btn-lg{padding:12px 20px}
+  .btn-md{padding:8px 16px}
+  .btn-sm{padding:5px 12px}
+
+  /* Primary */
+  .p-def{background:var(--bg-primary);color:var(--text-white)}
+  .p-hov{background:var(--bg-primary-hover);color:var(--text-white)}
+  .p-pre{background:var(--bg-primary-pressed);color:var(--text-white)}
+  .p-foc{background:var(--bg-primary);color:var(--text-white)}
+  .p-foc::before{content:'';position:absolute;inset:-4px;border:2px solid var(--border-focus);border-radius:var(--r-sm)}
+  .p-dis{background:var(--bg-pressed);color:var(--text-disabled-dark);cursor:not-allowed}
+
+  /* Secondary */
+  .s-def{background:transparent;color:var(--text-dark);border:1px solid var(--border-btn)}
+  .s-hov{background:var(--bg-hover);color:var(--text-dark);border:1px solid var(--border-btn)}
+  .s-pre{background:var(--bg-pressed);color:var(--text-dark);border:1px solid var(--border-btn)}
+  .s-foc{background:transparent;color:var(--text-dark);border:1px solid var(--border-btn)}
+  .s-foc::before{content:'';position:absolute;inset:-5px;border:2px solid var(--border-focus);border-radius:var(--r-sm)}
+  .s-dis{background:var(--bg-hover);color:var(--text-disabled-dark);border:1px solid var(--border-dis-sec);cursor:not-allowed}
+
+  /* Tertiary */
+  .t-def{background:transparent;color:var(--text-dark)}
+  .t-hov{background:var(--bg-hover);color:var(--text-dark)}
+  .t-pre{background:var(--bg-pressed);color:var(--text-dark)}
+  .t-foc{background:transparent;color:var(--text-dark)}
+  .t-foc::before{content:'';position:absolute;inset:-4px;border:2px solid var(--border-focus);border-radius:var(--r-sm)}
+  .t-dis{background:transparent;color:var(--text-disabled);cursor:not-allowed}
+  .btn.t-def .lbl,.btn.t-hov .lbl,.btn.t-pre .lbl,.btn.t-foc .lbl,.btn.t-dis .lbl{text-decoration:underline}
+
+  /* Icons */
+  .ic{width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+  .ic svg{width:100%;height:100%}
+</style>
+</head>
+<body>
+
+<p class="page-title">Components</p>
+<p class="comp-title">Button</p>
+<hr class="hr">
+
+<!-- LARGE -->
+<div class="sec">Large</div>
+<div class="card">
+  <div class="btn-col-headers">
+    <div class="col-hdr">Default</div>
+    <div class="col-hdr">Hover</div>
+    <div class="col-hdr">Pressed</div>
+    <div class="col-hdr">Focus</div>
+    <div class="col-hdr">Disabled</div>
+  </div>
+
+  <div class="btn-row">
+    <span class="btn-row-label">Primary</span>
+    <div class="btn-cell"><button class="btn btn-lg p-def"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg p-hov"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg p-pre"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg p-foc"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg p-dis" disabled><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+
+  <div class="btn-row">
+    <span class="btn-row-label">Secondary</span>
+    <div class="btn-cell"><button class="btn btn-lg s-def"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg s-hov"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg s-pre"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg s-foc"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg s-dis" disabled><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+
+  <div class="btn-row">
+    <span class="btn-row-label">Tertiary</span>
+    <div class="btn-cell"><button class="btn btn-lg t-def"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg t-hov"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg t-pre"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg t-foc"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-lg t-dis" disabled><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+</div>
+
+<!-- MEDIUM -->
+<div class="sec">Medium</div>
+<div class="card">
+  <div class="btn-col-headers">
+    <div class="col-hdr">Default</div>
+    <div class="col-hdr">Hover</div>
+    <div class="col-hdr">Pressed</div>
+    <div class="col-hdr">Focus</div>
+    <div class="col-hdr">Disabled</div>
+  </div>
+
+  <div class="btn-row">
+    <span class="btn-row-label">Primary</span>
+    <div class="btn-cell"><button class="btn btn-md p-def"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md p-hov"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md p-pre"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md p-foc"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md p-dis" disabled><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+
+  <div class="btn-row">
+    <span class="btn-row-label">Secondary</span>
+    <div class="btn-cell"><button class="btn btn-md s-def"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md s-hov"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md s-pre"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md s-foc"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md s-dis" disabled><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+
+  <div class="btn-row">
+    <span class="btn-row-label">Tertiary</span>
+    <div class="btn-cell"><button class="btn btn-md t-def"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md t-hov"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md t-pre"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md t-foc"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-md t-dis" disabled><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+</div>
+
+<!-- SMALL -->
+<div class="sec">Small</div>
+<div class="card">
+  <div class="btn-col-headers">
+    <div class="col-hdr">Default</div>
+    <div class="col-hdr">Hover</div>
+    <div class="col-hdr">Pressed</div>
+    <div class="col-hdr">Focus</div>
+    <div class="col-hdr">Disabled</div>
+  </div>
+
+  <div class="btn-row">
+    <span class="btn-row-label">Primary</span>
+    <div class="btn-cell"><button class="btn btn-sm p-def"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm p-hov"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm p-pre"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm p-foc"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm p-dis" disabled><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+
+  <div class="btn-row">
+    <span class="btn-row-label">Secondary</span>
+    <div class="btn-cell"><button class="btn btn-sm s-def"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm s-hov"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm s-pre"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm s-foc"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm s-dis" disabled><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#4f545a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+
+  <div class="btn-row">
+    <span class="btn-row-label">Tertiary</span>
+    <div class="btn-cell"><button class="btn btn-sm t-def"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm t-hov"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm t-pre"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm t-foc"><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#2a2e33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    <div class="btn-cell"><button class="btn btn-sm t-dis" disabled><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7l4 4" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">Button</span><span class="ic"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+</div>
+
+</body>
+</html>

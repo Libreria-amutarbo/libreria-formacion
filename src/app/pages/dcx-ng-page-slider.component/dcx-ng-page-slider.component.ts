@@ -30,7 +30,6 @@ export class DcxNgPageSliderComponent {
       min: 0,
       max: 100,
     },
-
     {
       label: 'Sin label',
       showLabel: false,

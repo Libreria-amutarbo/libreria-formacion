@@ -1,7 +1,10 @@
+// Border radius — escala Capgemini
 $radius: (
-  xs: 0.125rem,
-  sm: 0.1875rem,
-  md: 0.25rem,
-  lg: 0.5rem,
-  full: 1rem,
+  xs:   0.125rem,  // 2px
+  sm:   0.25rem,   // 4px
+  md:   0.375rem,  // 6px
+  lg:   0.5rem,    // 8px
+  xl:   0.75rem,   // 12px
+  pill: 999px,     // píldora / full-round
+  full: 999px,     // alias de pill (backward compat)
 );

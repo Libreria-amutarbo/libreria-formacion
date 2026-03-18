@@ -1,17 +1,11 @@
 .app-shell {
+  font-family: var(--font-family-primary, 'Inter', sans-serif);
+  background: var(--color-surface, #f4f5f7);
+  min-height: 100vh;
   display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.app-navbar {
-  height: 100%;
-  flex-shrink: 0;
-}
-
-.app-content {
-  flex: 1;
-  overflow-y: auto;
-  background: #f7f8fa;
-  padding: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4rem 2rem 2rem;
+  box-sizing: border-box;
 }

@@ -72,8 +72,6 @@ export class AppComponent implements OnInit {
           this.activeRoute.set(e.urlAfterRedirects.slice(1));
         }
       });
-
-    this._router.navigateByUrl(this.navItems[0].value);
   }
 
   onNavItemClick(path: string) {
