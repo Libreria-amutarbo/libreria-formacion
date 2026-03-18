@@ -10,24 +10,66 @@
 <section>
   <h2>Ejemplo 2 - Posiciones del tooltip</h2>
 
-  <dcx-ng-tooltip content="Este es mi tooltip" position="top">
-    <dcx-ng-button label="TOP"></dcx-ng-button>
-  </dcx-ng-tooltip>
+  <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+    <dcx-ng-tooltip
+      content="Tooltip TOP (flecha centro)"
+      position="top"
+      arrowAlignment="center"
+    >
+      <dcx-ng-button label="TOP"></dcx-ng-button>
+    </dcx-ng-tooltip>
 
-  <dcx-ng-tooltip content="Este es mi tooltip" position="bottom">
-    <dcx-ng-button label="BOTTOM"></dcx-ng-button>
-  </dcx-ng-tooltip>
+    <dcx-ng-tooltip
+      content="Tooltip TOP (flecha izquierda)"
+      position="top"
+      arrowAlignment="left"
+    >
+      <dcx-ng-button label="TOP LEFT"></dcx-ng-button>
+    </dcx-ng-tooltip>
 
-  <dcx-ng-tooltip content="Este es mi tooltip" position="right">
-    <dcx-ng-button label="RIGHT"></dcx-ng-button>
-  </dcx-ng-tooltip>
+    <dcx-ng-tooltip
+      content="Tooltip TOP (flecha derecha)"
+      position="top"
+      arrowAlignment="right"
+    >
+      <dcx-ng-button label="TOP RIGHT"></dcx-ng-button>
+    </dcx-ng-tooltip>
 
-  <dcx-ng-tooltip
-    content="Este es mi tooltip, muy largo para que se divida en varias lineas"
-    position="left"
-  >
-    <dcx-ng-button label="LEFT"></dcx-ng-button>
-  </dcx-ng-tooltip>
+    <dcx-ng-tooltip
+      content="Tooltip BOTTOM (flecha centro)"
+      position="bottom"
+      arrowAlignment="center"
+    >
+      <dcx-ng-button label="BOTTOM"></dcx-ng-button>
+    </dcx-ng-tooltip>
+
+    <dcx-ng-tooltip
+      content="Tooltip BOTTOM (flecha izquierda)"
+      position="bottom"
+      arrowAlignment="left"
+    >
+      <dcx-ng-button label="BOTTOM LEFT"></dcx-ng-button>
+    </dcx-ng-tooltip>
+
+    <dcx-ng-tooltip
+      content="Tooltip BOTTOM (flecha derecha)"
+      position="bottom"
+      arrowAlignment="right"
+    >
+      <dcx-ng-button label="BOTTOM RIGHT"></dcx-ng-button>
+    </dcx-ng-tooltip>
+
+    <dcx-ng-tooltip content="Este es mi tooltip" position="right">
+      <dcx-ng-button label="RIGHT"></dcx-ng-button>
+    </dcx-ng-tooltip>
+
+    <dcx-ng-tooltip
+      content="Este es mi tooltip, muy largo para que se divida en varias lineas"
+      position="left"
+    >
+      <dcx-ng-button label="LEFT"></dcx-ng-button>
+    </dcx-ng-tooltip>
+  </div>
 </section>
 
 <hr />

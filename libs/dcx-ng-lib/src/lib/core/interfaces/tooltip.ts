@@ -1,6 +1,7 @@
 import { DcxPosition } from "@dcx-ng-components/dcx-ng-lib";
 
 
+
 export interface AvailableSpace {
     spaceTop: number;
     spaceBottom: number;
@@ -21,3 +22,4 @@ export interface TooltipConfig {
     maxWidth: number;
 }
 
+export type TooltipArrowAlignment = 'left' | 'center' | 'right';
