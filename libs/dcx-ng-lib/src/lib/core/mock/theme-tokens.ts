@@ -1,4 +1,5 @@
-import { ThemeToken } from '../interfaces';
+import { ThemeToken } from '@dcx-ng-components/dcx-ng-lib';
+import { fn } from '@storybook/test';
 
 export const CAPGEMINI_THEME_TOKENS: ThemeToken[] = [
   // ── Fondo ──────────────────────────────────────────────────────────────────
@@ -212,3 +213,8 @@ export const CAPGEMINI_THEME_TOKENS: ThemeToken[] = [
     group: 'semantic',
   },
 ];
+
+export const ThemeGeneratorActions = {
+  themeChanged: fn(),
+  cssGenerated: fn(),
+};

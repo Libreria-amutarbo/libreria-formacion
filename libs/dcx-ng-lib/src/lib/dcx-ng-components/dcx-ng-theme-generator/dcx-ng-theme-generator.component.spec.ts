@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgThemeGeneratorComponent } from './dcx-ng-theme-generator.component';
-import { CAPGEMINI_THEME_TOKENS } from '../../core/mock/theme-tokens';
-import { ThemeToken } from '../../core/interfaces/theme-generator';
+import { CAPGEMINI_THEME_TOKENS, DcxNgThemeGeneratorComponent, ThemeToken } from '@dcx-ng-components/dcx-ng-lib';
+
 
 describe('DcxNgThemeGeneratorComponent', () => {
   let component: DcxNgThemeGeneratorComponent;

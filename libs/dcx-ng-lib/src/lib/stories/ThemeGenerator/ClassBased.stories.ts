@@ -1,12 +1,7 @@
+import { CAPGEMINI_THEME_TOKENS, DcxNgThemeGeneratorComponent, ThemeGeneratorActions } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
-import { fn } from '@storybook/test';
-import { DcxNgThemeGeneratorComponent } from '../../dcx-ng-components/dcx-ng-theme-generator/dcx-ng-theme-generator.component';
-import { CAPGEMINI_THEME_TOKENS } from '../../core/mock';
 
-const ActionsData = {
-  themeChanged: fn(),
-  cssGenerated: fn(),
-};
+
 
 const meta: Meta<DcxNgThemeGeneratorComponent> = {
   title: 'DCXLibrary/Tools/Theme Generator',
@@ -42,8 +37,8 @@ const meta: Meta<DcxNgThemeGeneratorComponent> = {
   args: {
     tokens: CAPGEMINI_THEME_TOKENS,
     downloadFileName: 'theme-client.css',
-    themeChanged: ActionsData.themeChanged,
-    cssGenerated: ActionsData.cssGenerated,
+    themeChanged: ThemeGeneratorActions.themeChanged,
+    cssGenerated: ThemeGeneratorActions.cssGenerated,
   },
   parameters: {
     controls: { expanded: true },

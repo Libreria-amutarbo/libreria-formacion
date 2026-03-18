@@ -11,25 +11,14 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  GROUPS,
+  GROUP_LABELS,
+  CAPGEMINI_THEME_TOKENS,
   ThemeToken,
   ThemeTokenGroup,
-} from '../../core/interfaces/theme-generator';
-import { CAPGEMINI_THEME_TOKENS } from '../../core/mock/theme-tokens';
-import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+  DcxNgButtonComponent
+} from '@dcx-ng-components/dcx-ng-lib';
 
-export const GROUP_LABELS: Record<ThemeTokenGroup, string> = {
-  background: 'Fondo',
-  text: 'Texto',
-  border: 'Bordes',
-  semantic: 'Semántico',
-};
-
-export const GROUPS: ThemeTokenGroup[] = [
-  'background',
-  'text',
-  'border',
-  'semantic',
-];
 
 @Component({
   selector: 'dcx-ng-theme-generator',
