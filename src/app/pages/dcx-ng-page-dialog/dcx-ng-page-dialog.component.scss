@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  gap: 20px;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+}

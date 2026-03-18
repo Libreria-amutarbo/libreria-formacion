@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import {
   DcxNgDialogComponent,
   DcxNgButtonComponent,
+  DcxNgDividerComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { DIALOG_DEFAULT_ARGS } from 'libs/dcx-ng-lib/src/lib/core/mock/dialog';
 import { DialogService } from 'libs/dcx-ng-lib/src/lib/services/dialog.service';
@@ -9,7 +10,7 @@ import { DialogService } from 'libs/dcx-ng-lib/src/lib/services/dialog.service';
 @Component({
   selector: 'dcx-ng-page-dialog',
   standalone: true,
-  imports: [DcxNgDialogComponent, DcxNgButtonComponent],
+  imports: [DcxNgDialogComponent, DcxNgButtonComponent, DcxNgDividerComponent],
   templateUrl: './dcx-ng-page-dialog.component.html',
   styleUrl: './dcx-ng-page-dialog.component.scss',
 })
