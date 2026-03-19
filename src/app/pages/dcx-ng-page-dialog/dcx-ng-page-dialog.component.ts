@@ -40,4 +40,8 @@ export class DcxNgPageDialogComponent {
     this.positionedDialogCurrentPosition.set(position);
     this.ds.open('positioned', { position });
   }
+
+  open(dialogId: string) {
+    this.ds.open(dialogId);
+  }
 }
