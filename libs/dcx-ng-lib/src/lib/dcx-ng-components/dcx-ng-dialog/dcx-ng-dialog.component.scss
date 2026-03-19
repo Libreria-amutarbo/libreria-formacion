@@ -99,8 +99,8 @@
 // Title
 .dialog-title {
   font-size: map.get(tp.$font-size, h2);
-  font-weight: var(--font-weight-semibold, 600);
-  color: var(--text-title, #2a2e33);
+  font-weight: map.get(tp.$weight, semibold);
+  color: map.get(color.$text, title);
   margin: 0;
 }
 
@@ -125,7 +125,8 @@
 .dialog-footer {
   padding: map.get(sp.$spacing, m) map.get(sp.$spacing, inset-l);
   border-top: 1px solid map.get(color.$border, terciary);
-  background: map.get(color.$background, surface);
+  // TODO: usar una variable 
+  background: #F4F5F7;
   display: flex;
   justify-content: flex-end;
   gap: map.get(sp.$spacing, s);

@@ -22,20 +22,6 @@ export class DcxNgPageDialogComponent {
 
   positionedDialogCurrentPosition = signal<DcxDialogPosition>('center');
 
-  openInfo() {
-    this.ds.open('info');
-  }
-  openConfirm() {
-    this.ds.open('confirm');
-  }
-
-  handleCancel() {
-    this.ds.close('confirm');
-  }
-  handleAccept() {
-    this.ds.close('confirm');
-  }
-
   openPositioned(position: DcxDialogPosition) {
     this.positionedDialogCurrentPosition.set(position);
     this.ds.open('positioned', { position });
@@ -43,5 +29,9 @@ export class DcxNgPageDialogComponent {
 
   open(dialogId: string) {
     this.ds.open(dialogId);
+  }
+
+  close(dialogId: string) {
+    this.ds.close(dialogId);
   }
 }

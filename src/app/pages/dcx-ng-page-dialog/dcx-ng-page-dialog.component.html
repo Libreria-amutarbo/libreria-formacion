@@ -1,9 +1,9 @@
 <section>
-  <h2>Ejemplo 1 - Diálogo básico con información</h2>
+  <h2>Ejemplo 1 - Dialog básico con información</h2>
   <dcx-ng-button
-    label="Abrir diálogo"
+    label="Abrir dialog"
     variant="primary"
-    (buttonClick)="openInfo()"
+    (buttonClick)="open('info')"
   />
 
   <dcx-ng-dialog
@@ -14,7 +14,7 @@
     [closeOnBackdrop]="mockData.closeOnBackdrop!"
   >
     <ng-template #dialogBody>
-      <p>Este es un mensaje informativo dentro del diálogo.</p>
+      <p>Este es un mensaje informativo dentro del dialog.</p>
     </ng-template>
   </dcx-ng-dialog>
 </section>
@@ -22,11 +22,11 @@
 <dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
 
 <section>
-  <h2>Ejemplo 2 - Diálogo de confirmación con footer</h2>
+  <h2>Ejemplo 2 - Dialog de confirmación con footer</h2>
   <dcx-ng-button
     label="Abrir confirmación"
     variant="primary"
-    (buttonClick)="openConfirm()"
+    (buttonClick)="open('confirm')"
   />
 
   <dcx-ng-dialog
@@ -43,12 +43,12 @@
       <dcx-ng-button
         label="Cancelar"
         variant="secondary"
-        (buttonClick)="handleCancel()"
+        (buttonClick)="close('confirm')"
       />
       <dcx-ng-button
         label="Aceptar"
         variant="primary"
-        (buttonClick)="handleAccept()"
+        (buttonClick)="close('confirm')"
       />
     </ng-template>
   </dcx-ng-dialog>
@@ -57,7 +57,7 @@
 <dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
 
 <section>
-  <h2>Ejemplo 3 - Diálogos posicionados</h2>
+  <h2>Ejemplo 3 - Dialogs posicionados</h2>
   <div id="positioned-dialogs">
     <button (click)="openPositioned('top-left')">&#8598;</button>
     <button (click)="openPositioned('top')">&#8593;</button>
@@ -89,10 +89,10 @@
 <dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
 
 <section>
-  <h2>Ejemplo 4 - Diálogo con scroll</h2>
+  <h2>Ejemplo 4 - Dialog con scroll</h2>
 
   <dcx-ng-button
-    label="Abrir diálogo"
+    label="Abrir dialog"
     variant="primary"
     (buttonClick)="open('scroll')"
   />
