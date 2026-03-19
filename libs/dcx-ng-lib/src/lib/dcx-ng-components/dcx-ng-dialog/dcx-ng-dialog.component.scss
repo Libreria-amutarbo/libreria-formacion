@@ -1,11 +1,8 @@
 @use 'sass:map';
 @use '../../../scss/base/color';
-
-:host {
-  --font-size-md: 1rem; /* 16px */
-  --border-terciary: #e5e7eb;
-  --text-title: #2a2e33;
-}
+@use '../../../scss/base/typography' as tp;
+@use '../../../scss/base/radius' as rd;
+@use '../../../scss/base/spacing' as sp;
 
 // Overlay root
 .dialog-root {
@@ -25,9 +22,11 @@
 
 // Main dialog container
 .dcx-dialog {
+  font-family: map.get(tp.$fonts, primary), sans-serif;
+  line-height: map.get(tp.$line-height, normal);
   position: absolute;
   background: map.get(color.$background, default);
-  border-radius: var(--border-radius-lg, 8px);
+  border-radius: map.get(rd.$radius, lg);
   width: 420px;
   max-width: 90%;
   max-height: 70vh;
@@ -89,8 +88,8 @@
 
 // Header
 .dialog-header {
-  padding: var(--spacing-m, 16px) var(--spacing-inset-l, 20px);
-  border-bottom: 1px solid var(--border-terciary, #e5e7eb);
+  padding: map.get(sp.$spacing, m) map.get(sp.$spacing, inset-l);
+  border-bottom: 1px solid map.get(color.$border, terciary);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -99,7 +98,7 @@
 
 // Title
 .dialog-title {
-  font-size: var(--font-size-md, 16px);
+  font-size: map.get(tp.$font-size, h2);
   font-weight: var(--font-weight-semibold, 600);
   color: var(--text-title, #2a2e33);
   margin: 0;
@@ -114,7 +113,9 @@
 
 // Body
 .dialog-body {
-  padding: var(--spacing-inset-l, 20px);
+  font-size: map.get(tp.$font-size, body);
+  color: map.get(color.$text, body);
+  padding: map.get(sp.$spacing, inset-l);
   overflow-y: auto;
   flex: 1 1 auto;
   min-height: 0;
@@ -122,11 +123,11 @@
 
 // Footer
 .dialog-footer {
-  padding: var(--spacing-inset-s, 12px) var(--spacing-inset-l, 20px);
-  border-top: 1px solid var(--border-terciary, #e5e7eb);
-  background: var(--color-surface, #f4f5f7);
+  padding: map.get(sp.$spacing, m) map.get(sp.$spacing, inset-l);
+  border-top: 1px solid map.get(color.$border, terciary);
+  background: map.get(color.$background, surface);
   display: flex;
   justify-content: flex-end;
-  gap: var(--spacing-s, 8px);
+  gap: map.get(sp.$spacing, s);
   flex-shrink: 0;
 }

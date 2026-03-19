@@ -10,4 +10,27 @@
     align-items: center;
     gap: 16px;
   }
+
+  #positioned-dialogs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 16px;
+
+    button {
+      font-family: sans-serif;
+      width: 50px;
+      height: 50px;
+      font-size: 2em;
+      border-radius: 8px;
+      background-color: #0056b3;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #004494;
+      }
+    }
+  }
 }
