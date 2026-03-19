@@ -10,6 +10,7 @@ interface DcxNgMessageComponentInputs {
   title: Signal<string | undefined>;
   link: Signal<string | undefined>;
   icon: Signal<boolean>;
+  iconName: Signal<string | undefined>;
   showClose: Signal<boolean>;
 }
 
@@ -26,6 +27,7 @@ export class DcxNgMessageComponent implements DcxNgMessageComponentInputs {
   title = input<string>();
   link = input<string>();
   icon = input<boolean>(false);
+  iconName = input<string>();
   showClose = input<boolean>(false);
 
   messageData = computed(() => {
