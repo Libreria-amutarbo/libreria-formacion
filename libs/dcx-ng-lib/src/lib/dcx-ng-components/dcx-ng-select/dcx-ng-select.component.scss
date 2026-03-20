@@ -1,15 +1,22 @@
 :host {
   display: inline-block;
   width: 100%;
-  color: var(--color-text-primary);
-  font-family: var(--font-family-primary);
+  color: var(--text-dark, #2a2e33);
+  font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
 .dcx-ng-select__label {
   display: inline-block;
-  margin-bottom: var(--spacing-inset-xs, 4px);
-  font-size: var(--font-size-body);
-  font-weight: 500;
+  margin-bottom: var(--sp-1, 4px);
+  font-size: var(--fs-sm, 12px);
+  font-weight: var(--fw-medium, 500);
+  color: var(--text-dark, #2a2e33);
+  line-height: 1.4;
+}
+
+.dcx-ng-select__required {
+  color: var(--color-error, #dc2626);
+  margin-left: 2px;
 }
 
 .dcx-ng-select__wrapper {
@@ -19,111 +26,177 @@
 
 .dcx-ng-select__control {
   width: 100%;
-
-  background-color: var(--background-default);
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  font-size: var(--font-size-body);
-  color: var(--text-body);
   display: flex;
   align-items: center;
+
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  font-size: var(--fs-base, 14px);
+  line-height: 1.5;
+  padding: var(--sp-2, 8px) var(--sp-3, 12px);
+  border: 1px solid var(--border-input, #d1d5db);
+  border-radius: var(--r-sm, 4px);
+  color: var(--text-dark, #2a2e33);
+  background: var(--bg-default, #ffffff);
+  outline: none;
   cursor: pointer;
-  position: relative;
+  transition: border-color 0.15s, box-shadow 0.15s;
 
   &:focus-visible {
     outline: none;
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 2px var(--color-primary-light);
-  }
-
-  &.is-disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: var(--background-disabled);
-    color: var(--text-disabled);
+    border-color: var(--border-focus, #1db8f2);
+    box-shadow: 0 0 0 2px rgba(29, 184, 242, 0.18);
   }
 
   &.is-invalid {
-    border-color: var(--border-error);
-    box-shadow: 0 0 0 1px var(--border-error);
-    color: var(--text-error);
+    border-color: var(--border-error, #dc2626);
+
+    &:focus-visible {
+      box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
+    }
   }
 
-  &--xs {
-    padding: var(--spacing-inset-xs);
-  }
-  &--s {
-    padding: var(--spacing-inset-s);
-  }
-  &--m {
-    padding: var(--spacing-inset-m);
-  }
-  &--l {
-    padding: var(--spacing-inset-l);
-  }
-  &--xl {
-    padding: var(--spacing-inset-xl);
+  &.is-disabled {
+    background-color: #f9fafb;
+    color: var(--text-disabled, #9ca3af);
+    cursor: not-allowed;
   }
 }
 
 .selected-value {
   flex: 1;
-}
-.dcx-ng-select__required {
-  color: var(--content-error);
-}
-
-.dcx-ng-select__error {
-  margin-top: var(--spacing-inset-xs);
-  color: var(--text-error);
-  font-size: var(--font-size-body-small);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .dcx-ng-select__buttons {
   display: flex;
   align-items: center;
-  gap: 4px;
-}
-
-.dcx-ng-select__control:hover:not(.is-disabled) {
-  box-shadow: 0 0 0 2px var(--border-hover);
+  gap: var(--sp-1, 4px);
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .dcx-ng-select__clear-btn {
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  opacity: 0.7;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 
-  &:hover {
-    opacity: 1;
+  ::ng-deep {
+    button {
+      all: unset;
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      min-height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--border-light, #d1d5db);
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.12s;
+
+      &:hover {
+        background: var(--text-placeholder, #9ca3af);
+      }
+    }
+
+    dcx-ng-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+    }
+
+    i.bi {
+      font-size: 16px;
+      color: var(--text-white, #ffffff);
+      line-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 
 .dcx-ng-select__chevron {
   pointer-events: none;
-  opacity: 0.8;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ::ng-deep {
+    button {
+      all: unset;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 12px;
+      height: 12px;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    dcx-ng-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 12px;
+      height: 12px;
+    }
+
+    i.bi {
+      font-size: 12px;
+      color: var(--text-dark, #2a2e33);
+      line-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.dcx-ng-select__error {
+  margin-top: var(--sp-1, 4px);
+  font-size: var(--fs-xs, 11px);
+  color: var(--color-error, #dc2626);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .dcx-ng-select__panel {
   position: absolute;
-  margin-top: 4px;
+  margin-top: var(--sp-1, 4px);
   width: 100%;
-  background: var(--background-default);
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
+  background: var(--bg-default, #ffffff);
+  border: 1px solid var(--border-input, #d1d5db);
+  border-radius: var(--r-sm, 4px);
   z-index: 10;
   overflow: hidden;
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
 }
 
 .dcx-ng-select__search {
   width: 100%;
-  padding: var(--spacing-inset-m);
+  padding: var(--sp-2, 8px) var(--sp-3, 12px);
   border: none;
-  border-bottom: 1px solid var(--border-default);
-  font-size: var(--font-size-body);
+  border-bottom: 1px solid var(--border-input, #d1d5db);
+  font-size: var(--fs-base, 14px);
+  font-family: var(--ff-base, 'Inter', sans-serif);
 
   &:focus {
     outline: none;
@@ -136,21 +209,22 @@
 }
 
 .dcx-ng-select__option {
-  padding: var(--spacing-inset-m);
+  padding: var(--sp-2, 8px) var(--sp-3, 12px);
   cursor: pointer;
-  font-size: var(--font-size-body);
+  font-size: var(--fs-base, 14px);
 
   &:hover {
-    background: var(--background-hover);
+    background: var(--bg-primary, #0058ab);
+    color: var(--text-white, #ffffff);
   }
 
   &.is-disabled {
     opacity: 0.5;
     pointer-events: none;
   }
-}
 
-.dcx-ng-select__option.is-selected {
-  background: var(--background-pressed);
-  font-weight: 600;
+  &.is-selected {
+    background: var(--bg-primary, #0058ab);
+    color: var(--text-white, #ffffff);
+  }
 }
