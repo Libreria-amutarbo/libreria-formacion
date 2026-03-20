@@ -298,5 +298,10 @@ describe('DcxNgCheckboxComponent', () => {
       fixture.componentRef.setInput('options', mockCheckboxOptions);
       fixture.detectChanges();
     });
+
+    it('should render all checkbox labels from options', () => {
+      const labels = fixture.nativeElement.querySelectorAll('.dcx-checkbox-label');
+      expect(labels.length).toBe(mockCheckboxOptions.length);
+    });
   });
 });
