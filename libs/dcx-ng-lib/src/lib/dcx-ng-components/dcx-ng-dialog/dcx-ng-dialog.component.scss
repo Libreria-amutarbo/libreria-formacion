@@ -4,6 +4,9 @@
 @use '../../../scss/base/radius' as rd;
 @use '../../../scss/base/spacing' as sp;
 
+// Dialog position gap
+$dialog-pos-gap: 16px;
+
 // Overlay root
 .dialog-root {
   position: fixed;
@@ -42,47 +45,47 @@
   }
 
   &.dialog--pos-top {
-    top: 16px;
+    top: $dialog-pos-gap;
     left: 50%;
     transform: translate(-50%, 0);
   }
 
   &.dialog--pos-bottom {
-    bottom: 16px;
+    bottom: $dialog-pos-gap;
     left: 50%;
     transform: translate(-50%, 0);
   }
 
   &.dialog--pos-left {
-    left: 16px;
+    left: $dialog-pos-gap;
     top: 50%;
     transform: translate(0, -50%);
   }
 
   &.dialog--pos-right {
-    right: 16px;
+    right: $dialog-pos-gap;
     top: 50%;
     transform: translate(0, -50%);
   }
 
   &.dialog--pos-top-left {
-    top: 16px;
-    left: 16px;
+    top: $dialog-pos-gap;
+    left: $dialog-pos-gap;
   }
 
   &.dialog--pos-top-right {
-    top: 16px;
-    right: 16px;
+    top: $dialog-pos-gap;
+    right: $dialog-pos-gap;
   }
 
   &.dialog--pos-bottom-left {
-    bottom: 16px;
-    left: 16px;
+    bottom: $dialog-pos-gap;
+    left: $dialog-pos-gap;
   }
 
   &.dialog--pos-bottom-right {
-    bottom: 16px;
-    right: 16px;
+    bottom: $dialog-pos-gap;
+    right: $dialog-pos-gap;
   }
 }
 
@@ -125,8 +128,7 @@
 .dialog-footer {
   padding: map.get(sp.$spacing, m) map.get(sp.$spacing, inset-l);
   border-top: 1px solid map.get(color.$border, terciary);
-  // TODO: usar una variable 
-  background: #F4F5F7;
+  background: #f4f5f7; // TODO: usar una variable
   display: flex;
   justify-content: flex-end;
   gap: map.get(sp.$spacing, s);
