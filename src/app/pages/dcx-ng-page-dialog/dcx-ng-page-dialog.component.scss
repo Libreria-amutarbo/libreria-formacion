@@ -11,28 +11,28 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    gap: 16px;
+    gap: var(--sp-4, 16px);
   }
 
   #positioned-dialogs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 16px;
+    gap: var(--sp-4, 16px);
 
     button {
-      font-family: sans-serif;
+      font-family: var(--ff-base, 'Inter', sans-serif);
       width: 50px;
       height: 50px;
       font-size: 2em;
-      border-radius: 8px;
-      background-color: #0056b3;
-      color: #ffffff;
+      border-radius: var(--r-lg, 8px);
+      background-color: var(--bg-primary, #0058ab);
+      color: var(--text-white, #ffffff);
       border: none;
       cursor: pointer;
 
       &:hover {
-        background-color: #004494;
+        background-color: var(--bg-primary-hover, #004080);
       }
     }
   }
