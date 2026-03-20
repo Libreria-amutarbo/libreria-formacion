@@ -1,14 +1,11 @@
-// Dialog position gap
 $dialog-pos-gap: 16px;
 
-// Overlay root
 .dialog-root {
   position: fixed;
   inset: 0;
   z-index: 1000;
 }
 
-// Backdrop
 .dialog-backdrop {
   position: absolute;
   inset: 0;
@@ -93,7 +90,6 @@ $dialog-pos-gap: 16px;
   }
 }
 
-// Header
 .dialog-header {
   padding: var(--sp-4, 16px) var(--sp-5, 20px);
   border-bottom: 1px solid var(--border-light, #d1d5db);
@@ -103,7 +99,6 @@ $dialog-pos-gap: 16px;
   flex-shrink: 0;
 }
 
-// Title
 .dialog-title {
   font-size: var(--fs-xl, 20px);
   font-weight: var(--fw-semibold, 600);
@@ -111,14 +106,12 @@ $dialog-pos-gap: 16px;
   margin: 0;
 }
 
-// Close button host
 .dialog-close {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-// Body
 .dialog-body {
   font-size: var(--fs-base, 14px);
   color: var(--text-muted, #696e75);
@@ -128,7 +121,6 @@ $dialog-pos-gap: 16px;
   min-height: 0;
 }
 
-// Footer
 .dialog-footer {
   padding: var(--sp-4, 16px) var(--sp-5, 20px);
   border-top: 1px solid var(--border-light, #d1d5db);
