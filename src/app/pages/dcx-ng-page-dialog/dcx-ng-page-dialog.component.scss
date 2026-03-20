@@ -20,7 +20,7 @@
     grid-template-rows: repeat(3, 1fr);
     gap: var(--sp-4, 16px);
 
-    button {
+    dcx-ng-button ::ng-deep button {
       font-family: var(--ff-base, 'Inter', sans-serif);
       width: 50px;
       height: 50px;

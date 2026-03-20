@@ -59,15 +59,15 @@
 <section>
   <h2>Ejemplo 3 - Dialogs posicionados</h2>
   <div id="positioned-dialogs">
-    <button (click)="openPositioned('top-left')">&#8598;</button>
-    <button (click)="openPositioned('top')">&#8593;</button>
-    <button (click)="openPositioned('top-right')">&#8599;</button>
-    <button (click)="openPositioned('left')">&#8592;</button>
-    <button (click)="openPositioned('center')">&centerdot;</button>
-    <button (click)="openPositioned('right')">&#8594;</button>
-    <button (click)="openPositioned('bottom-left')">&#8601;</button>
-    <button (click)="openPositioned('bottom')">&#8595;</button>
-    <button (click)="openPositioned('bottom-right')">&#8600;</button>
+    <dcx-ng-button label="↖" (buttonClick)="openPositioned('top-left')"></dcx-ng-button>
+    <dcx-ng-button label="↑" (buttonClick)="openPositioned('top')"></dcx-ng-button>
+    <dcx-ng-button label="↗" (buttonClick)="openPositioned('top-right')"></dcx-ng-button>
+    <dcx-ng-button label="←" (buttonClick)="openPositioned('left')"></dcx-ng-button>
+    <dcx-ng-button label="·" (buttonClick)="openPositioned('center')"></dcx-ng-button>
+    <dcx-ng-button label="→" (buttonClick)="openPositioned('right')"></dcx-ng-button>
+    <dcx-ng-button label="↙" (buttonClick)="openPositioned('bottom-left')"></dcx-ng-button>
+    <dcx-ng-button label="↓" (buttonClick)="openPositioned('bottom')"></dcx-ng-button>
+    <dcx-ng-button label="↘" (buttonClick)="openPositioned('bottom-right')"></dcx-ng-button>
   </div>
 
   <dcx-ng-dialog
