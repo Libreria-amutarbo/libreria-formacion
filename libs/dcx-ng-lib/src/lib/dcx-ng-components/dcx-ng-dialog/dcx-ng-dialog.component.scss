@@ -1,9 +1,3 @@
-@use 'sass:map';
-@use '../../../scss/base/color';
-@use '../../../scss/base/typography' as tp;
-@use '../../../scss/base/radius' as rd;
-@use '../../../scss/base/spacing' as sp;
-
 // Dialog position gap
 $dialog-pos-gap: 16px;
 
@@ -25,11 +19,11 @@ $dialog-pos-gap: 16px;
 
 // Main dialog container
 .dcx-dialog {
-  font-family: map.get(tp.$fonts, primary), sans-serif;
-  line-height: map.get(tp.$line-height, normal);
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  line-height: var(--line-height, 1.5);
   position: absolute;
-  background: map.get(color.$background, default);
-  border-radius: map.get(rd.$radius, lg);
+  background: var(--bg-default, #ffffff);
+  border-radius: var(--r-lg, 8px);
   width: 420px;
   max-width: 90%;
   max-height: 70vh;
@@ -91,8 +85,8 @@ $dialog-pos-gap: 16px;
 
 // Header
 .dialog-header {
-  padding: map.get(sp.$spacing, m) map.get(sp.$spacing, inset-l);
-  border-bottom: 1px solid map.get(color.$border, terciary);
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  border-bottom: 1px solid var(--border-light, #d1d5db);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -101,9 +95,9 @@ $dialog-pos-gap: 16px;
 
 // Title
 .dialog-title {
-  font-size: map.get(tp.$font-size, h2);
-  font-weight: map.get(tp.$weight, semibold);
-  color: map.get(color.$text, title);
+  font-size: var(--fs-xl, 20px);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--text-dark, #2a2e33);
   margin: 0;
 }
 
@@ -116,9 +110,9 @@ $dialog-pos-gap: 16px;
 
 // Body
 .dialog-body {
-  font-size: map.get(tp.$font-size, body);
-  color: map.get(color.$text, body);
-  padding: map.get(sp.$spacing, inset-l);
+  font-size: var(--fs-base, 14px);
+  color: var(--text-muted, #696e75);
+  padding: var(--sp-5, 20px);
   overflow-y: auto;
   flex: 1 1 auto;
   min-height: 0;
@@ -126,11 +120,11 @@ $dialog-pos-gap: 16px;
 
 // Footer
 .dialog-footer {
-  padding: map.get(sp.$spacing, m) map.get(sp.$spacing, inset-l);
-  border-top: 1px solid map.get(color.$border, terciary);
-  background: #f4f5f7; // TODO: usar una variable
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  border-top: 1px solid var(--border-light, #d1d5db);
+  background: var(--bg-surface, #f4f5f7);
   display: flex;
   justify-content: flex-end;
-  gap: map.get(sp.$spacing, s);
+  gap: var(--sp-2, 8px);
   flex-shrink: 0;
 }
