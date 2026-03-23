@@ -33,3 +33,52 @@
     var(--dcx-divider-color, #d1d5db);
   border-left-style: var(--dcx-divider-style, solid);
 }
+
+:host(.horizontal) .dcx-ng-divider--labeled {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+  border: none;
+}
+
+:host(.horizontal) .dcx-ng-divider__line {
+  flex: 1;
+  height: 0;
+  border-top: var(--dcx-divider-thickness, 1px) solid
+    var(--dcx-divider-color, #d1d5db);
+  border-top-style: var(--dcx-divider-style, solid);
+}
+
+:host(.vertical) .dcx-ng-divider--labeled {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  gap: 0.5rem;
+  border: none;
+}
+
+:host(.vertical) .dcx-ng-divider__line {
+  flex: 1;
+  width: 0;
+  border-left: var(--dcx-divider-thickness, 1px) solid
+    var(--dcx-divider-color, #d1d5db);
+  border-left-style: var(--dcx-divider-style, solid);
+}
+
+.dcx-ng-divider__label {
+  color: var(--dcx-divider-color, #d1d5db);
+  font-family: var(--font-family-primary, 'Inter', sans-serif);
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+}
+
+:host(.vertical) .dcx-ng-divider__label {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}

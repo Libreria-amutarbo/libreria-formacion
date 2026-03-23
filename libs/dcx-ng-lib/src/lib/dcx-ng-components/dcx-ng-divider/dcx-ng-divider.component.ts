@@ -22,8 +22,16 @@ export class DcxNgDividerComponent {
   thickness = input<number>(0.25);
   ariaLabel = input<string>('');
   type = input<DividerType>('default');
+  label = input<string>('');
 
-  ariaLabelBinding = computed<string>(() => this.ariaLabel() ?? 'dcx-divider');
+  ariaLabelBinding = computed<string>(
+    () => this.ariaLabel() || this.label() || 'dcx-divider',
+  );
+
+  @HostBinding('class.has-label')
+  get hasLabel() {
+    return !!this.label();
+  }
 
   @HostBinding('class.horizontal')
   get isHorizontal() {
