@@ -139,4 +139,11 @@ export class DcxNgAccordionComponent {
     }
     return 'chevron-down';
   }
+
+  expandItemByButton(index: number): void {
+    const item = this.items()[index];
+    if (item && !item.disabled) {
+      this.expandItemById(item.id);
+    }
+  }
 }

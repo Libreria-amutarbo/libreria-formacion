@@ -1,1 +1,26 @@
 @use './../../app.component.scss';
+
+/* Estilos para mejorar la presentación de los ejemplos */
+
+.example-container {
+  margin-bottom: var(--sp-8, 32px);
+}
+
+.example-title {
+  margin-bottom: var(--sp-4, 16px);
+  font-size: var(--fs-lg, 18px);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--text-dark, #2a2e33);
+}
+
+.accordion-buttons {
+  display: flex;
+  gap: var(--sp-2, 8px);
+  margin-bottom: var(--sp-4, 16px);
+}
+
+.accordion {
+  border: 1px solid var(--border-light, #d1d5db);
+  border-radius: var(--r-md, 6px);
+  padding: var(--sp-4, 16px);
+}

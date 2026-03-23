@@ -1,12 +1,12 @@
 @use '../../../scss/main' as *;
 
 .accordion {
-  font-family: var(--font-family-primary);
-  border: 1px solid var(--border-terciary);
-  border-radius: 8px;
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  border: 1px solid var(--border-default, #d1d5db);
+  border-radius: var(--r-md, 6px);
   overflow: hidden;
-  background-color: var(--background-default);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-surface, #f4f5f7);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06));
 
   &.transition-smooth {
     .accordion-content-wrapper {
@@ -45,7 +45,7 @@
   }
 
   .accordion-item {
-    border-bottom: 1px solid var(--border-terciary);
+    border-bottom: 1px solid var(--border-light, #d1d5db);
 
     &:last-child {
       border-bottom: none;
@@ -54,17 +54,16 @@
     &.disabled {
       .accordion-header {
         cursor: default;
-        background-color: var(--background-disabled);
-        color: var(--text-disabled);
+        background-color: var(--bg-pressed, #e1e3e6);
+        color: var(--text-disabled, #696e75);
         opacity: 0.6;
       }
     }
 
     &.expanded {
       .accordion-header {
-        background-color: var(--background-hover);
+        background-color: var(--bg-hover, #f7f8fa);
       }
-      
       .accordion-chevron {
         transform: rotate(180deg);
       }
@@ -74,47 +73,39 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
-      @include flex-between;
-      @include padding(m);
-      background-color: var(--background-default);
-      width: 100%;
-      font-size: var(--font-size-body);
-      font-weight: var(--font-weight-medium);
-      color: var(--text-title);
+      gap: var(--sp-3, 12px);
+      padding: var(--sp-4, 16px) var(--sp-5, 20px);
+      background-color: var(--bg-default, #ffffff);
+      font-size: var(--fs-md, 16px);
+      font-weight: var(--fw-medium, 500);
+      color: var(--text-dark, #2a2e33);
       transition: background-color 0.2s ease-in-out;
       cursor: pointer;
 
       &:hover:not(.disabled) {
-        background-color: var(--background-hover);
+        background-color: var(--bg-primary-hover, #004080);
       }
 
       &:focus-visible {
-        outline: 2px solid var(--content-primary);
+        outline: 2px solid var(--border-focus, #1db8f2);
         outline-offset: -2px;
-      }
-
-      &.disabled {
-        cursor: not-allowed;
-        opacity: 0.6;
       }
 
       .accordion-icon {
         flex-shrink: 0;
-        margin-right: 8px;
-        color: var(--content-primary);
+        margin-right: var(--sp-2, 8px);
+        color: var(--color-info, #0058ab);
       }
 
       .accordion-title {
         flex: 1;
-        font-weight: 500;
+        font-weight: var(--fw-semibold, 600);
         line-height: 1.4;
       }
 
       .accordion-chevron {
         flex-shrink: 0;
-        color: var(--content-primary);
+        color: var(--color-info, #0058ab);
         transform: rotate(0deg);
       }
     }
@@ -123,12 +114,12 @@
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      padding: 0 20px;
+      padding: 0 var(--sp-5, 20px);
 
       &.expanded {
         max-height: 2000px;
         opacity: 1;
-        padding: 0 20px 16px 20px;
+        padding: 0 var(--sp-5, 20px) var(--sp-4, 16px);
         overflow-y: auto;
       }
 
@@ -141,12 +132,11 @@
       }
 
       .accordion-content {
-        padding-top: 16px;
-        @include padding(m);
-        background-color: var(--background-default);
-        color: var(--text-body);
-        line-height: var(--line-height-normal);
-        font-size: var(--font-size-body-small);
+        padding-top: var(--sp-4, 16px);
+        background-color: var(--bg-default, #ffffff);
+        color: var(--text-dark, #2a2e33);
+        line-height: 1.5;
+        font-size: var(--fs-base, 14px);
         max-height: 600px;
         overflow-y: auto;
         word-wrap: break-word;

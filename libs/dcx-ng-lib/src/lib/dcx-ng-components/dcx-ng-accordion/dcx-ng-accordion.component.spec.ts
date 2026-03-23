@@ -280,7 +280,8 @@ describe('DcxNgAccordionComponent - Extended', () => {
     it('should apply correct transition class', () => {
       fixture.componentRef.setInput('transition', 'fast');
       fixture.detectChanges();
-      expect(component.getTransitionClass()).toBe('transition-fast');
+      const accordionElement: HTMLElement = fixture.nativeElement.querySelector('.accordion');
+      expect(accordionElement.classList).toContain('transition-fast');
     });
 
     it('should default to smooth transition', () => {
@@ -333,5 +334,21 @@ describe('DcxNgAccordionComponent - Extended', () => {
     it('should return chevron-down when collapsed', () => {
       expect(component.getIconItemExpanded('1')).toBe('chevron-down');
     });
+  });
+
+  it('should expand items with expanded set to true by default', () => {
+    const expandedItem = mockItems[0];
+    expandedItem.expanded = true;
+    fixture.componentRef.setInput('items', [expandedItem, ...mockItems.slice(1)]);
+    fixture.detectChanges();
+    expect(component.isExpanded(expandedItem.id)).toBe(true);
+  });
+
+  it('should expand item when numeric button is clicked', () => {
+    const item = mockItems[1];
+    const button = fixture.nativeElement.querySelectorAll('.accordion-buttons button')[1];
+    button.click();
+    fixture.detectChanges();
+    expect(component.isExpanded(item.id)).toBe(true);
   });
 });

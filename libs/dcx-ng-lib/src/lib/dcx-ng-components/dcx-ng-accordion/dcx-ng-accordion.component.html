@@ -1,3 +1,13 @@
+<div class="accordion-buttons">
+  <button
+    *ngFor="let item of items(); let i = index"
+    [disabled]="item.disabled"
+    (click)="expandItemById(item.id)"
+  >
+    {{ i + 1 }}
+  </button>
+</div>
+
 <div class="accordion" [class]="getTransitionClass()">
   @for (item of items(); track item.id; let i = $index) {
     <div
