@@ -36,7 +36,30 @@ describe('HomeComponent', () => {
   it('should have correct card content', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const firstCard = compiled.querySelector('.card') as HTMLElement;
-    expect(firstCard.querySelector('.card-icon')?.textContent).toBe('🪗');
+    expect(firstCard.querySelector('.card-icon i')).toBeTruthy();
     expect(firstCard.querySelector('.card-name')?.textContent).toBe('Accordion');
+  });
+
+  it('should return all cards when search term is empty', () => {
+    component.onSearch('   ');
+    fixture.detectChanges();
+
+    expect(component.filteredCards().length).toBe(component.cards.length);
+  });
+
+  it('should filter cards by name or route when search term matches', () => {
+    component.onSearch('accordion');
+    fixture.detectChanges();
+
+    const results = component.filteredCards();
+    expect(results.length).toBeGreaterThan(0);
+    expect(results.some(card => card.route === 'accordion')).toBe(true);
+  });
+
+  it('should return no cards when search term does not match', () => {
+    component.onSearch('zzzz-no-match');
+    fixture.detectChanges();
+
+    expect(component.filteredCards()).toEqual([]);
   });
 });

@@ -43,14 +43,6 @@
       .divider-label::before,.divider-label::after{content:'';flex:1;border-top:1px solid var(--border-default)}
       .divider-label span{font-size:12px;color:var(--text-muted);white-space:nowrap;font-weight:500}
 
-      /* ── ICON ── */
-      .icon-grid{display:flex;flex-wrap:wrap;gap:var(--sp-4)}
-      .icon-cell{display:flex;flex-direction:column;align-items:center;gap:var(--sp-1);width:56px}
-      .icon-box{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--bg-surface);border-radius:var(--r-md);border:1px solid var(--border-default)}
-      .icon-lbl{font-size:10px;color:var(--text-muted);text-align:center;line-height:1.3}
-      .icon-box.primary{background:#dbeafe;border-color:#93c5fd}
-      .icon-box svg{width:20px;height:20px}
-
       /* ── MESSAGE (Alert / Toast) ── */
       .dcx-message{display:flex;align-items:flex-start;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);border-left:4px solid;margin-bottom:var(--sp-3);font-size:14px}
       .msg-info{background:var(--color-info-bg);border-color:var(--color-info);color:#1e3a5f}
@@ -171,215 +163,6 @@
       </p>
     </div>
 
-    <!-- ICON -->
-    <div class="sec">Icon</div>
-    <div class="card">
-      <div class="icon-grid">
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path
-                d="M10 2a8 8 0 100 16A8 8 0 0010 2z"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-              />
-              <path
-                d="M10 6v5l3 2"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">clock</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box primary">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path
-                d="M10 2l2.5 5 5.5.8-4 3.9.95 5.5L10 14.5l-4.95 2.7.95-5.5L2 7.8l5.5-.8L10 2z"
-                stroke="#0058ab"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">star</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path
-                d="M4 10h12M10 4l6 6-6 6"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">arrow-right</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path
-                d="M10 3v14M3 10h14"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">plus</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path
-                d="M5 10l4 4 7-7"
-                stroke="#16a34a"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">check</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path
-                d="M5 5l10 10M15 5L5 15"
-                stroke="#dc2626"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">close</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <circle
-                cx="10"
-                cy="10"
-                r="7"
-                stroke="#0058ab"
-                stroke-width="1.5"
-              />
-              <path
-                d="M10 9v5M10 7v.01"
-                stroke="#0058ab"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">info</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path
-                d="M4 6h12M4 10h8M4 14h5"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">list</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <rect
-                x="3"
-                y="3"
-                width="6"
-                height="6"
-                rx="1"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-              />
-              <rect
-                x="11"
-                y="3"
-                width="6"
-                height="6"
-                rx="1"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-              />
-              <rect
-                x="3"
-                y="11"
-                width="6"
-                height="6"
-                rx="1"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-              />
-              <rect
-                x="11"
-                y="11"
-                width="6"
-                height="6"
-                rx="1"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">grid</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path
-                d="M10 2a5 5 0 015 5c0 3-5 11-5 11S5 10 5 7a5 5 0 015-5z"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-              />
-              <circle cx="10" cy="7" r="1.5" fill="#2a2e33" />
-            </svg>
-          </div>
-          <span class="icon-lbl">location</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path
-                d="M3 7l7-4 7 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V7z"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-              />
-              <path d="M8 17V11h4v6" stroke="#2a2e33" stroke-width="1.5" />
-            </svg>
-          </div>
-          <span class="icon-lbl">home</span>
-        </div>
-        <div class="icon-cell">
-          <div class="icon-box">
-            <svg viewBox="0 0 20 20" fill="none">
-              <circle cx="9" cy="9" r="5" stroke="#2a2e33" stroke-width="1.5" />
-              <path
-                d="M16 16l-3-3"
-                stroke="#2a2e33"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <span class="icon-lbl">search</span>
-        </div>
-      </div>
-    </div>
-
     <!-- MESSAGE -->
     <div class="sec">Message / Alert</div>
     <div class="card">
@@ -491,14 +274,18 @@
         </svg>
         <span>Archivo exportado con éxito</span>
       </div>
-    </div><style>
-#_dnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.5rem;font-family:'Inter',sans-serif;font-size:13px;z-index:9999;box-shadow:0 -2px 10px rgba(0,0,0,.07)}
-#_dnav a{color:#0058ab;text-decoration:none;font-weight:500}
-#_dnav a:hover{text-decoration:underline}
-#_dnav .idx{color:#696e75;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-body{padding-bottom:56px!important}
-</style>
-<nav id="_dnav"><a href="dcx-ng-page-accordion.html">&larr; Accordion</a><a class="idx" href="index.html">&#8862;&nbsp;Designs</a><a href="dcx-ng-page-button.html">Button &rarr;</a></nav>
-
+    </div>
+    <style>
+      #_dnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.5rem;font-family:'Inter',sans-serif;font-size:13px;z-index:9999;box-shadow:0 -2px 10px rgba(0,0,0,.07)}
+      #_dnav a{color:#0058ab;text-decoration:none;font-weight:500}
+      #_dnav a:hover{text-decoration:underline}
+      #_dnav .idx{color:#696e75;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+      body{padding-bottom:56px!important}
+    </style>
+    <nav id="_dnav">
+      <a href="dcx-ng-page-accordion.html">&larr; Accordion</a
+      ><a class="idx" href="index.html">&#8862;&nbsp;Designs</a
+      ><a href="dcx-ng-page-button.html">Button &rarr;</a>
+    </nav>
   </body>
 </html>

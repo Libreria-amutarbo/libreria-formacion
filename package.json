@@ -50,6 +50,7 @@
     "@jest/globals": "^30.2.0",
     "@nx/angular": "22.1.1",
     "@nx/eslint-plugin": "^22.1.2",
+    "@nx/jest": "^22.1.2",
     "@storybook/addon-a11y": "^10.0.8",
     "@storybook/addon-docs": "^10.0.8",
     "@storybook/angular": "^10.0.8",
