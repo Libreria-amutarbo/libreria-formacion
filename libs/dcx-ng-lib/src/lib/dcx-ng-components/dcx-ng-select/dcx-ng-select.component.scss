@@ -41,7 +41,8 @@
   cursor: pointer;
   transition: border-color 0.15s, box-shadow 0.15s;
 
-  &:focus-visible {
+  &:focus-visible,
+  &.is-open {
     outline: none;
     border-color: var(--border-focus, #1db8f2);
     box-shadow: 0 0 0 2px rgba(29, 184, 242, 0.18);
