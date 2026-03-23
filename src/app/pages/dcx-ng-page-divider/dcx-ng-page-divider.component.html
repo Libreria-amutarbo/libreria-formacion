@@ -3,7 +3,7 @@
   <h2>Divider adaptable al contenedor</h2>
 
   <dcx-ng-divider
-    class="spacer1"
+    class="spacer-horizontal"
     color="#0056b3"
     ariaLabel="Horizontal Divider Auto"
   ></dcx-ng-divider>
@@ -12,23 +12,27 @@
 </div>
 
 <br />
-<div class="container">
+<div class="container horizontal">
   <h2>Divider adaptable al contenedor</h2>
 
   <dcx-ng-divider
-    class="spacer1"
+    class="spacer-vertical"
     color="#0056b3"
     orientation="vertical"
     ariaLabel="Vertical Divider Auto"
   ></dcx-ng-divider>
 
-  <p>Este divider se adapta al 100% del largo del contenedor</p>
+  <p>Este divider se adapta al 100% del alto del contenedor</p>
 </div>
 
 <br />
 <div class="container">
   <h2>Divider tipo dot</h2>
-  <dcx-ng-divider class="spacer1" color="#0056b3" type="dot"></dcx-ng-divider>
+  <dcx-ng-divider
+    class="spacer-horizontal"
+    color="#0056b3"
+    type="dot"
+  ></dcx-ng-divider>
   <p>Este divider se adapta al 100% del ancho del contenedor</p>
 </div>
 
@@ -36,7 +40,7 @@
 <div class="container">
   <h2>Divider tipo dot</h2>
   <dcx-ng-divider
-    class="spacer1"
+    class="spacer-horizontal"
     color="#0056b3"
     type="dot"
     size="l"

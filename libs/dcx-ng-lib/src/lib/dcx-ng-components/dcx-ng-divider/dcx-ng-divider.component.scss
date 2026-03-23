@@ -1,60 +1,35 @@
 :host {
-  --dcx-divider-thickness: 0.6px;
-  --dcx-divider-size: 100px;
   display: block;
+}
+
+:host(.horizontal) {
+  width: var(--dcx-divider-size, 100%);
+  height: auto;
+}
+
+:host(.vertical) {
+  height: var(--dcx-divider-size, 100%);
+  width: auto;
 }
 
 .dcx-ng-divider {
   margin: 0;
   display: block;
   border: none;
+}
 
-  &--s {
-    --dcx-divider-size: 5rem;
-  }
+:host(.horizontal) .dcx-ng-divider {
+  width: 100%;
+  height: 0;
+  border-top: var(--dcx-divider-thickness, 1px) solid
+    var(--dcx-divider-color, #d1d5db);
+  border-top-style: var(--dcx-divider-style, solid);
+}
 
-  &--m {
-    --dcx-divider-size: 15rem;
-  }
-
-  &--l {
-    --dcx-divider-size: 30rem;
-  }
-
-  &--xl {
-    --dcx-divider-size: 35rem;
-  }
-
-  &--auto {
-    &.dcx-ng-divider--horizontal {
-      width: 100%;
-    }
-
-    &.dcx-ng-divider--vertical {
-      height: inherit;
-      align-self: stretch;
-    }
-  }
-
-  &--horizontal {
-    width: var(--dcx-divider-size);
-    height: 0;
-    border-top: var(--dcx-divider-thickness) solid var(--dcx-divider-color);
-  }
-
-  &--vertical {
-    height: var(--dcx-divider-size);
-    width: 0;
-    border-left: var(--dcx-divider-thickness) solid var(--dcx-divider-color);
-  }
-
-  &--dot {
-    &.dcx-ng-divider--horizontal {
-      border-top-style: dotted;
-    }
-
-    &.dcx-ng-divider--vertical {
-      border-left-style: dotted;
-    }
-  }
+:host(.vertical) .dcx-ng-divider {
+  height: 100%;
+  width: 0;
+  border-left: var(--dcx-divider-thickness, 1px) solid
+    var(--dcx-divider-color, #d1d5db);
+  border-left-style: var(--dcx-divider-style, solid);
 }
