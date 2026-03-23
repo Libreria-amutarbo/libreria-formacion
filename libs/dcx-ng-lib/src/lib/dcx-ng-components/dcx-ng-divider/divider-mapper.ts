@@ -8,6 +8,16 @@ const dividerSizeMap: Record<DcxSize, string> = {
   auto: '100%',
 };
 
+const dividerTypeMap: Record<string, string> = {
+  default: 'solid',
+  dot: 'dotted',
+  dashed: 'dashed',
+};
+
 export const mapSizeToCssValue = (size: DcxSize): string => {
   return dividerSizeMap[size];
+};
+
+export const mapTypeToCssValue = (type: string): string => {
+  return dividerTypeMap[type] || 'solid';
 };

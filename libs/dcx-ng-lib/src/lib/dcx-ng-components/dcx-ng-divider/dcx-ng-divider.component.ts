@@ -6,7 +6,7 @@ import {
   DividerType,
 } from '../../core/interfaces';
 import { tokens } from '../../core/mock/colors';
-import { mapSizeToCssValue } from './divider-mapper';
+import { mapSizeToCssValue, mapTypeToCssValue } from './divider-mapper';
 
 @Component({
   selector: 'dcx-ng-divider',
@@ -42,7 +42,7 @@ export class DcxNgDividerComponent {
 
   @HostBinding('style.--dcx-divider-style')
   get dividerStyle() {
-    return this.type() === 'dot' ? 'dotted' : 'solid';
+    return mapTypeToCssValue(this.type());
   }
 
   @HostBinding('style.--dcx-divider-color')
