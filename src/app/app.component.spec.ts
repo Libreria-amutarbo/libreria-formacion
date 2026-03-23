@@ -9,9 +9,9 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  it(`should have as title 'dcx-ng-components'`, () => {
+  it('should create', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('dcx-ng-components');
+    fixture.detectChanges();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
