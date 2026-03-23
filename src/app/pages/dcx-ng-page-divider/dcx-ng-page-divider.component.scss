@@ -12,8 +12,6 @@
 
   &.horizontal {
     flex-direction: row;
-    align-items: center;
-    gap: var(--sp-3, 12px);
   }
 
   h2,
@@ -26,8 +24,4 @@
 
 .spacer-horizontal {
   margin: 20px 0;
-}
-
-.spacer-vertical {
-  margin: 0 20px;
 }
