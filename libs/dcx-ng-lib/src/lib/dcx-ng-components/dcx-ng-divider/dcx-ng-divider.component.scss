@@ -78,7 +78,6 @@
 }
 
 :host(.vertical) .dcx-ng-divider__label {
-  writing-mode: vertical-lr;
+  writing-mode: sideways-lr;
   text-orientation: mixed;
-  transform: rotate(180deg);
 }
