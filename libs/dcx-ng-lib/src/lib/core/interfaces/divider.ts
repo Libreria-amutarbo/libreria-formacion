@@ -1,2 +1,2 @@
 export type DividerOrientation = 'horizontal' | 'vertical';
-export type DividerType = 'default' | 'dot' | 'dashed';
+export type DividerType = 'default' | 'dot' | 'dash';

@@ -11,7 +11,7 @@ const dividerSizeMap: Record<DcxSize, string> = {
 const dividerTypeMap: Record<string, string> = {
   default: 'solid',
   dot: 'dotted',
-  dashed: 'dashed',
+  dash: 'dashed',
 };
 
 export const mapSizeToCssValue = (size: DcxSize): string => {
