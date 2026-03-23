@@ -35,7 +35,9 @@
   border-radius: var(--card-radius);
   padding: var(--card-padding);
 
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  position: relative;
 
   width: 100%;
   max-width: var(--card-max-content-width);
@@ -50,15 +52,15 @@
   }
 
   &.size-s {
-    --card-padding: 0.6rem;
+    --card-padding: 0.9rem;
     --card-gap: 0.55rem;
     --card-title-font-size: 1rem;
     --card-subtitle-font-size: 0.85rem;
-    --card-radius: 6px;
+    --card-radius: 12px;
     --card-max-image-width: 92%;
   }
   &.size-m {
-    --card-padding: 0.9rem;
+    --card-padding: 1rem;
     --card-gap: 0.75rem;
     --card-title-font-size: 1.15rem;
     --card-subtitle-font-size: 0.95rem;
@@ -66,7 +68,7 @@
     --card-max-image-width: 100%;
   }
   &.size-l {
-    --card-padding: 1.5rem;
+    --card-padding: 1.7rem;
     --card-gap: 1rem;
     --card-title-font-size: 1.4rem;
     --card-subtitle-font-size: 1.05rem;
@@ -102,6 +104,22 @@
   flex: 1 1 auto;
   min-width: 0;
 }
+.card-inner.accent-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--background-primary, #0058ab),
+    var(--color-primary, #1db8f2)
+  );
+  border-top-left-radius: var(--card-radius);
+  border-top-right-radius: var(--card-radius);
+  z-index: 1;
+}
 
 .card-body {
   display: flex;
@@ -110,17 +128,17 @@
 
   min-width: 0;
 
-  .header {
+  .card-header {
     margin-bottom: var(--spacing-inline-m);
   }
-  .content {
+  .card-content {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     max-width: 100%;
     min-width: 0;
   }
-  .footer {
+  .card-footer {
     margin-top: var(--spacing-inline-m);
     @include utils.flex-center;
     width: 100%;
@@ -141,19 +159,19 @@
     font-weight: var(--font-weight-semibold);
   }
 
-  .header ::ng-deep h3,
-  .header ::ng-deep .title {
+  .card-header ::ng-deep h3,
+  .card-header ::ng-deep .title {
     margin: 0 0 0.5rem 0;
     font-size: var(--font-size-h3);
     font-weight: var(--font-weight-semibold);
   }
-  .header ::ng-deep p,
-  .header ::ng-deep .subtitle {
+  .card-header ::ng-deep p,
+  .card-header ::ng-deep .subtitle {
     margin: 0;
     font-family: var(--font-family-primary);
     font-size: var(--font-size-body);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-weight-semibold);
+    color: #696e75;
+    font-weight: 400;
   }
 }
 
@@ -170,13 +188,13 @@
   text-align: right;
 }
 
-.card-inner.align-start .card-body .footer {
+.card-inner.align-start .card-body .card-footer {
   justify-content: flex-start;
 }
-.card-inner.align-center .card-body .footer {
+.card-inner.align-center .card-body .card-footer {
   justify-content: center;
 }
-.card-inner.align-end .card-body .footer {
+.card-inner.align-end .card-body .card-footer {
   justify-content: flex-end;
 }
 

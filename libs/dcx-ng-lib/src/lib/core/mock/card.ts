@@ -1,4 +1,7 @@
-import { BorderStyleCard, ShadowPresetCard } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  BorderStyleCard,
+  ShadowPresetCard,
+} from '@dcx-ng-components/dcx-ng-lib';
 import {
   ALIGN_DEFAULT,
   DISABLED,
@@ -19,6 +22,8 @@ export const MAX_CONTENT_WIDTH = '560px';
 export const MAX_IMAGE_WIDTH = '100%';
 
 export const BORDERED = false;
+
+export const ACCENT = false;
 
 export const BORDER_WIDTH = 1;
 
