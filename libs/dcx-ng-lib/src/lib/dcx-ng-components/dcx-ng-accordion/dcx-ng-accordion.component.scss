@@ -1,12 +1,12 @@
 @use '../../../scss/main' as *;
 
 .accordion {
-  font-family: var(--font-family-primary);
-  border: 1px solid var(--border-terciary);
-  border-radius: 8px;
+  font-family: var(--font-family-base, 'Inter', sans-serif);
+  border: 1px solid var(--border-light, #d1d5db);
+  border-radius: var(--border-radius-md, 8px);
   overflow: hidden;
-  background-color: var(--background-default);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-default, #ffffff);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
 
   &.transition-smooth {
     .accordion-content-wrapper {
@@ -45,7 +45,7 @@
   }
 
   .accordion-item {
-    border-bottom: 1px solid var(--border-terciary);
+    border-bottom: 1px solid var(--border-light, #d1d5db);
 
     &:last-child {
       border-bottom: none;
@@ -53,20 +53,21 @@
 
     &.disabled {
       .accordion-header {
-        cursor: default;
-        background-color: var(--background-disabled);
-        color: var(--text-disabled);
-        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: var(--background-default, #ffffff);
+        color: var(--content-disabled, #696e75);
+        opacity: 0.45;
       }
     }
 
     &.expanded {
       .accordion-header {
-        background-color: var(--background-hover);
+        background-color: var(--background-hover, #f7f8fa);
       }
       
       .accordion-chevron {
         transform: rotate(180deg);
+        color: var(--background-primary, #0058ab);
       }
     }
 
@@ -78,32 +79,38 @@
       padding: 16px 20px;
       @include flex-between;
       @include padding(m);
-      background-color: var(--background-default);
+      background-color: var(--background-default, #ffffff);
       width: 100%;
-      font-size: var(--font-size-body);
-      font-weight: var(--font-weight-medium);
-      color: var(--text-title);
-      transition: background-color 0.2s ease-in-out;
+      font-size: var(--font-size-body-small, 14px);
+      font-weight: var(--font-weight-medium, 500);
+      color: var(--content-default-dark, #2a2e33);
+      transition: background-color 0.15s ease-in-out;
       cursor: pointer;
+      user-select: none;
 
       &:hover:not(.disabled) {
-        background-color: var(--background-hover);
+        background-color: var(--background-hover, #f7f8fa);
       }
 
       &:focus-visible {
-        outline: 2px solid var(--content-primary);
+        outline: 2px solid var(--border-focus, #1db8f2);
         outline-offset: -2px;
       }
 
       &.disabled {
         cursor: not-allowed;
-        opacity: 0.6;
+        opacity: 0.45;
       }
 
       .accordion-icon {
         flex-shrink: 0;
         margin-right: 8px;
-        color: var(--content-primary);
+        color: var(--content-muted, #696e75);
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .accordion-title {
@@ -114,8 +121,14 @@
 
       .accordion-chevron {
         flex-shrink: 0;
-        color: var(--content-primary);
+        color: var(--content-muted, #696e75);
         transform: rotate(0deg);
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
       }
     }
 
@@ -141,12 +154,15 @@
       }
 
       .accordion-content {
-        padding-top: 16px;
         @include padding(m);
-        background-color: var(--background-default);
-        color: var(--text-body);
-        line-height: var(--line-height-normal);
-        font-size: var(--font-size-body-small);
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        background-color: var(--background-default, #ffffff);
+        color: var(--content-muted, #696e75);
+        line-height: var(--line-height-normal, 1.6);
+        font-size: var(--font-size-body-small, 14px);
         max-height: 600px;
         overflow-y: auto;
         word-wrap: break-word;
