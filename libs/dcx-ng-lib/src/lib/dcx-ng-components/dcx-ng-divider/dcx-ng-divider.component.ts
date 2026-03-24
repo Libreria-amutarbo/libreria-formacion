@@ -4,9 +4,10 @@ import {
   DcxSize,
   DividerOrientation,
   DividerType,
-} from '../../core/interfaces';
+  mapSizeToCssValue,
+  mapTypeToCssValue,
+} from '@dcx-ng-components/dcx-ng-lib';
 import { tokens } from '../../core/mock/colors';
-import { mapSizeToCssValue, mapTypeToCssValue } from './divider-mapper';
 
 @Component({
   selector: 'dcx-ng-divider',
