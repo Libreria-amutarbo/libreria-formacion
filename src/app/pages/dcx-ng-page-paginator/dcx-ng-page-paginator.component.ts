@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import {
-  DcxNgSelectComponent,
   DcxPaginator,
-  DcxSelectOptions,
   DcxNgPaginatorComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-paginator',
   standalone: true,
-  imports: [FormsModule, DcxNgPaginatorComponent, DcxNgSelectComponent],
+  imports: [DcxNgPaginatorComponent],
   templateUrl: './dcx-ng-page-paginator.component.html',
   styleUrl: './dcx-ng-page-paginator.component.scss',
 })
@@ -35,12 +32,6 @@ export class DcxNgPagePaginatorComponent {
     currentPage: 1,
   };
 
-  optionsValue: DcxSelectOptions[] = [
-    { value: 5, label: '5' },
-    { value: 10, label: '10' },
-    { value: 20, label: '20' },
-  ];
-
   limitedPaginator: DcxPaginator = {
     totalItems: 100,
     itemsPerPage: 10,
@@ -52,13 +43,6 @@ export class DcxNgPagePaginatorComponent {
     itemsPerPage: 2,
     currentPage: 2,
   };
-
-  itemsPerPageChange(event: string | number | null) {
-    this.selectPerPage = {
-      ...this.selectPerPage,
-      itemsPerPage: Number(event),
-    };
-  }
 
   onPageChange(page: number) {
     this.knowPageSelected = {
