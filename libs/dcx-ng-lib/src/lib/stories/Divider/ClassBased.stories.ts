@@ -40,6 +40,7 @@ export const Default: Story = {
     color: tokens.background.pressed,
     thickness: 0.25,
     ariaLabel: 'Interactive Divider',
+    label: '',
   },
 };
 
@@ -128,6 +129,45 @@ export const AllTypes: Story = {
         <dcx-ng-divider size="auto" type="dot" ariaLabel="Dot" color="${tokens.background.primary}"></dcx-ng-divider>
         <span style="font-size:12px;color:#888">type="dash" — dashed</span>
         <dcx-ng-divider size="auto" type="dash" ariaLabel="Dash" color="${tokens.background.primary}"></dcx-ng-divider>
+      </div>
+    `,
+  }),
+};
+
+export const LabeledDividers: Story = {
+  name: 'Labeled — Horizontal & Vertical',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Labeled dividers in both orientations. The label is centered between two decorative lines and inherits the divider color. For vertical dividers, the label rotates sideways.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <div style="display:flex;flex-direction:column;gap:48px;padding:24px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:12px;color:#888">orientation="horizontal"</span>
+          <dcx-ng-divider
+            label="Section title"
+            color="${tokens.background.primary}"
+            size="auto"
+          ></dcx-ng-divider>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:12px;color:#888">orientation="vertical" (height constrained by parent)</span>
+          <div style="display:flex;flex-direction:row;height:200px;align-items:stretch;gap:16px;">
+            <p style="margin:0;align-self:center;">Left content</p>
+            <dcx-ng-divider
+              label="or"
+              orientation="vertical"
+              color="${tokens.background.primary}"
+            ></dcx-ng-divider>
+            <p style="margin:0;align-self:center;">Right content</p>
+          </div>
+        </div>
       </div>
     `,
   }),

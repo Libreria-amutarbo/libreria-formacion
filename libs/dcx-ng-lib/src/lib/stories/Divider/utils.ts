@@ -59,4 +59,13 @@ export const argTypesDivider: ArgTypes = {
       defaultValue: { summary: 'default' },
     },
   },
+  label: {
+    control: 'text',
+    description: 'Optional text label rendered centered between two lines. When set, the divider switches to a labeled layout.',
+    table: {
+      category: 'Content',
+      type: { summary: 'string' },
+      defaultValue: { summary: '' },
+    },
+  },
 };
