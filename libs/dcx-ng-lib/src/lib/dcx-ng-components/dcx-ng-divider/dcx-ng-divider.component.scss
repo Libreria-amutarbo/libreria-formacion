@@ -15,26 +15,23 @@
 .dcx-ng-divider {
   margin: 0;
   display: block;
-  border: none;
 }
 
 :host(.horizontal) .dcx-ng-divider {
   width: 100%;
   height: 0;
-  border-top: var(--dcx-divider-thickness, 1px) solid
+  border-top: var(--dcx-divider-thickness, 1px) var(--dcx-divider-style, solid)
     var(--dcx-divider-color, #d1d5db);
-  border-top-style: var(--dcx-divider-style, solid);
 }
 
 :host(.vertical) .dcx-ng-divider {
   height: 100%;
   width: 0;
-  border-left: var(--dcx-divider-thickness, 1px) solid
+  border-left: var(--dcx-divider-thickness, 1px) var(--dcx-divider-style, solid)
     var(--dcx-divider-color, #d1d5db);
-  border-left-style: var(--dcx-divider-style, solid);
 }
 
-:host(.horizontal) .dcx-ng-divider--labeled {
+:host(.horizontal) .dcx-ng-divider.labeled {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -46,12 +43,11 @@
 :host(.horizontal) .dcx-ng-divider__line {
   flex: 1;
   height: 0;
-  border-top: var(--dcx-divider-thickness, 1px) solid
+  border-top: var(--dcx-divider-thickness, 1px) var(--dcx-divider-style, solid)
     var(--dcx-divider-color, #d1d5db);
-  border-top-style: var(--dcx-divider-style, solid);
 }
 
-:host(.vertical) .dcx-ng-divider--labeled {
+:host(.vertical) .dcx-ng-divider.labeled {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,9 +59,8 @@
 :host(.vertical) .dcx-ng-divider__line {
   flex: 1;
   width: 0;
-  border-left: var(--dcx-divider-thickness, 1px) solid
+  border-left: var(--dcx-divider-thickness, 1px) var(--dcx-divider-style, solid)
     var(--dcx-divider-color, #d1d5db);
-  border-left-style: var(--dcx-divider-style, solid);
 }
 
 .dcx-ng-divider__label {

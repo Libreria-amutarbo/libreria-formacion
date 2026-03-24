@@ -1,7 +1,8 @@
 @if (label()) {
   <div
-    class="dcx-ng-divider dcx-ng-divider--labeled"
+    class="dcx-ng-divider labeled"
     role="separator"
+    [attr.aria-orientation]="orientation()"
     [attr.aria-label]="ariaLabelBinding()"
   >
     <span class="dcx-ng-divider__line"></span>
@@ -9,9 +10,10 @@
     <span class="dcx-ng-divider__line"></span>
   </div>
 } @else {
-  <hr
+  <span
     class="dcx-ng-divider"
-    [attr.aria-label]="ariaLabelBinding()"
     role="separator"
-  />
+    [attr.aria-orientation]="orientation()"
+    [attr.aria-label]="ariaLabelBinding()"
+  ></span>
 }
