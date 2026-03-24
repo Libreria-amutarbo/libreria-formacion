@@ -5,6 +5,7 @@ import {
   input,
   output,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 
 import {
   DcxNgIconComponent,
@@ -16,7 +17,7 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
-  imports: [DcxNgIconComponent],
+  imports: [DcxNgIconComponent, NgTemplateOutlet],
   selector: 'dcx-ng-button',
   standalone: true,
   styleUrls: ['./dcx-ng-button.component.scss'],
@@ -30,6 +31,14 @@ export class DcxNgButtonComponent {
   type = input<DcxButtonType>('button');
   disabled = input<boolean>(false);
   pressed = input(false, {
+    transform: (value: boolean | string) =>
+      typeof value === 'string' ? value === '' : value,
+  });
+  hover = input(false, {
+    transform: (value: boolean | string) =>
+      typeof value === 'string' ? value === '' : value,
+  });
+  focused = input(false, {
     transform: (value: boolean | string) =>
       typeof value === 'string' ? value === '' : value,
   });
@@ -47,6 +56,10 @@ export class DcxNgButtonComponent {
       typeof value === 'string' ? value === '' : value,
   });
 
+  // Link
+  href = input<string>('');
+  target = input<string>('');
+
   // Iconos
   icon = input(false, {
     transform: (value: boolean | string) =>
@@ -57,6 +70,7 @@ export class DcxNgButtonComponent {
   iconSpacing = input<DcxIconSpacing>('none');
   iconColor = input<string>('');
   iconPosition = input<DcxIconPosition>('left');
+  iconRightName = input<string>('');
 
   buttonClick = output<{ clicked: boolean }>();
 
@@ -78,6 +92,8 @@ export class DcxNgButtonComponent {
     const iconName = this.iconName();
     const classValue = this.class();
     const pressedValue = this.pressed();
+    const hoverValue = this.hover();
+    const focusedValue = this.focused();
     const checkboxErrorValue = this.checkboxError();
 
     const hasAnyIcon = this.icon() || !!iconName;
@@ -89,6 +105,8 @@ export class DcxNgButtonComponent {
       !labelValue && hasAnyIcon ? `${base}--icon-only` : '',
       iconPositionValue ? `${base}--icon-${iconPositionValue}` : '',
       pressedValue ? `${base}--pressed` : '',
+      hoverValue ? `${base}--hover` : '',
+      focusedValue ? `${base}--focused` : '',
       isCheckboxValue ? `${base}--checkbox` : '',
       isCheckboxValue && checkboxErrorValue
         ? `${base}--checkbox-error--${this.variant()}`

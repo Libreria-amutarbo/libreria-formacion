@@ -56,10 +56,30 @@ const meta: Meta<DcxNgButtonComponent> = {
         },
       },
     },
+    hover: {
+      control: 'boolean',
+      description: 'Estado hover estático del botón',
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    focused: {
+      control: 'boolean',
+      description: 'Estado focus estático del botón',
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
     variant: {
       control: 'select',
       options: BUTTON_VARIANT_LIST,
-      description: 'Estilo visual del botón (primary, secondary, tertiary, etc.)',
+      description: 'Estilo visual del botón (primary, secondary, ghost, danger)',
       table: {
         category: 'Attributes',
         defaultValue: {
@@ -70,7 +90,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     size: {
       control: 'select',
       options: SIZE_LIST,
-      description: 'Tamaño del botón (pequeño, medio, grande, ancho completo)',
+      description: 'Tamaño del botón (s, m, l)',
       table: {
         category: 'Attributes',
         defaultValue: {
@@ -87,7 +107,6 @@ const meta: Meta<DcxNgButtonComponent> = {
         },
       },
     },
-    // Icono (usando dcx-ng-icon internamente)
     iconPosition: {
       control: 'select',
       options: DcxIconPositionList,
@@ -98,7 +117,25 @@ const meta: Meta<DcxNgButtonComponent> = {
       control: 'select',
       options: BOOTSTRAP_ICONS,
       description:
-        'Icono de Bootstrap Icons al final (p.ej. "arrow-right", "chevron-right")',
+        'Icono de Bootstrap Icons (p.ej. "chevron-left", "save")',
+      table: { category: 'Attributes' },
+    },
+    iconRightName: {
+      control: 'select',
+      options: BOOTSTRAP_ICONS,
+      description:
+        'Icono derecho de Bootstrap Icons (p.ej. "chevron-right")',
+      table: { category: 'Attributes' },
+    },
+    href: {
+      control: 'text',
+      description: 'URL del enlace. Si se proporciona, renderiza un <a> en vez de <button>',
+      table: { category: 'Attributes' },
+    },
+    target: {
+      control: 'select',
+      options: ['', '_blank', '_self', '_parent', '_top'],
+      description: 'Target del enlace (solo aplica cuando href está definido)',
       table: { category: 'Attributes' },
     },
     iconSize: {
@@ -124,7 +161,6 @@ const meta: Meta<DcxNgButtonComponent> = {
         defaultValue: { summary: '-' },
       },
     },
-    // class: { control: 'text', table: { category: 'Styling' } },
   },
   args: {
     label: 'Click me',
@@ -132,6 +168,8 @@ const meta: Meta<DcxNgButtonComponent> = {
     type: 'button',
     disabled: false,
     pressed: false,
+    hover: false,
+    focused: false,
     variant: 'primary',
     size: 'm',
     icon: false,
@@ -139,6 +177,9 @@ const meta: Meta<DcxNgButtonComponent> = {
     iconSize: undefined,
     iconSpacing: 'none',
     iconColor: '',
+    iconRightName: '',
+    href: '',
+    target: '',
     buttonClick: ActionsData.buttonClick,
   },
   parameters: {
@@ -150,14 +191,14 @@ export default meta;
 type Story = StoryObj<DcxNgButtonComponent>;
 
 export const Default: Story = {
-  args: { variant: 'primary', label: 'Button' },
+  args: { variant: 'primary', label: 'Default' },
 };
 
 export const Types: Story = {
   render: args => ({
     props: { ...args },
     template: `
-      <form onsubmit="event.preventDefault()" style="display:flex; gap:12px; align-items:center;">
+      <form style="display:flex; gap:12px; align-items:center;">
         <dcx-ng-button label="Submit" type="submit" variant="primary"></dcx-ng-button>
         <dcx-ng-button label="Reset"  type="reset"  variant="primary"></dcx-ng-button>
         <dcx-ng-button label="Button" type="button" variant="primary"></dcx-ng-button>
@@ -170,7 +211,7 @@ export const Disabled: Story = {
   render: args => ({
     props: { ...args },
     template: `
-        <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
+      <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
     `,
   }),
 };
@@ -179,28 +220,11 @@ export const Variants: Story = {
   render: args => ({
     props: { ...args },
     template: `
-     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Primary"  size="m" variant="primary"></dcx-ng-button>
-        <dcx-ng-button label="Medium" size="m" variant="secondary"></dcx-ng-button>
-        <dcx-ng-button label="Terciary"  size="m" variant="terciary"></dcx-ng-button>
-        <dcx-ng-button size="m" variant="icon-only" icon iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
-        <dcx-ng-button label="Text"  size="m" variant="text"></dcx-ng-button>
-    </div>
-       
-       
-    `,
-  }),
-};
-
-export const Sizes: Story = {
-  render: args => ({
-    props: { ...args },
-    template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Small"  size="s" variant="primary" iconPosition="check"></dcx-ng-button>
-        <dcx-ng-button label="Medium" size="m" variant="primary" iconEnd="check"></dcx-ng-button>
-        <dcx-ng-button label="Large"  size="l" variant="primary" iconPosition="check"></dcx-ng-button>
-         <dcx-ng-button label="Block"  size="block" variant="primary" iconPosition="check"></dcx-ng-button>
+        <dcx-ng-button label="Primary"   size="m" variant="primary"></dcx-ng-button>
+        <dcx-ng-button label="Secondary" size="m" variant="secondary"></dcx-ng-button>
+        <dcx-ng-button label="Terciary"  size="m" variant="terciary"></dcx-ng-button>
+        <dcx-ng-button label="Danger"    size="m" variant="danger"></dcx-ng-button>
       </div>
     `,
   }),
@@ -211,49 +235,133 @@ export const WithIcons: Story = {
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Guardar"  size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Guardar"   size="m" variant="primary" icon iconName="save"        iconPosition="left" iconSize="m"></dcx-ng-button>
         <dcx-ng-button label="Siguiente" size="m" variant="primary" icon iconName="arrow-right" iconPosition="left" iconSize="m"></dcx-ng-button>
       </div>
     `,
   }),
 };
 
-export const IconsButtonPositions: Story = {
+export const StatesPrimary: Story = {
+  name: 'Estados — Primary',
   render: args => ({
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Left"  size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
-        <dcx-ng-button label="Top" size="m" variant="primary" icon iconName="save" iconPosition="top" iconSize="m"></dcx-ng-button>
-         <dcx-ng-button label="Right" size="m" variant="primary" icon iconName="save" iconPosition="right" iconSize="m"></dcx-ng-button>
-          <dcx-ng-button label="Bottom" size="m" variant="primary" icon iconName="save" iconPosition="bottom" iconSize="m"></dcx-ng-button>
+        <dcx-ng-button label="Default"  size="m" variant="primary"></dcx-ng-button>
+        <dcx-ng-button label="Hover"    size="m" variant="primary" hover></dcx-ng-button>
+        <dcx-ng-button label="Pressed"  size="m" variant="primary" pressed></dcx-ng-button>
+        <dcx-ng-button label="Focus"    size="m" variant="primary" focused></dcx-ng-button>
+        <dcx-ng-button label="Disabled" size="m" variant="primary" [disabled]="true"></dcx-ng-button>
       </div>
     `,
   }),
 };
 
-export const IconsButtonSizes: Story = {
+export const StatesSecondary: Story = {
+  name: 'Estados — Secondary',
   render: args => ({
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Small"  size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="s"></dcx-ng-button>
-        <dcx-ng-button label="Medium" size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="m"></dcx-ng-button>
-         <dcx-ng-button label="Large" size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="l"></dcx-ng-button>
-          <dcx-ng-button label="Extra large" size="m" variant="primary" icon iconName="save" iconPosition="left" iconSize="xl"></dcx-ng-button>
+        <dcx-ng-button label="Default"  size="m" variant="secondary"></dcx-ng-button>
+        <dcx-ng-button label="Hover"    size="m" variant="secondary" hover></dcx-ng-button>
+        <dcx-ng-button label="Pressed"  size="m" variant="secondary" pressed></dcx-ng-button>
+        <dcx-ng-button label="Focus"    size="m" variant="secondary" focused></dcx-ng-button>
+        <dcx-ng-button label="Disabled" size="m" variant="secondary" [disabled]="true"></dcx-ng-button>
       </div>
     `,
   }),
 };
 
-export const PressedStates: Story = {
+export const StatesTerciary: Story = {
+  name: 'Estados — Terciary',
   render: args => ({
     props: { ...args },
     template: `
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Primary Pressed" size="m" variant="primary" pressed></dcx-ng-button>
-        <dcx-ng-button label="Secondary Pressed" size="m" variant="secondary"></dcx-ng-button>
-        <dcx-ng-button label="Terciary Pressed" size="m" variant="terciary"></dcx-ng-button>
+        <dcx-ng-button label="Default"  size="m" variant="terciary"></dcx-ng-button>
+        <dcx-ng-button label="Hover"    size="m" variant="terciary" hover></dcx-ng-button>
+        <dcx-ng-button label="Pressed"  size="m" variant="terciary" pressed></dcx-ng-button>
+        <dcx-ng-button label="Focus"    size="m" variant="terciary" focused></dcx-ng-button>
+        <dcx-ng-button label="Disabled" size="m" variant="terciary" [disabled]="true"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const StatesDanger: Story = {
+  name: 'Estados — Danger',
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Default"  size="m" variant="danger"></dcx-ng-button>
+        <dcx-ng-button label="Hover"    size="m" variant="danger" hover></dcx-ng-button>
+        <dcx-ng-button label="Pressed"  size="m" variant="danger" pressed></dcx-ng-button>
+        <dcx-ng-button label="Focus"    size="m" variant="danger" focused></dcx-ng-button>
+        <dcx-ng-button label="Disabled" size="m" variant="danger" [disabled]="true"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const VariantsLarge: Story = {
+  name: 'Variantes — Large',
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Button" size="l" variant="primary"   icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+        <dcx-ng-button label="Button" size="l" variant="secondary" icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+        <dcx-ng-button label="Button" size="l" variant="terciary"  icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+        <dcx-ng-button label="Button" size="l" variant="danger"    icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const VariantsMedium: Story = {
+  name: 'Variantes — Medium',
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Button" size="m" variant="primary"   icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+        <dcx-ng-button label="Button" size="m" variant="secondary" icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+        <dcx-ng-button label="Button" size="m" variant="terciary"  icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+        <dcx-ng-button label="Button" size="m" variant="danger"    icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const VariantsSmall: Story = {
+  name: 'Variantes — Small',
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Button" size="s" variant="primary"   icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+        <dcx-ng-button label="Button" size="s" variant="secondary" icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+        <dcx-ng-button label="Button" size="s" variant="terciary"  icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+        <dcx-ng-button label="Button" size="s" variant="danger"    icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const AsLink: Story = {
+  name: 'Botón como enlace',
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Enlace Primary"   variant="primary"   href="https://angular.dev" target="_blank"></dcx-ng-button>
+        <dcx-ng-button label="Enlace Secondary" variant="secondary" href="https://angular.dev" target="_blank"></dcx-ng-button>
+        <dcx-ng-button label="Enlace Terciary"  variant="terciary"  href="https://angular.dev" target="_blank"></dcx-ng-button>
+        <dcx-ng-button label="Enlace Danger"    variant="danger"    href="https://angular.dev" target="_blank"></dcx-ng-button>
+        <dcx-ng-button label="Enlace Disabled"  variant="primary"   href="https://angular.dev" [disabled]="true"></dcx-ng-button>
       </div>
     `,
   }),
