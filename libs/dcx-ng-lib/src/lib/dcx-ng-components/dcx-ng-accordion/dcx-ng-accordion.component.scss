@@ -57,6 +57,11 @@
         background-color: var(--bg-default, #ffffff);
         color: var(--text-disabled, #696e75);
         opacity: 0.45;
+
+        .accordion-icon,
+        .accordion-chevron {
+          color: var(--text-disabled, #696e75);
+        }
       }
     }
 
@@ -105,7 +110,7 @@
       .accordion-icon {
         flex-shrink: 0;
         margin-right: var(--sp-2, 8px);
-        color: var(--text-muted, #696e75);
+        color: var(--bg-primary, #0058ab);
         width: var(--sp-5, 20px);
         height: var(--sp-5, 20px);
         display: flex;
@@ -121,7 +126,7 @@
 
       .accordion-chevron {
         flex-shrink: 0;
-        color: var(--text-muted, #696e75);
+        color: var(--bg-primary, #0058ab);
         transform: rotate(0deg);
         width: var(--sp-5, 20px);
         height: var(--sp-5, 20px);
