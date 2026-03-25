@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  font-family: var(--ff-base, 'Inter', sans-serif);
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4, 16px);
+
+  strong {
+    margin-right: var(--sp-1, 4px);
+  }
+}
+
+.divider {
+  margin: var(--sp-5, 20px) 0;
+}

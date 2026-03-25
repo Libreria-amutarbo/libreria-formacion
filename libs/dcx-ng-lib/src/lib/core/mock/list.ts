@@ -62,11 +62,11 @@ export const MIXED_LIST_ITEMS: DcxListItem[] = [
   { text: '2025' },
 ];
 
-export const LIST_ITEMS_WITH_ICONS_ALT = [
-  { text: 'Dashboard', icon: 'speedometer' },
-  { text: 'Usuarios', icon: 'people' },
-  { text: 'Ajustes', icon: 'gear-fill' },
-  { text: 'Notificaciones', icon: 'bell-fill' },
+export const LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION: DcxListItem[] = [
+  { text: 'Dashboard', icon: 'speedometer', description: 'Overview of metrics' },
+  { text: 'Usuarios', icon: 'people', description: 'Manage users' },
+  { text: 'Ajustes', icon: 'gear-fill', description: 'System settings' },
+  { text: 'Notificaciones', icon: 'bell-fill', description: 'View notifications' },
 ];
 
 export const MULTI_SELECT_LIST_ITEMS = [

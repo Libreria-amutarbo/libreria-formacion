@@ -80,9 +80,8 @@ ul {
   display: block;
   font-size: var(--fs-sm, 12px);
   color: var(--text-muted, #696e75);
-  margin-top: 1px;
+  margin-top: 5px;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 
