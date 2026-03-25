@@ -68,10 +68,8 @@ export const Selectable: Story = {
     props: {
       items: SELECTABLE_LIST_ITEMS,
       selectedItem: null as any,
-      onItemSelected(event: any) {
-        this['selectedItem'] = event;
-        console.log('Item selected:', event);
-      }
+      onItemSelected(event: any) { this['selectedItem'] = event; },
+      onItemDeselected(_event: any) { this['selectedItem'] = null; }
     },
     template: `
       <div>
@@ -79,7 +77,8 @@ export const Selectable: Story = {
         <dcx-ng-list 
           [items]="items" 
           [selectable]="true"
-          (itemSelected)="onItemSelected($event)">
+          (itemSelected)="onItemSelected($event)"
+          (itemDeselected)="onItemDeselected($event)">
         </dcx-ng-list>
         @if (selectedItem) {
           <div>
@@ -97,11 +96,10 @@ export const MultiSelectable: Story = {
       items: MULTI_SELECT_LIST_ITEMS,
       selectedItems: [] as any[],
       onItemSelected(event: any) {
-        const exists = this['selectedItems'].find((item: any) => item.index === event.index);
-        if (!exists) {
-          this['selectedItems'] = [...this['selectedItems'], event];
-        }
-        console.log('Item selected:', event);
+        this['selectedItems'] = [...this['selectedItems'], event];
+      },
+      onItemDeselected(event: any) {
+        this['selectedItems'] = this['selectedItems'].filter((i: any) => i.index !== event.index);
       }
     },
     template: `
@@ -111,7 +109,8 @@ export const MultiSelectable: Story = {
           [items]="items" 
           [selectable]="true"
           [multiSelect]="true"
-          (itemSelected)="onItemSelected($event)">
+          (itemSelected)="onItemSelected($event)"
+          (itemDeselected)="onItemDeselected($event)">
         </dcx-ng-list>
         @if (selectedItems.length > 0) {
           <div>

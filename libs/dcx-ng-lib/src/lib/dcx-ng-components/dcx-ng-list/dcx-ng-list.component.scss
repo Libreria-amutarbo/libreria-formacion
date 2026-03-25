@@ -21,7 +21,7 @@ ul {
   }
 
   &.disabled {
-    opacity: .45;
+    opacity: 0.45;
     cursor: not-allowed;
     pointer-events: none;
   }
@@ -31,7 +31,7 @@ ul {
     align-items: center;
     gap: var(--sp-3, 12px);
     padding: var(--sp-3, 12px) var(--sp-4, 16px);
-    transition: background .15s;
+    transition: background 0.15s;
   }
 
   &:hover .dcx-list-item-content {
@@ -46,10 +46,9 @@ ul {
 
     &.selected > .dcx-list-item-content {
       background: var(--color-info-bg, #eff6ff);
-    }
-
-    &.selected:hover > .dcx-list-item-content {
-      background: var(--color-info-bg, #eff6ff);
+      .dcx-list-icon {
+        color: var(--color-info, #0058ab);
+      }
     }
   }
 }
@@ -101,11 +100,8 @@ ul {
 }
 
 .dcx-list-nested {
-  margin-left: var(--sp-6, 24px);
-
-  ul {
-    padding-left: 0;
-  }
+  margin: var(--sp-2, 8px);
+  background: transparent;
 }
 
 :host-context(.dcx-context-menu) {
@@ -147,7 +143,7 @@ ul {
     background: var(--bg-default);
     border: 1px solid var(--border-light);
     border-radius: var(--r-md, 6px);
-    box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,.08));
+    box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
     padding: var(--sp-1, 4px) 0;
     display: none;
     z-index: 10000;
