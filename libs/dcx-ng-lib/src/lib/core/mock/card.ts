@@ -57,4 +57,5 @@ export const DEFAULTARGS = {
   size: SIZE_DEFAULT,
   subtitle: SUBTITLE,
   title: TITLE_DEFAULT,
+  accent: ACCENT,
 };

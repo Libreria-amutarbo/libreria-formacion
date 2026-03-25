@@ -25,6 +25,7 @@ import * as Stories from './card.stories';
 | `disabled`    | `boolean`                    | Bloquea la card.                     |
 | `bordered`    | `boolean`                    | Añade borde.                         |
 | `borderWidth` | `number`                     | Ancho del borde en px.               |
+| `accent`      | `boolean`                    | Aplica color de acento al borde.     |
 | `header`      | `TemplateRef<any>`           | Template personalizado para header.  |
 | `content`     | `TemplateRef<any>`           | Template personalizado para content. |
 | `footer`      | `TemplateRef<any>`           | Template personalizado para footer.  |
@@ -39,10 +40,42 @@ import * as Stories from './card.stories';
 
 ---
 
+## Card de perfil (ProfileCard)
+
+<Canvas>
+  <Story of={Stories.ProfileCard} />
+</Canvas>
+
+---
+
+## Card de proyecto (ProjectCard)
+
+<Canvas>
+  <Story of={Stories.ProjectCard} />
+</Canvas>
+
+---
+
+## Card KPI (KpiCard)
+
+<Canvas>
+  <Story of={Stories.KpiCard} />
+</Canvas>
+
+---
+
+## Card con etiquetas (LabelCard)
+
+<Canvas>
+  <Story of={Stories.LabelCard} />
+</Canvas>
+
+---
+
 ## Card con slots y borderWidth 4px
 
 <Canvas>
-  <Story of={Stories.WithSlots} />
+  <Story of={Stories.WithSlotsVertical} />
 </Canvas>
 
 ---
@@ -50,5 +83,5 @@ import * as Stories from './card.stories';
 ## Card deshabilitada
 
 <Canvas>
-  <Story of={Stories.Disabled} />
+  <Story of={Stories.DisabledCard} />
 </Canvas>

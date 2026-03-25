@@ -4,8 +4,8 @@
     <div class="card-header-row">
       <div class="avatar">MG</div>
       <div>
-        <div class="card-name">María García</div>
-        <div class="card-role">Cloud Architect · Madrid</div>
+        <div class="title">María García</div>
+        <div class="subtitle">Cloud Architect · Madrid</div>
       </div>
     </div>
   </ng-template>
@@ -48,23 +48,26 @@
 
   <ng-template #headerProjectTpl>
     <div class="card-header-row space-between">
-      <div class="card-title">Cloud Migration</div>
-      <span class="badge badge-green">Activo</span>
+      <div class="title">Cloud Migration</div>
+      <dcx-ng-chip label="Activo" size="s" color="success"></dcx-ng-chip>
     </div>
   </ng-template>
 
   <ng-template #contentProjectTpl>
-    <p class="card-desc">
+    <p style="margin-top: 0.5rem;color: #696e75;">
       Migración de infraestructura on-premise a Azure para BNP Paribas.
     </p>
-
     <div class="progress-header">
       <span>Progreso</span>
       <span>82%</span>
     </div>
-    <div class="progress-track">
-      <div class="progress-fill" style="width: 82%"></div>
-    </div>
+    <dcx-ng-slider
+      class="content-project-slider"
+      [showLabel]="false"
+      [value]="82"
+      [min]="0"
+      [max]="100"
+    ></dcx-ng-slider>
   </ng-template>
 
   <ng-template #footerProjectTpl>
@@ -129,18 +132,18 @@
 <div class="section-label">Card con etiquetas y acciones</div>
 <div class="grid-2">
   <ng-template #headerTags1Tpl>
-    <div class="card-title">SAP S/4HANA · Airbus</div>
+    <div class="title">SAP S/4HANA · Airbus</div>
+    <div class="subtitle">
+      Implementación de módulos FI/CO y MM en Airbus, incluyendo migración de
+      datos históricos.
+    </div>
   </ng-template>
 
   <ng-template #contentTags1Tpl>
-    <p class="card-desc">
-      Implementación de módulos FI/CO y MM en Airbus, incluyendo migración de
-      datos históricos.
-    </p>
     <div class="tags">
-      <span class="badge badge-blue">SAP</span>
-      <span class="badge badge-gray">Finanzas</span>
-      <span class="badge badge-yellow">En revisión</span>
+      <dcx-ng-chip label="SAP" size="s" color="primary"></dcx-ng-chip>
+      <dcx-ng-chip label="Finanzas" size="s" color="secondary"></dcx-ng-chip>
+      <dcx-ng-chip label="En revisión" size="s" color="warning"></dcx-ng-chip>
     </div>
   </ng-template>
 
@@ -175,18 +178,18 @@
   ></dcx-ng-card>
 
   <ng-template #headerTags2Tpl>
-    <div class="card-title">Data Platform · Renault</div>
+    <div class="title">Data Platform · Renault</div>
+    <div class="subtitle">
+      Construcción de una plataforma centralizada de datos en Azure Synapse para
+      operaciones.
+    </div>
   </ng-template>
 
   <ng-template #contentTags2Tpl>
-    <p class="card-desc">
-      Construcción de una plataforma centralizada de datos en Azure Synapse para
-      operaciones.
-    </p>
     <div class="tags">
-      <span class="badge badge-blue">Data & AI</span>
-      <span class="badge badge-gray">Azure</span>
-      <span class="badge badge-green">Planificado</span>
+      <dcx-ng-chip label="Data & AI" size="s" color="primary"></dcx-ng-chip>
+      <dcx-ng-chip label="Azure" size="s" color="secondary"></dcx-ng-chip>
+      <dcx-ng-chip label="Planificado" size="s" color="success"></dcx-ng-chip>
     </div>
   </ng-template>
 

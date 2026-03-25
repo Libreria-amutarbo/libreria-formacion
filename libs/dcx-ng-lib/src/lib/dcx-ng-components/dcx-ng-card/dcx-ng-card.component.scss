@@ -2,7 +2,7 @@
 @use '../../../scss/utils' as utils;
 
 .dcx-card {
-  font-family: var(--font-family-primary);
+  font-family: var(--ff-base, 'Inter', sans-serif);
   display: block;
   background: transparent;
   border: none;
@@ -26,8 +26,7 @@
 .card-inner {
   display: flex;
   flex-direction: column;
-  gap: var(--card-gap);
-
+  gap: var(--sp-4, 16px);
   background: var(--background-default);
   border-style: var(--card-border-style);
   border-color: var(--border-primary);
@@ -35,20 +34,18 @@
   border-radius: var(--card-radius);
   padding: var(--card-padding);
 
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-  position: relative;
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
 
   width: 100%;
-  max-width: var(--card-max-content-width);
+  max-width: var(--card-max-content-width, 420px);
 
   &.layout-vertical {
     flex-direction: column;
   }
   &.layout-horizontal {
     flex-direction: row;
-    align-items: center;
-    gap: var(--card-gap);
+    align-items: stretch;
+    gap: var(--sp-4, 16px);
   }
 
   &.size-s {
@@ -88,21 +85,30 @@
 }
 
 .image-container {
-  @include utils.flex-center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
 }
 .image-container img {
   display: block;
   width: 100%;
-  max-width: var(--card-max-image-width);
+  max-width: var(--card-max-image-width, 180px);
   border-radius: 6px;
+  object-fit: cover;
 }
 
 .card-inner.layout-horizontal .image-container {
   flex: 0 0 auto;
+  max-width: var(--card-max-image-width, 180px);
+  margin-right: var(--sp-4, 16px);
 }
 .card-inner.layout-horizontal .card-body {
-  flex: 1 1 auto;
+  flex: 1 1 0%;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .card-inner.accent-top::before {
   content: '';
@@ -113,8 +119,8 @@
   height: 3px;
   background: linear-gradient(
     90deg,
-    var(--background-primary, #0058ab),
-    var(--color-primary, #1db8f2)
+    var(--bg-primary, #0058ab),
+    var(--color-success, #16a34a)
   );
   border-top-left-radius: var(--card-radius);
   border-top-right-radius: var(--card-radius);
@@ -149,29 +155,29 @@
 
   .title {
     margin: 0 0 0.5rem 0;
-    font-size: var(--font-size-h3);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--fs-lg, 18px);
+    font-weight: var(--fw-semibold, 600);
   }
   .subtitle {
     margin: 0;
-    font-size: var(--font-size-body);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--fs-base, 14px);
+    color: var(--text-muted, #696e75);
+    font-weight: var(--fw-regular, 400);
   }
 
   .card-header ::ng-deep h3,
   .card-header ::ng-deep .title {
     margin: 0 0 0.5rem 0;
-    font-size: var(--font-size-h3);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--fs-lg, 18px);
+    font-weight: var(--fw-semibold, 600);
   }
   .card-header ::ng-deep p,
   .card-header ::ng-deep .subtitle {
     margin: 0;
-    font-family: var(--font-family-primary);
-    font-size: var(--font-size-body);
-    color: #696e75;
-    font-weight: 400;
+    font-family: var(--ff-base, 'Inter', sans-serif);
+    font-size: var(--fs-base, 14px);
+    color: var(--text-muted, #696e75);
+    font-weight: var(--fw-regular, 400);
   }
 }
 
@@ -209,5 +215,5 @@
 }
 
 .dcx-card.interactive:not(.disabled) .card-inner:hover {
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
 }

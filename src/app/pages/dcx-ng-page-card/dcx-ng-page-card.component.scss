@@ -25,12 +25,6 @@
   color: #000;
 }
 
-.divider {
-  border: 0;
-  border-top: 1px solid var(--border-default, #e5e7eb);
-  margin: 0 0 2rem;
-}
-
 .section-label {
   margin: 0 0 1rem;
   font-size: 15px;
@@ -38,6 +32,10 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #9ca3af;
+}
+.content-project-slider {
+  margin-bottom: 0.25rem;
+  width: 100%;
 }
 
 .grid {
@@ -103,13 +101,6 @@ dcx-ng-card {
   color: var(--content-default, #2a2e33);
 }
 
-.card-desc {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--content-subtle, #696e75);
-}
-
 .card-hr {
   border: 0;
   border-top: 1px solid var(--border-default, #e5e7eb);
@@ -118,7 +109,7 @@ dcx-ng-card {
 
 .stat-row {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .stat {
@@ -143,58 +134,18 @@ dcx-ng-card {
   color: var(--content-subtle, #696e75);
 }
 
-.badge {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.badge-blue {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.badge-green {
-  background: #f0fdf4;
-  color: #16a34a;
-}
-
-.badge-yellow {
-  background: #fffbeb;
-  color: #d97706;
-}
-
-.badge-gray {
-  background: #f3f4f6;
-  color: #374151;
-}
-
 .progress-header {
   margin: 0.75rem 0 0.25rem;
   display: flex;
   justify-content: space-between;
   font-size: 12px;
   color: var(--content-subtle, #696e75);
+  width: 100%;
 
   span:last-child {
     color: var(--background-primary, #0058ab);
     font-weight: 600;
   }
-}
-
-.progress-track {
-  height: 4px;
-  background: #e5e7eb;
-  border-radius: 2px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  border-radius: 2px;
-  background: var(--background-primary, #0058ab);
 }
 
 .kpi-eyebrow {
