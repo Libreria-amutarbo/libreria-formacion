@@ -127,17 +127,6 @@ const meta: Meta<DcxNgButtonComponent> = {
         'Icono derecho de Bootstrap Icons (p.ej. "chevron-right")',
       table: { category: 'Attributes' },
     },
-    href: {
-      control: 'text',
-      description: 'URL del enlace. Si se proporciona, renderiza un <a> en vez de <button>',
-      table: { category: 'Attributes' },
-    },
-    target: {
-      control: 'select',
-      options: ['', '_blank', '_self', '_parent', '_top'],
-      description: 'Target del enlace (solo aplica cuando href está definido)',
-      table: { category: 'Attributes' },
-    },
     iconSize: {
       control: 'select',
       options: ['s', 'm', 'l', 'xl'],
@@ -178,8 +167,6 @@ const meta: Meta<DcxNgButtonComponent> = {
     iconSpacing: 'none',
     iconColor: '',
     iconRightName: '',
-    href: '',
-    target: '',
     buttonClick: ActionsData.buttonClick,
   },
   parameters: {
@@ -346,22 +333,6 @@ export const VariantsSmall: Story = {
         <dcx-ng-button label="Button" size="s" variant="secondary" icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
         <dcx-ng-button label="Button" size="s" variant="terciary"  icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
         <dcx-ng-button label="Button" size="s" variant="danger"    icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-      </div>
-    `,
-  }),
-};
-
-export const AsLink: Story = {
-  name: 'Botón como enlace',
-  render: args => ({
-    props: { ...args },
-    template: `
-      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-        <dcx-ng-button label="Enlace Primary"   variant="primary"   href="https://angular.dev" target="_blank"></dcx-ng-button>
-        <dcx-ng-button label="Enlace Secondary" variant="secondary" href="https://angular.dev" target="_blank"></dcx-ng-button>
-        <dcx-ng-button label="Enlace Terciary"  variant="terciary"  href="https://angular.dev" target="_blank"></dcx-ng-button>
-        <dcx-ng-button label="Enlace Danger"    variant="danger"    href="https://angular.dev" target="_blank"></dcx-ng-button>
-        <dcx-ng-button label="Enlace Disabled"  variant="primary"   href="https://angular.dev" [disabled]="true"></dcx-ng-button>
       </div>
     `,
   }),

@@ -6,16 +6,6 @@
   font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
-a.dcx-ng-button {
-  text-decoration: underline;
-
-  &--disabled-link {
-    pointer-events: none;
-    cursor: not-allowed;
-    opacity: 1;
-  }
-}
-
 .dcx-ng-button {
   margin: 0;
   background: none;

@@ -6,7 +6,6 @@ import {
   output,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-
 import {
   DcxNgIconComponent,
   DcxButtonType,
@@ -55,10 +54,6 @@ export class DcxNgButtonComponent {
     transform: (value: boolean | string) =>
       typeof value === 'string' ? value === '' : value,
   });
-
-  // Link
-  href = input<string>('');
-  target = input<string>('');
 
   // Iconos
   icon = input(false, {

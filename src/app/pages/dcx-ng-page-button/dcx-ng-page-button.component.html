@@ -150,13 +150,17 @@
 <section>
   <h2 class="example-title">Ejemplo 13 - Botón como enlace</h2>
   <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Enlace Primary" variant="primary" href="https://angular.dev" target="_blank"></dcx-ng-button>
-    <dcx-ng-button label="Enlace Secondary" variant="secondary" href="https://angular.dev"
-      target="_blank"></dcx-ng-button>
-    <dcx-ng-button label="Enlace Terciary" variant="terciary" href="https://angular.dev"
-      target="_blank"></dcx-ng-button>
-    <dcx-ng-button label="Enlace Danger" variant="danger" href="https://angular.dev" target="_blank"></dcx-ng-button>
-    <dcx-ng-button label="Enlace Disabled" variant="primary" href="https://angular.dev"
-      [disabled]="true"></dcx-ng-button>
+    <a href="https://angular.dev" target="_blank">
+      <dcx-ng-button label="Enlace Primary" variant="primary"></dcx-ng-button>
+    </a>
+    <a href="https://angular.dev" target="_blank">
+      <dcx-ng-button label="Enlace Secondary" variant="secondary"></dcx-ng-button>
+    </a>
+    <a href="https://angular.dev" target="_blank">
+      <dcx-ng-button label="Enlace Terciary" variant="terciary"></dcx-ng-button>
+    </a>
+    <a href="https://angular.dev" target="_blank">
+      <dcx-ng-button label="Enlace Danger" variant="danger"></dcx-ng-button>
+    </a>
   </article>
 </section>
