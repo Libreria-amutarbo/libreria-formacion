@@ -1,12 +1,13 @@
-import { Meta, StoryObj } from '@storybook/angular';
 import {
+  DcxListItem,
   DcxNgListComponent,
   LIST_ITEMS_WITH_ICONS,
   LIST_ITEMS_WITH_SUBLISTS,
-  SELECTABLE_LIST_ITEMS,
-  SIMPLE_LIST_ITEMS,
   MULTI_SELECT_LIST_ITEMS,
+  SELECTABLE_LIST_ITEMS,
+  SIMPLE_LIST_ITEMS
 } from '@dcx-ng-components/dcx-ng-lib';
+import { Meta, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgListComponent> = {
   title: 'DCXLibrary/Components/List',
@@ -22,6 +23,30 @@ const meta: Meta<DcxNgListComponent> = {
     selectable: false,
     multiSelect: false,
   },
+  decorators: [
+    story => {
+      const sc = story();
+
+      return {
+        template: `
+        <div class="story-wrapper">
+          ${sc.template}
+        </div>
+      `,
+        props: sc.props,
+        styles: [
+          `
+        .story-wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          font-family: 'Inter', sans-serif;
+        }
+        `,
+        ],
+      };
+    },
+  ],
 };
 
 export default meta;
@@ -31,13 +56,11 @@ export const Simple: Story = {
   render: args => ({
     props: args,
     template: `
-      <div class="story">
         <h3>Lista simple sin iconos</h3>
         <dcx-ng-list [items]="items" [selectable]="selectable" [multiSelect]="multiSelect"></dcx-ng-list>
         <div>
           Total items: <strong>{{ items?.length ?? 0 }}</strong>
         </div>
-      </div>
     `,
     styleUrls: ['story.scss'],
   }),
@@ -49,11 +72,9 @@ export const WithIcons: Story = {
       items: LIST_ITEMS_WITH_ICONS,
     },
     template: `
-      <div>
-        <h3>Lista con iconos</h3>
-        <dcx-ng-list [items]="items"></dcx-ng-list>
-      </div>
-    `,
+      <h3>Lista con iconos</h3>
+      <dcx-ng-list [items]="items"></dcx-ng-list>
+  `,
   }),
 };
 
@@ -63,10 +84,8 @@ export const WithSubLists: Story = {
       items: LIST_ITEMS_WITH_SUBLISTS,
     },
     template: `
-      <div>
-        <h3>Lista con sublistas</h3>
-        <dcx-ng-list [items]="items"></dcx-ng-list>
-      </div>
+      <h3>Lista con sublistas</h3>
+      <dcx-ng-list [items]="items"></dcx-ng-list>
     `,
   }),
 };
@@ -84,20 +103,18 @@ export const Selectable: Story = {
       },
     },
     template: `
-      <div>
-        <h3>Lista seleccionable</h3>
-        <dcx-ng-list 
-          [items]="items" 
-          [selectable]="true"
-          (itemSelected)="onItemSelected($event)"
-          (itemDeselected)="onItemDeselected($event)">
-        </dcx-ng-list>
-        @if (selectedItem) {
-          <div>
-            <strong>Seleccionado:</strong> {{ selectedItem.item.text || selectedItem.item }} (index: {{ selectedItem.index }})
-          </div>
-        }
-      </div>
+      <h3>Lista seleccionable</h3>
+      <dcx-ng-list 
+        [items]="items" 
+        [selectable]="true"
+        (itemSelected)="onItemSelected($event)"
+        (itemDeselected)="onItemDeselected($event)">
+      </dcx-ng-list>
+      @if (selectedItem) {
+        <div>
+          <strong>Seleccionado:</strong> {{ selectedItem.item.text || selectedItem.item }} (index: {{ selectedItem.index }})
+        </div>
+      }
     `,
   }),
 };
@@ -106,35 +123,32 @@ export const MultiSelectable: Story = {
   render: () => ({
     props: {
       items: MULTI_SELECT_LIST_ITEMS,
-      selectedItems: [] as any[],
-      onItemSelected(event: any) {
-        this['selectedItems'] = [...this['selectedItems'], event];
-      },
-      onItemDeselected(event: any) {
-        this['selectedItems'] = this['selectedItems'].filter(
-          (i: any) => i.index !== event.index,
-        );
+      selected: [] as { item: DcxListItem; index: number }[],
+      onSelectionChanged($event: { item: DcxListItem; index: number }[]) {
+        this['selected'] = $event;
       },
     },
     template: `
-      <div>
+        <style>
+          strong {margin-right: 10px};
+        </style>
+
         <h3>Lista con multiselección</h3>
-        <dcx-ng-list 
+        <dcx-ng-list
           [items]="items" 
           [selectable]="true"
           [multiSelect]="true"
-          (itemSelected)="onItemSelected($event)"
-          (itemDeselected)="onItemDeselected($event)">
+          (selectionChanged)="onSelectionChanged($event)">
         </dcx-ng-list>
-        @if (selectedItems.length > 0) {
-          <div>
-            <strong>Seleccionados ({{ selectedItems.length }}):</strong>
-            @for (selected of selectedItems; track selected.index) {
-              <span>{{ selected.item.text }}</span>{{ $last ? '' : ', ' }}
+        @if (selected.length > 0) {
+          <div class="selected">
+            <strong>Seleccionados ({{ selected.length }}):</strong>
+            @for (selected of selected; track selected.index) {
+              <dcx-ng-chip [label]="selected.item.text"></dcx-ng-chip>
+              <span>{{ $last ? '' : ', ' }}</span>
             }
           </div>
         }
-      </div>
     `,
   }),
 };
