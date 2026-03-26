@@ -98,6 +98,7 @@ export class DcxNgPageAccordionComponent implements AfterViewInit {
         },
       ];
       this.cdr.detectChanges();
+      console.log('Hola mundo');
     });
   }
 }
