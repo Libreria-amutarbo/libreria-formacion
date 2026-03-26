@@ -1,6 +1,12 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_SUBLISTS, SELECTABLE_LIST_ITEMS, SIMPLE_LIST_ITEMS, MULTI_SELECT_LIST_ITEMS } from '@dcx-ng-components/dcx-ng-lib';
-
+import {
+  DcxNgListComponent,
+  LIST_ITEMS_WITH_ICONS,
+  LIST_ITEMS_WITH_SUBLISTS,
+  SELECTABLE_LIST_ITEMS,
+  SIMPLE_LIST_ITEMS,
+  MULTI_SELECT_LIST_ITEMS,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgListComponent> = {
   title: 'DCXLibrary/Components/List',
@@ -14,6 +20,7 @@ const meta: Meta<DcxNgListComponent> = {
   args: {
     items: SIMPLE_LIST_ITEMS,
     selectable: false,
+    multiSelect: false,
   },
 };
 
@@ -22,16 +29,17 @@ type Story = StoryObj<DcxNgListComponent>;
 
 export const Simple: Story = {
   render: args => ({
-    props: { ...args },
+    props: args,
     template: `
-      <div>
+      <div class="story">
         <h3>Lista simple sin iconos</h3>
-        <dcx-ng-list [items]="items"></dcx-ng-list>
+        <dcx-ng-list [items]="items" [selectable]="selectable" [multiSelect]="multiSelect"></dcx-ng-list>
         <div>
           Total items: <strong>{{ items?.length ?? 0 }}</strong>
         </div>
       </div>
     `,
+    styleUrls: ['story.scss'],
   }),
 };
 
@@ -68,8 +76,12 @@ export const Selectable: Story = {
     props: {
       items: SELECTABLE_LIST_ITEMS,
       selectedItem: null as any,
-      onItemSelected(event: any) { this['selectedItem'] = event; },
-      onItemDeselected(_event: any) { this['selectedItem'] = null; }
+      onItemSelected(event: any) {
+        this['selectedItem'] = event;
+      },
+      onItemDeselected(_event: any) {
+        this['selectedItem'] = null;
+      },
     },
     template: `
       <div>
@@ -99,8 +111,10 @@ export const MultiSelectable: Story = {
         this['selectedItems'] = [...this['selectedItems'], event];
       },
       onItemDeselected(event: any) {
-        this['selectedItems'] = this['selectedItems'].filter((i: any) => i.index !== event.index);
-      }
+        this['selectedItems'] = this['selectedItems'].filter(
+          (i: any) => i.index !== event.index,
+        );
+      },
     },
     template: `
       <div>
