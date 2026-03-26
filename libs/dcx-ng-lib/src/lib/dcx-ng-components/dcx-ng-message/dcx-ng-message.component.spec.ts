@@ -78,4 +78,10 @@ describe('DcxNgMessageComponent', () => {
     fixture.detectChanges();
     expect(component.link()).toBe('https://example.com');
   });
+
+  it('should accept iconName input', () => {
+    fixture.componentRef.setInput('iconName', 'x-circle');
+    fixture.detectChanges();
+    expect(component.iconName()).toBe('x-circle');
+  });
 });

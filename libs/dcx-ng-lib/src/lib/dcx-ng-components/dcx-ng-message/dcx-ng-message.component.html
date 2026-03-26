@@ -5,7 +5,7 @@
   @if (icon()) {
     <dcx-ng-icon
       class="icon__container"
-      [name]="messageData().icon || 'info-circle'"
+      [name]="iconName() || messageData().icon || 'info-circle'"
       size="m"
       color="inherit"
     ></dcx-ng-icon>
