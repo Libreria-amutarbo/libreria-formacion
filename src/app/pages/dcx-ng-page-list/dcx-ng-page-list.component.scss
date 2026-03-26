@@ -10,6 +10,11 @@ section {
   flex-direction: column;
   gap: var(--sp-4, 16px);
 
+  h2 {
+    font-size: var(--fs-lg, 18px);
+    color: var(--text-dark, #2a2e33);
+  }
+
   strong {
     margin-right: var(--sp-1, 4px);
   }

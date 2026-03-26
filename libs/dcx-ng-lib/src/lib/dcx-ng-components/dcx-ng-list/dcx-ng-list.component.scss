@@ -34,7 +34,7 @@ ul {
     transition: background 0.15s;
   }
 
-  &:hover .dcx-list-item-content {
+  &:hover {
     background: var(--bg-hover, #f7f8fa);
   }
 
@@ -100,55 +100,4 @@ ul {
 
 .dcx-list-nested {
   margin: var(--sp-2, 8px);
-  background: transparent;
-}
-
-:host-context(.dcx-context-menu) {
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  overflow: visible;
-
-  ul {
-    padding-left: 0;
-  }
-
-  .dcx-list-item {
-    line-height: 1.5;
-    position: relative;
-    border-bottom: none;
-
-    .dcx-list-item-content {
-      padding: var(--sp-2, 8px) var(--sp-4, 16px);
-      border-radius: 0;
-    }
-
-    &.selectable {
-      .dcx-list-item-content {
-        &:hover {
-          background-color: var(--bg-hover);
-        }
-      }
-    }
-  }
-
-  .dcx-list-nested {
-    margin-left: 0;
-    margin-top: 0;
-    position: absolute;
-    top: 0;
-    left: 100%;
-    min-width: 160px;
-    background: var(--bg-default);
-    border: 1px solid var(--border-light);
-    border-radius: var(--r-md, 6px);
-    box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
-    padding: var(--sp-1, 4px) 0;
-    display: none;
-    z-index: 10000;
-  }
-
-  .dcx-list-item.has-children:hover > .dcx-list-nested {
-    display: block;
-  }
 }
