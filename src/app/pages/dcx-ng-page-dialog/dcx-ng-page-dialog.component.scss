@@ -1,0 +1,39 @@
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  gap: var(--sp-3, 12px);
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--sp-4, 16px);
+  }
+
+  #positioned-dialogs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: var(--sp-4, 16px);
+
+    dcx-ng-button ::ng-deep button {
+      font-family: var(--ff-base, 'Inter', sans-serif);
+      width: 50px;
+      height: 50px;
+      font-size: 2em;
+      border-radius: var(--r-lg, 8px);
+      background-color: var(--bg-primary, #0058ab);
+      color: var(--text-white, #ffffff);
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--bg-primary-hover, #004080);
+      }
+    }
+  }
+}
