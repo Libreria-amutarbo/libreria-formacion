@@ -33,6 +33,7 @@
   border-width: var(--card-border-width);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
+  position: relative;
 
   box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
 
@@ -124,7 +125,7 @@
   );
   border-top-left-radius: var(--card-radius);
   border-top-right-radius: var(--card-radius);
-  z-index: 1;
+  z-index: 2;
 }
 
 .card-body {
