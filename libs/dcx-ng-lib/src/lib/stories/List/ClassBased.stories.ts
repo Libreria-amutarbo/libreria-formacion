@@ -1,11 +1,12 @@
 import {
   DcxListItem,
+  DcxNgChipComponent,
   DcxNgListComponent,
   LIST_ITEMS_WITH_ICONS,
   LIST_ITEMS_WITH_SUBLISTS,
   MULTI_SELECT_LIST_ITEMS,
   SELECTABLE_LIST_ITEMS,
-  SIMPLE_LIST_ITEMS
+  SIMPLE_LIST_ITEMS,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
 
@@ -144,7 +145,7 @@ export const MultiSelectable: Story = {
           <div class="selected">
             <strong>Seleccionados ({{ selected.length }}):</strong>
             @for (selected of selected; track selected.index) {
-              <dcx-ng-chip [label]="selected.item.text"></dcx-ng-chip>
+              <span>{{selected.item.text}}</span>
               <span>{{ $last ? '' : ', ' }}</span>
             }
           </div>
