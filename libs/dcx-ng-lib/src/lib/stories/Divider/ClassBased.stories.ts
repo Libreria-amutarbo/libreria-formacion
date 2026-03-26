@@ -1,7 +1,6 @@
-import { DcxNgDividerComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgDividerComponent, tokens } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
 import { argTypesDivider } from './utils';
-import { tokens } from '../../core/mock/colors';
 
 const meta: Meta<DcxNgDividerComponent> = {
   title: 'DCXLibrary/Components/Divider',

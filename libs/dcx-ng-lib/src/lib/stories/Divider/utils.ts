@@ -1,5 +1,5 @@
 import { ArgTypes } from '@storybook/angular';
-import { tokens } from '../../core/mock/colors';
+import { tokens } from '@dcx-ng-components/dcx-ng-lib';
 
 export const argTypesDivider: ArgTypes = {
   orientation: {

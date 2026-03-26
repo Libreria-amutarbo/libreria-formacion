@@ -6,8 +6,8 @@ import {
   DividerType,
   mapSizeToCssValue,
   mapTypeToCssValue,
+  tokens,
 } from '@dcx-ng-components/dcx-ng-lib';
-import { tokens } from '../../core/mock/colors';
 
 @Component({
   selector: 'dcx-ng-divider',
