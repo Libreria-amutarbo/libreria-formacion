@@ -15,6 +15,7 @@ export const BUTTON_VARIANT_LIST: DcxButtonVariant[] = [
   'primary',
   'secondary',
   'terciary',
+  'danger',
   'icon-only',
   'text',
 ];
