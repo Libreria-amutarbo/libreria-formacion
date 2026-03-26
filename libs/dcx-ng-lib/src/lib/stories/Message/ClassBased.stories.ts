@@ -116,6 +116,7 @@ export const Error: Story = {
     type: 'error',
     title: 'Error',
     icon: true,
+    iconName: 'x-circle',
     showClose: true,
   },
 };
@@ -126,6 +127,7 @@ export const Warning: Story = {
     type: 'warning',
     title: 'Advertencia',
     icon: true,
+    iconName: 'exclamation-triangle',
   },
 };
 
@@ -135,6 +137,7 @@ export const Success: Story = {
     type: 'success',
     title: '¡Éxito!',
     icon: true,
+    iconName: 'check-circle',
     showClose: true,
   },
 };
