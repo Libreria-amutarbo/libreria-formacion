@@ -1,4 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
+
 import {
   Component,
   contentChild,
@@ -8,9 +9,11 @@ import {
   inject,
   computed,
 } from '@angular/core';
-import { DcxDialogPosition, DcxNgButtonComponent, DialogService } from '@dcx-ng-components/dcx-ng-lib';
-
-
+import {
+  DcxDialogPosition,
+  DcxNgButtonComponent,
+  DialogService,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-dialog',
@@ -55,6 +58,6 @@ export class DcxNgDialogComponent {
   }
 
   get dialogClasses(): string {
-    return `dialog dialog--pos-${this.position()}`;
+    return `dcx-dialog dialog--pos-${this.position()}`;
   }
 }
