@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import {
   DcxListItem,
   DcxNgListComponent,
+  LIST_ENABLED_DISABLED_ITEMS,
+  LIST_ITEMS_WITH_DIVIDER,
   LIST_ITEMS_WITH_ICONS,
   LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION,
   LIST_ITEMS_WITH_SUBLISTS,
@@ -32,6 +34,8 @@ export class DcxNgPageListComponent {
   itemsWithSublists = LIST_ITEMS_WITH_SUBLISTS;
   selectableItems = SELECTABLE_LIST_ITEMS;
   multiSelectItems = MULTI_SELECT_LIST_ITEMS;
+  itemsWithDivider = LIST_ITEMS_WITH_DIVIDER;
+  enabledDisabledItems = LIST_ENABLED_DISABLED_ITEMS;
 
   selectedItem = signal<DcxListItem | null>(null);
   selectedMultiItems = signal<{ item: DcxListItem; index: number }[]>([]);

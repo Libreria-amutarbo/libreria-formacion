@@ -3,6 +3,8 @@ import {
   DcxNgChipComponent,
   DcxNgListComponent,
   DEFAULT_LIST_ITEMS,
+  LIST_ENABLED_DISABLED_ITEMS,
+  LIST_ITEMS_WITH_DIVIDER,
   LIST_ITEMS_WITH_ICONS,
   LIST_ITEMS_WITH_SUBLISTS,
   MULTI_SELECT_LIST_ITEMS,
@@ -250,6 +252,46 @@ export const MultiSelectable: Story = {
             }
           </div>
         }
+    `,
+  }),
+};
+
+export const WithDividers: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'List using `divider: true` items as visual section separators. Divider items render a thin horizontal line and are not interactive.',
+      },
+    },
+  },
+  render: () => ({
+    props: {
+      items: LIST_ITEMS_WITH_DIVIDER,
+    },
+    template: `
+      <h3>List with Dividers</h3>
+      <dcx-ng-list [items]="items"></dcx-ng-list>
+    `,
+  }),
+};
+
+export const WithDisabledItems: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'List showing how `disabled: true` items look and behave. Disabled items are rendered with reduced opacity and are not clickable or keyboard-focusable.',
+      },
+    },
+  },
+  render: () => ({
+    props: {
+      items: LIST_ENABLED_DISABLED_ITEMS,
+    },
+    template: `
+      <h3>List with Disabled Items</h3>
+      <dcx-ng-list [items]="items" [selectable]="true"></dcx-ng-list>
     `,
   }),
 };
