@@ -20,6 +20,7 @@ import {
   DcxNgInputComponent,
   DcxInputType,
   DcxNgAccordionItem,
+  DcxButtonVariant,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -119,7 +120,7 @@ export class DcxNgPageAccordionComponent implements AfterViewInit {
     return this.isExternalExpanded(id) ? `Cerrar Item ${id}` : `Abrir Item ${id}`;
   }
 
-  getExternalButtonVariant(id: string): 'primary' | 'secondary' {
+  getExternalButtonVariant(id: string): DcxButtonVariant {
     return this.isExternalExpanded(id) ? 'primary' : 'secondary';
   }
 }
