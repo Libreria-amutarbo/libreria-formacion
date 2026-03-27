@@ -1,1 +1,9 @@
 @use './../../app.component.scss';
+
+a {
+    text-decoration: none;
+
+    ::ng-deep .label {
+        text-decoration: underline;
+    }
+}
