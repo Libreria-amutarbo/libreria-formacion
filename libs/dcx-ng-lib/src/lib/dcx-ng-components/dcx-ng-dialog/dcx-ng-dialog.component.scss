@@ -1,3 +1,5 @@
+$dialog-pos-gap: 16px;
+
 .dialog-root {
   position: fixed;
   inset: 0;
@@ -7,8 +9,8 @@
 .dialog-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  transition: opacity 180ms ease-out;
+  background: rgba(0, 0, 0, 0.45);
+  transition: opacity 200ms ease;
   opacity: 1;
 
   @starting-style {
@@ -16,56 +18,25 @@
   }
 }
 
-.dialog {
+// Main dialog container
+.dcx-dialog {
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  line-height: var(--line-height, 1.5);
   position: absolute;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  width: 400px;
+  background: var(--bg-default, #ffffff);
+  border-radius: var(--r-lg, 8px);
+  width: 420px;
   max-width: 90%;
   max-height: 70vh;
+  opacity: 1;
+  transition: opacity 200ms ease;
   display: flex;
   flex-direction: column;
-
-  transition:
-    opacity 180ms ease-out,
-    transform 180ms ease-out;
-  opacity: 1;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 
   @starting-style {
     opacity: 0;
-    transform: scale(0.98);
-  }
-
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    flex-shrink: 0;
-  }
-
-  &-body {
-    padding: 1rem;
-    text-align: center;
-    overflow-y: auto;
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-
-  &-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    padding: 1rem;
-    flex-shrink: 0;
-  }
-
-  &-close {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
   }
 
   &.dialog--pos-center {
@@ -75,50 +46,88 @@
   }
 
   &.dialog--pos-top {
-    top: 16px;
+    top: $dialog-pos-gap;
     left: 50%;
     transform: translate(-50%, 0);
   }
 
   &.dialog--pos-bottom {
-    bottom: 16px;
+    bottom: $dialog-pos-gap;
     left: 50%;
     transform: translate(-50%, 0);
   }
 
   &.dialog--pos-left {
-    left: 16px;
+    left: $dialog-pos-gap;
     top: 50%;
     transform: translate(0, -50%);
   }
 
   &.dialog--pos-right {
-    right: 16px;
+    right: $dialog-pos-gap;
     top: 50%;
     transform: translate(0, -50%);
   }
 
   &.dialog--pos-top-left {
-    top: 16px;
-    left: 16px;
-    transform: none;
+    top: $dialog-pos-gap;
+    left: $dialog-pos-gap;
   }
 
   &.dialog--pos-top-right {
-    top: 16px;
-    right: 16px;
-    transform: none;
+    top: $dialog-pos-gap;
+    right: $dialog-pos-gap;
   }
 
   &.dialog--pos-bottom-left {
-    bottom: 16px;
-    left: 16px;
-    transform: none;
+    bottom: $dialog-pos-gap;
+    left: $dialog-pos-gap;
   }
 
   &.dialog--pos-bottom-right {
-    bottom: 16px;
-    right: 16px;
-    transform: none;
+    bottom: $dialog-pos-gap;
+    right: $dialog-pos-gap;
   }
+}
+
+.dialog-header {
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  border-bottom: 1px solid var(--border-light, #d1d5db);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.dialog-title {
+  font-size: var(--fs-xl, 20px);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--text-dark, #2a2e33);
+  margin: 0;
+}
+
+.dialog-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.dialog-body {
+  font-size: var(--fs-base, 14px);
+  color: var(--text-muted, #696e75);
+  padding: var(--sp-5, 20px);
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.dialog-footer {
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  border-top: 1px solid var(--border-light, #d1d5db);
+  background: var(--bg-surface, #f4f5f7);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-2, 8px);
+  flex-shrink: 0;
 }

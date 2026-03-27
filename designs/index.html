@@ -1,92 +1,163 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Designs — DCX NG</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --blue:#0058ab;--blue-hover:#004080;--blue-light:#dbeafe;--blue-text:#1d4ed8;
-        --surface:#f4f5f7;--white:#fff;--border:#e5e7eb;
-        --text:#2a2e33;--muted:#696e75;
-        --ff:'Inter',sans-serif;
-      }
-      *{box-sizing:border-box;margin:0;padding:0}
-      body{font-family:var(--ff);background:var(--surface);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
-      h1{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
-      h2{font-size:28px;font-weight:700;color:var(--text);margin-bottom:2.5rem}
-      .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;width:100%;max-width:900px}
-      .card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;cursor:pointer;transition:box-shadow .15s,border-color .15s,transform .1s;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:.4rem}
-      .card:hover{border-color:var(--blue);box-shadow:0 4px 16px rgba(0,88,171,.12);transform:translateY(-2px)}
-      .card-icon{font-size:22px;margin-bottom:.25rem}
-      .card-name{font-size:15px;font-weight:600;color:var(--text)}
-      .card-file{font-size:11px;color:var(--muted);font-family:monospace}
-    </style>
-  </head>
-  <body>
-    <h1>DCX NG Library</h1>
-    <h2>Designs</h2>
-    <div class="grid">
-      <a class="card" href="dcx-ng-page-accordion.html">
-        <div class="card-icon">🪗</div>
-        <div class="card-name">Accordion</div>
-        <div class="card-file">dcx-ng-page-accordion.html</div>
-      </a>
-      <a class="card" href="dcx-ng-page-breadcrumb-divider-icon-message.html">
-        <div class="card-icon">🧭</div>
-        <div class="card-name">Breadcrumb · Divider · Icon · Message</div>
-        <div class="card-file">
-          dcx-ng-page-breadcrumb-divider-icon-message.html
-        </div>
-      </a>
-      <a class="card" href="dcx-ng-page-button.html">
-        <div class="card-icon">🔘</div>
-        <div class="card-name">Button</div>
-        <div class="card-file">dcx-ng-page-button.html</div>
-      </a>
-      <a class="card" href="dcx-ng-page-card.html">
-        <div class="card-icon">🃏</div>
-        <div class="card-name">Card</div>
-        <div class="card-file">dcx-ng-page-card.html</div>
-      </a>
-      <a class="card" href="dcx-ng-page-controls.html">
-        <div class="card-icon">🎛️</div>
-        <div class="card-name">Controls</div>
-        <div class="card-file">dcx-ng-page-controls.html</div>
-      </a>
-      <a class="card" href="dcx-ng-page-dialog.html">
-        <div class="card-icon">💬</div>
-        <div class="card-name">Dialog</div>
-        <div class="card-file">dcx-ng-page-dialog.html</div>
-      </a>
-      <a class="card" href="dcx-ng-page-full-table-paginator-list.html">
-        <div class="card-icon">📋</div>
-        <div class="card-name">Table · Paginator · List</div>
-        <div class="card-file">dcx-ng-page-full-table-paginator-list.html</div>
-      </a>
-      <a class="card" href="dcx-ng-page-input.html">
-        <div class="card-icon">✏️</div>
-        <div class="card-name">Input</div>
-        <div class="card-file">dcx-ng-page-input.html</div>
-      </a>
-      <a
-        class="card"
-        href="dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html"
-      >
-        <div class="card-icon">🗓️</div>
-        <div class="card-name">Radio · Slider · Tooltip · Datepicker…</div>
-        <div class="card-file">
-          dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html
-        </div>
-      </a>
-      <a class="card" href="dcx-ng-page-tabs.html">
-        <div class="card-icon">📑</div>
-        <div class="card-name">Tabs</div>
-        <div class="card-file">dcx-ng-page-tabs.html</div>
-      </a>
-    </div>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Designs — DCX NG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #0058ab;
+      --blue-hover: #004080;
+      --blue-light: #dbeafe;
+      --blue-text: #1d4ed8;
+      --surface: #f4f5f7;
+      --white: #fff;
+      --border: #e5e7eb;
+      --text: #2a2e33;
+      --muted: #696e75;
+      --ff: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: var(--ff);
+      background: var(--surface);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem
+    }
+
+    h1 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .4rem
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2.5rem
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 900px
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      transition: box-shadow .15s, border-color .15s, transform .1s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem
+    }
+
+    .card:hover {
+      border-color: var(--blue);
+      box-shadow: 0 4px 16px rgba(0, 88, 171, .12);
+      transform: translateY(-2px)
+    }
+
+    .card-icon {
+      font-size: 22px;
+      margin-bottom: .25rem
+    }
+
+    .card-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text)
+    }
+
+    .card-file {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: monospace
+    }
+  </style>
+</head>
+
+<body>
+  <h1>DCX NG Library</h1>
+  <h2>Designs</h2>
+  <div class="grid">
+    <a class="card" href="dcx-ng-page-button.html">
+      <div class="card-icon">🔘</div>
+      <div class="card-name">Button</div>
+      <div class="card-file">dcx-ng-page-button.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-input.html">
+      <div class="card-icon">⌨️</div>
+      <div class="card-name">Input</div>
+      <div class="card-file">dcx-ng-page-input.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-accordion.html">
+      <div class="card-icon">🪗</div>
+      <div class="card-name">Accordion</div>
+      <div class="card-file">dcx-ng-page-accordion.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-breadcrumb-divider-icon-message.html">
+      <div class="card-icon">🧭</div>
+      <div class="card-name">Breadcrumb · Divider · Icon · Message</div>
+      <div class="card-file">
+        dcx-ng-page-breadcrumb-divider-icon-message.html
+      </div>
+    </a>
+    <a class="card" href="dcx-ng-page-card.html">
+      <div class="card-icon">🃏</div>
+      <div class="card-name">Card</div>
+      <div class="card-file">dcx-ng-page-card.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-controls.html">
+      <div class="card-icon">🎛️</div>
+      <div class="card-name">Controls</div>
+      <div class="card-file">dcx-ng-page-controls.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-dialog.html">
+      <div class="card-icon">💬</div>
+      <div class="card-name">Dialog</div>
+      <div class="card-file">dcx-ng-page-dialog.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-full-table-paginator-list.html">
+      <div class="card-icon">📋</div>
+      <div class="card-name">Table · Paginator · List</div>
+      <div class="card-file">dcx-ng-page-full-table-paginator-list.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html">
+      <div class="card-icon">🗓️</div>
+      <div class="card-name">Radio · Slider · Tooltip · Datepicker…</div>
+      <div class="card-file">
+        dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html
+      </div>
+    </a>
+    <a class="card" href="dcx-ng-page-tabs.html">
+      <div class="card-icon">📑</div>
+      <div class="card-name">Tabs</div>
+      <div class="card-file">dcx-ng-page-tabs.html</div>
+    </a>
+  </div>
+</body>
+
 </html>
