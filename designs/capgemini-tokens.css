@@ -6,81 +6,88 @@
 
 :root {
   /* ── Colores de fondo ── */
-  --bg-primary:           #0058ab;
-  --bg-primary-hover:     #004080;
-  --bg-primary-pressed:   #121a38;
-  --bg-hover:             #f7f8fa;
-  --bg-pressed:           #e1e3e6;
-  --bg-default:           #ffffff;
-  --bg-surface:           #f4f5f7;
-  --bg-sidebar:           #f0f2f5;
+  --bg-primary: #0058ab;
+  --bg-primary-hover: #004080;
+  --bg-primary-pressed: #121a38;
+  --bg-hover: #f7f8fa;
+  --bg-pressed: #e1e3e6;
+  --bg-default: #ffffff;
+  --bg-surface: #f4f5f7;
+  --bg-sidebar: #f0f2f5;
 
   /* ── Colores de contenido / texto ── */
-  --text-white:           #ffffff;
-  --text-dark:            #2a2e33;
-  --text-muted:           #696e75;
-  --text-disabled:        #696e75;
-  --text-disabled-dark:   #4f545a;
-  --text-label:           #4f545a;
-  --text-placeholder:     #9ca3af;
+  --text-white: #ffffff;
+  --text-dark: #2a2e33;
+  --text-muted: #696e75;
+  --text-disabled: #696e75;
+  --text-disabled-dark: #4f545a;
+  --text-label: #4f545a;
+  --text-placeholder: #9ca3af;
 
   /* ── Bordes ── */
-  --border-default:       #2a2e33;
-  --border-light:         #d1d5db;
-  --border-focus:         #1db8f2;
-  --border-error:         #dc2626;
-  --border-success:       #16a34a;
-  --border-input:         #d1d5db;
+  --border-default: #2a2e33;
+  --border-light: #d1d5db;
+  --border-focus: #1db8f2;
+  --border-error: #dc2626;
+  --border-success: #16a34a;
+  --border-input: #d1d5db;
 
   /* ── Semánticos ── */
-  --color-success:        #16a34a;
-  --color-success-bg:     #f0fdf4;
-  --color-error:          #dc2626;
-  --color-error-bg:       #fef2f2;
-  --color-warning:        #d97706;
-  --color-warning-bg:     #fffbeb;
-  --color-info:           #0058ab;
-  --color-info-bg:        #eff6ff;
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-warning: #d97706;
+  --color-warning-bg: #fffbeb;
+  --color-info: #0058ab;
+  --color-info-bg: #eff6ff;
 
   /* ── Spacing (escala 4px) ── */
-  --sp-1:  4px;
-  --sp-2:  8px;
-  --sp-3:  12px;
-  --sp-4:  16px;
-  --sp-5:  20px;
-  --sp-6:  24px;
-  --sp-8:  32px;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
   --sp-10: 40px;
   --sp-12: 48px;
   --sp-16: 64px;
 
   /* ── Radios ── */
-  --r-xs:   2px;
-  --r-sm:   4px;
-  --r-md:   6px;
-  --r-lg:   8px;
-  --r-xl:   12px;
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 8px;
+  --r-xl: 12px;
   --r-pill: 999px;
 
   /* ── Tipografía ── */
-  --ff-base:    'Inter', sans-serif;
+  --ff-base: 'Inter', sans-serif;
   --ff-display: 'Inter', sans-serif;
 
-  --fs-xs:   11px;
-  --fs-sm:   12px;
+  --fs-xs: 11px;
+  --fs-sm: 12px;
   --fs-base: 14px;
-  --fs-md:   16px;
-  --fs-lg:   18px;
-  --fs-xl:   20px;
-  --fs-2xl:  24px;
+  --fs-md: 16px;
+  --fs-lg: 18px;
+  --fs-xl: 20px;
+  --fs-2xl: 24px;
 
-  --fw-regular:  400;
-  --fw-medium:   500;
+  --fw-regular: 400;
+  --fw-medium: 500;
   --fw-semibold: 600;
-  --fw-bold:     700;
+  --fw-bold: 700;
 
   /* ── Sombras ── */
-  --shadow-sm:  0 1px 2px rgba(0,0,0,.06);
-  --shadow-md:  0 4px 12px rgba(0,0,0,.08);
-  --shadow-lg:  0 8px 24px rgba(0,0,0,.12);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* ── Botones ── */
+  --bg-disabled: #f3f4f6;
+  --border-hover: #9ca3af;
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-danger-pressed: #991b1b;
 }
