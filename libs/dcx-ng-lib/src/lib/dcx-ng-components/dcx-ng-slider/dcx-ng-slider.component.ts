@@ -59,7 +59,7 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
     const min = this.min();
     const max = this.max();
     const val = this.valueInput();
-    if (max === min) return 0;
+    if (max === min) return 100;
     return ((val - min) / (max - min)) * 100;
   });
 
