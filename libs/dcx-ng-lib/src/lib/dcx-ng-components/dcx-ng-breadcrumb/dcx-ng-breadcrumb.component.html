@@ -1,53 +1,38 @@
 <nav aria-label="Breadcrumb">
-  <ol class="dcx-bc" role="list">
-    @for (item of items(); track $index; let last = $last) {
-      <li class="dcx-bc__item">
+  <ol class="dcx-breadcrumb" role="list">
+    @for (item of items(); track item.label; let last = $last) {
+      <li class="dcx-breadcrumb__item" [class.active]="last" [class.disabled]="item.disabled">
         @if (!last) {
-          <span class="dcx-bc__text" [class.disabled]="item.disabled">
-            @if (item.href) {
-              <a class="dcx-bc__link" [href]="item.href">
-                <ng-container
-                  [ngTemplateOutlet]="getItemContentTpl()"
-                  [ngTemplateOutletContext]="{ $implicit: item, isCurrent: false }"
-                >
-                </ng-container>
-              </a>
+          <dcx-ng-button
+            [variant]="'text'"
+            [label]="item.label"
+            [icon]="item.icon ? true : false"
+            [iconName]="item.icon || ''"
+            [disabled]="item.disabled"
+            (buttonClick)="onItemClick(item)"
+          ></dcx-ng-button>
+          
+          <span class="dcx-breadcrumb__separator" aria-hidden="true">
+            @if (iconSeparator() === 'slash-lg') {
+              /
+            } @else if (iconSeparator() === 'chevron-right') {
+              <dcx-ng-icon name="chevron-right"></dcx-ng-icon>
+            } @else if (iconSeparator() === 'arrow-right-short') {
+              &#8594;
             } @else {
-              <span class="dcx-bc__text" [class.disabled]="item.disabled">
-                <ng-container
-                  [ngTemplateOutlet]="getItemContentTpl()"
-                  [ngTemplateOutletContext]="{ $implicit: item, isCurrent: false }"
-                >
-                </ng-container>
-              </span>
+              <dcx-ng-icon [name]="iconSeparator()"></dcx-ng-icon>
             }
           </span>
-
-          <span class="dcx-bc__sep" aria-hidden="true">
-            <dcx-ng-icon [name]="iconSeparator()"></dcx-ng-icon>
-          </span>
         } @else {
-          <span
-            class="dcx-bc__current"
-            aria-current="page"
-            [attr.disabled]="true"
-          >
-            <ng-container
-              [ngTemplateOutlet]="getItemContentTpl()"
-              [ngTemplateOutletContext]="{ $implicit: item, isCurrent: false }"
-            >
-            </ng-container>
+          <span class="dcx-breadcrumb__current" aria-current="page">
+            @if (item.icon) {
+              <dcx-ng-icon [name]="item.icon"></dcx-ng-icon>
+            } @else {
+              {{ item.label }}
+            }
           </span>
         }
       </li>
     }
   </ol>
 </nav>
-
-<ng-template #itemContent let-item>
-  @if (item.icon) {
-    <dcx-ng-icon [name]="item.icon!"></dcx-ng-icon>
-  } @else {
-    {{ item.label }}
-  }
-</ng-template>
