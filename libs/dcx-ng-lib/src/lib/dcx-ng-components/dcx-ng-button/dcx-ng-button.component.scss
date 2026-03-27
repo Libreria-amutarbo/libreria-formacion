@@ -3,52 +3,52 @@
 
 :host {
   display: inline-block;
-  font-family: var(--font-family-primary);
+  font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
 .dcx-ng-button {
   margin: 0;
-  border: none;
   background: none;
   font-family: inherit;
   -webkit-appearance: none;
   appearance: none;
-
-  @include button-base;
-
   @include flex-center-inline;
-
-  gap: 0.25rem;
-
+  gap: var(--sp-3, 12px);
   border: 1px solid transparent;
+  border-radius: var(--r-sm, 4px);
+  font-weight: var(--fw-medium, 500);
+  line-height: 1;
   white-space: nowrap;
-  line-height: 1.5;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.1s, border-color 0.1s, box-shadow 0.1s, color 0.1s;
 
   // ========== SIZES ==========
 
   &--s,
   &--small {
-    @include button-size(s);
-    padding: 0.25rem 0.5rem;
+    font-size: var(--fs-sm, 12px);
+    padding: 5px 10px;
   }
 
   &--m,
   &--medium {
-    @include button-size(m);
-    padding: 0.375rem 0.75rem;
+    font-size: 13px;
+    padding: 7px 13px;
   }
 
   &--l,
   &--large {
-    @include button-size(l);
-    padding: 0.5rem 1rem;
+    font-size: var(--fs-base, 14px);
+    padding: 9px var(--sp-4, 16px);
   }
 
   &--xl,
   &--extra-large {
-    @include button-size(xl);
-    padding: 0.75rem 1.25rem;
+    font-size: var(--fs-base, 14px);
+    padding: 11px var(--sp-5, 20px);
   }
+
   &--checkbox {
     height: 1.25rem;
     width: 1.25rem;
@@ -58,94 +58,165 @@
   // ========== PRIMARY ==========
 
   &--primary {
-    background-color: var(--background-primary);
-    color: var(--text-label-base);
+    background-color: var(--bg-primary, #0058ab);
+    color: var(--text-white, #ffffff);
+    border-color: var(--bg-primary, #0058ab);
 
     &:hover:not(:disabled) {
-      background-color: var(--background-primary-hover);
+      background-color: var(--bg-primary-hover, #004080);
+      border-color: var(--bg-primary-hover, #004080);
     }
 
     &:active:not(:disabled) {
-      background-color: var(--background-primary-pressed);
+      background-color: var(--bg-primary-pressed, #121a38);
+      border-color: var(--bg-primary-pressed, #121a38);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--border-focus);
-      outline-offset: 4px;
+      border-color: var(--border-focus, #1db8f2);
+      box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
     }
 
     &.dcx-ng-button--pressed {
-      background-color: var(--background-primary-pressed);
+      background-color: var(--bg-primary-pressed, #121a38);
+      border-color: var(--bg-primary-pressed, #121a38);
+    }
+
+    &.dcx-ng-button--hover {
+      background-color: var(--bg-primary-hover, #004080);
+      border-color: var(--bg-primary-hover, #004080);
+    }
+
+    &.dcx-ng-button--focused {
+      border-color: var(--border-focus, #1db8f2);
+      box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
     }
   }
-
-  // ========== SECONDARY ==========
 
   &--secondary {
-    background-color: transparent;
-    color: var(--text-body);
-    border: 1px solid var(--text-body);
+    background-color: var(--bg-default, #ffffff);
+    color: var(--text-dark, #2a2e33);
+    border-color: var(--border-light, #d1d5db);
 
     &:hover:not(:disabled) {
-      background-color: var(--background-hover);
+      background-color: var(--bg-hover, #f7f8fa);
+      border-color: var(--border-hover, #9ca3af);
     }
 
     &:active:not(:disabled) {
-      background-color: var(--background-pressed);
+      background-color: var(--bg-pressed, #e1e3e6);
+      border-color: var(--border-hover, #9ca3af);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--border-focus);
-      outline-offset: 4px;
+      border-color: var(--border-focus, #1db8f2);
+      box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
     }
 
     &.dcx-ng-button--pressed {
-      background-color: var(--background-pressed);
+      background-color: var(--bg-pressed, #e1e3e6);
+      border-color: var(--border-hover, #9ca3af);
+    }
+
+    &.dcx-ng-button--hover {
+      background-color: var(--bg-hover, #f7f8fa);
+      border-color: var(--border-hover, #9ca3af);
+    }
+
+    &.dcx-ng-button--focused {
+      border-color: var(--border-focus, #1db8f2);
+      box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
     }
   }
 
-  // ========== TERCIARY ==========
+  // ========== GHOST / TERCIARY ==========
 
   &--terciary {
     background-color: transparent;
-    color: var(--text-body);
-    border: none;
-    text-decoration: underline;
+    color: var(--text-dark, #2a2e33);
+    border-color: transparent;
 
     &:hover:not(:disabled) {
-      background-color: var(--background-hover);
+      background-color: var(--bg-hover, #f7f8fa);
     }
 
     &:active:not(:disabled) {
-      background-color: var(--background-pressed);
+      background-color: var(--bg-pressed, #e1e3e6);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--border-focus);
-      outline-offset: 4px;
+      border-color: var(--border-focus, #1db8f2);
+      box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
     }
 
     &.dcx-ng-button--pressed {
-      background-color: var(--background-pressed);
+      background-color: var(--bg-pressed, #e1e3e6);
+    }
+
+    &.dcx-ng-button--hover {
+      background-color: var(--bg-hover, #f7f8fa);
+    }
+
+    &.dcx-ng-button--focused {
+      border-color: var(--border-focus, #1db8f2);
+      box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
     }
   }
 
   &--text {
     background-color: transparent;
-    color: var(--text-body);
-    border: none;
+    color: var(--text-dark, #2a2e33);
+    border-color: transparent;
 
     &:hover:not(:disabled) {
-      background-color: var(--background-hover);
+      background-color: var(--bg-hover, #f7f8fa);
     }
 
     &:active:not(:disabled) {
-      background-color: var(--background-pressed);
+      background-color: var(--bg-pressed, #e1e3e6);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--border-focus);
-      outline-offset: 4px;
+      border-color: var(--border-focus, #1db8f2);
+      box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
+    }
+  }
+
+  // ========== DANGER ==========
+
+  &--danger {
+    background-color: var(--color-danger, #dc2626);
+    color: var(--text-white, #ffffff);
+    border-color: var(--color-danger, #dc2626);
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-danger-hover, #b91c1c);
+      border-color: var(--color-danger-hover, #b91c1c);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--color-danger-pressed, #991b1b);
+      border-color: var(--color-danger-pressed, #991b1b);
+    }
+
+    &:focus-visible {
+      border-color: #f87171;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+    }
+
+    &.dcx-ng-button--pressed {
+      background-color: var(--color-danger-pressed, #991b1b);
+      border-color: var(--color-danger-pressed, #991b1b);
+    }
+
+    &.dcx-ng-button--hover {
+      background-color: var(--color-danger-hover, #b91c1c);
+      border-color: var(--color-danger-hover, #b91c1c);
+    }
+
+    &.dcx-ng-button--focused {
+      border-color: #f87171;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
     }
   }
 
@@ -153,9 +224,9 @@
 
   &:disabled,
   &[disabled] {
-    background-color: var(--background-disabled);
-    color: var(--text-disabled);
-    border-color: transparent;
+    background-color: var(--bg-disabled, #f3f4f6);
+    color: var(--text-disabled, #696e75);
+    border-color: #e5e7eb;
     cursor: not-allowed;
     pointer-events: none;
     opacity: 1;
@@ -197,11 +268,43 @@
   }
 
   .icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center-inline;
     flex-shrink: 0;
     line-height: 1;
+  }
+
+  dcx-ng-icon {
+    @include flex-center-inline;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+
+  &--s dcx-ng-icon,
+  &--small dcx-ng-icon {
+    width: 13px;
+    height: 13px;
+    font-size: 13px;
+  }
+
+  &--m dcx-ng-icon,
+  &--medium dcx-ng-icon {
+    width: 13px;
+    height: 13px;
+    font-size: 13px;
+  }
+
+  &--l dcx-ng-icon,
+  &--large dcx-ng-icon {
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+  }
+
+  &--xl dcx-ng-icon,
+  &--extra-large dcx-ng-icon {
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
   }
 
   .icon--left {
@@ -221,7 +324,6 @@
     margin-top: 0.125rem;
   }
 
-  // Ensure enough vertical spacing per size when icon is stacked
   &--icon-top,
   &--icon-bottom {
     &.dcx-ng-button--s {
@@ -359,6 +461,7 @@ $navbar-breakpoint-md: 768px;
 
     &--primary {
       background-color: var(--background-error);
+
       &:hover:not(:disabled) {
         color: var(--text-error);
         border: 2px solid var(--border-error);
@@ -374,6 +477,7 @@ $navbar-breakpoint-md: 768px;
 
     &--secondary {
       border-color: var(--border-error);
+
       &:hover:not(:disabled) {
         border: 2px solid var(--border-error);
       }
