@@ -1,5 +1,4 @@
 import { Meta, Canvas } from '@storybook/blocks';
-import * as AccUn from './UnStyled.stories';
 import * as AccClass from './ClassBased.stories';
 
 <Meta title="DCXLibrary/Accordion" />
@@ -8,29 +7,66 @@ import * as AccClass from './ClassBased.stories';
 
 `dcx-ng-accordion` es un contenedor de elementos expandibles/colapsables usado para organizar contenido de forma compacta y accesible.
 
-- **API mínima**: `@Input() items: AccordionItem[]`
-- **Múltiples items abiertos**: Permite tener varios items expandidos simultáneamente
+- **API mínima**: `@Input() items: DcxNgAccordionItem[]`
+- **Múltiples items abiertos**: Permite tener varios items expandidos simultáneamente con `[closeOthers]="false"`
 - **Items deshabilitados**: Algunos items pueden estar bloqueados
-- **Animaciones suaves**: Transiciones elegantes al expandir/colapsar
+- **Contenido deshabilitado**: El contenido de un item puede estar deshabilitado visualmente
+- **Animaciones suaves**: Transiciones elegantes al expandir/colapsar (configurable)
 - **Accesibilidad**: Atributos ARIA para lectores de pantalla
 
 ---
 
-## Unstyled
-
-<Canvas of={AccUn.BasicUnstyled} />
-
----
-
-## Class-Based
+## Default
 
 <Canvas of={AccClass.Default} />
 
 ---
 
-## Con Items Deshabilitados
+## Con Iconos
 
-<Canvas of={AccClass.WithDisabledItem} />
+<Canvas of={AccClass.WithIcons} />
+
+---
+
+## Con Items Deshabilitados (Header)
+
+<Canvas of={AccClass.WithDisabledItems} />
+
+---
+
+## Con Contenido Deshabilitado
+
+<Canvas of={AccClass.WithContentDisabledItems} />
+
+---
+
+## Múltiples Items Abiertos
+
+<Canvas of={AccClass.MultipleOpen} />
+
+---
+
+## Transiciones Rápidas
+
+<Canvas of={AccClass.FastTransition} />
+
+---
+
+## Sin Transición
+
+<Canvas of={AccClass.NoTransition} />
+
+---
+
+## Contenido Extenso
+
+<Canvas of={AccClass.LargeContent} />
+
+---
+
+## Control Externo (Programático)
+
+<Canvas of={AccClass.ExternalControl} />
 
 ---
 
@@ -38,11 +74,23 @@ import * as AccClass from './ClassBased.stories';
 
 ```html
 <dcx-ng-accordion
-  [items]="[
-    { id: '1', title: 'Item 1', content: 'Contenido 1', disabled: false },
-    { id: '2', title: 'Item 2', content: 'Contenido 2', disabled: false },
-    { id: '3', title: 'Item 3', content: 'Contenido 3', disabled: true }
-  ]"
+  [items]="items"
+  transition="smooth"
+  [closeOthers]="true"
   (itemToggled)="onItemToggled($event)">
 </dcx-ng-accordion>
+```
+
+Propiedades del objeto `items`:
+
+```typescript
+export interface DcxNgAccordionItem {
+  id: string;
+  title: string;
+  content: string;
+  disabled?: boolean;
+  expanded?: boolean;
+  icon?: string;
+  disabledContent?: boolean;
+}
 ```
