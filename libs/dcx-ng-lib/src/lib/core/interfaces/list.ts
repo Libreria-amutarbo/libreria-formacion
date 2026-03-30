@@ -4,5 +4,4 @@ export interface DcxListItem {
     disabled?: boolean;
     divider?: boolean;
     children?: DcxListItem[];
-    variant?: 'default' | 'danger';
 }

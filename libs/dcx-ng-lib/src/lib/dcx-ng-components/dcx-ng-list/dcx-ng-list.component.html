@@ -5,7 +5,6 @@
   } @else {
   <li class="dcx-list-item" [class.selectable]="selectable()" [class.selected]="isSelected($index)"
     [class.disabled]="item.disabled" [class.has-children]="item.children && item.children.length > 0"
-    [class.danger]="item.variant === 'danger'"
     (click)="onItemClick(item, $index)" [attr.tabindex]="selectable() && !item.disabled ? 0 : null"
     [attr.role]="selectable() ? 'button' : null">
     <div class="dcx-list-item-content">
