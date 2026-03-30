@@ -1,71 +1,93 @@
 <div class="dcx-paginator">
-  @if (showPageInfo()) {
-    <span class="page-info" aria-live="polite">
-      Página {{ currentPage() }} de {{ totalPages() }}
-    </span>
-  }
-  @if (showItemsPerPageInfo()) {
-    <span class="items-per-page-info" aria-live="polite">
-      Items por página: {{ firstItem() }} - {{ lastItem() }} de
-      {{ paginator().totalItems }}
-    </span>
-  }
-  @if (limitedButtons()) {
-    <dcx-ng-button
-      class="dcx-paginator__button"
-      [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
-      [icon]="true"
-      iconName="chevron-double-left"
-      iconSize="m"
-      [disabled]="!hasPrevious()"
-      (buttonClick)="goToStart()"
-    />
-  }
-  <dcx-ng-button
-    class="dcx-paginator__button"
-    [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
-    [icon]="true"
-    iconName="chevron-left"
-    iconSize="m"
-    [disabled]="!hasPrevious()"
-    (buttonClick)="goToPrevious()"
-  />
+  <div class="dcx-paginator__row-meta">
+    <div class="dcx-paginator__size" aria-label="Items por página">
+      @if (showItemsPerPageInfo()) {
+        <span class="items-per-page-label">Items por página:</span>
+        <select
+          class="dcx-paginator__size-select"
+          [value]="selectedItemsPerPage()"
+          (change)="onItemsPerPageChange($any($event.target).value)"
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+      }
+    </div>
+    <div class="dcx-paginator__pages" aria-label="Paginación">
+      @if (limitedButtons()) {
+        <dcx-ng-button
+          class="dcx-paginator__button"
+          [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+          [icon]="true"
+          iconName="chevron-double-left"
+          iconSize="m"
+          [disabled]="!hasPrevious()"
+          (buttonClick)="goToStart()"
+        />
+      }
+      <dcx-ng-button
+        class="dcx-paginator__button"
+        [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+        [icon]="true"
+        iconName="chevron-left"
+        iconSize="m"
+        [disabled]="!hasPrevious()"
+        (buttonClick)="goToPrevious()"
+      />
 
-  @for (page of visiblePages(); track $index) {
-    @if (isEllipsis(page)) {
+      @for (page of visiblePages(); track $index) {
+        @if (isEllipsis(page)) {
+          <dcx-ng-button
+            class="dcx-paginator__ellipsis"
+            [label]="'...'"
+            [size]="'m'"
+            [variant]="'secondary'"
+            (buttonClick)="goToPageRelative($index < visiblePages().indexOf(currentPage()) ? -1 : 1)"
+          />
+        } @else {
+          <dcx-ng-button
+            class="dcx-paginator__page"
+            [size]="getCurrentPage(getPageNumber(page)) ? 'xl' : 'm'"
+            [variant]="getButtonVariant(getPageNumber(page))"
+            (buttonClick)="goToPage(getPageNumber(page))"
+            [label]="getButtonLabel(getPageNumber(page))"
+          />
+        }
+      }
+
       <dcx-ng-button
-        class="dcx-paginator__ellipsis"
-        [label]="'...'"
-        [size]="'m'"
-        [variant]="'secondary'"
-        (buttonClick)="goToPageRelative($index < visiblePages().indexOf(currentPage()) ? -1 : 1)"
+        class="dcx-paginator__button"
+        [icon]="true"
+        iconSize="m"
+        iconName="chevron-right"
+        [disabled]="!hasNext()"
+        (buttonClick)="goToNext()"
       />
-    } @else {
-      <dcx-ng-button
-        class="dcx-paginator__page"
-        [size]="getCurrentPage(getPageNumber(page)) ? 'xl' : 'm'"
-        [variant]="getButtonVariant(getPageNumber(page))"
-        (buttonClick)="goToPage(getPageNumber(page))"
-        [label]="getButtonLabel(getPageNumber(page))"
-      />
-    }
+      @if (limitedButtons()) {
+        <dcx-ng-button
+          class="dcx-paginator__button"
+          [icon]="true"
+          iconSize="m"
+          iconName="chevron-double-right"
+          [disabled]="!hasNext()"
+          (buttonClick)="goToEnd()"
+        />
+      }
+    </div>
+    <div class="items-per-page-info" aria-live="polite">
+      @if (showItemsPerPageInfo()) {
+        {{ firstItem() }} - {{ lastItem() }} de {{ paginator().totalItems }}
+      }
+    </div>
+  </div>
+
+
+
+  @if (showPageInfo()) {
+    <div class="page-info" aria-live="polite" style="text-align: center; margin-top: 8px;">
+      Página {{ currentPage() }} de {{ totalPages() }}
+    </div>
   }
-  <dcx-ng-button
-    class="dcx-paginator__button"
-    [icon]="true"
-    iconSize="m"
-    iconName="chevron-right"
-    [disabled]="!hasNext()"
-    (buttonClick)="goToNext()"
-  />
-  @if (limitedButtons()) {
-    <dcx-ng-button
-      class="dcx-paginator__button"
-      [icon]="true"
-      iconSize="m"
-      iconName="chevron-double-right"
-      [disabled]="!hasNext()"
-      (buttonClick)="goToEnd()"
-    />
-  }
+
 </div>
