@@ -6,7 +6,28 @@
 }
 
 :host.vertical {
-  flex-direction: column-reverse;
+  flex-direction: row;
+  gap: var(--sp-1, 4px);
+  align-items: center;
+  height: 150px;
+  width: fit-content;
+
+  .dcx-slider-input {
+    width: 40px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dcx-slider-value-label {
+    margin: 0;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 20px;
+  }
 }
 
 .dcx-slider-value-label {

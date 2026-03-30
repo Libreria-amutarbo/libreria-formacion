@@ -63,6 +63,11 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
     return ((val - min) / (max - min)) * 100;
   });
 
+  @HostBinding('class.vertical')
+  get isVertical(): boolean {
+    return this.vertical();
+  }
+
   @HostBinding('style.--slider-progress')
   get sliderProgress(): string {
     return `${this.progressPercent()}%`;
