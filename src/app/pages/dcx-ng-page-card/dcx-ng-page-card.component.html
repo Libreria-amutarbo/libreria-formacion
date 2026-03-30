@@ -1,92 +1,86 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Posición vertical e imagen al 50%</h2>
+<div class="section-label">Variantes</div>
+<div class="grid">
+  <ng-template #headerProfileTpl>
+    <div class="card-header-row">
+      <div class="avatar">MG</div>
+      <div>
+        <div class="title">María García</div>
+        <div class="subtitle">Cloud Architect · Madrid</div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #contentProfileTpl>
+    <hr class="card-hr" />
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-val">12</div>
+        <div class="stat-lbl">Proyectos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">98%</div>
+        <div class="stat-lbl">Satisf.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">7</div>
+        <div class="stat-lbl">Certif.</div>
+      </div>
+    </div>
+  </ng-template>
+
   <dcx-ng-card
+    [size]="DEFAULT_ARGS.size"
+    [image]="DEFAULT_ARGS.image"
+    [imageAlt]="DEFAULT_ARGS.imageAlt"
+    [bordered]="DEFAULT_ARGS.bordered"
+    [borderStyle]="DEFAULT_ARGS.borderStyle"
+    [borderWidth]="DEFAULT_ARGS.borderWidth"
+    [shadow]="DEFAULT_ARGS.shadow"
+    [interactive]="DEFAULT_ARGS.interactive"
+    [disabled]="DEFAULT_ARGS.disabled"
     layout="vertical"
-    align="center"
-    maxContentWidth="560px"
-    maxImageWidth="50%"
-  >
-  </dcx-ng-card>
-</section>
+    align="start"
+    maxContentWidth="100%"
+    [header]="headerProfileTpl"
+    [content]="contentProfileTpl"
+    [accent]="true"
+  ></dcx-ng-card>
 
-<hr />
-
-<section>
-  <h2 class="example-title">
-    Ejemplo 2 - Posición horizontal y content a 800px
-  </h2>
-
-  <dcx-ng-card layout="horizontal" align="center" maxContentWidth="800px">
-  </dcx-ng-card>
-</section>
-<hr />
-
-<section>
-  <h2 class="example-title">
-    Ejemplo 2 - Posición horizontal y alineación al final
-  </h2>
-
-  <dcx-ng-card layout="horizontal" align="end" maxContentWidth="800px">
-  </dcx-ng-card>
-</section>
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 3 - Carta deshabilitada</h2>
-
-  <dcx-ng-card
-    layout="horizontal"
-    align="end"
-    maxContentWidth="800px"
-    [disabled]="true"
-  >
-  </dcx-ng-card>
-</section>
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 4 - Posición vertical con slots</h2>
-  <!-- Definimos los templates "slots" -->
-  <ng-template #headerTpl>
-    <div class="custom-header">
-      <h3 class="title">Encabezado personalizado</h3>
-      <p class="subtitle">
-        Este header sobrescribe el título/subtítulo por defecto
-      </p>
+  <ng-template #headerProjectTpl>
+    <div class="card-header-row space-between">
+      <div class="title">Cloud Migration</div>
+      <dcx-ng-chip label="Activo" size="s" color="success"></dcx-ng-chip>
     </div>
   </ng-template>
 
-  <ng-template #contentTpl>
-    <div class="custom-content">
-      <p>
-        Contenido principal de la card. Aquí puedes insertar cualquier HTML,
-        componentes, etc.
-      </p>
+  <ng-template #contentProjectTpl>
+    <p style="margin-top: 0.5rem;color: #696e75;">
+      Migración de infraestructura on-premise a Azure para BNP Paribas.
+    </p>
+    <div class="progress-header">
+      <span>Progreso</span>
+      <span>82%</span>
     </div>
+    <dcx-ng-slider
+      class="content-project-slider"
+      [showLabel]="false"
+      [value]="82"
+      [min]="0"
+      [max]="100"
+    ></dcx-ng-slider>
   </ng-template>
 
-  <ng-template #footerTpl>
-    <div class="custom-footer">
+  <ng-template #footerProjectTpl>
+    <div class="card-actions">
       <dcx-ng-button
-        type="button"
-        label="Cancelar"
-        variant="secondary"
-        size="s"
-        style="margin-right:0.5rem"
-      ></dcx-ng-button>
-      <dcx-ng-button
-        type="button"
-        aria-label="Acción secundaria"
-        label="Aceptar"
+        label="Ver detalle"
+        variant="primary"
         size="s"
       ></dcx-ng-button>
     </div>
   </ng-template>
 
-  <!-- Pasamos los TemplateRef a los inputs de la card -->
   <dcx-ng-card
-    [layout]="DEFAULT_ARGS.layout"
-    [align]="DEFAULT_ARGS.align"
     [size]="DEFAULT_ARGS.size"
     [image]="DEFAULT_ARGS.image"
     [imageAlt]="DEFAULT_ARGS.imageAlt"
@@ -96,59 +90,28 @@
     [shadow]="DEFAULT_ARGS.shadow"
     [interactive]="DEFAULT_ARGS.interactive"
     [disabled]="DEFAULT_ARGS.disabled"
-    [maxContentWidth]="DEFAULT_ARGS.maxContentWidth"
-    [maxImageWidth]="DEFAULT_ARGS.maxImageWidth"
-    [header]="headerTpl"
-    [content]="contentTpl"
-    [footer]="footerTpl"
+    layout="vertical"
+    align="start"
+    maxContentWidth="100%"
+    [header]="headerProjectTpl"
+    [content]="contentProjectTpl"
+    [footer]="footerProjectTpl"
+    [interactive]="true"
   ></dcx-ng-card>
-</section>
 
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 5 - Posición horizontal con slots</h2>
-  <!-- Definimos los templates "slots" -->
-  <ng-template #headerTpl>
-    <div class="custom-header">
-      <h3 class="title">Encabezado personalizado</h3>
-      <p class="subtitle">
-        Este header sobrescribe el título/subtítulo por defecto
-      </p>
+  <ng-template #headerKpiTpl>
+    <div class="card-header-row ">
+      <div class="card-title">Satisfacción cliente</div>
     </div>
   </ng-template>
 
-  <ng-template #contentTpl>
-    <div class="custom-content">
-      <p>
-        Contenido principal de la card. Aquí puedes insertar cualquier HTML,
-        componentes, etc.
-      </p>
-    </div>
+  <ng-template #contentKpiTpl>
+    <div class="kpi-value">98%</div>
+    <div class="kpi-trend">↑ +1.2% este mes</div>
+    <div class="kpi-label">Media de 24 proyectos activos</div>
   </ng-template>
 
-  <ng-template #footerTpl>
-    <div class="custom-footer">
-      <dcx-ng-button
-        type="button"
-        label="Cancelar"
-        variant="secondary"
-        size="s"
-        style="margin-right:0.5rem"
-      ></dcx-ng-button>
-      <dcx-ng-button
-        type="button"
-        aria-label="Acción secundaria"
-        label="Aceptar"
-        size="s"
-      ></dcx-ng-button>
-    </div>
-  </ng-template>
-
-  <!-- Pasamos los TemplateRef a los inputs de la card -->
   <dcx-ng-card
-    layout="horizontal"
-    [align]="DEFAULT_ARGS.align"
     [size]="DEFAULT_ARGS.size"
     [image]="DEFAULT_ARGS.image"
     [imageAlt]="DEFAULT_ARGS.imageAlt"
@@ -158,10 +121,105 @@
     [shadow]="DEFAULT_ARGS.shadow"
     [interactive]="DEFAULT_ARGS.interactive"
     [disabled]="DEFAULT_ARGS.disabled"
-    maxContentWidth="800px"
-    [maxImageWidth]="DEFAULT_ARGS.maxImageWidth"
-    [header]="headerTpl"
-    [content]="contentTpl"
-    [footer]="footerTpl"
+    layout="vertical"
+    align="start"
+    maxContentWidth="100%"
+    [header]="headerKpiTpl"
+    [content]="contentKpiTpl"
   ></dcx-ng-card>
-</section>
+</div>
+
+<div class="section-label">Card con etiquetas y acciones</div>
+<div class="grid-2">
+  <ng-template #headerTags1Tpl>
+    <div class="title">SAP S/4HANA · Airbus</div>
+    <div class="subtitle">
+      Implementación de módulos FI/CO y MM en Airbus, incluyendo migración de
+      datos históricos.
+    </div>
+  </ng-template>
+
+  <ng-template #contentTags1Tpl>
+    <div class="tags">
+      <dcx-ng-chip label="SAP" size="s" color="primary"></dcx-ng-chip>
+      <dcx-ng-chip label="Finanzas" size="s" color="secondary"></dcx-ng-chip>
+      <dcx-ng-chip label="En revisión" size="s" color="warning"></dcx-ng-chip>
+    </div>
+  </ng-template>
+
+  <ng-template #footerTags1Tpl>
+    <div class="card-actions">
+      <dcx-ng-button label="Abrir" variant="primary" size="s"></dcx-ng-button>
+      <dcx-ng-button
+        label="Archivar"
+        variant="secondary"
+        size="s"
+      ></dcx-ng-button>
+    </div>
+  </ng-template>
+
+  <dcx-ng-card
+    [size]="DEFAULT_ARGS.size"
+    [image]="DEFAULT_ARGS.image"
+    [imageAlt]="DEFAULT_ARGS.imageAlt"
+    [bordered]="DEFAULT_ARGS.bordered"
+    [borderStyle]="DEFAULT_ARGS.borderStyle"
+    [borderWidth]="DEFAULT_ARGS.borderWidth"
+    [shadow]="DEFAULT_ARGS.shadow"
+    [interactive]="DEFAULT_ARGS.interactive"
+    [disabled]="DEFAULT_ARGS.disabled"
+    layout="vertical"
+    align="start"
+    maxContentWidth="100%"
+    [header]="headerTags1Tpl"
+    [content]="contentTags1Tpl"
+    [footer]="footerTags1Tpl"
+    [interactive]="true"
+  ></dcx-ng-card>
+
+  <ng-template #headerTags2Tpl>
+    <div class="title">Data Platform · Renault</div>
+    <div class="subtitle">
+      Construcción de una plataforma centralizada de datos en Azure Synapse para
+      operaciones.
+    </div>
+  </ng-template>
+
+  <ng-template #contentTags2Tpl>
+    <div class="tags">
+      <dcx-ng-chip label="Data & AI" size="s" color="primary"></dcx-ng-chip>
+      <dcx-ng-chip label="Azure" size="s" color="secondary"></dcx-ng-chip>
+      <dcx-ng-chip label="Planificado" size="s" color="success"></dcx-ng-chip>
+    </div>
+  </ng-template>
+
+  <ng-template #footerTags2Tpl>
+    <div class="card-actions">
+      <dcx-ng-button label="Abrir" variant="primary" size="s"></dcx-ng-button>
+      <dcx-ng-button
+        label="Archivar"
+        variant="secondary"
+        size="s"
+      ></dcx-ng-button>
+    </div>
+  </ng-template>
+
+  <dcx-ng-card
+    [size]="DEFAULT_ARGS.size"
+    [image]="DEFAULT_ARGS.image"
+    [imageAlt]="DEFAULT_ARGS.imageAlt"
+    [bordered]="DEFAULT_ARGS.bordered"
+    [borderStyle]="DEFAULT_ARGS.borderStyle"
+    [borderWidth]="DEFAULT_ARGS.borderWidth"
+    [shadow]="DEFAULT_ARGS.shadow"
+    [interactive]="DEFAULT_ARGS.interactive"
+    [disabled]="DEFAULT_ARGS.disabled"
+    layout="vertical"
+    align="start"
+    maxContentWidth="100%"
+    [header]="headerTags2Tpl"
+    [content]="contentTags2Tpl"
+    [footer]="footerTags2Tpl"
+    [interactive]="true"
+  ></dcx-ng-card>
+</div>

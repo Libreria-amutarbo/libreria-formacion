@@ -1,60 +1,78 @@
 :host {
-  --dcx-divider-thickness: 0.6px;
-  --dcx-divider-size: 100px;
   display: block;
+}
+
+:host(.horizontal) {
+  width: var(--dcx-divider-size, 100%);
+  height: auto;
+}
+
+:host(.vertical) {
+  height: var(--dcx-divider-size, 100%);
+  width: auto;
 }
 
 .dcx-ng-divider {
   margin: 0;
   display: block;
+}
+
+:host(.horizontal) .dcx-ng-divider {
+  width: 100%;
+  height: 0;
+  border-top: var(--dcx-divider-thickness, 1px) var(--dcx-divider-style, solid)
+    var(--dcx-divider-color, #d1d5db);
+}
+
+:host(.vertical) .dcx-ng-divider {
+  height: 100%;
+  width: 0;
+  border-left: var(--dcx-divider-thickness, 1px) var(--dcx-divider-style, solid)
+    var(--dcx-divider-color, #d1d5db);
+}
+
+:host(.horizontal) .dcx-ng-divider.labeled {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
   border: none;
+}
 
-  &--s {
-    --dcx-divider-size: 5rem;
-  }
+:host(.horizontal) .dcx-ng-divider__line {
+  flex: 1;
+  height: 0;
+  border-top: var(--dcx-divider-thickness, 1px) var(--dcx-divider-style, solid)
+    var(--dcx-divider-color, #d1d5db);
+}
 
-  &--m {
-    --dcx-divider-size: 15rem;
-  }
+:host(.vertical) .dcx-ng-divider.labeled {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  gap: 0.5rem;
+  border: none;
+}
 
-  &--l {
-    --dcx-divider-size: 30rem;
-  }
+:host(.vertical) .dcx-ng-divider__line {
+  flex: 1;
+  width: 0;
+  border-left: var(--dcx-divider-thickness, 1px) var(--dcx-divider-style, solid)
+    var(--dcx-divider-color, #d1d5db);
+}
 
-  &--xl {
-    --dcx-divider-size: 35rem;
-  }
+.dcx-ng-divider__label {
+  color: var(--dcx-divider-color, #d1d5db);
+  font-family: var(--font-family-primary, 'Inter', sans-serif);
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+}
 
-  &--auto {
-    &.dcx-ng-divider--horizontal {
-      width: 100%;
-    }
-
-    &.dcx-ng-divider--vertical {
-      height: inherit;
-      align-self: stretch;
-    }
-  }
-
-  &--horizontal {
-    width: var(--dcx-divider-size);
-    height: 0;
-    border-top: var(--dcx-divider-thickness) solid var(--dcx-divider-color);
-  }
-
-  &--vertical {
-    height: var(--dcx-divider-size);
-    width: 0;
-    border-left: var(--dcx-divider-thickness) solid var(--dcx-divider-color);
-  }
-
-  &--dot {
-    &.dcx-ng-divider--horizontal {
-      border-top-style: dotted;
-    }
-
-    &.dcx-ng-divider--vertical {
-      border-left-style: dotted;
-    }
-  }
+:host(.vertical) .dcx-ng-divider__label {
+  writing-mode: sideways-lr;
+  text-orientation: mixed;
 }

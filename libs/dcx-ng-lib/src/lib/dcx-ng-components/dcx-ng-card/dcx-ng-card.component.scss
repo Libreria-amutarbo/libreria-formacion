@@ -2,7 +2,7 @@
 @use '../../../scss/utils' as utils;
 
 .dcx-card {
-  font-family: var(--font-family-primary);
+  font-family: var(--ff-base, 'Inter', sans-serif);
   display: block;
   background: transparent;
   border: none;
@@ -26,39 +26,39 @@
 .card-inner {
   display: flex;
   flex-direction: column;
-  gap: var(--card-gap);
-
+  gap: var(--sp-4, 16px);
   background: var(--background-default);
   border-style: var(--card-border-style);
   border-color: var(--border-primary);
   border-width: var(--card-border-width);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
+  position: relative;
 
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
 
   width: 100%;
-  max-width: var(--card-max-content-width);
+  max-width: var(--card-max-content-width, 420px);
 
   &.layout-vertical {
     flex-direction: column;
   }
   &.layout-horizontal {
     flex-direction: row;
-    align-items: center;
-    gap: var(--card-gap);
+    align-items: stretch;
+    gap: var(--sp-4, 16px);
   }
 
   &.size-s {
-    --card-padding: 0.6rem;
+    --card-padding: 0.9rem;
     --card-gap: 0.55rem;
     --card-title-font-size: 1rem;
     --card-subtitle-font-size: 0.85rem;
-    --card-radius: 6px;
+    --card-radius: 12px;
     --card-max-image-width: 92%;
   }
   &.size-m {
-    --card-padding: 0.9rem;
+    --card-padding: 1rem;
     --card-gap: 0.75rem;
     --card-title-font-size: 1.15rem;
     --card-subtitle-font-size: 0.95rem;
@@ -66,7 +66,7 @@
     --card-max-image-width: 100%;
   }
   &.size-l {
-    --card-padding: 1.5rem;
+    --card-padding: 1.7rem;
     --card-gap: 1rem;
     --card-title-font-size: 1.4rem;
     --card-subtitle-font-size: 1.05rem;
@@ -86,21 +86,46 @@
 }
 
 .image-container {
-  @include utils.flex-center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
 }
 .image-container img {
   display: block;
   width: 100%;
-  max-width: var(--card-max-image-width);
+  max-width: var(--card-max-image-width, 180px);
   border-radius: 6px;
+  object-fit: cover;
 }
 
 .card-inner.layout-horizontal .image-container {
   flex: 0 0 auto;
+  max-width: var(--card-max-image-width, 180px);
+  margin-right: var(--sp-4, 16px);
 }
 .card-inner.layout-horizontal .card-body {
-  flex: 1 1 auto;
+  flex: 1 1 0%;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card-inner.accent-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-primary, #0058ab),
+    var(--color-success, #16a34a)
+  );
+  border-top-left-radius: var(--card-radius);
+  border-top-right-radius: var(--card-radius);
+  z-index: 2;
 }
 
 .card-body {
@@ -110,17 +135,17 @@
 
   min-width: 0;
 
-  .header {
+  .card-header {
     margin-bottom: var(--spacing-inline-m);
   }
-  .content {
+  .card-content {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     max-width: 100%;
     min-width: 0;
   }
-  .footer {
+  .card-footer {
     margin-top: var(--spacing-inline-m);
     @include utils.flex-center;
     width: 100%;
@@ -131,29 +156,29 @@
 
   .title {
     margin: 0 0 0.5rem 0;
-    font-size: var(--font-size-h3);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--fs-lg, 18px);
+    font-weight: var(--fw-semibold, 600);
   }
   .subtitle {
     margin: 0;
-    font-size: var(--font-size-body);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--fs-base, 14px);
+    color: var(--text-muted, #696e75);
+    font-weight: var(--fw-regular, 400);
   }
 
-  .header ::ng-deep h3,
-  .header ::ng-deep .title {
+  .card-header ::ng-deep h3,
+  .card-header ::ng-deep .title {
     margin: 0 0 0.5rem 0;
-    font-size: var(--font-size-h3);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--fs-lg, 18px);
+    font-weight: var(--fw-semibold, 600);
   }
-  .header ::ng-deep p,
-  .header ::ng-deep .subtitle {
+  .card-header ::ng-deep p,
+  .card-header ::ng-deep .subtitle {
     margin: 0;
-    font-family: var(--font-family-primary);
-    font-size: var(--font-size-body);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-weight-semibold);
+    font-family: var(--ff-base, 'Inter', sans-serif);
+    font-size: var(--fs-base, 14px);
+    color: var(--text-muted, #696e75);
+    font-weight: var(--fw-regular, 400);
   }
 }
 
@@ -170,13 +195,13 @@
   text-align: right;
 }
 
-.card-inner.align-start .card-body .footer {
+.card-inner.align-start .card-body .card-footer {
   justify-content: flex-start;
 }
-.card-inner.align-center .card-body .footer {
+.card-inner.align-center .card-body .card-footer {
   justify-content: center;
 }
-.card-inner.align-end .card-body .footer {
+.card-inner.align-end .card-body .card-footer {
   justify-content: flex-end;
 }
 
@@ -191,5 +216,5 @@
 }
 
 .dcx-card.interactive:not(.disabled) .card-inner:hover {
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
 }

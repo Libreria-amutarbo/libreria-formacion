@@ -23,6 +23,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPaginatorComponent {
+  readonly selectedItemsPerPage = signal(10);
+
   // Inputs
   paginator = input<DcxPaginator>({
     itemsPerPage: 10,
@@ -45,9 +47,7 @@ export class DcxNgPaginatorComponent {
 
   // Computeds
   totalPages = computed<number>(() => {
-    return Math.ceil(
-      this.paginator().totalItems / this.paginator().itemsPerPage,
-    );
+    return Math.ceil(this.paginator().totalItems / this.selectedItemsPerPage());
   });
 
   hasPrevious = computed<boolean>(() => {
@@ -59,12 +59,12 @@ export class DcxNgPaginatorComponent {
   });
 
   firstItem = computed<number>(() => {
-    return (this.currentPage() - 1) * this.paginator().itemsPerPage + 1;
+    return (this.currentPage() - 1) * this.selectedItemsPerPage() + 1;
   });
 
   lastItem = computed<number>(() => {
     return Math.min(
-      this.currentPage() * this.paginator().itemsPerPage,
+      this.currentPage() * this.selectedItemsPerPage(),
       this.paginator().totalItems,
     );
   });
@@ -76,6 +76,10 @@ export class DcxNgPaginatorComponent {
   constructor() {
     effect(() => {
       this.totalPagesChange.emit(this.totalPages());
+    });
+
+    effect(() => {
+      this.selectedItemsPerPage.set(this.paginator().itemsPerPage);
     });
 
     effect(() => {
@@ -139,20 +143,47 @@ export class DcxNgPaginatorComponent {
     return page === '...';
   }
 
+  onItemsPerPageChange(value: string): void {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed) || parsed <= 0) {
+      return;
+    }
+
+    this.selectedItemsPerPage.set(parsed);
+
+    const validPage = Math.max(1, Math.min(this.currentPage(), this.totalPages()));
+    if (validPage !== this.currentPage()) {
+      this.currentPage.set(validPage);
+      this.pageChange.emit(validPage);
+    }
+  }
+
   // Métodos privados
   private calculateVisiblePages(): (number | string)[] {
     const total = this.totalPages();
     const current = this.currentPage();
-    const range = this.pagesAroundCurrent;
+
+    if (total <= 1) {
+      return [1];
+    }
+
+    const maxVisibleNumbers = this.pagesAroundCurrent * 2 + 3;
+
+    if (total <= maxVisibleNumbers) {
+      return Array.from({ length: total }, (_, index) => index + 1);
+    }
+
+    const middleNumbers = maxVisibleNumbers - 2;
+    const middleHalf = Math.floor(middleNumbers / 2);
+
+    const maxStart = total - middleNumbers;
+    const start = Math.max(2, Math.min(current - middleHalf, maxStart));
+    const end = start + middleNumbers - 1;
+
     const pages: (number | string)[] = [];
 
-    const start = Math.max(1, current - range);
-    const end = Math.min(total, current + range);
-
     // Primera página
-    if (start > 1) {
-      pages.push(1);
-    }
+    pages.push(1);
 
     // Elipsis después de primera
     if (start > 2) {
@@ -170,9 +201,7 @@ export class DcxNgPaginatorComponent {
     }
 
     // Última página
-    if (end < total) {
-      pages.push(total);
-    }
+    pages.push(total);
 
     return pages;
   }
