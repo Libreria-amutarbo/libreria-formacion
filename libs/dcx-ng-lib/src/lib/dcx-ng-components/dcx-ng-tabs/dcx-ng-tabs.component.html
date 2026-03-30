@@ -26,6 +26,7 @@
     }
     <div
       class="dcx-tabs__header"
+      [class.dcx-tabs__header--brand]="brandMode()"
       role="tablist"
       #tabsHeader
       (scroll)="updateScrollButtons()"
@@ -34,6 +35,7 @@
         <dcx-ng-button
           class="dcx-tab__button"
           [class.active]="isActive(tab.id)"
+          [class.dcx-tab__button--brand]="brandMode()"
           [label]="tab.label"
           [disabled]="!!tab.disabled"
           [variant]="'text'"

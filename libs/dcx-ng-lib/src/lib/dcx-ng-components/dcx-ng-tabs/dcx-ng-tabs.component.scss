@@ -5,8 +5,6 @@
   font-family: var(--font-family-primary);
   display: flex;
   flex-direction: column;
-  width: 100%;
-
   &__controls {
     @include flex-end;
     dcx-ng-button {
@@ -36,6 +34,13 @@
     &::-webkit-scrollbar {
       display: none;
     }
+
+    &.dcx-tabs__header--brand {
+      background: var(--bg-primary, #0058ab);
+      border-radius: var(--r-xl, 12px) var(--r-xl, 12px) 0 0;
+      border-bottom: 2px solid var(--border-focus, #1db8f2);
+      min-height: 48px;
+    }
   }
 
   &__scroll-button {
@@ -58,14 +63,22 @@
     animation: fadeIn 0.3s ease;
   }
 }
-
+dcx-ng-button.dcx-tab__button.active {
+  --text-dark: var(--bg-primary, #0058ab);
+  transition: all 0.3s ease;
+}
+.dcx-tab__button:not(.active) {
+  --text-dark: var(--text-disabled, #999);
+}
+dcx-ng-button.dcx-tab__button {
+  --fw-medium: var(--fw-bold, 700);
+}
 .dcx-tab {
   &__button {
     background: none;
     border: none;
     border-bottom: 3px solid transparent;
     color: var(--text-disabled);
-    font-weight: var(--font-weight-medium);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
@@ -94,6 +107,15 @@
       color: var(--text-body);
       line-height: var(--line-height-normal);
     }
+  }
+}
+.dcx-tab__button--brand {
+  --text-dark: var(--text-placeholder, #9ca3af) !important;
+
+  &.active {
+    --text-dark: var(--text-white, #fff) !important;
+    border-bottom-color: var(--border-focus, #1db8f2);
+    background: rgba(255, 255, 255, 0.1);
   }
 }
 
