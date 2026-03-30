@@ -25,6 +25,8 @@ import {
 export class DcxNgTabsComponent {
   tabs = input.required<DcxTabItem[]>();
 
+  variant = input<'line' | 'pill' | 'brand'>('line');
+
   public hasControls = input(false, {
     transform: (value: boolean | string) =>
       typeof value === 'string' ? value === '' : value,

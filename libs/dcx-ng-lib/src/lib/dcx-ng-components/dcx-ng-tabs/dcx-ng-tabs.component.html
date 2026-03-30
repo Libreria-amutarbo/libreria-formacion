@@ -11,7 +11,10 @@
       }
     </div>
   }
-  <div class="dcx-tabs__header-container">
+  <div
+    class="dcx-tabs__header-container"
+    [class.dcx-tabs__header-container--pill]="variant() === 'pill'"
+  >
     @if (hasOverflow() && canScrollLeft()) {
       <dcx-ng-button
         class="dcx-tabs__scroll-button dcx-tabs__scroll-button--left"
@@ -26,7 +29,8 @@
     }
     <div
       class="dcx-tabs__header"
-      [class.dcx-tabs__header--brand]="brandMode()"
+      [class.dcx-tabs__header--brand]="brandMode() && variant() !== 'pill'"
+      [class.dcx-tabs__header--pill]="variant() === 'pill'"
       role="tablist"
       #tabsHeader
       (scroll)="updateScrollButtons()"
@@ -35,7 +39,8 @@
         <dcx-ng-button
           class="dcx-tab__button"
           [class.active]="isActive(tab.id)"
-          [class.dcx-tab__button--brand]="brandMode()"
+          [class.dcx-tab__button--brand]="brandMode() && variant() !== 'pill'"
+          [class.dcx-tab__button--pill]="variant() === 'pill'"
           [label]="tab.label"
           [disabled]="!!tab.disabled"
           [variant]="'text'"

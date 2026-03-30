@@ -41,6 +41,46 @@
       border-bottom: 2px solid var(--border-focus, #1db8f2);
       min-height: 48px;
     }
+
+    &.dcx-tabs__header--pill {
+      background: var(--border-light, #d1d5db);
+      border-radius: var(--r-pill, 999px);
+      padding: 3px;
+      gap: 2px;
+      border-bottom: none;
+      min-height: 40px;
+      display: inline-flex;
+      width: auto;
+    }
+  }
+  .dcx-tab__button--pill {
+    font-size: var(--fs-sm, 12px);
+    font-weight: var(--fw-medium, 500);
+    color: var(--text-muted, #696e75);
+    padding: var(--sp-1, 4px) var(--sp-4, 16px);
+    border-radius: var(--r-pill, 999px);
+    background: none;
+    border: none;
+    transition: all 0.15s;
+    user-select: none;
+    white-space: nowrap;
+    box-shadow: none;
+
+    &:hover:not(:disabled) {
+      color: var(--text-dark, #2a2e33);
+      background: none;
+    }
+    &.active {
+      background: var(--bg-default, #fff);
+      color: var(--text-dark, #2a2e33);
+      font-weight: var(--fw-semibold, 600);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    &:disabled {
+      color: var(--text-disabled, #d1d5db);
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
   }
 
   &__scroll-button {
