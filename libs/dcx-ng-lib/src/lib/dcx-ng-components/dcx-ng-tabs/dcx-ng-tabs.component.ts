@@ -31,10 +31,6 @@ export class DcxNgTabsComponent {
     transform: (value: boolean | string) =>
       typeof value === 'string' ? value === '' : value,
   });
-  brandMode = input(false, {
-    transform: (value: boolean | string) =>
-      typeof value === 'string' ? value === '' : value,
-  });
   activeTabId = input<string>('');
 
   tabChange = output<string>();

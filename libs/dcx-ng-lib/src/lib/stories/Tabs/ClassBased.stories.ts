@@ -17,6 +17,16 @@ const meta: Meta<DcxNgTabsComponent> = {
   component: DcxNgTabsComponent,
   tags: ['autodocs'],
   argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['line', 'pill', 'brand'],
+      description: 'Variante visual de los tabs',
+      table: {
+        category: 'Attributes',
+        type: { summary: '"line" | "pill" | "brand"' },
+        defaultValue: { summary: 'line' },
+      },
+    },
     tabs: {
       options: DcxTabItemDefault,
       control: 'object',
@@ -60,14 +70,29 @@ const meta: Meta<DcxNgTabsComponent> = {
     tabs: DcxTabItemDefault,
     activeTabId: 'tab1',
     hasControls: false,
+    variant: 'line',
   },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgTabsComponent>;
 
-export const ClassBased: Story = {};
+export const Default: Story = {};
+export const BrandTabs: Story = {
+  args: {
+    tabs: DcxTabItemDefault,
+    variant: 'brand',
+  },
+  name: 'Brand (primary background)',
+};
 
+export const PillTabs: Story = {
+  args: {
+    tabs: DcxTabItemDefault,
+    variant: 'pill',
+  },
+  name: 'Pill',
+};
 export const DisabledTabs: Story = {
   args: {
     tabs: DcxTabItemWithDisabled,

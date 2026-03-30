@@ -29,7 +29,7 @@
     }
     <div
       class="dcx-tabs__header"
-      [class.dcx-tabs__header--brand]="brandMode() && variant() !== 'pill'"
+      [class.dcx-tabs__header--brand]="variant() === 'brand'"
       [class.dcx-tabs__header--pill]="variant() === 'pill'"
       role="tablist"
       #tabsHeader
@@ -39,7 +39,7 @@
         <dcx-ng-button
           class="dcx-tab__button"
           [class.active]="isActive(tab.id)"
-          [class.dcx-tab__button--brand]="brandMode() && variant() !== 'pill'"
+          [class.dcx-tab__button--brand]="variant() === 'brand'"
           [class.dcx-tab__button--pill]="variant() === 'pill'"
           [label]="tab.label"
           [disabled]="!!tab.disabled"

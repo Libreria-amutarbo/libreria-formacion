@@ -2,7 +2,7 @@
 @use '../../../scss/utils' as utils;
 
 .dcx-tabs {
-  font-family: var(--font-family-primary);
+  font-family: var(--ff-base, 'Inter', sans-serif);
   display: flex;
   flex-direction: column;
   &__controls {
@@ -20,7 +20,7 @@
 
   &__header {
     display: flex;
-    border-bottom: 1px solid var(--border-terciary);
+    border-bottom: 1px solid var(--border-light, #d1d5db);
     gap: 0;
     overflow-x: auto;
     overflow-y: hidden;
@@ -99,7 +99,7 @@
   }
 
   &__content {
-    padding: var(--spacing-m);
+    padding: var(--sp-4, 16px);
     animation: fadeIn 0.3s ease;
   }
 }
@@ -118,7 +118,7 @@ dcx-ng-button.dcx-tab__button {
     background: none;
     border: none;
     border-bottom: 3px solid transparent;
-    color: var(--text-disabled);
+    color: var(--text-disabled, #696e75);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
@@ -126,13 +126,13 @@ dcx-ng-button.dcx-tab__button {
     white-space: nowrap;
 
     &:hover:not(:disabled) {
-      color: var(--text-body);
-      background-color: var(--background-hover);
+      color: var(--text-dark, #2a2e33);
+      background-color: var(--bg-hover, #f7f8fa);
     }
 
     &.active {
-      color: var(--background-primary);
-      border-bottom-color: var(--background-primary);
+      color: var(--text-dark, #2a2e33);
+      border-bottom-color: var(--background-primary, #0058ab);
     }
 
     &:disabled {
@@ -144,8 +144,8 @@ dcx-ng-button.dcx-tab__button {
   &__panel {
     p {
       margin: 0;
-      color: var(--text-body);
-      line-height: var(--line-height-normal);
+      color: var(--text-dark, #2a2e33);
+      line-height: var(--line-height-normal, 1.5);
     }
   }
 }
@@ -155,7 +155,6 @@ dcx-ng-button.dcx-tab__button {
   &.active {
     --text-dark: var(--text-white, #fff) !important;
     border-bottom-color: var(--border-focus, #1db8f2);
-    background: rgba(255, 255, 255, 0.1);
   }
 }
 

@@ -9,6 +9,7 @@ import {
   DcxTabItemWithComponents,
   DcxTabItemWithDisabled,
   DcxTabItemWithIcons,
+  DcxNgDividerComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -19,6 +20,7 @@ import {
     DcxNgButtonComponent,
     DcxNgSelectComponent,
     DcxNgCardComponent,
+    DcxNgDividerComponent,
   ],
   templateUrl: './dcx-ng-page-tabs.component.html',
   styleUrls: ['./dcx-ng-page-tabs.component.scss'],
