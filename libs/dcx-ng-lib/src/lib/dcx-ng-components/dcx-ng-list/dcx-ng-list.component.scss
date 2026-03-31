@@ -73,19 +73,36 @@
 
   &.selected {
     background-color: var(--color-info-bg, #eff6ff);
+    box-shadow: inset 3px 0 0 var(--bg-primary, #0058ab);
     
     .dcx-list-text {
       color: var(--bg-primary, #0058ab);
       font-weight: var(--fw-semibold, 600);
     }
 
+    .dcx-list-description {
+      color: var(--bg-primary, #0058ab);
+      opacity: 0.75;
+    }
+
     .dcx-list-icon-container {
       background-color: var(--bg-primary, #0058ab);
       color: white;
+      transform: none;
     }
 
     .dcx-list-children-indicator {
       color: var(--bg-primary, #0058ab) !important;
+    }
+
+    &.selectable:hover:not(.disabled) {
+      background-color: var(--color-info-bg, #eff6ff);
+
+      .dcx-list-icon-container {
+        background-color: var(--bg-primary, #0058ab);
+        color: white;
+        transform: none;
+      }
     }
   }
 
