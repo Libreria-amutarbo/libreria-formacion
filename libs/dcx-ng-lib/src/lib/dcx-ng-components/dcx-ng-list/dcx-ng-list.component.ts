@@ -1,13 +1,7 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  output,
-  signal,
-} from '@angular/core';
-import { DcxListItem, DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import { DcxListItem } from '../../core/interfaces/list';
 
 @Component({
   selector: 'dcx-ng-list',
@@ -26,47 +20,34 @@ export class DcxNgListComponent {
 
   itemSelected = output<{ item: DcxListItem; index: number }>();
   itemDeselected = output<{ item: DcxListItem; index: number }>();
-  selectionChanged = output<{ item: DcxListItem; index: number }[]>();
 
   selectedIndices = signal<number[]>([]);
-  selectedItems = computed(() =>
-    this.selectedIndices().map(i => ({ item: this.items()[i], index: i })),
-  );
 
   onItemClick(item: DcxListItem, index: number): void {
-    if (item.disabled || item.divider) return;
+    if (!this.selectable() || item.disabled || item.divider) {
+      return;
+    }
+
     if (this.multiSelect()) {
-      this._handleMultiSelect(item, index);
+      const currentIndices = this.selectedIndices();
+
+      if (this.isSelected(index)) {
+        this.selectedIndices.set(currentIndices.filter(i => i !== index));
+        this.itemDeselected.emit({ item, index });
+      } else {
+        this.selectedIndices.set([...currentIndices, index]);
+        this.itemSelected.emit({ item, index });
+      }
     } else {
-      this._handleSingleSelect(item, index);
+      if (!this.isSelected(index)) {
+        this.selectedIndices.set([index]);
+        this.itemSelected.emit({ item, index });
+      }
     }
   }
 
   isSelected(index: number): boolean {
     if (!this.selectable()) return false;
     return this.selectedIndices().includes(index);
-  }
-
-  private _handleMultiSelect(item: DcxListItem, index: number): void {
-    const current = this.selectedIndices();
-    if (this.isSelected(index)) {
-      this.selectedIndices.set(current.filter(i => i !== index));
-      this.itemDeselected.emit({ item, index });
-    } else {
-      this.selectedIndices.set([...current, index]);
-      this.itemSelected.emit({ item, index });
-    }
-    this.selectionChanged.emit(this.selectedItems());
-  }
-
-  private _handleSingleSelect(item: DcxListItem, index: number): void {
-    if (this.isSelected(index)) {
-      this.selectedIndices.set([]);
-      this.itemDeselected.emit({ item, index });
-    } else {
-      this.selectedIndices.set([index]);
-      this.itemSelected.emit({ item, index });
-    }
-    this.selectionChanged.emit(this.selectedItems());
   }
 }
