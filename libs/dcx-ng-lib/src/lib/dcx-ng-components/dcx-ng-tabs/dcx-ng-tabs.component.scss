@@ -68,13 +68,14 @@
 
     &:hover:not(:disabled) {
       color: var(--text-dark, #2a2e33);
-      background: none;
+      background: var(--bg-default, #fff);
+      border-radius: var(--r-pill, 999px);
     }
     &.active {
-      background: var(--bg-default, #fff);
+      background: var(--bg-default, #ffffff);
       color: var(--text-dark, #2a2e33);
       font-weight: var(--fw-semibold, 600);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border-radius: var(--r-pill, 999px);
     }
     &:disabled {
       color: var(--text-disabled, #d1d5db);
@@ -155,6 +156,10 @@ dcx-ng-button.dcx-tab__button {
   &.active {
     --text-dark: var(--text-white, #fff) !important;
     border-bottom-color: var(--border-focus, #1db8f2);
+    &:hover:not(:disabled) {
+      --text-dark: var(--bg-primary, #0058ab) !important;
+      background: var(--text-white, #fff);
+    }
   }
 }
 
