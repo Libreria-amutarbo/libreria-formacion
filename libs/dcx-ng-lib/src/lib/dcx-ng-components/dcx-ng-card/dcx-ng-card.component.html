@@ -21,13 +21,13 @@
 
     <div class="card-body">
       @if (header()) {
-        <div class="header">
+        <div class="card-header">
           <ng-container [ngTemplateOutlet]="header()"></ng-container>
         </div>
       }
 
       @if (!header()) {
-        <div class="header">
+        <div class="card-header">
           @if (title()) {
             <h3 class="title">{{ title() }}</h3>
           }
@@ -38,13 +38,13 @@
       }
 
       @if (content()) {
-        <div class="content">
+        <div class="card-content">
           <ng-container [ngTemplateOutlet]="content()"></ng-container>
         </div>
       }
 
       @if (footer()) {
-        <div class="footer">
+        <div class="card-footer">
           <ng-container [ngTemplateOutlet]="footer()"></ng-container>
         </div>
       }

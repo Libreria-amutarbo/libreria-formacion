@@ -28,6 +28,7 @@ import {
   BorderStyleCard,
   ShadowPresetCard,
   DISABLED,
+  ACCENT,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -51,6 +52,7 @@ export class DcxNgCardComponent {
   maxContentWidth = input<string>(MAX_CONTENT_WIDTH);
   maxImageWidth = input<string>(MAX_IMAGE_WIDTH);
 
+  accent = input<boolean>(ACCENT);
   bordered = input<boolean>(BORDERED);
   borderWidth = input<number>(BORDER_WIDTH);
   borderStyle = input<BorderStyleCard>(BORDER_STYLE_DEFAULT);
@@ -89,6 +91,8 @@ export class DcxNgCardComponent {
     'size-s': this.size() === 's',
     'size-m': this.size() === 'm',
     'size-l': this.size() === 'l',
+
+    'accent-top': this.accent(),
   }));
 
   innerStyleVars = computed<Record<string, string | number>>(() => ({
