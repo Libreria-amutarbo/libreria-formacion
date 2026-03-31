@@ -267,30 +267,3 @@ export const MultiSelectable: Story = {
   }),
 };
 
-export const Interactive: Story = {
-  render: args => ({
-    props: {
-      ...args,
-      onItemSelected(event: ListSelectionEvent) {
-        this['itemSelected'](event);
-      },
-      onItemDeselected(event: ListSelectionEvent) {
-        this['itemDeselected'](event);
-      }
-    },
-    template: `
-      <div style="max-width: 600px;">
-        <div style="color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">Playground de Atributos y Eventos</div>
-        <dcx-ng-list
-          [items]="items"
-          [selectable]="selectable"
-          [multiSelect]="multiSelect"
-          [showChildrenIndicator]="showChildrenIndicator"
-          [renderChildren]="renderChildren"
-          (itemSelected)="onItemSelected($event)"
-          (itemDeselected)="onItemDeselected($event)">
-        </dcx-ng-list>
-      </div>
-    `,
-  }),
-};
