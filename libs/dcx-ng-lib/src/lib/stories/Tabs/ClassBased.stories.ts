@@ -9,6 +9,7 @@ import {
   DcxTabItemWithComponents,
   DcxTabItemWithDisabled,
   DcxTabItemWithIcons,
+  TABS_VARIANT_LIST,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
@@ -19,7 +20,7 @@ const meta: Meta<DcxNgTabsComponent> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['line', 'pill', 'brand'],
+      options: TABS_VARIANT_LIST,
       description: 'Variante visual de los tabs',
       table: {
         category: 'Attributes',

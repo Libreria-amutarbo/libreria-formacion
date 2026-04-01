@@ -28,19 +28,14 @@
       ></dcx-ng-button>
     }
     <div
-      class="dcx-tabs__header"
-      [class.dcx-tabs__header--brand]="variant() === 'brand'"
-      [class.dcx-tabs__header--pill]="variant() === 'pill'"
+      [ngClass]="tabHeaderClasses()"
       role="tablist"
       #tabsHeader
       (scroll)="updateScrollButtons()"
     >
       @for (tab of tabs(); track tab.id) {
         <dcx-ng-button
-          class="dcx-tab__button"
-          [class.active]="isActive(tab.id)"
-          [class.dcx-tab__button--brand]="variant() === 'brand'"
-          [class.dcx-tab__button--pill]="variant() === 'pill'"
+          [ngClass]="tabButtonClasses(tab.id)"
           [label]="tab.label"
           [disabled]="!!tab.disabled"
           [variant]="'text'"

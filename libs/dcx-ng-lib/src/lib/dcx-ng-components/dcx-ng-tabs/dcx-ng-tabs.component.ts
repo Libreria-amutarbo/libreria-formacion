@@ -9,15 +9,17 @@ import {
   ElementRef,
   ViewChild,
 } from '@angular/core';
+
 import {
   DcxNgButtonComponent,
   DcxTabItem,
 } from '@dcx-ng-components/dcx-ng-lib';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'dcx-ng-tabs',
   standalone: true,
-  imports: [DcxNgButtonComponent],
+  imports: [DcxNgButtonComponent, CommonModule],
   templateUrl: './dcx-ng-tabs.component.html',
   styleUrl: './dcx-ng-tabs.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,6 +50,32 @@ export class DcxNgTabsComponent {
   hasOverflow = computed(() => this._hasOverflow());
   canScrollLeft = computed(() => this._canScrollLeft());
   canScrollRight = computed(() => this._canScrollRight());
+
+  tabHeaderClasses = computed(() => {
+    const base = 'dcx-tabs__header';
+    const variant = this.variant();
+    return [
+      base,
+      variant === 'brand' ? base + '--brand' : '',
+      variant === 'pill' ? base + '--pill' : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+  });
+
+  tabButtonClasses = (tabId: string) => {
+    const base = 'dcx-tab__button';
+    const variant = this.variant();
+    const isActive = this.isActive(tabId);
+    return [
+      base,
+      isActive ? 'active' : '',
+      variant === 'brand' ? base + '--brand' : '',
+      variant === 'pill' ? base + '--pill' : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+  };
 
   @ViewChild('tabsHeader', { static: false })
   tabsHeader!: ElementRef<HTMLDivElement>;
