@@ -20,6 +20,7 @@ import {
   DcxNgInputComponent,
   DcxInputType,
   DcxNgAccordionItem,
+  DcxButtonVariant,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -64,6 +65,8 @@ export class DcxNgPageAccordionComponent implements AfterViewInit {
   @ViewChild('listTemplate', { read: TemplateRef })
   listTemplate!: TemplateRef<any>;
 
+  @ViewChild('externalAccordion') externalAccordion!: DcxNgAccordionComponent;
+
   withComponents: DcxNgAccordionItem[] = [];
 
   listItems = [
@@ -99,5 +102,27 @@ export class DcxNgPageAccordionComponent implements AfterViewInit {
       ];
       this.cdr.detectChanges();
     });
+  }
+
+  isExternalExpanded(id: string): boolean {
+    return this.externalAccordion?.isExpanded(id) ?? false;
+  }
+
+  toggleExternalItem(id: string): void {
+    if (this.isExternalExpanded(id)) {
+      this.externalAccordion.collapseItemById(id);
+    } else {
+      this.externalAccordion.expandItemById(id);
+    }
+  }
+
+  getExternalButtonLabel(id: string): string {
+    return this.isExternalExpanded(id)
+      ? `Cerrar Item ${id}`
+      : `Abrir Item ${id}`;
+  }
+
+  getExternalButtonVariant(id: string): DcxButtonVariant {
+    return this.isExternalExpanded(id) ? 'primary' : 'secondary';
   }
 }

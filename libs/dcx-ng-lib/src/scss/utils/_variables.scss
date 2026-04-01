@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use '../base/typography' as typography;
 @use '../base/color' as color;
 @use '../base/spacing' as spacing;
@@ -67,4 +68,22 @@
   @each $name, $value in sizes.$size {
     --size-#{$name}: #{$value};
   }
+
+  // ─── Alias semánticos ────────────────────────────────────────────────────────
+  // Usados directamente en mixins y componentes con nombres cortos
+
+  // Color primario (atajo directo al azul Capgemini)
+  --color-primary:       #{map.get(color.$color-primary, 500)};
+
+  // Superficie: fondo de tarjetas, paneles, tooltips
+  --color-surface:       #{map.get(color.$color-grey, 100)};
+
+  // Grises para scrollbar y utilidades
+  --color-gray-lighter:  #{map.get(color.$color-grey, 100)};
+  --color-gray:          #{map.get(color.$color-grey, 400)};
+  --color-gray-dark:     #{map.get(color.$color-grey, 700)};
+
+  // Transiciones — usadas en button-base, card, animaciones
+  --transition-normal:   300ms;
+  --transition-timing:   ease-in-out;
 }

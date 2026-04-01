@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { componentWrapperDecorator } from '@storybook/angular';
 
 const meta: Meta<DcxNgRadioComponent> = {
-  title: 'DCXLibrary/Radio/Class based',
+  title: 'DCXLibrary/Components/Radio',
   component: DcxNgRadioComponent,
   tags: ['autodocs'],
   decorators: [

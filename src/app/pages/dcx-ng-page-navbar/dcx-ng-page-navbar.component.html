@@ -1,0 +1,65 @@
+<section>
+  <h2 class="example-title">Ejemplo 1 - Navbar básica</h2>
+  <dcx-ng-navbar [brand]="brand" [items]="navItems" />
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Con logo y item activo</h2>
+  <dcx-ng-navbar
+    [brand]="brandWithLogo"
+    [items]="navItems"
+    [activeValue]="activeValue()"
+    (itemClick)="onItemClick($event)"
+  />
+  <p class="example-hint">Item activo: <strong>{{ activeValue() }}</strong></p>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Con item deshabilitado</h2>
+  <dcx-ng-navbar
+    [brand]="brand"
+    [items]="navItemsWithDisabled"
+    [activeValue]="activeValue()"
+    (itemClick)="onItemClick($event)"
+  />
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Con acciones en el slot</h2>
+  <dcx-ng-navbar
+    [brand]="brandWithLogo"
+    [items]="navItems"
+    [activeValue]="activeValue()"
+    (itemClick)="onItemClick($event)"
+  >
+    <dcx-ng-button label="Login" size="s" variant="secondary" />
+    <dcx-ng-button label="Registrarse" size="s" variant="primary" />
+  </dcx-ng-navbar>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Modo vertical (sidebar)</h2>
+  <div class="vertical-demo">
+    <dcx-ng-navbar
+      [brand]="brandWithLogo"
+      [items]="navItems"
+      [activeValue]="activeValue()"
+      [vertical]="true"
+      (itemClick)="onItemClick($event)"
+    >
+      <dcx-ng-button label="Login" size="s" variant="secondary" />
+    </dcx-ng-navbar>
+    <div class="vertical-demo__content">
+      <p>Contenido principal</p>
+      <p class="example-hint">Item activo: <strong>{{ activeValue() }}</strong></p>
+    </div>
+  </div>
+</section>

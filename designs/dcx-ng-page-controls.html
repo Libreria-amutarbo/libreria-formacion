@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-primary:#0058ab;--bg-primary-hover:#004080;
+        --bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;--bg-default:#fff;--bg-surface:#f4f5f7;
+        --text-dark:#2a2e33;--text-muted:#696e75;--text-disabled:#9ca3af;--text-white:#fff;
+        --border-default:#d1d5db;--border-focus:#1db8f2;--border-btn:#2a2e33;
+        --color-success:#16a34a;
+        --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-6:24px;
+        --r-sm:4px;--r-md:6px;--r-lg:8px;--r-pill:999px;
+        --ff:'Inter',sans-serif;
+      }
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+      .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;color:#000;text-transform:uppercase;margin-bottom:.25rem}
+      .comp-title{font-size:24px;font-weight:700;color:#000;margin-bottom:.5rem}
+      .divider{border:none;border-top:1px solid #e5e7eb;margin-bottom:2rem}
+      .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+      .card{background:var(--bg-default);border-radius:var(--r-lg);border:1px solid #e5e7eb;padding:var(--sp-4)}
+      .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid #f3f4f6}
+
+      /* ── SELECT ── */
+      .select-list{display:flex;flex-direction:column;gap:var(--sp-4)}
+      .dcx-field{display:flex;flex-direction:column;gap:var(--sp-1)}
+      .dcx-label{font-size:12px;font-weight:500;color:var(--text-dark)}
+      .dcx-hint{font-size:11px;color:var(--text-muted)}
+      .dcx-select{font-family:var(--ff);font-size:14px;padding:var(--sp-2) var(--sp-3);padding-right:2.25rem;border:1px solid var(--border-default);border-radius:var(--r-sm);color:var(--text-dark);background:var(--bg-default);outline:none;width:100%;appearance:none;cursor:pointer;transition:border-color .15s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%232a2e33' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+      .dcx-select:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(29,184,242,.2);outline:none}
+      .dcx-select[disabled]{background:#f9fafb;color:var(--text-disabled);cursor:not-allowed}
+    </style>
+  </head>
+  <body>
+    <p class="page-title">Components</p>
+    <p class="comp-title">Form Controls</p>
+    <hr class="divider" />
+
+    <div class="grid">
+      <!-- SELECT -->
+      <div class="card">
+        <div class="section-label">Select</div>
+        <div class="select-list">
+          <div class="dcx-field">
+            <label class="dcx-label">País</label>
+            <select class="dcx-select">
+              <option value="">Selecciona un país</option>
+              <option selected>España</option>
+              <option>Francia</option>
+              <option>Alemania</option>
+              <option>Reino Unido</option>
+            </select>
+          </div>
+          <div class="dcx-field">
+            <label class="dcx-label">Práctica</label>
+            <select class="dcx-select">
+              <option>Cloud Infrastructure</option>
+              <option>SAP</option>
+              <option>Data & AI</option>
+              <option>Cybersecurity</option>
+            </select>
+            <span class="dcx-hint"
+              >Selecciona la práctica principal del proyecto</span
+            >
+          </div>
+          <div class="dcx-field">
+            <label class="dcx-label">Estado (deshabilitado)</label>
+            <select class="dcx-select" disabled>
+              <option>Activo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      #_dnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.5rem;font-family:'Inter',sans-serif;font-size:13px;z-index:9999;box-shadow:0 -2px 10px rgba(0,0,0,.07)}
+      #_dnav a{color:#0058ab;text-decoration:none;font-weight:500}
+      #_dnav a:hover{text-decoration:underline}
+      #_dnav .idx{color:#696e75;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+      body{padding-bottom:56px!important}
+    </style>
+    <nav id="_dnav">
+      <a href="dcx-ng-page-card.html">&larr; Card</a
+      ><a class="idx" href="index.html">&#8862;&nbsp;Designs</a
+      ><a href="dcx-ng-page-dialog.html">Dialog &rarr;</a>
+    </nav>
+  </body>
+</html>

@@ -1,31 +1,186 @@
+.dcx-paginator__row-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 8px;
+  gap: 16px;
+}
+
+.dcx-paginator__size {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-inset-s, 8px);
+}
+
+.dcx-paginator__pages {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.items-per-page-info {
+  font-size: 13px;
+  color: var(--content-subtle, #696e75);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.dcx-paginator__size {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-inset-s, 8px);
+}
+
+.items-per-page-info {
+  font-size: 13px;
+  color: var(--content-subtle, #696e75);
+  white-space: nowrap;
+  text-align: right;
+}
 @import '../../../scss/main.scss';
 
 :host {
   display: block;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary, 'Inter', sans-serif);
 }
 
+
+
+// Layout vertical, todo centrado
 .dcx-paginator {
-  @include flex-center;
-  gap: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-inset-s, 8px);
+  padding: var(--spacing-inset-m, 12px) var(--spacing-inset-l, 16px);
+  background: var(--background-default, #fff);
+  border-top: 1px solid var(--border-default, #e5e7eb);
+  border-radius: 0 0 var(--border-radius-lg, 8px) var(--border-radius-lg, 8px);
+  flex-wrap: wrap;
+}
+
+// Centrar el paginator si no hay meta izquierda ni derecha
+.dcx-paginator:not(:has(.dcx-paginator__meta--left), :has(.dcx-paginator__meta--right)) {
+  justify-content: center;
+}
+
+
+
+
+
+.dcx-paginator__size {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-inset-s, 8px);
+  justify-content: center;
+}
+.dcx-paginator__size--top {
+  margin-bottom: 8px;
+}
+
+.dcx-paginator__size--hidden {
+  display: none;
+}
+
+.items-per-page-label {
+  font-size: 13px;
+  color: var(--content-subtle, #696e75);
+  white-space: nowrap;
+}
+
+.dcx-paginator__size-select {
+  width: 76px;
+  height: 32px;
+  border: 1px solid var(--border-default, #e5e7eb);
+  border-radius: var(--border-radius-sm, 4px);
+  background: var(--background-default, #fff);
+  color: var(--content-default, #2a2e33);
+  font-family: var(--font-family-primary, 'Inter', sans-serif);
+  font-size: 13px;
+  padding: 4px 8px;
+  outline: none;
 }
 
 .page-info,
 .items-per-page-info {
-  font-size: 0.875rem;
-  color: var(--text-body);
+  font-size: 13px;
+  color: var(--content-subtle, #696e75);
   white-space: nowrap;
 }
 
+.dcx-paginator__pages {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-inset-xs, 4px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .dcx-paginator__button,
-.dcx-paginator__page {
-  @include button-base;
-  @include padding-horizontal('inset-xs');
-  @include padding-vertical('inset-xs');
+.dcx-paginator__page,
+.dcx-paginator__ellipsis {
+  display: inline-flex;
+}
+
+.dcx-paginator__button ::ng-deep .dcx-ng-button,
+.dcx-paginator__page ::ng-deep .dcx-ng-button,
+.dcx-paginator__ellipsis ::ng-deep .dcx-ng-button {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border-default, #e5e7eb);
+  border-radius: var(--border-radius-sm, 4px);
+  background: var(--background-default, #fff);
+  color: var(--content-default, #2a2e33);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.dcx-paginator__button ::ng-deep .dcx-ng-button:hover:not(:disabled),
+.dcx-paginator__page ::ng-deep .dcx-ng-button:hover:not(:disabled),
+.dcx-paginator__ellipsis ::ng-deep .dcx-ng-button:hover:not(:disabled) {
+  background: var(--background-hover, #f7f8fa);
+  border-color: #d1d5db;
+}
+
+.dcx-paginator__page ::ng-deep .dcx-ng-button--primary {
+  background: var(--background-primary, #0058ab);
+  color: var(--content-on-primary, #fff);
+  border-color: var(--background-primary, #0058ab);
+}
+
+.dcx-paginator__page ::ng-deep .dcx-ng-button--primary:hover:not(:disabled) {
+  background: var(--background-primary-hover, #004080);
+  border-color: var(--background-primary-hover, #004080);
+}
+
+.dcx-paginator__button ::ng-deep .dcx-ng-button,
+.dcx-paginator__button ::ng-deep .dcx-ng-button .icon {
+  color: var(--content-subtle, #696e75);
 }
 
 .dcx-paginator__button--disabled,
-.dcx-paginator__page--disabled {
-  opacity: 0.5;
+.dcx-paginator__page--disabled,
+.dcx-paginator__button ::ng-deep .dcx-ng-button:disabled,
+.dcx-paginator__page ::ng-deep .dcx-ng-button:disabled,
+.dcx-paginator__ellipsis ::ng-deep .dcx-ng-button:disabled {
+  opacity: 0.4;
   cursor: not-allowed;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .dcx-paginator__meta {
+    min-width: auto;
+    flex-basis: 100%;
+  }
+
+  .dcx-paginator__meta--right {
+    text-align: left;
+  }
 }

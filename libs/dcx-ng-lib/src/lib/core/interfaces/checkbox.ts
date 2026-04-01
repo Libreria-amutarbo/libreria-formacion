@@ -1,7 +1,14 @@
-export type CheckBoxVariant = 'primary' | 'accent' | 'error';
+export type DcxCheckBoxVariant = 'primary' | 'accent' | 'error';
+export type DcxCheckboxValue = true | false | null;
+export type DcxCheckboxLabelPosition = 'left' | 'right';
 
-export interface CheckboxOption {
-    value: string;
-    label: string;
-    disabled?: boolean;
+export interface DcxCheckbox {
+  id: string;
+  value: DcxCheckboxValue;
+  label?: string;
+  labelPosition?: DcxCheckboxLabelPosition;
+  disabled?: boolean;
+  required?: boolean;
+  error?: boolean;
+  errorMessage?: string;
 }

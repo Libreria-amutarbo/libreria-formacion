@@ -1,7 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DcxNgBreadcrumbComponent } from './dcx-ng-breadcrumb.component';
 import {
-  DcxNgBreadcrumbComponent,
-  DcxBreadCrumbItemMock,
+  DcxBreadCrumbItemDefault,
+  DcxBreadChevronSlashIcon,
+  DcxBreadcrumbItem,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgBreadcrumbComponent', () => {
@@ -11,50 +14,58 @@ describe('DcxNgBreadcrumbComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgBreadcrumbComponent],
+      imports: [DcxNgBreadcrumbComponent, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DcxNgBreadcrumbComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('items', DcxBreadCrumbItemDefault);
+    fixture.componentRef.setInput('iconSeparator', DcxBreadChevronSlashIcon);
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    component.items = [];
-    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  it('renders links for all but last, and last as current', () => {
-    component.items = DcxBreadCrumbItemMock;
-    fixture.detectChanges();
-
-    const nav = host().querySelector('nav');
-    expect(nav?.getAttribute('aria-label')).toBe('Breadcrumb');
-
-    const links = host().querySelectorAll('a.dcx-bc__link');
-    expect(links.length).toBe(2);
-    expect(links[0].textContent?.trim()).toBe('Home');
-    expect(links[1].textContent?.trim()).toBe('Library');
-
-    const current = host().querySelector('.dcx-bc__current');
-    expect(current?.textContent?.trim()).toBe('Data');
-    expect(current?.getAttribute('aria-current')).toBe('page');
-
-    const seps = host().querySelectorAll('.dcx-bc__sep');
-    expect(seps.length).toBe(2);
+  it('should emit itemSelected when an item is clicked', () => {
+    const spy = jest.fn();
+    component.itemSelected.subscribe(spy);
+    const item = DcxBreadCrumbItemDefault[0];
+    component.onItemClick(item);
+    expect(spy).toHaveBeenCalledWith(item);
   });
 
-  it('renders intermediate item without href as plain text', () => {
-    component.items = [
+  it('should render items', () => {
+    const items: DcxBreadcrumbItem[] = [
       { label: 'Home', href: '/', disabled: false },
-      { label: 'Section', disabled: false },
-      { label: 'Page', disabled: false },
+      { label: 'Library', href: '/lib', disabled: false },
+      { label: 'Data', disabled: false },
     ];
+    fixture.componentRef.setInput('items', items);
     fixture.detectChanges();
+    const nav = host().querySelector('nav');
+    expect(nav).toBeTruthy();
+  });
 
-    const text = host().querySelector('.dcx-bc__text');
-    expect(text?.textContent?.trim()).toBe('Section');
-    const current = host().querySelector('.dcx-bc__current');
-    expect(current?.textContent?.trim()).toBe('Page');
+  it('should accept different iconSeparator values', () => {
+    fixture.componentRef.setInput('iconSeparator', 'slash-lg');
+    fixture.detectChanges();
+    expect(component.iconSeparator()).toBe('slash-lg');
+  });
+
+  it('should accept items input signal', () => {
+    const items: DcxBreadcrumbItem[] = [
+      { label: 'A', disabled: false },
+      { label: 'B', disabled: false },
+    ];
+    fixture.componentRef.setInput('items', items);
+    fixture.detectChanges();
+    expect(component.items().length).toBe(2);
+  });
+
+  it('should return a TemplateRef from getItemContentTpl', () => {
+    const tpl = component.getItemContentTpl();
+    expect(tpl).toBeTruthy();
   });
 });

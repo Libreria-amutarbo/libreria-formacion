@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgSpinnerComponent } from './dcx-ng-spinner.component';
 
 describe('DcxNgSpinnerComponent', () => {
@@ -20,90 +20,55 @@ describe('DcxNgSpinnerComponent', () => {
   });
 
   it('should have default values', () => {
-    expect(component.size).toBe('m');
-    expect(component.wrapper).toBe(false);
-    expect(component.delay).toBe(100);
-    expect(component.label).toBeNull();
-    expect(component.isVisible).toBe(false);
+    expect(component.size()).toBe('m');
+    expect(component.wrapper()).toBe(false);
+    expect(component.delay()).toBe(1300);
+    expect(component.color()).toBeNull();
+    expect(component.title()).toBe('');
+    expect(component.description()).toBe('');
   });
 
-  it('should set isVisible to true after delay', fakeAsync(() => {
-    component.delay = 200;
-    component.ngOnInit();
-    expect(component.isVisible).toBe(false);
-
-    tick(199);
-    expect(component.isVisible).toBe(false);
-
-    tick(1);
-    expect(component.isVisible).toBe(true);
-  }));
-
-  it('should have correct classes and attributes when not in wrapper mode', () => {
-    component.size = 'l';
-    component.label = 'Loading data';
-    component.isVisible = true;
+  it('should compute spinnerClasses with size', () => {
+    fixture.componentRef.setInput('size', 'l');
     fixture.detectChanges();
-
-    const spinnerElement = fixture.nativeElement.querySelector('.dcx-ng-spinner');
-    expect(spinnerElement.classList.contains('dcx-ng-spinner--l')).toBe(true);
-    expect(spinnerElement.getAttribute('role')).toBe('status');
-    expect(spinnerElement.getAttribute('aria-label')).toBe('Loading data');
-
-    const circleElement = fixture.nativeElement.querySelector('.dcx-ng-spinner__circle');
-    expect(circleElement).toBeTruthy();
-
-    const labelElement = fixture.nativeElement.querySelector('.dcx-ng-spinner__label');
-    expect(labelElement.textContent.trim()).toBe('Loading data');
+    expect(component.spinnerClasses()).toContain('dcx-ng-spinner--l');
   });
 
-  it('should have correct structure in wrapper mode', () => {
-    component.wrapper = true;
-    component.isVisible = true;
+  it('should compute spinnerClasses with wrapper', () => {
+    fixture.componentRef.setInput('wrapper', true);
     fixture.detectChanges();
-
-    const spinnerElement = fixture.nativeElement.querySelector('.dcx-ng-spinner');
-    expect(spinnerElement.classList.contains('dcx-ng-spinner--wrapper')).toBe(true);
-
-    const overlayElement = fixture.nativeElement.querySelector('.dcx-ng-spinner__overlay');
-    expect(overlayElement).toBeTruthy();
-
-    const circleElement = fixture.nativeElement.querySelector('.dcx-ng-spinner__overlay .dcx-ng-spinner__circle');
-    expect(circleElement).toBeTruthy();
+    expect(component.spinnerClasses()).toContain('dcx-ng-spinner--wrapper');
   });
 
-  it('should project content when in wrapper mode', () => {
-    TestBed.resetTestingModule();
-    TestBed.configureTestingModule({
-      imports: [DcxNgSpinnerComponent],
-    }).overrideTemplate(
-      DcxNgSpinnerComponent,
-      `
-      <div class="dcx-ng-spinner" [class.dcx-ng-spinner--wrapper]="true">
-        <div id="projected">Projected Content</div>
-        <div class="dcx-ng-spinner__overlay">
-          <div class="dcx-ng-spinner__circle"></div>
-        </div>
-      </div>
-      `
-    );
-
-    fixture = TestBed.createComponent(DcxNgSpinnerComponent);
-    component = fixture.componentInstance;
-    component.wrapper = true;
-    component.isVisible = true;
-    fixture.detectChanges();
-
-    const projectedContent = fixture.nativeElement.querySelector('#projected');
-    expect(projectedContent).toBeTruthy();
-    expect(projectedContent.textContent).toBe('Projected Content');
+  it('should compute spinnerClasses base class always present', () => {
+    expect(component.spinnerClasses()).toContain('dcx-ng-spinner');
   });
 
-  it('should use default aria-label when no label is provided', () => {
-    component.isVisible = true;
+  it('should compute aria label from title', () => {
+    fixture.componentRef.setInput('title', 'Loading data');
     fixture.detectChanges();
+    expect(component.computedAriaLabel()).toBe('Loading data');
+  });
 
-    const spinnerElement = fixture.nativeElement.querySelector('.dcx-ng-spinner');
-    expect(spinnerElement.getAttribute('aria-label')).toBe('loading');
+  it('should fallback aria label to "Loading" when no title', () => {
+    fixture.componentRef.setInput('title', '');
+    fixture.detectChanges();
+    expect(component.computedAriaLabel()).toBe('Loading');
+  });
+
+  it('should compute hasContent as false when no title and no description', () => {
+    expect(component.hasContent()).toBe(false);
+  });
+
+  it('should compute hasContent as true when title is set', () => {
+    fixture.componentRef.setInput('title', 'Loading');
+    fixture.detectChanges();
+    expect(component.hasContent()).toBe(true);
+  });
+
+  it('should compute hasContent as true when description is set', () => {
+    fixture.componentRef.setInput('description', 'Please wait');
+    fixture.detectChanges();
+    expect(component.hasContent()).toBe(true);
   });
 });

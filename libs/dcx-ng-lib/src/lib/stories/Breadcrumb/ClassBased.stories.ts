@@ -12,7 +12,7 @@ import {
 import { Meta, StoryObj } from '@storybook/angular';
 
 const meta: Meta<DcxNgBreadcrumbComponent> = {
-  title: 'DCXLibrary/Breadcrumb/Class based',
+  title: 'DCXLibrary/Components/Breadcrumb',
   component: DcxNgBreadcrumbComponent,
   tags: ['autodocs'],
   parameters: {

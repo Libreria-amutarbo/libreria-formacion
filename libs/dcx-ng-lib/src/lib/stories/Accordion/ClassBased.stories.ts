@@ -17,7 +17,7 @@ import {
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgAccordionComponent> = {
-  title: 'DCXLibrary/Accordion/ClassBased',
+  title: 'DCXLibrary/Components/Accordion',
   component: DcxNgAccordionComponent,
   decorators: [
     moduleMetadata({
@@ -288,15 +288,44 @@ export const WithComponents: Story = {
         [transition]="'smooth'"
         [closeOthers]="true">
       </dcx-ng-accordion>
-      
-      <div style="margin-top: 20px; padding: 16px; background: var(--background-info); border-radius: 8px;">
-        <h4 style="margin: 0 0 8px 0;">💡 Using Components in Accordion</h4>
-        <p style="margin: 0; font-size: 14px;">
-          Each item uses <code>contentTemplate</code> to render Angular components 
-          (dcx-ng-button) instead of plain HTML. This allows for full interactivity 
-          and component reuse within accordion items.
-        </p>
-      </div>
     `,
   }),
+};
+
+export const ExternalControl: Story = {
+  render: args => ({
+    props: {
+      ...args,
+    },
+    template: `
+      <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
+        <dcx-ng-button 
+          [label]="'Abrir Item 1'" 
+          [variant]="'primary'" 
+          (buttonClick)="externalAccordion.expandItemById('1')">
+        </dcx-ng-button>
+        
+        <dcx-ng-button 
+          [label]="'Abrir Item 2'" 
+          [variant]="'secondary'" 
+          (buttonClick)="externalAccordion.expandItemById('2')">
+        </dcx-ng-button>
+
+         <dcx-ng-button 
+          [label]="'Cerrar Item 1'" 
+          [variant]="'secondary'" 
+          (buttonClick)="externalAccordion.collapseItemById('1')">
+        </dcx-ng-button>
+      </div>
+
+      <dcx-ng-accordion 
+        #externalAccordion 
+        [items]="items" 
+        [transition]="'smooth'">
+      </dcx-ng-accordion>
+    `,
+  }),
+  args: {
+    items: DcxAccordionDefault,
+  },
 };

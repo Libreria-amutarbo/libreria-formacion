@@ -1,15 +1,12 @@
+@use '../../../scss/utils/mixins' as *;
+@use '../../../scss/utils' as utils;
 :host {
   display: block;
-}
-.dcx-checkbox-wrapper {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
+  font-family: var(--font-family-primary);
 }
 
 .dcx-checkbox-label {
-  display: flex;
-  align-items: center;
+  @include flex-center;
   cursor: pointer;
   user-select: none;
   width: fit-content;
@@ -24,119 +21,32 @@
   cursor: not-allowed;
   opacity: 0.6;
 }
-.dcx-checkbox-container {
-  border: 2px solid var(--color);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  transition: border-color 0.2s;
-  flex-shrink: 0;
-
-  &.size-s {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  &.size-m {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  &.size-l {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  &.size-xl {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  &.checked {
-    border-color: var(--color);
-  }
-
-  &.disabled {
-    background: #f5f5f5;
-  }
-}
-.dcx-checkbox-box {
-  position: relative;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-}
-
-.dcx-checkbox-check {
-  position: absolute;
-  border-right: 2px solid var(--color);
-  border-bottom: 2px solid var(--color);
-  transform: rotate(45deg);
-  pointer-events: none;
-}
-
-.dcx-checkbox-container.size-s .dcx-checkbox-check {
-  left: -2px;
-  top: -2px;
-  width: 5px;
-  height: 10px;
-}
-
-.dcx-checkbox-container.size-m .dcx-checkbox-check {
-  left: 0px;
-  top: -1px;
-  width: 8px;
-  height: 16px;
-}
-
-.dcx-checkbox-container.size-l .dcx-checkbox-check {
-  left: 3px;
-  top: 0px;
-  width: 11px;
-  height: 22px;
-}
-
-.dcx-checkbox-container.size-xl .dcx-checkbox-check {
-  left: 6px;
-  top: 2px;
-  width: 16px;
-  height: 32px;
-}
 
 .dcx-checkbox-text {
-  font-size: 15px;
+  font-weight: var(--weight-regular);
+  font-size: var(--font-size-body-small);
 }
 
-.dcx-checkbox-error {
-  color: var(--error);
-  font-size: 13px;
-  margin-top: 4px;
-  padding-left: 32px;
-
-  &.error-label-left {
-    padding-left: 0;
-    padding-right: 32px;
-    text-align: right;
-  }
+.dcx-checkbox-text.error {
+  color: var(--text-error);
 }
 
 .dcx-checkbox-group {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   gap: 0.5rem;
 
-  &__label {
-    font-weight: 600;
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-    color: #333;
-  }
-
   &__options {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     gap: 0.75rem;
   }
+}
+
+.dcx-ng-checkbox__required {
+  color: var(--content-error);
+}
+
+.dcx-ng-checkbox__error {
+  margin-top: var(--spacing-inset-xs);
+  color: var(--text-error);
+  font-size: var(--font-size-body-small);
 }

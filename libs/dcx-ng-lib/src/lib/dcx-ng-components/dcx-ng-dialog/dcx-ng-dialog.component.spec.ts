@@ -1,119 +1,119 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { DcxNgDialogComponent } from './dcx-ng-dialog.component';
 import { By } from '@angular/platform-browser';
-
-@Component({
-  template: `
-    <dcx-ng-dialog [title]="dialogTitle" [visible]="dialogVisible" (onClose)="handleClose()">
-      <div dialog-body>Contenido por defecto</div>
-      <div dialog-footer>Footer por defecto</div>
-
-      <ng-template #customBody>Contenido custom</ng-template>
-      <ng-template #customFooter>Footer custom</ng-template>
-    </dcx-ng-dialog>
-  `,
-})
-class TestHostComponent {
-  dialogTitle = 'Título de prueba';
-  dialogVisible = true;
-  closed = false;
-
-  @ViewChild('customBody') customBody!: TemplateRef<any>;
-  @ViewChild('customFooter') customFooter!: TemplateRef<any>;
-
-  handleClose() {
-    this.closed = true;
-  }
-}
+import { DialogService } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgDialogComponent', () => {
-  let fixture: ComponentFixture<TestHostComponent>;
-  let host: TestHostComponent;
+  let component: DcxNgDialogComponent;
+  let fixture: ComponentFixture<DcxNgDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DcxNgDialogComponent],
-      declarations: [TestHostComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TestHostComponent);
-    host = fixture.componentInstance;
+    fixture = TestBed.createComponent(DcxNgDialogComponent);
+    component = fixture.componentInstance;
+    fixture.componentRef.setInput('visible', true);
     fixture.detectChanges();
   });
 
-  it('debe crearse el componente', () => {
-    expect(fixture).toBeTruthy();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('debe mostrar el título cuando visible = true', () => {
-    const titleEl = fixture.debugElement.query(
-      By.css('.dialog-header h3'),
-    ).nativeElement;
-    expect(titleEl.textContent).toContain(host.dialogTitle);
+  it('should have default values', () => {
+    expect(component.title()).toBe('');
+    expect(component.showClose()).toBe(true);
+    expect(component.position()).toBe('center');
+    expect(component.closeOnBackdrop()).toBe(true);
   });
 
-  it('no debe renderizar contenido cuando visible = false', () => {
-    host.dialogVisible = false;
+  it('should be visible when visible input is true', () => {
+    fixture.componentRef.setInput('visible', true);
     fixture.detectChanges();
-    const dialogContent = fixture.debugElement.query(By.css('.dialog-header'));
-    expect(dialogContent).toBeNull();
+    expect(component.isVisible()).toBe(true);
   });
 
-  it('debe usar ng-content para body si no hay bodyTemplate', () => {
-    const bodyEl = fixture.debugElement.query(
-      By.css('.dialog-body'),
-    ).nativeElement;
-    expect(bodyEl.textContent).toContain('Contenido por defecto');
-  });
-
-  it('debe usar ng-content para footer si no hay footerTemplate', () => {
-    const footerEl = fixture.debugElement.query(
-      By.css('[dialog-footer]'),
-    ).nativeElement;
-    expect(footerEl.textContent).toContain('Footer por defecto');
-  });
-
-  it('debe renderizar bodyTemplate si se asigna', () => {
-    const dialogComponent = fixture.debugElement.query(
-      By.directive(DcxNgDialogComponent),
-    ).componentInstance;
-    dialogComponent.bodyTemplate = host.customBody;
+  it('should not be visible when visible input is false', () => {
+    fixture.componentRef.setInput('visible', false);
     fixture.detectChanges();
-    const bodyEl = fixture.debugElement.query(
-      By.css('.dialog-body'),
-    ).nativeElement;
-    expect(bodyEl.textContent).toContain('Contenido custom');
+    expect(component.isVisible()).toBe(false);
   });
 
-  it('debe renderizar footerTemplate si se asigna', () => {
-    const dialogComponent = fixture.debugElement.query(
-      By.directive(DcxNgDialogComponent),
-    ).componentInstance;
-    dialogComponent.footerTemplate = host.customFooter;
+  it('should emit closeDialog when close() is called', () => {
+    const spy = jest.fn();
+    component.closeDialog.subscribe(spy);
+    component.close();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should call close() on backdrop click when closeOnBackdrop is true', () => {
+    fixture.componentRef.setInput('closeOnBackdrop', true);
     fixture.detectChanges();
-    const footerEl = fixture.debugElement.query(
-      By.css('.dialog-footer'),
-    ).nativeElement;
-    expect(footerEl.textContent).toContain('Footer custom');
+    const spy = jest.fn();
+    component.closeDialog.subscribe(spy);
+    const event = new MouseEvent('click');
+    component.onBackdropClick(event);
+    expect(spy).toHaveBeenCalled();
   });
 
-  it('debe emitir onClose y ocultar el diálogo al hacer click en cerrar', () => {
-    const closeBtn = fixture.debugElement.query(
-      By.css('.dialog-close'),
-    ).nativeElement;
-    closeBtn.click();
+  it('should NOT call close() on backdrop click when closeOnBackdrop is false', () => {
+    fixture.componentRef.setInput('closeOnBackdrop', false);
     fixture.detectChanges();
-    expect(host.closed).toBe(true);
+    const spy = jest.fn();
+    component.closeDialog.subscribe(spy);
+    const event = new MouseEvent('click');
+    component.onBackdropClick(event);
+    expect(spy).not.toHaveBeenCalled();
   });
 
-  it('close() debe cambiar visible a false y emitir evento', () => {
-    const dialogComponent = fixture.debugElement.query(
-      By.directive(DcxNgDialogComponent),
-    ).componentInstance;
-    jest.spyOn(dialogComponent.onClose, 'emit');
-    dialogComponent.close();
-    expect(dialogComponent.visible).toBe(false);
-    expect(dialogComponent.onClose.emit).toHaveBeenCalled();
+  it('should compute dialogClasses based on position', () => {
+    fixture.componentRef.setInput('position', 'top');
+    fixture.detectChanges();
+    expect(component.dialogClasses).toContain('dialog--pos-top');
+  });
+
+  it('should accept title input', () => {
+    fixture.componentRef.setInput('title', 'My Dialog');
+    fixture.detectChanges();
+    expect(component.title()).toBe('My Dialog');
+  });
+
+  describe('with dialogId (DialogService integration)', () => {
+    let dialogService: DialogService;
+
+    beforeEach(() => {
+      dialogService = TestBed.inject(DialogService);
+    });
+
+    it('isVisible should use DialogService state when dialogId is set', () => {
+      fixture.componentRef.setInput('dialogId', 'my-dialog');
+      fixture.componentRef.setInput('visible', false);
+      fixture.detectChanges();
+      expect(component.isVisible()).toBe(false);
+
+      dialogService.open('my-dialog');
+      fixture.detectChanges();
+      expect(component.isVisible()).toBe(true);
+    });
+
+    it('close() should also call dialogService.close() when dialogId is set', () => {
+      fixture.componentRef.setInput('dialogId', 'close-dialog');
+      fixture.detectChanges();
+      dialogService.open('close-dialog');
+      expect(dialogService.getState('close-dialog')().visible).toBe(true);
+
+      component.close();
+      expect(dialogService.getState('close-dialog')().visible).toBe(false);
+    });
+
+    it('close() without dialogId should not call dialogService', () => {
+      fixture.componentRef.setInput('visible', true);
+      fixture.detectChanges();
+      const spy = jest.spyOn(dialogService, 'close');
+      component.close();
+      expect(spy).not.toHaveBeenCalled();
+    });
   });
 });

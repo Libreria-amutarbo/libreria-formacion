@@ -47,7 +47,7 @@ const ROWS = generateUserRows(40);
 // META
 // ======================
 const meta: Meta<DcxNgFullTableComponent> = {
-  title: 'DCXLIBRARY/Table Full/Class based',
+  title: 'DCXLibrary/Components/Table Full',
   component: DcxNgFullTableComponent,
   decorators: [
     moduleMetadata({

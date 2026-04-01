@@ -97,7 +97,7 @@ To preview it in the demo app, create a page component and register it in routes
 
 ## Storybook
 
-Stories location:
+To generate a component, the first step is to navigate to the library folder _libs/dcx-ng-lib/src/lib/dcx-ng-components_, and run the command:
 
 `libs/dcx-ng-lib/src/lib/stories/`
 
@@ -107,27 +107,9 @@ Run locally:
 npm run start-storybook
 ```
 
-Online Storybook:
+Then you select the option **@nx/angular:component**. We will create it in the folder associated with that component (_e.g., dcx-ng-button/dcx-ng-button_) and with the name of the component to be developed (_e.g., button)_.
 
-- Develop: https://libreria-amutarbo.github.io/libreria-formacion/develop/
-- Main: https://libreria-amutarbo.github.io/libreria-formacion/main/
+## Consulta de la librería
 
-## Testing
-
-Run all tests:
-
-```bash
-npm test
-```
-
-Run library tests only:
-
-```bash
-npx nx test dcx-ng-lib
-```
-
-Coverage:
-
-```bash
-npx nx test dcx-ng-lib --coverage
-```
+[Develop](https://libreria-amutarbo.github.io/libreria-formacion/develop/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)
+[Main](https://libreria-amutarbo.github.io/libreria-formacion/main/?path=/docs/dcxlibrary-breadcrumb-class-based--docs)

@@ -1,144 +1,93 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   input,
-  output,
   computed,
   signal,
   effect,
-  forwardRef,
+  output,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
 import {
-  CheckboxOption,
-  DcxPosition,
-  DcxSize,
-} from '../../core/interfaces';
-import { DcxIconPositionList } from '../../core/mock';
+  DcxCheckbox,
+  DcxNgButtonComponent,
+  DcxButtonVariant,
+  DcxCheckboxValue,
+  DcxNgIconComponent,
+  ERRORICON,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-checkbox',
   standalone: true,
-  imports: [],
+  imports: [DcxNgButtonComponent, DcxNgIconComponent, NgTemplateOutlet],
   templateUrl: './dcx-ng-checkbox.component.html',
   styleUrls: ['./dcx-ng-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DcxNgCheckboxComponent),
-      multi: true,
-    },
-  ],
 })
-export class DcxNgCheckboxComponent implements ControlValueAccessor {
-  readonly label = input<string>('');
-  readonly labelPosition = input<DcxPosition>('right');
-  readonly color = input<string>('#1976d2');
-  readonly checked = input<boolean>(false);
-  readonly disabled = input<boolean>(false);
-  readonly errorMessage = input<string>('');
-  readonly size = input<DcxSize>('m');
+export class DcxNgCheckboxComponent {
+  options = input<DcxCheckbox[]>([]);
+  _options = signal<DcxCheckbox[]>([]);
 
-  readonly options = input<CheckboxOption[]>([]);
-  readonly selectedValues = input<string[]>([]);
-  readonly multiple = input<boolean>(true);
-  readonly groupLabel = input<string>('');
+  iconName = signal('check');
+  buttonVariant = signal<DcxButtonVariant>('primary');
 
-  readonly checkedChange = output<boolean>();
-  readonly selectionChange = output<string[]>();
+  errorIcon = input<string>(ERRORICON);
 
-  private readonly _internalChecked = signal<boolean>(false);
-  private readonly _internalSelectedValues = signal<string[]>([]);
-  private readonly _isDisabledByForm = signal<boolean>(false);
-
-  private onChange: (value: boolean | string[]) => void = () => { };
-  private onTouched: () => void = () => { };
-
-  readonly isGroup = computed(() => this.options().length > 0);
-
-  readonly isCheckedComputed = computed(() =>
-    this.isGroup() ? false : this._internalChecked(),
-  );
-
-  readonly containerClasses = computed(() => {
-    const classes = ['dcx-checkbox-container'];
-
-    if (!this.isGroup() && this._internalChecked()) classes.push('checked');
-    if (this.disabled() || this._isDisabledByForm()) classes.push('disabled');
-
-    classes.push(`size-${this.size()}`);
-    return classes.join(' ');
-  });
-
-  readonly customColorStyle = computed(() => this.color());
-  readonly DcxPosition = DcxIconPositionList;
+  changeOptions = output<DcxCheckbox[]>();
 
   constructor() {
     effect(() => {
-      this._internalChecked.set(this.checked());
-    });
-
-    effect(() => {
-      this._internalSelectedValues.set(this.selectedValues());
+      this._options.set(this.options());
     });
   }
 
-  onToggle(): void {
-    if (this.disabled() || this._isDisabledByForm()) return;
-    const newValue = !this._internalChecked();
-    this._internalChecked.set(newValue);
-    this.checkedChange.emit(newValue);
-    this.onChange(newValue);
-    this.onTouched();
+  getCheckboxError(option: DcxCheckbox): boolean {
+    return !!option.error;
   }
 
-  isChecked(value: string): boolean {
-    return this._internalSelectedValues().includes(value);
-  }
-
-  isOptionDisabled(option: CheckboxOption): boolean {
-    return this.disabled() || this._isDisabledByForm() || !!option.disabled;
-  }
-
-  onGroupCheckboxChange(value: string, shouldCheck: boolean): void {
-    const option = this.options().find(opt => opt.value === value);
-    if (option && this.isOptionDisabled(option)) return;
-
-    const newSelection = this.multiple()
-      ? shouldCheck
-        ? [...this._internalSelectedValues(), value]
-        : this._internalSelectedValues().filter(
-          selectedValue => selectedValue !== value,
-        )
-      : shouldCheck
-        ? [value]
-        : [];
-
-    this._internalSelectedValues.set(newSelection);
-    this.selectionChange.emit(newSelection);
-    this.onChange(newSelection);
-    this.onTouched();
-  }
-
-  writeValue(value: boolean | string[]): void {
-    if (this.isGroup()) {
-      this._internalSelectedValues.set(Array.isArray(value) ? value : []);
-      return
+  getIconName(option: DcxCheckbox): string {
+    switch (option.value) {
+      case true:
+        return 'check';
+      case false:
+        return 'dash';
+      case null:
+      default:
+        return '';
     }
-
-    this._internalChecked.set(!!value);
   }
 
-  registerOnChange(onChangeCallback: (value: boolean | string[]) => void): void {
-    this.onChange = onChangeCallback;
+  getButtonVariant(option: DcxCheckbox): DcxButtonVariant {
+    switch (option.value) {
+      case true:
+      case false:
+        return 'primary';
+      case null:
+      default:
+        return 'secondary';
+    }
   }
 
-  registerOnTouched(onTouchedCallback: () => void): void {
-    this.onTouched = onTouchedCallback;
+  changeValue(id: string) {
+    this._options.update(opts =>
+      opts.map(f => ({
+        ...f,
+        value: f.id === id ? this.getValue(f.value!) : f.value,
+      })),
+    );
+    this.changeOptions.emit(this._options());
   }
 
-  setDisabledState(isDisabled: boolean): void {
-    this._isDisabledByForm.set(isDisabled);
+  getValue(value: boolean): DcxCheckboxValue {
+    switch (value) {
+      case true:
+        return false;
+      case false:
+        return null;
+      case null:
+        return true;
+    }
   }
 }

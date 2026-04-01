@@ -19,79 +19,298 @@ describe('DcxNgPaginatorComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should have default values', () => {
+    expect(component.currentPage()).toBe(1);
+    expect(component.totalPages()).toBe(10);
+  });
+
   it('should emit pageChange when clicking a page number', () => {
     const emitSpy = jest.spyOn(component.pageChange, 'emit');
-    component.totalPages = 5;
-    component.currentPage = 1;
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
     fixture.detectChanges();
-
     component.goToPage(3);
-
     expect(emitSpy).toHaveBeenCalledWith(3);
   });
 
-  it('should emit onNextPage and pageChange when clicking next', () => {
+  it('should emit pageChange when calling goToNext', () => {
     const pageChangeSpy = jest.spyOn(component.pageChange, 'emit');
-    const onNextPageSpy = jest.spyOn(component.onNextPage, 'emit');
-    component.totalPages = 5;
-    component.currentPage = 2;
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
     fixture.detectChanges();
-
     component.goToNext();
-
     expect(pageChangeSpy).toHaveBeenCalledWith(3);
-    expect(onNextPageSpy).toHaveBeenCalled();
   });
 
-  it('should emit onPrevPage and pageChange when clicking previous', () => {
+  it('should emit pageChange when calling goToPrevious', () => {
     const pageChangeSpy = jest.spyOn(component.pageChange, 'emit');
-    const onPrevPageSpy = jest.spyOn(component.onPrevPage, 'emit');
-    component.totalPages = 5;
-    component.currentPage = 3;
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
     fixture.detectChanges();
-
     component.goToPrevious();
-
     expect(pageChangeSpy).toHaveBeenCalledWith(2);
-    expect(onPrevPageSpy).toHaveBeenCalled();
   });
 
-  it('should disable previous button on first page', () => {
-    component.currentPage = 1;
-    component.totalPages = 5;
-
-    expect(component.isPrevDisabled).toBeTruthy();
+  it('should disable previous on first page (hasPrevious false)', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
+    fixture.detectChanges();
+    expect(component.hasPrevious()).toBe(false);
   });
 
-  it('should disable next button on last page', () => {
-    component.currentPage = 5;
-    component.totalPages = 5;
-
-    expect(component.isNextDisabled).toBeTruthy();
+  it('should disable next on last page (hasNext false)', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 5,
+    });
+    fixture.detectChanges();
+    expect(component.hasNext()).toBe(false);
   });
 
-  it('should not emit events when disabled', () => {
-    const pageChangeSpy = jest.spyOn(component.pageChange, 'emit');
-    component.disabled = true;
-    component.currentPage = 2;
-    component.totalPages = 5;
-
-    component.goToNext();
+  it('should not go to previous when already on first page', () => {
+    const emitSpy = jest.spyOn(component.pageChange, 'emit');
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
+    fixture.detectChanges();
     component.goToPrevious();
-    component.goToPage(3);
-
-    expect(pageChangeSpy).not.toHaveBeenCalled();
+    expect(emitSpy).not.toHaveBeenCalled();
   });
 
-  it('should display custom button texts', () => {
-    component.prevButton = 'Atrás';
-    component.nextButton = 'Adelante';
+  it('should not go to next when already on last page', () => {
+    const emitSpy = jest.spyOn(component.pageChange, 'emit');
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 5,
+    });
+    fixture.detectChanges();
+    component.goToNext();
+    expect(emitSpy).not.toHaveBeenCalled();
+  });
+
+  it('hasPrevious should be true when currentPage > 1', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
+    fixture.detectChanges();
+    expect(component.hasPrevious()).toBe(true);
+  });
+
+  it('hasNext should be true when currentPage < totalPages', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 30,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
+    fixture.detectChanges();
+    expect(component.hasNext()).toBe(true);
+  });
+
+  it('should compute totalPages correctly', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 25,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
+    fixture.detectChanges();
+    expect(component.totalPages()).toBe(3);
+  });
+
+  it('should emit totalPagesChange', () => {
+    const spy = jest.spyOn(component.totalPagesChange, 'emit');
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 40,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalledWith(4);
+  });
+
+  it('should go to start page', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
+    fixture.detectChanges();
+    const spy = jest.spyOn(component.pageChange, 'emit');
+    component.goToStart();
+    expect(component.currentPage()).toBe(1);
+    expect(spy).toHaveBeenCalledWith(1);
+  });
+
+  it('should go to end page', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
+    fixture.detectChanges();
+    const spy = jest.spyOn(component.pageChange, 'emit');
+    component.goToEnd();
+    expect(component.currentPage()).toBe(5);
+    expect(spy).toHaveBeenCalledWith(5);
+  });
+
+  it('should go to page relative forward', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 100,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
+    fixture.detectChanges();
+    const spy = jest.spyOn(component.pageChange, 'emit');
+    component.goToPageRelative(1);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should go to page relative backward', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 100,
+      itemsPerPage: 10,
+      currentPage: 5,
+    });
+    fixture.detectChanges();
+    const spy = jest.spyOn(component.pageChange, 'emit');
+    component.goToPageRelative(-1);
+    expect(spy).toHaveBeenCalled();
+    expect(component.currentPage()).toBeGreaterThanOrEqual(1);
+  });
+
+  it('should clamp goToPageRelative to min 1', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 1,
+    });
+    fixture.detectChanges();
+    component.goToPageRelative(-1);
+    expect(component.currentPage()).toBe(1);
+  });
+
+  it('should clamp goToPageRelative to max totalPages', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 5,
+    });
+    fixture.detectChanges();
+    component.goToPageRelative(1);
+    expect(component.currentPage()).toBeLessThanOrEqual(5);
+  });
+
+  it('getCurrentPage should return true for current page', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
+    fixture.detectChanges();
+    expect(component.getCurrentPage(3)).toBe(true);
+    expect(component.getCurrentPage(1)).toBe(false);
+  });
+
+  it('getButtonVariant should return primary for current page', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
+    fixture.detectChanges();
+    expect(component.getButtonVariant(2)).toBe('primary');
+    expect(component.getButtonVariant(1)).toBe('secondary');
+  });
+
+  it('getButtonLabel should return page number as string', () => {
+    expect(component.getButtonLabel(5)).toBe('5');
+  });
+
+  it('getPageNumber should return number for number input', () => {
+    expect(component.getPageNumber(3)).toBe(3);
+  });
+
+  it('getPageNumber should return 0 for string input', () => {
+    expect(component.getPageNumber('...')).toBe(0);
+  });
+
+  it('isEllipsis should return true for "..."', () => {
+    expect(component.isEllipsis('...')).toBe(true);
+    expect(component.isEllipsis(3)).toBe(false);
+  });
+
+  it('firstItem should compute correctly', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
+    fixture.detectChanges();
+    expect(component.firstItem()).toBe(11);
+  });
+
+  it('lastItem should compute correctly', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 25,
+      itemsPerPage: 10,
+      currentPage: 3,
+    });
+    fixture.detectChanges();
+    expect(component.lastItem()).toBe(25);
+  });
+
+  it('visiblePages should include ellipsis for many pages', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 200,
+      itemsPerPage: 10,
+      currentPage: 10,
+    });
+    fixture.detectChanges();
+    const pages = component.visiblePages();
+    expect(pages).toContain('...');
+  });
+
+  it('visiblePages should keep same numeric count while moving left and right', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 200,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
     fixture.detectChanges();
 
-    const compiled = fixture.nativeElement;
-    const buttons = compiled.querySelectorAll('.dcx-paginator__button');
+    const leftNumericCount = component
+      .visiblePages()
+      .filter(page => typeof page === 'number').length;
 
-    expect(buttons[0].textContent.trim()).toBe('Atrás');
-    expect(buttons[1].textContent.trim()).toBe('Adelante');
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 200,
+      itemsPerPage: 10,
+      currentPage: 15,
+    });
+    fixture.detectChanges();
+
+    const rightNumericCount = component
+      .visiblePages()
+      .filter(page => typeof page === 'number').length;
+
+    expect(leftNumericCount).toBe(rightNumericCount);
   });
 });

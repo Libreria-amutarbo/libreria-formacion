@@ -1,56 +1,25 @@
-<button
-  [type]="type()"
-  [disabled]="disabled()"
-  [class]="buttonClasses()"
-  (click)="onClick()"
-  [attr.aria-label]="computedAriaLabel()"
->
-  @if (icon() && iconPosition() === 'left') {
-    <dcx-ng-icon
-      [class]="iconClasses()"
-      [name]="iconName()"
-      [size]="iconSize()"
-      [spacing]="iconSpacing()"
-      [color]="iconColor()"
-      aria-hidden="true"
-    />
-  }
+<ng-template #iconTpl>
+  <dcx-ng-icon [class]="iconClasses()" [name]="iconName()" [size]="iconSize()" [spacing]="iconSpacing()"
+    [color]="iconColor()" aria-hidden="true" />
+</ng-template>
 
-  @if (icon() && iconPosition() === 'top') {
-    <dcx-ng-icon
-      [class]="iconClasses()"
-      [name]="iconName()"
-      [size]="iconSize()"
-      [spacing]="iconSpacing()"
-      [color]="iconColor()"
-      aria-hidden="true"
-    />
+<button [type]="type()" [disabled]="disabled()" [class]="buttonClasses()" (click)="onClick()"
+  [attr.aria-label]="computedAriaLabel()">
+  @if (icon() && (iconPosition() === 'left' || iconPosition() === 'top')) {
+  <ng-container *ngTemplateOutlet="iconTpl" />
   }
 
   @if (label()) {
-    <span class="label">{{ label() }}</span>
+  <span class="label">{{ label() }}</span>
   }
 
-  @if (icon() && iconPosition() === 'right') {
-    <dcx-ng-icon
-      [class]="iconClasses()"
-      [name]="iconName()"
-      [size]="iconSize()"
-      [spacing]="iconSpacing()"
-      [color]="iconColor()"
-      aria-hidden="true"
-    />
+  @if (iconRightName()) {
+  <dcx-ng-icon class="icon icon--right" [name]="iconRightName()" [size]="iconSize()" [color]="iconColor()"
+    aria-hidden="true" />
   }
 
-  @if (icon() && iconPosition() === 'bottom') {
-    <dcx-ng-icon
-      [class]="iconClasses()"
-      [name]="iconName()"
-      [size]="iconSize()"
-      [spacing]="iconSpacing()"
-      [color]="iconColor()"
-      aria-hidden="true"
-    />
+  @if (icon() && ((iconPosition() === 'right' && !iconRightName()) || iconPosition() === 'bottom')) {
+  <ng-container *ngTemplateOutlet="iconTpl" />
   }
 
   <ng-content select="dcx-ng-icon" />

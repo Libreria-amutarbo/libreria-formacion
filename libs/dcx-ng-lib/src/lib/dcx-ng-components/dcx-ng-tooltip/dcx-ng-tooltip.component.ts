@@ -1,10 +1,24 @@
-import { Component, HostListener, ElementRef, AfterViewInit, inject, input, signal, computed, viewChild, effect } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  ElementRef,
+  AfterViewInit,
+  inject,
+  input,
+  signal,
+  computed,
+  viewChild,
+  effect,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AvailableSpace, DcxPosition, TOOLTIP_DEFAULT_CONFIG, TooltipPositionOption } from '@dcx-ng-components/dcx-ng-lib';
-
-
-
+import {
+  AvailableSpace,
+  DcxPosition,
+  TOOLTIP_DEFAULT_CONFIG,
+  TooltipArrowAlignment,
+  TooltipPositionOption,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-tooltip',
@@ -15,6 +29,7 @@ import { AvailableSpace, DcxPosition, TOOLTIP_DEFAULT_CONFIG, TooltipPositionOpt
 })
 export class DcxNgTooltipComponent implements AfterViewInit {
   position = input<DcxPosition>('top');
+  arrowAlignment = input<TooltipArrowAlignment>('center');
   hideTooltipOnClick = input<boolean>(false);
   content = input<string>('');
   contentHtml = input<string>('');
@@ -35,7 +50,8 @@ export class DcxNgTooltipComponent implements AfterViewInit {
   tooltipClasses = computed(() => {
     const baseClass = 'dcx-ng-tooltip';
     const positionClass = `${baseClass}--${this.actualPosition()}`;
-    return `${baseClass} ${positionClass}`.trim();
+    const arrowAlignmentClass = `${baseClass}--arrow-${this.arrowAlignment()}`;
+    return `${baseClass} ${positionClass} ${arrowAlignmentClass}`.trim();
   });
 
   constructor() {
@@ -59,7 +75,9 @@ export class DcxNgTooltipComponent implements AfterViewInit {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event) {
     if (this.hideTooltipOnClick()) {
-      const clickedInside = this.elementRef.nativeElement.contains(event.target);
+      const clickedInside = this.elementRef.nativeElement.contains(
+        event.target,
+      );
       if (clickedInside) {
         this.visible.set(false);
       }
@@ -79,7 +97,7 @@ export class DcxNgTooltipComponent implements AfterViewInit {
 
       const viewport = {
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       };
 
       const hostRect = hostEl.getBoundingClientRect();
@@ -90,13 +108,13 @@ export class DcxNgTooltipComponent implements AfterViewInit {
         spaceTop: hostRect.top,
         spaceBottom: viewport.height - hostRect.bottom,
         spaceLeft: hostRect.left,
-        spaceRight: viewport.width - hostRect.right
+        spaceRight: viewport.width - hostRect.right,
       };
 
       const optimalPosition = this.calculateOptimalPosition(
         this.position(),
         tooltipRect,
-        availableSpace
+        availableSpace,
       );
 
       if (optimalPosition !== this.actualPosition()) {
@@ -108,7 +126,7 @@ export class DcxNgTooltipComponent implements AfterViewInit {
   private calculateOptimalPosition(
     preferredPosition: DcxPosition,
     tooltipRect: DOMRect,
-    availableSpace: AvailableSpace
+    availableSpace: AvailableSpace,
   ): DcxPosition {
     const { margin } = TOOLTIP_DEFAULT_CONFIG;
     const tooltipHeight = tooltipRect.height;
@@ -141,15 +159,16 @@ export class DcxNgTooltipComponent implements AfterViewInit {
       { position: 'top', space: availableSpace.spaceTop },
       { position: 'bottom', space: availableSpace.spaceBottom },
       { position: 'left', space: availableSpace.spaceLeft },
-      { position: 'right', space: availableSpace.spaceRight }
+      { position: 'right', space: availableSpace.spaceRight },
     ];
 
     alternatives.sort((a, b) => b.space - a.space);
 
     for (const alt of alternatives) {
-      const requiredSpace = (alt.position === 'left' || alt.position === 'right')
-        ? tooltipWidth + margin
-        : tooltipHeight + margin;
+      const requiredSpace =
+        alt.position === 'left' || alt.position === 'right'
+          ? tooltipWidth + margin
+          : tooltipHeight + margin;
 
       if (alt.space >= requiredSpace) {
         return alt.position;

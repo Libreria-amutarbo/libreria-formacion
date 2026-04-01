@@ -13,8 +13,9 @@
 
 .dcx-ng-tooltip {
   --tooltip-arrow-size: 6px;
+  --tooltip-arrow-side-offset: 8px;
 
-  background-color: var(--background-secondary-light);
+  background-color: var(--background-secondary);
   color: var(--content-default-white);
   border-radius: var(--border-radius-sm);
   padding: var(--spacing-inset-xs) var(--spacing-inset-s);
@@ -26,7 +27,7 @@
   word-wrap: break-word;
   position: absolute;
   z-index: 1000;
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--shadow-4);
   animation: fade-in linear 0.2s;
 
   &--top {
@@ -45,15 +46,37 @@
       left: 50%;
       transform: translateX(-50%);
       border-width: 4px 4px 0 4px;
-      border-color: var(--background-primary) transparent transparent transparent;
+      border-color: var(--background-secondary) transparent transparent
+        transparent;
+    }
+
+    &.dcx-ng-tooltip--arrow-left {
+      left: calc(50% - -64px);
+
+      .tooltip-arrow {
+        left: var(--tooltip-arrow-side-offset);
+        transform: none;
+      }
+    }
+
+    &.dcx-ng-tooltip--arrow-right {
+      left: calc(50% + -64px);
+
+      .tooltip-arrow {
+        left: auto;
+        right: var(--tooltip-arrow-side-offset);
+        transform: none;
+      }
     }
   }
 
   &--bottom {
+    width: 120px;
+    min-height: 43px;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: var(--tooltip-arrow-size);
+    margin-top: 10px;
 
     &[data-position='bottom'] {
       left: max(8px, min(50%, calc(100vw - 250px - 8px)));
@@ -61,11 +84,31 @@
     }
 
     .tooltip-arrow {
-      top: -3.5px;
+      top: -4px;
       left: 50%;
-      transform: translateX(-50%) rotateX(180deg);
-      border-width: 4px 4px 0 4px;
-      border-color: transparent transparent var(--background-primary) transparent;
+      transform: translateX(-50%);
+      border-width: 0 4px 4px 4px;
+      border-color: transparent transparent var(--background-secondary)
+        transparent;
+    }
+
+    &.dcx-ng-tooltip--arrow-left {
+      left: calc(50% - 8px);
+
+      .tooltip-arrow {
+        left: var(--tooltip-arrow-side-offset);
+        transform: none;
+      }
+    }
+
+    &.dcx-ng-tooltip--arrow-right {
+      left: calc(50% + 8px);
+
+      .tooltip-arrow {
+        left: auto;
+        right: var(--tooltip-arrow-side-offset);
+        transform: none;
+      }
     }
   }
 
@@ -85,7 +128,8 @@
       top: 50%;
       transform: translateY(-50%);
       border-width: 4px 0 4px 4px;
-      border-color: transparent transparent transparent var(--background-primary);
+      border-color: transparent transparent transparent
+        var(--background-secondary);
     }
   }
 
@@ -105,7 +149,8 @@
       top: 50%;
       transform: translateY(-50%);
       border-width: 4px 4px 4px 0;
-      border-color: transparent var(--background-primary) transparent transparent;
+      border-color: transparent var(--background-secondary) transparent
+        transparent;
     }
   }
 }

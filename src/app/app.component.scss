@@ -1,16 +1,11 @@
-div {
-  padding: 50px;
-  dcx-ng-select {
-    margin-bottom: 2%;
-  }
-}
-
-section + hr {
-  margin: 1.5rem 0;
-}
-
-.example-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 1.5rem 0;
+.app-shell {
+  font-family: var(--font-family-primary, 'Inter', sans-serif);
+  background: var(--color-surface, #f4f5f7);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4rem 2rem 2rem;
+  box-sizing: border-box;
 }

@@ -1,105 +1,86 @@
-import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { Component, signal } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
+import type { Meta, StoryObj } from '@storybook/angular';
 import {
   DcxNgPaginatorComponent,
-  DcxPaginator,
   defaultPaginator,
   knowPageSelected,
   limitedPaginator,
   selectPerPage,
-  DcxNgSelectComponent,
-  optionsValue,
 } from '@dcx-ng-components/dcx-ng-lib';
 
+
 const meta: Meta<DcxNgPaginatorComponent> = {
-  title: 'DCXLibrary/Paginator/ClassBased',
+  title: 'DCXLibrary/Components/Paginator',
   component: DcxNgPaginatorComponent,
   tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [CommonModule, DcxNgSelectComponent, DcxNgPaginatorComponent],
-    }),
-  ],
+  args: {
+    paginator: defaultPaginator,
+    limitedButtons: false,
+    showItemsPerPageInfo: false,
+    showPageInfo: false,
+  },
   argTypes: {
     paginator: {
       control: { type: 'object' },
-      description: 'Elementos de la paginación',
+      description: 'Configuración del paginador',
       table: { category: 'Attributes', type: { summary: 'DcxPaginator' } },
     },
     limitedButtons: {
       control: { type: 'boolean' },
-      description: 'Botones de límite',
+      description: 'Muestra los botones de ir al principio/fin',
       table: { category: 'Attributes' },
     },
     showItemsPerPageInfo: {
       control: { type: 'boolean' },
-      description: 'Mostrar items por página',
+      description: 'Muestra el resumen de items por página (derecha)',
       table: { category: 'Attributes' },
     },
     showPageInfo: {
       control: { type: 'boolean' },
-      description: 'Mostrar página que se está consultando',
+      description: 'Muestra la información de página actual (derecha)',
       table: { category: 'Attributes' },
     },
-  },
-  args: {
-    paginator: defaultPaginator,
+    pageChange: {
+      action: 'pageChange',
+      description: 'Emite el número de página seleccionada',
+      table: { category: 'Events', type: { summary: 'EventEmitter<number>' } },
+    },
+    totalPagesChange: {
+      action: 'totalPagesChange',
+      description: 'Emite el total de páginas calculado',
+      table: { category: 'Events', type: { summary: 'EventEmitter<number>' } },
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgPaginatorComponent>;
 
-export const ClassBased: Story = {};
-
-// Componente wrapper para WithSelectorOfElements
-@Component({
-  selector: 'dcx-ng-paginator-selector-wrapper',
-  standalone: true,
-  imports: [CommonModule, DcxNgPaginatorComponent, DcxNgSelectComponent],
-  template: `
-    <div class="paginator-control">
-      <dcx-ng-paginator [paginator]="selectPerPageSignal()" [showItemsPerPageInfo]="true" />
-      <dcx-ng-select
-        [options]="optionsValue"
-        (valueChange)="itemsPerPageChange($event)"
-      />
-    </div>
-  `,
-  styles: [
-    `
-    .paginator-control {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+export const Default: Story = {
+  args: {
+    paginator: defaultPaginator,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ejemplo 1 - Paginator por defecto.'
+      }
     }
-  `,
-  ],
-})
-class SelectorWrapperComponent {
-  selectPerPageSignal = signal<DcxPaginator>(selectPerPage);
-  optionsValue = optionsValue;
-
-  itemsPerPageChange(event: string | number | null) {
-    this.selectPerPageSignal.update(current => ({
-      ...current,
-      itemsPerPage: Number(event),
-    }));
   }
-}
+};
 
-export const WithSelectorOfElements: Story = {
-  render: () => ({
-    props: {},
-    template: `<dcx-ng-paginator-selector-wrapper />`,
-  }),
-  decorators: [
-    moduleMetadata({
-      imports: [SelectorWrapperComponent],
-    }),
-  ],
+export const WithSelector: Story = {
+  args: {
+    paginator: selectPerPage,
+    showItemsPerPageInfo: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ejemplo 2 - Paginator con selector de elementos por página.'
+      }
+    }
+  }
 };
 
 export const LimitedButtons: Story = {
@@ -107,48 +88,26 @@ export const LimitedButtons: Story = {
     paginator: limitedPaginator,
     limitedButtons: true,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ejemplo 3 - Paginator con navegación a la primera y última posición.'
+      }
+    }
+  }
 };
 
-// Componente wrapper para CurrentPageInformation
-@Component({
-  selector: 'dcx-ng-paginator-info-wrapper',
-  standalone: true,
-  imports: [CommonModule, DcxNgPaginatorComponent],
-  template: `
-    <div class="paginator-control">
-      <dcx-ng-paginator
-      [showPageInfo]="true"
-        [paginator]="knowPageSelectedSignal()"
-        (pageChange)="onPageChange($event)"
-        (totalPagesChange)="onTotalPagesChange($event)"
-      />
-    </div>
-  `,
-})
-class CurrentPageWrapperComponent {
-  knowPageSelectedSignal = signal<DcxPaginator>(knowPageSelected);
-  totalPages = signal(0);
-
-  onPageChange(page: number) {
-    this.knowPageSelectedSignal.update(current => ({
-      ...current,
-      currentPage: page,
-    }));
+export const WithPageInfo: Story = {
+  args: {
+    paginator: knowPageSelected,
+    showPageInfo: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ejemplo 4 - Conociendo la página del total seleccionada.'
+      }
+    }
   }
-
-  onTotalPagesChange(totalPages: number) {
-    this.totalPages.set(totalPages);
-  }
-}
-
-export const CurrentPageInformation: Story = {
-  render: () => ({
-    props: {},
-    template: `<dcx-ng-paginator-info-wrapper />`,
-  }),
-  decorators: [
-    moduleMetadata({
-      imports: [CurrentPageWrapperComponent],
-    }),
-  ],
 };
+

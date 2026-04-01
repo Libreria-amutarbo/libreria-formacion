@@ -1,5 +1,6 @@
 export * from './lib/core/interfaces';
 export * from './lib/core/mock';
+export * from './lib/core/mapping';
 export * from './lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 export * from './lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
 export * from './lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
@@ -30,3 +31,4 @@ export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table.compo
 export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table-template.directive';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-data-pipeline.service';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-comparator.service';
+export * from './lib/dcx-ng-components/dcx-ng-navbar/dcx-ng-navbar.component';

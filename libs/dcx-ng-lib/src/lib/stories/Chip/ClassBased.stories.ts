@@ -7,7 +7,7 @@ import {
 import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
 
 const meta: Meta<DcxNgChipComponent> = {
-  title: 'DCXLibrary/Chip/Class Based',
+  title: 'DCXLibrary/Components/Chip',
   component: DcxNgChipComponent,
   tags: ['autodocs'],
   args: {
