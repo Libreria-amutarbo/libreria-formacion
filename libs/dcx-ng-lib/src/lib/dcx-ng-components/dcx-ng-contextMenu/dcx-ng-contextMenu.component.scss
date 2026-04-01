@@ -13,14 +13,14 @@
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--border-light, rgba(209, 213, 219, 0.4));
   border-radius: var(--r-lg, 8px);
-  box-shadow: 
+  box-shadow:
     var(--shadow-sm, 0 4px 6px -1px rgba(0, 0, 0, 0.1)),
     var(--shadow-md, 0 10px 15px -3px rgba(0, 0, 0, 0.1)),
     var(--shadow-lg, 0 20px 25px -5px rgba(0, 0, 0, 0.1));
   color: var(--text-dark, #2a2e33);
   padding: var(--sp-1, 6px);
   animation: dcxContextMenuEnter 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  
+
   outline: none;
   &:focus-visible {
     outline: 2px solid var(--border-focus, #1db8f2);
@@ -55,7 +55,10 @@
     .dcx-list-item {
       margin: 2px 0;
       border-radius: var(--r-md, 6px);
-      transition: background-color 0.15s ease-out, transform 0.15s ease-out, color 0.15s ease-out;
+      transition:
+        background-color 0.15s ease-out,
+        transform 0.15s ease-out,
+        color 0.15s ease-out;
       position: relative;
 
       .dcx-list-item-content {
@@ -70,7 +73,7 @@
 
       &.selectable:hover {
         background-color: var(--background-hover);
-        
+
         .dcx-list-icon {
           color: var(--background-primary);
         }
@@ -85,7 +88,7 @@
 
         &.selectable:hover {
           background-color: var(--bg-danger-hover);
-          
+
           .dcx-list-icon {
             color: var(--color-danger);
           }
@@ -100,7 +103,7 @@
         opacity: 0.4;
         cursor: not-allowed;
         filter: grayscale(1);
-        
+
         &:hover {
           transform: none;
           background-color: transparent;
@@ -110,7 +113,9 @@
       .dcx-list-icon {
         font-size: 1.1rem;
         color: var(--text-muted, #6b7280);
-        transition: color 0.2s ease, transform 0.2s ease;
+        transition:
+          color 0.2s ease,
+          transform 0.2s ease;
         display: flex;
         align-items: center;
         justify-content: center;

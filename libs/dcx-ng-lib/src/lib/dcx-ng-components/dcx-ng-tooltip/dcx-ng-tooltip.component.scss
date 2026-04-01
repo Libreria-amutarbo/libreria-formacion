@@ -46,7 +46,8 @@
       left: 50%;
       transform: translateX(-50%);
       border-width: 4px 4px 0 4px;
-      border-color: var(--background-secondary) transparent transparent transparent;
+      border-color: var(--background-secondary) transparent transparent
+        transparent;
     }
 
     &.dcx-ng-tooltip--arrow-left {
@@ -87,7 +88,8 @@
       left: 50%;
       transform: translateX(-50%);
       border-width: 0 4px 4px 4px;
-      border-color: transparent transparent var(--background-secondary) transparent;
+      border-color: transparent transparent var(--background-secondary)
+        transparent;
     }
 
     &.dcx-ng-tooltip--arrow-left {
@@ -126,7 +128,8 @@
       top: 50%;
       transform: translateY(-50%);
       border-width: 4px 0 4px 4px;
-      border-color: transparent transparent transparent var(--background-secondary);
+      border-color: transparent transparent transparent
+        var(--background-secondary);
     }
   }
 
@@ -146,7 +149,8 @@
       top: 50%;
       transform: translateY(-50%);
       border-width: 4px 4px 4px 0;
-      border-color: transparent var(--background-secondary) transparent transparent;
+      border-color: transparent var(--background-secondary) transparent
+        transparent;
     }
   }
 }
