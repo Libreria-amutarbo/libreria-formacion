@@ -21,7 +21,11 @@
   white-space: nowrap;
   cursor: pointer;
   outline: none;
-  transition: background 0.1s, border-color 0.1s, box-shadow 0.1s, color 0.1s;
+  transition:
+    background 0.1s,
+    border-color 0.1s,
+    box-shadow 0.1s,
+    color 0.1s;
 
   // ========== SIZES ==========
 
@@ -91,6 +95,10 @@
       border-color: var(--border-focus, #1db8f2);
       box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
     }
+
+    &.dcx-ng-button--pressed {
+      background-color: var(--background-primary-pressed);
+    }
   }
 
   &--secondary {
@@ -126,6 +134,10 @@
     &.dcx-ng-button--focused {
       border-color: var(--border-focus, #1db8f2);
       box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
+    }
+
+    &.dcx-ng-button--pressed {
+      background-color: var(--background-pressed);
     }
   }
 
@@ -217,6 +229,29 @@
     &.dcx-ng-button--focused {
       border-color: #f87171;
       box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+    }
+
+    &.dcx-ng-button--pressed {
+      background-color: var(--background-pressed);
+    }
+  }
+
+  &--text {
+    background-color: transparent;
+    color: var(--text-body);
+    border: none;
+
+    &:hover:not(:disabled) {
+      background-color: var(--background-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--background-pressed);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 4px;
     }
   }
 

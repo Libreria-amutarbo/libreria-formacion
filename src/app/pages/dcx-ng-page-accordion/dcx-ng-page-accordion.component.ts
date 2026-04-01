@@ -117,7 +117,9 @@ export class DcxNgPageAccordionComponent implements AfterViewInit {
   }
 
   getExternalButtonLabel(id: string): string {
-    return this.isExternalExpanded(id) ? `Cerrar Item ${id}` : `Abrir Item ${id}`;
+    return this.isExternalExpanded(id)
+      ? `Cerrar Item ${id}`
+      : `Abrir Item ${id}`;
   }
 
   getExternalButtonVariant(id: string): DcxButtonVariant {
