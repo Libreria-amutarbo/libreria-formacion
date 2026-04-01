@@ -3,12 +3,19 @@ import {
   DcxNgButtonComponent,
   DcxNgCardComponent,
   DEFAULTARGS,
+  DcxNgSliderComponent,
+  DcxNgChipComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-card',
   standalone: true,
-  imports: [DcxNgCardComponent, DcxNgButtonComponent],
+  imports: [
+    DcxNgCardComponent,
+    DcxNgButtonComponent,
+    DcxNgSliderComponent,
+    DcxNgChipComponent,
+  ],
   templateUrl: './dcx-ng-page-card.component.html',
   styleUrl: './dcx-ng-page-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,8 +4,10 @@ import {
   DcxSize,
   DividerOrientation,
   DividerType,
-} from '../../core/interfaces';
-import { tokens } from '../../core/mock/colors';
+  mapSizeToCssValue,
+  mapTypeToCssValue,
+  tokens,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-divider',
@@ -15,25 +17,42 @@ import { tokens } from '../../core/mock/colors';
   styleUrl: './dcx-ng-divider.component.scss',
 })
 export class DcxNgDividerComponent {
-  color = input<string>(tokens.background.error);
+  color = input<string>(tokens.background.pressed);
   size = input<DcxSize>('auto');
   orientation = input<DividerOrientation>('horizontal');
   thickness = input<number>(0.25);
   ariaLabel = input<string>('');
   type = input<DividerType>('default');
+  label = input<string>('');
 
-  dividerClasses = computed<string>(() => {
-    const label = 'dcx-ng-divider';
-    const orientation = this.orientation()
-      ? `${label}--${this.orientation()}`
-      : '';
-    const size = this.size() ? `${label}--${this.size()}` : '';
-    const type = this.type() ? `${label}--${this.type()}` : '';
-    console.log([label, orientation, size, type].join(' '));
-    return [label, orientation, size, type].join(' ');
-  });
+  ariaLabelBinding = computed<string>(
+    () => this.ariaLabel() || this.label() || 'dcx-divider',
+  );
 
-  ariaLabelBinding = computed<string>(() => this.ariaLabel() ?? 'dcx-divider');
+  @HostBinding('class.has-label')
+  get hasLabel() {
+    return !!this.label();
+  }
+
+  @HostBinding('class.horizontal')
+  get isHorizontal() {
+    return this.orientation() === 'horizontal';
+  }
+
+  @HostBinding('class.vertical')
+  get isVertical() {
+    return this.orientation() === 'vertical';
+  }
+
+  @HostBinding('style.--dcx-divider-size')
+  get dividerSize() {
+    return mapSizeToCssValue(this.size());
+  }
+
+  @HostBinding('style.--dcx-divider-style')
+  get dividerStyle() {
+    return mapTypeToCssValue(this.type());
+  }
 
   @HostBinding('style.--dcx-divider-color')
   get dividerColor() {
