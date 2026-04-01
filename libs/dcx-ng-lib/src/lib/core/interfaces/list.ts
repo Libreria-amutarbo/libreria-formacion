@@ -1,3 +1,5 @@
+export type DcxListVariant = 'default' | 'danger';
+
 export interface DcxListItem {
   text?: string;
   description?: string;
@@ -5,5 +7,5 @@ export interface DcxListItem {
   disabled?: boolean;
   divider?: boolean;
   children?: DcxListItem[];
-  variant?: 'default' | 'danger';
+  variant?: DcxListVariant;
 }

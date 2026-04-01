@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_SUBLISTS, SELECTABLE_LIST_ITEMS, SIMPLE_LIST_ITEMS, MULTI_SELECT_LIST_ITEMS } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_SUBLISTS, SELECTABLE_LIST_ITEMS, SIMPLE_LIST_ITEMS, MULTI_SELECT_LIST_ITEMS, LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION } from '@dcx-ng-components/dcx-ng-lib';
 
 type ListSelectionEvent = { item: { text?: string }; index: number };
 
@@ -137,12 +137,7 @@ export const WithDescription: Story = {
   render: args => ({
     props: {
       ...args,
-      items: [
-        { text: 'Dashboard', description: 'Overview of metrics', icon: 'speedometer2' },
-        { text: 'Usuarios', description: 'Manage users', icon: 'people' },
-        { text: 'Ajustes', description: 'System settings', icon: 'gear' },
-        { text: 'Notificaciones', description: 'View notifications', icon: 'bell' },
-      ],
+      items: LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION,
     },
     template: `
       <div style="max-width: 600px;">

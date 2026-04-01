@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
-import { DcxListItem } from '../../core/interfaces/list';
+import { DcxNgIconComponent, DcxListItem } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-list',
