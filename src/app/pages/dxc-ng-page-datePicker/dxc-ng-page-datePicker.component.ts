@@ -1,4 +1,6 @@
-import { DcxNgButtonComponent, DcxNgDatePickerComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgDatePickerComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 import { Component, signal } from '@angular/core';
 
 @Component({
@@ -9,6 +11,7 @@ import { Component, signal } from '@angular/core';
   styleUrl: './dxc-ng-page-datePicker.component.scss',
 })
 export class DxcNgPageDatePickerComponent {
+  
   selectedDate = signal<Date | null>(new Date());
   minDate = signal<Date | null>(new Date(2024, 0, 1));
   maxDate = signal<Date | null>(new Date(2025, 11, 31));
@@ -42,5 +45,38 @@ export class DxcNgPageDatePickerComponent {
 
   toggleDisabled(): void {
     this.isDisabled.update(v => !v);
+  }
+
+  // Multiselect
+  selectedDates = signal<Date[]>([]);
+  handleDatesChange(dates: Date[]): void {
+    this.selectedDates.set(dates);
+  }
+  get formattedSelectedDates(): string {
+    return this.selectedDates().length
+      ? this.selectedDates()
+          .map(d => d.toLocaleDateString('es-ES'))
+          .join(', ')
+      : 'ninguna';
+  }
+
+  // Range select
+  startDate = signal<Date | null>(null);
+  endDate = signal<Date | null>(null);
+  handleStartDateChange(date: Date | null): void {
+    this.startDate.set(date);
+  }
+  handleEndDateChange(date: Date | null): void {
+    this.endDate.set(date);
+  }
+  get formattedStartDate(): string {
+    return this.startDate()
+      ? this.startDate()!.toLocaleDateString('es-ES')
+      : 'ninguna';
+  }
+  get formattedEndDate(): string {
+    return this.endDate()
+      ? this.endDate()!.toLocaleDateString('es-ES')
+      : 'ninguna';
   }
 }
