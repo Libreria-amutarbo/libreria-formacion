@@ -1,5 +1,19 @@
-<hr
-  [class]="dividerClasses()"
-  [attr.aria-label]="ariaLabelBinding()"
-  role="separator"
-/>
+@if (label()) {
+  <div
+    class="dcx-ng-divider labeled"
+    role="separator"
+    [attr.aria-orientation]="orientation()"
+    [attr.aria-label]="ariaLabelBinding()"
+  >
+    <span class="dcx-ng-divider__line"></span>
+    <span class="dcx-ng-divider__label">{{ label() }}</span>
+    <span class="dcx-ng-divider__line"></span>
+  </div>
+} @else {
+  <span
+    class="dcx-ng-divider"
+    role="separator"
+    [attr.aria-orientation]="orientation()"
+    [attr.aria-label]="ariaLabelBinding()"
+  ></span>
+}

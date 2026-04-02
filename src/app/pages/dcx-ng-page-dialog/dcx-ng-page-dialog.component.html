@@ -1,9 +1,9 @@
 <section>
-  <h2>Ejemplo 1 - Diálogo básico con información</h2>
+  <h2>Ejemplo 1 - Dialog básico con información</h2>
   <dcx-ng-button
-    label="Abrir diálogo"
+    label="Abrir dialog"
     variant="primary"
-    (buttonClick)="openInfo()"
+    (buttonClick)="open('info')"
   />
 
   <dcx-ng-dialog
@@ -14,19 +14,19 @@
     [closeOnBackdrop]="mockData.closeOnBackdrop!"
   >
     <ng-template #dialogBody>
-      <p>Este es un mensaje informativo dentro del diálogo.</p>
+      <p>Este es un mensaje informativo dentro del dialog.</p>
     </ng-template>
   </dcx-ng-dialog>
 </section>
 
-<hr />
+<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
 
 <section>
-  <h2>Ejemplo 2 - Diálogo de confirmación con footer</h2>
+  <h2>Ejemplo 2 - Dialog de confirmación con footer</h2>
   <dcx-ng-button
     label="Abrir confirmación"
     variant="primary"
-    (buttonClick)="openConfirm()"
+    (buttonClick)="open('confirm')"
   />
 
   <dcx-ng-dialog
@@ -43,13 +43,101 @@
       <dcx-ng-button
         label="Cancelar"
         variant="secondary"
-        (buttonClick)="handleCancel()"
+        (buttonClick)="close('confirm')"
       />
       <dcx-ng-button
         label="Aceptar"
         variant="primary"
-        (buttonClick)="handleAccept()"
+        (buttonClick)="close('confirm')"
       />
+    </ng-template>
+  </dcx-ng-dialog>
+</section>
+
+<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
+
+<section>
+  <h2>Ejemplo 3 - Dialogs posicionados</h2>
+  <div id="positioned-dialogs">
+    <dcx-ng-button label="↖" (buttonClick)="openPositioned('top-left')"></dcx-ng-button>
+    <dcx-ng-button label="↑" (buttonClick)="openPositioned('top')"></dcx-ng-button>
+    <dcx-ng-button label="↗" (buttonClick)="openPositioned('top-right')"></dcx-ng-button>
+    <dcx-ng-button label="←" (buttonClick)="openPositioned('left')"></dcx-ng-button>
+    <dcx-ng-button label="·" (buttonClick)="openPositioned('center')"></dcx-ng-button>
+    <dcx-ng-button label="→" (buttonClick)="openPositioned('right')"></dcx-ng-button>
+    <dcx-ng-button label="↙" (buttonClick)="openPositioned('bottom-left')"></dcx-ng-button>
+    <dcx-ng-button label="↓" (buttonClick)="openPositioned('bottom')"></dcx-ng-button>
+    <dcx-ng-button label="↘" (buttonClick)="openPositioned('bottom-right')"></dcx-ng-button>
+  </div>
+
+  <dcx-ng-dialog
+    dialogId="positioned"
+    [title]="mockData.title"
+    [showClose]="mockData.showClose!"
+    [position]="positionedDialogCurrentPosition()"
+    [closeOnBackdrop]="mockData.closeOnBackdrop!"
+  >
+    <ng-template #dialogBody>
+      <p>
+        Este es un dialog posicionado con:
+        <strong>[position]="{{ positionedDialogCurrentPosition() }}"</strong>
+      </p>
+    </ng-template>
+  </dcx-ng-dialog>
+</section>
+
+<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
+
+<section>
+  <h2>Ejemplo 4 - Dialog con scroll</h2>
+
+  <dcx-ng-button
+    label="Abrir dialog"
+    variant="primary"
+    (buttonClick)="open('scroll')"
+  />
+
+  <dcx-ng-dialog
+    dialogId="scroll"
+    [title]="mockData.title"
+    [showClose]="mockData.showClose!"
+    [position]="mockData.position!"
+    [closeOnBackdrop]="mockData.closeOnBackdrop!"
+  >
+    <ng-template #dialogBody>
+      <p>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+        ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+        dis parturient montes, nascetur ridiculus mus. Donec quam felis,
+        ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
+        quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
+        arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+        Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras
+        dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
+        tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,
+        enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
+        Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean
+        imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper
+        ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
+        eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing
+        sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,
+        hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec
+        vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit
+        amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
+        sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
+        bibendum sodales, augue velit cursus nunc, quis gravida magna mi a
+        libero. Fusce vulputate eleifend sapien. Vestibulum purus quam,
+        scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in
+        dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante
+        ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+        In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis
+        arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed
+        aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer
+        eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper
+        ipsum rutrum nunc. Nunc nonummy metus. Vestibulum volutpat pretium
+        libero. Cras id dui. Aenean utor. Etiam sit amet orci eget eros faucibus
+        tincidunt. Duis leo.
+      </p>
     </ng-template>
   </dcx-ng-dialog>
 </section>

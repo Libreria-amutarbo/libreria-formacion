@@ -3,33 +3,35 @@
     @for (item of items(); track item.label; let last = $last) {
       <li class="dcx-breadcrumb__item" [class.active]="last" [class.disabled]="item.disabled">
         @if (!last) {
-          <dcx-ng-button
-            [variant]="'text'"
-            [label]="item.label"
-            [icon]="item.icon ? true : false"
-            [iconName]="item.icon || ''"
-            [disabled]="item.disabled"
-            (buttonClick)="onItemClick(item)"
-          ></dcx-ng-button>
-          
+          @if (item.href) {
+            <a
+              class="dcx-breadcrumb__link"
+              [attr.href]="item.disabled ? null : item.href"
+              [attr.aria-disabled]="item.disabled ? 'true' : null"
+            >
+              @if (item.icon) {
+                <dcx-ng-icon [name]="item.icon"></dcx-ng-icon>
+              }
+              {{ item.label }}
+            </a>
+          } @else {
+            <span class="dcx-breadcrumb__text">
+              @if (item.icon) {
+                <dcx-ng-icon [name]="item.icon"></dcx-ng-icon>
+              }
+              {{ item.label }}
+            </span>
+          }
+
           <span class="dcx-breadcrumb__separator" aria-hidden="true">
-            @if (iconSeparator() === 'slash-lg') {
-              /
-            } @else if (iconSeparator() === 'chevron-right') {
-              <dcx-ng-icon name="chevron-right"></dcx-ng-icon>
-            } @else if (iconSeparator() === 'arrow-right-short') {
-              &#8594;
-            } @else {
-              <dcx-ng-icon [name]="iconSeparator()"></dcx-ng-icon>
-            }
+            <dcx-ng-icon [name]="iconSeparator()"></dcx-ng-icon>
           </span>
         } @else {
           <span class="dcx-breadcrumb__current" aria-current="page">
             @if (item.icon) {
               <dcx-ng-icon [name]="item.icon"></dcx-ng-icon>
-            } @else {
-              {{ item.label }}
             }
+            {{ item.label }}
           </span>
         }
       </li>

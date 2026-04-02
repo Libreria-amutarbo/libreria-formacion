@@ -1,66 +1,86 @@
-@use 'sass:map';
-@use 'sass:color';
-@use '../../../scss/main' as *;
-
-@mixin message-type($color) {
-  border: 1px solid $color;
+@mixin message-type($background, $border, $color) {
+  background: $background;
+  border-left-color: $border;
   color: $color;
 
+  .icon__container,
   .icon__container__close {
-    color: $color;
-    &:hover {
-      background: rgba($color, 0.1);
-      color: $color;
-    }
-    &:active {
-      background: rgba($color, 0.2);
-      color: $color;
-    }
+    color: inherit;
+  }
+
+  .message__container__title,
+  .message__container__paragraph,
+  .message__container__link {
+    color: inherit;
   }
 }
 
 .message__container {
-  font-family: var(--font-family-primary);
-  border-radius: 0.25rem;
-  padding: 0.5rem;
   display: flex;
-  gap: 0.5rem;
+  display: flex;
   align-items: flex-start;
+  gap: var(--sp-3, 0.75rem);
+  padding: var(--sp-3, 0.75rem) var(--sp-4, 1rem);
+  border-radius: var(--r-md, var(--border-radius-md, 0.375rem));
+  border-left: 4px solid transparent;
+  margin-bottom: var(--sp-3, 0.75rem);
+  font-family: var(--ff-base, var(--font-family-primary, 'Inter', sans-serif));
+  font-size: var(--fs-base, 0.875rem);
+  line-height: 1.5;
+  gap: 0.5rem;
 
   &__title {
-    font-weight: 600;
-    margin: 0 0 0.25rem 0;
-    font-size: 0.875rem;
-  }
-
-  &__paragraph {
-    margin: 0.125rem 0 0 0;
-    font-size: 0.875rem;
+    display: block;
+    margin: 0 0 0.125rem;
+    font-size: var(--fs-base, 0.875rem);
+    font-weight: var(--fw-semibold, 600);
     line-height: 1.4;
   }
 
+  &__paragraph {
+    margin: 0;
+    font-size: var(--fs-base, 0.875rem);
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
   &__link {
+    display: inline-block;
+    margin-top: var(--sp-1, 0.25rem);
     text-decoration: underline;
-    font-size: 0.7rem;
+    font-size: var(--fs-sm, 0.75rem);
+    font-weight: var(--fw-medium, 500);
+    text-underline-offset: 0.12em;
   }
 
   &__body {
     flex: 1;
-    margin-top: 0.125rem;
+    min-width: 0;
   }
 }
 
 .error {
-  @include message-type(var(--status-error));
+  @include message-type(var(--color-error-bg, #fef2f2),
+    var(--color-error, #dc2626),
+    #7f1d1d);
 }
+
 .warning {
-  @include message-type(var(--status-warning));
+  @include message-type(var(--color-warning-bg, #fffbeb),
+    var(--color-warning, #d97706),
+    #78350f);
 }
+
 .notification {
-  @include message-type(var(--status-info));
+  @include message-type(var(--color-info-bg, #eff6ff),
+    var(--color-info, #0058ab),
+    #1e3a5f);
 }
+
 .success {
-  @include message-type(var(--status-success));
+  @include message-type(var(--color-success-bg, #f0fdf4),
+    var(--color-success, #16a34a),
+    #14532d);
 }
 
 .icon__container {
@@ -68,20 +88,50 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 1px;
 
   &__close {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: none;
-    border-radius: 0.25rem;
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: var(--r-sm, 0.25rem);
     background: transparent;
     padding: 0;
     cursor: pointer;
-    flex-shrink: 0;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus-within {
+      opacity: 1;
+    }
+
+    ::ng-deep .dcx-ng-button {
+      width: 100%;
+      height: 100%;
+      min-width: 100%;
+      padding: 2px 4px;
+      border: none;
+      border-radius: inherit;
+      background: transparent;
+      color: inherit;
+      box-shadow: none;
+    }
+
+    ::ng-deep .dcx-ng-button:hover,
+    ::ng-deep .dcx-ng-button:active,
+    ::ng-deep .dcx-ng-button:focus-visible {
+      background: transparent;
+      color: inherit;
+      box-shadow: none;
+    }
   }
 }

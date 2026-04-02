@@ -28,37 +28,28 @@
       }
     }
 
-    /* Adjust button to look like native breadcrumb text link */
-    ::ng-deep dcx-ng-button {
-      .dcx-ng-button {
-        padding: 0;
-        min-height: auto;
-        height: auto;
-        font-weight: var(--fw-medium, 500);
-        color: var(--bg-primary, #0058ab);
-        font-size: var(--fs-base, 14px);
-        background: transparent;
-        border: none;
-        text-decoration: none;
-
-        &--icon-only {
-          color: var(--bg-primary, #0058ab);
-        }
-
-        &:hover {
-          background: transparent;
-          text-decoration: underline;
-        }
-
-        /* Override específico para el disabled en breadcrumb */
-        &:disabled,
-        &[disabled] {
-          color: var(--text-disabled, #9ca3af);
-          background: transparent;
-          border-color: transparent;
-        }
+    &.disabled {
+      .dcx-breadcrumb__link {
+        color: var(--text-disabled, #9ca3af);
+        pointer-events: none;
       }
     }
+  }
+
+  &__link {
+    color: var(--bg-primary, #0058ab);
+    text-decoration: none;
+    font-weight: var(--fw-medium, 500);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__text {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1, 4px);
   }
 
   &__current {

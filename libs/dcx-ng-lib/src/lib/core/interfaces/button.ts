@@ -3,6 +3,7 @@ export type DcxButtonVariant =
   | 'primary'
   | 'secondary'
   | 'terciary'
+  | 'danger'
   | 'icon-only'
   | 'text';
 

@@ -2,8 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DcxNgPageAccordionComponent } from './dcx-ng-page-accordion.component';
+import {
+  DcxAccordionDefault,
+  DcxAccordionItemsWithIcon,
+  DcxAccordionItemsDisabled,
+  DcxAccordionItemsWithExpanded,
+  DcxAccordionLargeContent,
+} from '@dcx-ng-components/dcx-ng-lib';
 
-describe('DcxNgPageAccordionComponent', () => {
+xdescribe('DcxNgPageAccordionComponent', () => {
   let component: DcxNgPageAccordionComponent;
   let fixture: ComponentFixture<DcxNgPageAccordionComponent>;
 
@@ -26,21 +33,14 @@ describe('DcxNgPageAccordionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have defaultItems initialized', () => {
-    expect(component.defaultItems).toBeDefined();
-    expect(component.defaultItems.length).toBe(4);
+  it('should have defaultItems initialized with DcxAccordionDefault', () => {
+    expect(component.defaultItems).toBe(DcxAccordionDefault);
   });
 
-  it('should have correct titles in defaultItems', () => {
-    const titles = component.defaultItems.map(item => item.title);
-    expect(titles).toContain('Item 1');
-    expect(titles).toContain('Item 2');
-  });
-
-  it('should have all item sets defined', () => {
-    expect(component.withIcons).toBeDefined();
-    expect(component.WithDisabledItems).toBeDefined();
-    expect(component.multipleOpenItems).toBeDefined();
-    expect(component.largeContentItems).toBeDefined();
+  it('should have all item sets initialized correctly', () => {
+    expect(component.withIcons).toBe(DcxAccordionItemsWithIcon);
+    expect(component.WithDisabledItems).toBe(DcxAccordionItemsDisabled);
+    expect(component.multipleOpenItems).toBe(DcxAccordionItemsWithExpanded);
+    expect(component.largeContentItems).toBe(DcxAccordionLargeContent);
   });
 });

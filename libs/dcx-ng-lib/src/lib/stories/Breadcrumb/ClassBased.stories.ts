@@ -10,9 +10,6 @@ import {
   DcxBreadCrumbCurrentPage,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
-import { fn } from '@storybook/test';
-
-const ActionsData = { itemSelected: fn() };
 
 const meta: Meta<DcxNgBreadcrumbComponent> = {
   title: 'DCXLibrary/Components/Breadcrumb',
@@ -43,21 +40,10 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
         defaultValue: { summary: DcxBreadCrumbSlashIcon },
       },
     },
-    itemSelected: {
-      name: 'itemSelected',
-      action: 'itemSelected',
-      description: 'Se emite al hacer clic en un item',
-      table: {
-        category: 'Eventos',
-        type: { summary: '(item: DcxBreadcrumbItem) => void' },
-        defaultValue: { summary: '-' },
-      },
-    },
   },
   args: {
     items: DcxBreadCrumbItemDefault,
     iconSeparator: DcxBreadCrumbSlashIcon,
-    itemSelected: ActionsData.itemSelected,
   },
 };
 

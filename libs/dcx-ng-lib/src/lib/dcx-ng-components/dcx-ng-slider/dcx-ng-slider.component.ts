@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   forwardRef,
+  HostBinding,
   input,
   signal,
   effect,
@@ -54,6 +55,24 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
 
   valueChange = output<number>();
 
+  progressPercent = computed(() => {
+    const min = this.min();
+    const max = this.max();
+    const val = this.valueInput();
+    if (max === min) return 100;
+    return ((val - min) / (max - min)) * 100;
+  });
+
+  @HostBinding('class.vertical')
+  get isVertical(): boolean {
+    return this.vertical();
+  }
+
+  @HostBinding('style.--slider-progress')
+  get sliderProgress(): string {
+    return `${this.progressPercent()}%`;
+  }
+
   private onChange: (value: number) => void = () => {};
   private onTouched: () => void = () => {};
 
@@ -68,8 +87,8 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
       if (external < min) {
         this.valueInput.set(min);
         return;
-      } 
-      
+      }
+
       if (external > max) {
         this.valueInput.set(max);
       }
