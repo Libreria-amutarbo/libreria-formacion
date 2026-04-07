@@ -80,7 +80,7 @@ const meta: Meta<DcxNgListComponent> = {
   },
   args: {
     items: SIMPLE_LIST_ITEMS,
-    selectable: false,
+    selectable: true,
     multiSelect: false,
     showChildrenIndicator: false,
     renderChildren: true,
@@ -98,7 +98,7 @@ export const Simple: Story = {
         <div style="color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">Vista General</div>
         <dcx-ng-list
           [items]="items"
-          [selectable]="selectable"
+          [selectable]="true"
           [multiSelect]="multiSelect"
           [showChildrenIndicator]="showChildrenIndicator"
           [renderChildren]="renderChildren"
@@ -121,7 +121,7 @@ export const WithIcons: Story = {
         <div style="color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">Navegación con Iconos</div>
         <dcx-ng-list
           [items]="items"
-          [selectable]="selectable"
+          [selectable]="true"
           [multiSelect]="multiSelect"
           [showChildrenIndicator]="showChildrenIndicator"
           [renderChildren]="renderChildren"
@@ -167,7 +167,7 @@ export const WithSubLists: Story = {
         <div style="color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">Jerarquía de Elementos</div>
         <dcx-ng-list
           [items]="items"
-          [selectable]="selectable"
+          [selectable]="true"
           [multiSelect]="multiSelect"
           [showChildrenIndicator]="showChildrenIndicator"
           [renderChildren]="renderChildren"
