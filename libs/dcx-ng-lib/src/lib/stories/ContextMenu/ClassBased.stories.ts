@@ -1,86 +1,86 @@
 import { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import {
-    DcxNgContextMenuComponent,
-    DcxNgButtonComponent,
-    SIMPLE_CONTEXT_MENU_ITEMS,
-    SUBLIST_CONTEXT_MENU_ITEMS,
+  DcxNgContextMenuComponent,
+  DcxNgButtonComponent,
+  SIMPLE_CONTEXT_MENU_ITEMS,
+  SUBLIST_CONTEXT_MENU_ITEMS,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgContextMenuComponent> = {
-    title: 'DCXLibrary/Components/ContextMenu',
-    component: DcxNgContextMenuComponent,
-    tags: ['autodocs'],
-    decorators: [
-        moduleMetadata({
-            imports: [DcxNgButtonComponent],
-        }),
-    ],
-    argTypes: {
-        items: {
-            name: 'items',
-            control: { type: 'object' },
-            description: 'Array de elementos del menú contextual',
-            table: {
-                category: 'Atributos',
-                type: { summary: 'DcxContextMenuItem[]' },
-            },
-        },
-        position: {
-            name: 'position',
-            control: { type: 'object' },
-            description: 'Posición del menú (x, y)',
-            table: {
-                category: 'Atributos',
-                type: { summary: '{ x: number; y: number }' },
-                defaultValue: { summary: '{ x: 100, y: 100 }' },
-            },
-        },
-        itemSelected: {
-            name: 'itemSelected',
-            action: 'itemSelected',
-            description: 'Evento emitido cuando se selecciona un item',
-            table: {
-                category: 'Eventos',
-                type: { summary: '(item: DcxContextMenuItem) => void' },
-                defaultValue: { summary: '-' },
-            },
-        },
-        menuClosed: {
-            name: 'menuClosed',
-            action: 'menuClosed',
-            description: 'Evento emitido cuando se cierra el menú',
-            table: {
-                category: 'Eventos',
-                type: { summary: '() => void' },
-                defaultValue: { summary: '-' },
-            },
-        },
+  title: 'DCXLibrary/Components/ContextMenu',
+  component: DcxNgContextMenuComponent,
+  tags: ['autodocs'],
+  decorators: [
+    moduleMetadata({
+      imports: [DcxNgButtonComponent],
+    }),
+  ],
+  argTypes: {
+    items: {
+      name: 'items',
+      control: { type: 'object' },
+      description: 'Array de elementos del menú contextual',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxContextMenuItem[]' },
+      },
     },
-    args: {
-        items: SIMPLE_CONTEXT_MENU_ITEMS,
-        position: { x: 100, y: 100 },
+    position: {
+      name: 'position',
+      control: { type: 'object' },
+      description: 'Posición del menú (x, y)',
+      table: {
+        category: 'Atributos',
+        type: { summary: '{ x: number; y: number }' },
+        defaultValue: { summary: '{ x: 100, y: 100 }' },
+      },
     },
+    itemSelected: {
+      name: 'itemSelected',
+      action: 'itemSelected',
+      description: 'Evento emitido cuando se selecciona un item',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(item: DcxContextMenuItem) => void' },
+        defaultValue: { summary: '-' },
+      },
+    },
+    menuClosed: {
+      name: 'menuClosed',
+      action: 'menuClosed',
+      description: 'Evento emitido cuando se cierra el menú',
+      table: {
+        category: 'Eventos',
+        type: { summary: '() => void' },
+        defaultValue: { summary: '-' },
+      },
+    },
+  },
+  args: {
+    items: SIMPLE_CONTEXT_MENU_ITEMS,
+    position: { x: 100, y: 100 },
+  },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgContextMenuComponent>;
 
 export const ContextMenuOnRightClick: Story = {
-    render: () => ({
-        props: {
-            items: SIMPLE_CONTEXT_MENU_ITEMS,
-            menuPosition: { x: 0, y: 0 },
-            openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent) {
-                event.preventDefault();
-                (this as any).menuPosition = { x: event.clientX, y: event.clientY };
-                setTimeout(() => menu.open(), 0);
-            },
-            onItemSelected(item: any) {
-                console.log('Item seleccionado:', item);
-            },
-        },
-        template: `
+  render: () => ({
+    props: {
+      items: SIMPLE_CONTEXT_MENU_ITEMS,
+      menuPosition: { x: 0, y: 0 },
+      openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent) {
+        event.preventDefault();
+        (this as any).menuPosition = { x: event.clientX, y: event.clientY };
+        setTimeout(() => menu.open(), 0);
+      },
+      onItemSelected(item: any) {
+        console.log('Item seleccionado:', item);
+      },
+    },
+    template: `
       <div style="padding: 2rem;">
         <div 
           (contextmenu)="openContextMenu(contextMenu, $event)"
@@ -102,24 +102,24 @@ export const ContextMenuOnRightClick: Story = {
         </dcx-ng-context-menu>
       </div>
     `,
-    }),
+  }),
 };
 
 export const ContextMenuWithSublists: Story = {
-    render: () => ({
-        props: {
-            items: SUBLIST_CONTEXT_MENU_ITEMS,
-            menuPosition: { x: 0, y: 0 },
-            openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent) {
-                event.preventDefault();
-                (this as any).menuPosition = { x: event.clientX, y: event.clientY };
-                setTimeout(() => menu.open(), 0);
-            },
-            onItemSelected(item: any) {
-                console.log('Item seleccionado:', item);
-            },
-        },
-        template: `
+  render: () => ({
+    props: {
+      items: SUBLIST_CONTEXT_MENU_ITEMS,
+      menuPosition: { x: 0, y: 0 },
+      openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent) {
+        event.preventDefault();
+        (this as any).menuPosition = { x: event.clientX, y: event.clientY };
+        setTimeout(() => menu.open(), 0);
+      },
+      onItemSelected(item: any) {
+        console.log('Item seleccionado:', item);
+      },
+    },
+    template: `
             <div style="padding: 2rem;">
                 <div 
                     (contextmenu)="openContextMenu(contextMenu, $event)"
@@ -141,5 +141,5 @@ export const ContextMenuWithSublists: Story = {
                 </dcx-ng-context-menu>
             </div>
         `,
-    }),
+  }),
 };

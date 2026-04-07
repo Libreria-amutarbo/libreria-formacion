@@ -52,9 +52,11 @@
   height: 4px;
   border-radius: 2px;
   border: none !important;
-  background: linear-gradient(to right,
-      var(--bg-primary, #0058ab) var(--slider-progress, 0%),
-      #e5e7eb var(--slider-progress, 0%));
+  background: linear-gradient(
+    to right,
+    var(--bg-primary, #0058ab) var(--slider-progress, 0%),
+    #e5e7eb var(--slider-progress, 0%)
+  );
   outline: none;
   cursor: pointer;
   padding: 0 !important;

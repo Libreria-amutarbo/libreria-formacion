@@ -1,8 +1,8 @@
 export interface DcxListItem {
-    text?: string;
-    icon?: string;
-    disabled?: boolean;
-    divider?: boolean;
-    children?: DcxListItem[];
-    variant?: 'default' | 'danger';
+  text?: string;
+  icon?: string;
+  disabled?: boolean;
+  divider?: boolean;
+  children?: DcxListItem[];
+  variant?: 'default' | 'danger';
 }

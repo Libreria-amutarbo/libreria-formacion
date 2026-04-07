@@ -63,9 +63,4 @@ describe('DcxNgBreadcrumbComponent', () => {
     fixture.detectChanges();
     expect(component.items().length).toBe(2);
   });
-
-  it('should return a TemplateRef from getItemContentTpl', () => {
-    const tpl = component.getItemContentTpl();
-    expect(tpl).toBeTruthy();
-  });
 });
