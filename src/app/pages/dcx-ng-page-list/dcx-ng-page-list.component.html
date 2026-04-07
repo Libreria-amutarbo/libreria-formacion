@@ -1,53 +1,105 @@
 <section>
-    <h2 class="example-title">Ejemplo 1 - Lista simple</h2>
-    <dcx-ng-list [items]="simpleItems"></dcx-ng-list>
+  <h2 class="example-title">Ejemplo 1 - Lista simple</h2>
+  <dcx-ng-list [items]="simpleItems"></dcx-ng-list>
 </section>
 
-<hr />
+<dcx-ng-divider
+  class="divider"
+  [thickness]="0.1"
+  color="#0058ab"
+></dcx-ng-divider>
 
 <section>
-    <h2 class="example-title">Ejemplo 2 - Lista con iconos</h2>
-    <dcx-ng-list [items]="itemsWithIcons"></dcx-ng-list>
+  <h2 class="example-title">Ejemplo 2 - Lista con iconos</h2>
+  <dcx-ng-list [items]="itemsWithIcons"></dcx-ng-list>
 </section>
 
-<hr />
+<dcx-ng-divider
+  class="divider"
+  [thickness]="0.1"
+  color="#0058ab"
+></dcx-ng-divider>
 
 <section>
-    <h2 class="example-title">Ejemplo 3 - Lista con iconos alternativa</h2>
-    <dcx-ng-list [items]="elementosConIcono"></dcx-ng-list>
+  <h2 class="example-title">Ejemplo 3 - Lista con iconos y descripción</h2>
+  <dcx-ng-list [items]="elementosConIcono"></dcx-ng-list>
 </section>
 
-<hr />
+<dcx-ng-divider
+  class="divider"
+  [thickness]="0.1"
+  color="#0058ab"
+></dcx-ng-divider>
 
 <section>
-    <h2 class="example-title">Ejemplo 4 - Lista con sublistas</h2>
-    <dcx-ng-list [items]="itemsWithSublists"></dcx-ng-list>
+  <h2 class="example-title">Ejemplo 4 - Lista con sublistas</h2>
+  <dcx-ng-list [items]="itemsWithSublists"></dcx-ng-list>
 </section>
 
-<hr />
+<dcx-ng-divider
+  class="divider"
+  [thickness]="0.1"
+  color="#0058ab"
+></dcx-ng-divider>
 
 <section>
-    <h2 class="example-title">Ejemplo 5 - Lista seleccionable</h2>
-    <dcx-ng-list [items]="selectableItems" [selectable]="true" (itemSelected)="onItemSelected($event)"></dcx-ng-list>
-    @if (selectedItem) {
+  <h2 class="example-title">Ejemplo 5 - Lista seleccionable</h2>
+  <dcx-ng-list
+    [items]="selectableItems"
+    [selectable]="true"
+    (selectionChanged)="onSelectionChanged($event)"
+  ></dcx-ng-list>
+  @if (selectedItem()) {
+    <div><strong>Seleccionado:</strong> {{ selectedItem()?.text }}</div>
+  }
+</section>
+
+<dcx-ng-divider
+  class="divider"
+  [thickness]="0.1"
+  color="#0058ab"
+></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 6 - Lista con multiselección</h2>
+  <dcx-ng-list
+    [items]="multiSelectItems"
+    [selectable]="true"
+    [multiSelect]="true"
+    (selectionChanged)="onMultiSelectionChanged($event)"
+  ></dcx-ng-list>
+  @if (selectedMultiItems().length > 0) {
     <div>
-        <strong>Seleccionado:</strong> {{ selectedItem.item.text }}
+      <strong>Seleccionados ({{ selectedMultiItems().length }}):</strong>
+      @for (selected of selectedMultiItems(); track selected.index) {
+        <dcx-ng-chip label="{{ selected.item.text }}"></dcx-ng-chip
+        ><span>{{ $last ? '' : ', ' }}</span>
+      }
     </div>
-    }
+  }
 </section>
 
-<hr />
+<dcx-ng-divider
+  class="divider"
+  [thickness]="0.1"
+  color="#0058ab"
+></dcx-ng-divider>
 
 <section>
-    <h2 class="example-title">Ejemplo 6 - Lista con multiselección</h2>
-    <dcx-ng-list [items]="multiSelectItems" [selectable]="true" [multiSelect]="true"
-        (itemSelected)="onMultiItemSelected($event)"></dcx-ng-list>
-    @if (selectedMultiItems.length > 0) {
-    <div>
-        <strong>Seleccionados ({{ selectedMultiItems.length }}):</strong>
-        @for (selected of selectedMultiItems; track selected.index) {
-        <span>{{ selected.item.text }}</span>{{ $last ? '' : ', ' }}
-        }
-    </div>
-    }
+  <h2 class="example-title">Ejemplo 7 - Lista con dividers</h2>
+  <dcx-ng-list [items]="itemsWithDivider"></dcx-ng-list>
+</section>
+
+<dcx-ng-divider
+  class="divider"
+  [thickness]="0.1"
+  color="#0058ab"
+></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 8 - Lista con elementos deshabilitados</h2>
+  <dcx-ng-list
+    [items]="enabledDisabledItems"
+    [selectable]="true"
+  ></dcx-ng-list>
 </section>
