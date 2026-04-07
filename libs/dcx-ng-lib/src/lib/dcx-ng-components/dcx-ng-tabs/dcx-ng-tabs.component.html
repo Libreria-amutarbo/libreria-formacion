@@ -11,10 +11,7 @@
       }
     </div>
   }
-  <div
-    class="dcx-tabs__header-container"
-    [class.dcx-tabs__header-container--pill]="variant() === 'pill'"
-  >
+  <div class="dcx-tabs__header-container" [class]="tabHeaderClasses()">
     @if (hasOverflow() && canScrollLeft()) {
       <dcx-ng-button
         class="dcx-tabs__scroll-button dcx-tabs__scroll-button--left"
@@ -28,7 +25,7 @@
       ></dcx-ng-button>
     }
     <div
-      [ngClass]="tabHeaderClasses()"
+      [class]="tabHeaderClasses()"
       role="tablist"
       #tabsHeader
       (scroll)="updateScrollButtons()"

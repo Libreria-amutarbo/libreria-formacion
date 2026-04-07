@@ -54,28 +54,32 @@ export class DcxNgTabsComponent {
   tabHeaderClasses = computed(() => {
     const base = 'dcx-tabs__header';
     const variant = this.variant();
-    return [
-      base,
-      variant === 'brand' ? base + '--brand' : '',
-      variant === 'pill' ? base + '--pill' : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+    const variantClass = this.getHeaderVariantClass(variant);
+
+    return [base, variantClass].filter(Boolean).join(' ');
   });
 
   tabButtonClasses = (tabId: string) => {
     const base = 'dcx-tab__button';
     const variant = this.variant();
     const isActive = this.isActive(tabId);
-    return [
-      base,
-      isActive ? 'active' : '',
-      variant === 'brand' ? base + '--brand' : '',
-      variant === 'pill' ? base + '--pill' : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+    const activeClass = isActive ? 'active' : '';
+    const variantClass = this.getButtonVariantClass(variant);
+
+    return [base, activeClass, variantClass].filter(Boolean).join(' ');
   };
+
+  private getHeaderVariantClass(variant: 'line' | 'pill' | 'brand'): string {
+    if (variant === 'brand') return 'dcx-tabs__header--brand';
+    if (variant === 'pill') return 'dcx-tabs__header--pill';
+    return '';
+  }
+
+  private getButtonVariantClass(variant: 'line' | 'pill' | 'brand'): string {
+    if (variant === 'brand') return 'dcx-tab__button--brand';
+    if (variant === 'pill') return 'dcx-tab__button--pill';
+    return '';
+  }
 
   @ViewChild('tabsHeader', { static: false })
   tabsHeader!: ElementRef<HTMLDivElement>;
