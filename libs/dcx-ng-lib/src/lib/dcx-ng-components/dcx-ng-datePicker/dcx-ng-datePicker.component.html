@@ -6,7 +6,6 @@
     (click)="toggleCalendar()"
     tabindex="0"
     role="button"
-    style="position: relative; display: flex; align-items: center;"
   >
     <dcx-ng-input
       class="dcx-datepicker__input"
@@ -18,7 +17,6 @@
       [value]="formattedSelectedDate()"
       [readonly]="true"
       (valueChange)="null"
-      style="width: 100%;"
     ></dcx-ng-input>
   </div>
   @if (isOpen()) {
@@ -26,10 +24,11 @@
       <div class="dcx-datepicker__calendar">
         <div class="dp-header">
           <dcx-ng-button
+            class="dp-nav"
             [icon]="true"
             iconPosition="right"
             iconName="arrow-left"
-            [ariaLabel]="labels.next"
+            [ariaLabel]="labels.previous"
             (buttonClick)="previousMonth()"
           ></dcx-ng-button>
           <span class="dp-month-year">
@@ -50,6 +49,7 @@
             >
           </span>
           <dcx-ng-button
+            class="dp-nav"
             [icon]="true"
             iconPosition="right"
             iconName="arrow-right"
@@ -119,7 +119,6 @@
               [label]="labels.clearDate"
               (buttonClick)="clearDate({clicked:true})"
             >
-              <span class="visually-hidden">{{ labels.clearDate }}</span>
             </dcx-ng-button>
           }
           <dcx-ng-button

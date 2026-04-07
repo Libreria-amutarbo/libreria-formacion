@@ -13,6 +13,9 @@ import {
   CalendarDay,
   DateFormat,
   DateFormatPattern,
+  DCX_DATEPICKER_MONTHS,
+  DCX_DATEPICKER_WEEKDAYS,
+  DCX_DATEPICKER_LABELS,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { CommonModule } from '@angular/common';
 
@@ -33,20 +36,6 @@ export class DcxNgDatePickerComponent {
     }
     this.toggleCalendar();
   }
-  readonly monthsList = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre',
-  ];
 
   get monthsIndexes(): number[] {
     return Array.from({ length: this.monthsList.length }, (_, i) => i);
@@ -79,16 +68,9 @@ export class DcxNgDatePickerComponent {
   readonly startDateChange = output<Date | null>();
   readonly endDateChange = output<Date | null>();
 
-  readonly weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-  readonly labels = {
-    clearDate: 'Limpiar',
-    previous: 'Anterior',
-    next: 'Siguiente',
-    selectMonth: 'Selecciona mes',
-    selectYear: 'Selecciona año',
-    today: 'Hoy',
-    goToToday: 'Ir a hoy',
-  };
+  readonly weekDays = DCX_DATEPICKER_WEEKDAYS;
+  readonly labels = DCX_DATEPICKER_LABELS;
+  readonly monthsList = DCX_DATEPICKER_MONTHS;
 
   private readonly _currentMonth = signal<Date | null>(null);
   private readonly _isOpen = signal(false);

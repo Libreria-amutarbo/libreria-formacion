@@ -1,3 +1,12 @@
+.dcx-datepicker__input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dcx-datepicker__input {
+  width: 100%;
+}
 .dp-nav .dcx-icon,
 .dp-nav .dcx-icon i {
   color: #fff !important;
@@ -7,12 +16,13 @@
 // --- ESTILO VISUAL IGUAL AL DISEÑO DE REFERENCIA ---
 .dcx-datepicker {
   background: var(--bg-default, #fff);
-  border: 1px solid var(--border-default, #e5e7eb);
+  border: 1px solid var(--border-default);
   border-radius: var(--r-xl, 12px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  width: 280px;
+  width: 100%;
+  max-width: 280px;
   overflow: hidden;
-  font-family: var(--ff, 'Inter', sans-serif);
+  font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
 .dp-header {
@@ -50,8 +60,8 @@
   gap: 2px;
 }
 .dp-wd {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: var(--fs-xs, 11px);
+  font-weight: var(--fw-semibold, 600);
   color: var(--text-muted, #696e75);
   text-align: center;
   padding: var(--sp-1, 4px) 0;
@@ -63,7 +73,7 @@
   gap: 2px;
 }
 .dp-day {
-  font-size: 13px;
+  font-size: var(--fs-sm, 12px);
   text-align: center;
   padding: 6px 4px;
   border-radius: var(--r-sm, 4px);
@@ -81,15 +91,15 @@
 }
 .dp-day.selected {
   background: var(--bg-primary, #0058ab);
-  color: #fff;
+  color: var(--text-white, #fff);
   border-radius: var(--r-pill, 999px);
 }
 .dp-day.in-range {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: var(--color-info-bg, #eff6ff);
+  color: var(--color-info, #0058ab);
 }
 .dp-day.other-month {
-  color: var(--text-disabled, #9ca3af);
+  color: var(--text-placeholder, #9ca3af);
 }
 .dp-day.disabled {
   opacity: 0.35;
@@ -115,10 +125,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-family-primary, 'Inter', sans-serif);
-  font-size: 12px;
-  font-weight: var(--font-weight-semibold, 600);
-  border-radius: var(--border-radius-sm, 4px);
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  font-size: var(--fs-sm, 12px);
+  font-weight: var(--fw-semibold, 600);
+  border-radius: var(--r-sm, 4px);
   border: none;
   cursor: pointer;
   padding: 0 8px;
@@ -131,7 +141,7 @@
 }
 
 .dcx-datepicker__footer-btn--ghost {
-  background: var(--background-default, #fff);
+  background: var(--bg-default, #fff);
   color: var(--text-muted, #696e75);
   border: none;
   box-shadow: none;
@@ -142,19 +152,19 @@
 }
 
 .dcx-datepicker__footer-btn--primary {
-  background: var(--color-primary-500, #0058ab);
-  color: #fff;
+  background: var(--bg-primary, #0058ab);
+  color: var(--text-white, #fff);
 }
 
 .dcx-datepicker__footer-btn--secondary {
-  background: var(--background-default, #fff);
-  color: var(--color-primary-500, #0058ab);
+  background: var(--bg-default, #fff);
+  color: var(--bg-primary, #0058ab);
   border: none;
   box-shadow: none;
   transition: color 0.2s;
 }
 .dcx-datepicker__footer-btn--secondary:hover {
-  color: var(--color-primary-700, #003366);
+  color: var(--bg-primary-hover, #004080);
 }
 
 .dcx-datepicker__footer-btn .dcx-icon {
