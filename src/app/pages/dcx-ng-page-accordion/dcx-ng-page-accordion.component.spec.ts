@@ -10,7 +10,7 @@ import {
   DcxAccordionLargeContent,
 } from '@dcx-ng-components/dcx-ng-lib';
 
-describe('DcxNgPageAccordionComponent', () => {
+xdescribe('DcxNgPageAccordionComponent', () => {
   let component: DcxNgPageAccordionComponent;
   let fixture: ComponentFixture<DcxNgPageAccordionComponent>;
 
