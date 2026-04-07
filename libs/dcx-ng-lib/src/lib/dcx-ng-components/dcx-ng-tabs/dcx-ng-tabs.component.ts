@@ -13,13 +13,13 @@ import {
 import {
   DcxNgButtonComponent,
   DcxTabItem,
+  DcxNgIconComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'dcx-ng-tabs',
   standalone: true,
-  imports: [DcxNgButtonComponent, CommonModule],
+  imports: [DcxNgButtonComponent, DcxNgIconComponent],
   templateUrl: './dcx-ng-tabs.component.html',
   styleUrl: './dcx-ng-tabs.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,10 +63,15 @@ export class DcxNgTabsComponent {
     const base = 'dcx-tab__button';
     const variant = this.variant();
     const isActive = this.isActive(tabId);
+    const tab = this.tabs().find(t => t.id === tabId);
+    const isDisabled = !!tab?.disabled;
     const activeClass = isActive ? 'active' : '';
     const variantClass = this.getButtonVariantClass(variant);
+    const disabledClass = isDisabled ? 'disabled' : '';
 
-    return [base, activeClass, variantClass].filter(Boolean).join(' ');
+    return [base, activeClass, variantClass, disabledClass]
+      .filter(Boolean)
+      .join(' ');
   };
 
   private getHeaderVariantClass(variant: 'line' | 'pill' | 'brand'): string {

@@ -31,21 +31,21 @@
       (scroll)="updateScrollButtons()"
     >
       @for (tab of tabs(); track tab.id) {
-        <dcx-ng-button
-          [ngClass]="tabButtonClasses(tab.id)"
-          [label]="tab.label"
-          [disabled]="!!tab.disabled"
-          [variant]="'text'"
-          size="l"
-          [icon]="!!tab.icon"
-          [iconName]="tab.icon ?? ''"
-          [iconSize]="'l'"
+        <span
+          [class]="tabButtonClasses(tab.id)"
           [attr.role]="'tab'"
           [attr.aria-selected]="isActive(tab.id)"
           [attr.aria-controls]="'panel-' + tab.id"
           [attr.data-tab]="tab.id"
-          (buttonClick)="selectTab(tab.id)"
-        ></dcx-ng-button>
+          [attr.aria-disabled]="!!tab.disabled"
+          [attr.tabindex]="!!tab.disabled ? -1 : 0"
+          (click)="selectTab(tab.id)"
+        >
+          @if (tab.icon) {
+            <dcx-ng-icon [name]="tab.icon" [size]="'l'" aria-hidden="true" />
+          }
+          {{ tab.label }}
+        </span>
       }
     </div>
     @if (hasOverflow() && canScrollRight()) {

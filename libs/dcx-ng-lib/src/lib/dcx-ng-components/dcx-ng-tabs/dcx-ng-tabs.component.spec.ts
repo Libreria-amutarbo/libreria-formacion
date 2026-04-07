@@ -28,7 +28,7 @@ describe('DcxNgTabsComponent', () => {
 
   it('should render all tabs', () => {
     const buttons = fixture.nativeElement.querySelectorAll(
-      'dcx-ng-button.dcx-tab__button',
+      'span.dcx-tab__button',
     );
     expect(buttons.length).toBe(3);
   });
