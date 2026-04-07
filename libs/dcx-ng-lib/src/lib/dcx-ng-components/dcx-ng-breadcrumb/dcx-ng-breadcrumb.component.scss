@@ -1,70 +1,58 @@
 :host {
   display: block;
-  font-family: var(--ff-base, 'Inter', sans-serif);
+  font-family: var(--font-family-primary, 'Inter', sans-serif);
 }
 
-.dcx-breadcrumb {
+.dcx-bc {
   margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
-  gap: var(--sp-1, 4px);
   align-items: center;
   flex-wrap: wrap;
+  gap: var(--sp-1, 4px);
+}
 
-  &__item {
-    font-size: var(--fs-base, 14px);
-    color: var(--text-muted, #696e75);
-    display: flex;
-    align-items: center;
-    gap: var(--sp-1, 4px);
+.dcx-bc__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1, 4px);
+  color: var(--text-muted, #696e75);
+  font-size: var(--fs-base, 14px);
+}
 
-    &.active {
-      color: var(--text-dark, #2a2e33);
-      font-weight: var(--fw-medium, 500);
+.dcx-bc__link {
+  color: var(--bg-primary, #0058ab);
+  text-decoration: none;
+  font-weight: var(--fw-medium, 500);
 
-      .dcx-breadcrumb__current {
-        font-weight: var(--fw-medium, 500);
-      }
-    }
-
-    &.disabled {
-      .dcx-breadcrumb__link {
-        color: var(--text-disabled, #9ca3af);
-        pointer-events: none;
-      }
-    }
-  }
-
-  &__link {
-    color: var(--bg-primary, #0058ab);
-    text-decoration: none;
-    font-weight: var(--fw-medium, 500);
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  &__text {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--sp-1, 4px);
-  }
-
-  &__current {
-    display: inline-flex;
-    align-items: center;
-    font-size: var(--fs-base, 14px);
-    color: var(--text-dark, #2a2e33);
-  }
-
-  &__separator {
-    color: var(--text-disabled, #9ca3af);
-    font-size: var(--fs-sm, 12px);
-    display: inline-flex;
-    align-items: center;
-    user-select: none;
+  &:hover {
+    text-decoration: underline;
   }
 }
 
+.dcx-bc__text {
+  display: inline-flex;
+  align-items: center;
+
+  &.disabled,
+  &.disabled .dcx-bc__link {
+    color: var(--text-disabled, #9ca3af);
+    pointer-events: none;
+  }
+}
+
+.dcx-bc__current {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-dark, #2a2e33);
+  font-weight: var(--fw-medium, 500);
+}
+
+.dcx-bc__sep {
+  display: flex;
+  align-items: center;
+  color: var(--text-disabled, #9ca3af);
+  font-size: var(--fs-sm, 12px);
+  user-select: none;
+}

@@ -40,6 +40,16 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
         defaultValue: { summary: DcxBreadCrumbSlashIcon },
       },
     },
+    itemSelected: {
+      name: 'itemSelected',
+      action: 'itemSelected',
+      description: 'Se emite al hacer clic en un item',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(item: DcxBreadcrumbItem) => void' },
+        defaultValue: { summary: '-' },
+      },
+    },
   },
   args: {
     items: DcxBreadCrumbItemDefault,
