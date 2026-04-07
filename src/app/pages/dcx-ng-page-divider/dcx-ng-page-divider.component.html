@@ -1,45 +1,195 @@
-<br />
-<div class="container">
-  <h2>Divider adaptable al contenedor</h2>
+<section>
+  <h2>Orientación</h2>
 
-  <dcx-ng-divider
-    class="spacer1"
-    color="#0056b3"
-    ariaLabel="Horizontal Divider Auto"
-  ></dcx-ng-divider>
+  <div class="container-group">
+    <div class="container">
+      <p>Horizontal</p>
 
-  <p>Este divider se adapta al 100% del ancho del contenedor</p>
-</div>
+      <dcx-ng-divider
+        color="#0056b3"
+        ariaLabel="Horizontal Divider Auto"
+      ></dcx-ng-divider>
 
-<br />
-<div class="container">
-  <h2>Divider adaptable al contenedor</h2>
+      <p>Este es un divider horizontal</p>
+    </div>
 
-  <dcx-ng-divider
-    class="spacer1"
-    color="#0056b3"
-    orientation="vertical"
-    ariaLabel="Vertical Divider Auto"
-  ></dcx-ng-divider>
+    <div class="container horizontal">
+      <p>Vertical</p>
 
-  <p>Este divider se adapta al 100% del largo del contenedor</p>
-</div>
+      <dcx-ng-divider
+        color="#0056b3"
+        orientation="vertical"
+        ariaLabel="Vertical Divider Auto"
+      ></dcx-ng-divider>
 
-<br />
-<div class="container">
-  <h2>Divider tipo dot</h2>
-  <dcx-ng-divider class="spacer1" color="#0056b3" type="dot"></dcx-ng-divider>
-  <p>Este divider se adapta al 100% del ancho del contenedor</p>
-</div>
+      <p>Este es un divider vertical</p>
+    </div>
+  </div>
+</section>
 
-<br />
-<div class="container">
-  <h2>Divider tipo dot</h2>
-  <dcx-ng-divider
-    class="spacer1"
-    color="#0056b3"
-    type="dot"
-    size="l"
-  ></dcx-ng-divider>
-  <p>Este divider es size L</p>
-</div>
+<section>
+  <h2>Tipos</h2>
+
+  <div class="container-group">
+    <div class="container">
+      <p>Default</p>
+      <dcx-ng-divider color="#0056b3" type="default"></dcx-ng-divider>
+      <p>Este es un divider tipo default</p>
+    </div>
+
+    <div class="container">
+      <p>Dot</p>
+      <dcx-ng-divider color="#0056b3" type="dot"></dcx-ng-divider>
+      <p>Este es un divider tipo dot</p>
+    </div>
+
+    <div class="container">
+      <p>Dash</p>
+      <dcx-ng-divider color="#0056b3" type="dash"></dcx-ng-divider>
+      <p>Este es un divider tipo dash</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Tamaños</h2>
+
+  <div class="container-group vertical">
+    <div class="container">
+      <p>Small</p>
+      <dcx-ng-divider color="#0056b3" size="s"></dcx-ng-divider>
+      <p>Este es un divider tamaño s</p>
+    </div>
+
+    <div class="container">
+      <p>Medium</p>
+      <dcx-ng-divider color="#0056b3" size="m"></dcx-ng-divider>
+      <p>Este es un divider tamaño m</p>
+    </div>
+
+    <div class="container">
+      <p>Large</p>
+      <dcx-ng-divider color="#0056b3" size="l"></dcx-ng-divider>
+      <p>Este es un divider tamaño l</p>
+    </div>
+
+    <div class="container">
+      <p>Extra Large</p>
+      <dcx-ng-divider color="#0056b3" size="xl"></dcx-ng-divider>
+      <p>Este es un divider tamaño xl</p>
+    </div>
+
+    <div class="container">
+      <p>Auto</p>
+      <dcx-ng-divider color="#0056b3" size="auto"></dcx-ng-divider>
+      <p>Este es un divider tamaño auto</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Grosor</h2>
+
+  <div class="container-group h200px">
+    <div class="container self">
+      <p>0.1</p>
+      <dcx-ng-divider color="#0056b3" [thickness]="0.1"></dcx-ng-divider>
+
+      <p>0.2</p>
+      <dcx-ng-divider color="#0056b3" [thickness]="0.2"></dcx-ng-divider>
+
+      <p>0.4</p>
+      <dcx-ng-divider color="#0056b3" [thickness]="0.4"></dcx-ng-divider>
+
+      <p>0.8</p>
+      <dcx-ng-divider color="#0056b3" [thickness]="0.8"></dcx-ng-divider>
+    </div>
+
+    <div id="vertical-thickness" class="container horizontal h100">
+      <p>0.1</p>
+      <dcx-ng-divider
+        color="#0056b3"
+        orientation="vertical"
+        [thickness]="0.1"
+      ></dcx-ng-divider>
+
+      <p>0.2</p>
+      <dcx-ng-divider
+        color="#0056b3"
+        orientation="vertical"
+        [thickness]="0.2"
+      ></dcx-ng-divider>
+
+      <p>0.4</p>
+      <dcx-ng-divider
+        color="#0056b3"
+        orientation="vertical"
+        [thickness]="0.4"
+      ></dcx-ng-divider>
+
+      <p>0.8</p>
+      <dcx-ng-divider
+        color="#0056b3"
+        orientation="vertical"
+        [thickness]="0.8"
+      ></dcx-ng-divider>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Color</h2>
+
+  <div class="container-group h200px">
+    <div class="container self">
+      <dcx-ng-divider color="#e6f0ff"></dcx-ng-divider>
+      <dcx-ng-divider color="#cfe0ff"></dcx-ng-divider>
+      <dcx-ng-divider color="#b8d1ff"></dcx-ng-divider>
+      <dcx-ng-divider color="#a1c1ff"></dcx-ng-divider>
+      <dcx-ng-divider color="#8ab1ff"></dcx-ng-divider>
+      <dcx-ng-divider color="#739fff"></dcx-ng-divider>
+      <dcx-ng-divider color="#5c8fff"></dcx-ng-divider>
+      <dcx-ng-divider color="#457fff"></dcx-ng-divider>
+      <dcx-ng-divider color="#2e6fff"></dcx-ng-divider>
+      <dcx-ng-divider color="#155fff"></dcx-ng-divider>
+    </div>
+
+    <div class="container horizontal h100">
+      <dcx-ng-divider orientation="vertical" color="#e6f0ff"></dcx-ng-divider>
+      <dcx-ng-divider orientation="vertical" color="#cfe0ff"></dcx-ng-divider>
+      <dcx-ng-divider orientation="vertical" color="#b8d1ff"></dcx-ng-divider>
+      <dcx-ng-divider orientation="vertical" color="#a1c1ff"></dcx-ng-divider>
+      <dcx-ng-divider orientation="vertical" color="#8ab1ff"></dcx-ng-divider>
+      <dcx-ng-divider orientation="vertical" color="#739fff"></dcx-ng-divider>
+      <dcx-ng-divider orientation="vertical" color="#5c8fff"></dcx-ng-divider>
+      <dcx-ng-divider orientation="vertical" color="#457fff"></dcx-ng-divider>
+      <dcx-ng-divider orientation="vertical" color="#2e6fff"></dcx-ng-divider>
+      <dcx-ng-divider orientation="vertical" color="#155fff"></dcx-ng-divider>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Label</h2>
+
+  <div class="container-group h200px">
+    <div class="container h100">
+      <p>Horizontal</p>
+      <dcx-ng-divider
+        color="#0056b3"
+        label="Divider con label"
+      ></dcx-ng-divider>
+      <p>Este es un divider horizontal con label</p>
+    </div>
+
+    <div class="container horizontal h100">
+      <p>Vertical</p>
+      <dcx-ng-divider
+        color="#0056b3"
+        label="Divider con label"
+        orientation="vertical"
+      ></dcx-ng-divider>
+      <p>Este es un divider vertical con label</p>
+    </div>
+  </div>
+</section>

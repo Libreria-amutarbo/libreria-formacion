@@ -287,4 +287,30 @@ describe('DcxNgPaginatorComponent', () => {
     const pages = component.visiblePages();
     expect(pages).toContain('...');
   });
+
+  it('visiblePages should keep same numeric count while moving left and right', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 200,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
+    fixture.detectChanges();
+
+    const leftNumericCount = component
+      .visiblePages()
+      .filter(page => typeof page === 'number').length;
+
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 200,
+      itemsPerPage: 10,
+      currentPage: 15,
+    });
+    fixture.detectChanges();
+
+    const rightNumericCount = component
+      .visiblePages()
+      .filter(page => typeof page === 'number').length;
+
+    expect(leftNumericCount).toBe(rightNumericCount);
+  });
 });
