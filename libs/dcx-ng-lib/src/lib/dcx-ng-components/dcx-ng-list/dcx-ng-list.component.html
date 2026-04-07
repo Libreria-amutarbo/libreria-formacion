@@ -11,14 +11,14 @@
     <div class="dcx-list-item-content">
       @if (item.icon) {
       <div class="dcx-list-icon-container">
-        <dcx-ng-icon class="dcx-list-icon" [name]="item.icon"></dcx-ng-icon>
+      <dcx-ng-icon class="dcx-list-icon" [name]="item.icon"></dcx-ng-icon>
       </div>
       }
       <div class="dcx-list-text-container">
-        @if (item.text !== undefined && item.text !== null) {
-        <span class="dcx-list-text">{{ item.text }}</span>
-        }
-        @if (item.description) {
+      @if (item.text !== undefined && item.text !== null) {
+      <span class="dcx-list-text">{{ item.text }}</span>
+      }
+      @if (item.description) {
         <span class="dcx-list-description">{{ item.description }}</span>
         }
       </div>
@@ -32,5 +32,7 @@
       [renderChildren]="renderChildren()" (itemSelected)="itemSelected.emit($event)" (itemDeselected)="itemDeselected.emit($event)">
     </dcx-ng-list>
     }
+    </li>
+  }
   }
 </ul>
