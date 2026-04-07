@@ -1,32 +1,36 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/blocks';
 import * as Stories from './ClassBased.stories';
 
-<Meta of={Stories} title="DCXLibrary/Breadcrumb/Docs" />
+<Meta of={Stories} title="DCXLibrary/Breadcrumb/Documentation" />
 
 # Breadcrumb
 
-Componente para mostrar la jerarquía de navegación.
+Componente para mostrar la jerarquía de navegación y la página actual.
 
 ## Cuándo usar
 
-- Cuando el usuario necesita volver a niveles superiores.
-- No usar si la jerarquía es plana.
+- Cuando el usuario necesita entender dónde está dentro de una jerarquía.
+- Cuando debe poder volver a niveles superiores de navegación.
+- Evitarlo si la jerarquía es plana o hay solo un nivel.
 
 ## Accesibilidad
 
-- Usa `<nav aria-label="Breadcrumb">`.
-- El último elemento debe tener `aria-current="page"`.
+- Usa `<nav aria-label="Breadcrumb">` para anunciar la región.
+- El último elemento del breadcrumb se marca con `aria-current="page"`.
 
 ## Ejemplo básico
 
 <Canvas>
-  <Story id="dcxlibrary-breadcrumb-class-based--class-based-demo" />
+  <Story of={Stories.ClassBased} />
 </Canvas>
 
 ## Variantes
 
-- Con iconos: <Story of={Stories.ConIconos} />
-- Etiquetas largas: <Story of={Stories.EtiquetasLargas} />
+- Con iconos en los items: <Story of={Stories.WithIconInText} />
+- Items deshabilitados: <Story of={Stories.Disabled} />
+- Separador con flecha: <Story of={Stories.ArrowIcon} />
+- Separador con chevron: <Story of={Stories.ChevronIcon} />
+- Página actual resaltada: <Story of={Stories.CurrentPage} />
 
 ## API
 
@@ -39,9 +43,10 @@ Componente para mostrar la jerarquía de navegación.
 ```html
 <dcx-ng-breadcrumb
   [items]="[
-    { label: 'Home', href: '/' },
-    { label: 'Library', href: '/library' },
-    { label: 'Data' }
-  ]">
+    { label: 'Home', href: '/', disabled: false },
+    { label: 'Library', href: '/library', disabled: false },
+    { label: 'Data', disabled: false }
+  ]"
+  iconSeparator="chevron-right">
 </dcx-ng-breadcrumb>
 ```

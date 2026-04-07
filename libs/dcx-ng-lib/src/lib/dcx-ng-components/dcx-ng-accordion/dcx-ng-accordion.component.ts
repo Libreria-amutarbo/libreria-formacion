@@ -31,7 +31,7 @@ export class DcxNgAccordionComponent {
   itemExpanded = output<DcxNgAccordionItem>();
   itemCollapsed = output<DcxNgAccordionItem>();
 
-  private readonly _expandedItems = signal<Set<string>>(new Set());
+  private _expandedItems = signal<Set<string>>(new Set());
 
   private readonly _initEffect = effect(() => {
     const inputExpandedIds = this.expandedIds();

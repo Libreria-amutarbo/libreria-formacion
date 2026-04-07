@@ -73,8 +73,8 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
     return `${this.progressPercent()}%`;
   }
 
-  private onChange: (value: number) => void = () => { };
-  private onTouched: () => void = () => { };
+  private onChange: (value: number) => void = () => {};
+  private onTouched: () => void = () => {};
 
   constructor() {
     effect(() => {

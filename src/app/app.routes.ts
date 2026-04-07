@@ -128,7 +128,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: APP_ROUTES.CONTEXTMENU,
-    component: DcxNgPageContextMenuComponent
+    component: DcxNgPageContextMenuComponent,
   },
   {
     path: APP_ROUTES.GRID,

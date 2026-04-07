@@ -1,1 +1,37 @@
 @use './../../app.component.scss';
+
+.breadcrumb-page {
+	display: flex;
+	justify-content: center;
+}
+
+.breadcrumb-card {
+	width: 100%;
+	max-width: 640px;
+	background-color: var(--bg-default, #ffffff);
+	border-radius: var(--r-lg, 8px);
+	border: 1px solid var(--border-default, #e5e7eb);
+	padding: var(--sp-4, 16px) var(--sp-5, 20px);
+	box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+.breadcrumb-card__label {
+	font-size: var(--fs-xs, 11px);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--text-placeholder, #9ca3af);
+	margin-bottom: var(--sp-3, 12px);
+}
+
+.breadcrumb-example {
+	padding-block: var(--sp-2, 8px);
+}
+
+.breadcrumb-example .example-title {
+	margin-bottom: var(--sp-2, 8px);
+}
+
+.breadcrumb-example + .breadcrumb-example {
+	border-top: 1px solid var(--border-default, #e5e7eb);
+	margin-top: var(--sp-3, 12px);
+}
