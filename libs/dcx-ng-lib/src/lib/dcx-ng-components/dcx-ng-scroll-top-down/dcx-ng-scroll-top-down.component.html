@@ -1,0 +1,31 @@
+<div
+  class="dcx-ng-scroll-top-down__group"
+  role="group"
+  [attr.aria-label]="groupLabel()"
+>
+  @if (showTop()) {
+    <button
+      type="button"
+      class="dcx-ng-scroll-top-down__button dcx-ng-scroll-top-down__button--top"
+      [attr.aria-label]="topLabel()"
+      (click)="scrollToTop()"
+    >
+      <dcx-ng-icon [name]="topIcon()" [size]="iconSize()" aria-hidden="true" />
+    </button>
+  }
+
+  @if (showBottom()) {
+    <button
+      type="button"
+      class="dcx-ng-scroll-top-down__button dcx-ng-scroll-top-down__button--bottom"
+      [attr.aria-label]="bottomLabel()"
+      (click)="scrollToBottom()"
+    >
+      <dcx-ng-icon
+        [name]="bottomIcon()"
+        [size]="iconSize()"
+        aria-hidden="true"
+      />
+    </button>
+  }
+</div>

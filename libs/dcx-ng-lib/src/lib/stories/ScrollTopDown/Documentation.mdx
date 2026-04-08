@@ -1,0 +1,31 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as ScrollTopDownStories from './ClassBased.stories';
+
+<Meta of={ScrollTopDownStories} />
+
+# ScrollTopDown
+
+El componente `dcx-ng-scroll-top-down` ofrece dos acciones flotantes para desplazarse al inicio o al final del contenido.
+
+## Uso
+
+- Funciona con la ventana por defecto.
+- También acepta un contenedor scrollable mediante el input `container`.
+- Permite ocultar cualquiera de las dos acciones con `showTop` y `showBottom`.
+
+## Casos
+
+- **Default**: usa el scroll de la ventana.
+- **Scrollable container**: apunta a un contenedor interno con scroll.
+- **Top only**: muestra solo la acción para volver arriba.
+
+## API
+
+- `container`: contenedor HTML opcional para desplazar.
+- `smooth`: activa o desactiva el comportamiento suave.
+- `size`: controla el tamaño visual del bloque.
+- `iconSize`: tamaño de los iconos.
+- `showTop` / `showBottom`: muestran u ocultan cada acción.
+- `topLabel` / `bottomLabel`: texto accesible de los botones.
+
+<Canvas of={ScrollTopDownStories.Default} />
