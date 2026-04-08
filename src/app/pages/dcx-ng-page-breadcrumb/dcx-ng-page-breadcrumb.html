@@ -1,40 +1,39 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - BreadCrumb con slash como separador</h2>
-  <dcx-ng-breadcrumb
-    [items]="dcxBreadCrumbItem"
-    iconSeparator="slash-lg"
-  ></dcx-ng-breadcrumb>
-</section>
+<section class="breadcrumb-page">
+  <div class="breadcrumb-card">
+    <p class="breadcrumb-card__label">BREADCRUMB</p>
 
-<hr />
+    <div class="breadcrumb-example">
+      <h2 class="example-title">Ejemplo 1 - BreadCrumb con chevron como separador</h2>
+      <dcx-ng-breadcrumb
+        [items]="dcxBreadCrumbItem"
+        iconSeparator="chevron-right"
+      ></dcx-ng-breadcrumb>
+    </div>
 
-<section>
-  <h2 class="example-title">
-    Ejemplo 2 - BreadCrumb con arrow right como separador
-  </h2>
-  <dcx-ng-breadcrumb
-    [items]="dcxBreadCrumbItem"
-    iconSeparator="arrow-right-short"
-  ></dcx-ng-breadcrumb>
-</section>
+    <div class="breadcrumb-example">
+      <h2 class="example-title">Ejemplo 2 - BreadCrumb con slash como separador</h2>
+      <dcx-ng-breadcrumb
+        [items]="dcxBreadCrumbSlashes"
+        iconSeparator="slash-lg"
+      ></dcx-ng-breadcrumb>
+    </div>
 
-<hr />
+    <div class="breadcrumb-example">
+      <h2 class="example-title">Ejemplo 3 - BreadCrumb con iconos</h2>
+      <dcx-ng-breadcrumb
+        [items]="dcxBreadCrumbWithIcon"
+        iconSeparator="chevron-right"
+      ></dcx-ng-breadcrumb>
+    </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - BreadCrumb con iconos</h2>
-  <dcx-ng-breadcrumb
-    [items]="dcxBreadCrumbItemWithIcon"
-    iconSeparator="slash-lg"
-  ></dcx-ng-breadcrumb>
-</section>
-
-<hr />
-<section>
-  <h2 class="example-title">
-    Ejemplo 4 - BreadCrumb con los elementos deshabilitados
-  </h2>
-  <dcx-ng-breadcrumb
-    [items]="dcxBreadCrumbDisabled"
-    iconSeparator="slash-lg"
-  ></dcx-ng-breadcrumb>
+    <div class="breadcrumb-example">
+      <h2 class="example-title">
+        Ejemplo 4 - BreadCrumb con los elementos deshabilitados
+      </h2>
+      <dcx-ng-breadcrumb
+        [items]="dcxBreadCrumbDisabled"
+        iconSeparator="chevron-right"
+      ></dcx-ng-breadcrumb>
+    </div>
+  </div>
 </section>

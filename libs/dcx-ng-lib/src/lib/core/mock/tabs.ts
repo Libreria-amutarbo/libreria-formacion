@@ -1,4 +1,4 @@
-import { DcxTabItem } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxTabItem, DcxTabsVariant } from '@dcx-ng-components/dcx-ng-lib';
 
 export const DcxTabItemDefault: DcxTabItem[] = [
   { id: 'tab1', label: 'Tab 1' },
@@ -50,3 +50,5 @@ export const DcxTabItemWithComponents: DcxTabItem[] = [
   { id: 'select', label: 'Select', icon: 'house' },
   { id: 'card', label: 'Card', icon: 'search' },
 ];
+
+export const TABS_VARIANT_LIST: DcxTabsVariant[] = ['line', 'pill', 'brand'];

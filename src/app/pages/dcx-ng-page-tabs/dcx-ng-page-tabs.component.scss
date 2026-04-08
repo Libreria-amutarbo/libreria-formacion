@@ -1,1 +1,27 @@
 @use './../../app.component.scss';
+
+.dcx-ng-page-tabs-demo {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100vw;
+}
+
+.example-title {
+  margin-left: 0;
+  padding-left: 0.25rem;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+section {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+}
