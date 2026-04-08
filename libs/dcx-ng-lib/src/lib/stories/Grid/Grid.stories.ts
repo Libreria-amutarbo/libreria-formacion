@@ -8,12 +8,21 @@ const tk = {
   textDark: 'var(--text-dark, #2a2e33)',
   textMuted: 'var(--text-muted, #696e75)',
   textWhite: 'var(--text-white, #ffffff)',
-  borderDefault: 'var(--border-default, #e5e7eb)',
+  borderDefault: 'var(--border-default, #2a2e33)',
   radiusSm: 'var(--r-sm, 4px)',
   radiusLg: 'var(--r-lg, 8px)',
+  fsXs: 'var(--fs-xs, 11px)',
+  fsBase: 'var(--fs-base, 14px)',
+  fsMd: 'var(--fs-md, 16px)',
+  fwSemibold: 'var(--fw-semibold, 600)',
+  fwBold: 'var(--fw-bold, 700)',
   sp2: 'var(--sp-2, 8px)',
   sp3: 'var(--sp-3, 12px)',
   sp4: 'var(--sp-4, 16px)',
+  sp6: 'var(--sp-6, 24px)',
+  sp8: 'var(--sp-8, 32px)',
+  sp10: 'var(--sp-10, 40px)',
+  shadowSm: 'var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06))',
 };
 
 const FONT = "var(--ff-base, 'Inter', sans-serif)";
@@ -66,13 +75,13 @@ type Story = StoryObj<GridStory>;
 const createGridItem = (index: number) => `
   <div style="
     background: ${tk.bgPrimary};
-    padding: 1rem;
+    padding: ${tk.sp4};
     border-radius: ${tk.radiusSm};
     text-align: center;
     border: 1px solid ${tk.bgPrimaryHover};
     color: ${tk.textWhite};
-    font-weight: 600;
-    font-size: 11px;
+    font-weight: ${tk.fwSemibold};
+    font-size: ${tk.fsXs};
     font-family: ${FONT};
     opacity: 0.9;
   ">
@@ -85,10 +94,11 @@ const createGridHighlightItem = (
   variant: 'primary' | 'surface',
 ) => `
   <div style="
-    padding: 1rem;
+    padding: ${tk.sp4};
     border-radius: ${tk.radiusSm};
     text-align: center;
-    font-weight: 600;
+    font-weight: ${tk.fwSemibold};
+    font-size: ${tk.fsBase};
     font-family: ${FONT};
     ${
       variant === 'surface'
@@ -115,13 +125,14 @@ const createDesignCell = (
   <div
     style="
       flex: ${flex};
-      height: 36px;
+      height: calc(${tk.sp3} * 3);
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: ${tk.radiusSm};
-      font-size: 11px;
-      font-weight: 600;
+      font-size: ${tk.fsXs};
+      font-weight: ${tk.fwSemibold};
+      font-family: ${FONT};
       ${
         variant === 'surface'
           ? `background: ${tk.bgSurface}; border: 1px solid ${tk.borderDefault}; color: ${tk.textMuted};`
@@ -200,9 +211,10 @@ export const DesignGridLayout: Story = {
           border-radius: ${tk.radiusLg};
           padding: ${tk.sp4};
           font-family: ${FONT};
+          box-shadow: ${tk.shadowSm};
         "
       >
-        <h3 style="margin-bottom: 1rem;">Different Column Sizes</h3>
+        <h3 style="margin: 0 0 ${tk.sp4}; font-family: ${FONT}; font-size: ${tk.fsMd}; font-weight: ${tk.fwBold}; color: ${tk.textDark};">12 columns — example of distribution</h3>
 
         ${createDesignRow(
           new Array(12)
@@ -249,8 +261,7 @@ export const DesignGridLayout: Story = {
 export const DifferentColumnSizes: Story = {
   render: () => ({
     template: `
-      <div style="margin-bottom: 2rem;">
-        <h3 style="margin-bottom: 1rem;">Different Column Sizes</h3>
+      <div style="margin-bottom: ${tk.sp8}; font-family: ${FONT};">
         <div class="dcx-grid dcx-grid--gap-m">
           ${createCol(
             'dcx-col--12',
@@ -280,7 +291,7 @@ export const GapVariations: Story = {
 
     for (const gap of gaps) {
       sections += `
-        <h4 style="margin: 1rem 0 0.5rem;">${gap.label}</h4>
+        <h4 style="margin: ${tk.sp4} 0 ${tk.sp2}; font-family: ${FONT}; font-size: ${tk.fsBase}; font-weight: ${tk.fwSemibold}; color: ${tk.textDark};">${gap.label}</h4>
         <div class="dcx-grid dcx-grid--gap-${gap.key}">
           ${createColsWithFor(4, 'dcx-col--3')}
         </div>
@@ -289,8 +300,7 @@ export const GapVariations: Story = {
 
     return {
       template: `
-        <div style="margin-bottom: 2rem;">
-          <h3 style="margin-bottom: 1rem;">Gap Variations</h3>
+        <div style="margin-bottom: ${tk.sp8}; font-family: ${FONT};">
           ${sections}
         </div>
       `,
@@ -304,17 +314,17 @@ export const AlignmentOptions: Story = {
       {
         label: 'Align Start',
         className: 'dcx-grid--align-start',
-        style: `min-height: 150px; background: ${tk.bgSurface};`,
+        style: `min-height: calc(${tk.sp10} * 4); background: ${tk.bgSurface}; border: 1px solid ${tk.borderDefault}; border-radius: ${tk.radiusSm};`,
       },
       {
         label: 'Align Center',
         className: 'dcx-grid--align-center',
-        style: `min-height: 150px; background: ${tk.bgSurface};`,
+        style: `min-height: calc(${tk.sp10} * 4); background: ${tk.bgSurface}; border: 1px solid ${tk.borderDefault}; border-radius: ${tk.radiusSm};`,
       },
       {
         label: 'Align End',
         className: 'dcx-grid--align-end',
-        style: `min-height: 150px; background: ${tk.bgSurface};`,
+        style: `min-height: calc(${tk.sp10} * 4); background: ${tk.bgSurface}; border: 1px solid ${tk.borderDefault}; border-radius: ${tk.radiusSm};`,
       },
       {
         label: 'Justify Center',
@@ -327,7 +337,7 @@ export const AlignmentOptions: Story = {
 
     for (const alignment of alignments) {
       sections += `
-        <h4 style="margin: 1rem 0 0.5rem;">${alignment.label}</h4>
+        <h4 style="margin: ${tk.sp4} 0 ${tk.sp2}; font-family: ${FONT}; font-size: ${tk.fsBase}; font-weight: ${tk.fwSemibold}; color: ${tk.textDark};">${alignment.label}</h4>
         <div class="dcx-grid dcx-grid--gap-m ${alignment.className}" style="${alignment.style}">
           ${createColsWithFor(3, 'dcx-col--4')}
         </div>
@@ -336,8 +346,7 @@ export const AlignmentOptions: Story = {
 
     return {
       template: `
-        <div style="margin-bottom: 2rem;">
-          <h3 style="margin-bottom: 1rem;">Alignment Options</h3>
+        <div style="margin-bottom: ${tk.sp8}; font-family: ${FONT};">
           ${sections}
         </div>
       `,
@@ -348,8 +357,7 @@ export const AlignmentOptions: Story = {
 export const ComplexLayout: Story = {
   render: () => ({
     template: `
-      <div style="margin-bottom: 2rem;">
-        <h3 style="margin-bottom: 1rem;">Complex Layout Example</h3>
+      <div style="margin-bottom: ${tk.sp8}; font-family: ${FONT};">
         <div class="dcx-grid dcx-grid--gap-m">
           ${createCol(
             'dcx-col--12',
@@ -360,7 +368,7 @@ export const ComplexLayout: Story = {
           )}
           ${createCol(
             'dcx-col--12 dcx-col--md-3',
-            `<div style="background: ${tk.bgSurface}; padding: 1.5rem; border-radius: ${tk.radiusSm}; min-height: 200px; border: 1px solid ${tk.borderDefault}; color: ${tk.textMuted}; font-family: ${FONT}; font-weight: 600;">
+            `<div style="background: ${tk.bgSurface}; padding: ${tk.sp6}; border-radius: ${tk.radiusSm}; min-height: calc(${tk.sp10} * 5); border: 1px solid ${tk.borderDefault}; color: ${tk.textMuted}; font-family: ${FONT}; font-weight: ${tk.fwSemibold}; font-size: ${tk.fsBase};">
               <strong>Sidebar</strong><br>(12 cols mobile, 3 cols tablet+)
             </div>`,
           )}
