@@ -1,6 +1,6 @@
 :host {
   display: block;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary, 'Inter', sans-serif);
 }
 
 .dcx-bc {
@@ -8,21 +8,23 @@
   padding: 0;
   list-style: none;
   display: flex;
-  gap: 6px;
   align-items: center;
   flex-wrap: wrap;
-  color: var(--text-title);
+  gap: var(--sp-1, 4px);
 }
 
 .dcx-bc__item {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--sp-1, 4px);
+  color: var(--text-muted, #696e75);
+  font-size: var(--fs-base, 14px);
 }
 
 .dcx-bc__link {
-  color: var(--text-link);
+  color: var(--bg-primary, #0058ab);
   text-decoration: none;
+  font-weight: var(--fw-medium, 500);
 
   &:hover {
     text-decoration: underline;
@@ -30,21 +32,27 @@
 }
 
 .dcx-bc__text {
-  color: var(--text-title);
+  display: inline-flex;
+  align-items: center;
+
+  &.disabled,
+  &.disabled .dcx-bc__link {
+    color: var(--text-disabled, #9ca3af);
+    pointer-events: none;
+  }
 }
 
 .dcx-bc__current {
-  color: var(--text-body);
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-dark, #2a2e33);
+  font-weight: var(--fw-medium, 500);
 }
 
 .dcx-bc__sep {
-  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  color: var(--text-disabled, #9ca3af);
+  font-size: var(--fs-sm, 12px);
   user-select: none;
-}
-
-.disabled {
-  pointer-events: none; /* no permite clics */
-  opacity: 0.5; /* aspecto deshabilitado */
-  cursor: not-allowed;
 }
