@@ -1,0 +1,8 @@
+<div [class]="toastClasses()" [attr.role]="role()" [attr.aria-live]="ariaLive()">
+    <dcx-ng-icon class="dcx-toast__icon" [name]="resolvedIconName()" size="m" color="inherit"></dcx-ng-icon>
+
+    <span class="dcx-toast__message">{{ message() }}</span>
+
+    <dcx-ng-button class="dcx-toast__action" label="Deshacer" variant="text" size="s"
+        (buttonClick)="onAction()"></dcx-ng-button>
+</div>

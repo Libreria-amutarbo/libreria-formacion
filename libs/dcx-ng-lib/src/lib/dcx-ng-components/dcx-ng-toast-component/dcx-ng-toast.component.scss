@@ -1,0 +1,68 @@
+:host {
+  display: block;
+}
+
+.dcx-toast {
+  --dcx-toast-accent: var(--color-info, #1db8f2);
+
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3, 12px);
+  width: fit-content;
+  max-width: 380px;
+  padding: var(--sp-3, 12px) var(--sp-4, 16px);
+  border-radius: var(--r-lg, 8px);
+  border-left: 3px solid var(--dcx-toast-accent);
+  background: var(--text-dark, #2a2e33);
+  color: var(--text-white, #ffffff);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.15));
+  font-family: var(--ff-base, var(--font-family-primary, 'Inter', sans-serif));
+  font-size: var(--fs-base, 14px);
+  line-height: 1.4;
+
+  &--info {
+    --dcx-toast-accent: var(--color-info, #1db8f2);
+  }
+
+  &--success {
+    --dcx-toast-accent: var(--color-success, #16a34a);
+  }
+
+  &--warning {
+    --dcx-toast-accent: var(--color-warning, #d97706);
+  }
+
+  &--error {
+    --dcx-toast-accent: var(--color-error, #dc2626);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: var(--dcx-toast-accent);
+  }
+
+  &__message {
+    min-width: 0;
+  }
+
+  &__action {
+    margin-left: auto;
+
+    ::ng-deep .dcx-ng-button {
+      padding: 0 var(--sp-1, 4px);
+      color: var(--dcx-toast-accent);
+      font-size: var(--fs-sm, 12px);
+      font-weight: var(--fw-semibold, 600);
+      white-space: nowrap;
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    ::ng-deep .dcx-ng-button:hover,
+    ::ng-deep .dcx-ng-button:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+}
