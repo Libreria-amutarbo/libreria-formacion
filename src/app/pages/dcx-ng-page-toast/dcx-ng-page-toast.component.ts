@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   DCX_TOAST_DEFAULT_ARGS,
+  DCX_TOAST_ERROR_DEMO,
+  DCX_TOAST_INFO_DEMO,
   DcxNgButtonComponent,
   DCX_TOAST_SUCCESS_WITH_ACTION,
+  DCX_TOAST_WARNING_DEMO,
   DcxNgToastComponent,
   DcxToastOptions,
 } from '@dcx-ng-components/dcx-ng-lib';
@@ -26,29 +29,16 @@ export class DcxNgPageToastComponent {
   readonly lastEvent = signal('Sin interacciones todavía.');
   readonly activeCount = computed(() => this.activeToasts().length);
 
-  readonly defaultToast: DcxToastOptions = {
-    ...DCX_TOAST_DEFAULT_ARGS,
-    message: 'Informacion actualizada correctamente',
-  };
+  readonly defaultToast: DcxToastOptions = DCX_TOAST_INFO_DEMO;
 
   readonly successToast: DcxToastOptions = {
     ...DCX_TOAST_SUCCESS_WITH_ACTION,
     message: 'Archivo exportado con exito',
   };
 
-  readonly warningToast: DcxToastOptions = {
-    message: 'Revisa los campos marcados antes de continuar',
-    type: 'warning',
-    autoDismiss: true,
-    durationMs: 7000,
-  };
+  readonly warningToast: DcxToastOptions = DCX_TOAST_WARNING_DEMO;
 
-  readonly errorToast: DcxToastOptions = {
-    message: 'No se pudo conectar con el servidor',
-    type: 'error',
-    autoDismiss: true,
-    durationMs: 8000,
-  };
+  readonly errorToast: DcxToastOptions = DCX_TOAST_ERROR_DEMO;
 
   readonly showInfoToast = (): void => {
     this.addToast(this.defaultToast);

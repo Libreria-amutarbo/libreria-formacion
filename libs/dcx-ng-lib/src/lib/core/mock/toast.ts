@@ -1,8 +1,5 @@
-import {
-    DcxToastOptions,
-    DcxToastType,
-    DCX_TOAST_DEFAULT_OPTIONS,
-} from '../interfaces';
+import { DCX_TOAST_DEFAULT_OPTIONS, DcxToastOptions, DcxToastType } from '@dcx-ng-components/dcx-ng-lib';
+
 
 export const DCX_TOAST_MESSAGE_DEFAULT = 'Proyecto guardado correctamente';
 export const DCX_TOAST_ACTION_LABEL_DEFAULT = 'Deshacer';
@@ -24,4 +21,23 @@ export const DCX_TOAST_SUCCESS_WITH_ACTION: DcxToastOptions = {
     type: 'success',
     autoDismiss: false,
     durationMs: 5000,
+};
+
+export const DCX_TOAST_INFO_DEMO: DcxToastOptions = {
+    ...DCX_TOAST_DEFAULT_ARGS,
+    message: 'Informacion actualizada correctamente',
+};
+
+export const DCX_TOAST_WARNING_DEMO: DcxToastOptions = {
+    message: 'Revisa los campos marcados antes de continuar',
+    type: 'warning',
+    autoDismiss: true,
+    durationMs: 7000,
+};
+
+export const DCX_TOAST_ERROR_DEMO: DcxToastOptions = {
+    message: 'No se pudo conectar con el servidor',
+    type: 'error',
+    autoDismiss: true,
+    durationMs: 8000,
 };

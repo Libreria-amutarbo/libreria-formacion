@@ -42,6 +42,13 @@ describe('DcxNgToastComponent', () => {
         expect(toastElement.nativeElement.classList).toContain('dcx-toast--success');
     });
 
+    it('should resolve icon color according to toast type', () => {
+        fixture.componentRef.setInput('type', 'error');
+        fixture.detectChanges();
+
+        expect(component.resolvedIconColor()).toBe('var(--color-error, #dc2626)');
+    });
+
     it('should always render undo action button', () => {
         const actionButton = fixture.debugElement.query(By.css('.dcx-toast__action'));
         expect(actionButton).toBeTruthy();

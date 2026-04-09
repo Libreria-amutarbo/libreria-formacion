@@ -3,7 +3,10 @@ import { moduleMetadata } from '@storybook/angular';
 import { fn } from '@storybook/test';
 import {
     DCX_TOAST_DEFAULT_ARGS,
+    DCX_TOAST_ERROR_DEMO,
+    DCX_TOAST_INFO_DEMO,
     DCX_TOAST_SUCCESS_WITH_ACTION,
+    DCX_TOAST_WARNING_DEMO,
     DcxNgButtonComponent,
     DcxNgToastComponent,
     DcxToastOptions,
@@ -98,29 +101,16 @@ export const Interactive: Story = {
         let nextId = 0;
         type DcxToastDemoItem = DcxToastOptions & { id: number };
 
-        const defaultToast: DcxToastOptions = {
-            ...DCX_TOAST_DEFAULT_ARGS,
-            message: 'Informacion actualizada correctamente',
-        };
+        const defaultToast: DcxToastOptions = DCX_TOAST_INFO_DEMO;
 
         const successToast: DcxToastOptions = {
             ...DCX_TOAST_SUCCESS_WITH_ACTION,
             message: 'Archivo exportado con exito',
         };
 
-        const warningToast: DcxToastOptions = {
-            message: 'Revisa los campos marcados antes de continuar',
-            type: 'warning',
-            autoDismiss: true,
-            durationMs: 7000,
-        };
+        const warningToast: DcxToastOptions = DCX_TOAST_WARNING_DEMO;
 
-        const errorToast: DcxToastOptions = {
-            message: 'No se pudo conectar con el servidor',
-            type: 'error',
-            autoDismiss: true,
-            durationMs: 8000,
-        };
+        const errorToast: DcxToastOptions = DCX_TOAST_ERROR_DEMO;
 
         const removeToast = (id: number, ctx: any): void => {
             ctx.activeToasts = ctx.activeToasts.filter((toast: DcxToastDemoItem) => toast.id !== id);

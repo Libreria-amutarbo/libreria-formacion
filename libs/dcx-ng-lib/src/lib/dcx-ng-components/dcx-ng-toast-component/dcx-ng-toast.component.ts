@@ -1,6 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { computed, effect, input, output } from '@angular/core';
-import { DcxNgButtonComponent, DcxNgIconComponent, DcxToastType } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DCX_TOAST_COLOR_BY_TYPE,
+  DCX_TOAST_ICON_BY_TYPE,
+  DcxNgButtonComponent,
+  DcxNgIconComponent,
+  DcxToastType,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 
 @Component({
@@ -27,14 +33,11 @@ export class DcxNgToastComponent {
       return this.iconName();
     }
 
-    const iconsByType: Record<DcxToastType, string> = {
-      info: 'info-circle',
-      success: 'check-circle',
-      warning: 'exclamation-diamond',
-      error: 'x-circle',
-    };
+    return DCX_TOAST_ICON_BY_TYPE[this.type()];
+  });
 
-    return iconsByType[this.type()];
+  readonly resolvedIconColor = computed(() => {
+    return DCX_TOAST_COLOR_BY_TYPE[this.type()];
   });
 
   readonly role = computed(() => {
