@@ -1,0 +1,142 @@
+<div class="scroll-top-down-page">
+  <header class="page-hero">
+    <p class="eyebrow">Components</p>
+    <h1>Scroll Top Down</h1>
+    <p class="lead">
+      Acción flotante para volver al inicio o al final del contenido, con tamaños
+      escalables y soporte para contenedores específicos.
+    </p>
+  </header>
+
+  <section class="demo-section">
+    <div class="section-head">
+      <p class="section-kicker">Default</p>
+      <h2>Scroll sobre la ventana</h2>
+    </div>
+
+    <div class="demo-panel demo-panel--window">
+      <div class="demo-copy">
+        @for (paragraph of longContent; track paragraph) {
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere
+            malesuada neque, ut luctus neque placerat a. Integer dignissim lacus
+            sit amet nunc finibus, eget luctus justo efficitur.
+          </p>
+        }
+      </div>
+
+      <dcx-ng-scroll-top-down size="m"></dcx-ng-scroll-top-down>
+    </div>
+  </section>
+
+  <dcx-ng-divider [thickness]="0.1" color="var(--border-light, #d1d5db)"></dcx-ng-divider>
+
+  <section class="demo-section">
+    <div class="section-head">
+      <p class="section-kicker">Sizes</p>
+      <h2>Variantes visuales</h2>
+    </div>
+
+    <div class="size-grid">
+      <article class="size-card">
+        <header>
+          <span class="badge">Size S</span>
+          <span class="badge badge--muted">Icon s</span>
+        </header>
+        <p>Versión compacta del control flotante.</p>
+        <div class="preview preview--s">
+          <div class="preview-copy">
+            <p>Área de demostración para el tamaño pequeño.</p>
+            <p>El contenedor es corto para mantener el foco visual.</p>
+          </div>
+          <dcx-ng-scroll-top-down size="s" [smooth]="false"></dcx-ng-scroll-top-down>
+        </div>
+      </article>
+
+      <article class="size-card">
+        <header>
+          <span class="badge">Size L</span>
+          <span class="badge badge--muted">Icon s</span>
+        </header>
+        <p>Más prominente para pantallas con más densidad.</p>
+        <div class="preview preview--l">
+          <div class="preview-copy">
+            <p>Demostración del tamaño grande.</p>
+            <p>La tarjeta simula contenido largo y scrollable.</p>
+          </div>
+          <dcx-ng-scroll-top-down size="l"></dcx-ng-scroll-top-down>
+        </div>
+      </article>
+
+      <article class="size-card">
+        <header>
+          <span class="badge">Size XL</span>
+          <span class="badge badge--muted">Icon m</span>
+        </header>
+        <p>Versión extra grande para enfatizar la acción.</p>
+        <div class="preview preview--xl">
+          <div class="preview-copy">
+            <p>Demostración del tamaño extra grande.</p>
+            <p>Se aprecia el mayor radio y proporción del control.</p>
+          </div>
+          <dcx-ng-scroll-top-down size="xl" iconSize="m"></dcx-ng-scroll-top-down>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <dcx-ng-divider [thickness]="0.1" color="var(--border-light, #d1d5db)"></dcx-ng-divider>
+
+  <section class="demo-section">
+    <div class="section-head">
+      <p class="section-kicker">Container</p>
+      <h2>Scroll dentro de un panel</h2>
+    </div>
+
+    <div class="scroll-container" #scrollContainer>
+      <div class="scroll-content">
+        @for (paragraph of longContent; track paragraph) {
+          <p>
+            Este panel sirve para validar el uso de <strong>container</strong> con
+            el componente. El scroll se aplica sobre este bloque y no sobre la
+            ventana.
+          </p>
+        }
+      </div>
+
+      <dcx-ng-scroll-top-down
+        [container]="scrollContainer"
+        [smooth]="true"
+        size="m"
+        iconSize="s"
+      ></dcx-ng-scroll-top-down>
+    </div>
+  </section>
+
+  <dcx-ng-divider [thickness]="0.1" color="var(--border-light, #d1d5db)"></dcx-ng-divider>
+
+  <section class="demo-section">
+    <div class="section-head">
+      <p class="section-kicker">Variants</p>
+      <h2>Solo top / solo bottom</h2>
+    </div>
+
+    <div class="split-grid">
+      <div class="split-card">
+        <p class="badge">Top only</p>
+        <div class="split-card__body">
+          <p>Se muestra solo la acción para subir.</p>
+          <dcx-ng-scroll-top-down [showBottom]="false"></dcx-ng-scroll-top-down>
+        </div>
+      </div>
+
+      <div class="split-card">
+        <p class="badge">Bottom only</p>
+        <div class="split-card__body">
+          <p>Se muestra solo la acción para bajar.</p>
+          <dcx-ng-scroll-top-down [showTop]="false"></dcx-ng-scroll-top-down>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
