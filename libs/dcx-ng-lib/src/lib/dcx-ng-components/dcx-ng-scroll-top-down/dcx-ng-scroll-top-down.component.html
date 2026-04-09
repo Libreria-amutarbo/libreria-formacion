@@ -4,28 +4,38 @@
   [attr.aria-label]="groupLabel()"
 >
   @if (showTop()) {
-    <button
-      type="button"
+    <dcx-ng-button
       class="dcx-ng-scroll-top-down__button dcx-ng-scroll-top-down__button--top"
-      [attr.aria-label]="topLabel()"
-      (click)="scrollToTop()"
-    >
-      <dcx-ng-icon [name]="topIcon()" [size]="iconSize()" aria-hidden="true" />
-    </button>
+      [class.dcx-ng-scroll-top-down__button--s]="size() === 's'"
+      [class.dcx-ng-scroll-top-down__button--m]="size() === 'm'"
+      [class.dcx-ng-scroll-top-down__button--l]="size() === 'l'"
+      [class.dcx-ng-scroll-top-down__button--xl]="size() === 'xl'"
+      type="button"
+      variant="secondary"
+      [size]="size()"
+      [icon]="true"
+      [iconName]="topIcon()"
+      [iconSize]="iconSize()"
+      [ariaLabel]="topLabel()"
+      (buttonClick)="scrollToTop()"
+    />
   }
 
   @if (showBottom()) {
-    <button
-      type="button"
+    <dcx-ng-button
       class="dcx-ng-scroll-top-down__button dcx-ng-scroll-top-down__button--bottom"
-      [attr.aria-label]="bottomLabel()"
-      (click)="scrollToBottom()"
-    >
-      <dcx-ng-icon
-        [name]="bottomIcon()"
-        [size]="iconSize()"
-        aria-hidden="true"
-      />
-    </button>
+      [class.dcx-ng-scroll-top-down__button--s]="size() === 's'"
+      [class.dcx-ng-scroll-top-down__button--m]="size() === 'm'"
+      [class.dcx-ng-scroll-top-down__button--l]="size() === 'l'"
+      [class.dcx-ng-scroll-top-down__button--xl]="size() === 'xl'"
+      type="button"
+      variant="secondary"
+      [size]="size()"
+      [icon]="true"
+      [iconName]="bottomIcon()"
+      [iconSize]="iconSize()"
+      [ariaLabel]="bottomLabel()"
+      (buttonClick)="scrollToBottom()"
+    />
   }
 </div>

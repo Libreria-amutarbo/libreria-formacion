@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { DcxNgScrollTopDownComponent } from '../../dcx-ng-components/dcx-ng-scroll-top-down/dcx-ng-scroll-top-down.component';
+import { DcxNgScrollTopDownComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgScrollTopDownComponent> = {
   title: 'DCXLibrary/Components/ScrollTopDown',

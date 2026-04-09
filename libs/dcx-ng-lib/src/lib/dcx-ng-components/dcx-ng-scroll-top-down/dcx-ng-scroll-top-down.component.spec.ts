@@ -32,6 +32,19 @@ describe('DcxNgScrollTopDownComponent', () => {
     expect(component.scrollClasses()).toContain('dcx-ng-scroll-top-down--m');
   });
 
+  it('should apply xl size class to rendered buttons', () => {
+    fixture.componentRef.setInput('size', 'xl');
+    fixture.detectChanges();
+
+    const buttons = fixture.nativeElement.querySelectorAll(
+      'dcx-ng-button.dcx-ng-scroll-top-down__button',
+    );
+
+    expect(buttons.length).toBe(2);
+    expect(buttons[0].classList.contains('dcx-ng-scroll-top-down__button--xl')).toBe(true);
+    expect(buttons[1].classList.contains('dcx-ng-scroll-top-down__button--xl')).toBe(true);
+  });
+
   it('should add top-only class when bottom is hidden', () => {
     fixture.componentRef.setInput('showBottom', false);
     fixture.detectChanges();

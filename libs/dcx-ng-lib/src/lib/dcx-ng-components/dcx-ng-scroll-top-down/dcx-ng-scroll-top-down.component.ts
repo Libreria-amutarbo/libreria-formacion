@@ -4,12 +4,12 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { DcxNgIconComponent, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgButtonComponent, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-scroll-top-down',
   standalone: true,
-  imports: [DcxNgIconComponent],
+  imports: [DcxNgButtonComponent],
   templateUrl: './dcx-ng-scroll-top-down.component.html',
   styleUrl: './dcx-ng-scroll-top-down.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,9 +46,9 @@ export class DcxNgScrollTopDownComponent {
       .join(' ');
   });
 
-  readonly scrollBehavior = computed<ScrollBehavior>(() => {
-    return this.smooth() ? 'smooth' : 'auto';
-  });
+  readonly scrollBehavior = computed<ScrollBehavior>(() =>
+     this.smooth() ? 'smooth' : 'auto'
+  );
 
   scrollToTop = (): void => {
     const target = this.scrollTarget();
