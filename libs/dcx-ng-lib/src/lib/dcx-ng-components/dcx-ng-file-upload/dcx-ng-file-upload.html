@@ -1,0 +1,32 @@
+<div class="dcx-file-upload">
+  <dcx-ng-button
+    [label]="label()"
+    [disabled]="disabled()"
+    type="button"
+    (buttonClick)="openFilePicker()"
+  />
+
+  <input
+    #fileInput
+    class="dcx-file-upload__input"
+    type="file"
+    [attr.accept]="accept() || null"
+    [disabled]="disabled()"
+    (change)="onFileChange($event)"
+  />
+
+  @if (selectedFile()) {
+    <span class="dcx-file-upload__file-name">{{ selectedFile()?.name }}</span>
+  } @else {
+    <span class="dcx-file-upload__placeholder">{{ placeholder() }}</span>
+  }
+
+  <dcx-ng-button
+    label="Upload"
+    variant="secondary"
+    type="button"
+    [disabled]="disabled() || !selectedFile()"
+    (buttonClick)="onUploadClick()"
+    style="margin-left: 0.5rem;"
+  />
+</div>

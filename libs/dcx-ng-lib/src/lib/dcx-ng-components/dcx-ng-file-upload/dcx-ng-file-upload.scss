@@ -1,0 +1,27 @@
+.dcx-file-upload {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-family-primary, 'Inter', sans-serif);
+  flex-wrap: wrap;
+}
+
+.dcx-file-upload__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dcx-file-upload__file-name {
+  color: var(--content-default, #121212);
+}
+
+.dcx-file-upload__placeholder {
+  color: var(--content-subtle, #6b7280);
+}
