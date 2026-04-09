@@ -19,6 +19,7 @@ import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-lis
 import { APP_ROUTES } from './core/constants/app-routes';
 import { DxcNgPageDatePickerComponent } from './pages/dxc-ng-page-datePicker/dxc-ng-page-datePicker.component';
 import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
+import { DcxNgPageDrawerComponent } from './pages/dcx-ng-page-drawer/dcx-ng-page-drawer.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
@@ -117,6 +118,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.DIALOG,
     component: DcxNgPageDialogComponent,
+  },
+  {
+    path: APP_ROUTES.DRAWER,
+    component: DcxNgPageDrawerComponent,
   },
   {
     path: APP_ROUTES.TABS,

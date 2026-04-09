@@ -22,3 +22,4 @@ export * from './input';
 export * from './iconField';
 export * from './tooltip';
 export * from './navbar';
+export * from './drawer';

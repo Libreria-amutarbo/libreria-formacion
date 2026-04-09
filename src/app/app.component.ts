@@ -18,6 +18,7 @@ const ROUTE_ICONS: Record<string, string> = {
   'context-menu': 'list-nested',
   'date-picker': 'calendar',
   dialog: 'window',
+  drawer: 'layout-sidebar',
   divider: 'dash-lg',
   grid: 'grid-3x3',
   icon: 'star',

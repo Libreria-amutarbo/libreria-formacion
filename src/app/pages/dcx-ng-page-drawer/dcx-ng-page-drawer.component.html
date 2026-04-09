@@ -1,0 +1,250 @@
+<section>
+  <h2>Ejemplo 1 - Drawer básico</h2>
+
+  <dcx-ng-button
+    variant="primary"
+    size="l"
+    icon
+    iconName="cart-fill"
+    iconSize="s"
+    (buttonClick)="open()"
+  />
+
+  <dcx-ng-drawer
+    [visible]="visible()"
+    [position]="position()"
+    [modal]="modal()"
+    [dismissible]="dismissible()"
+    [showCloseIcon]="showCloseIcon()"
+    [closeOnEscape]="closeOnEscape()"
+    [blockScroll]="blockScroll()"
+    [fullScreen]="fullScreen()"
+    [size]="size()"
+    header="Filtros"
+    (visibleChange)="visible.set($event)"
+    (hide)="close()"
+  >
+    <div class="actions">
+      <dcx-ng-button
+        label="Aplicar"
+        variant="primary"
+        (buttonClick)="close()"
+      />
+      <dcx-ng-button
+        label="Cancelar"
+        variant="secondary"
+        (buttonClick)="close()"
+      />
+    </div>
+  </dcx-ng-drawer>
+</section>
+
+<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
+
+<section>
+  <h2>Ejemplo 2 - Posiciones</h2>
+
+  <div id="drawer-positions">
+    <dcx-ng-button
+      label="Left"
+      variant="secondary"
+      (buttonClick)="openAt('left')"
+    />
+    <dcx-ng-button
+      label="Right"
+      variant="secondary"
+      (buttonClick)="openAt('right')"
+    />
+    <dcx-ng-button
+      label="Top"
+      variant="secondary"
+      (buttonClick)="openAt('top')"
+    />
+    <dcx-ng-button
+      label="Bottom"
+      variant="secondary"
+      (buttonClick)="openAt('bottom')"
+    />
+  </div>
+</section>
+
+<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
+
+<section>
+  <h2>Ejemplo 3 - Fullscreen</h2>
+
+  <dcx-ng-button
+    label="Abrir fullscreen"
+    variant="primary"
+    (buttonClick)="openFullscreen()"
+  />
+</section>
+
+<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
+
+<section>
+  <h2>Ejemplo 4 - styleClass (panel)</h2>
+
+  <dcx-ng-button
+    label="Abrir panel custom"
+    variant="primary"
+    (buttonClick)="openStyled()"
+  />
+
+  <dcx-ng-drawer
+    [visible]="visibleStyled()"
+    position="right"
+    [modal]="true"
+    [dismissible]="true"
+    [showCloseIcon]="true"
+    [closeOnEscape]="true"
+    [blockScroll]="false"
+    [fullScreen]="false"
+    size="22rem"
+    styleClass="page-drawer-panel-custom"
+    header="Panel custom por styleClass"
+    (visibleChange)="visibleStyled.set($event)"
+    (hide)="closeStyled()"
+  >
+    <p>
+      Este panel cambia fondo/borde/texto usando <strong>styleClass</strong>.
+    </p>
+  </dcx-ng-drawer>
+</section>
+
+<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
+
+<section>
+  <h2>Ejemplo 5 - maskStyle/maskStyleClass</h2>
+
+  <dcx-ng-button
+    label="Abrir máscara custom"
+    variant="secondary"
+    (buttonClick)="openMask()"
+  />
+
+  <dcx-ng-drawer
+    [visible]="visibleMask()"
+    position="left"
+    [modal]="true"
+    [dismissible]="true"
+    [showCloseIcon]="true"
+    [closeOnEscape]="true"
+    [blockScroll]="false"
+    [fullScreen]="false"
+    size="22rem"
+    maskStyleClass="page-drawer-mask-custom"
+    header="Máscara custom"
+    (visibleChange)="visibleMask.set($event)"
+    (hide)="closeMask()"
+  >
+    <p>
+      La máscara usa clase custom aplicada por <strong>maskStyleClass</strong>.
+    </p>
+  </dcx-ng-drawer>
+</section>
+
+<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
+
+<section>
+  <h2>Ejemplo 6 - baseZIndex y autoZIndex</h2>
+
+  <p class="zindex-help">
+    Comparativa: los dos primeros tienen <strong>baseZIndex=2000</strong>. El de
+    <strong>auto</strong> puede subir al abrirse después. El tercero es
+    <strong>manual alto (baseZIndex=2600)</strong> y debe quedar por encima de
+    todos.
+  </p>
+
+  <div id="drawer-zindex-actions">
+    <dcx-ng-button
+      label="Abrir Z manual (base 2000)"
+      variant="secondary"
+      (buttonClick)="openZManual()"
+    />
+    <dcx-ng-button
+      label="Abrir Z auto (base 2000)"
+      variant="primary"
+      (buttonClick)="openZAuto()"
+    />
+    <dcx-ng-button
+      label="Abrir Z manual alto (base 2600)"
+      variant="secondary"
+      (buttonClick)="openZManualTop()"
+    />
+    <dcx-ng-button
+      label="Abrir los 3 (manual -> auto -> manual alto)"
+      variant="primary"
+      (buttonClick)="openZStacked()"
+    />
+  </div>
+
+  <dcx-ng-drawer
+    [visible]="visibleZB()"
+    position="right"
+    [modal]="true"
+    [dismissible]="true"
+    [showCloseIcon]="true"
+    [closeOnEscape]="true"
+    [blockScroll]="false"
+    [fullScreen]="false"
+    size="24rem"
+    [baseZIndex]="2000"
+    [autoZIndex]="false"
+    styleClass="page-drawer-manual-z"
+    header="Manual z-index"
+    (visibleChange)="visibleZB.set($event)"
+    (hide)="closeZB()"
+  >
+    <p>
+      <strong>autoZIndex=false</strong>: usa exactamente
+      <strong>baseZIndex</strong>.
+    </p>
+  </dcx-ng-drawer>
+
+  <dcx-ng-drawer
+    [visible]="visibleZA()"
+    position="right"
+    [modal]="true"
+    [dismissible]="true"
+    [showCloseIcon]="true"
+    [closeOnEscape]="true"
+    [blockScroll]="false"
+    [fullScreen]="false"
+    size="20rem"
+    [baseZIndex]="2000"
+    [autoZIndex]="true"
+    styleClass="page-drawer-auto-z"
+    header="Auto z-index"
+    (visibleChange)="visibleZA.set($event)"
+    (hide)="closeZA()"
+  >
+    <p>
+      <strong>autoZIndex=true</strong>: al abrirse después debe quedar por
+      encima del manual.
+    </p>
+  </dcx-ng-drawer>
+
+  <dcx-ng-drawer
+    [visible]="visibleZC()"
+    position="right"
+    [modal]="true"
+    [dismissible]="true"
+    [showCloseIcon]="true"
+    [closeOnEscape]="true"
+    [blockScroll]="false"
+    [fullScreen]="false"
+    size="18rem"
+    [baseZIndex]="2600"
+    [autoZIndex]="false"
+    styleClass="page-drawer-manual-top-z"
+    header="Manual alto z-index"
+    (visibleChange)="visibleZC.set($event)"
+    (hide)="closeZC()"
+  >
+    <p>
+      <strong>autoZIndex=false</strong> + <strong>baseZIndex=2600</strong>: debe
+      quedar por encima de los otros dos.
+    </p>
+  </dcx-ng-drawer>
+</section>

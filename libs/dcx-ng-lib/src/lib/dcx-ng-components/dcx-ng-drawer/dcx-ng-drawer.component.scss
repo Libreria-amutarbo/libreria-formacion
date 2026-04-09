@@ -1,0 +1,125 @@
+.dcx-drawer-root {
+  position: fixed;
+  inset: 0;
+}
+
+.dcx-drawer-mask {
+  position: absolute;
+  inset: 0;
+  background: var(--dcx-drawer-mask-background, rgba(0, 0, 0, 0.45));
+  opacity: 1;
+  transition: opacity 220ms ease;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.dcx-drawer {
+  position: absolute;
+  background: var(--dcx-drawer-background, var(--bg-default, #ffffff));
+  color: var(--dcx-drawer-color, var(--text-dark, #2a2e33));
+  font-family: var(--ff-base, var(--font-family-primary, 'Inter', sans-serif));
+  box-shadow: var(
+    --dcx-drawer-shadow,
+    var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12))
+  );
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  max-height: 100%;
+  transition: transform 220ms ease;
+
+  &--left {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(0);
+
+    @starting-style {
+      transform: translateX(-100%);
+    }
+  }
+
+  &--right {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(0);
+
+    @starting-style {
+      transform: translateX(100%);
+    }
+  }
+
+  &--top {
+    left: 0;
+    right: 0;
+    top: 0;
+    transform: translateY(0);
+
+    @starting-style {
+      transform: translateY(-100%);
+    }
+  }
+
+  &--bottom {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(0);
+
+    @starting-style {
+      transform: translateY(100%);
+    }
+  }
+
+  &--fullscreen {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+.dcx-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3, 12px);
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  border-bottom: 1px solid
+    var(--dcx-drawer-header-border, var(--border-light, #d1d5db));
+}
+
+.dcx-drawer__title {
+  margin: 0;
+  font-size: var(--fs-lg, 18px);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--dcx-drawer-color, var(--text-dark, #2a2e33));
+}
+
+.dcx-drawer__close {
+  margin-left: auto;
+}
+
+.dcx-drawer__content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--sp-5, 20px);
+  font-size: var(--fs-base, 14px);
+  font-weight: var(--fw-regular, 400);
+  color: var(--dcx-drawer-color, var(--text-dark, #2a2e33));
+}
+
+.dcx-drawer__footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--sp-2, 8px);
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  border-top: 1px solid
+    var(--dcx-drawer-footer-border, var(--border-light, #d1d5db));
+  background: var(--dcx-drawer-footer-background, var(--bg-surface, #f4f5f7));
+}
