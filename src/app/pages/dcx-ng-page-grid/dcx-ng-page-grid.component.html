@@ -1,35 +1,205 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Grid base 12 columnas</h2>
-  <div class="dcx-grid dcx-grid--gap-m">
-    <div class="dcx-col dcx-col--6"><div class="grid-box">col-6</div></div>
-    <div class="dcx-col dcx-col--6"><div class="grid-box">col-6</div></div>
-
-    <div class="dcx-col dcx-col--4"><div class="grid-box">col-4</div></div>
-    <div class="dcx-col dcx-col--4"><div class="grid-box">col-4</div></div>
-    <div class="dcx-col dcx-col--4"><div class="grid-box">col-4</div></div>
-
-    <div class="dcx-col dcx-col--3"><div class="grid-box">col-3</div></div>
-    <div class="dcx-col dcx-col--3"><div class="grid-box">col-3</div></div>
-    <div class="dcx-col dcx-col--3"><div class="grid-box">col-3</div></div>
-    <div class="dcx-col dcx-col--3"><div class="grid-box">col-3</div></div>
-  </div>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 2 - Grid con componentes (Buttons)</h2>
-  <div class="dcx-grid dcx-grid--gap-m">
-    <div class="dcx-col dcx-col--4">
-      <dcx-ng-button label="Primary" variant="primary"></dcx-ng-button>
+<div class="grid-page">
+  <section class="grid-section">
+    <h2 class="section-title">Basic Grid</h2>
+    <div class="dcx-grid dcx-grid--gap-m grid-3-columns">
+      @for (item of basicItems; track item) {
+        <div class="grid-box grid-box--primary">col-{{ item }}</div>
+      }
     </div>
-    <div class="dcx-col dcx-col--4">
-      <dcx-ng-button label="Secondary" variant="secondary"></dcx-ng-button>
-    </div>
-    <div class="dcx-col dcx-col--4">
-      <dcx-ng-button label="Disabled" [disabled]="true"></dcx-ng-button>
-    </div>
-  </div>
-</section>
+  </section>
+  <dcx-ng-divider
+    class="divider"
+    [thickness]="0.2"
+    color="#000"
+  ></dcx-ng-divider>
 
-<hr />
+  <section class="grid-section">
+    <h2 class="section-title">12 columns — example of distribution</h2>
+
+    <div class="design-row">
+      @for (cell of designRowA; track $index) {
+        <div
+          class="          npx nx test dcx-ng-page-grid          npx nx test dcx-ng-page-griddesign-cell design-cell--primary design-cell--{{ cell.tone }}"
+        >
+          {{ cell.label }}
+        </div>
+      }
+    </div>
+
+    <div class="design-row">
+      <div class="design-cell design-cell--primary" style="flex: 4">col-4</div>
+      <div class="design-cell design-cell--surface" style="flex: 4">col-4</div>
+      <div
+        class="design-cell design-cell--primary design-cell--tone-70"
+        style="flex: 4"
+      >
+        col-4
+      </div>
+    </div>
+
+    <div class="design-row">
+      <div class="design-cell design-cell--primary" style="flex: 3">col-3</div>
+      <div class="design-cell design-cell--surface" style="flex: 6">col-6</div>
+      <div
+        class="design-cell design-cell--primary design-cell--tone-70"
+        style="flex: 3"
+      >
+        col-3
+      </div>
+    </div>
+
+    <div class="design-row design-row--no-margin">
+      <div class="design-cell design-cell--primary" style="flex: 8">col-8</div>
+      <div class="design-cell design-cell--surface" style="flex: 4">col-4</div>
+    </div>
+  </section>
+  <dcx-ng-divider
+    class="divider"
+    [thickness]="0.2"
+    color="#000"
+  ></dcx-ng-divider>
+
+  <section class="grid-section">
+    <h2 class="section-title">Different Column Sizes</h2>
+    <div class="dcx-grid dcx-grid--gap-m">
+      <div class="dcx-col dcx-col--12">
+        <div class="grid-box grid-box--primary">col-12</div>
+      </div>
+
+      <div class="dcx-col dcx-col--6">
+        <div class="grid-box grid-box--primary">col-6<br />(6 cols)</div>
+      </div>
+      <div class="dcx-col dcx-col--6">
+        <div class="grid-box grid-box--primary">col-6<br />(6 cols)</div>
+      </div>
+
+      <div class="dcx-col dcx-col--4">
+        <div class="grid-box grid-box--primary">col-4<br />(4 cols)</div>
+      </div>
+      <div class="dcx-col dcx-col--4">
+        <div class="grid-box grid-box--primary">col-4<br />(4 cols)</div>
+      </div>
+      <div class="dcx-col dcx-col--4">
+        <div class="grid-box grid-box--primary">col-4<br />(4 cols)</div>
+      </div>
+
+      <div class="dcx-col dcx-col--3">
+        <div class="grid-box grid-box--primary">col-3<br />(3 cols)</div>
+      </div>
+      <div class="dcx-col dcx-col--9">
+        <div class="grid-box grid-box--primary">col-9<br />(9 cols)</div>
+      </div>
+    </div>
+  </section>
+  <dcx-ng-divider
+    class="divider"
+    [thickness]="0.2"
+    color="#000"
+  ></dcx-ng-divider>
+
+  <section class="grid-section">
+    <h2 class="section-title">Gap Variations</h2>
+
+    @for (gap of gapExamples; track gap.key) {
+      <h3 class="sub-title">{{ gap.label }}</h3>
+      <div class="dcx-grid dcx-grid--gap-{{ gap.key }}">
+        <div class="dcx-col dcx-col--3">
+          <div class="grid-box grid-box--primary">col-1</div>
+        </div>
+        <div class="dcx-col dcx-col--3">
+          <div class="grid-box grid-box--primary">col-2</div>
+        </div>
+        <div class="dcx-col dcx-col--3">
+          <div class="grid-box grid-box--primary">col-3</div>
+        </div>
+        <div class="dcx-col dcx-col--3">
+          <div class="grid-box grid-box--primary">col-4</div>
+        </div>
+      </div>
+    }
+  </section>
+  <dcx-ng-divider
+    class="divider"
+    [thickness]="0.2"
+    color="#000"
+  ></dcx-ng-divider>
+
+  <section class="grid-section">
+    <h2 class="section-title">Alignment Options</h2>
+
+    @for (alignment of alignmentExamples; track alignment.label) {
+      <h3 class="sub-title">{{ alignment.label }}</h3>
+      <div
+        class="dcx-grid dcx-grid--gap-m {{ alignment.className }} alignment-demo"
+      >
+        <div class="dcx-col dcx-col--4">
+          <div class="grid-box grid-box--primary">col-1</div>
+        </div>
+        <div class="dcx-col dcx-col--4">
+          <div class="grid-box grid-box--primary">col-2</div>
+        </div>
+        <div class="dcx-col dcx-col--4">
+          <div class="grid-box grid-box--primary">col-3</div>
+        </div>
+      </div>
+    }
+  </section>
+  <dcx-ng-divider
+    class="divider"
+    [thickness]="0.2"
+    color="#000"
+  ></dcx-ng-divider>
+
+  <section class="grid-section">
+    <h2 class="section-title">Complex Layout Example</h2>
+    <div class="dcx-grid dcx-grid--gap-m">
+      <div class="dcx-col dcx-col--12">
+        <div class="grid-box grid-box--primary">
+          <strong>Header (Full Width)</strong>
+        </div>
+      </div>
+
+      <div class="dcx-col dcx-col--12 dcx-col--md-3">
+        <div class="sidebar-box">
+          <strong>Sidebar</strong><br />(12 cols mobile, 3 cols tablet+)
+        </div>
+      </div>
+
+      <div class="dcx-col dcx-col--12 dcx-col--md-9">
+        <div class="dcx-grid dcx-grid--gap-m">
+          @for (item of complexItems; track item) {
+            <div class="dcx-col dcx-col--12 dcx-col--sm-6 dcx-col--lg-4">
+              <div class="grid-box grid-box--primary">col-{{ item }}</div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="dcx-col dcx-col--12">
+        <div class="grid-box grid-box--primary">
+          <strong>Footer (Full Width)</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+  <dcx-ng-divider
+    class="divider"
+    [thickness]="0.2"
+    color="#000"
+  ></dcx-ng-divider>
+
+  <section class="grid-section">
+    <h2 class="section-title">Grid con componentes (Buttons)</h2>
+    <div class="dcx-grid dcx-grid--gap-m">
+      <div class="dcx-col dcx-col--4">
+        <dcx-ng-button label="Primary" variant="primary"></dcx-ng-button>
+      </div>
+      <div class="dcx-col dcx-col--4">
+        <dcx-ng-button label="Secondary" variant="secondary"></dcx-ng-button>
+      </div>
+      <div class="dcx-col dcx-col--4">
+        <dcx-ng-button label="Disabled" [disabled]="true"></dcx-ng-button>
+      </div>
+    </div>
+  </section>
+</div>

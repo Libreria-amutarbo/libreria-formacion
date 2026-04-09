@@ -40,11 +40,15 @@ export class DcxNgPageListComponent {
   selectedItem = signal<DcxListItem | null>(null);
   selectedMultiItems = signal<{ item: DcxListItem; index: number }[]>([]);
 
-  onSelectionChanged($event: { item: DcxListItem; index: number }[]) {
-    this.selectedItem.set($event.length > 0 ? $event[0].item : null);
+  onSelectionChanged($event: any) {
+    const payload = $event as { item: DcxListItem; index: number }[];
+    this.selectedItem.set(
+      payload && payload.length > 0 ? payload[0].item : null,
+    );
   }
 
-  onMultiSelectionChanged($event: { item: DcxListItem; index: number }[]) {
-    this.selectedMultiItems.set($event);
+  onMultiSelectionChanged($event: any) {
+    const payload = $event as { item: DcxListItem; index: number }[];
+    this.selectedMultiItems.set(payload || []);
   }
 }
