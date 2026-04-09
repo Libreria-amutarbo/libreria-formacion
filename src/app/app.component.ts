@@ -27,6 +27,7 @@ const ROUTE_ICONS: Record<string, string> = {
   message: 'envelope',
   navbar: 'layout-sidebar',
   paginator: 'skip-end',
+  popover: 'window',
   radio: 'record-circle',
   search: 'search',
   select: 'menu-button',

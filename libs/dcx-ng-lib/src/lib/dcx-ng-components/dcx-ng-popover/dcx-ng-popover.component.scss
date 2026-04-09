@@ -1,0 +1,15 @@
+.dcx-popover {
+  position: absolute;
+  z-index: 1000;
+  background: var(--background-primary, #ffffff);
+  border: 1px solid var(--border-default, #e5e7eb);
+  border-radius: var(--border-radius-md, 6px);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1));
+  min-width: 150px;
+  
+  &__content {
+    padding: var(--spacing-md, 16px);
+    color: var(--content-default, #1f2937);
+    font-family: var(--font-family-primary, "Inter", sans-serif);
+  }
+}

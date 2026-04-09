@@ -1,0 +1,27 @@
+<div class="page-container">
+  <h1>Popover Component</h1>
+  <p>The Popover component is used to display content in an overlay that opens on demand.</p>
+  
+  <div class="demo-section">
+    <h2>Basic Popover</h2>
+    <div class="demo-box">
+      <!-- 
+        We pass the parent reference (button or container) to the toggle function
+        so the popover knows where to render itself.
+      -->
+      <div #buttonContainer style="display:inline-block;">
+        <dcx-ng-button
+          label="Open Popover"
+          (clicked)="myPopover.toggle(`$event`, buttonContainer)"
+        ></dcx-ng-button>
+      </div>
+
+      <dcx-ng-popover #myPopover>
+        <div style="padding: 1rem; width: 250px;">
+          <h3 style="margin-top: 0; margin-bottom: 0.5rem;">Popover Title</h3>
+          <p style="margin: 0; color: #666;">This is the content inside the popover. It can be any HTML or Angular component.</p>
+        </div>
+      </dcx-ng-popover>
+    </div>
+  </div>
+</div>

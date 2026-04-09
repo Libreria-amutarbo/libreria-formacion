@@ -1,0 +1,12 @@
+@if (isOpen()) {
+  <div
+    #container
+    class="dcx-popover"
+    [style.top]="top()"
+    [style.left]="left()"
+  >
+    <div class="dcx-popover__content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+}

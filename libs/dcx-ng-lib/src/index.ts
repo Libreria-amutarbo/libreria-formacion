@@ -32,3 +32,4 @@ export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table-templ
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-data-pipeline.service';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-comparator.service';
 export * from './lib/dcx-ng-components/dcx-ng-navbar/dcx-ng-navbar.component';
+export * from './lib/dcx-ng-components/dcx-ng-popover/dcx-ng-popover.component';
