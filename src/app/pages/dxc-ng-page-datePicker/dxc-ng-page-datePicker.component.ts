@@ -10,8 +10,8 @@ import { Component, signal } from '@angular/core';
 })
 export class DxcNgPageDatePickerComponent {
   selectedDate = signal<Date | null>(new Date());
-  minDate = signal<Date | null>(new Date(2024, 0, 1));
-  maxDate = signal<Date | null>(new Date(2025, 11, 31));
+  minDate = signal<Date | null>(new Date(2026, 3, 15));
+  maxDate = signal<Date | null>(new Date(2026, 3, 30));
   isDisabled = signal(false);
 
   handleDateChange(date: Date | null): void {

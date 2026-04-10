@@ -111,10 +111,10 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--spacing-m, 16px);
-  padding: var(--spacing-xs, 8px) var(--spacing-m, 16px);
+  gap: var(--spacing-xs, 8px);
+  padding: var(--spacing-xs, 8px);
   border-top: 1px solid var(--border-default, #e5e7eb);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -137,7 +137,7 @@
     background 0.2s,
     color 0.2s;
   max-width: 100%;
-  flex: 1 1 0;
+  flex: 0 0 auto;
 }
 
 .dcx-datepicker__footer-btn--ghost {
@@ -152,8 +152,8 @@
 }
 
 .dcx-datepicker__footer-btn--primary {
-  background: var(--bg-primary, #0058ab);
-  color: var(--text-white, #fff);
+  background: transparent;
+  color: inherit;
 }
 
 .dcx-datepicker__footer-btn--secondary {
