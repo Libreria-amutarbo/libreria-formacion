@@ -1,0 +1,130 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as GridStories from './Grid.stories';
+
+<Meta title="DCXLibrary/Utilities/Grid/Documentation" />
+
+# Grid
+
+The `dcx-grid` and `dcx-col` classes provide a flexible 12-column layout system for composing responsive interfaces.
+It is designed to work together with the library's spacing, alignment, and breakpoint modifiers.
+
+---
+
+## Overview
+
+This grid system is useful for:
+
+- Building responsive layouts with 12-column distribution
+- Aligning content with consistent gaps and breakpoints
+- Combining layout primitives with library components such as buttons, cards, forms, and panels
+- Creating reusable page sections with predictable spacing
+
+---
+
+## Main Building Blocks
+
+### Grid container
+
+Use `dcx-grid` as the parent container for columns.
+
+### Columns
+
+Use `dcx-col` together with width modifiers such as:
+
+- `dcx-col--12`
+- `dcx-col--9`
+- `dcx-col--8`
+- `dcx-col--6`
+- `dcx-col--4`
+- `dcx-col--3`
+
+### Responsive modifiers
+
+The grid also supports breakpoint-based classes, for example:
+
+- `dcx-col--sm-6`
+- `dcx-col--md-3`
+- `dcx-col--lg-4`
+
+### Grid modifiers
+
+Common layout modifiers include:
+
+- `dcx-grid--gap-none`
+- `dcx-grid--gap-s`
+- `dcx-grid--gap-m`
+- `dcx-grid--gap-l`
+- `dcx-grid--gap-xl`
+- `dcx-grid--align-start`
+- `dcx-grid--align-center`
+- `dcx-grid--align-end`
+- `dcx-grid--justify-center`
+
+---
+
+## Examples
+
+### Basic Grid
+
+<Canvas of={GridStories.BasicGrid} />
+
+### Grid Layout
+
+<Canvas of={GridStories.DesignGridLayout} />
+
+### Different Column Sizes
+
+<Canvas of={GridStories.DifferentColumnSizes} />
+
+### Gap Variations
+
+<Canvas of={GridStories.GapVariations} />
+
+### Alignment Options
+
+<Canvas of={GridStories.AlignmentOptions} />
+
+### Complex Layout Example
+
+<Canvas of={GridStories.ComplexLayout} />
+
+---
+
+## Styling Notes
+
+The examples in this documentation follow the Capgemini token set with CSS fallback values.
+Recommended tokens:
+
+- `--bg-primary`, `--bg-primary-hover`, `--bg-surface`, `--bg-default`
+- `--text-dark`, `--text-muted`, `--text-white`
+- `--border-default`
+- `--r-sm`, `--r-lg`
+- `--sp-2`, `--sp-3`, `--sp-4`, `--sp-6`, `--sp-8`, `--sp-10`
+- `--fs-xs`, `--fs-base`, `--fs-md`
+- `--fw-semibold`, `--fw-bold`
+- `--shadow-sm`
+
+---
+
+## Usage
+
+```html
+<div class="dcx-grid dcx-grid--gap-m">
+  <div class="dcx-col dcx-col--12 dcx-col--md-3">Sidebar</div>
+  <div class="dcx-col dcx-col--12 dcx-col--md-9">
+    <div class="dcx-grid dcx-grid--gap-m">
+      <div class="dcx-col dcx-col--12 dcx-col--sm-6 dcx-col--lg-4">Card 1</div>
+      <div class="dcx-col dcx-col--12 dcx-col--sm-6 dcx-col--lg-4">Card 2</div>
+      <div class="dcx-col dcx-col--12 dcx-col--sm-6 dcx-col--lg-4">Card 3</div>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## Notes
+
+- Use `dcx-grid--justify-center` when you want columns centered horizontally inside the row.
+- Use `dcx-grid--align-*` modifiers to control vertical alignment within the grid container.
+- Prefer token-based styling with fallback values to keep the layout consistent with the rest of the design system.

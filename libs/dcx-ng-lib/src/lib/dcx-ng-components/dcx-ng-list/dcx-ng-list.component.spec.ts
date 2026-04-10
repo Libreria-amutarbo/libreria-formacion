@@ -40,7 +40,7 @@ describe('DcxNgListComponent', () => {
 
     const lis = host().querySelectorAll('.dcx-list-item');
     expect(lis.length).toBe(SIMPLE_LIST_ITEMS.length);
-    expect(lis[0].textContent?.trim()).toContain('Uno');
+    expect(lis[0].textContent?.trim()).toContain('One');
   });
 
   it('renders items with icon containers', () => {
@@ -113,7 +113,7 @@ describe('DcxNgListComponent', () => {
       // Select
       component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
       expect(spySelected).toHaveBeenCalled();
-      
+
       // Deselect
       component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
       expect(spyDeselected).toHaveBeenCalledWith({
