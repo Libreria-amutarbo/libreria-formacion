@@ -3,7 +3,7 @@
 }
 
 .dcx-toast {
-  --dcx-toast-accent: var(--color-info, #1db8f2);
+  --dcx-toast-accent: var(--color-info, #0058ab);
 
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@
   line-height: 1.4;
 
   &--info {
-    --dcx-toast-accent: var(--color-info, #1db8f2);
+    --dcx-toast-accent: var(--color-info, #0058ab);
   }
 
   &--success {

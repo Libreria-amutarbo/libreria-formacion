@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { computed, effect, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, output } from '@angular/core';
 import {
   DCX_TOAST_COLOR_BY_TYPE,
   DCX_TOAST_ICON_BY_TYPE,
@@ -36,9 +35,7 @@ export class DcxNgToastComponent {
     return DCX_TOAST_ICON_BY_TYPE[this.type()];
   });
 
-  readonly resolvedIconColor = computed(() => {
-    return DCX_TOAST_COLOR_BY_TYPE[this.type()];
-  });
+  readonly resolvedIconColor = computed(() => DCX_TOAST_COLOR_BY_TYPE[this.type()]);
 
   readonly role = computed(() => {
     if (this.type() === 'error' || this.type() === 'warning') {
