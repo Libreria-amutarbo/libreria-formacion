@@ -111,9 +111,7 @@ export class DcxNgDrawerComponent {
     this.appliedHostMaskClasses = nextMaskClasses;
   });
 
-  readonly resolvedBaseZIndex = computed(() => {
-    return this.currentZIndex();
-  });
+  readonly resolvedBaseZIndex = computed(() => this.currentZIndex());
 
   readonly _zIndexEffect = effect(() => {
     const baseZIndex = this.baseZIndex();
@@ -149,9 +147,9 @@ export class DcxNgDrawerComponent {
     return null;
   });
 
-  readonly hasHeader = computed(() => {
-    return !!this.headerTemplate() || !!this.header() || this.showCloseIcon();
-  });
+  readonly hasHeader = computed(
+    () => !!this.headerTemplate() || !!this.header() || this.showCloseIcon(),
+  );
 
   readonly _visibilityEffect = effect(() => {
     const isVisible = this.visible();

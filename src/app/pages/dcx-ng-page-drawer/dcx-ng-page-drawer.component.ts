@@ -31,13 +31,9 @@ export class DcxNgPageDrawerComponent {
 
   readonly size = signal('22rem');
 
-  open = () => {
-    this.visible.set(true);
-  };
+  open = () => this.visible.set(true);
 
-  close = () => {
-    this.visible.set(false);
-  };
+  close = () => this.visible.set(false);
 
   openAt = (next: DcxPosition) => {
     this.position.set(next);
@@ -55,45 +51,25 @@ export class DcxNgPageDrawerComponent {
     backgroundColor: 'blue',
   };
 
-  openStyled = () => {
-    this.visibleStyled.set(true);
-  };
+  openStyled = () => this.visibleStyled.set(true);
 
-  closeStyled = () => {
-    this.visibleStyled.set(false);
-  };
+  closeStyled = () => this.visibleStyled.set(false);
 
-  openMask = () => {
-    this.visibleMask.set(true);
-  };
+  openMask = () => this.visibleMask.set(true);
 
-  closeMask = () => {
-    this.visibleMask.set(false);
-  };
+  closeMask = () => this.visibleMask.set(false);
 
-  openZAuto = () => {
-    this.visibleZA.set(true);
-  };
+  openZAuto = () => this.visibleZA.set(true);
 
-  openZManual = () => {
-    this.visibleZB.set(true);
-  };
+  openZManual = () => this.visibleZB.set(true);
 
-  openZManualTop = () => {
-    this.visibleZC.set(true);
-  };
+  openZManualTop = () => this.visibleZC.set(true);
 
-  closeZA = () => {
-    this.visibleZA.set(false);
-  };
+  closeZA = () => this.visibleZA.set(false);
 
-  closeZB = () => {
-    this.visibleZB.set(false);
-  };
+  closeZB = () => this.visibleZB.set(false);
 
-  closeZC = () => {
-    this.visibleZC.set(false);
-  };
+  closeZC = () => this.visibleZC.set(false);
 
   openZStacked = () => {
     this.visibleZB.set(true);
