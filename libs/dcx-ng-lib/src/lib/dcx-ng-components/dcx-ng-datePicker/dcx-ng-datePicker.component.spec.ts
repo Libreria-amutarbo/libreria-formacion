@@ -184,6 +184,7 @@ describe('DcxNgDatePickerComponent', () => {
     });
 
     it('should render clear button in DOM when visible', () => {
+      component.toggleCalendar();
       componentRef.setInput('selectedDate', new Date(2025, 0, 15));
       fixture.detectChanges();
       const clearEl = fixture.nativeElement.querySelector(
@@ -286,6 +287,9 @@ describe('DcxNgDatePickerComponent', () => {
 
   describe('navigation', () => {
     it('should navigate to previous month', () => {
+      // Set a fixed date to avoid issues with current date
+      componentRef.setInput('selectedDate', new Date(2025, 2, 15)); // March
+      fixture.detectChanges();
       const initial = component.currentMonth().getMonth();
       component.previousMonth();
       fixture.detectChanges();
@@ -295,6 +299,9 @@ describe('DcxNgDatePickerComponent', () => {
     });
 
     it('should navigate to next month', () => {
+      // Set a fixed date to avoid issues with current date
+      componentRef.setInput('selectedDate', new Date(2025, 2, 15)); // March
+      fixture.detectChanges();
       const initial = component.currentMonth().getMonth();
       component.nextMonth();
       fixture.detectChanges();
@@ -356,8 +363,11 @@ describe('DcxNgDatePickerComponent', () => {
     });
 
     it('should select month and switch to calendar mode', () => {
+      // Set a fixed year to avoid issues with current date
+      componentRef.setInput('selectedDate', new Date(2025, 2, 15)); // March
+      fixture.detectChanges();
       component.openMonthSelector();
-      component.selectMonth(5);
+      component.selectMonth(5); // June
       expect(component.isCalendarMode()).toBe(true);
       expect(component.currentMonth().getMonth()).toBe(5);
     });
@@ -409,10 +419,14 @@ describe('DcxNgDatePickerComponent', () => {
       expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should close calendar after selecting', () => {
+    it('should NOT close calendar after selecting (closes only on Aplicar)', () => {
       component.toggleCalendar();
       expect(component.isOpen()).toBe(true);
-      component.selectDate(makeDay());
+      // Use a non-disabled day
+      const day = makeDay({ isDisabled: false });
+      component.selectDate(day);
+      expect(component.isOpen()).toBe(true);
+      component.applyDate();
       expect(component.isOpen()).toBe(false);
     });
   });
@@ -802,7 +816,7 @@ describe('DcxNgDatePickerComponent', () => {
     });
 
     it('should have correct labels', () => {
-      expect(component.labels.clearDate).toBe('Limpiar fecha');
+      expect(component.labels.clearDate).toBe('Limpiar');
       expect(component.labels.today).toBe('Hoy');
       expect(component.labels.goToToday).toBe('Ir a hoy');
       expect(component.labels.selectMonth).toBe('Selecciona mes');

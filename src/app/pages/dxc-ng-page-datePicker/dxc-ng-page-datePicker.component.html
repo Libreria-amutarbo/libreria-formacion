@@ -1,30 +1,73 @@
 <div class="demo-container">
-    <section class="demo-section">
-        <h2>Ejemplo básico</h2>
-        <dcx-ng-date-picker [selectedDate]="selectedDate()" [placeholder]="'Selecciona una fecha'"
-            (selectedDateChange)="handleDateChange($event)">
-        </dcx-ng-date-picker>
-        <div class="demo-state">
-            <strong>Fecha seleccionada:</strong> {{ formattedSelectedDate }}
-        </div>
-    </section>
+  <section class="demo-section">
+    <h2>Ejemplo básico</h2>
+    <dcx-ng-date-picker
+      [selectedDate]="selectedDate()"
+      [placeholder]="'Selecciona una fecha'"
+      (selectedDateChange)="handleDateChange($event)"
+    >
+    </dcx-ng-date-picker>
+    <div class="demo-state">
+      <strong>Fecha seleccionada:</strong> {{ formattedSelectedDate }}
+    </div>
+  </section>
 
-    <section class="demo-section">
-        <hr class="demo-separator">
-        <h2>Ejemplo deshabilitado</h2>
-        <dcx-ng-date-picker [selectedDate]="selectedDate()" [disabled]="true" [placeholder]="'Deshabilitado'">
-        </dcx-ng-date-picker>
-    </section>
+  <section class="demo-section">
+    <hr class="demo-separator" />
+    <h2>Ejemplo deshabilitado</h2>
+    <dcx-ng-date-picker
+      [selectedDate]="selectedDate()"
+      [disabled]="true"
+      [placeholder]="'Deshabilitado'"
+    >
+    </dcx-ng-date-picker>
+  </section>
 
-    <section class="demo-section">
-        <hr class="demo-separator">
-        <h2>Ejemplo con fecha mínima y máxima</h2>
-        <dcx-ng-date-picker [selectedDate]="selectedDate()" [minDate]="minDate()" [maxDate]="maxDate()"
-            [placeholder]="'Rango de fechas'" (selectedDateChange)="handleDateChange($event)">
-        </dcx-ng-date-picker>
-        <div class="demo-state">
-            <strong>Fecha mínima:</strong> {{ formattedMinDate }}<br>
-            <strong>Fecha máxima:</strong> {{ formattedMaxDate }}
-        </div>
-    </section>
+  <section class="demo-section">
+    <hr class="demo-separator" />
+    <h2>Ejemplo con fecha mínima y máxima</h2>
+    <dcx-ng-date-picker
+      [selectedDate]="selectedDate()"
+      [minDate]="minDate()"
+      [maxDate]="maxDate()"
+      [placeholder]="'Rango de fechas'"
+      (selectedDateChange)="handleDateChange($event)"
+    >
+    </dcx-ng-date-picker>
+    <div class="demo-state">
+      <strong>Fecha mínima:</strong> {{ formattedMinDate }}<br />
+      <strong>Fecha máxima:</strong> {{ formattedMaxDate }}
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <hr class="demo-separator" />
+    <h2>Ejemplo multiselección</h2>
+    <dcx-ng-date-picker
+      [multiSelect]="true"
+      [selectedDates]="selectedDates()"
+      [placeholder]="'Selecciona varias fechas'"
+      (selectedDatesChange)="handleDatesChange($event)"
+    ></dcx-ng-date-picker>
+    <div class="demo-state">
+      <strong>Fechas seleccionadas:</strong> {{ formattedSelectedDates }}
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <hr class="demo-separator" />
+    <h2>Ejemplo rango de fechas</h2>
+    <dcx-ng-date-picker
+      [rangeSelect]="true"
+      [startDate]="startDate()"
+      [endDate]="endDate()"
+      [placeholder]="'Selecciona un rango'"
+      (startDateChange)="handleStartDateChange($event)"
+      (endDateChange)="handleEndDateChange($event)"
+    ></dcx-ng-date-picker>
+    <div class="demo-state">
+      <strong>Inicio:</strong> {{ formattedStartDate }}<br />
+      <strong>Fin:</strong> {{ formattedEndDate }}
+    </div>
+  </section>
 </div>
