@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DcxSize } from '../../core/interfaces';
 
@@ -42,7 +42,21 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   isDisabled = computed(() => this.disabled() || this.cvaDisabled());
 
   sizeClass = computed(() => `dcx-ng-radio--${this.size()}`);
-
+  radioClasses = computed(() => {
+    const base = 'dcx-ng-radio';
+    return [
+      base,
+      this.sizeClass(),
+      this.unstyled() ? `${base}--unstyled` : '',
+      this.error() ? `${base}--error` : '',
+      this.hover() ? `${base}--hover` : '',
+      this.focus() ? `${base}--focus` : '',
+      this.isDisabled() ? `${base}--disabled` : '',
+      this.isChecked() ? `${base}--checked` : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+  });
   ariaLabelBinding = computed(() => this.ariaLabel() || this.label() || 'Radio button');
 
   onInputChange(value: string | null): void {

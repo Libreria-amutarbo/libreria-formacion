@@ -1,15 +1,4 @@
-<label
-  class="dcx-ng-radio"
-  [class.dcx-ng-radio--unstyled]="unstyled()"
-  [class.dcx-ng-radio--error]="error()"
-  [class.dcx-ng-radio--hover]="hover()"
-  [class.dcx-ng-radio--focus]="focus()"
-  [class.dcx-ng-radio--disabled]="isDisabled()"
-  [class.dcx-ng-radio--checked]="isChecked()"
-  [class.dcx-ng-radio--s]="size() === 's'"
-  [class.dcx-ng-radio--m]="size() === 'm'"
-  [class.dcx-ng-radio--l]="size() === 'l'"
->
+<label [class]="radioClasses()">
   <input
     class="dcx-ng-radio__native"
     type="radio"
