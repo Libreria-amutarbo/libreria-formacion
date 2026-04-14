@@ -26,4 +26,5 @@ export const APP_ROUTES = {
   CONTEXTMENU: 'context-menu',
   GRID: 'grid',
   NAVBAR: 'navbar',
+  FILE_UPLOAD: 'file-upload',
 };

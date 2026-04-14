@@ -85,6 +85,7 @@ describe('DcxNgFileUploadComponent', () => {
     const selectedFile = new File(['demo'], 'demo.txt', {
       type: 'text/plain',
     });
+    component.selectedFiles.set([selectedFile]);
     component.selectedFile.set(selectedFile);
     fixture.detectChanges();
 
@@ -108,6 +109,7 @@ describe('DcxNgFileUploadComponent', () => {
     const selectedFile = new File(['demo'], 'demo.txt', {
       type: 'text/plain',
     });
+    component.selectedFiles.set([selectedFile]);
     component.selectedFile.set(selectedFile);
     fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();
@@ -127,5 +129,160 @@ describe('DcxNgFileUploadComponent', () => {
 
     expect(component.selectedFile()).toBeNull();
     expect(outputSpy).toHaveBeenCalledWith(null);
+  });
+
+  it('should set drag over state on drag events', () => {
+    const preventDefault = jest.fn();
+    fixture.componentRef.setInput('dragAndDrop', true);
+    fixture.detectChanges();
+
+    component.onDragOver({ preventDefault } as unknown as DragEvent);
+    expect(preventDefault).toHaveBeenCalled();
+    expect(component.isDragOver()).toBe(true);
+
+    component.onDragLeave({ preventDefault } as unknown as DragEvent);
+    expect(component.isDragOver()).toBe(false);
+  });
+
+  it('should set selected file when file is dropped', () => {
+    const selectedFile = new File(['demo'], 'drop-demo.txt', {
+      type: 'text/plain',
+    });
+    const outputSpy = jest.fn();
+    const preventDefault = jest.fn();
+    fixture.componentRef.setInput('dragAndDrop', true);
+    fixture.detectChanges();
+
+    component.fileSelected.subscribe(outputSpy);
+
+    component.onDrop({
+      preventDefault,
+      dataTransfer: { files: [selectedFile] },
+    } as unknown as DragEvent);
+
+    expect(preventDefault).toHaveBeenCalled();
+    expect(component.selectedFile()).toEqual(selectedFile);
+    expect(outputSpy).toHaveBeenCalledWith(selectedFile);
+  });
+
+  it('should ignore drag and drop when disabled', () => {
+    const preventDefault = jest.fn();
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+
+    component.onDragOver({ preventDefault } as unknown as DragEvent);
+    component.onDrop({
+      preventDefault,
+      dataTransfer: {
+        files: [new File(['demo'], 'drop-demo.txt', { type: 'text/plain' })],
+      },
+    } as unknown as DragEvent);
+
+    expect(preventDefault).not.toHaveBeenCalled();
+    expect(component.selectedFile()).toBeNull();
+  });
+
+  it('should auto emit uploadClicked when autoUpload is true and file is selected', () => {
+    const selectedFile = new File(['demo'], 'auto-demo.txt', {
+      type: 'text/plain',
+    });
+    const uploadSpy = jest.fn();
+
+    fixture.componentRef.setInput('autoUpload', true);
+    fixture.detectChanges();
+
+    component.uploadClicked.subscribe(uploadSpy);
+
+    component.onFileChange({
+      target: { files: [selectedFile] },
+    } as unknown as Event);
+
+    expect(uploadSpy).toHaveBeenCalledWith(selectedFile);
+    expect(component.selectedFiles()).toEqual([]);
+  });
+
+  it('should hide manual upload button when autoUpload is true', () => {
+    fixture.componentRef.setInput('autoUpload', true);
+    fixture.detectChanges();
+
+    const buttons = fixture.nativeElement.querySelectorAll('dcx-ng-button');
+
+    expect(buttons.length).toBe(1);
+  });
+
+  it('should render small dropzone variant by default when drag and drop is enabled', () => {
+    fixture.componentRef.setInput('dragAndDrop', true);
+    fixture.detectChanges();
+
+    const dropzone = fixture.nativeElement.querySelector(
+      '.dcx-file-upload__dropzone',
+    ) as HTMLElement;
+
+    expect(
+      dropzone.classList.contains('dcx-file-upload__dropzone--small'),
+    ).toBe(true);
+  });
+
+  it('should render large dropzone variant with icon when configured', () => {
+    fixture.componentRef.setInput('dragAndDrop', true);
+    fixture.componentRef.setInput('dropzoneSize', 'large');
+    fixture.detectChanges();
+
+    const dropzone = fixture.nativeElement.querySelector(
+      '.dcx-file-upload__dropzone',
+    ) as HTMLElement;
+    const icon = fixture.nativeElement.querySelector(
+      '.dcx-file-upload__dropzone-icon',
+    ) as HTMLElement;
+
+    expect(
+      dropzone.classList.contains('dcx-file-upload__dropzone--large'),
+    ).toBe(true);
+    expect(icon).toBeTruthy();
+  });
+
+  it('should allow selecting multiple files when multiple is true', () => {
+    const firstFile = new File(['one'], 'one.txt', {
+      type: 'text/plain',
+    });
+    const secondFile = new File(['two'], 'two.txt', {
+      type: 'text/plain',
+    });
+    const outputSpy = jest.fn();
+
+    fixture.componentRef.setInput('multiple', true);
+    fixture.detectChanges();
+    component.fileSelected.subscribe(outputSpy);
+
+    component.onFileChange({
+      target: { files: [firstFile, secondFile] },
+    } as unknown as Event);
+    fixture.detectChanges();
+
+    expect(component.selectedFiles()).toEqual([firstFile, secondFile]);
+    expect(outputSpy).toHaveBeenCalledWith([firstFile, secondFile]);
+  });
+
+  it('should clear selected files after upload in multiple mode', () => {
+    const firstFile = new File(['one'], 'one.txt', {
+      type: 'text/plain',
+    });
+    const secondFile = new File(['two'], 'two.txt', {
+      type: 'text/plain',
+    });
+    const uploadSpy = jest.fn();
+
+    fixture.componentRef.setInput('multiple', true);
+    fixture.detectChanges();
+
+    component.selectedFiles.set([firstFile, secondFile]);
+    component.selectedFile.set(firstFile);
+    component.uploadClicked.subscribe(uploadSpy);
+
+    component.onUploadClick();
+
+    expect(uploadSpy).toHaveBeenCalledWith([firstFile, secondFile]);
+    expect(component.selectedFiles()).toEqual([]);
+    expect(component.selectedFile()).toBeNull();
   });
 });

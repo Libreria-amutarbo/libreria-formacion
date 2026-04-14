@@ -2,8 +2,49 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: var(--font-family-primary, 'Inter', sans-serif);
+  font-family: var(--ff-base, 'Inter', sans-serif);
   flex-wrap: wrap;
+}
+
+.dcx-file-upload__dropzone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px dashed var(--border-light, #d1d5db);
+  border-radius: var(--r-md, 6px);
+  background: var(--bg-default, #ffffff);
+}
+
+.dcx-file-upload__dropzone--small {
+  display: inline-flex;
+  align-items: center;
+}
+
+.dcx-file-upload__dropzone--large {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5rem;
+  width: min(100%, 28rem);
+  min-height: 12rem;
+  padding: 1.25rem;
+}
+
+.dcx-file-upload__dropzone--drag-over {
+  border-color: var(--bg-primary, #0058ab);
+  background: color-mix(
+    in srgb,
+    var(--bg-primary, #0058ab) 10%,
+    var(--bg-default, #ffffff)
+  );
+}
+
+.dcx-file-upload__dropzone--disabled {
+  opacity: 0.6;
 }
 
 .dcx-file-upload__input {
@@ -19,9 +60,59 @@
 }
 
 .dcx-file-upload__file-name {
-  color: var(--content-default, #121212);
+  color: var(--bg-primary-pressed, #121a38);
+  max-width: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dcx-file-upload__file-list {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.dcx-file-upload__file-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dcx-file-upload__remove-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-disabled, #696e75);
+  cursor: pointer;
+}
+
+.dcx-file-upload__remove-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.dcx-file-upload__dropzone--large .dcx-file-upload__file-list {
+  align-items: center;
 }
 
 .dcx-file-upload__placeholder {
-  color: var(--content-subtle, #6b7280);
+  color: var(--text-disabled, #696e75);
+}
+
+.dcx-file-upload__drop-hint {
+  color: var(--text-disabled, #696e75);
+  font-size: 0.875rem;
+}
+
+.dcx-file-upload__dropzone-icon {
+  color: var(--bg-primary, #0058ab);
+  line-height: 0;
 }
