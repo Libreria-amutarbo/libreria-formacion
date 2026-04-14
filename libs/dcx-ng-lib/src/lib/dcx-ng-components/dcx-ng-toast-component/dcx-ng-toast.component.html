@@ -1,9 +1,27 @@
-<div [class]="toastClasses()" [attr.role]="role()" [attr.aria-live]="ariaLive()">
-    <dcx-ng-icon class="dcx-toast__icon" [name]="resolvedIconName()" size="m"
-        [color]="resolvedIconColor()"></dcx-ng-icon>
+<div
+  [class]="toastClasses()"
+  [attr.role]="role()"
+  [attr.aria-live]="ariaLive()"
+>
+  <dcx-ng-icon
+    class="dcx-toast__icon"
+    [name]="resolvedIconName()"
+    size="m"
+    [color]="resolvedIconColor()"
+  ></dcx-ng-icon>
 
-    <span class="dcx-toast__message">{{ message() }}</span>
+  <span class="dcx-toast__message">{{ message() }}</span>
 
-    <dcx-ng-button class="dcx-toast__action" label="Deshacer" variant="text" size="s"
-        (buttonClick)="onAction()"></dcx-ng-button>
+  @if (hasAction()) {
+    <dcx-ng-button
+      class="dcx-toast__action"
+      [label]="actionLabel()"
+      [icon]="!!actionIconName().trim()"
+      [iconName]="actionIconName()"
+      [ariaLabel]="resolvedActionAriaLabel()"
+      variant="text"
+      size="m"
+      (buttonClick)="onAction()"
+    ></dcx-ng-button>
+  }
 </div>

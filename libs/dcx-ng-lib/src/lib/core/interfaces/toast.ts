@@ -20,6 +20,9 @@ export interface DcxToastOptions {
     autoDismiss?: boolean;
     durationMs?: number;
     iconName?: string;
+    actionLabel?: string;
+    actionIconName?: string;
+    actionAriaLabel?: string;
 }
 
 export const DCX_TOAST_TYPE_LIST: DcxToastType[] = [
@@ -33,4 +36,5 @@ export const DCX_TOAST_DEFAULT_OPTIONS: Omit<DcxToastOptions, 'message'> = {
     type: 'info',
     autoDismiss: false,
     durationMs: 5000,
+    actionLabel: 'Deshacer',
 };

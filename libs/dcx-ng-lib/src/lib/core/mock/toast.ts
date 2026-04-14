@@ -21,6 +21,26 @@ export const DCX_TOAST_SUCCESS_WITH_ACTION: DcxToastOptions = {
     type: 'success',
     autoDismiss: false,
     durationMs: 5000,
+    actionLabel: 'Ver detalle',
+};
+
+export const DCX_TOAST_WITH_ICON_ACTION: DcxToastOptions = {
+    message: 'Sincronizacion disponible',
+    type: 'info',
+    autoDismiss: false,
+    durationMs: 5000,
+    actionLabel: 'Reintentar',
+    actionIconName: 'arrow-repeat',
+};
+
+export const DCX_TOAST_ICON_ONLY_ACTION: DcxToastOptions = {
+    message: 'Actualiza para ver cambios',
+    type: 'warning',
+    autoDismiss: false,
+    durationMs: 5000,
+    actionLabel: '',
+    actionIconName: 'arrow-clockwise',
+    actionAriaLabel: 'Actualizar contenido',
 };
 
 export const DCX_TOAST_INFO_DEMO: DcxToastOptions = {

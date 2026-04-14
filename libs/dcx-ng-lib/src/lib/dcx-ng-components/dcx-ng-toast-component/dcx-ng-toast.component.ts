@@ -22,6 +22,9 @@ export class DcxNgToastComponent {
   readonly autoDismiss = input<boolean>(false);
   readonly durationMs = input<number>(5000);
   readonly iconName = input<string>('');
+  readonly actionLabel = input<string>('Deshacer');
+  readonly actionIconName = input<string>('');
+  readonly actionAriaLabel = input<string>('');
 
   readonly actionClick = output<void>();
   readonly dismissed = output<void>();
@@ -36,6 +39,22 @@ export class DcxNgToastComponent {
   });
 
   readonly resolvedIconColor = computed(() => DCX_TOAST_COLOR_BY_TYPE[this.type()]);
+  readonly hasAction = computed(() => {
+    return !!this.actionLabel().trim() || !!this.actionIconName().trim();
+  });
+  readonly resolvedActionAriaLabel = computed(() => {
+    const explicitAria = this.actionAriaLabel().trim();
+    if (explicitAria) {
+      return explicitAria;
+    }
+
+    const label = this.actionLabel().trim();
+    if (label) {
+      return label;
+    }
+
+    return 'Accion del toast';
+  });
 
   readonly role = computed(() => {
     if (this.type() === 'error' || this.type() === 'warning') {

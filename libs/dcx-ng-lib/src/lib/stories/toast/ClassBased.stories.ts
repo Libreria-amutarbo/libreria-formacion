@@ -5,7 +5,9 @@ import {
     DCX_TOAST_DEFAULT_ARGS,
     DCX_TOAST_ERROR_DEMO,
     DCX_TOAST_INFO_DEMO,
+    DCX_TOAST_ICON_ONLY_ACTION,
     DCX_TOAST_SUCCESS_WITH_ACTION,
+    DCX_TOAST_WITH_ICON_ACTION,
     DCX_TOAST_WARNING_DEMO,
     DcxNgButtonComponent,
     DcxNgToastComponent,
@@ -64,6 +66,33 @@ const meta: Meta<DcxNgToastComponent> = {
                 defaultValue: { summary: '5000' },
             },
         },
+        actionLabel: {
+            control: { type: 'text' },
+            description: 'Texto del CTA del toast.',
+            table: {
+                category: 'Attributes',
+                type: { summary: 'string' },
+                defaultValue: { summary: 'Deshacer' },
+            },
+        },
+        actionIconName: {
+            control: { type: 'text' },
+            description: 'Icono opcional del CTA del toast.',
+            table: {
+                category: 'Attributes',
+                type: { summary: 'string' },
+                defaultValue: { summary: "''" },
+            },
+        },
+        actionAriaLabel: {
+            control: { type: 'text' },
+            description: 'Texto accesible para CTA solo icono.',
+            table: {
+                category: 'Attributes',
+                type: { summary: 'string' },
+                defaultValue: { summary: "''" },
+            },
+        },
         actionClick: {
             action: 'actionClick',
             table: {
@@ -93,6 +122,24 @@ type Story = StoryObj<DcxNgToastComponent>;
 export const Default: Story = {
     args: {
         ...DCX_TOAST_DEFAULT_ARGS,
+    },
+};
+
+export const CustomActionText: Story = {
+    args: {
+        ...DCX_TOAST_SUCCESS_WITH_ACTION,
+    },
+};
+
+export const CustomActionWithIcon: Story = {
+    args: {
+        ...DCX_TOAST_WITH_ICON_ACTION,
+    },
+};
+
+export const IconOnlyAction: Story = {
+    args: {
+        ...DCX_TOAST_ICON_ONLY_ACTION,
     },
 };
 
@@ -170,6 +217,9 @@ export const Interactive: Story = {
                 [autoDismiss]="toast.autoDismiss || false"
                 [durationMs]="toast.durationMs || 5000"
                 [iconName]="toast.iconName || ''"
+                                [actionLabel]="toast.actionLabel || 'Deshacer'"
+                                [actionIconName]="toast.actionIconName || ''"
+                                [actionAriaLabel]="toast.actionAriaLabel || ''"
                 (actionClick)="handleAction(toast.id, toast.type || 'info')"
                 (dismissed)="handleDismissed(toast.id, toast.type || 'info')"
               ></dcx-ng-toast>
