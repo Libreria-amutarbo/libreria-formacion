@@ -1,14 +1,12 @@
-import { Component, input, computed, effect } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CommonModule } from '@angular/common';
-import { DcxInputType, DcxNgInputComponent, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
+import { booleanAttribute, Component, computed, input, signal } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DcxSize } from '../../core/interfaces';
 
 
 @Component({
   selector: 'dcx-ng-radio',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, DcxNgInputComponent],
+  imports: [],
   templateUrl: './dcx-ng-radio.component.html',
   styleUrl: './dcx-ng-radio.component.scss',
   providers: [
@@ -26,43 +24,40 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   label = input<string | null>(null);
   size = input<DcxSize>('l');
   ariaLabel = input<string>('');
-  unstyled = input<boolean>(false);
-  error = input<boolean>(false);
-  hover = input<boolean>(false);
-  focus = input<boolean>(false);
-  disabled = input<boolean>(false);
+  checked = input(false);
+  unstyled = input(false);
+  error = input(false);
+  hover = input(false);
+  focus = input(false);
+  disabled = input(false);
 
-  readonly inputType = DcxInputType.RADIO;
-
-  readonly formControl = new FormControl<string | null>(null);
+  private readonly selectedValue = signal<string | null>(null);
+  private readonly cvaDisabled = signal(false);
 
   private onChange: (value: string | null) => void = () => { };
   private onTouched: () => void = () => { };
 
-  isChecked = computed(() => this.formControl.value === this.value());
+  isChecked = computed(() => this.checked() || this.selectedValue() === this.value());
 
-  displayValue = computed(() => (this.value() || '') as string | number);
+  isDisabled = computed(() => this.disabled() || this.cvaDisabled());
 
   sizeClass = computed(() => `dcx-ng-radio--${this.size()}`);
 
-  ariaLabelBinding = computed(() => this.ariaLabel() || 'Radio button');
-
-  constructor() {
-    this.formControl.valueChanges
-      .pipe(takeUntilDestroyed())
-      .subscribe(value => this.onChange(value));
-
-    effect(() => this.updateFormControlState(this.disabled()));
-  }
+  ariaLabelBinding = computed(() => this.ariaLabel() || this.label() || 'Radio button');
 
   onInputChange(value: string | null): void {
-    if (!this.disabled()) {
-      this.formControl.setValue(value);
-    }
+    if (this.isDisabled()) return;
+    this.selectedValue.set(value);
+    this.onChange(value);
+    this.onTouched();
+  }
+
+  onBlur(): void {
+    this.onTouched();
   }
 
   writeValue(value: string | null): void {
-    this.formControl.setValue(value, { emitEvent: false });
+    this.selectedValue.set(value);
   }
 
   registerOnChange(fn: (value: string | null) => void): void {
@@ -74,14 +69,6 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.updateFormControlState(isDisabled);
-  }
-
-  private updateFormControlState(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formControl.disable({ emitEvent: false });
-    } else {
-      this.formControl.enable({ emitEvent: false });
-    }
+    this.cvaDisabled.set(isDisabled);
   }
 }
