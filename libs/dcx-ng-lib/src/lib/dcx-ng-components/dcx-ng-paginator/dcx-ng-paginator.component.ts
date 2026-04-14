@@ -128,7 +128,7 @@ export class DcxNgPaginatorComponent {
   }
 
   getButtonVariant(pageNum: number): DcxButtonVariant {
-    return this.currentPage() === pageNum ? 'primary' : 'secondary';
+    return this.currentPage() === pageNum ? 'primary' : 'text';
   }
 
   getButtonLabel(page: number): string {
@@ -141,6 +141,16 @@ export class DcxNgPaginatorComponent {
 
   isEllipsis(page: number | string): boolean {
     return page === '...';
+  }
+
+  getEllipsisDirection(index: number, pages: (number | string)[]): number {
+    const currentPageIndex = pages.findIndex(page => page === this.currentPage());
+
+    if (currentPageIndex === -1) {
+      return 1;
+    }
+
+    return index < currentPageIndex ? -1 : 1;
   }
 
   onItemsPerPageChange(value: string): void {

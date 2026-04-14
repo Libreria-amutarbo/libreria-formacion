@@ -15,10 +15,13 @@
       }
     </div>
     <div class="dcx-paginator__pages" aria-label="Paginación">
+      @let pages = visiblePages();
+
       @if (limitedButtons()) {
         <dcx-ng-button
           class="dcx-paginator__button"
           [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+          [variant]="'text'"
           [icon]="true"
           iconName="chevron-double-left"
           iconSize="m"
@@ -29,26 +32,28 @@
       <dcx-ng-button
         class="dcx-paginator__button"
         [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+        [variant]="'text'"
         [icon]="true"
-        iconName="chevron-left"
+        iconName="arrow-left"
         iconSize="m"
         [disabled]="!hasPrevious()"
         (buttonClick)="goToPrevious()"
       />
 
-      @for (page of visiblePages(); track $index) {
+      @for (page of pages; track $index) {
         @if (isEllipsis(page)) {
           <dcx-ng-button
             class="dcx-paginator__ellipsis"
             [label]="'...'"
             [size]="'m'"
-            [variant]="'secondary'"
-            (buttonClick)="goToPageRelative($index < visiblePages().indexOf(currentPage()) ? -1 : 1)"
+            [variant]="'text'"
+            (buttonClick)="goToPageRelative(getEllipsisDirection($index, pages))"
           />
         } @else {
           <dcx-ng-button
             class="dcx-paginator__page"
-            [size]="getCurrentPage(getPageNumber(page)) ? 'xl' : 'm'"
+            [ngClass]="{ 'dcx-paginator__page--current': getCurrentPage(getPageNumber(page)) }"
+            [size]="'m'"
             [variant]="getButtonVariant(getPageNumber(page))"
             (buttonClick)="goToPage(getPageNumber(page))"
             [label]="getButtonLabel(getPageNumber(page))"
@@ -58,15 +63,17 @@
 
       <dcx-ng-button
         class="dcx-paginator__button"
+        [variant]="'text'"
         [icon]="true"
         iconSize="m"
-        iconName="chevron-right"
+        iconName="arrow-right"
         [disabled]="!hasNext()"
         (buttonClick)="goToNext()"
       />
       @if (limitedButtons()) {
         <dcx-ng-button
           class="dcx-paginator__button"
+          [variant]="'text'"
           [icon]="true"
           iconSize="m"
           iconName="chevron-double-right"
@@ -82,12 +89,9 @@
     </div>
   </div>
 
-
-
   @if (showPageInfo()) {
-    <div class="page-info" aria-live="polite" style="text-align: center; margin-top: 8px;">
+    <div class="page-info" aria-live="polite">
       Página {{ currentPage() }} de {{ totalPages() }}
     </div>
   }
-
 </div>
