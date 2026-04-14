@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgPageFileUpload } from './dcx-ng-page-file-upload';
+import { DcxNgPageFileUploadComponent } from './dcx-ng-page-file-upload.component';
 
 describe('DcxNgPageFileUpload', () => {
-  let component: DcxNgPageFileUpload;
-  let fixture: ComponentFixture<DcxNgPageFileUpload>;
+  let component: DcxNgPageFileUploadComponent;
+  let fixture: ComponentFixture<DcxNgPageFileUploadComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgPageFileUpload],
+      imports: [DcxNgPageFileUploadComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DcxNgPageFileUpload);
+    fixture = TestBed.createComponent(DcxNgPageFileUploadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

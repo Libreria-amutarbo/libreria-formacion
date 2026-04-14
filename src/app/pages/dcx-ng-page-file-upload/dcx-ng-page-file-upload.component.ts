@@ -8,4 +8,4 @@ import { DcxNgFileUploadComponent } from '@dcx-ng-components/dcx-ng-lib';
   templateUrl: './dcx-ng-page-file-upload.html',
   styleUrl: './dcx-ng-page-file-upload.scss',
 })
-export class DcxNgPageFileUpload {}
+export class DcxNgPageFileUploadComponent {}
