@@ -28,7 +28,7 @@ import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-gri
 import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
-import { DcxNgPagePopover } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
+import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
 
 export const appRoutes: Route[] = [
   {
@@ -141,6 +141,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: APP_ROUTES.POPOVER,
-    component: DcxNgPagePopover,
+    component: DcxNgPagePopoverComponent,
   },
 ];

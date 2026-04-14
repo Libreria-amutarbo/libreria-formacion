@@ -4,6 +4,7 @@
     class="dcx-popover"
     [style.top]="top()"
     [style.left]="left()"
+    [style.opacity]="isPositioned() ? '1' : '0'"
   >
     <div class="dcx-popover__content">
       <ng-content></ng-content>

@@ -5,14 +5,11 @@
   <div class="demo-section">
     <h2>Basic Popover</h2>
     <div class="demo-box">
-      <!-- 
-        We pass the parent reference (button or container) to the toggle function
-        so the popover knows where to render itself.
-      -->
+
       <div #buttonContainer style="display:inline-block;">
         <dcx-ng-button
           label="Open Popover"
-          (clicked)="myPopover.toggle(`$event`, buttonContainer)"
+          (buttonClick)="myPopover.toggle($event, buttonContainer)"
         ></dcx-ng-button>
       </div>
 

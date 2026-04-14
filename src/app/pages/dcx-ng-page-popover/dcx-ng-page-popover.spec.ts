@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgPagePopover } from './dcx-ng-page-popover';
+import { DcxNgPagePopoverComponent } from './dcx-ng-page-popover';
 
-describe('DcxNgPagePopover', () => {
-  let component: DcxNgPagePopover;
-  let fixture: ComponentFixture<DcxNgPagePopover>;
+describe('DcxNgPagePopoverComponent', () => {
+  let component: DcxNgPagePopoverComponent;
+  let fixture: ComponentFixture<DcxNgPagePopoverComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgPagePopover],
+      imports: [DcxNgPagePopoverComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DcxNgPagePopover);
+    fixture = TestBed.createComponent(DcxNgPagePopoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
