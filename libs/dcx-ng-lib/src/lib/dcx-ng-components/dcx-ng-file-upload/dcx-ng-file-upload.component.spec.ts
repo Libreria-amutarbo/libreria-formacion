@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgFileUploadComponent } from './dcx-ng-file-upload';
+import { DcxNgFileUploadComponent } from './dcx-ng-file-upload.component';
 
 describe('DcxNgFileUploadComponent', () => {
   let component: DcxNgFileUploadComponent;

@@ -5,7 +5,7 @@ import { DcxNgFileUploadComponent } from '@dcx-ng-components/dcx-ng-lib';
   selector: 'app-dcx-ng-page-file-upload',
   standalone: true,
   imports: [DcxNgFileUploadComponent],
-  templateUrl: './dcx-ng-page-file-upload.html',
-  styleUrl: './dcx-ng-page-file-upload.scss',
+  templateUrl: './dcx-ng-page-file-upload.component.html',
+  styleUrl: './dcx-ng-page-file-upload.component.scss',
 })
 export class DcxNgPageFileUploadComponent {}

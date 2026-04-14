@@ -21,7 +21,7 @@ import {
   standalone: true,
   imports: [DcxNgButtonComponent, DcxNgIconComponent],
   templateUrl: './dcx-ng-file-upload.component.html',
-  styleUrl: './dcx-ng-file-upload.scss',
+  styleUrl: './dcx-ng-file-upload.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgFileUploadComponent {
