@@ -10,29 +10,6 @@
 
   <section class="demo-section">
     <div class="section-head">
-      <p class="section-kicker">Default</p>
-      <h2>Scroll sobre la ventana</h2>
-    </div>
-
-    <div class="demo-panel demo-panel--window">
-      <div class="demo-copy">
-        @for (paragraph of longContent; track paragraph) {
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere
-            malesuada neque, ut luctus neque placerat a. Integer dignissim lacus
-            sit amet nunc finibus, eget luctus justo efficitur.
-          </p>
-        }
-      </div>
-
-      <dcx-ng-scroll-top-down size="m"></dcx-ng-scroll-top-down>
-    </div>
-  </section>
-
-  <dcx-ng-divider [thickness]="0.1" color="var(--border-light, #d1d5db)"></dcx-ng-divider>
-
-  <section class="demo-section">
-    <div class="section-head">
       <p class="section-kicker">Sizes</p>
       <h2>Variantes visuales</h2>
     </div>
@@ -93,15 +70,17 @@
       <h2>Scroll dentro de un panel</h2>
     </div>
 
-    <div class="scroll-container" #scrollContainer>
-      <div class="scroll-content">
-        @for (paragraph of longContent; track paragraph) {
-          <p>
-            Este panel sirve para validar el uso de <strong>container</strong> con
-            el componente. El scroll se aplica sobre este bloque y no sobre la
-            ventana.
-          </p>
-        }
+    <div class="scroll-container">
+      <div class="scroll-viewport" #scrollContainer>
+        <div class="scroll-content">
+          @for (paragraph of longContent; track paragraph) {
+            <p>
+              Este panel sirve para validar el uso de <strong>container</strong> con
+              el componente. El scroll se aplica sobre este bloque y no sobre la
+              ventana.
+            </p>
+          }
+        </div>
       </div>
 
       <dcx-ng-scroll-top-down
@@ -139,4 +118,10 @@
       </div>
     </div>
   </section>
+
+  <dcx-ng-scroll-top-down
+    size="m"
+    topLabel="Ir al inicio de la página"
+    bottomLabel="Ir al final de la página"
+  ></dcx-ng-scroll-top-down>
 </div>

@@ -98,7 +98,7 @@ export const Default: Story = {
   render: args => ({
     props: args,
     template: `
-      <div style="min-height: 1800px; padding: 2rem; background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);">
+      <div style="min-height: 1200px; padding: 2rem; background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);">
         <div style="max-width: 720px; margin: 0 auto; padding-right: 6rem;">
           <h2 style="margin-top: 0;">Window scroll demo</h2>
           <br>
@@ -126,28 +126,35 @@ export const ScrollableContainer: Story = {
   render: args => ({
     props: args,
     template: `
-      <div style="padding: 2rem; background: #f8fafc; min-height: 720px;">
+      <div style="padding: 2rem; background: #f8fafc; min-height: 520px;">
         <div
-          #containerRef
           style="
             position: relative;
             max-width: 820px;
             margin: 0 auto;
             height: 420px;
-            overflow: auto;
+            overflow: hidden;
             border: 1px solid #dbe4ee;
             border-radius: 16px;
             background: #ffffff;
-            padding: 1.25rem;
             box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
           "
         >
-          <h2 style="margin-top: 0;">Contenedor con scroll interno</h2>
-          <br>
-          ${longContent.repeat(20)}
+          <div
+            #viewportRef
+            style="
+              height: 100%;
+              overflow: auto;
+              padding: 1.25rem;
+            "
+          >
+            <h2 style="margin-top: 0;">Contenedor con scroll interno</h2>
+            <br>
+            ${longContent.repeat(20)}
+          </div>
 
           <dcx-ng-scroll-top-down
-            [container]="containerRef"
+            [container]="viewportRef"
             [smooth]="smooth"
             [size]="size"
             [iconSize]="iconSize"
@@ -157,6 +164,7 @@ export const ScrollableContainer: Story = {
             [bottomLabel]="bottomLabel"
             [topIcon]="topIcon"
             [bottomIcon]="bottomIcon"
+            style="position: absolute; right: 1rem; bottom: 1rem;"
           />
         </div>
       </div>
@@ -173,7 +181,7 @@ export const TopOnly: Story = {
   render: args => ({
     props: args,
     template: `
-      <div style="min-height: 1200px; padding: 2rem; background: #fff;">
+      <div style="min-height: 800px; padding: 2rem; background: #fff;">
         <p>Solo se muestra el botón para volver arriba.</p>
         <br>
         ${longContent.repeat(14)}

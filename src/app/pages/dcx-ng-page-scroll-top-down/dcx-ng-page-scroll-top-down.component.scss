@@ -157,6 +157,11 @@
 .scroll-container {
   position: relative;
   height: 420px;
+  overflow: hidden;
+}
+
+.scroll-viewport {
+  height: 100%;
   overflow: auto;
   padding: var(--sp-4, 16px);
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
@@ -176,14 +181,17 @@
 
 .split-card__body {
   position: relative;
-  min-height: 220px;
+  min-height: 140px;
   padding: var(--sp-3, 12px);
   border-radius: var(--r-md, 6px);
   border: 1px dashed var(--border-light, #d1d5db);
   background: var(--bg-surface, #f4f5f7);
 }
 
-:host ::ng-deep dcx-ng-scroll-top-down {
+.demo-panel dcx-ng-scroll-top-down,
+.preview dcx-ng-scroll-top-down,
+.scroll-container > dcx-ng-scroll-top-down,
+.split-card__body dcx-ng-scroll-top-down {
   position: absolute;
   right: var(--sp-4, 16px);
   bottom: var(--sp-4, 16px);
