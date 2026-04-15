@@ -21,6 +21,7 @@ const ROUTE_ICONS: Record<string, string> = {
     input: 'input-cursor-text',
     list: 'list-ul',
     message: 'envelope',
+    toast: 'bell',
     navbar: 'layout-sidebar',
     paginator: 'skip-end',
     radio: 'record-circle',
