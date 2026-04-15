@@ -143,7 +143,7 @@ export const AutoUpload: Story = {
     autoUpload: true,
     dragAndDrop: false,
     dropzoneSize: 'small',
-    placeholder: 'No file selected',
+    placeholder: '',
   },
   parameters: {
     docs: {
