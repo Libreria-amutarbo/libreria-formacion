@@ -25,7 +25,6 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   size = input<DcxSize>('l');
   ariaLabel = input<string>('');
   checked = input(false);
-  unstyled = input(false);
   error = input(false);
   hover = input(false);
   focus = input(false);
@@ -47,7 +46,6 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
     return [
       base,
       this.sizeClass(),
-      this.unstyled() ? `${base}--unstyled` : '',
       this.error() ? `${base}--error` : '',
       this.hover() ? `${base}--hover` : '',
       this.focus() ? `${base}--focus` : '',

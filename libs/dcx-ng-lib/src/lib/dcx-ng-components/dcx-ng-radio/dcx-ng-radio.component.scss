@@ -73,6 +73,10 @@
   .dcx-ng-radio__control {
     box-shadow: 0 0 0 2px var(--bg-default, #ffffff), 0 0 0 4px var(--border-focus, #1db8f2);
   }
+
+  &.dcx-ng-radio--error .dcx-ng-radio__control {
+    box-shadow: 0 0 0 2px var(--bg-default, #ffffff), 0 0 0 4px var(--border-error, #dc2626);
+  }
 }
 
 .dcx-ng-radio--error {
@@ -108,25 +112,4 @@
 .dcx-ng-radio--l {
   --dcx-radio-size: 18px;
   --dcx-radio-dot-size: 8px;
-}
-
-.dcx-ng-radio--unstyled {
-  --dcx-radio-border-color: initial;
-
-  .dcx-ng-radio__native {
-    position: static;
-    inline-size: auto;
-    block-size: auto;
-    opacity: 1;
-    pointer-events: auto;
-    margin: 0;
-  }
-
-  .dcx-ng-radio__control {
-    display: none;
-  }
-
-  .dcx-ng-radio__label {
-    color: inherit;
-  }
 }
