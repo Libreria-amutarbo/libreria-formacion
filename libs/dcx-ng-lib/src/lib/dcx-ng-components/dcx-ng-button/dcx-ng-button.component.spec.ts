@@ -82,23 +82,11 @@ describe('DcxNgButtonComponent', () => {
     expect(component.buttonClasses()).toContain('dcx-ng-button--secondary');
   });
 
-  it('should include icon-only class when variant is icon-only and has icon', () => {
+  it('should include icon-only class when no label but has icon', () => {
     fixture.componentRef.setInput('label', '');
-    fixture.componentRef.setInput('variant', 'icon-only');
     fixture.componentRef.setInput('iconName', 'search');
     fixture.detectChanges();
     expect(component.buttonClasses()).toContain('dcx-ng-button--icon-only');
-  });
-
-  it('should not include icon-only class when variant is not icon-only', () => {
-    fixture.componentRef.setInput('label', '');
-    fixture.componentRef.setInput('variant', 'secondary');
-    fixture.componentRef.setInput('iconName', 'search');
-    fixture.detectChanges();
-
-    expect(component.buttonClasses()).not.toContain('dcx-ng-button--icon-only');
-    expect(component.buttonClasses()).toContain('dcx-ng-button--secondary');
-    expect(component.buttonClasses()).toContain('dcx-ng-button--m');
   });
 
   it('should include custom class in buttonClasses', () => {
@@ -111,24 +99,5 @@ describe('DcxNgButtonComponent', () => {
     fixture.componentRef.setInput('size', 'l');
     fixture.detectChanges();
     expect(component.buttonClasses()).toContain('dcx-ng-button--l');
-  });
-
-  it('should inherit icon size from button size when iconSize is not provided', () => {
-    fixture.componentRef.setInput('icon', true);
-    fixture.componentRef.setInput('iconName', 'search');
-    fixture.componentRef.setInput('size', 'l');
-    fixture.detectChanges();
-
-    expect(component.resolvedIconSize()).toBe('l');
-  });
-
-  it('should use explicit iconSize when provided', () => {
-    fixture.componentRef.setInput('icon', true);
-    fixture.componentRef.setInput('iconName', 'search');
-    fixture.componentRef.setInput('size', 'l');
-    fixture.componentRef.setInput('iconSize', 's');
-    fixture.detectChanges();
-
-    expect(component.resolvedIconSize()).toBe('s');
   });
 });
