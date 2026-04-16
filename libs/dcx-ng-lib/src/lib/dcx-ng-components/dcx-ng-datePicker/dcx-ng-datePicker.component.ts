@@ -12,10 +12,16 @@ import {
   DcxInputType,
   DateFormatPattern,
   DateFormat,
+  DCX_DATEPICKER_WEEKDAYS,
+  DCX_DATEPICKER_LABELS,
+  DCX_DATEPICKER_MONTHS,
   CalendarDay,
 } from '../../core/interfaces';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
+
+// --- Métodos públicos de navegación ---
+
 @Component({
   selector: 'dcx-ng-date-picker',
   standalone: true,
@@ -25,6 +31,16 @@ import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgDatePickerComponent {
+  onCalendarIconClick(event: any): void {
+    if (event && typeof event.stopPropagation === 'function') {
+      event.stopPropagation();
+    }
+    this.toggleCalendar();
+  }
+
+  get monthsIndexes(): number[] {
+    return Array.from({ length: this.monthsList.length }, (_, i) => i);
+  }
   public DcxInputType = DcxInputType;
 
   private readonly dateFormatPatterns: DateFormatPattern = {
@@ -53,16 +69,9 @@ export class DcxNgDatePickerComponent {
   readonly startDateChange = output<Date | null>();
   readonly endDateChange = output<Date | null>();
 
-  readonly weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-  readonly labels = {
-    clearDate: 'Limpiar fecha',
-    previous: 'Anterior',
-    next: 'Siguiente',
-    selectMonth: 'Selecciona mes',
-    selectYear: 'Selecciona año',
-    today: 'Hoy',
-    goToToday: 'Ir a hoy',
-  };
+  readonly weekDays = DCX_DATEPICKER_WEEKDAYS;
+  readonly labels = DCX_DATEPICKER_LABELS;
+  readonly monthsList = DCX_DATEPICKER_MONTHS;
 
   private readonly _currentMonth = signal<Date | null>(null);
   private readonly _isOpen = signal(false);
@@ -129,21 +138,6 @@ export class DcxNgDatePickerComponent {
   readonly isYearMode = computed(() => this._mode() === 'year');
   readonly isCalendarMode = computed(() => this._mode() === 'calendar');
 
-  readonly monthsList = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre',
-  ];
-
   readonly yearsList = computed(() => {
     const currentYear = this.currentMonth().getFullYear();
     const start = this._yearPageStart() ?? currentYear - (currentYear % 12);
@@ -190,7 +184,6 @@ export class DcxNgDatePickerComponent {
     const date = this.selectedDate();
     return date ? this.formatDate(date) : this.placeholder();
   }
-
   readonly calendarDays = computed(() => {
     const currentMonth = this.currentMonth();
     const year = currentMonth.getFullYear();
@@ -261,7 +254,6 @@ export class DcxNgDatePickerComponent {
 
     return { isSelected, isInRange };
   }
-
   private calculateMultiSelectionState(dateTime: number): {
     isSelected: boolean;
     isInRange: boolean;
@@ -276,7 +268,6 @@ export class DcxNgDatePickerComponent {
       isInRange: false,
     };
   }
-
   private calculateSingleSelectionState(dateTime: number): {
     isSelected: boolean;
     isInRange: boolean;
@@ -315,6 +306,20 @@ export class DcxNgDatePickerComponent {
     this._isOpen.set(false);
     this._currentMonth.set(null);
     this._mode.set('calendar');
+  }
+
+  previousYear(): void {
+    const current = this.currentMonth();
+    const newDate = new Date(current);
+    newDate.setFullYear(newDate.getFullYear() - 1);
+    this._currentMonth.set(newDate);
+  }
+
+  nextYear(): void {
+    const current = this.currentMonth();
+    const newDate = new Date(current);
+    newDate.setFullYear(newDate.getFullYear() + 1);
+    this._currentMonth.set(newDate);
   }
 
   previousMonth(): void {
@@ -375,6 +380,18 @@ export class DcxNgDatePickerComponent {
     this._mode.set('calendar');
   }
 
+  applyDate(): void {
+    if (this.rangeSelect()) {
+      this.startDateChange.emit(this.startDate());
+      this.endDateChange.emit(this.endDate());
+    } else if (this.multiSelect()) {
+      this.selectedDatesChange.emit(this.selectedDates());
+    } else {
+      this.selectedDateChange.emit(this.selectedDate());
+    }
+    this.closeCalendar();
+  }
+
   selectDate(day: CalendarDay): void {
     if (day.isDisabled || this.disabled()) return;
 
@@ -424,7 +441,6 @@ export class DcxNgDatePickerComponent {
 
   private handleSingleSelection(selectedDate: Date): void {
     this.selectedDateChange.emit(selectedDate);
-    this.closeCalendar();
   }
 
   clearDate(_event: { clicked: boolean }): void {
