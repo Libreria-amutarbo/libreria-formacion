@@ -6,7 +6,7 @@
     <h2>Basic Popover</h2>
     <div class="demo-box">
 
-      <div #buttonContainer style="display:inline-block;">
+      <div #buttonContainer class="button-container">
         <dcx-ng-button
           label="Open Popover"
           (buttonClick)="myPopover.toggle($event, buttonContainer)"
@@ -14,9 +14,9 @@
       </div>
 
       <dcx-ng-popover #myPopover>
-        <div style="padding: 1rem; width: 250px;">
-          <h3 style="margin-top: 0; margin-bottom: 0.5rem;">Popover Title</h3>
-          <p style="margin: 0; color: #666;">This is the content inside the popover. It can be any HTML or Angular component.</p>
+        <div class="popover-content">
+          <h3 class="popover-title">Popover Title</h3>
+          <p class="popover-description">This is the content inside the popover. It can be any HTML or Angular component.</p>
         </div>
       </dcx-ng-popover>
     </div>
