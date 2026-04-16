@@ -13,31 +13,29 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DcxInputType, DcxSpacing, DcxSize } from '../../core/interfaces';
 import {
-  DcxSize,
-  DcxSpacing,
-  DcxInputType,
-  ERRORICON,
-  SPACING_DEFAULT,
-  DcxNgIconComponent,
-  DcxNgButtonComponent,
-  INPUT_DEFAULT_ARIA_DESCRIBEDBY,
-  INPUT_DEFAULT_ARIA_LABEL,
-  INPUT_DEFAULT_AUTOCOMPLETE,
+  INPUT_DEFAULT_VALUE,
   INPUT_DEFAULT_DISABLED,
-  INPUT_DEFAULT_ERROR_MESSAGE,
+  INPUT_DEFAULT_READONLY,
+  INPUT_DEFAULT_PLACEHOLDER,
+  INPUT_DEFAULT_TYPE,
+  INPUT_DEFAULT_NAME,
+  INPUT_DEFAULT_REQUIRED,
+  INPUT_DEFAULT_AUTOCOMPLETE,
   INPUT_DEFAULT_INPUTMODE,
   INPUT_DEFAULT_INVALID,
   INPUT_DEFAULT_LABEL,
-  INPUT_DEFAULT_NAME,
-  INPUT_DEFAULT_PLACEHOLDER,
-  INPUT_DEFAULT_READONLY,
-  INPUT_DEFAULT_REQUIRED,
+  INPUT_DEFAULT_ARIA_LABEL,
+  INPUT_DEFAULT_ARIA_DESCRIBEDBY,
+  INPUT_DEFAULT_ERROR_MESSAGE,
+  ERRORICON,
+  SPACING_DEFAULT,
   INPUT_DEFAULT_SIZE,
-  INPUT_DEFAULT_TYPE,
-  INPUT_DEFAULT_VALUE,
   SLIDER_DEFAULT_VALUES,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/mock';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 let uuid = 0;
 @Component({
@@ -118,8 +116,8 @@ export class DcxNgInputComponent {
   step = input(SLIDER_DEFAULT_VALUES.step);
   stepInput = computed<number>(() => this.step());
 
-  private onChange: (val: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (val: any) => void = () => null;
+  private onTouched: () => void = () => null;
   errorId = computed(() => `${this.id()}-error`);
 
   displayType = computed<string>(() => {

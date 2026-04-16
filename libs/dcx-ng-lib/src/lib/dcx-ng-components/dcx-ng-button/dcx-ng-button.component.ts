@@ -7,13 +7,13 @@ import {
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import {
-  DcxNgIconComponent,
   DcxButtonType,
   DcxButtonVariant,
   DcxSize,
   DcxIconSpacing,
   DcxIconPosition,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/interfaces';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   imports: [DcxNgIconComponent, NgTemplateOutlet],

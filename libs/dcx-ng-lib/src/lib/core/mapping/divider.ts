@@ -1,4 +1,4 @@
-import { DcxSize } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxSize } from '../interfaces';
 
 const dividerSizeMap: Record<DcxSize, string> = {
   s: '5rem',

@@ -1,14 +1,25 @@
 import { Component, input, computed, effect } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormsModule,
+  FormControl,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { DcxInputType, DcxNgInputComponent, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
-
+import { DcxSize, DcxInputType } from '../../core/interfaces';
+import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 
 @Component({
   selector: 'dcx-ng-radio',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, DcxNgInputComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    DcxNgInputComponent,
+  ],
   templateUrl: './dcx-ng-radio.component.html',
   styleUrl: './dcx-ng-radio.component.scss',
   providers: [
@@ -20,7 +31,6 @@ import { DcxInputType, DcxNgInputComponent, DcxSize } from '@dcx-ng-components/d
   ],
 })
 export class DcxNgRadioComponent implements ControlValueAccessor {
-
   name = input<string>('');
   value = input<string | null>(null);
   label = input<string | null>(null);
@@ -36,8 +46,8 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
 
   readonly formControl = new FormControl<string | null>(null);
 
-  private onChange: (value: string | null) => void = () => { };
-  private onTouched: () => void = () => { };
+  private onChange: (value: string | null) => void = () => null;
+  private onTouched: () => void = () => null;
 
   isChecked = computed(() => this.formControl.value === this.value());
 

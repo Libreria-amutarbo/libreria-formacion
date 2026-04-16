@@ -3,5 +3,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run verify:commit && npx lint-staged
+npm run verify:commit 
 

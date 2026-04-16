@@ -1,4 +1,4 @@
-import { DcxContextMenuItem } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxContextMenuItem } from '../interfaces';
 
 export const CONTEXT_MENU_TEST_ITEMS: DcxContextMenuItem[] = [
   { text: 'Edit', action: () => {} },
