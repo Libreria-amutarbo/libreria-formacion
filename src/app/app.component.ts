@@ -25,6 +25,7 @@ const ROUTE_ICONS: Record<string, string> = {
   input: 'input-cursor-text',
   list: 'list-ul',
   message: 'envelope',
+  toast: 'bell',
   navbar: 'layout-sidebar',
   paginator: 'skip-end',
   radio: 'record-circle',
@@ -40,7 +41,7 @@ const ROUTE_ICONS: Record<string, string> = {
 
 @Component({
   standalone: true,
-  imports: [RouterModule, DcxNgNavbarComponent],
+  imports: [RouterModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

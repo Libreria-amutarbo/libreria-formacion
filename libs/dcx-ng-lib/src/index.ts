@@ -2,6 +2,7 @@ export * from './lib/core/interfaces';
 export * from './lib/core/mock';
 export * from './lib/core/constants';
 
+export * from './lib/core/mapping';
 export * from './lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 export * from './lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
 export * from './lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
@@ -24,6 +25,7 @@ export * from './lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component
 export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
 export * from './lib/dcx-ng-components/dcx-ng-tabs/dcx-ng-tabs.component';
 export * from './lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+export * from './lib/dcx-ng-components/dcx-ng-toast-component/dcx-ng-toast.component';
 export * from './lib/services/icon.service';
 export * from './lib/dcx-ng-components/dcx-ng-dialog/dcx-ng-dialog.component';
 export * from './lib/services/dialog.service';

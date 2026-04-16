@@ -46,16 +46,6 @@ const meta: Meta<DcxNgButtonComponent> = {
         },
       },
     },
-    pressed: {
-      control: 'boolean',
-      description: 'Estado presionado del botón',
-      table: {
-        category: 'Attributes',
-        defaultValue: {
-          summary: 'false',
-        },
-      },
-    },
     hover: {
       control: 'boolean',
       description: 'Estado hover estático del botón',
@@ -76,10 +66,21 @@ const meta: Meta<DcxNgButtonComponent> = {
         },
       },
     },
+    pressed: {
+      control: 'boolean',
+      description: 'Estado presionado del botón',
+      table: {
+        category: 'Attributes',
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
     variant: {
       control: 'select',
       options: BUTTON_VARIANT_LIST,
-      description: 'Estilo visual del botón (primary, secondary, ghost, danger)',
+      description:
+        'Estilo visual del botón (primary, secondary, ghost, danger)',
       table: {
         category: 'Attributes',
         defaultValue: {
@@ -116,15 +117,13 @@ const meta: Meta<DcxNgButtonComponent> = {
     iconName: {
       control: 'select',
       options: BOOTSTRAP_ICONS,
-      description:
-        'Icono de Bootstrap Icons (p.ej. "chevron-left", "save")',
+      description: 'Icono de Bootstrap Icons (p.ej. "chevron-left", "save")',
       table: { category: 'Attributes' },
     },
     iconRightName: {
       control: 'select',
       options: BOOTSTRAP_ICONS,
-      description:
-        'Icono derecho de Bootstrap Icons (p.ej. "chevron-right")',
+      description: 'Icono derecho de Bootstrap Icons (p.ej. "chevron-right")',
       table: { category: 'Attributes' },
     },
     iconSize: {

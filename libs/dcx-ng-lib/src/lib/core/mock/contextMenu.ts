@@ -13,6 +13,7 @@ export const SIMPLE_CONTEXT_MENU_ITEMS: DcxContextMenuItem[] = [
   { text: 'Guardar', icon: 'save' },
   { text: 'Guardar como...', icon: 'save-fill' },
   { divider: true },
+  { text: 'Eliminar', icon: 'trash', variant: 'danger' },
   { text: 'Cerrar', icon: 'x-lg' },
 ];
 
@@ -38,5 +39,5 @@ export const SUBLIST_CONTEXT_MENU_ITEMS: DcxContextMenuItem[] = [
     ],
   },
   { divider: true },
-  { text: 'Eliminar', icon: 'trash', disabled: true },
+  { text: 'Eliminar', icon: 'trash', variant: 'danger' },
 ];

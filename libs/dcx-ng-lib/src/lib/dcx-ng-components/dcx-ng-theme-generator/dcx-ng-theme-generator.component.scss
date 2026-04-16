@@ -49,29 +49,34 @@
 }
 
 .theme-generator__group-btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-2, 8px);
-  padding: var(--sp-2, 8px) var(--sp-3, 12px);
-  border: none;
-  border-radius: var(--r-md, 6px);
-  background: transparent;
-  color: var(--text-muted, #696e75);
-  font-size: var(--fs-sm, 12px);
-  font-weight: var(--fw-medium, 500);
-  cursor: pointer;
-  text-align: left;
-  transition:
-    background 200ms ease,
-    color 200ms ease;
+  width: 100%;
 
-  &:hover {
+  ::ng-deep .dcx-ng-button {
+    width: 100%;
+    justify-content: space-between;
+    gap: var(--sp-2, 8px);
+    padding: var(--sp-2, 8px) var(--sp-3, 12px);
+    border: none;
+    border-radius: var(--r-md, 6px);
+    background: transparent;
+    color: var(--text-muted, #696e75);
+    font-size: var(--fs-sm, 12px);
+    font-weight: var(--fw-medium, 500);
+    text-align: left;
+    box-shadow: none;
+    transition:
+      background 200ms ease,
+      color 200ms ease;
+  }
+
+  ::ng-deep .dcx-ng-button:hover:not(:disabled) {
     background: var(--bg-hover, #f7f8fa);
     color: var(--text-dark, #2a2e33);
   }
+}
 
-  &--active {
+.theme-generator__group-btn--active {
+  ::ng-deep .dcx-ng-button {
     background: var(--bg-default, #ffffff);
     color: var(--bg-primary, #0058ab);
     font-weight: var(--fw-semibold, 600);
@@ -160,6 +165,7 @@
   &::-webkit-color-swatch-wrapper {
     padding: 0;
   }
+
   &::-webkit-color-swatch {
     border: none;
     border-radius: 2px;
@@ -184,22 +190,20 @@
 }
 
 .theme-generator__reset-token {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: none;
-  border-radius: var(--r-sm, 4px);
-  background: transparent;
-  color: var(--text-muted, #696e75);
-  font-size: var(--fs-md, 16px);
-  cursor: pointer;
-  transition:
-    background 150ms ease,
-    color 150ms ease;
+  ::ng-deep .dcx-ng-button {
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: var(--r-sm, 4px);
+    background: transparent;
+    color: var(--text-muted, #696e75);
+    font-size: var(--fs-md, 16px);
+    box-shadow: none;
+  }
 
-  &:hover {
+  ::ng-deep .dcx-ng-button:hover:not(:disabled) {
     background: var(--bg-pressed, #e1e3e6);
     color: var(--text-dark, #2a2e33);
   }

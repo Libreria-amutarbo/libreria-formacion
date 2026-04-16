@@ -10,9 +10,10 @@ import * as TabsClass from './ClassBased.stories';
 
 ## Inputs
 
-- `tabs: DcxTabItem[]` (required) - Array of tab objects that define the tabs
-- `activeTabId: string` - ID of the active tab by default
-- `disabled: boolean` - Disables all tabs
+- `tabs: DcxTabItem[]` (required) — Array of tab objects that define the tabs
+- `activeTabId: string` — ID of the active tab by default
+- `variant: 'line' | 'pill' | 'brand'` — Visual style of the tabs (default: 'line')
+- `disabled: boolean` — Disables all tabs
 
 ## Outputs
 
@@ -30,21 +31,23 @@ interface DcxTabItem {
 
 ---
 
-## Unstyled
+## Variants
 
-<Canvas of={TabsUn.Basic} />
+### Line (default)
 
----
+<Canvas of={TabsClass.Default} />
 
-## Class-Based
+### Brand (primary background)
 
-<Canvas of={TabsClass.Basic} />
+<Canvas of={TabsClass.BrandTabs} />
+
+### Pill
+
+<Canvas of={TabsClass.PillTabs} />
 
 ### Disabled State
 
-<Canvas of={TabsClass.Disabled} />
-
----
+<Canvas of={TabsClass.DisabledTabs} />
 
 ## Usage
 
@@ -54,6 +57,17 @@ interface DcxTabItem {
 <dcx-ng-tabs
   [tabs]="tabs"
   [activeTabId]="activeTabId"
+  (tabChange)="onTabChange($event)"
+></dcx-ng-tabs>
+```
+
+### With Variant
+
+```html
+<dcx-ng-tabs
+  [tabs]="tabs"
+  [activeTabId]="activeTabId"
+  [variant]="'brand'"  <!-- or 'pill' or 'line' -->
   (tabChange)="onTabChange($event)"
 ></dcx-ng-tabs>
 ```

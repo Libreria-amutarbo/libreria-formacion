@@ -65,6 +65,37 @@
 
 <hr />
 
+<section>
+  <h2 class="example-title">Ejemplo 10 - Control Externo</h2>
+  <p style="margin-bottom: 1rem; color: var(--content-subtle);">
+    Usa los botones para controlar el estado del acordeón programáticamente
+    mediante <code>ViewChild</code> o referencias de plantilla.
+  </p>
+
+  <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
+    <dcx-ng-button
+      [label]="getExternalButtonLabel('1')"
+      [variant]="getExternalButtonVariant('1')"
+      (buttonClick)="toggleExternalItem('1')"
+    >
+    </dcx-ng-button>
+
+    <dcx-ng-button
+      [label]="getExternalButtonLabel('2')"
+      [variant]="getExternalButtonVariant('2')"
+      (buttonClick)="toggleExternalItem('2')"
+    >
+    </dcx-ng-button>
+  </div>
+
+  <dcx-ng-accordion
+    #externalAccordion
+    [items]="defaultItems"
+    [transition]="'smooth'"
+  >
+  </dcx-ng-accordion>
+</section>
+
 <!-- templates used for the "Con componentes" example -->
 <ng-template #buttonTemplate>
   <div style="display: flex; gap: 8px; flex-wrap: wrap; padding: 8px 0;">

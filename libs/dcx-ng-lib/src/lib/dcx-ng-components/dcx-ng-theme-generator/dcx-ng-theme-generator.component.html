@@ -17,21 +17,23 @@
       aria-label="Grupos de tokens"
     >
       @for (group of groups; track group) {
-        <button
+        <dcx-ng-button
           class="theme-generator__group-btn"
-          role="tab"
           [class.theme-generator__group-btn--active]="activeGroup() === group"
+          role="tab"
           [attr.aria-selected]="activeGroup() === group"
-          (click)="setGroup(group)"
+          [label]="groupLabels[group]"
+          [ariaLabel]="groupLabels[group]"
+          variant="text"
+          size="s"
+          (buttonClick)="setGroup(group)"
         >
-          {{ groupLabels[group] }}
           @if (modifiedCountByGroup()[group]) {
-            <span
-              class="theme-generator__badge"
-              >{{ modifiedCountByGroup()[group] }}</span
-            >
+            <span button-trailing class="theme-generator__badge">
+              {{ modifiedCountByGroup()[group] }}
+            </span>
           }
-        </button>
+        </dcx-ng-button>
       }
     </nav>
 
@@ -70,14 +72,14 @@
               maxlength="7"
             />
             @if (isModified(token)) {
-              <button
+              <dcx-ng-button
                 class="theme-generator__reset-token"
-                (click)="resetToken(token.name)"
-                [attr.aria-label]="'Restaurar ' + token.label"
-                title="Restaurar valor original"
-              >
-                ↩
-              </button>
+                [label]="'↩'"
+                [ariaLabel]="'Restaurar ' + token.label"
+                variant="text"
+                size="s"
+                (buttonClick)="resetToken(token.name)"
+              />
             }
           </div>
         </div>

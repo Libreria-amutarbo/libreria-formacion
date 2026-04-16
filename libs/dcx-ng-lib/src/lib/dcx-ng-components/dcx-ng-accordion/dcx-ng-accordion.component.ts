@@ -33,25 +33,23 @@ export class DcxNgAccordionComponent {
 
   private _expandedItems = signal<Set<string>>(new Set());
 
-  constructor() {
-    effect(() => {
-      const inputExpandedIds = this.expandedIds();
-      const items = this.items();
-      const expandedSet = new Set<string>();
+  private readonly _initEffect = effect(() => {
+    const inputExpandedIds = this.expandedIds();
+    const items = this.items();
+    const expandedSet = new Set<string>();
 
-      if (inputExpandedIds.length > 0) {
-        inputExpandedIds.forEach(id => expandedSet.add(id));
-      } else {
-        items.forEach(item => {
-          if (item.expanded) {
-            expandedSet.add(item.id);
-          }
-        });
-      }
+    if (inputExpandedIds.length > 0) {
+      inputExpandedIds.forEach(id => expandedSet.add(id));
+    } else {
+      items.forEach(item => {
+        if (item.expanded) {
+          expandedSet.add(item.id);
+        }
+      });
+    }
 
-      this._expandedItems.set(expandedSet);
-    });
-  }
+    this._expandedItems.set(expandedSet);
+  });
 
   onButtonClick(item: DcxNgAccordionItem): void {
     this.toggleItem(item);

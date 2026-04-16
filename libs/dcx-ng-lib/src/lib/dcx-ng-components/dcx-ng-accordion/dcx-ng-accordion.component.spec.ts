@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgAccordionComponent } from './dcx-ng-accordion.component';
 import {
+  DcxNgAccordionComponent,
   DcxNgAccordionItem,
   DcxAccordionDefault,
   DcxAccordionItemsWithExpanded,

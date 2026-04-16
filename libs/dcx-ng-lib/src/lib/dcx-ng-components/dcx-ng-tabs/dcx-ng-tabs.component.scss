@@ -2,11 +2,11 @@
 @use '../../../scss/utils' as utils;
 
 .dcx-tabs {
-  font-family: var(--font-family-primary);
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  font-weight: var(--fw-medium, 500);
+
   display: flex;
   flex-direction: column;
-  width: 100%;
-
   &__controls {
     @include flex-end;
     dcx-ng-button {
@@ -22,8 +22,8 @@
 
   &__header {
     display: flex;
-    border-bottom: 1px solid var(--border-terciary);
-    gap: 0;
+    border-bottom: 1px solid var(--border-light, #d1d5db);
+    gap: 0.75rem;
     overflow-x: auto;
     overflow-y: hidden;
     flex: 1;
@@ -35,6 +35,53 @@
 
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    &.dcx-tabs__header--brand {
+      background: var(--bg-primary, #0058ab);
+      border-radius: var(--r-xl, 12px) var(--r-xl, 12px) 0 0;
+      border-bottom: 2px solid var(--border-focus, #1db8f2);
+      min-height: 48px;
+    }
+
+    &.dcx-tabs__header--pill {
+      background: var(--border-light, #d1d5db);
+      border-radius: var(--r-pill, 999px);
+      padding: 3px;
+      gap: 2px;
+      border-bottom: none;
+      min-height: 40px;
+      display: inline-flex;
+      width: auto;
+    }
+  }
+  .dcx-tab__button--pill {
+    font-size: var(--fs-base, 14px);
+    color: var(--text-muted, #696e75);
+    padding: var(--sp-1, 4px) var(--sp-4, 16px);
+    border-radius: var(--r-pill, 999px);
+    background: none;
+    border: none;
+    transition: all 0.15s;
+    user-select: none;
+    white-space: nowrap;
+    box-shadow: none;
+
+    &:hover:not(.disabled) {
+      color: var(--bg-primary, #0058ab);
+      background: var(--bg-default, #fff);
+      border-radius: var(--r-pill, 999px);
+    }
+    &.active {
+      background: var(--bg-default, #ffffff);
+      color: var(--bg-primary, #0058ab);
+      font-weight: var(--fw-semibold, 600);
+      border-radius: var(--r-pill, 999px);
+    }
+    &.disabled {
+      color: var(--text-disabled, #d1d5db);
+      opacity: 0.6;
+      cursor: not-allowed;
     }
   }
 
@@ -54,47 +101,50 @@
   }
 
   &__content {
-    padding: var(--spacing-m);
+    padding: var(--sp-4, 16px);
     animation: fadeIn 0.3s ease;
   }
 }
-
-.dcx-tab {
-  &__button {
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    color: var(--text-disabled);
-    font-weight: var(--font-weight-medium);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    flex-shrink: 0;
-    white-space: nowrap;
-
-    &:hover:not(:disabled) {
-      color: var(--text-body);
-      background-color: var(--background-hover);
-    }
-
-    &.active {
-      color: var(--background-primary);
-      border-bottom-color: var(--background-primary);
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-  }
-
-  &__panel {
-    p {
-      margin: 0;
-      color: var(--text-body);
-      line-height: var(--line-height-normal);
-    }
-  }
+.dcx-tab__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--text-disabled, #696e75);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 0.75rem 1rem;
+  margin-right: 0.75rem;
+  text-align: center;
+}
+.dcx-tab__button:hover:not(.disabled) {
+  color: var(--bg-primary, #0058ab);
+  background-color: var(--bg-hover, #f7f8fa);
+}
+.dcx-tab__button.active {
+  color: var(--bg-primary, #0058ab);
+  border-bottom-color: var(--bg-primary, #0058ab);
+  font-weight: var(--fw-semibold, 600);
+}
+.dcx-tab__button.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.dcx-tab__button--brand {
+  color: var(--text-placeholder, #9ca3af);
+}
+.dcx-tab__button--brand.active {
+  color: var(--text-white, #fff);
+  border-bottom-color: var(--border-focus, #1db8f2);
+}
+.dcx-tab__button--brand:hover:not(.disabled) {
+  background: var(--text-white, #fff);
 }
 
 @keyframes fadeIn {
