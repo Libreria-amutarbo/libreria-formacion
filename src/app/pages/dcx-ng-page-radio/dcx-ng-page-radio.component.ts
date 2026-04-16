@@ -43,6 +43,10 @@ export class DcxNgPageRadioComponent implements OnInit {
     return this.formulario.get('disabledControl') as FormControl;
   }
 
+  get unstyledControl(): FormControl {
+    return this.formulario.get('unstyledControl') as FormControl;
+  }
+
   ngOnInit(): void {
     this.formulario = this.fb.group({
       tamanioControl: [''],
@@ -51,7 +55,8 @@ export class DcxNgPageRadioComponent implements OnInit {
       errorControl: [''],
       hoverControl: [''],
       focusControl: [''],
-      disabledControl: [{ value: '', disabled: true }]
+      disabledControl: [{ value: '', disabled: true }],
+      unstyledControl: ['']
     });
   }
 
