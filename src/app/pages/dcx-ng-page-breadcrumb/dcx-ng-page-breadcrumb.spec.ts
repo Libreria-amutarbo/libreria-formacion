@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DcxNgPageBreadcrumb } from './dcx-ng-page-breadcrumb';
+import { DcxNgPageBreadcrumbComponent } from './dcx-ng-page-breadcrumb';
 
-describe('DcxNgPageBreadcrumb', () => {
-  let component: DcxNgPageBreadcrumb;
-  let fixture: ComponentFixture<DcxNgPageBreadcrumb>;
+describe('DcxNgPageBreadcrumbComponent', () => {
+  let component: DcxNgPageBreadcrumbComponent;
+  let fixture: ComponentFixture<DcxNgPageBreadcrumbComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgPageBreadcrumb],
+      imports: [DcxNgPageBreadcrumbComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DcxNgPageBreadcrumb);
+    fixture = TestBed.createComponent(DcxNgPageBreadcrumbComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

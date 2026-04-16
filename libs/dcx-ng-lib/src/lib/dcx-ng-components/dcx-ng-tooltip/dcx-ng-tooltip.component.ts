@@ -13,12 +13,12 @@ import {
 import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
-  AvailableSpace,
   DcxPosition,
-  TOOLTIP_DEFAULT_CONFIG,
   TooltipArrowAlignment,
+  AvailableSpace,
   TooltipPositionOption,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/interfaces';
+import { TOOLTIP_DEFAULT_CONFIG } from '../../core/mock';
 
 @Component({
   selector: 'dcx-ng-tooltip',

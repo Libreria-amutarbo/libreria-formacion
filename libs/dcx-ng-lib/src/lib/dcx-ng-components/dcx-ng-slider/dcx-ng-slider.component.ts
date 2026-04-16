@@ -14,11 +14,9 @@ import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import {
-  DcxInputType,
-  DcxNgInputComponent,
-  SLIDER_DEFAULT_VALUES,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxInputType } from '../../core/interfaces';
+import { SLIDER_DEFAULT_VALUES } from '../../core/mock';
+import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 
 @Component({
   selector: 'dcx-ng-slider',
@@ -73,8 +71,8 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
     return `${this.progressPercent()}%`;
   }
 
-  private onChange: (value: number) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: number) => void = () => null;
+  private onTouched: () => void = () => null;
 
   constructor() {
     effect(() => {

@@ -1,4 +1,4 @@
-import { DcxNavbarBrand, DcxNavItem } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNavbarBrand, DcxNavItem } from '../interfaces';
 
 export const navbarDefaultBrand: DcxNavbarBrand = { title: 'DCX Library' };
 

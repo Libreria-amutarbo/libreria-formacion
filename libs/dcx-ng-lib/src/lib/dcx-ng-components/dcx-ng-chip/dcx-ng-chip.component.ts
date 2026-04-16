@@ -8,18 +8,16 @@ import {
   Output,
 } from '@angular/core';
 import {
-  ChipType,
-  ChipTypeValues,
   DcxNgChipComponentInputs,
-  ThemeColors,
   ThemeColorsType,
+  ThemeColors,
   ChipVariantType,
+  ChipTypeValues,
   ChipVariant,
-} from '@dcx-ng-components/dcx-ng-lib';
-import {
-  DcxNgButtonComponent,
-  DcxNgIconComponent,
-} from '@dcx-ng-components/dcx-ng-lib';
+  ChipType,
+} from '../../core/interfaces';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   selector: 'dcx-ng-chip',
