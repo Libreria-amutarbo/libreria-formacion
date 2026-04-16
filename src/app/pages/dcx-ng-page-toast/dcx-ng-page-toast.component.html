@@ -1,0 +1,32 @@
+<section class="toast-page">
+    <h3>Toast</h3>
+    <p>Avisos breves para confirmar acciones, advertir o informar errores sin bloquear al usuario.</p>
+
+    <div class="toast-page__controls" aria-label="Controles de demo de toast">
+        <dcx-ng-button class="toast-page__btn" label="Mostrar info" variant="secondary"
+            (buttonClick)="showInfoToast()"></dcx-ng-button>
+        <dcx-ng-button class="toast-page__btn" label="Mostrar exito" variant="secondary"
+            (buttonClick)="showSuccessToast()"></dcx-ng-button>
+        <dcx-ng-button class="toast-page__btn" label="Mostrar warning" variant="secondary"
+            (buttonClick)="showWarningToast()"></dcx-ng-button>
+        <dcx-ng-button class="toast-page__btn" label="Mostrar error" variant="danger"
+            (buttonClick)="showErrorToast()"></dcx-ng-button>
+        <dcx-ng-button class="toast-page__btn" label="Limpiar" variant="secondary"
+            (buttonClick)="clearToasts()"></dcx-ng-button>
+    </div>
+
+    <p class="toast-page__status">Toasts activos: {{ activeCount() }}. Ultimo evento: {{ lastEvent() }}</p>
+
+    <div class="toast-page__stack">
+        @for (toast of activeToasts(); track toast.id) {
+        <dcx-ng-toast [message]="toast.message" [type]="toast.type || 'info'" [autoDismiss]="toast.autoDismiss || false"
+            [durationMs]="toast.durationMs || 5000" [iconName]="toast.iconName || ''"
+            (actionClick)="handleAction(toast.id, toast.type || 'info')"
+            (dismissed)="handleDismissed(toast.id, toast.type || 'info')"></dcx-ng-toast>
+        }
+
+        @if (activeCount() === 0) {
+        <p class="toast-page__empty">No hay toasts activos. Pulsa un boton para lanzar uno.</p>
+        }
+    </div>
+</section>

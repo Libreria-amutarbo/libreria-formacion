@@ -1,4 +1,4 @@
-import { DcxTabItem, DcxTabsVariant } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxTabItem, DcxTabsVariant } from '../interfaces';
 
 export const DcxTabItemDefault: DcxTabItem[] = [
   { id: 'tab1', label: 'Tab 1' },

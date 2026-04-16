@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { DcxNgPageButtonComponent } from './pages/dcx-ng-page-button/dcx-ng-page-button.component';
 import { DcxNgPageMessageComponent } from './pages/dcx-ng-page-message/dcx-ng-page-message.component';
+import { DcxNgPageToastComponent } from './pages/dcx-ng-page-toast/dcx-ng-page-toast.component';
 import { DcxNgPageIconComponent } from './pages/dcx-ng-page-icon/dcx-ng-page-icon.component';
 import { DcxNgPageSelectComponent } from './pages/dcx-ng-page-select/dcx-ng-page-select.component';
 import { DcxNgPageDividerComponent } from './pages/dcx-ng-page-divider/dcx-ng-page-divider.component';
@@ -22,7 +23,7 @@ import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
-import { DcxNgPageBreadcrumb } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
+import { DcxNgPageBreadcrumbComponent } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
 import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.component/dcx-ng-page-contextMenu.component';
 import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-grid.component';
 import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
@@ -45,6 +46,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.MESSAGE,
     component: DcxNgPageMessageComponent,
+  },
+  {
+    path: APP_ROUTES.TOAST,
+    component: DcxNgPageToastComponent,
   },
   {
     path: APP_ROUTES.ICON,
@@ -124,7 +129,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: APP_ROUTES.BREADCRUMB,
-    component: DcxNgPageBreadcrumb,
+    component: DcxNgPageBreadcrumbComponent,
   },
   {
     path: APP_ROUTES.CONTEXTMENU,
