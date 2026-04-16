@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, output, signal, viewChild } from '@angular/core';
 
 @Component({
   selector: 'dcx-ng-popover',
@@ -16,6 +16,9 @@ export class DcxNgPopoverComponent {
   public readonly isPositioned = signal(false);
   public readonly top = signal('-9999px');
   public readonly left = signal('-9999px');
+
+  public readonly opened = output<void>();
+  public readonly closed = output<void>();
 
   private target: HTMLElement | null = null;
   private ignoreNextClick = false;
@@ -43,6 +46,7 @@ export class DcxNgPopoverComponent {
     this.target = newTarget;
     this.ignoreNextClick = true;
     this.isOpen.set(true);
+    this.opened.emit();
 
     setTimeout(() => {
       this.calculatePosition();
@@ -57,6 +61,7 @@ export class DcxNgPopoverComponent {
     this.isPositioned.set(false);
     this.target = null;
     this.unbindDocumentListeners();
+    this.closed.emit();
   }
 
   private calculatePosition(): void {
