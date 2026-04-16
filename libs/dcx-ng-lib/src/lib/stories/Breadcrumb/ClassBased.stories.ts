@@ -4,12 +4,14 @@ import {
   DcxBreadCrumbIconList,
   DcxBreadCrumbItemDefault,
   DcxBreadCrumbItemWithIcon,
+  DcxBreadCrumbOverflow,
   DcxNgBreadcrumbComponent,
   DcxBreadCrumbArrowhIcon,
   DcxBreadChevronSlashIcon,
   DcxBreadCrumbCurrentPage,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
+import { userEvent, within } from '@storybook/test';
 
 const meta: Meta<DcxNgBreadcrumbComponent> = {
   title: 'DCXLibrary/Components/Breadcrumb',
@@ -94,5 +96,42 @@ export const CurrentPage: Story = {
   args: {
     items: DcxBreadCrumbCurrentPage,
     iconSeparator: DcxBreadCrumbSlashIcon,
+  },
+};
+
+export const OverflowMenu: Story = {
+  args: {
+    items: DcxBreadCrumbOverflow,
+    iconSeparator: DcxBreadCrumbSlashIcon,
+  },
+  parameters: {
+    layout: 'fullscreen',
+  },
+  render: args => ({
+    props: args,
+    template: `
+      <div
+        style="
+          min-height: 320px;
+          padding: 16px 24px;
+          overflow: visible;
+          box-sizing: border-box;
+        "
+      >
+        <dcx-ng-breadcrumb
+          [items]="items"
+          [iconSeparator]="iconSeparator"
+          (itemSelected)="itemSelected($event)"
+        ></dcx-ng-breadcrumb>
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const ellipsisButton = canvas.getByRole('button', {
+      name: /mostrar rutas anteriores/i,
+    });
+
+    await userEvent.click(ellipsisButton);
   },
 };

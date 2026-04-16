@@ -1,11 +1,44 @@
 <nav aria-label="Breadcrumb">
   <ol class="dcx-bc" role="list">
-    @for (item of items(); track $index; let last = $last) {
+    @if (showEllipsis()) {
+      <li class="dcx-bc__item dcx-bc__item--ellipsis">
+        <button
+          #ellipsisButtonElement
+          class="dcx-bc__ellipsis-btn"
+          type="button"
+          aria-label="Mostrar rutas anteriores"
+          [attr.aria-expanded]="isEllipsisMenuOpen()"
+          [attr.aria-haspopup]="true"
+          (click)="toggleEllipsisMenu($event)"
+        >
+          <span class="dcx-bc__ellipsis" aria-hidden="true">...</span>
+        </button>
+
+        <dcx-ng-context-menu
+          #ellipsisMenu
+          [items]="hiddenItemsMenu()"
+          [position]="ellipsisMenuPosition()"
+          [positionMode]="'absolute'"
+          (menuClosed)="onHiddenMenuClosed()"
+        ></dcx-ng-context-menu>
+
+        <span class="dcx-bc__sep" aria-hidden="true">
+          <dcx-ng-icon [name]="iconSeparator()" size="s"></dcx-ng-icon>
+        </span>
+      </li>
+    }
+
+    @for (item of visibleItems(); track $index) {
       <li class="dcx-bc__item">
-        @if (!last) {
+        @if (!isCurrentItem(item)) {
           <span class="dcx-bc__text" [class.disabled]="item.disabled">
             @if (item.href) {
-              <a class="dcx-bc__link" [href]="item.href">
+              <a
+                class="dcx-bc__link"
+                [class.dcx-bc__link--icon]="!!item.icon"
+                [href]="item.href"
+                (click)="onItemClick(item, $event)"
+              >
                 <ng-container
                   [ngTemplateOutlet]="getItemContentTpl()"
                   [ngTemplateOutletContext]="{ $implicit: item, isCurrent: false }"
@@ -13,7 +46,13 @@
                 </ng-container>
               </a>
             } @else {
-              <span class="dcx-bc__text" [class.disabled]="item.disabled">
+              <span
+                class="dcx-bc__text dcx-bc__text--action"
+                [class.disabled]="item.disabled"
+                [attr.tabindex]="item.disabled ? -1 : 0"
+                (click)="onItemClick(item, $event)"
+                (keydown)="onItemKeydown(item, $event)"
+              >
                 <ng-container
                   [ngTemplateOutlet]="getItemContentTpl()"
                   [ngTemplateOutletContext]="{ $implicit: item, isCurrent: false }"
@@ -24,17 +63,18 @@
           </span>
 
           <span class="dcx-bc__sep" aria-hidden="true">
-            <dcx-ng-icon [name]="iconSeparator()"></dcx-ng-icon>
+            <dcx-ng-icon [name]="iconSeparator()" size="s"></dcx-ng-icon>
           </span>
         } @else {
           <span
             class="dcx-bc__current"
             aria-current="page"
-            [attr.disabled]="true"
+            [class.disabled]="item.disabled"
+            [attr.tabindex]="item.disabled ? -1 : 0"
           >
             <ng-container
               [ngTemplateOutlet]="getItemContentTpl()"
-              [ngTemplateOutletContext]="{ $implicit: item, isCurrent: false }"
+              [ngTemplateOutletContext]="{ $implicit: item, isCurrent: true }"
             >
             </ng-container>
           </span>
@@ -46,7 +86,7 @@
 
 <ng-template #itemContent let-item>
   @if (item.icon) {
-    <dcx-ng-icon [name]="item.icon!"></dcx-ng-icon>
+    <dcx-ng-icon [name]="item.icon!" size="m"></dcx-ng-icon>
   } @else {
     {{ item.label }}
   }
