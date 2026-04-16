@@ -5,10 +5,14 @@
   "scripts": {
     "start": "nx serve",
     "start-storybook": "npx nx storybook dcx-ng-lib",
-    "build": "nx build",
+    "build": "nx build dcx-ng-lib",
+    "build-storybook": "nx build-storybook dcx-ng-lib",
     "test": "nx run-many --target=test --all -- --coverage --coverageDirectory='coverage/libs'",
     "lint": "nx lint dcx-ng-lib",
     "lint-fix": "nx lint dcx-ng-lib --fix",
+    "clean:dist": "rm -rf dist",
+    "verify:commit": "npm run lint",
+    "verify:push": "nx affected -t lint test build build-storybook && npm run clean:dist",
     "deploy:main": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy main' -b gh-pages --dest main --add --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git",
     "deploy:develop": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy develop' -b gh-pages --dest develop --add --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git",
     "prepare": "husky install"

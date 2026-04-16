@@ -1,5 +1,5 @@
 <ng-template #iconTpl>
-  <dcx-ng-icon [class]="iconClasses()" [name]="iconName()" [size]="iconSize()" [spacing]="iconSpacing()"
+  <dcx-ng-icon [class]="iconClasses()" [name]="iconName()" [size]="resolvedIconSize()" [spacing]="iconSpacing()"
     [color]="iconColor()" aria-hidden="true" />
 </ng-template>
 
@@ -14,7 +14,7 @@
   }
 
   @if (iconRightName()) {
-  <dcx-ng-icon class="icon icon--right" [name]="iconRightName()" [size]="iconSize()" [color]="iconColor()"
+  <dcx-ng-icon class="icon icon--right" [name]="iconRightName()" [size]="resolvedIconSize()" [color]="iconColor()"
     aria-hidden="true" />
   }
 

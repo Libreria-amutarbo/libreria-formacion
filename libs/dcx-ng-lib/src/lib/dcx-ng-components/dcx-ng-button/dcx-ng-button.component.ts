@@ -7,13 +7,13 @@ import {
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import {
-  DcxNgIconComponent,
   DcxButtonType,
   DcxButtonVariant,
   DcxSize,
   DcxIconSpacing,
   DcxIconPosition,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/interfaces';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   imports: [DcxNgIconComponent, NgTemplateOutlet],
@@ -61,7 +61,7 @@ export class DcxNgButtonComponent {
       typeof value === 'string' ? value === '' : value,
   });
   iconName = input<string>('');
-  iconSize = input<DcxSize>('s');
+  iconSize = input<DcxSize | undefined>(undefined);
   iconSpacing = input<DcxIconSpacing>('none');
   iconColor = input<string>('');
   iconPosition = input<DcxIconPosition>('left');
@@ -92,12 +92,15 @@ export class DcxNgButtonComponent {
     const checkboxErrorValue = this.checkboxError();
 
     const hasAnyIcon = this.icon() || !!iconName;
+    const isExplicitIconOnly = variantValue === 'icon-only';
 
     return [
       base,
       `${base}--${variantValue ?? 'primary'}`,
       sizeValue ? `${base}--${sizeValue}` : '',
-      !labelValue && hasAnyIcon ? `${base}--icon-only` : '',
+      isExplicitIconOnly && !labelValue && hasAnyIcon
+        ? `${base}--icon-only`
+        : '',
       iconPositionValue ? `${base}--icon-${iconPositionValue}` : '',
       pressedValue ? `${base}--pressed` : '',
       hoverValue ? `${base}--hover` : '',
@@ -127,6 +130,8 @@ export class DcxNgButtonComponent {
               : '';
     return [base, mapped].filter(Boolean).join(' ');
   });
+
+  resolvedIconSize = computed<DcxSize>(() => this.iconSize() ?? this.size());
 
   onClick(): void {
     if (!this.disabled()) {

@@ -15,22 +15,24 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import {
-  DcxNgButtonComponent,
-  DcxNgIconComponent,
-  DcxNgInputComponent,
-  DcxSelectOptions,
   DcxInputType,
-  CLEARABLE,
-  ERRORICON,
-  ISINVALID,
-  PLACEHOLDER,
-  REQUIRED,
-  SEARCHABLE,
-  VALUEINPUT,
+  DcxSelectOptions,
   DcxSpacing,
+} from '../../core/interfaces';
+import {
+  PLACEHOLDER,
+  SEARCHABLE,
+  CLEARABLE,
   DISABLED,
+  REQUIRED,
+  ISINVALID,
+  ERRORICON,
+  VALUEINPUT,
   SPACING_DEFAULT,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/mock';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 
 @Component({
   selector: 'dcx-ng-select',
@@ -146,8 +148,8 @@ export class DcxNgSelectComponent implements OnInit {
   }
 
   // ControlValueAccessor
-  onChange = (_v: any) => { };
-  onTouched = () => { };
+  onChange = (_v: any) => null;
+  onTouched = () => null;
 
   onOptionSpace(event: Event, opt: any) {
     (event as KeyboardEvent).preventDefault();

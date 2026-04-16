@@ -8,7 +8,6 @@ import {
 import { CommonModule } from '@angular/common';
 import {
   DcxNgAccordionComponent,
-  DcxAccordionTransitionList,
   DcxAccordionDefault,
   DcxAccordionItemsWithIcon,
   DcxAccordionItemsWithExpanded,

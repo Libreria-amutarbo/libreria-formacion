@@ -8,10 +8,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  DcxNgIconComponent,
-  DcxAccordionTransition,
   DcxNgAccordionItem,
-} from '@dcx-ng-components/dcx-ng-lib';
+  DcxAccordionTransition,
+} from '../../core/interfaces';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   selector: 'dcx-ng-accordion',

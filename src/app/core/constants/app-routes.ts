@@ -28,4 +28,5 @@ export const APP_ROUTES = {
   GRID: 'grid',
   NAVBAR: 'navbar',
   FILE_UPLOAD: 'file-upload',
+  THEME_GENERATOR: 'theme-generator',
 };
