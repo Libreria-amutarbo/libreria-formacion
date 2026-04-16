@@ -14,12 +14,13 @@ import {
   DcxFileUploadDropzoneSize,
   DcxNgButtonComponent,
   DcxNgIconComponent,
+  DcxNgMessageComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-file-upload',
   standalone: true,
-  imports: [DcxNgButtonComponent, DcxNgIconComponent],
+  imports: [DcxNgButtonComponent, DcxNgIconComponent, DcxNgMessageComponent],
   templateUrl: './dcx-ng-file-upload.component.html',
   styleUrl: './dcx-ng-file-upload.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,6 +54,7 @@ export class DcxNgFileUploadComponent {
   );
   isLargeDropzone = computed(() => this.dropzoneSize() === 'large');
   hasSelectedFileItems = computed(() => this.selectedFileItems().length > 0);
+  validationError = signal<string | null>(null);
 
   isDragOver = signal<boolean>(false);
 
@@ -74,14 +76,11 @@ export class DcxNgFileUploadComponent {
     if (size === 'large') return 'dcx-file-upload__dropzone--large';
     return '';
   }
+  private getDropzoneDragOverClass = (): string =>
+    this.isDragOver() ? 'dcx-file-upload__dropzone--drag-over' : '';
 
-  private getDropzoneDragOverClass(): string {
-    return this.isDragOver() ? 'dcx-file-upload__dropzone--drag-over' : '';
-  }
-
-  private getDropzoneDisabledClass(): string {
-    return this.disabled() ? 'dcx-file-upload__dropzone--disabled' : '';
-  }
+  private getDropzoneDisabledClass = (): string =>
+    this.disabled() ? 'dcx-file-upload__dropzone--disabled' : '';
 
   openFilePicker = (): void => {
     if (this.disabled()) {
@@ -94,7 +93,13 @@ export class DcxNgFileUploadComponent {
   onFileChange = (event: Event): void => {
     const inputElement = event.target as HTMLInputElement | null;
     const files = Array.from(inputElement?.files ?? []);
-    const selectedFiles = this.multiple() ? files : files.slice(0, 1);
+    const acceptedFiles = this.filterAcceptedFiles(files);
+    if (acceptedFiles.length === 0 && files.length > 0) {
+      return;
+    }
+    const selectedFiles = this.multiple()
+      ? this.mergeUniqueFiles(this.selectedFiles(), acceptedFiles)
+      : acceptedFiles.slice(0, 1);
 
     this.setSelectedFiles(selectedFiles);
   };
@@ -122,8 +127,83 @@ export class DcxNgFileUploadComponent {
     event.preventDefault();
     this.isDragOver.set(false);
     const files = Array.from(event.dataTransfer?.files ?? []);
-    const selectedFiles = this.multiple() ? files : files.slice(0, 1);
+    const acceptedFiles = this.filterAcceptedFiles(files);
+    if (acceptedFiles.length === 0 && files.length > 0) {
+      return;
+    }
+    const selectedFiles = this.multiple()
+      ? this.mergeUniqueFiles(this.selectedFiles(), acceptedFiles)
+      : acceptedFiles.slice(0, 1);
+
     this.setSelectedFiles(selectedFiles);
+  };
+
+  private mergeUniqueFiles = (
+    currentFiles: File[],
+    newFiles: File[],
+  ): File[] => {
+    const allFiles = [...currentFiles, ...newFiles];
+    return allFiles.filter(
+      (file, idx, arr) =>
+        arr.findIndex(
+          candidate =>
+            candidate.name === file.name &&
+            candidate.size === file.size &&
+            candidate.lastModified === file.lastModified,
+        ) === idx,
+    );
+  };
+
+  private filterAcceptedFiles = (files: File[]): File[] => {
+    const acceptValue = this.accept().trim();
+    if (!acceptValue) {
+      this.validationError.set(null);
+      return files;
+    }
+
+    const acceptedFiles = files.filter(file =>
+      this.isFileAccepted(file, acceptValue),
+    );
+    const rejectedFiles = files.filter(
+      file => !this.isFileAccepted(file, acceptValue),
+    );
+
+    if (rejectedFiles.length > 0) {
+      this.validationError.set(
+        `Invalid file type. Allowed types: ${acceptValue}`,
+      );
+    } else {
+      this.validationError.set(null);
+    }
+
+    return acceptedFiles;
+  };
+
+  private isFileAccepted = (file: File, acceptValue: string): boolean => {
+    const acceptTokens = acceptValue
+      .split(',')
+      .map(token => token.trim().toLowerCase())
+      .filter(Boolean);
+
+    if (acceptTokens.length === 0) {
+      return true;
+    }
+
+    const fileName = file.name.toLowerCase();
+    const fileType = file.type.toLowerCase();
+
+    return acceptTokens.some(token => {
+      if (token.startsWith('.')) {
+        return fileName.endsWith(token);
+      }
+
+      if (token.endsWith('/*')) {
+        const prefix = token.slice(0, -1);
+        return fileType.startsWith(prefix);
+      }
+
+      return fileType === token;
+    });
   };
 
   private setSelectedFiles = (files: File[]): void => {
@@ -137,7 +217,12 @@ export class DcxNgFileUploadComponent {
     const payload = this.multiple() ? files : (files[0] ?? null);
     this.fileSelected.emit(payload);
 
-    if (this.autoUpload() && files.length > 0 && !this.disabled()) {
+    if (
+      this.autoUpload() &&
+      files.length > 0 &&
+      !this.disabled() &&
+      !this.validationError()
+    ) {
       this.uploadClicked.emit(payload);
       this.setSelectedFiles([]);
     }
@@ -153,6 +238,13 @@ export class DcxNgFileUploadComponent {
       : (this.selectedFiles()[0] ?? null);
 
     this.uploadClicked.emit(payload);
+    this.setSelectedFiles([]);
+  };
+
+  onCancelClick = (): void => {
+    if (this.disabled()) {
+      return;
+    }
     this.setSelectedFiles([]);
   };
 

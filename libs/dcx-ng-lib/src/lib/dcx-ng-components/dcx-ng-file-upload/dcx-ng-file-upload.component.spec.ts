@@ -285,4 +285,58 @@ describe('DcxNgFileUploadComponent', () => {
     expect(component.selectedFiles()).toEqual([]);
     expect(component.selectedFile()).toBeNull();
   });
+
+  it('should show validation error and block invalid file selection by accept', () => {
+    const invalidFile = new File(['pdf'], 'document.pdf', {
+      type: 'application/pdf',
+    });
+    const uploadSpy = jest.fn();
+
+    fixture.componentRef.setInput('accept', 'image/*');
+    fixture.detectChanges();
+    component.uploadClicked.subscribe(uploadSpy);
+
+    component.onFileChange({
+      target: { files: [invalidFile] },
+    } as unknown as Event);
+    fixture.detectChanges();
+
+    expect(component.selectedFiles()).toEqual([]);
+    expect(component.validationError()).toContain('Allowed types: image/*');
+
+    component.onUploadClick();
+    expect(uploadSpy).not.toHaveBeenCalled();
+
+    const messageBody = fixture.nativeElement.querySelector(
+      '.message__container__paragraph',
+    ) as HTMLElement;
+    expect(messageBody.textContent?.trim()).toContain('Allowed types: image/*');
+  });
+
+  it('should keep previous valid files in multiple mode when dropped file is invalid', () => {
+    const validFile = new File(['img'], 'photo.png', {
+      type: 'image/png',
+    });
+    const invalidFile = new File(['pdf'], 'document.pdf', {
+      type: 'application/pdf',
+    });
+    const preventDefault = jest.fn();
+
+    fixture.componentRef.setInput('multiple', true);
+    fixture.componentRef.setInput('accept', 'image/*');
+    fixture.componentRef.setInput('dragAndDrop', true);
+    fixture.detectChanges();
+
+    component.selectedFiles.set([validFile]);
+    component.selectedFile.set(validFile);
+
+    component.onDrop({
+      preventDefault,
+      dataTransfer: { files: [invalidFile] },
+    } as unknown as DragEvent);
+
+    expect(preventDefault).toHaveBeenCalled();
+    expect(component.selectedFiles()).toEqual([validFile]);
+    expect(component.validationError()).toContain('Allowed types: image/*');
+  });
 });
