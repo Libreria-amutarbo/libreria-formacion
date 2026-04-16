@@ -6,18 +6,19 @@ import {
   output,
   signal,
 } from '@angular/core';
+
+import { CommonModule } from '@angular/common';
 import {
   DcxInputType,
-  DcxNgButtonComponent,
-  DcxNgInputComponent,
-  CalendarDay,
-  DateFormat,
   DateFormatPattern,
-  DCX_DATEPICKER_MONTHS,
+  DateFormat,
   DCX_DATEPICKER_WEEKDAYS,
   DCX_DATEPICKER_LABELS,
-} from '@dcx-ng-components/dcx-ng-lib';
-import { CommonModule } from '@angular/common';
+  DCX_DATEPICKER_MONTHS,
+  CalendarDay,
+} from '../../core/interfaces';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 
 // --- Métodos públicos de navegación ---
 

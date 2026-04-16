@@ -1,7 +1,4 @@
-import {
-  DcxBreadcrumbItem,
-  DcxBreadCrumbSeparatorIcons,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxBreadcrumbItem, DcxBreadCrumbSeparatorIcons } from '../interfaces';
 
 export const DcxBreadCrumbItemDefault: DcxBreadcrumbItem[] = [
   { label: 'Inicio', href: '/', disabled: false },

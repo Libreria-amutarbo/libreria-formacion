@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { DcxNgSelectComponent } from '@dcx-ng-components/dcx-ng-lib';
-import { DcxSelectOptions } from 'libs/dcx-ng-lib/src/lib/core/interfaces/select';
+import {
+  DcxNgSelectComponent,
+  DcxSelectOptions,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-dcx-ng-page-select',

@@ -5,14 +5,13 @@ import {
   input,
   output,
 } from '@angular/core';
+import { DcxIconFieldPosition, DcxSize } from '../../core/interfaces';
 import {
-  DcxSize,
-  DcxNgButtonComponent,
-  DcxIconFieldPosition,
   ICON_FIELD_ICON_NAME,
   ICON_FIELD_ICON_POSITION,
   ICON_FIELD_ICON_SIZE,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/mock';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 @Component({
   selector: 'dcx-ng-icon-field',

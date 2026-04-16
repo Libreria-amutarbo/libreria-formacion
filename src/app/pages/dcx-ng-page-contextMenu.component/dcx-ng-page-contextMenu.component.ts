@@ -71,6 +71,7 @@ export class DcxNgPageContextMenuComponent {
   menuPosition1 = { x: 0, y: 0 };
   menuPosition2 = { x: 0, y: 0 };
   menuPosition3 = { x: 0, y: 0 };
+  selectedItem: DcxContextMenuItem | null = null;
 
   openContextMenu(event: MouseEvent, menuNumber: number): void {
     event.preventDefault();
@@ -108,5 +109,11 @@ export class DcxNgPageContextMenuComponent {
     setTimeout(() => this.contextMenu2.open(), 0);
   }
 
-  onItemSelected(item: DcxContextMenuItem): void {}
+  onItemSelected(item: DcxContextMenuItem): void {
+    if (!item.text) {
+      return;
+    }
+
+    this.selectedItem = item;
+  }
 }

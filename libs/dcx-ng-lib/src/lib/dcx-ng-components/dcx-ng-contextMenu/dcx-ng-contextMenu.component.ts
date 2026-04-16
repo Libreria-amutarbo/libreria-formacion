@@ -7,7 +7,7 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { DcxContextMenuItem } from '../../core/interfaces/contextMenu';
+import { DcxContextMenuItem } from '../../core/interfaces';
 import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
 
 @Component({

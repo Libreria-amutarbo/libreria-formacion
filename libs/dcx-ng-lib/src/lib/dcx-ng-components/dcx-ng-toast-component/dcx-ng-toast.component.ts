@@ -1,12 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, output } from '@angular/core';
 import {
-  DCX_TOAST_COLOR_BY_TYPE,
-  DCX_TOAST_ICON_BY_TYPE,
-  DcxNgButtonComponent,
-  DcxNgIconComponent,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  input,
+  output,
+} from '@angular/core';
+import {
   DcxToastType,
-} from '@dcx-ng-components/dcx-ng-lib';
-
+  DCX_TOAST_ICON_BY_TYPE,
+  DCX_TOAST_COLOR_BY_TYPE,
+} from '../../core/interfaces';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   selector: 'dcx-ng-toast',
@@ -38,7 +44,9 @@ export class DcxNgToastComponent {
     return DCX_TOAST_ICON_BY_TYPE[this.type()];
   });
 
-  readonly resolvedIconColor = computed(() => DCX_TOAST_COLOR_BY_TYPE[this.type()]);
+  readonly resolvedIconColor = computed(
+    () => DCX_TOAST_COLOR_BY_TYPE[this.type()],
+  );
   readonly hasAction = computed(() => {
     return !!this.actionLabel().trim() || !!this.actionIconName().trim();
   });
