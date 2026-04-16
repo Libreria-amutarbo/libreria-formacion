@@ -1,4 +1,5 @@
-import { DcxDrawerMockData, DcxPosition } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxDrawerMockData } from '../interfaces/drawer';
+import { DcxPosition } from '../interfaces/generic';
 
 export const DRAWER_VISIBLE_DEFAULT = false;
 export const DRAWER_POSITION_DEFAULT: DcxPosition = 'right';

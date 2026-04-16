@@ -1,10 +1,8 @@
 import { Component, signal } from '@angular/core';
-import {
-  DcxPosition,
-  DcxNgButtonComponent,
-  DcxNgDividerComponent,
-  DcxNgDrawerComponent,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxPosition } from '../../../../libs/dcx-ng-lib/src/lib/core/interfaces/generic';
+import { DcxNgButtonComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
+import { DcxNgDividerComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-divider/dcx-ng-divider.component';
+import { DcxNgDrawerComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-drawer/dcx-ng-drawer.component';
 
 @Component({
   selector: 'dcx-ng-page-drawer',
@@ -45,10 +43,6 @@ export class DcxNgPageDrawerComponent {
   openFullscreen = () => {
     this.fullScreen.set(true);
     this.visible.set(true);
-  };
-
-  drawerStyle = {
-    backgroundColor: 'blue',
   };
 
   openStyled = () => this.visibleStyled.set(true);

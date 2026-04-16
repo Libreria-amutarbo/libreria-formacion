@@ -28,4 +28,5 @@ export const APP_ROUTES = {
   CONTEXTMENU: 'context-menu',
   GRID: 'grid',
   NAVBAR: 'navbar',
+  THEME_GENERATOR: 'theme-generator',
 };

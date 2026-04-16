@@ -10,10 +10,8 @@ import {
   output,
   signal,
 } from '@angular/core';
-import {
-  DcxPosition,
-  DcxNgButtonComponent,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxPosition } from '../../core/interfaces/generic';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 @Component({
   selector: 'dcx-ng-drawer',

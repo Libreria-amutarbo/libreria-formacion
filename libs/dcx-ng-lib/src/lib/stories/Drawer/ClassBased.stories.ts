@@ -1,11 +1,9 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { fn } from '@storybook/test';
-import {
-  DcxNgDrawerComponent,
-  DcxNgButtonComponent,
-  DRAWER_DEFAULT_ARGS,
-  POSITION_LIST,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgDrawerComponent } from '../../dcx-ng-components/dcx-ng-drawer/dcx-ng-drawer.component';
+import { DcxNgButtonComponent } from '../../dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
+import { DRAWER_DEFAULT_ARGS } from '../../core/mock/drawer';
+import { POSITION_LIST } from '../../core/mock/generic';
 
 const actionsData = {
   visibleChange: fn(),

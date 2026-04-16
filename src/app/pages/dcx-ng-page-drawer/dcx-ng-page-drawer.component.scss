@@ -15,10 +15,6 @@
     gap: var(--sp-4, 16px);
   }
 
-  .drawerStyle {
-    background-color: blue;
-  }
-
   #drawer-positions {
     display: grid;
     grid-template-columns: repeat(2, minmax(120px, 1fr));

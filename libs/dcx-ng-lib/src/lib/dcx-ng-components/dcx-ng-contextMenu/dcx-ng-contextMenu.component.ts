@@ -1,6 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, HostListener, input, output, signal } from '@angular/core';
-import { DcxContextMenuItem, DcxNgListComponent } from '@dcx-ng-components/dcx-ng-lib';
-
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  HostListener,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import { DcxContextMenuItem } from '../../core/interfaces';
+import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
 
 @Component({
   selector: 'dcx-ng-context-menu',
@@ -65,4 +73,3 @@ export class DcxNgContextMenuComponent {
     }
   }
 }
-
