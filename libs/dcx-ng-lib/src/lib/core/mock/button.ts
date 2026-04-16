@@ -1,8 +1,8 @@
 import {
-  DcxButtonType,
-  DcxButtonVariant,
   DcxIconPosition,
-} from '@dcx-ng-components/dcx-ng-lib';
+  DcxButtonVariant,
+  DcxButtonType,
+} from '../interfaces';
 
 export const DcxIconPositionList: DcxIconPosition[] = [
   'left',

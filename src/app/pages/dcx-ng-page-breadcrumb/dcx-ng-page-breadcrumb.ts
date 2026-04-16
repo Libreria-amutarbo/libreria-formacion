@@ -10,7 +10,7 @@ import {
   templateUrl: './dcx-ng-page-breadcrumb.html',
   styleUrl: './dcx-ng-page-breadcrumb.scss',
 })
-export class DcxNgPageBreadcrumb {
+export class DcxNgPageBreadcrumbComponent {
   dcxBreadCrumbItem: DcxBreadcrumbItem[] = [
     { label: 'Inicio', href: '#', disabled: false },
     { label: 'Proyectos', href: '#', disabled: false },

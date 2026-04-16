@@ -1,4 +1,4 @@
-import { CalendarDay } from '@dcx-ng-components/dcx-ng-lib';
+import { CalendarDay } from '../interfaces';
 
 export const makeDay = (overrides: Partial<CalendarDay> = {}): CalendarDay => ({
   date: new Date(2025, 0, 15),

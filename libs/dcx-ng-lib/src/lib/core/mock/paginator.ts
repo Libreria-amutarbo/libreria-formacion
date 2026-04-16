@@ -1,4 +1,4 @@
-import { DcxSelectOptions, DcxPaginator } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxPaginator, DcxSelectOptions } from '../interfaces';
 
 export const defaultPaginator: DcxPaginator = {
   totalItems: 100,

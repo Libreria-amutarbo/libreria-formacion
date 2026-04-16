@@ -28,4 +28,5 @@ export const APP_ROUTES = {
   GRID: 'grid',
   NAVBAR: 'navbar',
   POPOVER: 'popover',
+  THEME_GENERATOR: 'theme-generator',
 };

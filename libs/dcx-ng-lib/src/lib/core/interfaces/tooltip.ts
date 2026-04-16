@@ -1,4 +1,4 @@
-import { DcxPosition } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxPosition } from './generic';
 
 export interface AvailableSpace {
   spaceTop: number;

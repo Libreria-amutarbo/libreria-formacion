@@ -23,10 +23,11 @@ import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
-import { DcxNgPageBreadcrumb } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
+import { DcxNgPageBreadcrumbComponent } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
 import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.component/dcx-ng-page-contextMenu.component';
 import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-grid.component';
 import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
+import { DcxNgPageThemeGeneratorComponent } from './pages/dcx-ng-page-theme-generator/dcx-ng-page-theme-generator.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
@@ -130,7 +131,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: APP_ROUTES.BREADCRUMB,
-    component: DcxNgPageBreadcrumb,
+    component: DcxNgPageBreadcrumbComponent,
   },
   {
     path: APP_ROUTES.CONTEXTMENU,
@@ -147,5 +148,9 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.POPOVER,
     component: DcxNgPagePopoverComponent,
+  },
+  {
+    path: APP_ROUTES.THEME_GENERATOR,
+    component: DcxNgPageThemeGeneratorComponent,
   },
 ];
