@@ -56,15 +56,6 @@ const meta: Meta<DcxNgRadioComponent> = {
         defaultValue: { summary: 'false' },
       },
     },
-    unstyled: {
-      control: 'boolean',
-      description: 'Sin estilos personalizados',
-      table: {
-        category: 'Attributes',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
     label: {
       control: 'text',
       description: 'Texto del label',
@@ -105,7 +96,6 @@ export const Basic: Story = {
         [label]="label" 
         [size]="size" 
         [disabled]="disabled"
-        [unstyled]="unstyled"
         [error]="error"
         [hover]="hover"
         [focus]="focus">
@@ -118,7 +108,6 @@ export const Basic: Story = {
     label: 'Basico',
     size: 'm',
     disabled: false,
-    unstyled: false,
     error: false,
     hover: false,
     focus: false,
