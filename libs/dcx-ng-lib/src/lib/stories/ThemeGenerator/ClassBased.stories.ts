@@ -4,7 +4,7 @@ import { Meta, StoryObj } from '@storybook/angular';
 
 
 const meta: Meta<DcxNgThemeGeneratorComponent> = {
-  title: 'DCXLibrary/Tools/Theme Generator',
+  title: 'DCXLibrary/Utilities/Theme Generator',
   component: DcxNgThemeGeneratorComponent,
   tags: ['autodocs'],
   argTypes: {
