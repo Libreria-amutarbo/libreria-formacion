@@ -1,4 +1,4 @@
-import { DcxInputType, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxInputType, DcxSize } from '../interfaces';
 
 export const INPUT_DEFAULT_VALUE: string | number = '';
 

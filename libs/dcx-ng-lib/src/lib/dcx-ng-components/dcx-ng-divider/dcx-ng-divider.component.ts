@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, HostBinding, input } from '@angular/core';
+
 import {
   DcxSize,
   DividerOrientation,
   DividerType,
-  mapSizeToCssValue,
-  mapTypeToCssValue,
-  tokens,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/interfaces';
+import { mapSizeToCssValue, mapTypeToCssValue } from '../../core/mapping';
+import { tokens } from '../../core/mock/colors';
 
 @Component({
   selector: 'dcx-ng-divider',

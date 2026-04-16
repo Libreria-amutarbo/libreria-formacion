@@ -1,7 +1,7 @@
-import { DcxListItem } from "@dcx-ng-components/dcx-ng-lib";
+import { DcxListItem } from './list';
 
 export interface DcxContextMenuItem extends DcxListItem {
-    id?: string;
-    action?: () => void;
-    children?: DcxContextMenuItem[];
+  id?: string;
+  action?: () => void;
+  children?: DcxContextMenuItem[];
 }

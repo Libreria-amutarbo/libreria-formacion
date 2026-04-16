@@ -8,15 +8,14 @@ import {
   effect,
   output,
 } from '@angular/core';
-
 import {
   DcxCheckbox,
-  DcxNgButtonComponent,
   DcxButtonVariant,
   DcxCheckboxValue,
-  DcxNgIconComponent,
-  ERRORICON,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/interfaces';
+import { ERRORICON } from '../../core/mock';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   selector: 'dcx-ng-checkbox',
