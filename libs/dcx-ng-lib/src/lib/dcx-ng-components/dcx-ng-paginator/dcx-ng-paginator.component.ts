@@ -73,6 +73,10 @@ export class DcxNgPaginatorComponent {
     return this.calculateVisiblePages();
   });
 
+  visiblePagesForView = computed<(number | string)[]>(() => {
+    return this.visiblePages();
+  });
+
   constructor() {
     effect(() => {
       this.totalPagesChange.emit(this.totalPages());
@@ -125,6 +129,24 @@ export class DcxNgPaginatorComponent {
 
   getCurrentPage(pageNum: number): boolean {
     return this.currentPage() === pageNum;
+  }
+
+  getNavigationButtonClasses(disabled: boolean): string {
+    if (disabled) {
+      return 'dcx-paginator__button dcx-paginator__button--disabled';
+    }
+
+    return 'dcx-paginator__button';
+  }
+
+  getPageButtonClasses(page: number | string): string {
+    const pageNumber = this.getPageNumber(page);
+
+    if (this.getCurrentPage(pageNumber)) {
+      return 'dcx-paginator__page dcx-paginator__page--current';
+    }
+
+    return 'dcx-paginator__page';
   }
 
   getButtonVariant(pageNum: number): DcxButtonVariant {

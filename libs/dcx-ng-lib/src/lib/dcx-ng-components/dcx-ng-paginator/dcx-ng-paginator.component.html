@@ -15,12 +15,11 @@
       }
     </div>
     <div class="dcx-paginator__pages" aria-label="Paginación">
-      @let pages = visiblePages();
+      @let pages = visiblePagesForView();
 
       @if (limitedButtons()) {
         <dcx-ng-button
-          class="dcx-paginator__button"
-          [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+          [class]="getNavigationButtonClasses(!hasPrevious())"
           [variant]="'text'"
           [icon]="true"
           iconName="chevron-double-left"
@@ -30,8 +29,7 @@
         />
       }
       <dcx-ng-button
-        class="dcx-paginator__button"
-        [ngClass]="{'dcx-paginator__button--disabled': !hasPrevious()}"
+        [class]="getNavigationButtonClasses(!hasPrevious())"
         [variant]="'text'"
         [icon]="true"
         iconName="arrow-left"
@@ -51,8 +49,7 @@
           />
         } @else {
           <dcx-ng-button
-            class="dcx-paginator__page"
-            [ngClass]="{ 'dcx-paginator__page--current': getCurrentPage(getPageNumber(page)) }"
+            [class]="getPageButtonClasses(page)"
             [size]="'m'"
             [variant]="getButtonVariant(getPageNumber(page))"
             (buttonClick)="goToPage(getPageNumber(page))"
