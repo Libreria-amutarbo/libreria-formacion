@@ -1,4 +1,4 @@
-import { DcxSize, DcxIconFieldPosition } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxIconFieldPosition, DcxSize } from '../interfaces';
 
 export const DcxIconFieldPositionList: DcxIconFieldPosition[] = [
   'left',

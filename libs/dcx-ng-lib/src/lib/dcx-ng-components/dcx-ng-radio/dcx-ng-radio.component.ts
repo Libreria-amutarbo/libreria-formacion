@@ -18,7 +18,6 @@ import { DcxSize } from '../../core/interfaces';
   ],
 })
 export class DcxNgRadioComponent implements ControlValueAccessor {
-
   name = input<string>('');
   value = input<string | null>(null);
   label = input<string | null>(null);
@@ -33,8 +32,8 @@ export class DcxNgRadioComponent implements ControlValueAccessor {
   private readonly selectedValue = signal<string | null>(null);
   private readonly cvaDisabled = signal(false);
 
-  private onChange: (value: string | null) => void = () => { };
-  private onTouched: () => void = () => { };
+  private onChange: (value: string | null) => void = () => null;
+  private onTouched: () => void = () => null;
 
   isChecked = computed(() => this.checked() || this.selectedValue() === this.value());
 

@@ -1,4 +1,4 @@
-import { DcxListItem } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxListItem } from '../interfaces';
 
 export const LIST_ITEMS_WITH_DIVIDER: DcxListItem[] = [
   { text: 'Item 1' },

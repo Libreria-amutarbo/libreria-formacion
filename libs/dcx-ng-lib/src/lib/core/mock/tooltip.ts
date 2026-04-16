@@ -1,4 +1,4 @@
-import { TooltipConfig } from '@dcx-ng-components/dcx-ng-lib';
+import { TooltipConfig } from '../interfaces';
 
 export const TOOLTIP_DEFAULT_CONFIG: TooltipConfig = {
   margin: 10,

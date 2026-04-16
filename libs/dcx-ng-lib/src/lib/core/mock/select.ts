@@ -1,8 +1,5 @@
-import {
-  DcxSelectOptions,
-  DISABLED,
-  SPACING_DEFAULT
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxSelectOptions } from '../interfaces';
+import { DISABLED, SPACING_DEFAULT } from './generic';
 
 export const LABEL = 'Select';
 export const OPTIONS: DcxSelectOptions[] = [
