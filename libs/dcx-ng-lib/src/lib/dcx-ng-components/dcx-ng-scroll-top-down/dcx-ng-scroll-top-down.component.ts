@@ -4,7 +4,8 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { DcxNgButtonComponent, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-scroll-top-down',
