@@ -1,6 +1,5 @@
 import { Meta, Canvas } from '@storybook/blocks';
 import * as RadioClassBasedStories from './ClassBased.stories';
-import * as RadioUnstyledStories from './UnStyled.stories';
  
 <Meta title="DCXLibrary/Radio/Documentation" />
  
@@ -11,20 +10,13 @@ It implements `ControlValueAccessor` to integrate smoothly with Angular Reactive
  
 ---
  
-## Unstyled Version
- 
-Use this version when you want full control over the appearance.  
-No styles are applied beyond native HTML input behavior, which makes it ideal for custom theming.
- 
-<Canvas of={RadioUnstyledStories.Unstyled} />
- 
 ## Class-Based Version
  
 This version includes minimal styling using CSS custom properties.  
 It supports different sizes, focus styles, and keyboard navigation.
  
-<Canvas of={RadioClassBasedStories.Basico} />
-<Canvas of={RadioClassBasedStories.Tamaños} />
+<Canvas of={RadioClassBasedStories.Basic} />
+<Canvas of={RadioClassBasedStories.Sizes} />
  
 ---
  
@@ -36,7 +28,6 @@ It supports different sizes, focus styles, and keyboard navigation.
 - **size**: `'s' | 'm' | 'l'` — Visual size of the radio
 - **disabled**: Disables the radio if `true`
 - **ariaLabel**: Provides screen reader context for accessibility
-- **unstyled**: If `true`, removes all custom styles
  
 ---
  
@@ -69,8 +60,8 @@ This example shows how to use the radio within a reactive form.
  
 ### Long label
 Demonstrates how the radio behaves with a long text label.
-<Canvas of={RadioClassBasedStories.LabelLargo} />
+<Canvas of={RadioClassBasedStories.Basic} />
  
 ### No label
 Example of a radio without text, only the circle.
-<Canvas of={RadioClassBasedStories.SinLabel} />
+<Canvas of={RadioClassBasedStories.Basic} />
