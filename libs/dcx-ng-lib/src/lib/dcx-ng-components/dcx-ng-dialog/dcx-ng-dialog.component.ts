@@ -9,11 +9,9 @@ import {
   inject,
   computed,
 } from '@angular/core';
-import {
-  DcxDialogPosition,
-  DcxNgButtonComponent,
-  DialogService,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxDialogPosition } from '../../core/interfaces';
+import { DialogService } from '../../services/dialog.service';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 @Component({
   selector: 'dcx-ng-dialog',

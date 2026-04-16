@@ -6,13 +6,14 @@ import {
   TemplateRef,
   viewChild,
 } from '@angular/core';
+
+import { NgTemplateOutlet } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import {
   DcxBreadcrumbItem,
   DcxBreadCrumbSeparatorIcons,
-  DcxNgIconComponent,
-} from '@dcx-ng-components/dcx-ng-lib';
-import { NgTemplateOutlet } from '@angular/common';
-import { RouterModule } from '@angular/router';
+} from '../../core/interfaces';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   imports: [DcxNgIconComponent, NgTemplateOutlet, RouterModule],
