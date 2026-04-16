@@ -2,12 +2,10 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   TemplateRef,
   computed,
   contentChild,
   effect,
-  inject,
   input,
   output,
   signal,
@@ -27,9 +25,6 @@ import {
 })
 export class DcxNgDrawerComponent {
   private static globalZIndex = 0;
-  private readonly hostElement = inject(ElementRef<HTMLElement>);
-  private appliedHostStyleClasses: string[] = [];
-  private appliedHostMaskClasses: string[] = [];
 
   readonly visible = input<boolean>(false);
   readonly position = input<DcxPosition>('left');
@@ -40,11 +35,10 @@ export class DcxNgDrawerComponent {
   readonly blockScroll = input<boolean>(true);
   readonly fullScreen = input<boolean>(false);
   readonly size = input<string>('22rem');
-  readonly styleClass = input<string>('');
-  readonly maskStyleClass = input<string>('');
   readonly baseZIndex = input<number>(1000);
   readonly autoZIndex = input<boolean>(true);
   readonly header = input<string>('');
+  readonly footer = input<string>('');
 
   readonly visibleChange = output<boolean>();
   readonly show = output<void>();
@@ -64,52 +58,12 @@ export class DcxNgDrawerComponent {
       base,
       `${base}--${this.position()}`,
       this.fullScreen() ? `${base}--fullscreen` : '',
-      this.styleClass().trim(),
     ]
       .filter(Boolean)
       .join(' ');
   });
 
-  readonly maskClasses = computed(() => {
-    const base = 'dcx-drawer-mask';
-
-    return [base, this.maskStyleClass().trim()].filter(Boolean).join(' ');
-  });
-
-  readonly _hostClassEffect = effect(() => {
-    const host = this.hostElement.nativeElement;
-    const nextStyleClasses = this.styleClass()
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
-    const nextMaskClasses = this.maskStyleClass()
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
-
-    for (const className of this.appliedHostStyleClasses) {
-      if (!nextStyleClasses.includes(className)) {
-        host.classList.remove(className);
-      }
-    }
-
-    for (const className of this.appliedHostMaskClasses) {
-      if (!nextMaskClasses.includes(className)) {
-        host.classList.remove(className);
-      }
-    }
-
-    for (const className of nextStyleClasses) {
-      host.classList.add(className);
-    }
-
-    for (const className of nextMaskClasses) {
-      host.classList.add(className);
-    }
-
-    this.appliedHostStyleClasses = nextStyleClasses;
-    this.appliedHostMaskClasses = nextMaskClasses;
-  });
+  readonly maskClasses = computed(() => 'dcx-drawer-mask');
 
   readonly resolvedBaseZIndex = computed(() => this.currentZIndex());
 
@@ -149,6 +103,10 @@ export class DcxNgDrawerComponent {
 
   readonly hasHeader = computed(
     () => !!this.headerTemplate() || !!this.header() || this.showCloseIcon(),
+  );
+
+  readonly hasFooter = computed(
+    () => !!this.footerTemplate() || !!this.footer(),
   );
 
   readonly _visibilityEffect = effect(() => {

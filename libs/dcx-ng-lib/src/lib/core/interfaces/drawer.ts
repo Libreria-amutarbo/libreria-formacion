@@ -10,9 +10,8 @@ export interface DcxDrawerMockData {
   blockScroll: boolean;
   fullScreen: boolean;
   size: string;
-  styleClass?: string;
-  maskStyleClass?: string;
   baseZIndex: number;
   autoZIndex: boolean;
   header: string;
+  footer: string;
 }

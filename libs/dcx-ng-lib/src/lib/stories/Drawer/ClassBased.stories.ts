@@ -125,6 +125,16 @@ const meta: Meta<DcxNgDrawerComponent> = {
         defaultValue: { summary: "''" },
       },
     },
+    footer: {
+      control: 'text',
+      description:
+        'Texto del footer. Si se proyecta `#drawerFooter`, el template reemplaza este valor.',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
+      },
+    },
     size: {
       control: 'text',
       description:
@@ -133,26 +143,6 @@ const meta: Meta<DcxNgDrawerComponent> = {
         category: 'Appearance',
         type: { summary: 'string' },
         defaultValue: { summary: '22rem' },
-      },
-    },
-    styleClass: {
-      control: 'text',
-      description:
-        'Clase CSS extra para el panel (`.dcx-drawer`). Ideal para personalizar color, borde o tokens del panel.',
-      table: {
-        category: 'Appearance',
-        type: { summary: 'string' },
-        defaultValue: { summary: "''" },
-      },
-    },
-    maskStyleClass: {
-      control: 'text',
-      description:
-        'Clase CSS extra para la máscara (`.dcx-drawer-mask`). Permite ajustar fondo/backdrop de forma independiente.',
-      table: {
-        category: 'Appearance',
-        type: { summary: 'string' },
-        defaultValue: { summary: "''" },
       },
     },
     baseZIndex: {
@@ -242,11 +232,10 @@ export const Default: Story = {
           [blockScroll]="blockScroll"
           [fullScreen]="fullScreen"
           [size]="size"
-          [styleClass]="styleClass"
-          [maskStyleClass]="maskStyleClass"
           [baseZIndex]="baseZIndex"
           [autoZIndex]="autoZIndex"
           [header]="header"
+          [footer]="footer"
           (visibleChange)="onVisibleChange($event)"
           (show)="onShow()"
           (hide)="onHide()"
@@ -316,6 +305,17 @@ export const Positions: Story = {
           header="Drawer por posición"
           (visibleChange)="onVisibleChange($event)"
         >
+          <ng-template #drawerFooter>
+            <dcx-ng-button
+              label="Cerrar sesión"
+              variant="secondary"
+              [icon]="true"
+              iconName="box-arrow-right"
+              iconPosition="left"
+              (buttonClick)="onVisibleChange(false)"
+            />
+          </ng-template>
+
           <p>Drawer abierto en <strong>{{ localPosition }}</strong>.</p>
         </dcx-ng-drawer>
       </div>
@@ -651,66 +651,21 @@ export const BlockScrollTrue: Story = {
           [fullScreen]="false"
           size="24rem"
           header="Block scroll activo"
+          footer="Acción"
           (visibleChange)="onVisibleChange($event)"
         >
+          <ng-template #drawerFooter>
+            <dcx-ng-button
+              label="Cerrar sesión"
+              variant="secondary"
+              [icon]="true"
+              iconName="box-arrow-right"
+              iconPosition="left"
+              (buttonClick)="onVisibleChange(false)"
+            />
+          </ng-template>
+
           <p>Ejemplo para validar bloqueo de scroll del body, si se quiere hacer scroll cerrar el drawer.</p>
-        </dcx-ng-drawer>
-      </div>
-    `,
-  }),
-};
-
-export const StylesExample: Story = {
-  args: {
-    ...DRAWER_DEFAULT_ARGS,
-    visible: false,
-    position: 'right',
-  },
-  render: args => ({
-    props: {
-      ...args,
-      localVisible: args.visible,
-      openDrawer() {
-        this['localVisible'] = true;
-      },
-      onVisibleChange(next: boolean) {
-        this['localVisible'] = next;
-      },
-    },
-    template: `
-      <style>
-        .story-panel-style {
-          --dcx-drawer-background: var(--background-primary, #0058ab);
-          --dcx-drawer-color: var(--content-on-primary, #ffffff);
-          --dcx-drawer-header-border: rgba(255, 255, 255, 0.35);
-          --dcx-drawer-shadow: 0 0 0 6px rgba(0, 88, 171, 0.2);
-        }
-
-        .story-mask-style {
-          --dcx-drawer-mask-background: rgba(0, 88, 171, 0.28);
-        }
-      </style>
-
-      <div style="padding: 1rem; min-height: 280px; background: var(--bg-surface, #f4f5f7);">
-        <dcx-ng-button label="Abrir ejemplo de estilos" variant="primary" (buttonClick)="openDrawer()" />
-
-        <dcx-ng-drawer
-          [visible]="localVisible"
-          position="right"
-          [modal]="true"
-          [dismissible]="true"
-          [showCloseIcon]="true"
-          [closeOnEscape]="true"
-          [blockScroll]="false"
-          [fullScreen]="false"
-          size="22rem"
-          styleClass="story-panel-style"
-          maskStyleClass="story-mask-style"
-          header="Ejemplo de styleClass y maskStyleClass"
-          (visibleChange)="onVisibleChange($event)"
-        >
-          <p><strong>styleClass</strong> aplica al panel.</p>
-          <p><strong>maskStyleClass</strong> aplica a la máscara.</p>
         </dcx-ng-drawer>
       </div>
     `,
@@ -757,23 +712,6 @@ export const ZIndexExample: Story = {
       },
     },
     template: `
-      <style>
-        .z-manual {
-          --dcx-drawer-background: #e8f1fb;
-          --dcx-drawer-color: #2a2e33;
-        }
-
-        .z-auto {
-          --dcx-drawer-background: #0058ab;
-          --dcx-drawer-color: #ffffff;
-        }
-
-        .z-top {
-          --dcx-drawer-background: #166534;
-          --dcx-drawer-color: #ffffff;
-        }
-      </style>
-
       <div style="padding: 1rem; min-height: 340px; background: var(--bg-surface, #f4f5f7);">
         <p style="margin-top: 0; color: var(--text-muted, #696e75);">
           Orden esperado: Manual 2000 < Auto (base 2000 + incremento) < Manual 2600.
@@ -798,7 +736,6 @@ export const ZIndexExample: Story = {
           size="24rem"
           [baseZIndex]="2000"
           [autoZIndex]="false"
-          styleClass="z-manual"
           header="Manual 2000"
           (visibleChange)="onManualChange($event)"
         >
@@ -817,7 +754,6 @@ export const ZIndexExample: Story = {
           size="22rem"
           [baseZIndex]="2000"
           [autoZIndex]="true"
-          styleClass="z-auto"
           header="Auto 2000"
           (visibleChange)="onAutoChange($event)"
         >
@@ -836,7 +772,6 @@ export const ZIndexExample: Story = {
           size="20rem"
           [baseZIndex]="2600"
           [autoZIndex]="false"
-          styleClass="z-top"
           header="Manual 2600"
           (visibleChange)="onTopChange($event)"
         >

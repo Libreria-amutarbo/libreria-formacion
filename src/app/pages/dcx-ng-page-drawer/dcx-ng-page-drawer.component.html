@@ -21,6 +21,7 @@
     [fullScreen]="fullScreen()"
     [size]="size()"
     header="Filtros"
+    footer="Acciones"
     (visibleChange)="visible.set($event)"
     (hide)="close()"
   >
@@ -83,71 +84,7 @@
 <dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
 
 <section>
-  <h2>Ejemplo 4 - styleClass (panel)</h2>
-
-  <dcx-ng-button
-    label="Abrir panel custom"
-    variant="primary"
-    (buttonClick)="openStyled()"
-  />
-
-  <dcx-ng-drawer
-    [visible]="visibleStyled()"
-    position="right"
-    [modal]="true"
-    [dismissible]="true"
-    [showCloseIcon]="true"
-    [closeOnEscape]="true"
-    [blockScroll]="false"
-    [fullScreen]="false"
-    size="22rem"
-    styleClass="page-drawer-panel-custom"
-    header="Panel custom por styleClass"
-    (visibleChange)="visibleStyled.set($event)"
-    (hide)="closeStyled()"
-  >
-    <p>
-      Este panel cambia fondo/borde/texto usando <strong>styleClass</strong>.
-    </p>
-  </dcx-ng-drawer>
-</section>
-
-<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
-
-<section>
-  <h2>Ejemplo 5 - maskStyle/maskStyleClass</h2>
-
-  <dcx-ng-button
-    label="Abrir máscara custom"
-    variant="secondary"
-    (buttonClick)="openMask()"
-  />
-
-  <dcx-ng-drawer
-    [visible]="visibleMask()"
-    position="left"
-    [modal]="true"
-    [dismissible]="true"
-    [showCloseIcon]="true"
-    [closeOnEscape]="true"
-    [blockScroll]="false"
-    [fullScreen]="false"
-    size="22rem"
-    maskStyleClass="page-drawer-mask-custom"
-    header="Máscara custom"
-    (visibleChange)="visibleMask.set($event)"
-    (hide)="closeMask()"
-  >
-    <p>
-      La máscara usa clase custom aplicada por <strong>maskStyleClass</strong>.
-    </p>
-  </dcx-ng-drawer>
-</section>
-
-<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l"></dcx-ng-divider>
-
-<section>
-  <h2>Ejemplo 6 - baseZIndex y autoZIndex</h2>
+  <h2>Ejemplo 4 - baseZIndex y autoZIndex</h2>
 
   <p class="zindex-help">
     Comparativa: los dos primeros tienen <strong>baseZIndex=2000</strong>. El de
@@ -191,7 +128,6 @@
     size="24rem"
     [baseZIndex]="2000"
     [autoZIndex]="false"
-    styleClass="page-drawer-manual-z"
     header="Manual z-index"
     (visibleChange)="visibleZB.set($event)"
     (hide)="closeZB()"
@@ -214,7 +150,6 @@
     size="20rem"
     [baseZIndex]="2000"
     [autoZIndex]="true"
-    styleClass="page-drawer-auto-z"
     header="Auto z-index"
     (visibleChange)="visibleZA.set($event)"
     (hide)="closeZA()"
@@ -237,7 +172,6 @@
     size="18rem"
     [baseZIndex]="2600"
     [autoZIndex]="false"
-    styleClass="page-drawer-manual-top-z"
     header="Manual alto z-index"
     (visibleChange)="visibleZC.set($event)"
     (hide)="closeZC()"

@@ -6,7 +6,7 @@
 .dcx-drawer-mask {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: var(--dcx-drawer-mask-background, rgba(0, 0, 0, 0.45));
   opacity: 1;
   transition: opacity 220ms ease;
 

@@ -44,33 +44,7 @@
   .zindex-help {
     margin: 0;
     text-align: center;
-    color: var(--content-subtle, #696e75);
+    color: var(--text-muted, #696e75);
     max-width: 760px;
-  }
-
-  .page-drawer-panel-custom {
-    --dcx-drawer-background: var(--background-primary, #0058ab);
-    --dcx-drawer-color: var(--content-on-primary, #ffffff);
-    --dcx-drawer-shadow: 0 0 0 6px rgba(0, 88, 171, 0.15);
-  }
-
-  .page-drawer-mask-custom {
-    --dcx-drawer-mask-background: rgba(0, 88, 171, 0.25);
-  }
-
-  dcx-ng-drawer.page-drawer-manual-z {
-    --dcx-drawer-background: var(--background-secondary, #e8f1fb);
-    --dcx-drawer-color: var(--content-on-secondary, #2a2e33);
-  }
-
-  dcx-ng-drawer.page-drawer-auto-z {
-    --dcx-drawer-background: var(--background-primary, #0058ab);
-    --dcx-drawer-color: var(--content-on-primary, #ffffff);
-  }
-
-  dcx-ng-drawer.page-drawer-manual-top-z {
-    --dcx-drawer-background: #166534;
-    --dcx-drawer-color: #ffffff;
-    --dcx-drawer-shadow: 0 0 0 6px rgba(20, 83, 45, 0.28);
   }
 }

@@ -2,6 +2,7 @@ export const APP_ROUTES = {
   TABLE: 'table',
   BUTTON: 'button',
   MESSAGE: 'message',
+  TOAST: 'toast',
   ICON: 'icon',
   SELECT: 'select',
   DIVIDER: 'divider',
