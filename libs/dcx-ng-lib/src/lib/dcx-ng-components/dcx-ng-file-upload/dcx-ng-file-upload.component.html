@@ -58,7 +58,7 @@
                   type="button"
                   [attr.aria-label]="'Remove ' + fileItem.name"
                   [disabled]="disabled()"
-                  (click)="removeFile(fileItem.file)"
+                  (buttonClick)="removeFile(fileItem.file)"
                 >
                   <dcx-ng-icon name="x" size="m"></dcx-ng-icon>
                 </dcx-ng-button>
@@ -89,7 +89,7 @@
                 type="button"
                 [attr.aria-label]="'Remove ' + fileItem.name"
                 [disabled]="disabled()"
-                (click)="removeFile(fileItem.file)"
+                (buttonClick)="removeFile(fileItem.file)"
               >
                 <dcx-ng-icon name="x" size="m"></dcx-ng-icon>
               </dcx-ng-button>

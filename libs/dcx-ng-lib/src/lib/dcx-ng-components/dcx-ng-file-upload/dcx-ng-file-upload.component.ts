@@ -8,14 +8,16 @@ import {
   output,
   signal,
 } from '@angular/core';
+
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgMessageComponent } from '../dcx-ng-message/dcx-ng-message.component';
+
 import {
-  DcxFileUploadItem,
   DcxFileUploadValue,
   DcxFileUploadDropzoneSize,
-  DcxNgButtonComponent,
-  DcxNgIconComponent,
-  DcxNgMessageComponent,
-} from '@dcx-ng-components/dcx-ng-lib';
+  DcxFileUploadItem,
+} from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-file-upload',
