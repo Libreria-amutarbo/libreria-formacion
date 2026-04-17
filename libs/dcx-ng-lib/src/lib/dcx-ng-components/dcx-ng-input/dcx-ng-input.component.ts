@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   forwardRef,
   HostBinding,
   input,
@@ -10,6 +11,7 @@ import {
   output,
   Signal,
   signal,
+  ViewChild,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -66,6 +68,13 @@ let uuid = 0;
   ],
 })
 export class DcxNgInputComponent {
+  @ViewChild('input', { static: true }) inputRef!: ElementRef<HTMLInputElement>;
+
+  public resetNativeInput() {
+    if (this.inputRef?.nativeElement) {
+      this.inputRef.nativeElement.value = '';
+    }
+  }
   id = input<string>(`my-input-${++uuid}`);
   value = model<string | number>(INPUT_DEFAULT_VALUE);
   disabled = input(INPUT_DEFAULT_DISABLED, {
@@ -99,6 +108,7 @@ export class DcxNgInputComponent {
   errorIcon = input<string>(ERRORICON);
   spacing = input<DcxSpacing>(SPACING_DEFAULT);
   orientation = input<'horizontal' | 'vertical'>('horizontal');
+  multiple = input<boolean>(false);
 
   size = input<DcxSize>(INPUT_DEFAULT_SIZE);
 
@@ -129,6 +139,8 @@ export class DcxNgInputComponent {
     return inputType;
   });
 
+  isFileType = computed<boolean>(() => this.type() === DcxInputType.FILE);
+
   isRadioType = computed<boolean>(() => this.type() === DcxInputType.RADIO);
 
   isRangeType = computed<boolean>(() => this.type() === DcxInputType.RANGE);
@@ -143,6 +155,7 @@ export class DcxNgInputComponent {
       [DcxInputType.SEARCH]: 'search',
       [DcxInputType.TEL]: 'phone',
       [DcxInputType.URL]: 'link',
+      [DcxInputType.FILE]: null,
       [DcxInputType.RADIO]: null,
       [DcxInputType.RANGE]: null,
     };
@@ -205,13 +218,14 @@ export class DcxNgInputComponent {
   }
 
   onInput(newValue: string) {
-    if (this.isRadioType()) return;
+    if (this.isRadioType() || this.isFileType()) return;
     const formattedValue = this.formatValueByType(newValue);
     this.value.set(formattedValue);
     this.valueChange.emit(formattedValue);
   }
 
   onChangeEvent(event: Event) {
+    if (this.isFileType()) return;
     if (!this.isRadioType()) return;
     const target = event.target as HTMLInputElement | null;
     if (target?.checked) {
@@ -243,6 +257,7 @@ export class DcxNgInputComponent {
         return value.toLowerCase();
       case DcxInputType.TEXT:
       case DcxInputType.PASSWORD:
+      case DcxInputType.FILE:
       case DcxInputType.RADIO:
       case DcxInputType.RANGE:
       default:

@@ -72,6 +72,7 @@ const meta: Meta<DcxNgInputComponent> = {
         DcxInputType.SEARCH,
         DcxInputType.TEL,
         DcxInputType.URL,
+        DcxInputType.FILE,
       ],
       defaultValue: DcxInputType.TEXT,
       table: { category: 'Attributes' },
