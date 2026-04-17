@@ -1,6 +1,7 @@
 ---
 name: spec-driven-development
 description: Guides the Spec Driven Development workflow. Use when starting any new feature, component, or significant change. Writes a spec first, waits for approval, then implements. Can also be invoked to write a spec for existing work.
+tools: read, edit, write, search, execute
 ---
 
 # Spec Driven Development (SDD)
@@ -23,10 +24,10 @@ Before writing anything:
 
 ### 1.2 Create the spec document
 
-Create or update the file inside its own folder:
+Create or update the file:
 
 ```
-specs/{kebab-case-feature-name}/{kebab-case-feature-name}.spec.md
+specs/{kebab-case-feature-name}.spec.md
 ```
 
 Use this template:
@@ -149,7 +150,7 @@ After creating the spec file, output a summary to the user:
 ```
 ## Spec ready: {Feature Name}
 
-📄 File: specs/{kebab-case-feature-name}/{kebab-case-feature-name}.spec.md
+📄 File: specs/{kebab-case-feature-name}.spec.md
 
 ### Summary
 {2-3 sentence summary of what will be built}
@@ -177,34 +178,9 @@ After creating the spec file, output a summary to the user:
 Once the user approves:
 
 1. Update spec status to `In Progress`.
-2. **Create a tasks file** at `specs/{kebab-case-feature-name}/{kebab-case-feature-name}.tasks.md` using this template:
-
-```markdown
-# Tasks: {Feature Name}
-
-**Spec:** [{kebab-case-feature-name}.spec.md]({kebab-case-feature-name}.spec.md)
-**Status:** In Progress
-**Date:** {today}
-
----
-
-## Pending
-
-- [ ] Step 1
-- [ ] Step 2
-- [ ] Step 3
-
-## In Progress
-
-## Done
-```
-
-Each step from the Implementation Plan (section 10 of the spec) becomes a `- [ ]` item under **Pending**. As work progresses, move items between sections and check them off.
-
-3. **Load the same tasks into TodoWrite** so they appear in the session UI. Keep the `.tasks.md` file and TodoWrite in sync: when a task completes, check it in the md file AND mark it completed in TodoWrite.
-4. Implement following the spec exactly, marking each task `in_progress` before starting it and `completed` immediately after finishing it.
-5. If you discover something that requires deviating from the spec, **stop and ask** before proceeding.
-6. After implementation, update spec status to `Done`, move all tasks to **Done** in the `.tasks.md`, and check off completed acceptance criteria in the spec.
+2. Implement following the spec exactly.
+3. If you discover something that requires deviating from the spec, **stop and ask** before proceeding.
+4. After implementation, update spec status to `Done` and check off completed acceptance criteria.
 
 ---
 

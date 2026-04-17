@@ -28,7 +28,6 @@ import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.c
 import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-grid.component';
 import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
 import { DcxNgPageFileUploadComponent } from './pages/dcx-ng-page-file-upload/dcx-ng-page-file-upload.component';
-import { DcxNgPageThemeGeneratorComponent } from './pages/dcx-ng-page-theme-generator/dcx-ng-page-theme-generator.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 
@@ -148,7 +147,5 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.FILE_UPLOAD,
     component: DcxNgPageFileUploadComponent,
-    path: APP_ROUTES.THEME_GENERATOR,
-    component: DcxNgPageThemeGeneratorComponent,
   },
 ];
