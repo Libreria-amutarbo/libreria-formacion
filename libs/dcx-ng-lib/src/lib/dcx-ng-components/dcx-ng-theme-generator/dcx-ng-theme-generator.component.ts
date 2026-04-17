@@ -10,14 +10,13 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { GROUPS, GROUP_LABELS } from '../../core/constants/theme-generator';
+import { CAPGEMINI_THEME_TOKENS } from '../../core/mock/theme-tokens';
 import {
-  GROUPS,
-  GROUP_LABELS,
-  CAPGEMINI_THEME_TOKENS,
   ThemeToken,
   ThemeTokenGroup,
-  DcxNgButtonComponent
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/interfaces/theme-generator';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 
 @Component({

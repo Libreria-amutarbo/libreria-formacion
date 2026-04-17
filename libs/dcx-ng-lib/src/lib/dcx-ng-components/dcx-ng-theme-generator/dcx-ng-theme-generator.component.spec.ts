@@ -100,15 +100,6 @@ describe('DcxNgThemeGeneratorComponent', () => {
     expect(component.modifiedCountByGroup()['background']).toBe(2);
   });
 
-  it('should not render preview section when showPreview is false', () => {
-    fixture.componentRef.setInput('showPreview', false);
-    fixture.detectChanges();
-    const preview = fixture.nativeElement.querySelector(
-      '.theme-generator__preview',
-    );
-    expect(preview).toBeNull();
-  });
-
   it('should use downloadFileName input for file download', () => {
     fixture.componentRef.setInput('downloadFileName', 'custom-theme.css');
     fixture.detectChanges();

@@ -1,4 +1,4 @@
-import { ThemeTokenGroup } from "@dcx-ng-components/dcx-ng-lib";
+import { ThemeTokenGroup } from '../interfaces/theme-generator';
 
 export const GROUP_LABELS: Record<ThemeTokenGroup, string> = {
     background: 'Fondo',

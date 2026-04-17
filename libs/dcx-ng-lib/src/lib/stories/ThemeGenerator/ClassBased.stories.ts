@@ -1,5 +1,11 @@
-import { CAPGEMINI_THEME_TOKENS, DcxNgThemeGeneratorComponent, ThemeGeneratorActions } from '@dcx-ng-components/dcx-ng-lib';
+import { CAPGEMINI_THEME_TOKENS, DcxNgThemeGeneratorComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
+import { fn } from '@storybook/test';
+
+const ThemeGeneratorActions = {
+  themeChanged: fn(),
+  cssGenerated: fn(),
+};
 
 
 
