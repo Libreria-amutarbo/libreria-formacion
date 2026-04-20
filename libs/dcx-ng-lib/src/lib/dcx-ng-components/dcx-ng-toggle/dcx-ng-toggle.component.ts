@@ -8,10 +8,7 @@ import {
   model,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  DcxPosition,
-  DcxSize,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxSize, DcxPosition } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-toggle',
