@@ -6,6 +6,7 @@ export enum DcxInputType {
   SEARCH = 'search',
   TEL = 'tel',
   URL = 'url',
+  FILE = 'file',
   RADIO = 'radio',
   RANGE = 'range',
 }
