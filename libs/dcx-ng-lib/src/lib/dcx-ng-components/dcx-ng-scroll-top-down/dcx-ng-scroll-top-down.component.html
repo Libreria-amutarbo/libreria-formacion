@@ -9,12 +9,11 @@
       type="button"
       variant="secondary"
       [size]="size()"
-      [icon]="true"
-      [iconName]="topIcon()"
-      [iconSize]="iconSize()"
       [ariaLabel]="topLabel()"
       (buttonClick)="scrollToTop()"
-    />
+    >
+      <dcx-ng-icon [name]="topIcon()" [size]="iconSize()" />
+    </dcx-ng-button>
   }
 
   @if (showBottom()) {
@@ -23,11 +22,10 @@
       type="button"
       variant="secondary"
       [size]="size()"
-      [icon]="true"
-      [iconName]="bottomIcon()"
-      [iconSize]="iconSize()"
       [ariaLabel]="bottomLabel()"
       (buttonClick)="scrollToBottom()"
-    />
+    >
+      <dcx-ng-icon [name]="bottomIcon()" [size]="iconSize()" />
+    </dcx-ng-button>
   }
 </div>

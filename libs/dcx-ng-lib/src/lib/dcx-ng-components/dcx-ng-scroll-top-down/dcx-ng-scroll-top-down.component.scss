@@ -2,90 +2,69 @@
 
 :host {
   position: fixed;
-  right: var(--sp-4, 16px);
-  bottom: var(--sp-4, 16px);
+  right: var(--sp-6, 24px);
+  bottom: var(--sp-6, 24px);
   z-index: 30;
   display: inline-flex;
-  font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
 .dcx-ng-scroll-top-down {
   &__group {
     display: inline-flex;
     flex-direction: column;
-    gap: var(--sp-2, 8px);
-    align-items: stretch;
+    gap: var(--sp-3, 12px);
+    align-items: center;
   }
 
   &__button {
-    @include flex-center-inline;
-    width: 2.75rem;
-    height: 2.75rem;
+    display: inline-flex;
+    position: relative;
+    border-radius: var(--r-pill, 999px);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    ::ng-deep .dcx-ng-button {
+    &:hover:not(:disabled) {
+      transform: scale(1.1);
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+
+    :host ::ng-deep .dcx-ng-button.dcx-ng-button {
       width: 100%;
       height: 100%;
+      border-radius: var(--r-pill, 999px);
+      box-shadow: var(--shadow-md);
       padding: 0;
-      border-radius: var(--r-md, 6px);
-      border-color: var(--border-light, #d1d5db);
-      background: var(--bg-default, #ffffff);
-      color: var(--text-dark, #2a2e33);
-      box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
-      transition:
-        background-color 0.15s ease,
-        border-color 0.15s ease,
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &:hover:not(:disabled) {
-        background: var(--bg-hover, #f7f8fa);
-        border-color: var(--bg-primary, #0058ab);
-        transform: translateY(-1px);
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--border-focus, #1db8f2);
-        outline-offset: 2px;
+        box-shadow: var(--shadow-lg);
       }
     }
   }
 
   &__button--s {
-    width: 2.25rem;
-    height: 2.25rem;
-
-    ::ng-deep .dcx-ng-button {
-      border-radius: var(--r-sm, 4px);
-    }
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   &__button--m {
-    width: 2.75rem;
-    height: 2.75rem;
-
-    ::ng-deep .dcx-ng-button {
-      border-radius: var(--r-md, 6px);
-    }
+    width: 3rem;
+    height: 3rem;
   }
 
   &__button--l {
-    width: 3.25rem;
-    height: 3.25rem;
-
-    ::ng-deep .dcx-ng-button {
-      border-radius: var(--r-lg, 8px);
-    }
+    width: 3.5rem;
+    height: 3.5rem;
   }
 
-  &--top-only {
-    .dcx-ng-scroll-top-down__group {
-      align-items: end;
-    }
-  }
-
+  &--top-only,
   &--bottom-only {
     .dcx-ng-scroll-top-down__group {
-      align-items: end;
+      align-items: center;
     }
   }
 }

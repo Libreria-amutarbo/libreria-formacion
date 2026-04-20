@@ -37,7 +37,7 @@ describe('DcxNgScrollTopDownComponent', () => {
     fixture.detectChanges();
 
     const buttons = fixture.nativeElement.querySelectorAll(
-      'dcx-ng-button.dcx-ng-scroll-top-down__button',
+      '.dcx-ng-scroll-top-down__button',
     );
 
     expect(buttons.length).toBe(2);

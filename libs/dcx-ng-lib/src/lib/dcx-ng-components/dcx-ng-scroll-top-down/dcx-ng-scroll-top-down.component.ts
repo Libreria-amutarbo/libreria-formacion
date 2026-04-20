@@ -5,12 +5,13 @@ import {
   input,
 } from '@angular/core';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-scroll-top-down',
   standalone: true,
-  imports: [DcxNgButtonComponent],
+  imports: [DcxNgButtonComponent, DcxNgIconComponent],
   templateUrl: './dcx-ng-scroll-top-down.component.html',
   styleUrl: './dcx-ng-scroll-top-down.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
