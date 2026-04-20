@@ -196,8 +196,8 @@ describe('DcxNgInputComponent', () => {
       expect(component.getInputIcon()).toBe('search');
     });
 
-    it('should compute inputContolClasses', () => {
-      expect(component.inputContolClasses()).toContain('dcx-ng-input__control');
+    it('should compute inputClasses', () => {
+      expect(component.inputClasses()).toContain('dcx-ng-input__control');
     });
 
     it('should compute showActionIcon for password type', () => {

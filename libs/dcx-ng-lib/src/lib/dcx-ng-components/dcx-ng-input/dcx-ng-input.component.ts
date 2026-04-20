@@ -9,7 +9,6 @@ import {
   input,
   model,
   output,
-  Signal,
   signal,
   ViewChild,
 } from '@angular/core';
@@ -187,10 +186,15 @@ export class DcxNgInputComponent {
     return ids.length ? ids : null;
   });
 
-  inputContolClasses = computed<string>(() => {
+  inputClasses = computed<string>(() => {
     const base = 'dcx-ng-input__control';
     const sizeValue = this.spacing();
-    return [base, `${base}--${sizeValue}`].filter(Boolean).join(' ');
+    const classes = [base, `${base}--${sizeValue}`];
+    if (this.disabled()) classes.push('is-disabled');
+    if (this.isInvalid()) classes.push('is-invalid');
+    if (this.getInputIcon() !== null) classes.push('has-icon');
+    if (this.showActionIcon()) classes.push('has-action');
+    return classes.filter(Boolean).join(' ');
   });
 
   constructor() {

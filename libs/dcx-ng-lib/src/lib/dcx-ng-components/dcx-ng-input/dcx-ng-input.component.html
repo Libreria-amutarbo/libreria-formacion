@@ -12,11 +12,7 @@
     <input
       #input
       [multiple]="multiple()"
-      [class]="inputContolClasses()"
-      [class.is-disabled]="disabled()"
-      [class.is-invalid]="isInvalid()"
-      [class.has-icon]="getInputIcon() !== null"
-      [class.has-action]="showActionIcon()"
+      [class]="inputClasses()"
       [id]="id()"
       [name]="name()"
       [type]="displayType()"
@@ -40,11 +36,7 @@
     />
   } @else {
     <input
-      [class]="inputContolClasses()"
-      [class.is-disabled]="disabled()"
-      [class.is-invalid]="isInvalid()"
-      [class.has-icon]="getInputIcon() !== null"
-      [class.has-action]="showActionIcon()"
+      [class]="inputClasses()"
       [id]="id()"
       [name]="name()"
       [type]="displayType()"
