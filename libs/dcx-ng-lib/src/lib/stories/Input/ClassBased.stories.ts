@@ -72,6 +72,7 @@ const meta: Meta<DcxNgInputComponent> = {
         DcxInputType.SEARCH,
         DcxInputType.TEL,
         DcxInputType.URL,
+        DcxInputType.FILE,
       ],
       defaultValue: DcxInputType.TEXT,
       table: { category: 'Attributes' },
@@ -289,5 +290,11 @@ export const isInvalid: Story = {
     placeholder: 'Solo lectura',
     isInvalid: true,
     errorMessage: 'Error',
+  },
+};
+export const files: Story = {
+  args: {
+    type: DcxInputType.FILE,
+    placeholder: 'Selecciona un archivo',
   },
 };

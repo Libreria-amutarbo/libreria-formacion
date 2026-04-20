@@ -9,11 +9,11 @@
 
 <div class="dcx-ng-input__wrapper" [class.is-disabled]="disabled()">
   <input
-    [class]="inputContolClasses()"
-    [class.is-disabled]="disabled()"
-    [class.is-invalid]="isInvalid()"
-    [class.has-icon]="getInputIcon() !== null"
-    [class.has-action]="showActionIcon()"
+    #input
+    [multiple]="isFileType() ? multiple() : null"
+    [checked]="isRadioType() ? checked() : null"
+    [value]="!isFileType() && !isRadioType() ? value() : null"
+    [class]="inputClasses()"
     [id]="id()"
     [name]="name()"
     [type]="displayType()"
@@ -26,13 +26,11 @@
     [max]="max()"
     [attr.step]="step()"
     [autocomplete]="autocomplete()"
-    [checked]="isRadioType() ? checked() : null"
-    [value]="value()"
     [attr.aria-label]="label() ? null : ariaLabel()"
     [attr.aria-required]="required() ? 'true' : null"
     [attr.aria-invalid]="isInvalid()"
     [attr.aria-describedby]="describedBy()"
-    (input)="onInput($event.target.value)"
+    (input)="!isFileType() && !isRadioType() ? onInput($event.target.value) : null"
     (change)="onChangeEvent($event)"
     (focus)="focusEvent.emit()"
     (blur)="onBlur()"
