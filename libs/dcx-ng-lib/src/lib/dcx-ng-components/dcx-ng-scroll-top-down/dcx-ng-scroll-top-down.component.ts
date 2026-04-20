@@ -31,6 +31,12 @@ export class DcxNgScrollTopDownComponent {
   readonly bottomIcon = input<string>('arrow-down');
   readonly groupLabel = input<string>('Scroll controls');
 
+  readonly buttonClasses = computed<string>(() => {
+    const base = 'dcx-ng-scroll-top-down__button';
+    const sizeValue = this.size();
+    return `${base} ${base}--${sizeValue}`;
+  });
+
   readonly scrollClasses = computed<string>(() => {
     const base = 'dcx-ng-scroll-top-down';
     const sizeValue = this.size();

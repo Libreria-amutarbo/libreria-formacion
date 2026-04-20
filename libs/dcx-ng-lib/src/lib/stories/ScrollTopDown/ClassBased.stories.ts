@@ -25,13 +25,13 @@ const meta: Meta<DcxNgScrollTopDownComponent> = {
     },
     size: {
       control: 'select',
-      options: ['s', 'm', 'l', 'xl'],
+      options: ['s', 'm', 'l'],
       description: 'Controla el tamaño visual del componente.',
       table: { category: 'Attributes' },
     },
     iconSize: {
       control: 'select',
-      options: ['s', 'm', 'l', 'xl'],
+      options: ['s', 'm', 'l'],
       description: 'Tamaño de los iconos internos.',
       table: { category: 'Attributes' },
     },

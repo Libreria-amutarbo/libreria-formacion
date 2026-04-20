@@ -77,15 +77,6 @@
     }
   }
 
-  &__button--xl {
-    width: 3.75rem;
-    height: 3.75rem;
-
-    ::ng-deep .dcx-ng-button {
-      border-radius: var(--r-xl, 12px);
-    }
-  }
-
   &--top-only {
     .dcx-ng-scroll-top-down__group {
       align-items: end;

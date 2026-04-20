@@ -5,11 +5,7 @@
 >
   @if (showTop()) {
     <dcx-ng-button
-      class="dcx-ng-scroll-top-down__button dcx-ng-scroll-top-down__button--top"
-      [class.dcx-ng-scroll-top-down__button--s]="size() === 's'"
-      [class.dcx-ng-scroll-top-down__button--m]="size() === 'm'"
-      [class.dcx-ng-scroll-top-down__button--l]="size() === 'l'"
-      [class.dcx-ng-scroll-top-down__button--xl]="size() === 'xl'"
+      [class]="buttonClasses() + ' dcx-ng-scroll-top-down__button--top'"
       type="button"
       variant="secondary"
       [size]="size()"
@@ -23,11 +19,7 @@
 
   @if (showBottom()) {
     <dcx-ng-button
-      class="dcx-ng-scroll-top-down__button dcx-ng-scroll-top-down__button--bottom"
-      [class.dcx-ng-scroll-top-down__button--s]="size() === 's'"
-      [class.dcx-ng-scroll-top-down__button--m]="size() === 'm'"
-      [class.dcx-ng-scroll-top-down__button--l]="size() === 'l'"
-      [class.dcx-ng-scroll-top-down__button--xl]="size() === 'xl'"
+      [class]="buttonClasses() + ' dcx-ng-scroll-top-down__button--bottom'"
       type="button"
       variant="secondary"
       [size]="size()"
