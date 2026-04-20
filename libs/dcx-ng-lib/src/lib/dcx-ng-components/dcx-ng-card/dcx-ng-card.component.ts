@@ -8,28 +8,30 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  BORDER_STYLE_DEFAULT,
-  BORDER_WIDTH,
-  BORDERED,
+  DcxLayout,
+  DcxAlign,
+  DcxSize,
+  BorderStyleCard,
+  ShadowPresetCard,
+} from '../../core/interfaces';
+import {
   IMAGE,
   IMAGE_ALT,
-  INTERACTIVE,
-  MAX_CONTENT_WIDTH,
-  MAX_IMAGE_WIDTH,
-  SHADOW_DEFAULT,
-  SUBTITLE,
   TITLE_DEFAULT,
-  DcxAlign,
-  DcxLayout,
-  DcxSize,
+  SUBTITLE,
   LAYOUT_DEFAULT,
   ALIGN_DEFAULT,
   SIZE_DEFAULT,
-  BorderStyleCard,
-  ShadowPresetCard,
-  DISABLED,
+  MAX_CONTENT_WIDTH,
+  MAX_IMAGE_WIDTH,
   ACCENT,
-} from '@dcx-ng-components/dcx-ng-lib';
+  BORDERED,
+  BORDER_WIDTH,
+  BORDER_STYLE_DEFAULT,
+  SHADOW_DEFAULT,
+  INTERACTIVE,
+  DISABLED,
+} from '../../core/mock';
 
 @Component({
   selector: 'dcx-ng-card',

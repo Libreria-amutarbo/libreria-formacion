@@ -2,10 +2,10 @@ import {
   DcxLayout,
   DcxAlign,
   DcxSize,
+  DcxPosition,
   DcxIconSpacing,
   DcxSpacing,
-  DcxPosition,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../interfaces';
 
 export const LAYOUT_LIST: DcxLayout[] = ['vertical', 'horizontal'];
 

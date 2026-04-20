@@ -4,9 +4,9 @@ import {
   DcxNgButtonComponent,
   DcxNgDividerComponent,
   DcxDialogPosition,
+  DIALOG_DEFAULT_ARGS,
+  DialogService,
 } from '@dcx-ng-components/dcx-ng-lib';
-import { DIALOG_DEFAULT_ARGS } from 'libs/dcx-ng-lib/src/lib/core/mock/dialog';
-import { DialogService } from 'libs/dcx-ng-lib/src/lib/services/dialog.service';
 
 @Component({
   selector: 'dcx-ng-page-dialog',
