@@ -2,17 +2,19 @@
   <ol class="dcx-bc" role="list">
     @if (showEllipsis()) {
       <li class="dcx-bc__item dcx-bc__item--ellipsis">
-        <button
+        <dcx-ng-button
           #ellipsisButtonElement
+          variant="terciary"
+          label="..."
+          size="s"
           class="dcx-bc__ellipsis-btn"
           type="button"
-          aria-label="Mostrar rutas anteriores"
+          ariaLabel="Mostrar rutas anteriores"
           [attr.aria-expanded]="isEllipsisMenuOpen()"
           [attr.aria-haspopup]="true"
           (click)="toggleEllipsisMenu($event)"
         >
-          <span class="dcx-bc__ellipsis" aria-hidden="true">...</span>
-        </button>
+        </dcx-ng-button>
 
         <dcx-ng-context-menu
           #ellipsisMenu

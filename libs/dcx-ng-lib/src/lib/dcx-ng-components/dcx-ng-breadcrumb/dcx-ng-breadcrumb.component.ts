@@ -18,6 +18,7 @@ import {
 import { DcxContextMenuItem } from '../../core/interfaces/contextMenu';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { DcxNgContextMenuComponent } from '../dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 @Component({
   imports: [
@@ -25,6 +26,7 @@ import { DcxNgContextMenuComponent } from '../dcx-ng-contextMenu/dcx-ng-contextM
     NgTemplateOutlet,
     RouterModule,
     DcxNgContextMenuComponent,
+    DcxNgButtonComponent,
   ],
   selector: 'dcx-ng-breadcrumb',
   templateUrl: './dcx-ng-breadcrumb.component.html',
@@ -37,9 +39,7 @@ export class DcxNgBreadcrumbComponent {
   private readonly itemContent =
     viewChild.required<TemplateRef<unknown>>('itemContent');
   private readonly ellipsisMenu = viewChild(DcxNgContextMenuComponent);
-  private readonly ellipsisButtonElement = viewChild<
-    ElementRef<HTMLButtonElement>
-  >('ellipsisButtonElement');
+  private readonly ellipsisButtonElement = signal<HTMLElement | null>(null);
 
   readonly items = input.required<DcxBreadcrumbItem[]>();
   readonly iconSeparator = input.required<DcxBreadCrumbSeparatorIcons>();
@@ -111,7 +111,14 @@ export class DcxNgBreadcrumbComponent {
     event?.stopPropagation();
 
     const menu = this.ellipsisMenu();
-    const button = this.ellipsisButtonElement()?.nativeElement;
+    const currentTarget =
+      event?.currentTarget instanceof HTMLElement ? event.currentTarget : null;
+
+    if (currentTarget) {
+      this.ellipsisButtonElement.set(currentTarget);
+    }
+
+    const button = currentTarget ?? this.ellipsisButtonElement();
 
     if (!menu || !button) {
       return;
@@ -136,7 +143,7 @@ export class DcxNgBreadcrumbComponent {
 
   onHiddenMenuClosed(): void {
     this.isEllipsisMenuOpen.set(false);
-    this.ellipsisButtonElement()?.nativeElement.blur();
+    this.ellipsisButtonElement()?.blur();
   }
 
   onHiddenItemClick(item: DcxBreadcrumbItem): void {
