@@ -58,6 +58,18 @@ export class DcxNgPaginatorComponent {
     return this.currentPage() < this.totalPages();
   });
 
+  prevNavClasses = computed<string>(() =>
+    this.hasPrevious()
+      ? 'dcx-paginator__button'
+      : 'dcx-paginator__button dcx-paginator__button--disabled',
+  );
+
+  nextNavClasses = computed<string>(() =>
+    this.hasNext()
+      ? 'dcx-paginator__button'
+      : 'dcx-paginator__button dcx-paginator__button--disabled',
+  );
+
   firstItem = computed<number>(() => {
     return (this.currentPage() - 1) * this.selectedItemsPerPage() + 1;
   });
@@ -73,9 +85,7 @@ export class DcxNgPaginatorComponent {
     return this.calculateVisiblePages();
   });
 
-  visiblePagesForView = computed<(number | string)[]>(() => {
-    return this.visiblePages();
-  });
+  visiblePagesForView = computed<(number | string)[]>(() => this.visiblePages());
 
   constructor() {
     effect(() => {
@@ -132,21 +142,12 @@ export class DcxNgPaginatorComponent {
   }
 
   getNavigationButtonClasses(disabled: boolean): string {
-    if (disabled) {
-      return 'dcx-paginator__button dcx-paginator__button--disabled';
-    }
-
-    return 'dcx-paginator__button';
+    return disabled ? 'dcx-paginator__button dcx-paginator__button--disabled' : 'dcx-paginator__button';
   }
 
   getPageButtonClasses(page: number | string): string {
     const pageNumber = this.getPageNumber(page);
-
-    if (this.getCurrentPage(pageNumber)) {
-      return 'dcx-paginator__page dcx-paginator__page--current';
-    }
-
-    return 'dcx-paginator__page';
+    return this.getCurrentPage(pageNumber) ? 'dcx-paginator__page dcx-paginator__page--current' : 'dcx-paginator__page';
   }
 
   getButtonVariant(pageNum: number): DcxButtonVariant {

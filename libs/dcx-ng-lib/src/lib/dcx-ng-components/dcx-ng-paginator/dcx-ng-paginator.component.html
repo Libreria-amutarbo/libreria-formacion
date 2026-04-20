@@ -19,7 +19,7 @@
 
       @if (limitedButtons()) {
         <dcx-ng-button
-          [class]="getNavigationButtonClasses(!hasPrevious())"
+          [class]="prevNavClasses()"
           [variant]="'text'"
           [icon]="true"
           iconName="chevron-double-left"
@@ -29,7 +29,7 @@
         />
       }
       <dcx-ng-button
-        [class]="getNavigationButtonClasses(!hasPrevious())"
+        [class]="prevNavClasses()"
         [variant]="'text'"
         [icon]="true"
         iconName="arrow-left"
@@ -59,7 +59,7 @@
       }
 
       <dcx-ng-button
-        class="dcx-paginator__button"
+        [class]="nextNavClasses()"
         [variant]="'text'"
         [icon]="true"
         iconSize="m"
@@ -69,7 +69,7 @@
       />
       @if (limitedButtons()) {
         <dcx-ng-button
-          class="dcx-paginator__button"
+          [class]="nextNavClasses()"
           [variant]="'text'"
           [icon]="true"
           iconSize="m"
