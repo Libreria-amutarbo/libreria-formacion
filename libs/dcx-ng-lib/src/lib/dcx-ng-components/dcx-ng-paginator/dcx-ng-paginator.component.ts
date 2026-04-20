@@ -8,11 +8,8 @@ import {
   output,
   signal,
 } from '@angular/core';
-import {
-  DcxButtonVariant,
-  DcxNgButtonComponent,
-  DcxPaginator,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxPaginator, DcxButtonVariant } from '../../core/interfaces';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 @Component({
   selector: 'dcx-ng-paginator',
@@ -151,7 +148,10 @@ export class DcxNgPaginatorComponent {
 
     this.selectedItemsPerPage.set(parsed);
 
-    const validPage = Math.max(1, Math.min(this.currentPage(), this.totalPages()));
+    const validPage = Math.max(
+      1,
+      Math.min(this.currentPage(), this.totalPages()),
+    );
     if (validPage !== this.currentPage()) {
       this.currentPage.set(validPage);
       this.pageChange.emit(validPage);

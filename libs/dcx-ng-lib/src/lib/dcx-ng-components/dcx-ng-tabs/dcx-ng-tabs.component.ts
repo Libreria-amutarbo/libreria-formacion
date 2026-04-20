@@ -9,12 +9,9 @@ import {
   ElementRef,
   ViewChild,
 } from '@angular/core';
-
-import {
-  DcxNgButtonComponent,
-  DcxTabItem,
-  DcxNgIconComponent,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxTabItem } from '../../core/interfaces';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   selector: 'dcx-ng-tabs',

@@ -1,4 +1,4 @@
-import { DcxCheckbox } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxCheckbox } from '../interfaces';
 
 export const DcxSingleCheck: DcxCheckbox[] = [
   {

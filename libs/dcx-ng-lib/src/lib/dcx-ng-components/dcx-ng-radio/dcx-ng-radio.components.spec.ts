@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DcxNgRadioComponent } from './dcx-ng-radio.component';
 
 describe('DcxNgRadioComponent', () => {
@@ -23,6 +22,7 @@ describe('DcxNgRadioComponent', () => {
   it('should have default values', () => {
     expect(component.name()).toBe('');
     expect(component.disabled()).toBe(false);
+    expect(component.checked()).toBe(false);
     expect(component.size()).toBe('l');
     expect(component.ariaLabel()).toBe('');
   });
@@ -30,7 +30,7 @@ describe('DcxNgRadioComponent', () => {
   it('should render label when set', () => {
     fixture.componentRef.setInput('label', 'Opción 1');
     fixture.detectChanges();
-    const label = fixture.nativeElement.querySelector('span');
+    const label = fixture.nativeElement.querySelector('.dcx-ng-radio__label');
     expect(label.textContent).toContain('Opción 1');
   });
 
@@ -39,6 +39,13 @@ describe('DcxNgRadioComponent', () => {
     fixture.detectChanges();
     const label = fixture.nativeElement.querySelector('label');
     expect(label.className).toContain('dcx-ng-radio--s');
+  });
+
+  it('should apply error class when error is true', () => {
+    fixture.componentRef.setInput('error', true);
+    fixture.detectChanges();
+    const label = fixture.nativeElement.querySelector('label');
+    expect(label.className).toContain('dcx-ng-radio--error');
   });
 
   it('should mark radio as checked when value matches', () => {
@@ -55,18 +62,22 @@ describe('DcxNgRadioComponent', () => {
     expect(component.isChecked()).toBe(false);
   });
 
+  it('should mark radio as checked when checked input is true', () => {
+    fixture.componentRef.setInput('checked', true);
+    fixture.detectChanges();
+    expect(component.isChecked()).toBe(true);
+  });
+
   it('should disable via setDisabledState', () => {
     component.setDisabledState(true);
     fixture.detectChanges();
-    expect(component.disabled()).toBe(false);
-    expect(component.formControl.disabled).toBe(true);
+    expect(component.isDisabled()).toBe(true);
   });
 
   it('should call registerOnChange correctly', () => {
     const fn = jest.fn();
     component.registerOnChange(fn);
-    component.writeValue('x');
-    component.formControl.setValue('test');
+    component.onInputChange('test');
     expect(fn).toHaveBeenCalledWith('test');
   });
 
@@ -78,28 +89,31 @@ describe('DcxNgRadioComponent', () => {
 
   it('should not call onInputChange when disabled', () => {
     fixture.componentRef.setInput('value', 'valor1');
-    fixture.componentRef.setInput('disabled', true);
+    component.setDisabledState(true);
+    const changeSpy = jest.fn();
+    component.registerOnChange(changeSpy);
     fixture.detectChanges();
     component.onInputChange('valor1');
     expect(component.isChecked()).toBe(false);
+    expect(changeSpy).not.toHaveBeenCalled();
   });
 
   it('should update formControl via onInputChange when not disabled', () => {
     fixture.componentRef.setInput('value', 'a');
     fixture.detectChanges();
     component.onInputChange('a');
-    expect(component.formControl.value).toBe('a');
+    expect(component.isChecked()).toBe(true);
   });
 
-  it('setDisabledState should disable formControl when true', () => {
+  it('setDisabledState should disable component when true', () => {
     component.setDisabledState(true);
-    expect(component.formControl.disabled).toBe(true);
+    expect(component.isDisabled()).toBe(true);
   });
 
-  it('setDisabledState should enable formControl when false', () => {
+  it('setDisabledState should enable component when false', () => {
     component.setDisabledState(true);
     component.setDisabledState(false);
-    expect(component.formControl.enabled).toBe(true);
+    expect(component.isDisabled()).toBe(false);
   });
 
   it('ariaLabelBinding should fallback to "Radio button"', () => {
@@ -118,5 +132,12 @@ describe('DcxNgRadioComponent', () => {
     fixture.componentRef.setInput('size', 'm');
     fixture.detectChanges();
     expect(component.sizeClass()).toBe('dcx-ng-radio--m');
+  });
+
+  it('should call onTouched on blur', () => {
+    const touched = jest.fn();
+    component.registerOnTouched(touched);
+    component.onBlur();
+    expect(touched).toHaveBeenCalled();
   });
 });

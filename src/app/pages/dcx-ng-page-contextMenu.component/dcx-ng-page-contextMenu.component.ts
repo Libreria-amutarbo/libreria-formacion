@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { DcxNgContextMenuComponent, DcxContextMenuItem, DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgContextMenuComponent,
+  DcxContextMenuItem,
+  DcxNgButtonComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-context-menu',
@@ -89,11 +93,8 @@ export class DcxNgPageContextMenuComponent {
   openContextMenuFromButton(): void {
     this.menuPosition2 = {
       x: window.innerWidth / 2,
-      y: window.innerHeight / 2
+      y: window.innerHeight / 2,
     };
     setTimeout(() => this.contextMenu2.open(), 0);
   }
-
-  onItemSelected(item: DcxContextMenuItem): void { }
 }
-
