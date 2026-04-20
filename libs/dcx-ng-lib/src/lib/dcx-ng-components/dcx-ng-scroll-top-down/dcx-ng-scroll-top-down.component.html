@@ -5,7 +5,7 @@
 >
   @if (showTop()) {
     <dcx-ng-button
-      [class]="buttonClasses() + ' dcx-ng-scroll-top-down__button--top'"
+      [class]="buttonClasses('top')"
       type="button"
       variant="secondary"
       [size]="size()"
@@ -18,7 +18,7 @@
 
   @if (showBottom()) {
     <dcx-ng-button
-      [class]="buttonClasses() + ' dcx-ng-scroll-top-down__button--bottom'"
+      [class]="buttonClasses('bottom')"
       type="button"
       variant="secondary"
       [size]="size()"
