@@ -8,60 +8,34 @@
 }
 
 <div class="dcx-ng-input__wrapper" [class.is-disabled]="disabled()">
-  @if (isFileType()) {
-    <input
-      #input
-      [multiple]="multiple()"
-      [class]="inputClasses()"
-      [id]="id()"
-      [name]="name()"
-      [type]="displayType()"
-      [placeholder]="placeholder()"
-      [inputMode]="inputMode()"
-      [readOnly]="readonly()"
-      [disabled]="disabled()"
-      [required]="required()"
-      [min]="min()"
-      [max]="max()"
-      [attr.step]="step()"
-      [autocomplete]="autocomplete()"
-      [attr.aria-label]="label() ? null : ariaLabel()"
-      [attr.aria-required]="required() ? 'true' : null"
-      [attr.aria-invalid]="isInvalid()"
-      [attr.aria-describedby]="describedBy()"
-      (change)="onChangeEvent($event)"
-      (focus)="focusEvent.emit()"
-      (blur)="onBlur()"
-      (keydown.enter)="enterPressed.emit()"
-    />
-  } @else {
-    <input
-      [class]="inputClasses()"
-      [id]="id()"
-      [name]="name()"
-      [type]="displayType()"
-      [placeholder]="placeholder()"
-      [inputMode]="inputMode()"
-      [readOnly]="readonly()"
-      [disabled]="disabled()"
-      [required]="required()"
-      [min]="min()"
-      [max]="max()"
-      [attr.step]="step()"
-      [autocomplete]="autocomplete()"
-      [checked]="isRadioType() ? checked() : null"
-      [value]="value()"
-      [attr.aria-label]="label() ? null : ariaLabel()"
-      [attr.aria-required]="required() ? 'true' : null"
-      [attr.aria-invalid]="isInvalid()"
-      [attr.aria-describedby]="describedBy()"
-      (input)="onInput($event.target.value)"
-      (change)="onChangeEvent($event)"
-      (focus)="focusEvent.emit()"
-      (blur)="onBlur()"
-      (keydown.enter)="enterPressed.emit()"
-    />
-  }
+  <input
+    #input
+    [multiple]="isFileType() ? multiple() : null"
+    [checked]="isRadioType() ? checked() : null"
+    [value]="!isFileType() && !isRadioType() ? value() : null"
+    [class]="inputClasses()"
+    [id]="id()"
+    [name]="name()"
+    [type]="displayType()"
+    [placeholder]="placeholder()"
+    [inputMode]="inputMode()"
+    [readOnly]="readonly()"
+    [disabled]="disabled()"
+    [required]="required()"
+    [min]="min()"
+    [max]="max()"
+    [attr.step]="step()"
+    [autocomplete]="autocomplete()"
+    [attr.aria-label]="label() ? null : ariaLabel()"
+    [attr.aria-required]="required() ? 'true' : null"
+    [attr.aria-invalid]="isInvalid()"
+    [attr.aria-describedby]="describedBy()"
+    (input)="!isFileType() && !isRadioType() ? onInput($event.target.value) : null"
+    (change)="onChangeEvent($event)"
+    (focus)="focusEvent.emit()"
+    (blur)="onBlur()"
+    (keydown.enter)="enterPressed.emit()"
+  />
 
   @if (showActionIcon() && !isRangeType()) {
     <dcx-ng-button

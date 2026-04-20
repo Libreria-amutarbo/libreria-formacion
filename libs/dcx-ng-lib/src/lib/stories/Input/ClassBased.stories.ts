@@ -292,3 +292,9 @@ export const isInvalid: Story = {
     errorMessage: 'Error',
   },
 };
+export const files: Story = {
+  args: {
+    type: DcxInputType.FILE,
+    placeholder: 'Selecciona un archivo',
+  },
+};
