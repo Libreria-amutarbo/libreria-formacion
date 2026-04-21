@@ -30,6 +30,7 @@ const ROUTE_ICONS: Record<string, string> = {
   paginator: 'skip-end',
   radio: 'record-circle',
   search: 'search',
+  'scroll-top-down': 'arrow-down-up',
   select: 'menu-button',
   slider: 'sliders',
   spinner: 'arrow-clockwise',
