@@ -3,7 +3,7 @@
   role="group"
   [attr.aria-label]="groupLabel()"
 >
-  @if (showTop()) {
+  @if (isTopVisible()) {
     <dcx-ng-button
       [class]="buttonClasses('top')"
       type="button"
@@ -16,7 +16,7 @@
     </dcx-ng-button>
   }
 
-  @if (showBottom()) {
+  @if (isBottomVisible()) {
     <dcx-ng-button
       [class]="buttonClasses('bottom')"
       type="button"
