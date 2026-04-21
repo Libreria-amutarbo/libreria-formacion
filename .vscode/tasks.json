@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "git-resolve-conflicts",
+			"type": "shell",
+			"command": "git add libs/dcx-ng-lib/src/index.ts src/app/app.routes.ts src/app/core/constants/app-routes.ts && git stash pop && git commit -m \"chore: resolve merge conflicts with develop\" && git push"
+		},
+		{
+			"label": "git-resolve-conflicts",
+			"type": "shell",
+			"command": "git add libs/dcx-ng-lib/src/index.ts src/app/app.routes.ts src/app/core/constants/app-routes.ts; git stash pop; git commit -m 'chore: resolve merge conflicts with develop'; git push"
+		}
+	]
+}
