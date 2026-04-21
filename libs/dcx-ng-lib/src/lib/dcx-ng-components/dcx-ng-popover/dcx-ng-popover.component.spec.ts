@@ -127,6 +127,8 @@ describe('DcxNgPopoverComponent', () => {
       component.show(null, mockTarget);
       fixture.detectChanges();
 
+      (component as any).ignoreNextClick = false;
+
       const clickEvent = new MouseEvent('click', { bubbles: true });
       Object.defineProperty(clickEvent, 'target', { value: outsideElement });
 
@@ -144,6 +146,8 @@ describe('DcxNgPopoverComponent', () => {
 
       component.show(null, mockTarget);
       fixture.detectChanges();
+
+      (component as any).ignoreNextClick = false;
 
       const clickEvent = new MouseEvent('click', { bubbles: true });
       Object.defineProperty(clickEvent, 'target', { value: mockTarget });
