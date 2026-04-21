@@ -29,4 +29,5 @@ export const APP_ROUTES = {
   NAVBAR: 'navbar',
   FILE_UPLOAD: 'file-upload',
   THEME_GENERATOR: 'theme-generator',
+  SCROLL_TOP_DOWN: 'scroll-top-down',
 };
