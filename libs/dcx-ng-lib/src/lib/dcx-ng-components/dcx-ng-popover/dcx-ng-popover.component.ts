@@ -10,28 +10,27 @@ import { ChangeDetectionStrategy, Component, ElementRef, HostListener, output, s
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPopoverComponent {
-  public container = viewChild<ElementRef>('container');
+  container = viewChild<ElementRef>('container');
 
-  public readonly isOpen = signal(false);
-  public readonly isPositioned = signal(false);
-  public readonly top = signal('-9999px');
-  public readonly left = signal('-9999px');
+  readonly isOpen = signal(false);
+  readonly isPositioned = signal(false);
+  readonly top = signal('-9999px');
+  readonly left = signal('-9999px');
 
-  public readonly opened = output<void>();
-  public readonly closed = output<void>();
+  readonly opened = output<void>();
+  readonly closed = output<void>();
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.isOpen()) {
+      this.hide();
+    }
+  }
 
   private target: HTMLElement | null = null;
   private ignoreNextClick = false;
-  private resizeListener = () => this.calculatePosition();
-  private documentClickListener = (event: Event) => {
-    if (this.ignoreNextClick) {
-      this.ignoreNextClick = false;
-      return;
-    }
-    this.onDocumentClick(event);
-  };
 
-  public toggle(event: any, targetElement?: HTMLElement): void {
+  toggle(event: any, targetElement?: HTMLElement): void {
     if (this.isOpen()) {
       this.hide();
     } else {
@@ -39,7 +38,7 @@ export class DcxNgPopoverComponent {
     }
   }
 
-  public show(event?: any, targetElement?: HTMLElement): void {
+  show(event?: any, targetElement?: HTMLElement): void {
     const newTarget = targetElement || (event?.currentTarget as HTMLElement);
     if (!newTarget) return;
 
@@ -50,17 +49,15 @@ export class DcxNgPopoverComponent {
 
     setTimeout(() => {
       this.calculatePosition();
-      this.bindDocumentListeners();
     });
   }
 
-  public hide(): void {
+  hide(): void {
     if (!this.isOpen()) return;
 
     this.isOpen.set(false);
     this.isPositioned.set(false);
     this.target = null;
-    this.unbindDocumentListeners();
     this.closed.emit();
   }
 
@@ -94,7 +91,13 @@ export class DcxNgPopoverComponent {
     this.isPositioned.set(true);
   }
 
+  @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
+    if (this.ignoreNextClick) {
+      this.ignoreNextClick = false;
+      return;
+    }
+
     if (!this.isOpen() || !this.target || !this.container()) return;
 
     const clickTarget = event.target as Node;
@@ -109,20 +112,10 @@ export class DcxNgPopoverComponent {
     }
   }
 
-  @HostListener('document:keydown.escape')
-  onEscapeKey(): void {
+  @HostListener('window:resize')
+  onWindowResize(): void {
     if (this.isOpen()) {
-      this.hide();
+      this.calculatePosition();
     }
-  }
-
-  private bindDocumentListeners(): void {
-    window.addEventListener('resize', this.resizeListener);
-    document.addEventListener('click', this.documentClickListener);
-  }
-
-  private unbindDocumentListeners(): void {
-    window.removeEventListener('resize', this.resizeListener);
-    document.removeEventListener('click', this.documentClickListener);
   }
 }
