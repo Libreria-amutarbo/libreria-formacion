@@ -139,7 +139,6 @@ export const AcceptImagesOnly: Story = {
 export const AutoUpload: Story = {
   args: {
     label: 'Browse',
-    accept: 'image/*',
     autoUpload: true,
     dragAndDrop: false,
     dropzoneSize: 'small',

@@ -20,15 +20,15 @@
       (buttonClick)="openFilePicker()"
     />
 
-    <input
+    <dcx-ng-input
       #fileInput
       class="dcx-file-upload__input"
-      type="file"
+      [type]="DcxInputType.FILE"
       [attr.accept]="accept() || null"
       [multiple]="multiple()"
       [disabled]="disabled()"
       (change)="onFileChange($event)"
-    />
+    ></dcx-ng-input>
 
     @if (dragAndDrop()) {
       <div

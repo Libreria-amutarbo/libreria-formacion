@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  ElementRef,
   ViewChild,
   input,
   output,
@@ -12,7 +11,8 @@ import {
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgMessageComponent } from '../dcx-ng-message/dcx-ng-message.component';
-
+import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
+import { DcxInputType } from '../../core/interfaces/input';
 import {
   DcxFileUploadValue,
   DcxFileUploadDropzoneSize,
@@ -22,14 +22,19 @@ import {
 @Component({
   selector: 'dcx-ng-file-upload',
   standalone: true,
-  imports: [DcxNgButtonComponent, DcxNgIconComponent, DcxNgMessageComponent],
+  imports: [
+    DcxNgButtonComponent,
+    DcxNgIconComponent,
+    DcxNgMessageComponent,
+    DcxNgInputComponent,
+  ],
   templateUrl: './dcx-ng-file-upload.component.html',
   styleUrl: './dcx-ng-file-upload.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgFileUploadComponent {
-  @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
-
+  @ViewChild('fileInput', { read: DcxNgInputComponent })
+  fileInput?: DcxNgInputComponent;
   label = input<string>('Choose file');
   accept = input<string>('');
   disabled = input<boolean>(false);
@@ -40,6 +45,7 @@ export class DcxNgFileUploadComponent {
   autoUpload = input<boolean>(false);
 
   fileSelected = output<DcxFileUploadValue>();
+  DcxInputType = DcxInputType;
 
   uploadClicked = output<DcxFileUploadValue>();
 
@@ -85,11 +91,12 @@ export class DcxNgFileUploadComponent {
     this.disabled() ? 'dcx-file-upload__dropzone--disabled' : '';
 
   openFilePicker = (): void => {
-    if (this.disabled()) {
-      return;
+    if (this.disabled()) return;
+    const inputId = this.fileInput?.id?.();
+    if (inputId) {
+      const nativeInput = document.getElementById(inputId);
+      if (nativeInput) (nativeInput as HTMLInputElement).click();
     }
-
-    this.fileInput?.nativeElement.click();
   };
 
   onFileChange = (event: Event): void => {
@@ -209,9 +216,7 @@ export class DcxNgFileUploadComponent {
   };
 
   private setSelectedFiles = (files: File[]): void => {
-    if (this.fileInput?.nativeElement) {
-      this.fileInput.nativeElement.value = '';
-    }
+    this.fileInput?.resetNativeInput();
 
     this.selectedFiles.set(files);
     this.selectedFile.set(files[0] ?? null);
