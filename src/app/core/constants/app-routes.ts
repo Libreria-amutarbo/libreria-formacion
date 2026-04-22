@@ -27,8 +27,6 @@ export const APP_ROUTES = {
   CONTEXTMENU: 'context-menu',
   GRID: 'grid',
   NAVBAR: 'navbar',
-  NAVBAR: 'navbar',
   POPOVER: 'popover',
   SCROLL_TOP_DOWN: 'scroll-top-down',
-};
 };
