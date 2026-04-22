@@ -1,0 +1,41 @@
+<section class="file-upload-page">
+  <header class="file-upload-page__header">
+    <h1>File Upload</h1>
+  </header>
+
+  <div class="file-upload-page__grid">
+    <section class="file-upload-page__card">
+      <h2>Default</h2>
+      <p>Selector simple con botón manual de subida.</p>
+      <dcx-ng-file-upload />
+    </section>
+    <section class="file-upload-page__card">
+      <h2>Drag and drop pequeño</h2>
+      <p>Zona compacta para arrastrar un único archivo.</p>
+      <dcx-ng-file-upload [dragAndDrop]="true" />
+    </section>
+    <section class="file-upload-page__card">
+      <h2>Auto upload</h2>
+      <p>Subida automática al seleccionar archivo.</p>
+      <dcx-ng-file-upload [autoUpload]="true" placeholder="" />
+    </section>
+
+    <section class="file-upload-page__card">
+      <h2>Drag and drop grande</h2>
+      <p>Área visual más grande con icono y contenido centrado.</p>
+      <dcx-ng-file-upload [dragAndDrop]="true" dropzoneSize="large" />
+    </section>
+
+    <section class="file-upload-page__card">
+      <h2>Multiple files</h2>
+      <p>Permite elegir varios archivos y ver todos los nombres.</p>
+      <dcx-ng-file-upload
+        [dragAndDrop]="true"
+        dropzoneSize="large"
+        [multiple]="true"
+        label="Choose files"
+        placeholder="No files selected"
+      />
+    </section>
+  </div>
+</section>

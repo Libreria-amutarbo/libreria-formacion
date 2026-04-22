@@ -23,6 +23,7 @@ export * from './lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component
 export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
 export * from './lib/dcx-ng-components/dcx-ng-tabs/dcx-ng-tabs.component';
 export * from './lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
+export * from './lib/dcx-ng-components/dcx-ng-file-upload/dcx-ng-file-upload.component';
 export * from './lib/dcx-ng-components/dcx-ng-toast-component/dcx-ng-toast.component';
 export * from './lib/services/icon.service';
 export * from './lib/dcx-ng-components/dcx-ng-dialog/dcx-ng-dialog.component';
@@ -34,3 +35,4 @@ export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table-templ
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-data-pipeline.service';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-comparator.service';
 export * from './lib/dcx-ng-components/dcx-ng-navbar/dcx-ng-navbar.component';
+export * from './lib/dcx-ng-components/dcx-ng-scroll-top-down/dcx-ng-scroll-top-down.component';
