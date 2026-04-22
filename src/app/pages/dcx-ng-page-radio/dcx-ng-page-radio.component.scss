@@ -29,26 +29,66 @@ form {
   flex-direction: column;
   gap: 2rem;
   margin-top: 2rem;
+  padding: 0 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 fieldset {
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-light, #e0e0e0);
   border-radius: 8px;
-  padding: 1.5rem 1rem 1rem 1rem;
-  margin-bottom: 1.5rem;
+  padding: 1.5rem 1.5rem;
+  margin-bottom: 0;
+  background: var(--bg-default, #ffffff);
 }
 
 legend {
-  font-weight: bold;
+  font-weight: var(--fw-semibold, 600);
+  margin-bottom: 1.5rem;
+  font-size: var(--fs-base, 14px);
+  color: var(--text-label, #4f545a);
+  padding: 0;
+}
+
+.example-title {
+  font-size: var(--fs-lg, 18px);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--text-dark, #2a2e33);
   margin-bottom: 1rem;
-  font-size: 1.1rem;
+  margin-top: 2rem;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
 }
 
-.dcx-ng-radio {
-  margin-bottom: 0.5rem;
+dcx-ng-radio {
+  display: flex;
+  margin-bottom: 1.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
-button[type="button"], button[type="submit"] {
+section {
+  &:first-of-type {
+    .example-title {
+      margin-top: 0;
+    }
+  }
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-light, #e0e0e0);
+  margin: 2rem 0;
+  background: none;
+}
+
+button[type="button"],
+button[type="submit"] {
   align-self: flex-start;
   margin-top: 1rem;
   padding: 0.5rem 1.5rem;
@@ -60,6 +100,8 @@ button[type="button"], button[type="submit"] {
   cursor: pointer;
   transition: background 0.2s;
 }
-button[type="button"]:hover, button[type="submit"]:hover {
+
+button[type="button"]:hover,
+button[type="submit"]:hover {
   background: #125ea2;
 }

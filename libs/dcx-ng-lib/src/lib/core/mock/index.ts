@@ -18,5 +18,4 @@ export * from './checkbox';
 export * from './datePicker';
 export * from './colors';
 export * from './navbar';
-export * from './theme-tokens';
 export * from './toast';
