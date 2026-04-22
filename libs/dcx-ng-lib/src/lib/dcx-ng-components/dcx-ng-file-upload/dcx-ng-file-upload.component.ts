@@ -67,6 +67,16 @@ export class DcxNgFileUploadComponent {
 
   isDragOver = signal<boolean>(false);
 
+  contentClasses = computed<string>(() => {
+    const base = 'dcx-file-upload__content';
+    const stackedClass =
+      this.dragAndDrop() && this.isLargeDropzone()
+        ? 'dcx-file-upload__content--stacked'
+        : '';
+
+    return [base, stackedClass].filter(Boolean).join(' ');
+  });
+
   dropzoneClasses = computed<string>(() => {
     const base = 'dcx-file-upload__dropzone';
     const size = this.dropzoneSize();

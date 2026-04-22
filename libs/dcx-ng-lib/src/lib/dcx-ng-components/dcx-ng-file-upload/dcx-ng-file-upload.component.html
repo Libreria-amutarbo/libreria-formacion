@@ -9,10 +9,7 @@
     />
   }
 
-  <div
-    class="dcx-file-upload__content"
-    [class.dcx-file-upload__content--stacked]="dragAndDrop() && isLargeDropzone()"
-  >
+  <div [class]="contentClasses()">
     <dcx-ng-button
       [label]="label()"
       [disabled]="disabled()"
