@@ -27,6 +27,10 @@ export const APP_ROUTES = {
   CONTEXTMENU: 'context-menu',
   GRID: 'grid',
   NAVBAR: 'navbar',
+<<<<<<< HEAD
   POPOVER: 'popover',
   THEME_GENERATOR: 'theme-generator',
+=======
+  SCROLL_TOP_DOWN: 'scroll-top-down',
+>>>>>>> origin/develop
 };

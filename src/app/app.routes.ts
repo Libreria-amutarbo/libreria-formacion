@@ -27,6 +27,7 @@ import { DcxNgPageBreadcrumbComponent } from './pages/dcx-ng-page-breadcrumb/dcx
 import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.component/dcx-ng-page-contextMenu.component';
 import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-grid.component';
 import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
+import { DcxNgPageScrollTopDownComponent } from './pages/dcx-ng-page-scroll-top-down/dcx-ng-page-scroll-top-down.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
@@ -145,11 +146,16 @@ export const appRoutes: Route[] = [
     component: DcxNgPageNavbarComponent,
   },
   {
+<<<<<<< HEAD
     path: APP_ROUTES.POPOVER,
     component: DcxNgPagePopoverComponent,
   },
   {
     path: APP_ROUTES.THEME_GENERATOR,
     component: DcxNgPageThemeGeneratorComponent,
+=======
+    path: APP_ROUTES.SCROLL_TOP_DOWN,
+    component: DcxNgPageScrollTopDownComponent,
+>>>>>>> origin/develop
   },
 ];
