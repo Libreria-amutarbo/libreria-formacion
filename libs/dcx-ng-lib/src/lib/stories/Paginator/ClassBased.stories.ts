@@ -111,3 +111,55 @@ export const WithPageInfo: Story = {
   }
 };
 
+export const FirstPageState: Story = {
+  args: {
+    paginator: {
+      totalItems: 120,
+      itemsPerPage: 10,
+      currentPage: 1,
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Estado inicial: primera página activa y flecha izquierda deshabilitada.',
+      },
+    },
+  },
+};
+
+export const MiddleWithEllipsis: Story = {
+  args: {
+    paginator: {
+      totalItems: 300,
+      itemsPerPage: 10,
+      currentPage: 12,
+    },
+    limitedButtons: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Estado intermedio con elipsis y navegación extendida.',
+      },
+    },
+  },
+};
+
+export const LastPageState: Story = {
+  args: {
+    paginator: {
+      totalItems: 120,
+      itemsPerPage: 10,
+      currentPage: 12,
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Estado final: última página activa y flecha derecha deshabilitada.',
+      },
+    },
+  },
+};
+
