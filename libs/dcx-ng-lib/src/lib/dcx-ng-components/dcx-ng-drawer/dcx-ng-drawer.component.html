@@ -11,7 +11,7 @@
     <aside
       [class]="drawerClasses()"
       role="dialog"
-      [attr.aria-modal]="modal() ? 'true' : null"
+      [attr.aria-modal]="ariaModalValue"
       [style.z-index]="resolvedBaseZIndex() + 1"
       [style.width]="panelWidth()"
       [style.height]="panelHeight()"

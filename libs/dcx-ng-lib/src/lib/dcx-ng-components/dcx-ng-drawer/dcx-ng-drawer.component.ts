@@ -151,6 +151,14 @@ export class DcxNgDrawerComponent {
     });
   });
 
+  readonly ariaModal = computed<'true' | null>(() =>
+    this.modal() ? 'true' : null,
+  );
+
+  get ariaModalValue(): 'true' | null {
+    return this.ariaModal();
+  }
+
   close = (): void => {
     if (!this.visible()) return;
 
