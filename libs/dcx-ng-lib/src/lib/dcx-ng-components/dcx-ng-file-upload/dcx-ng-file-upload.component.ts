@@ -63,32 +63,29 @@ export class DcxNgFileUploadComponent {
   isLargeDropzone = computed(() => this.dropzoneSize() === 'large');
   hasSelectedFileItems = computed(() => this.selectedFileItems().length > 0);
   validationError = signal<string | null>(null);
+  validationErrorMessage = computed(() => this.validationError() || '');
 
   isDragOver = signal<boolean>(false);
 
   dropzoneClasses = computed<string>(() => {
     const base = 'dcx-file-upload__dropzone';
-    return [
-      base,
-      this.getDropzoneSizeClass(),
-      this.getDropzoneDragOverClass(),
-      this.getDropzoneDisabledClass(),
-    ]
+    const size = this.dropzoneSize();
+    const sizeClass =
+      size === 'small'
+        ? 'dcx-file-upload__dropzone--small'
+        : size === 'large'
+          ? 'dcx-file-upload__dropzone--large'
+          : '';
+    const dragOverClass = this.isDragOver()
+      ? 'dcx-file-upload__dropzone--drag-over'
+      : '';
+    const disabledClass = this.disabled()
+      ? 'dcx-file-upload__dropzone--disabled'
+      : '';
+    return [base, sizeClass, dragOverClass, disabledClass]
       .filter(Boolean)
       .join(' ');
   });
-
-  private getDropzoneSizeClass(): string {
-    const size = this.dropzoneSize();
-    if (size === 'small') return 'dcx-file-upload__dropzone--small';
-    if (size === 'large') return 'dcx-file-upload__dropzone--large';
-    return '';
-  }
-  private getDropzoneDragOverClass = (): string =>
-    this.isDragOver() ? 'dcx-file-upload__dropzone--drag-over' : '';
-
-  private getDropzoneDisabledClass = (): string =>
-    this.disabled() ? 'dcx-file-upload__dropzone--disabled' : '';
 
   openFilePicker = (): void => {
     if (this.disabled()) return;
