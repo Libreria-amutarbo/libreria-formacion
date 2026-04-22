@@ -171,6 +171,13 @@ describe('DcxNgInputComponent', () => {
       expect(component.isSearchType()).toBe(true);
     });
 
+    it('should compute isFileType correctly', () => {
+      fixture.componentRef.setInput('type', DcxInputType.FILE);
+      fixture.detectChanges();
+      expect(component.isFileType()).toBe(true);
+      expect(component.displayType()).toBe('file');
+    });
+
     it('should compute getInputIcon for various types', () => {
       fixture.componentRef.setInput('type', DcxInputType.TEXT);
       fixture.detectChanges();
@@ -189,8 +196,8 @@ describe('DcxNgInputComponent', () => {
       expect(component.getInputIcon()).toBe('search');
     });
 
-    it('should compute inputContolClasses', () => {
-      expect(component.inputContolClasses()).toContain('dcx-ng-input__control');
+    it('should compute inputClasses', () => {
+      expect(component.inputClasses()).toContain('dcx-ng-input__control');
     });
 
     it('should compute showActionIcon for password type', () => {

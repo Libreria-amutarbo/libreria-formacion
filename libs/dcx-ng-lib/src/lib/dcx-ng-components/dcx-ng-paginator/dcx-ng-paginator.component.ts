@@ -55,6 +55,18 @@ export class DcxNgPaginatorComponent {
     return this.currentPage() < this.totalPages();
   });
 
+  prevNavClasses = computed<string>(() =>
+    this.hasPrevious()
+      ? 'dcx-paginator__button'
+      : 'dcx-paginator__button dcx-paginator__button--disabled',
+  );
+
+  nextNavClasses = computed<string>(() =>
+    this.hasNext()
+      ? 'dcx-paginator__button'
+      : 'dcx-paginator__button dcx-paginator__button--disabled',
+  );
+
   firstItem = computed<number>(() => {
     return (this.currentPage() - 1) * this.selectedItemsPerPage() + 1;
   });
@@ -69,6 +81,8 @@ export class DcxNgPaginatorComponent {
   visiblePages = computed<(number | string)[]>(() => {
     return this.calculateVisiblePages();
   });
+
+  visiblePagesForView = computed<(number | string)[]>(() => this.visiblePages());
 
   constructor() {
     effect(() => {
@@ -124,8 +138,17 @@ export class DcxNgPaginatorComponent {
     return this.currentPage() === pageNum;
   }
 
+  getNavigationButtonClasses(disabled: boolean): string {
+    return disabled ? 'dcx-paginator__button dcx-paginator__button--disabled' : 'dcx-paginator__button';
+  }
+
+  getPageButtonClasses(page: number | string): string {
+    const pageNumber = this.getPageNumber(page);
+    return this.getCurrentPage(pageNumber) ? 'dcx-paginator__page dcx-paginator__page--current' : 'dcx-paginator__page';
+  }
+
   getButtonVariant(pageNum: number): DcxButtonVariant {
-    return this.currentPage() === pageNum ? 'primary' : 'secondary';
+    return this.currentPage() === pageNum ? 'primary' : 'text';
   }
 
   getButtonLabel(page: number): string {
@@ -138,6 +161,16 @@ export class DcxNgPaginatorComponent {
 
   isEllipsis(page: number | string): boolean {
     return page === '...';
+  }
+
+  getEllipsisDirection(index: number, pages: (number | string)[]): number {
+    const currentPageIndex = pages.findIndex(page => page === this.currentPage());
+
+    if (currentPageIndex === -1) {
+      return 1;
+    }
+
+    return index < currentPageIndex ? -1 : 1;
   }
 
   onItemsPerPageChange(value: string): void {
