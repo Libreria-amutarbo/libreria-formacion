@@ -146,18 +146,11 @@ export const appRoutes: Route[] = [
     component: DcxNgPageNavbarComponent,
   },
   {
-  {
-    path: APP_ROUTES.NAVBAR,
-    component: DcxNgPageNavbarComponent,
-  },
-  {
     path: APP_ROUTES.POPOVER,
     component: DcxNgPagePopoverComponent,
   },
   {
     path: APP_ROUTES.SCROLL_TOP_DOWN,
     component: DcxNgPageScrollTopDownComponent,
-  },
-];
   },
 ];
