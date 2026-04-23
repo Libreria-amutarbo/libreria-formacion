@@ -22,10 +22,16 @@
   h2 {
     font-size: var(--fs-xl, 1.5rem);
     font-weight: var(--fw-semibold, 600);
-    margin-bottom: var(--sp-4, 1rem);
+    margin-bottom: var(--sp-2, 0.5rem);
     color: var(--text-dark, #444);
     border-bottom: 1px solid var(--border-light, #eee);
     padding-bottom: var(--sp-2, 0.5rem);
+  }
+
+  .demo-description {
+    color: var(--text-muted, #666);
+    margin-bottom: var(--sp-4, 1rem);
+    font-size: var(--fs-sm, 0.875rem);
   }
 }
 

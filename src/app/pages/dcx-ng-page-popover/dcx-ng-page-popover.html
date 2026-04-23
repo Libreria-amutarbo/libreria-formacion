@@ -1,24 +1,219 @@
 <div class="page-container">
   <h1>Popover Component</h1>
-  <p>The Popover component is used to display content in an overlay that opens on demand.</p>
+  <p>El componente Popover muestra contenido contextual al hacer clic en un elemento trigger. Soporta posicionamiento automático y cierre al hacer clic fuera o pulsar Escape.</p>
   
+  <!-- Default -->
   <div class="demo-section">
-    <h2>Basic Popover</h2>
+    <h2>Default</h2>
+    <p class="demo-description">Popover básico con título y contenido de texto.</p>
     <div class="demo-box">
-
-      <div #buttonContainer class="button-container">
+      <div #buttonContainer1 class="button-container">
         <dcx-ng-button
           label="Open Popover"
-          (buttonClick)="myPopover.toggle($event, buttonContainer)"
+          (buttonClick)="popover1.toggle($event, buttonContainer1)"
         ></dcx-ng-button>
       </div>
 
-      <dcx-ng-popover #myPopover>
-        <div class="popover-content">
-          <h3 class="popover-title">Popover Title</h3>
-          <p class="popover-description">This is the content inside the popover. It can be any HTML or Angular component.</p>
+      <dcx-ng-popover #popover1>
+        <h3>Popover Title</h3>
+        <p>This is the content inside the popover. It can be any HTML or Angular component.</p>
+      </dcx-ng-popover>
+    </div>
+  </div>
+
+  <!-- Rich Content -->
+  <div class="demo-section">
+    <h2>Rich Content</h2>
+    <p class="demo-description">Popover con contenido enriquecido: nombre, cargo y email.</p>
+    <div class="demo-box">
+      <div #buttonContainer2 class="button-container">
+        <dcx-ng-button
+          label="User Info"
+          variant="secondary"
+          (buttonClick)="popover2.toggle($event, buttonContainer2)"
+        ></dcx-ng-button>
+      </div>
+
+      <dcx-ng-popover #popover2>
+        <div style="min-width: 200px;">
+          <h4 style="margin: 0 0 8px 0;">John Doe</h4>
+          <p style="margin: 0 0 4px 0; font-size: 14px; color: #666;">Software Engineer</p>
+          <p style="margin: 0; font-size: 12px; color: #999;">john.doe&#64;example.com</p>
         </div>
       </dcx-ng-popover>
+    </div>
+  </div>
+
+  <!-- With Actions -->
+  <div class="demo-section">
+    <h2>With Actions</h2>
+    <p class="demo-description">Popover con lista de acciones, puede usarse como menú contextual ligero.</p>
+    <div class="demo-box">
+      <div #buttonContainer3 class="button-container">
+        <dcx-ng-button
+          label="Options"
+          variant="terciary"
+          (buttonClick)="popover3.toggle($event, buttonContainer3)"
+        ></dcx-ng-button>
+      </div>
+
+      <dcx-ng-popover #popover3>
+        <dcx-ng-list [items]="actionItems" [selectable]="true"></dcx-ng-list>
+      </dcx-ng-popover>
+    </div>
+  </div>
+
+  <!-- With Components -->
+  <div class="demo-section">
+    <h2>With Components</h2>
+    <p class="demo-description">Popover con componentes de la librería: chips de filtro, divider y botones de acción.</p>
+    <div class="demo-box">
+      <div #buttonContainer4 class="button-container">
+        <dcx-ng-button
+          label="Filtrar"
+          variant="secondary"
+          (buttonClick)="popover4.toggle($event, buttonContainer4)"
+        ></dcx-ng-button>
+      </div>
+
+      <dcx-ng-popover #popover4>
+        <div style="min-width: 260px;">
+          <p style="margin: 0 0 8px 0; font-weight: 600;">Filtrar por etiqueta</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+            <dcx-ng-chip label="Angular" color="primary" variant="filter"></dcx-ng-chip>
+            <dcx-ng-chip label="TypeScript" color="secondary" variant="filter"></dcx-ng-chip>
+            <dcx-ng-chip label="Design System" color="primary" variant="filter"></dcx-ng-chip>
+            <dcx-ng-chip label="Storybook" color="secondary" variant="filter"></dcx-ng-chip>
+          </div>
+          <dcx-ng-divider></dcx-ng-divider>
+          <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px;">
+            <dcx-ng-button label="Limpiar" variant="terciary" size="s"></dcx-ng-button>
+            <dcx-ng-button label="Aplicar" variant="primary" size="s"></dcx-ng-button>
+          </div>
+        </div>
+      </dcx-ng-popover>
+    </div>
+  </div>
+
+  <!-- Long Content -->
+  <div class="demo-section">
+    <h2>Long Content</h2>
+    <p class="demo-description">Popover con contenido largo y scroll vertical.</p>
+    <div class="demo-box">
+      <div #buttonContainer5 class="button-container">
+        <dcx-ng-button
+          label="Ver detalles"
+          variant="secondary"
+          (buttonClick)="popover5.toggle($event, buttonContainer5)"
+        ></dcx-ng-button>
+      </div>
+
+      <dcx-ng-popover #popover5>
+        <div style="max-height: 200px; overflow-y: auto;">
+          <h3>Descripción completa</h3>
+          <p>Este componente permite mostrar información contextual de forma no intrusiva. Es ideal para tooltips enriquecidos, menús de acciones, detalles de usuario o cualquier contenido que deba aparecer al interactuar con un elemento de la interfaz.</p>
+          <p>El popover se posiciona automáticamente respecto al elemento trigger y se cierra al hacer clic fuera o pulsando la tecla Escape. El ancho máximo está limitado para garantizar la legibilidad del contenido.</p>
+          <p>Contenido adicional para forzar el scroll: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+          <p>Más contenido para demostrar el scroll vertical: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+        </div>
+      </dcx-ng-popover>
+    </div>
+  </div>
+
+  <!-- With Image -->
+  <div class="demo-section">
+    <h2>With Image</h2>
+    <p class="demo-description">Popover con imagen y descripción. Ideal para vistas previas de contenido visual.</p>
+    <div class="demo-box">
+      <div #buttonContainer6 class="button-container">
+        <dcx-ng-button
+          label="Ver preview"
+          variant="secondary"
+          (buttonClick)="popover6.toggle($event, buttonContainer6)"
+        ></dcx-ng-button>
+      </div>
+
+      <dcx-ng-popover #popover6>
+        <div style="min-width: 280px;">
+          <img src="https://picsum.photos/280/180" alt="Preview" style="width: 100%; height: auto; border-radius: 4px; margin-bottom: 12px;">
+          <h4 style="margin: 0 0 8px 0;">Imagen de ejemplo</h4>
+          <p style="margin: 0; font-size: 14px; color: #666;">Este popover muestra cómo integrar imágenes junto con texto descriptivo.</p>
+        </div>
+      </dcx-ng-popover>
+    </div>
+  </div>
+
+  <!-- Button Variants -->
+  <div class="demo-section">
+    <h2>Button Variants</h2>
+    <p class="demo-description">El popover puede abrirse desde botones con diferentes variantes.</p>
+    <div class="demo-box" style="display: flex; flex-wrap: wrap; gap: 16px;">
+      <div #buttonContainer7 class="button-container">
+        <dcx-ng-button
+          label="Primary"
+          variant="primary"
+          (buttonClick)="popover7.toggle($event, buttonContainer7)"
+        ></dcx-ng-button>
+        <dcx-ng-popover #popover7>
+          <p>Popover desde botón Primary</p>
+        </dcx-ng-popover>
+      </div>
+
+      <div #buttonContainer8 class="button-container">
+        <dcx-ng-button
+          label="Secondary"
+          variant="secondary"
+          (buttonClick)="popover8.toggle($event, buttonContainer8)"
+        ></dcx-ng-button>
+        <dcx-ng-popover #popover8>
+          <p>Popover desde botón Secondary</p>
+        </dcx-ng-popover>
+      </div>
+
+      <div #buttonContainer9 class="button-container">
+        <dcx-ng-button
+          label="Terciary"
+          variant="terciary"
+          (buttonClick)="popover9.toggle($event, buttonContainer9)"
+        ></dcx-ng-button>
+        <dcx-ng-popover #popover9>
+          <p>Popover desde botón Terciary</p>
+        </dcx-ng-popover>
+      </div>
+
+      <div #buttonContainer10 class="button-container">
+        <dcx-ng-button
+          label="Danger"
+          variant="danger"
+          (buttonClick)="popover10.toggle($event, buttonContainer10)"
+        ></dcx-ng-button>
+        <dcx-ng-popover #popover10>
+          <p>Popover desde botón Danger</p>
+        </dcx-ng-popover>
+      </div>
+
+      <div #buttonContainer11 class="button-container">
+        <dcx-ng-button
+          [icon]="true"
+          [iconName]="'pi pi-ellipsis-v'"
+          variant="icon-only"
+          (buttonClick)="popover11.toggle($event, buttonContainer11)"
+        ></dcx-ng-button>
+        <dcx-ng-popover #popover11>
+          <p>Popover desde botón icon-only</p>
+        </dcx-ng-popover>
+      </div>
+
+      <div #buttonContainer12 class="button-container">
+        <dcx-ng-button
+          label="Text"
+          variant="text"
+          (buttonClick)="popover12.toggle($event, buttonContainer12)"
+        ></dcx-ng-button>
+        <dcx-ng-popover #popover12>
+          <p>Popover desde botón Text</p>
+        </dcx-ng-popover>
+      </div>
     </div>
   </div>
 </div>
