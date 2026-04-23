@@ -20,6 +20,7 @@ import { DcxNgPageListComponent } from './pages/dcx-ng-page-list/dcx-ng-page-lis
 import { APP_ROUTES } from './core/constants/app-routes';
 import { DxcNgPageDatePickerComponent } from './pages/dxc-ng-page-datePicker/dxc-ng-page-datePicker.component';
 import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page-dialog.component';
+import { DcxNgPageDrawerComponent } from './pages/dcx-ng-page-drawer/dcx-ng-page-drawer.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
@@ -28,6 +29,8 @@ import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.c
 import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-grid.component';
 import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
 import { DcxNgPageThemeGeneratorComponent } from './pages/dcx-ng-page-theme-generator/dcx-ng-page-theme-generator.component';
+import { DcxNgPageFileUploadComponent } from './pages/dcx-ng-page-file-upload/dcx-ng-page-file-upload.component';
+import { DcxNgPageScrollTopDownComponent } from './pages/dcx-ng-page-scroll-top-down/dcx-ng-page-scroll-top-down.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 
@@ -125,6 +128,10 @@ export const appRoutes: Route[] = [
     component: DcxNgPageDialogComponent,
   },
   {
+    path: APP_ROUTES.DRAWER,
+    component: DcxNgPageDrawerComponent,
+  },
+  {
     path: APP_ROUTES.TABS,
     component: DcxNgPageTabsComponent,
   },
@@ -147,5 +154,13 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.THEME_GENERATOR,
     component: DcxNgPageThemeGeneratorComponent,
+  },
+  {
+    path: APP_ROUTES.FILE_UPLOAD,
+    component: DcxNgPageFileUploadComponent,
+  },
+  {
+    path: APP_ROUTES.SCROLL_TOP_DOWN,
+    component: DcxNgPageScrollTopDownComponent,
   },
 ];

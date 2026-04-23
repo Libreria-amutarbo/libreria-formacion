@@ -229,7 +229,7 @@ describe('DcxNgPaginatorComponent', () => {
     expect(component.getCurrentPage(1)).toBe(false);
   });
 
-  it('getButtonVariant should return primary for current page', () => {
+  it('getButtonVariant should return primary for current page and text for the rest', () => {
     fixture.componentRef.setInput('paginator', {
       totalItems: 50,
       itemsPerPage: 10,
@@ -237,7 +237,38 @@ describe('DcxNgPaginatorComponent', () => {
     });
     fixture.detectChanges();
     expect(component.getButtonVariant(2)).toBe('primary');
-    expect(component.getButtonVariant(1)).toBe('secondary');
+    expect(component.getButtonVariant(1)).toBe('text');
+  });
+
+  it('should mark current page button with current class', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
+    fixture.detectChanges();
+
+    const currentPageButton = fixture.nativeElement.querySelector(
+      '.dcx-paginator__page--current',
+    );
+
+    expect(currentPageButton).toBeTruthy();
+  });
+
+  it('getEllipsisDirection should resolve left and right jumps correctly', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 200,
+      itemsPerPage: 10,
+      currentPage: 10,
+    });
+    fixture.detectChanges();
+
+    const pages = component.visiblePages();
+    const leftEllipsisIndex = pages.findIndex(page => page === '...');
+    const rightEllipsisIndex = pages.lastIndexOf('...');
+
+    expect(component.getEllipsisDirection(leftEllipsisIndex, pages)).toBe(-1);
+    expect(component.getEllipsisDirection(rightEllipsisIndex, pages)).toBe(1);
   });
 
   it('getButtonLabel should return page number as string', () => {
