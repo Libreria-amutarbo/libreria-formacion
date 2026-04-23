@@ -240,6 +240,24 @@
   gap: var(--sp-2, 8px);
 }
 
+.theme-generator__preview-input {
+  width: min(320px, 100%);
+}
+
+.theme-generator__preview-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 var(--sp-3, 12px);
+  border-radius: var(--r-pill, 999px);
+  background: var(--color-success-bg, #f0fdf4);
+  color: var(--color-success, #16a34a);
+  border: 1px solid var(--border-success, #16a34a);
+  font-size: var(--fs-sm, 12px);
+  font-weight: var(--fw-semibold, 600);
+}
+
 // ── Footer ───────────────────────────────────────────────────────────────────
 
 .theme-generator__footer {

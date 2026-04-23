@@ -17,12 +17,13 @@ import {
   ThemeTokenGroup,
 } from '../../core/interfaces/theme-generator';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 
 
 @Component({
   selector: 'dcx-ng-theme-generator',
   standalone: true,
-  imports: [FormsModule, DcxNgButtonComponent],
+  imports: [FormsModule, DcxNgButtonComponent, DcxNgInputComponent],
   templateUrl: './dcx-ng-theme-generator.component.html',
   styleUrls: ['./dcx-ng-theme-generator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +32,7 @@ export class DcxNgThemeGeneratorComponent {
   private readonly el = inject(ElementRef);
 
   tokens = input<ThemeToken[]>(CAPGEMINI_THEME_TOKENS);
+  showPreview = input<boolean>(true);
   downloadFileName = input<string>('theme-client.css');
 
   themeChanged = output<ThemeToken[]>();

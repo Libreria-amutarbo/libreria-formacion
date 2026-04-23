@@ -87,6 +87,36 @@
     </div>
   </div>
 
+  @if (showPreview()) {
+    <section
+      class="theme-generator__preview"
+      aria-label="Vista previa del tema"
+    >
+      <h3 class="theme-generator__preview-title">Vista previa</h3>
+
+      <div class="theme-generator__preview-content">
+        <div class="theme-generator__preview-row">
+          <dcx-ng-button label="Boton primario" variant="primary" size="s" />
+          <dcx-ng-button
+            label="Boton secundario"
+            variant="secondary"
+            size="s"
+          />
+        </div>
+
+        <div class="theme-generator__preview-row">
+          <dcx-ng-input
+            class="theme-generator__preview-input"
+            label="Input de muestra"
+            value="Input de muestra"
+            readonly
+          ></dcx-ng-input>
+          <span class="theme-generator__preview-badge">Estado</span>
+        </div>
+      </div>
+    </section>
+  }
+
   <div class="theme-generator__footer">
     <span class="theme-generator__modified-count">
       @if (hasChanges()) {

@@ -106,6 +106,19 @@ describe('DcxNgThemeGeneratorComponent', () => {
     expect(component.downloadFileName()).toBe('custom-theme.css');
   });
 
+  it('should render preview by default', () => {
+    const preview = fixture.nativeElement.querySelector('.theme-generator__preview');
+    expect(preview).toBeTruthy();
+  });
+
+  it('should not render preview when showPreview is false', () => {
+    fixture.componentRef.setInput('showPreview', false);
+    fixture.detectChanges();
+
+    const preview = fixture.nativeElement.querySelector('.theme-generator__preview');
+    expect(preview).toBeNull();
+  });
+
   it('should emit cssGenerated when copyCss is called with modified tokens', () => {
     const spy = jest.fn();
     component.cssGenerated.subscribe(spy);
