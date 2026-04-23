@@ -71,6 +71,7 @@ export class DcxNgPageContextMenuComponent {
   menuPosition1 = { x: 0, y: 0 };
   menuPosition2 = { x: 0, y: 0 };
   menuPosition3 = { x: 0, y: 0 };
+  selectedItem: DcxContextMenuItem | null = null;
 
   openContextMenu(event: MouseEvent, menuNumber: number): void {
     event.preventDefault();
@@ -90,11 +91,29 @@ export class DcxNgPageContextMenuComponent {
     }
   }
 
-  openContextMenuFromButton(): void {
+  openContextMenuFromButton(triggerElement: HTMLElement): void {
+    const triggerRect = triggerElement.getBoundingClientRect();
+    const menuWidth = 240;
+    const viewportPadding = 8;
+
+    const menuX = Math.min(
+      triggerRect.left,
+      window.innerWidth - menuWidth - viewportPadding,
+    );
+
     this.menuPosition2 = {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
+      x: Math.max(viewportPadding, menuX),
+      y: triggerRect.bottom + 4,
     };
+
     setTimeout(() => this.contextMenu2.open(), 0);
+  }
+
+  onItemSelected(item: DcxContextMenuItem): void {
+    if (!item.text) {
+      return;
+    }
+
+    this.selectedItem = item;
   }
 }

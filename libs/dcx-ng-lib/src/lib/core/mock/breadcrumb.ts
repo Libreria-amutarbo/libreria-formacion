@@ -24,6 +24,14 @@ export const DcxBreadCrumbCurrentPage: DcxBreadcrumbItem[] = [
   { label: 'Portátiles', disabled: false },
 ];
 
+export const DcxBreadCrumbOverflow: DcxBreadcrumbItem[] = [
+  { label: 'Inicio', href: '/', disabled: false },
+  { label: 'Electrónica', href: '/electronica', disabled: false },
+  { label: 'Ordenadores', href: '/ordenadores', disabled: false },
+  { label: 'Portátiles', href: '/portatiles', disabled: false },
+  { label: 'Gaming', disabled: false },
+];
+
 export const DcxBreadCrumbSlashIcon: DcxBreadCrumbSeparatorIcons = 'slash-lg';
 export const DcxBreadCrumbArrowhIcon: DcxBreadCrumbSeparatorIcons =
   'arrow-right-short';

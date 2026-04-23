@@ -8,6 +8,7 @@
     #contextMenu1
     [items]="menuItems"
     [position]="menuPosition1"
+    (itemSelected)="onItemSelected($event)"
   >
   </dcx-ng-context-menu>
 </section>
@@ -16,17 +17,20 @@
 
 <section>
   <h2 class="example-title">Ejemplo 2 - Context Menu con Botón</h2>
-  <dcx-ng-button
-    label="Abrir menú contextual"
-    variant="primary"
-    (buttonClick)="openContextMenuFromButton()"
-  >
-  </dcx-ng-button>
+  <div #buttonTrigger>
+    <dcx-ng-button
+      label="Abrir menú contextual"
+      variant="primary"
+      (buttonClick)="openContextMenuFromButton(buttonTrigger)"
+    >
+    </dcx-ng-button>
+  </div>
 
   <dcx-ng-context-menu
     #contextMenu2
     [items]="advancedMenuItems"
     [position]="menuPosition2"
+    (itemSelected)="onItemSelected($event)"
   >
   </dcx-ng-context-menu>
 </section>
@@ -43,6 +47,7 @@
     #contextMenu3
     [items]="nestedMenuItems"
     [position]="menuPosition3"
+    (itemSelected)="onItemSelected($event)"
   >
   </dcx-ng-context-menu>
 </section>

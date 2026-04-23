@@ -21,6 +21,7 @@ import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
 export class DcxNgContextMenuComponent {
   items = input.required<DcxContextMenuItem[]>();
   position = input<{ x: number; y: number }>({ x: 0, y: 0 });
+  positionMode = input<'fixed' | 'absolute'>('fixed');
 
   itemSelected = output<DcxContextMenuItem>();
   menuClosed = output<void>();
