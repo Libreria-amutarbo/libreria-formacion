@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   computed,
   Component,
-  ElementRef,
   input,
   output,
   signal,
@@ -43,23 +42,42 @@ export class DcxNgBreadcrumbComponent {
 
   readonly items = input.required<DcxBreadcrumbItem[]>();
   readonly iconSeparator = input.required<DcxBreadCrumbSeparatorIcons>();
+  readonly itemSelected = output<DcxBreadcrumbItem>();
+
   readonly isEllipsisMenuOpen = signal(false);
-
-  readonly showEllipsis = computed(
-    () => this.items().length > this.maxVisibleItems,
-  );
-
   readonly ellipsisMenuPosition = signal({ x: 0, y: 0 });
 
-  readonly hiddenItems = computed(() => {
+  readonly itemsState = computed(() => {
     const currentItems = this.items();
+    const hasEllipsis = currentItems.length > this.maxVisibleItems;
 
-    if (currentItems.length <= this.maxVisibleItems) {
-      return [];
+    if (!hasEllipsis) {
+      return {
+        showEllipsis: false,
+        hiddenItems: [] as DcxBreadcrumbItem[],
+        visibleItems: currentItems,
+        currentItem: currentItems[currentItems.length - 1] ?? null,
+      };
     }
 
-    return currentItems.slice(0, currentItems.length - this.maxVisibleItems);
+    const hiddenItems = currentItems.slice(
+      0,
+      currentItems.length - this.maxVisibleItems,
+    );
+    const visibleItems = currentItems.slice(-this.maxVisibleItems);
+
+    return {
+      showEllipsis: true,
+      hiddenItems,
+      visibleItems,
+      currentItem: visibleItems[visibleItems.length - 1] ?? null,
+    };
   });
+
+  readonly showEllipsis = computed(() => this.itemsState().showEllipsis);
+  readonly hiddenItems = computed(() => this.itemsState().hiddenItems);
+  readonly visibleItems = computed(() => this.itemsState().visibleItems);
+  readonly currentItem = computed(() => this.itemsState().currentItem);
 
   readonly hiddenItemsMenu = computed<DcxContextMenuItem[]>(() =>
     this.hiddenItems().map(item => ({
@@ -69,24 +87,6 @@ export class DcxNgBreadcrumbComponent {
       action: () => this.onHiddenItemClick(item),
     })),
   );
-
-  readonly visibleItems = computed(() => {
-    const currentItems = this.items();
-
-    if (currentItems.length <= this.maxVisibleItems) {
-      return currentItems;
-    }
-
-    return currentItems.slice(-this.maxVisibleItems);
-  });
-
-  readonly currentItem = computed(() => {
-    const currentItems = this.items();
-
-    return currentItems[currentItems.length - 1] ?? null;
-  });
-
-  readonly itemSelected = output<DcxBreadcrumbItem>();
 
   onItemClick(item: DcxBreadcrumbItem, event?: Event): void {
     if (item.disabled) {
@@ -131,14 +131,16 @@ export class DcxNgBreadcrumbComponent {
       y: buttonRect.height + 4,
     });
 
-    if (menu.isOpen()) {
+    const isOpen = menu.isOpen();
+
+    this.isEllipsisMenuOpen.set(!isOpen);
+
+    if (isOpen) {
       menu.close();
-      this.isEllipsisMenuOpen.set(false);
       return;
     }
 
     menu.open();
-    this.isEllipsisMenuOpen.set(true);
   }
 
   onHiddenMenuClosed(): void {
