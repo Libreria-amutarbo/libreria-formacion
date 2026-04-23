@@ -157,6 +157,10 @@ export const appRoutes: Route[] = [
     component: DcxNgPagePopoverComponent,
   },
   {
+    path: APP_ROUTES.THEME_GENERATOR,
+    component: DcxNgPageThemeGeneratorComponent,
+  },
+  {
     path: APP_ROUTES.FILE_UPLOAD,
     component: DcxNgPageFileUploadComponent,
   },
