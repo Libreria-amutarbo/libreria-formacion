@@ -1,0 +1,46 @@
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  gap: var(--sp-3, 12px);
+
+  section {
+    width: min(100%, 960px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--sp-4, 16px);
+  }
+
+  #drawer-positions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: var(--sp-3, 12px);
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--sp-2, 8px);
+    justify-content: flex-end;
+    margin-top: var(--sp-4, 16px);
+  }
+
+  #drawer-zindex-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3, 12px);
+    justify-content: center;
+  }
+
+  .zindex-help {
+    margin: 0;
+    text-align: center;
+    color: var(--text-muted, #696e75);
+    max-width: 760px;
+  }
+}

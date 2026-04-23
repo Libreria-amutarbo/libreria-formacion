@@ -1,0 +1,69 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as FileUploadStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/FileUpload/Documentation" />
+
+# File Upload
+
+El componente `dcx-ng-file-upload` permite a los usuarios seleccionar, arrastrar y soltar uno o varios archivos para subirlos, con soporte para auto-upload, zona de drop, y personalización de estados.
+
+---
+
+## Ejemplo básico
+
+<Canvas of={FileUploadStories.Default} />
+
+---
+
+## Variantes
+
+### Drag & Drop
+
+<Canvas of={FileUploadStories.DragAndDrop} />
+
+### Zona grande
+
+<Canvas of={FileUploadStories.LargeDropzone} />
+
+### Múltiples archivos
+
+<Canvas of={FileUploadStories.MultipleFiles} />
+
+### Auto Upload
+
+<Canvas of={FileUploadStories.AutoUpload} />
+
+---
+
+## Props principales
+
+- **label**: Texto del botón para abrir el selector de archivos
+- **accept**: Tipos de archivo permitidos (ejemplo: `.pdf,.doc,image/*`)
+- **disabled**: Deshabilita la selección de archivos
+- **placeholder**: Texto mostrado cuando no hay archivo seleccionado
+- **dragAndDrop**: Activa la zona de arrastrar y soltar
+- **dropzoneSize**: Tamaño visual de la zona (`'small' | 'large'`)
+- **multiple**: Permite seleccionar varios archivos
+- **autoUpload**: Sube automáticamente al seleccionar/soltar archivo
+
+## Eventos
+
+- **fileSelected**: Se emite al seleccionar (o limpiar) archivo(s)
+- **uploadClicked**: Se emite al pulsar el botón Upload (o auto, si está activo)
+
+---
+
+## Ejemplo de uso
+
+```html
+<!-- Básico -->
+<dcx-ng-file-upload
+  label="Seleccionar archivo"
+  [accept]="'image/*'"
+  [dragAndDrop]="true"
+  [dropzoneSize]="'large'"
+  [multiple]="true"
+  (fileSelected)="onFileSelected($event)"
+  (uploadClicked)="onUpload($event)"
+></dcx-ng-file-upload>
+```
