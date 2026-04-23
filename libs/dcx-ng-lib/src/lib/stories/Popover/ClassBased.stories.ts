@@ -32,7 +32,7 @@ import {
 })
 class PopoverStoryWrapperComponent {
   readonly buttonLabel = input<string>('Open Popover');
-  readonly buttonVariant = input<'primary' | 'secondary' | 'tertiary'>('primary');
+  readonly buttonVariant = input<'primary' | 'secondary' | 'terciary' | 'danger' | 'icon-only' | 'text'>('primary');
   readonly popoverTitle = input<string>('');
   readonly popoverContent = input<string>('');
   readonly opened = output<void>();
@@ -86,11 +86,11 @@ const meta: Meta<PopoverStoryWrapperComponent> = {
     buttonVariant: {
       name: 'buttonVariant',
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary'],
+      options: ['primary', 'secondary', 'terciary', 'danger', 'icon-only', 'text'],
       description: 'Variante visual del botón trigger',
       table: {
         category: 'Atributos',
-        type: { summary: "'primary' | 'secondary' | 'tertiary'" },
+        type: { summary: "'primary' | 'secondary' | 'terciary' | 'danger' | 'icon-only' | 'text'" },
         defaultValue: { summary: 'primary' },
       },
     },
@@ -199,7 +199,7 @@ export const WithActions: Story = {
   name: 'With Actions',
   args: {
     buttonLabel: 'Options',
-    buttonVariant: 'tertiary',
+    buttonVariant: 'terciary',
   },
   render: (args) => ({
     props: {
@@ -246,7 +246,7 @@ export const WithComponents: Story = {
           </div>
           <dcx-ng-divider></dcx-ng-divider>
           <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px;">
-            <dcx-ng-button label="Limpiar" variant="tertiary" size="s"></dcx-ng-button>
+            <dcx-ng-button label="Limpiar" variant="terciary" size="s"></dcx-ng-button>
             <dcx-ng-button label="Aplicar" variant="primary" size="s"></dcx-ng-button>
           </div>
         </div>
@@ -272,9 +272,13 @@ export const LongContent: Story = {
     props: args,
     template: `
       <dcx-ng-popover-story-wrapper [buttonLabel]="buttonLabel" [buttonVariant]="buttonVariant">
-        <h3>Descripción completa</h3>
-        <p>Este componente permite mostrar información contextual de forma no intrusiva. Es ideal para tooltips enriquecidos, menús de acciones, detalles de usuario o cualquier contenido que deba aparecer al interactuar con un elemento de la interfaz.</p>
-        <p>El popover se posiciona automáticamente respecto al elemento trigger y se cierra al hacer clic fuera o pulsando la tecla Escape. El ancho máximo está limitado para garantizar la legibilidad del contenido.</p>
+        <div style="max-height: 200px; overflow-y: auto;">
+          <h3>Descripción completa</h3>
+          <p>Este componente permite mostrar información contextual de forma no intrusiva. Es ideal para tooltips enriquecidos, menús de acciones, detalles de usuario o cualquier contenido que deba aparecer al interactuar con un elemento de la interfaz.</p>
+          <p>El popover se posiciona automáticamente respecto al elemento trigger y se cierra al hacer clic fuera o pulsando la tecla Escape. El ancho máximo está limitado para garantizar la legibilidad del contenido.</p>
+          <p>Contenido adicional para forzar el scroll: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+          <p>Más contenido para demostrar el scroll vertical: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+        </div>
       </dcx-ng-popover-story-wrapper>
     `,
   }),
@@ -282,6 +286,33 @@ export const LongContent: Story = {
     docs: {
       description: {
         story: 'Popover con texto largo para verificar que el contenido no desborda el contenedor y se adapta correctamente al ancho máximo definido.',
+      },
+    },
+  },
+};
+
+export const WithImage: Story = {
+  name: 'With Image',
+  args: {
+    buttonLabel: 'Ver preview',
+    buttonVariant: 'secondary',
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+      <dcx-ng-popover-story-wrapper [buttonLabel]="buttonLabel" [buttonVariant]="buttonVariant">
+        <div style="min-width: 280px;">
+          <img src="https://picsum.photos/280/180" alt="Preview" style="width: 100%; height: auto; border-radius: 4px; margin-bottom: 12px;">
+          <h4 style="margin: 0 0 8px 0;">Imagen de ejemplo</h4>
+          <p style="margin: 0; font-size: 14px; color: #666;">Este popover muestra cómo integrar imágenes junto con texto descriptivo.</p>
+        </div>
+      </dcx-ng-popover-story-wrapper>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Popover con imagen y descripción. Ideal para vistas previas de contenido visual.',
       },
     },
   },
