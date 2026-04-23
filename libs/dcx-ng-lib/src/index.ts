@@ -37,6 +37,6 @@ export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table-templ
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-data-pipeline.service';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-comparator.service';
 export * from './lib/dcx-ng-components/dcx-ng-navbar/dcx-ng-navbar.component';
-export * from './lib/dcx-ng-components/dcx-ng-theme-generator/dcx-ng-theme-generator.component';
-
+export * from './lib/dcx-ng-components/dcx-ng-popover/dcx-ng-popover.component';
 export * from './lib/dcx-ng-components/dcx-ng-scroll-top-down/dcx-ng-scroll-top-down.component';
+export * from './lib/dcx-ng-components/dcx-ng-theme-generator/dcx-ng-theme-generator.component';

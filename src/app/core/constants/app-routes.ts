@@ -28,6 +28,7 @@ export const APP_ROUTES = {
   CONTEXTMENU: 'context-menu',
   GRID: 'grid',
   NAVBAR: 'navbar',
+  POPOVER: 'popover',
   FILE_UPLOAD: 'file-upload',
   THEME_GENERATOR: 'theme-generator',
   SCROLL_TOP_DOWN: 'scroll-top-down',

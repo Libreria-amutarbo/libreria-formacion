@@ -33,6 +33,7 @@ import { DcxNgPageFileUploadComponent } from './pages/dcx-ng-page-file-upload/dc
 import { DcxNgPageScrollTopDownComponent } from './pages/dcx-ng-page-scroll-top-down/dcx-ng-page-scroll-top-down.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
+import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
 
 export const appRoutes: Route[] = [
   {
@@ -150,6 +151,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.NAVBAR,
     component: DcxNgPageNavbarComponent,
+  },
+  {
+    path: APP_ROUTES.POPOVER,
+    component: DcxNgPagePopoverComponent,
   },
   {
     path: APP_ROUTES.THEME_GENERATOR,
