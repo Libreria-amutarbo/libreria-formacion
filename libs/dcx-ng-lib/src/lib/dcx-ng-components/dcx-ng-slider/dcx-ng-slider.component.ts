@@ -15,7 +15,7 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { DcxInputType } from '../../core/interfaces';
-import { SLIDER_DEFAULT_VALUES } from '../../core/mock';
+import { SLIDER_DEFAULT_VALUES } from '../../core/defaults';
 import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 
 @Component({

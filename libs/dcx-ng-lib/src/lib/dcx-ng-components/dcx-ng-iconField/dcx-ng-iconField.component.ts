@@ -10,7 +10,7 @@ import {
   ICON_FIELD_ICON_NAME,
   ICON_FIELD_ICON_POSITION,
   ICON_FIELD_ICON_SIZE,
-} from '../../core/mock';
+} from '../../core/defaults';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 @Component({
@@ -39,7 +39,7 @@ export class DcxNgIconFieldComponent {
     return [mapped].filter(Boolean).join(' ');
   });
 
-  constructor() {}
+  constructor() { }
 
   onIconClick() {
     this.iconClick.emit();

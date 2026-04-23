@@ -29,7 +29,7 @@ import {
   ERRORICON,
   VALUEINPUT,
   SPACING_DEFAULT,
-} from '../../core/mock';
+} from '../../core/defaults';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
