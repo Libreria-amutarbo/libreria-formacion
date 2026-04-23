@@ -1,45 +1,45 @@
 .page-container {
-  padding: var(--sp-8, 2rem);
+  padding: var(--sp-8, 32px);
   max-width: 1200px;
   margin: 0 auto;
 
   h1 {
-    font-size: var(--fs-2xl, 2rem);
+    font-size: var(--fs-2xl, 24px);
     font-weight: var(--fw-bold, 700);
-    margin-bottom: var(--sp-4, 1rem);
-    color: var(--text-dark, #333);
+    margin-bottom: var(--sp-4, 16px);
+    color: var(--text-dark, #2a2e33);
   }
 
   p {
-    color: var(--text-muted, #666);
-    margin-bottom: var(--sp-8, 2rem);
+    color: var(--text-muted, #696e75);
+    margin-bottom: var(--sp-8, 32px);
   }
 }
 
 .demo-section {
-  margin-bottom: var(--sp-12, 3rem);
+  margin-bottom: var(--sp-12, 48px);
 
   h2 {
-    font-size: var(--fs-xl, 1.5rem);
+    font-size: var(--fs-xl, 20px);
     font-weight: var(--fw-semibold, 600);
-    margin-bottom: var(--sp-2, 0.5rem);
-    color: var(--text-dark, #444);
-    border-bottom: 1px solid var(--border-light, #eee);
-    padding-bottom: var(--sp-2, 0.5rem);
+    margin-bottom: var(--sp-2, 8px);
+    color: var(--text-dark, #2a2e33);
+    border-bottom: 1px solid var(--border-light, #d1d5db);
+    padding-bottom: var(--sp-2, 8px);
   }
 
   .demo-description {
-    color: var(--text-muted, #666);
-    margin-bottom: var(--sp-4, 1rem);
-    font-size: var(--fs-sm, 0.875rem);
+    color: var(--text-muted, #696e75);
+    margin-bottom: var(--sp-4, 16px);
+    font-size: var(--fs-sm, 12px);
   }
 }
 
 .demo-box {
-  padding: var(--sp-8, 2rem);
-  border: 1px solid var(--border-default, #e0e0e0);
+  padding: var(--sp-8, 32px);
+  border: 1px solid var(--border-light, #d1d5db);
   border-radius: var(--r-lg, 8px);
-  background-color: var(--bg-subtle, #f9f9f9);
+  background-color: var(--bg-surface, #f4f5f7);
   min-height: 200px;
   display: flex;
   align-items: flex-start;
@@ -47,7 +47,7 @@
   &--variants {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sp-4, 1rem);
+    gap: var(--sp-4, 16px);
   }
 }
 
@@ -66,13 +66,13 @@
   &__role {
     margin: 0 0 var(--sp-1, 4px) 0;
     font-size: var(--fs-base, 14px);
-    color: var(--text-muted, #666);
+    color: var(--text-muted, #696e75);
   }
 
   &__email {
     margin: 0;
     font-size: var(--fs-sm, 12px);
-    color: var(--text-placeholder, #999);
+    color: var(--text-placeholder, #9ca3af);
   }
 }
 
@@ -124,7 +124,7 @@
   &__description {
     margin: 0;
     font-size: var(--fs-base, 14px);
-    color: var(--text-muted, #666);
+    color: var(--text-muted, #696e75);
   }
 }
 
