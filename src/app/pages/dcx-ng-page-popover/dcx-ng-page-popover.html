@@ -35,10 +35,10 @@
       </div>
 
       <dcx-ng-popover #popover2>
-        <div style="min-width: 200px;">
-          <h4 style="margin: 0 0 8px 0;">John Doe</h4>
-          <p style="margin: 0 0 4px 0; font-size: 14px; color: #666;">Software Engineer</p>
-          <p style="margin: 0; font-size: 12px; color: #999;">john.doe&#64;example.com</p>
+        <div class="user-info">
+          <h4 class="user-info__name">John Doe</h4>
+          <p class="user-info__role">Software Engineer</p>
+          <p class="user-info__email">john.doe&#64;example.com</p>
         </div>
       </dcx-ng-popover>
     </div>
@@ -77,16 +77,16 @@
       </div>
 
       <dcx-ng-popover #popover4>
-        <div style="min-width: 260px;">
-          <p style="margin: 0 0 8px 0; font-weight: 600;">Filtrar por etiqueta</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+        <div class="filter-container">
+          <p class="filter-container__title">Filtrar por etiqueta</p>
+          <div class="filter-container__chips">
             <dcx-ng-chip label="Angular" color="primary" variant="filter"></dcx-ng-chip>
             <dcx-ng-chip label="TypeScript" color="secondary" variant="filter"></dcx-ng-chip>
             <dcx-ng-chip label="Design System" color="primary" variant="filter"></dcx-ng-chip>
             <dcx-ng-chip label="Storybook" color="secondary" variant="filter"></dcx-ng-chip>
           </div>
           <dcx-ng-divider></dcx-ng-divider>
-          <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px;">
+          <div class="filter-container__actions">
             <dcx-ng-button label="Limpiar" variant="terciary" size="s"></dcx-ng-button>
             <dcx-ng-button label="Aplicar" variant="primary" size="s"></dcx-ng-button>
           </div>
@@ -109,7 +109,7 @@
       </div>
 
       <dcx-ng-popover #popover5>
-        <div style="max-height: 200px; overflow-y: auto;">
+        <div class="scrollable-content">
           <h3>Descripción completa</h3>
           <p>Este componente permite mostrar información contextual de forma no intrusiva. Es ideal para tooltips enriquecidos, menús de acciones, detalles de usuario o cualquier contenido que deba aparecer al interactuar con un elemento de la interfaz.</p>
           <p>El popover se posiciona automáticamente respecto al elemento trigger y se cierra al hacer clic fuera o pulsando la tecla Escape. El ancho máximo está limitado para garantizar la legibilidad del contenido.</p>
@@ -134,10 +134,10 @@
       </div>
 
       <dcx-ng-popover #popover6>
-        <div style="min-width: 280px;">
-          <img src="https://picsum.photos/280/180" alt="Preview" style="width: 100%; height: auto; border-radius: 4px; margin-bottom: 12px;">
-          <h4 style="margin: 0 0 8px 0;">Imagen de ejemplo</h4>
-          <p style="margin: 0; font-size: 14px; color: #666;">Este popover muestra cómo integrar imágenes junto con texto descriptivo.</p>
+        <div class="image-preview">
+          <img src="https://picsum.photos/280/180" alt="Preview" class="image-preview__img">
+          <h4 class="image-preview__title">Imagen de ejemplo</h4>
+          <p class="image-preview__description">Este popover muestra cómo integrar imágenes junto con texto descriptivo.</p>
         </div>
       </dcx-ng-popover>
     </div>
@@ -147,7 +147,7 @@
   <div class="demo-section">
     <h2>Button Variants</h2>
     <p class="demo-description">El popover puede abrirse desde botones con diferentes variantes.</p>
-    <div class="demo-box" style="display: flex; flex-wrap: wrap; gap: 16px;">
+    <div class="demo-box demo-box--variants">
       <div #buttonContainer7 class="button-container">
         <dcx-ng-button
           label="Primary"
