@@ -19,6 +19,7 @@ export const APP_ROUTES = {
   PAGINATOR: 'paginator',
   SLIDER: 'slider',
   DATEPICKER: 'date-picker',
+  DRAWER: 'drawer',
   ACCORDION: 'accordion',
   DIALOG: 'dialog',
   SEARCH: 'search',

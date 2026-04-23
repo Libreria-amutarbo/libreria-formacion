@@ -1,0 +1,58 @@
+@if (visible()) {
+  <div class="dcx-drawer-root" [style.z-index]="resolvedBaseZIndex()">
+    @if (modal()) {
+      <div
+        [class]="maskClasses()"
+        [style.z-index]="resolvedBaseZIndex()"
+        (pointerdown)="onMaskPointerDown($event)"
+      ></div>
+    }
+
+    <aside
+      [class]="drawerClasses()"
+      role="dialog"
+      [attr.aria-modal]="ariaModalValue"
+      [style.z-index]="resolvedBaseZIndex() + 1"
+      [style.width]="panelWidth()"
+      [style.height]="panelHeight()"
+    >
+      @if (hasHeader()) {
+        <header class="dcx-drawer__header">
+          @if (headerTemplate()) {
+            <ng-container *ngTemplateOutlet="headerTemplate()"></ng-container>
+          } @else {
+            <h3 class="dcx-drawer__title">{{ header() }}</h3>
+          }
+
+          @if (showCloseIcon()) {
+            <dcx-ng-button
+              class="dcx-drawer__close"
+              ariaLabel="Cerrar drawer"
+              variant="terciary"
+              size="s"
+              [icon]="true"
+              iconName="x-lg"
+              iconSpacing="none"
+              iconSize="m"
+              (buttonClick)="close()"
+            />
+          }
+        </header>
+      }
+
+      <div class="dcx-drawer__content">
+        <ng-content></ng-content>
+      </div>
+
+      @if (hasFooter()) {
+        <footer class="dcx-drawer__footer">
+          @if (footerTemplate()) {
+            <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
+          } @else {
+            <span>{{ footer() }}</span>
+          }
+        </footer>
+      }
+    </aside>
+  </div>
+}
