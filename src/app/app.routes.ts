@@ -154,6 +154,8 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.POPOVER,
     component: DcxNgPagePopoverComponent,
+  },
+  {
     path: APP_ROUTES.FILE_UPLOAD,
     component: DcxNgPageFileUploadComponent,
   },
