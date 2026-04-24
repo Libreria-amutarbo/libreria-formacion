@@ -1,7 +1,6 @@
 export * from './lib/core/interfaces';
 export * from './lib/core/mock';
 export * from './lib/core/constants';
-
 export * from './lib/core/mapping';
 export * from './lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
 export * from './lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';

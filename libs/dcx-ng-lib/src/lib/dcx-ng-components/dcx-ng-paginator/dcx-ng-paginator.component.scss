@@ -1,3 +1,45 @@
+.dcx-paginator__row-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 8px;
+  gap: 16px;
+}
+
+.dcx-paginator__size {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-inset-s, 8px);
+}
+
+.dcx-paginator__pages {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.items-per-page-info {
+  font-size: 13px;
+  color: var(--content-subtle, #696e75);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.dcx-paginator__size {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-inset-s, 8px);
+}
+
+.items-per-page-info {
+  font-size: 13px;
+  color: var(--content-subtle, #696e75);
+  white-space: nowrap;
+  text-align: right;
+}
 @import '../../../scss/main.scss';
 
 :host {
@@ -5,6 +47,9 @@
   font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
+
+
+// Layout vertical, todo centrado
 .dcx-paginator {
   display: flex;
   flex-direction: column;

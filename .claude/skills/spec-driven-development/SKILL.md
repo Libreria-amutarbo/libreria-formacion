@@ -1,6 +1,7 @@
 ---
 name: spec-driven-development
 description: Guides the Spec Driven Development workflow. Use when starting any new feature, component, or significant change. Writes a spec first, waits for approval, then implements. Can also be invoked to write a spec for existing work.
+tools: read, edit, write, search, execute
 ---
 
 # Spec Driven Development (SDD)

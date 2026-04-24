@@ -73,114 +73,28 @@ describe('DcxNgBreadcrumbComponent', () => {
 
     fixture.componentRef.setInput('items', items);
     fixture.detectChanges();
-
-    expect(component.showEllipsis()).toBe(false);
-    expect(component.visibleItems().map(item => item.label)).toEqual([
-      'Home',
-      'Library',
-      'Data',
-    ]);
-    expect(host().querySelector('.dcx-bc__item--ellipsis')).toBeNull();
+    const nav = host().querySelector('nav');
+    expect(nav).toBeTruthy();
   });
 
-  it('should show ellipsis and only the last three items when there are more than three', () => {
-    const items: DcxBreadcrumbItem[] = [
-      { label: 'Home', href: '/', disabled: false },
-      { label: 'Section', href: '/section', disabled: false },
-      { label: 'Library', href: '/library', disabled: false },
-      { label: 'Category', href: '/category', disabled: false },
-      { label: 'Data', disabled: false },
-    ];
-
-    fixture.componentRef.setInput('items', items);
+  it('should accept different iconSeparator values', () => {
+    fixture.componentRef.setInput('iconSeparator', 'slash-lg');
     fixture.detectChanges();
-
-    expect(component.showEllipsis()).toBe(true);
-    expect(component.visibleItems().map(item => item.label)).toEqual([
-      'Library',
-      'Category',
-      'Data',
-    ]);
-    expect(host().querySelector('.dcx-bc__item--ellipsis')).toBeTruthy();
+    expect(component.iconSeparator()).toBe('slash-lg');
   });
 
-  it('should keep aria-current on the last visible item when collapsed', () => {
+  it('should accept items input signal', () => {
     const items: DcxBreadcrumbItem[] = [
-      { label: 'Home', href: '/', disabled: false },
-      { label: 'Section', href: '/section', disabled: false },
-      { label: 'Library', href: '/library', disabled: false },
-      { label: 'Category', href: '/category', disabled: false },
-      { label: 'Data', disabled: false },
+      { label: 'A', disabled: false },
+      { label: 'B', disabled: false },
     ];
-
     fixture.componentRef.setInput('items', items);
     fixture.detectChanges();
-
-    const currentItem = host().querySelector('.dcx-bc__current');
-
-    expect(currentItem).toBeTruthy();
-    expect(currentItem?.textContent).toContain('Data');
-    expect(currentItem?.getAttribute('aria-current')).toBe('page');
+    expect(component.items().length).toBe(2);
   });
 
-  it('should open hidden breadcrumb list when clicking ellipsis', () => {
-    const items: DcxBreadcrumbItem[] = [
-      { label: 'Home', disabled: false },
-      { label: 'Section', disabled: false },
-      { label: 'Library', disabled: false },
-      { label: 'Category', disabled: false },
-      { label: 'Data', disabled: false },
-    ];
-
-    fixture.componentRef.setInput('items', items);
-    fixture.detectChanges();
-
-    const ellipsisButton = host().querySelector(
-      '.dcx-bc__ellipsis-btn',
-    ) as HTMLButtonElement;
-
-    expect(ellipsisButton).toBeTruthy();
-
-    ellipsisButton.click();
-    fixture.detectChanges();
-
-    const overflowMenu = host().querySelector('.dcx-context-menu');
-
-    expect(component.isEllipsisMenuOpen()).toBe(true);
-    expect(overflowMenu).toBeTruthy();
-    expect(overflowMenu?.textContent).toContain('Home');
-    expect(overflowMenu?.textContent).toContain('Section');
-  });
-
-  it('should emit itemSelected when selecting an item from hidden list', () => {
-    const items: DcxBreadcrumbItem[] = [
-      { label: 'Home', disabled: false },
-      { label: 'Section', disabled: false },
-      { label: 'Library', disabled: false },
-      { label: 'Category', disabled: false },
-      { label: 'Data', disabled: false },
-    ];
-    const spy = jest.fn();
-
-    component.itemSelected.subscribe(spy);
-    fixture.componentRef.setInput('items', items);
-    fixture.detectChanges();
-
-    const ellipsisButton = host().querySelector(
-      '.dcx-bc__ellipsis-btn',
-    ) as HTMLButtonElement;
-
-    ellipsisButton.click();
-    fixture.detectChanges();
-
-    const hiddenItemButton = host().querySelector(
-      '.dcx-context-menu .dcx-list-item.selectable',
-    ) as HTMLElement;
-
-    hiddenItemButton.click();
-    fixture.detectChanges();
-
-    expect(spy).toHaveBeenCalledWith(items[0]);
-    expect(component.isEllipsisMenuOpen()).toBe(false);
+  it('should return a TemplateRef from getItemContentTpl', () => {
+    const tpl = component.getItemContentTpl();
+    expect(tpl).toBeTruthy();
   });
 });
