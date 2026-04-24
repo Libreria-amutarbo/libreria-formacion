@@ -1,6 +1,27 @@
-import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
-import { DcxInputType, DcxNgButtonComponent, DcxNgInputComponent, CalendarDay, DateFormat, DateFormatPattern } from '@dcx-ng-components/dcx-ng-lib';
-import { CommonModule, } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+
+import { CommonModule } from '@angular/common';
+import {
+  DcxInputType,
+  DateFormatPattern,
+  DateFormat,
+  DCX_DATEPICKER_WEEKDAYS,
+  DCX_DATEPICKER_LABELS,
+  DCX_DATEPICKER_MONTHS,
+  CalendarDay,
+} from '../../core/interfaces';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
+
+// --- Métodos públicos de navegación ---
+
 @Component({
   selector: 'dcx-ng-date-picker',
   standalone: true,
@@ -10,6 +31,16 @@ import { CommonModule, } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgDatePickerComponent {
+  onCalendarIconClick(event: any): void {
+    if (event && typeof event.stopPropagation === 'function') {
+      event.stopPropagation();
+    }
+    this.toggleCalendar();
+  }
+
+  get monthsIndexes(): number[] {
+    return Array.from({ length: this.monthsList.length }, (_, i) => i);
+  }
   public DcxInputType = DcxInputType;
 
   private readonly dateFormatPatterns: DateFormatPattern = {
@@ -38,16 +69,9 @@ export class DcxNgDatePickerComponent {
   readonly startDateChange = output<Date | null>();
   readonly endDateChange = output<Date | null>();
 
-  readonly weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-  readonly labels = {
-    clearDate: 'Limpiar fecha',
-    previous: 'Anterior',
-    next: 'Siguiente',
-    selectMonth: 'Selecciona mes',
-    selectYear: 'Selecciona año',
-    today: 'Hoy',
-    goToToday: 'Ir a hoy',
-  };
+  readonly weekDays = DCX_DATEPICKER_WEEKDAYS;
+  readonly labels = DCX_DATEPICKER_LABELS;
+  readonly monthsList = DCX_DATEPICKER_MONTHS;
 
   private readonly _currentMonth = signal<Date | null>(null);
   private readonly _isOpen = signal(false);
@@ -57,7 +81,9 @@ export class DcxNgDatePickerComponent {
   private _onDocumentClick(event: MouseEvent) {
     if (!this.isOpen()) return;
     const calendar = document.querySelector('.dcx-datepicker__calendar');
-    const inputWrapper = document.querySelector('.dcx-datepicker__input-wrapper');
+    const inputWrapper = document.querySelector(
+      '.dcx-datepicker__input-wrapper',
+    );
     if (!calendar || !inputWrapper) return;
     const target = event.target as HTMLElement;
     if (!calendar.contains(target) && !inputWrapper.contains(target)) {
@@ -112,14 +138,9 @@ export class DcxNgDatePickerComponent {
   readonly isYearMode = computed(() => this._mode() === 'year');
   readonly isCalendarMode = computed(() => this._mode() === 'calendar');
 
-  readonly monthsList = [
-    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-  ];
-
   readonly yearsList = computed(() => {
     const currentYear = this.currentMonth().getFullYear();
-    const start = this._yearPageStart() ?? (currentYear - (currentYear % 12));
+    const start = this._yearPageStart() ?? currentYear - (currentYear % 12);
     return Array.from({ length: 12 }, (_, i) => start + i);
   });
 
@@ -163,7 +184,6 @@ export class DcxNgDatePickerComponent {
     const date = this.selectedDate();
     return date ? this.formatDate(date) : this.placeholder();
   }
-
   readonly calendarDays = computed(() => {
     const currentMonth = this.currentMonth();
     const year = currentMonth.getFullYear();
@@ -181,7 +201,8 @@ export class DcxNgDatePickerComponent {
       date.setDate(date.getDate() + i);
       const dateTime = date.getTime();
 
-      const { isSelected, isInRange } = this.calculateDateSelectionState(dateTime);
+      const { isSelected, isInRange } =
+        this.calculateDateSelectionState(dateTime);
 
       return {
         date,
@@ -189,12 +210,15 @@ export class DcxNgDatePickerComponent {
         isToday: dateTime === today.getTime(),
         isSelected,
         isInRange,
-        isDisabled: this.isDateDisabled(date)
+        isDisabled: this.isDateDisabled(date),
       };
     });
   });
 
-  private calculateDateSelectionState(dateTime: number): { isSelected: boolean; isInRange: boolean } {
+  private calculateDateSelectionState(dateTime: number): {
+    isSelected: boolean;
+    isInRange: boolean;
+  } {
     if (this.rangeSelect()) {
       return this.calculateRangeSelectionState(dateTime);
     }
@@ -206,39 +230,56 @@ export class DcxNgDatePickerComponent {
     return this.calculateSingleSelectionState(dateTime);
   }
 
-  private calculateRangeSelectionState(dateTime: number): { isSelected: boolean; isInRange: boolean } {
+  private calculateRangeSelectionState(dateTime: number): {
+    isSelected: boolean;
+    isInRange: boolean;
+  } {
     const rangeStart = this.startDate();
     const rangeEnd = this.endDate();
-    const rangeStartTime = rangeStart ? new Date(rangeStart).setHours(0, 0, 0, 0) : null;
-    const rangeEndTime = rangeEnd ? new Date(rangeEnd).setHours(0, 0, 0, 0) : null;
+    const rangeStartTime = rangeStart
+      ? new Date(rangeStart).setHours(0, 0, 0, 0)
+      : null;
+    const rangeEndTime = rangeEnd
+      ? new Date(rangeEnd).setHours(0, 0, 0, 0)
+      : null;
 
-    const isSelected = (rangeStartTime !== null && dateTime === rangeStartTime) ||
+    const isSelected =
+      (rangeStartTime !== null && dateTime === rangeStartTime) ||
       (rangeEndTime !== null && dateTime === rangeEndTime);
 
-    const isInRange = (rangeStartTime && rangeEndTime)
-      ? dateTime > rangeStartTime && dateTime < rangeEndTime
-      : false;
+    const isInRange =
+      rangeStartTime && rangeEndTime
+        ? dateTime > rangeStartTime && dateTime < rangeEndTime
+        : false;
 
     return { isSelected, isInRange };
   }
-
-  private calculateMultiSelectionState(dateTime: number): { isSelected: boolean; isInRange: boolean } {
+  private calculateMultiSelectionState(dateTime: number): {
+    isSelected: boolean;
+    isInRange: boolean;
+  } {
     const selectedDates = this.selectedDates();
-    const selectedTimes = selectedDates.map(d => new Date(d).setHours(0, 0, 0, 0));
+    const selectedTimes = selectedDates.map(d =>
+      new Date(d).setHours(0, 0, 0, 0),
+    );
 
     return {
       isSelected: selectedTimes.includes(dateTime),
-      isInRange: false
+      isInRange: false,
     };
   }
-
-  private calculateSingleSelectionState(dateTime: number): { isSelected: boolean; isInRange: boolean } {
+  private calculateSingleSelectionState(dateTime: number): {
+    isSelected: boolean;
+    isInRange: boolean;
+  } {
     const selected = this.selectedDate();
-    const selectedTime = selected ? new Date(selected).setHours(0, 0, 0, 0) : null;
+    const selectedTime = selected
+      ? new Date(selected).setHours(0, 0, 0, 0)
+      : null;
 
     return {
       isSelected: selectedTime !== null && dateTime === selectedTime,
-      isInRange: false
+      isInRange: false,
     };
   }
 
@@ -248,7 +289,7 @@ export class DcxNgDatePickerComponent {
       'dcx-datepicker__day--today': day.isToday,
       'dcx-datepicker__day--selected': day.isSelected,
       'dcx-datepicker__day--in-range': day.isInRange || false,
-      'dcx-datepicker__day--disabled': day.isDisabled
+      'dcx-datepicker__day--disabled': day.isDisabled,
     };
   }
 
@@ -267,12 +308,28 @@ export class DcxNgDatePickerComponent {
     this._mode.set('calendar');
   }
 
+  previousYear(): void {
+    const current = this.currentMonth();
+    const newDate = new Date(current);
+    newDate.setFullYear(newDate.getFullYear() - 1);
+    this._currentMonth.set(newDate);
+  }
+
+  nextYear(): void {
+    const current = this.currentMonth();
+    const newDate = new Date(current);
+    newDate.setFullYear(newDate.getFullYear() + 1);
+    this._currentMonth.set(newDate);
+  }
+
   previousMonth(): void {
     if (this.isMonthMode()) {
       return;
     }
     if (this.isYearMode()) {
-      this._yearPageStart.set((this._yearPageStart() ?? this.currentMonth().getFullYear()) - 12);
+      this._yearPageStart.set(
+        (this._yearPageStart() ?? this.currentMonth().getFullYear()) - 12,
+      );
       return;
     }
     const current = this.currentMonth();
@@ -286,7 +343,9 @@ export class DcxNgDatePickerComponent {
       return;
     }
     if (this.isYearMode()) {
-      this._yearPageStart.set((this._yearPageStart() ?? this.currentMonth().getFullYear()) + 12);
+      this._yearPageStart.set(
+        (this._yearPageStart() ?? this.currentMonth().getFullYear()) + 12,
+      );
       return;
     }
     const current = this.currentMonth();
@@ -319,6 +378,18 @@ export class DcxNgDatePickerComponent {
     newDate.setFullYear(year);
     this._currentMonth.set(newDate);
     this._mode.set('calendar');
+  }
+
+  applyDate(): void {
+    if (this.rangeSelect()) {
+      this.startDateChange.emit(this.startDate());
+      this.endDateChange.emit(this.endDate());
+    } else if (this.multiSelect()) {
+      this.selectedDatesChange.emit(this.selectedDates());
+    } else {
+      this.selectedDateChange.emit(this.selectedDate());
+    }
+    this.closeCalendar();
   }
 
   selectDate(day: CalendarDay): void {
@@ -354,7 +425,9 @@ export class DcxNgDatePickerComponent {
   private handleMultiSelection(selectedDate: Date): void {
     const currentDates = [...this.selectedDates()];
     const dateTime = selectedDate.getTime();
-    const existingIndex = currentDates.findIndex(d => new Date(d).setHours(0, 0, 0, 0) === dateTime);
+    const existingIndex = currentDates.findIndex(
+      d => new Date(d).setHours(0, 0, 0, 0) === dateTime,
+    );
 
     if (existingIndex > -1) {
       currentDates.splice(existingIndex, 1);
@@ -368,7 +441,6 @@ export class DcxNgDatePickerComponent {
 
   private handleSingleSelection(selectedDate: Date): void {
     this.selectedDateChange.emit(selectedDate);
-    this.closeCalendar();
   }
 
   clearDate(_event: { clicked: boolean }): void {
@@ -413,7 +485,9 @@ export class DcxNgDatePickerComponent {
       } else if (this.multiSelect()) {
         const currentDates = [...this.selectedDates()];
         const todayTime = today.getTime();
-        const existingIndex = currentDates.findIndex(d => new Date(d).setHours(0, 0, 0, 0) === todayTime);
+        const existingIndex = currentDates.findIndex(
+          d => new Date(d).setHours(0, 0, 0, 0) === todayTime,
+        );
 
         if (existingIndex === -1) {
           currentDates.push(today);

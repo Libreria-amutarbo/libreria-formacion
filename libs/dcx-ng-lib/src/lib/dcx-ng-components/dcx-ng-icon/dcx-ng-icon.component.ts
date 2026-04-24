@@ -4,7 +4,7 @@ import {
   computed,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { DcxIconSpacing, DcxSize } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxSize, DcxIconSpacing } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-icon',

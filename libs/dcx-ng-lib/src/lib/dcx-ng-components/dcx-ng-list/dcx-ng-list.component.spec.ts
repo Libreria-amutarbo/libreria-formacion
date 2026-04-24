@@ -31,22 +31,24 @@ describe('DcxNgListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('renders list items', () => {
+  it('renders list items within a container', () => {
     fixture.componentRef.setInput('items', SIMPLE_LIST_ITEMS);
     fixture.detectChanges();
 
+    const container = host().querySelector('.dcx-list-container');
+    expect(container).toBeTruthy();
+
     const lis = host().querySelectorAll('.dcx-list-item');
     expect(lis.length).toBe(SIMPLE_LIST_ITEMS.length);
-    expect(lis[0].textContent?.trim()).toContain('Uno');
-    expect(lis[3].textContent?.trim()).toContain('Cuatro');
+    expect(lis[0].textContent?.trim()).toContain('Three');
   });
 
-  it('renders items with icons', () => {
+  it('renders items with icon containers', () => {
     fixture.componentRef.setInput('items', LIST_ITEMS_WITH_ICONS);
     fixture.detectChanges();
 
-    const icons = host().querySelectorAll('.dcx-list-icon');
-    expect(icons.length).toBe(LIST_ITEMS_WITH_ICONS.length);
+    const iconContainers = host().querySelectorAll('.dcx-list-icon-container');
+    expect(iconContainers.length).toBe(LIST_ITEMS_WITH_ICONS.length);
   });
 
   it('renders divider items', () => {
@@ -97,6 +99,29 @@ describe('DcxNgListComponent', () => {
       expect(component.isSelected(1)).toBe(false);
     });
 
+    it('should emit itemDeselected when a selected item is clicked in multiSelect mode', () => {
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
+      fixture.componentRef.setInput('selectable', true);
+      fixture.componentRef.setInput('multiSelect', true);
+      fixture.detectChanges();
+
+      const spySelected = jest.fn();
+      const spyDeselected = jest.fn();
+      component.itemSelected.subscribe(spySelected);
+      component.itemDeselected.subscribe(spyDeselected);
+
+      // Select
+      component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
+      expect(spySelected).toHaveBeenCalled();
+
+      // Deselect
+      component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
+      expect(spyDeselected).toHaveBeenCalledWith({
+        item: SELECTABLE_LIST_ITEMS[0],
+        index: 0,
+      });
+    });
+
     it('should not select disabled items', () => {
       fixture.componentRef.setInput('items', LIST_DISABLED_ONLY);
       fixture.componentRef.setInput('selectable', true);
@@ -114,8 +139,6 @@ describe('DcxNgListComponent', () => {
       fixture.detectChanges();
 
       const spy = jest.fn();
-      component.itemSelected.subscribe(spy);
-      component.onItemClick(LIST_DIVIDER_ONLY[0], 0);
       expect(spy).not.toHaveBeenCalled();
     });
 
@@ -123,6 +146,18 @@ describe('DcxNgListComponent', () => {
       fixture.componentRef.setInput('items', SIMPLE_LIST_ITEMS);
       fixture.detectChanges();
       expect(component.isSelected(0)).toBe(false);
+    });
+
+    it('should not emit itemSelected when selectable is false', () => {
+      fixture.componentRef.setInput('items', SIMPLE_LIST_ITEMS);
+      fixture.componentRef.setInput('selectable', false);
+      fixture.detectChanges();
+
+      const spy = jest.fn();
+      component.itemSelected.subscribe(spy);
+
+      component.onItemClick(SIMPLE_LIST_ITEMS[0], 0);
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 

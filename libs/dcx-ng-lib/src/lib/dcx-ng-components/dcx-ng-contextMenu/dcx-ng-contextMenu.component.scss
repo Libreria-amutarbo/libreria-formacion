@@ -28,6 +28,10 @@
   }
 }
 
+.dcx-context-menu--absolute {
+  position: absolute;
+}
+
 .dcx-context-menu-list {
   --background-hover: var(--bg-hover, #f3f4f6);
   --text-disabled: var(--text-muted, #696e75);

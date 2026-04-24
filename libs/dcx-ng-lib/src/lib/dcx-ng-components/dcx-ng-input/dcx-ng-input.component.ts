@@ -3,41 +3,40 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   forwardRef,
   HostBinding,
   input,
   model,
   output,
-  Signal,
   signal,
+  ViewChild,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DcxInputType, DcxSpacing, DcxSize } from '../../core/interfaces';
 import {
-  DcxSize,
-  DcxSpacing,
-  DcxInputType,
-  ERRORICON,
-  SPACING_DEFAULT,
-  DcxNgIconComponent,
-  DcxNgButtonComponent,
-  INPUT_DEFAULT_ARIA_DESCRIBEDBY,
-  INPUT_DEFAULT_ARIA_LABEL,
-  INPUT_DEFAULT_AUTOCOMPLETE,
+  INPUT_DEFAULT_VALUE,
   INPUT_DEFAULT_DISABLED,
-  INPUT_DEFAULT_ERROR_MESSAGE,
+  INPUT_DEFAULT_READONLY,
+  INPUT_DEFAULT_PLACEHOLDER,
+  INPUT_DEFAULT_TYPE,
+  INPUT_DEFAULT_NAME,
+  INPUT_DEFAULT_REQUIRED,
+  INPUT_DEFAULT_AUTOCOMPLETE,
   INPUT_DEFAULT_INPUTMODE,
   INPUT_DEFAULT_INVALID,
   INPUT_DEFAULT_LABEL,
-  INPUT_DEFAULT_NAME,
-  INPUT_DEFAULT_PLACEHOLDER,
-  INPUT_DEFAULT_READONLY,
-  INPUT_DEFAULT_REQUIRED,
+  INPUT_DEFAULT_ARIA_LABEL,
+  INPUT_DEFAULT_ARIA_DESCRIBEDBY,
+  INPUT_DEFAULT_ERROR_MESSAGE,
+  ERRORICON,
+  SPACING_DEFAULT,
   INPUT_DEFAULT_SIZE,
-  INPUT_DEFAULT_TYPE,
-  INPUT_DEFAULT_VALUE,
   SLIDER_DEFAULT_VALUES,
-} from '@dcx-ng-components/dcx-ng-lib';
+} from '../../core/mock';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 let uuid = 0;
 @Component({
@@ -68,6 +67,13 @@ let uuid = 0;
   ],
 })
 export class DcxNgInputComponent {
+  @ViewChild('input', { static: true }) inputRef!: ElementRef<HTMLInputElement>;
+
+  public resetNativeInput() {
+    if (this.inputRef?.nativeElement) {
+      this.inputRef.nativeElement.value = '';
+    }
+  }
   id = input<string>(`my-input-${++uuid}`);
   value = model<string | number>(INPUT_DEFAULT_VALUE);
   disabled = input(INPUT_DEFAULT_DISABLED, {
@@ -101,6 +107,7 @@ export class DcxNgInputComponent {
   errorIcon = input<string>(ERRORICON);
   spacing = input<DcxSpacing>(SPACING_DEFAULT);
   orientation = input<'horizontal' | 'vertical'>('horizontal');
+  multiple = input<boolean>(false);
 
   size = input<DcxSize>(INPUT_DEFAULT_SIZE);
 
@@ -118,8 +125,8 @@ export class DcxNgInputComponent {
   step = input(SLIDER_DEFAULT_VALUES.step);
   stepInput = computed<number>(() => this.step());
 
-  private onChange: (val: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (val: any) => void = () => null;
+  private onTouched: () => void = () => null;
   errorId = computed(() => `${this.id()}-error`);
 
   displayType = computed<string>(() => {
@@ -130,6 +137,8 @@ export class DcxNgInputComponent {
     if (inputType === DcxInputType.RANGE) return 'range';
     return inputType;
   });
+
+  isFileType = computed<boolean>(() => this.type() === DcxInputType.FILE);
 
   isRadioType = computed<boolean>(() => this.type() === DcxInputType.RADIO);
 
@@ -145,6 +154,7 @@ export class DcxNgInputComponent {
       [DcxInputType.SEARCH]: 'search',
       [DcxInputType.TEL]: 'phone',
       [DcxInputType.URL]: 'link',
+      [DcxInputType.FILE]: null,
       [DcxInputType.RADIO]: null,
       [DcxInputType.RANGE]: null,
     };
@@ -176,10 +186,15 @@ export class DcxNgInputComponent {
     return ids.length ? ids : null;
   });
 
-  inputContolClasses = computed<string>(() => {
+  inputClasses = computed<string>(() => {
     const base = 'dcx-ng-input__control';
     const sizeValue = this.spacing();
-    return [base, `${base}--${sizeValue}`].filter(Boolean).join(' ');
+    const classes = [base, `${base}--${sizeValue}`];
+    if (this.disabled()) classes.push('is-disabled');
+    if (this.isInvalid()) classes.push('is-invalid');
+    if (this.getInputIcon() !== null) classes.push('has-icon');
+    if (this.showActionIcon()) classes.push('has-action');
+    return classes.filter(Boolean).join(' ');
   });
 
   constructor() {
@@ -207,13 +222,14 @@ export class DcxNgInputComponent {
   }
 
   onInput(newValue: string) {
-    if (this.isRadioType()) return;
+    if (this.isRadioType() || this.isFileType()) return;
     const formattedValue = this.formatValueByType(newValue);
     this.value.set(formattedValue);
     this.valueChange.emit(formattedValue);
   }
 
   onChangeEvent(event: Event) {
+    if (this.isFileType()) return;
     if (!this.isRadioType()) return;
     const target = event.target as HTMLInputElement | null;
     if (target?.checked) {
@@ -245,6 +261,7 @@ export class DcxNgInputComponent {
         return value.toLowerCase();
       case DcxInputType.TEXT:
       case DcxInputType.PASSWORD:
+      case DcxInputType.FILE:
       case DcxInputType.RADIO:
       case DcxInputType.RANGE:
       default:

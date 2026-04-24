@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
-import { DcxListItem, DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import { DcxListItem } from '../../core/interfaces';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   selector: 'dcx-ng-list',
@@ -18,11 +25,12 @@ export class DcxNgListComponent {
   renderChildren = input<boolean>(true);
 
   itemSelected = output<{ item: DcxListItem; index: number }>();
+  itemDeselected = output<{ item: DcxListItem; index: number }>();
 
   selectedIndices = signal<number[]>([]);
 
   onItemClick(item: DcxListItem, index: number): void {
-    if (item.disabled || item.divider) {
+    if (!this.selectable() || item.disabled || item.divider) {
       return;
     }
 
@@ -31,6 +39,7 @@ export class DcxNgListComponent {
 
       if (this.isSelected(index)) {
         this.selectedIndices.set(currentIndices.filter(i => i !== index));
+        this.itemDeselected.emit({ item, index });
       } else {
         this.selectedIndices.set([...currentIndices, index]);
         this.itemSelected.emit({ item, index });

@@ -162,7 +162,7 @@ export const FullPalette: Story = {
     docs: {
       description: {
         story:
-          'Vista completa de todos los colores primitivos disponibles. Los tonos bajos (100–400) son claros y los altos (500–700) son oscuros. Importa `palette` de `@dcx-ng-components/dcx-ng-lib`.',
+          'Vista completa de todos los colores primitivos disponibles. Los tonos bajos (100–400) son claros y los altos (500–700) son oscuros. Importa `palette` de `../../../index`.',
       },
     },
   },
@@ -240,7 +240,7 @@ Mapa completo de tokens → paleta → hex para las cuatro categorías de tokens
 - **content** — Iconos y elementos gráficos vectoriales
 - **border** — Bordes, separadores y anillos de foco
 
-Importa \`tokens\` de \`@dcx-ng-components/dcx-ng-lib\`.
+Importa \`tokens\` de \`../../../index\`.
         `,
       },
     },

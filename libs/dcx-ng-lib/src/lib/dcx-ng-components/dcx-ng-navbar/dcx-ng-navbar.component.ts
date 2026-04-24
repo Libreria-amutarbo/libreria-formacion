@@ -5,8 +5,9 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { DcxNgButtonComponent } from '@dcx-ng-components/dcx-ng-lib';
+
 import { DcxNavbarBrand, DcxNavItem } from '../../core/interfaces/navbar';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 @Component({
   selector: 'dcx-ng-navbar',
@@ -21,9 +22,9 @@ export class DcxNgNavbarComponent {
   items = input<DcxNavItem[]>([]);
   activeValue = input<string | null>(null);
   vertical = input(false, {
-transform: (value: boolean | string) =>
-typeof value === 'string' ? value === '' : value,
-});
+    transform: (value: boolean | string) =>
+      typeof value === 'string' ? value === '' : value,
+  });
 
   itemClick = output<string>();
 

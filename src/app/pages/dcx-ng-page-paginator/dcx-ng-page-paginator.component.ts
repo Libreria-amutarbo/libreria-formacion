@@ -12,13 +12,13 @@ import {
   styleUrl: './dcx-ng-page-paginator.component.scss',
 })
 export class DcxNgPagePaginatorComponent {
-  itemsPerPage: number = 10;
-  currentPage: number = 1;
-  nextButtonDisabled: string = '';
-  prevButtonDisabled: boolean = false;
-  totalPages: number = 10;
-  disabled: boolean = false;
-  totalPagesKnown: number = 0;
+  itemsPerPage = 10;
+  currentPage = 1;
+  nextButtonDisabled = '';
+  prevButtonDisabled = false;
+  totalPages = 10;
+  disabled = false;
+  totalPagesKnown = 0;
 
   defaultPaginator: DcxPaginator = {
     totalItems: 100,

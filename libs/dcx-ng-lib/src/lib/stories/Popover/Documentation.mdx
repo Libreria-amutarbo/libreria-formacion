@@ -1,0 +1,124 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as PopoverStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Popover/Documentation" />
+
+# Popover
+
+El componente `dcx-ng-popover` es un overlay interactivo que muestra contenido contextual al hacer clic en un elemento trigger. Es ideal para mostrar información adicional, menús de acciones o formularios compactos sin navegar a otra página.
+
+---
+
+## Características
+
+### 🎯 **Funcionalidad Principal**
+
+- **Toggle**: Abre/cierra con un solo clic en el elemento trigger
+- **Posicionamiento Dinámico**: Se coloca automáticamente debajo del trigger
+- **Ajuste de Bordes**: Se reposiciona si se sale del viewport por la derecha
+- **Content Projection**: Acepta cualquier contenido HTML o componentes Angular mediante `ng-content`
+
+### 🔒 **Comportamiento de Cierre**
+
+- **Click Outside**: Se cierra al hacer clic fuera del popover
+- **Escape Key**: Se cierra al pulsar la tecla Escape
+- **Programático**: Métodos `show()` y `hide()` para control manual
+
+### 🎨 **Estilos**
+
+- **Tokens CSS**: Totalmente personalizable mediante variables CSS
+- **BEM Methodology**: Nomenclatura `.dcx-popover` y `.dcx-popover__content`
+- **Sombra y Borde**: Diseño limpio con borde en color primario
+
+---
+
+## API
+
+### Métodos Públicos
+
+| Método | Parámetros | Descripción |
+|--------|------------|-------------|
+| `toggle(event, targetElement?)` | `event: any`, `targetElement?: HTMLElement` | Alterna entre abrir y cerrar |
+| `show(event?, targetElement?)` | `event?: any`, `targetElement?: HTMLElement` | Abre el popover |
+| `hide()` | - | Cierra el popover |
+
+### Signals (Readonly)
+
+| Signal | Tipo | Descripción |
+|--------|------|-------------|
+| `isOpen()` | `boolean` | Estado actual del popover |
+| `top()` | `string` | Posición vertical (ej: `'100px'`) |
+| `left()` | `string` | Posición horizontal (ej: `'50px'`) |
+
+---
+
+## Ejemplos
+
+### Uso Básico
+
+```html
+<div #buttonContainer>
+  <dcx-ng-button 
+    label="Abrir Popover" 
+    (buttonClick)="myPopover.toggle($event, buttonContainer)">
+  </dcx-ng-button>
+</div>
+
+<dcx-ng-popover #myPopover>
+  <h3>Título</h3>
+  <p>Contenido del popover</p>
+</dcx-ng-popover>
+```
+
+<Canvas of={PopoverStories.Default} />
+
+### Contenido Enriquecido
+
+Puedes incluir cualquier contenido dentro del popover: texto, imágenes, listas, formularios, etc.
+
+<Canvas of={PopoverStories.WithRichContent} />
+
+### Lista de Acciones
+
+El popover puede usarse como un menú contextual ligero con una lista de acciones.
+
+<Canvas of={PopoverStories.WithActions} />
+
+---
+
+## Control Programático
+
+Puedes controlar el popover desde el componente padre usando una referencia:
+
+```typescript
+@ViewChild('myPopover') popover!: DcxNgPopoverComponent;
+
+openPopover(event: Event, target: HTMLElement) {
+  this.popover.show(event, target);
+}
+
+closePopover() {
+  this.popover.hide();
+}
+
+checkIfOpen() {
+  return this.popover.isOpen();
+}
+```
+
+---
+
+## Accesibilidad
+
+- El popover se cierra con la tecla **Escape** para usuarios de teclado
+- El contenido proyectado mantiene su accesibilidad nativa
+- Se recomienda añadir `aria-haspopup="true"` al elemento trigger
+
+---
+
+## Notas Técnicas
+
+- **Standalone Component**: No requiere módulos externos
+- **ChangeDetectionStrategy.OnPush**: Optimizado para rendimiento
+- **Signals API**: Usa la API de signals de Angular para estado reactivo
+- **Export As**: Disponible como `dcxNgPopover` para template references

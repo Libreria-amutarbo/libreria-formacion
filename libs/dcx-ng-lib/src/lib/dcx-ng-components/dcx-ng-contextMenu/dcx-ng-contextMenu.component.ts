@@ -1,6 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, HostListener, input, output, signal } from '@angular/core';
-import { DcxContextMenuItem, DcxNgListComponent } from '@dcx-ng-components/dcx-ng-lib';
-
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  HostListener,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import { DcxContextMenuItem } from '../../core/interfaces';
+import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
 
 @Component({
   selector: 'dcx-ng-context-menu',
@@ -13,6 +21,7 @@ import { DcxContextMenuItem, DcxNgListComponent } from '@dcx-ng-components/dcx-n
 export class DcxNgContextMenuComponent {
   items = input.required<DcxContextMenuItem[]>();
   position = input<{ x: number; y: number }>({ x: 0, y: 0 });
+  positionMode = input<'fixed' | 'absolute'>('fixed');
 
   itemSelected = output<DcxContextMenuItem>();
   menuClosed = output<void>();
@@ -65,4 +74,3 @@ export class DcxNgContextMenuComponent {
     }
   }
 }
-

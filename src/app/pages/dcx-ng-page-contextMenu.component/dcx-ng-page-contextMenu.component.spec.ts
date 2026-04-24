@@ -45,4 +45,20 @@ describe('DcxNgPageContextMenuComponent', () => {
     expect(component.menuPosition2).toEqual({ x: 0, y: 0 });
     expect(component.menuPosition3).toEqual({ x: 0, y: 0 });
   });
+
+  it('should set selectedItem when item has text', () => {
+    const item = { text: 'Abrir' };
+
+    component.onItemSelected(item);
+
+    expect(component.selectedItem).toEqual(item);
+  });
+
+  it('should ignore item without text', () => {
+    const dividerItem = { divider: true };
+
+    component.onItemSelected(dividerItem);
+
+    expect(component.selectedItem).toBeNull();
+  });
 });

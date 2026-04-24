@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DCX NG Library — Scroll Top Down</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="capgemini-tokens.css" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--ff-base, 'Inter', sans-serif);
+      background: linear-gradient(180deg, var(--bg-surface, #f4f5f7) 0%, #ffffff 100%);
+      color: var(--text-dark, #2a2e33);
+      min-height: 100vh;
+      padding: var(--sp-6, 24px);
+      padding-bottom: calc(var(--sp-6, 24px) + 72px);
+    }
+
+    .page-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted, #696e75);
+      margin-bottom: 0.35rem;
+    }
+
+    .comp-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+      max-width: 860px;
+      color: var(--text-muted, #696e75);
+      line-height: 1.6;
+      margin-bottom: var(--sp-6, 24px);
+    }
+
+    .divider {
+      border: 0;
+      border-top: 1px solid var(--border-light, #d1d5db);
+      margin: var(--sp-6, 24px) 0;
+    }
+
+    .stack {
+      display: grid;
+      gap: var(--sp-6, 24px);
+      max-width: 1100px;
+    }
+
+    .section-card {
+      background: var(--bg-default, #ffffff);
+      border: 1px solid var(--border-light, #d1d5db);
+      border-radius: var(--r-lg, 8px);
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06));
+      overflow: hidden;
+    }
+
+    .section-head {
+      padding: var(--sp-4, 16px) var(--sp-5, 20px);
+      border-bottom: 1px solid var(--border-light, #d1d5db);
+      background: var(--bg-surface, #f4f5f7);
+    }
+
+    .section-kicker {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted, #696e75);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .section-body {
+      position: relative;
+      padding: var(--sp-5, 20px);
+    }
+
+    .demo-shell {
+      position: relative;
+      min-height: 360px;
+      border-radius: var(--r-md, 6px);
+      border: 1px solid var(--border-light, #d1d5db);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      overflow: hidden;
+      padding: var(--sp-5, 20px);
+    }
+
+    .demo-copy {
+      max-width: 720px;
+      color: var(--text-dark, #2a2e33);
+      line-height: 1.65;
+    }
+
+    .demo-copy p + p {
+      margin-top: var(--sp-3, 12px);
+    }
+
+    .float-note {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2, 8px);
+      margin-top: var(--sp-4, 16px);
+      padding: 0.4rem 0.65rem;
+      border-radius: var(--r-pill, 999px);
+      background: var(--bg-hover, #f7f8fa);
+      color: var(--text-muted, #696e75);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--sp-4, 16px);
+    }
+
+    .size-tile {
+      position: relative;
+      min-height: 280px;
+      border-radius: var(--r-md, 6px);
+      border: 1px solid var(--border-light, #d1d5db);
+      background: var(--bg-default, #ffffff);
+      overflow: hidden;
+      padding: var(--sp-4, 16px);
+    }
+
+    .size-tile__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-2, 8px);
+      margin-bottom: var(--sp-3, 12px);
+    }
+
+    .size-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted, #696e75);
+      background: #edf0f3;
+      border-radius: var(--r-sm, 4px);
+      padding: 0.15rem 0.5rem;
+    }
+
+    .size-tile__body {
+      color: var(--text-muted, #696e75);
+      line-height: 1.6;
+      font-size: 13px;
+      max-width: 26ch;
+    }
+
+    .scroll-demo {
+      position: relative;
+      height: 420px;
+      overflow: auto;
+      border-radius: var(--r-md, 6px);
+      border: 1px solid var(--border-light, #d1d5db);
+      background: var(--bg-default, #ffffff);
+      padding: var(--sp-4, 16px);
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06));
+    }
+
+    .scroll-demo__content {
+      max-width: 720px;
+      line-height: 1.7;
+      color: var(--text-dark, #2a2e33);
+    }
+
+    .scroll-demo__content p + p {
+      margin-top: var(--sp-3, 12px);
+    }
+
+    .nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-3, 12px);
+      padding: 0.8rem 1.25rem;
+      border-top: 1px solid var(--border-light, #d1d5db);
+      background: var(--bg-default, #ffffff);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
+      font-size: 13px;
+    }
+
+    .nav a {
+      color: var(--bg-primary, #0058ab);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .nav a:hover {
+      text-decoration: underline;
+    }
+
+    .nav .idx {
+      color: var(--text-muted, #696e75);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      .size-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <p class="page-title">Components</p>
+  <p class="comp-title">Scroll Top Down</p>
+  <p class="subtitle">
+    Panel de acción flotante para desplazarse al inicio o al final del contenido.
+    Esta página usa tokens Capgemini y sirve como referencia visual del componente
+    <strong>dcx-ng-scroll-top-down</strong> con tamaños, estados y contenedor scrollable.
+  </p>
+
+  <div class="stack">
+    <section class="section-card">
+      <div class="section-head">
+        <p class="section-kicker">Default</p>
+        <h2 class="section-title">Scroll sobre la ventana</h2>
+      </div>
+      <div class="section-body">
+        <div class="demo-shell">
+          <div class="demo-copy">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere
+              malesuada neque, ut luctus neque placerat a.
+            </p>
+            <p>
+              Aliquam erat volutpat. Donec vitae nisl sed justo tincidunt interdum.
+              Suspendisse potenti. Vivamus efficitur massa ac magna convallis, vel
+              tincidunt risus molestie.
+            </p>
+            <p>
+              Pellentesque habitant morbi tristique senectus et netus et malesuada
+              fames ac turpis egestas. Integer vitae posuere libero, a tincidunt
+              lacus. Curabitur a ligula ac mauris ultrices maximus.
+            </p>
+            <p class="float-note">Acción flotante con `size="m"` y `smooth=true`.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <p class="section-kicker">Sizes</p>
+        <h2 class="section-title">Variantes visuales del botón</h2>
+      </div>
+      <div class="section-body">
+        <div class="size-grid">
+          <article class="size-tile">
+            <div class="size-tile__head">
+              <span class="size-tag">Size S</span>
+              <span class="size-tag">Icon s</span>
+            </div>
+            <div class="size-tile__body">
+              Versión compacta para espacios reducidos.
+            </div>
+          </article>
+          <article class="size-tile">
+            <div class="size-tile__head">
+              <span class="size-tag">Size L</span>
+              <span class="size-tag">Icon s</span>
+            </div>
+            <div class="size-tile__body">
+              Variante más prominente para entornos con mayor densidad visual.
+            </div>
+          </article>
+          <article class="size-tile">
+            <div class="size-tile__head">
+              <span class="size-tag">Size XL</span>
+              <span class="size-tag">Icon m</span>
+            </div>
+            <div class="size-tile__body">
+              Tamaño extra grande para enfatizar la acción flotante.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <p class="section-kicker">Container</p>
+        <h2 class="section-title">Scroll dentro de un contenedor</h2>
+      </div>
+      <div class="section-body">
+        <div class="scroll-demo">
+          <div class="scroll-demo__content">
+            <p>
+              Este bloque simula un contenedor con contenido largo. El componente
+              se posiciona como acción flotante para este panel y permite subir o
+              bajar hasta el extremo del área visible.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis euismod
+              pulvinar orci, at auctor augue tincidunt nec. Integer dignissim lacus
+              sit amet nunc finibus, eget luctus justo efficitur. Morbi in nisl ac
+              sem bibendum posuere.
+            </p>
+            <p>
+              Proin rhoncus, nisl nec cursus facilisis, lorem sapien posuere velit,
+              in ultrices lorem nisi sed neque. In hac habitasse platea dictumst.
+            </p>
+            <p>
+              Integer sed mi eget massa porttitor feugiat. Nunc vehicula neque vel
+              purus congue, eget cursus lorem interdum. Donec quis tempor odio.
+            </p>
+            <p>
+              Vivamus ac metus sed velit luctus volutpat. Suspendisse laoreet
+              imperdiet nisl, in feugiat enim posuere sit amet.
+            </p>
+            <p>
+              Cras dignissim, ipsum non commodo facilisis, eros enim tincidunt
+              lectus, vel vehicula lorem felis quis nulla.
+            </p>
+            <p>
+              Curabitur at augue a mauris eleifend venenatis. Phasellus bibendum
+              neque id ante ullamcorper, at congue lectus interdum.
+            </p>
+            <p>
+              Sed dignissim interdum arcu, sed tincidunt tortor luctus non.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <nav class="nav" aria-label="Navegación de diseño">
+    <a href="dcx-ng-page-tabs.html">&larr; Tabs</a>
+    <a class="idx" href="index.html">⊕ Designs</a>
+    <a href="dcx-ng-page-button.html">Button &rarr;</a>
+  </nav>
+</body>
+</html>

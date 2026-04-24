@@ -9,21 +9,22 @@ import {
   ElementRef,
   ViewChild,
 } from '@angular/core';
-import {
-  DcxNgButtonComponent,
-  DcxTabItem,
-} from '@dcx-ng-components/dcx-ng-lib';
+import { DcxTabItem } from '../../core/interfaces';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 @Component({
   selector: 'dcx-ng-tabs',
   standalone: true,
-  imports: [DcxNgButtonComponent],
+  imports: [DcxNgButtonComponent, DcxNgIconComponent],
   templateUrl: './dcx-ng-tabs.component.html',
   styleUrl: './dcx-ng-tabs.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgTabsComponent {
   tabs = input.required<DcxTabItem[]>();
+
+  variant = input<'line' | 'pill' | 'brand'>('line');
 
   public hasControls = input(false, {
     transform: (value: boolean | string) =>
@@ -46,6 +47,41 @@ export class DcxNgTabsComponent {
   hasOverflow = computed(() => this._hasOverflow());
   canScrollLeft = computed(() => this._canScrollLeft());
   canScrollRight = computed(() => this._canScrollRight());
+
+  tabHeaderClasses = computed(() => {
+    const base = 'dcx-tabs__header';
+    const variant = this.variant();
+    const variantClass = this.getHeaderVariantClass(variant);
+
+    return [base, variantClass].filter(Boolean).join(' ');
+  });
+
+  tabButtonClasses = (tabId: string) => {
+    const base = 'dcx-tab__button';
+    const variant = this.variant();
+    const isActive = this.isActive(tabId);
+    const tab = this.tabs().find(t => t.id === tabId);
+    const isDisabled = !!tab?.disabled;
+    const activeClass = isActive ? 'active' : '';
+    const variantClass = this.getButtonVariantClass(variant);
+    const disabledClass = isDisabled ? 'disabled' : '';
+
+    return [base, activeClass, variantClass, disabledClass]
+      .filter(Boolean)
+      .join(' ');
+  };
+
+  private getHeaderVariantClass(variant: 'line' | 'pill' | 'brand'): string {
+    if (variant === 'brand') return 'dcx-tabs__header--brand';
+    if (variant === 'pill') return 'dcx-tabs__header--pill';
+    return '';
+  }
+
+  private getButtonVariantClass(variant: 'line' | 'pill' | 'brand'): string {
+    if (variant === 'brand') return 'dcx-tab__button--brand';
+    if (variant === 'pill') return 'dcx-tab__button--pill';
+    return '';
+  }
 
   @ViewChild('tabsHeader', { static: false })
   tabsHeader!: ElementRef<HTMLDivElement>;

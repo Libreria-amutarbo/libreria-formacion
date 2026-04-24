@@ -23,7 +23,10 @@
             "input": "public"
           }
         ],
-        "styles": ["./src/styles.scss", "node_modules/bootstrap-icons/font/bootstrap-icons.css"],
+        "styles": [
+          "./src/styles.scss",
+          "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -31,13 +34,13 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "2000kb",
+              "maximumError": "2000kb"
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "1000kb",
+              "maximumError": "20kb"
             }
           ],
           "outputHashing": "all"

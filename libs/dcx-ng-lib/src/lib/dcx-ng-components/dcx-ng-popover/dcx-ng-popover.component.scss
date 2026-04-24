@@ -1,0 +1,32 @@
+.dcx-popover {
+  position: absolute;
+  z-index: 1000;
+  background: var(--bg-default, #ffffff);
+  border: 1px solid var(--border-light, #d1d5db);
+  border-radius: var(--r-md, 6px);
+  box-shadow: var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12));
+  min-width: 150px;
+  max-width: 350px;
+
+  &__content {
+    display: block;
+    width: 100%;
+    padding: var(--sp-4, 16px);
+    color: var(--text-dark, #2a2e33);
+    font-family: var(--ff-base, 'Inter', sans-serif);
+    font-size: var(--fs-base, 14px);
+    line-height: 1.5;
+
+    h3,
+    h4 {
+      margin: 0 0 var(--sp-2, 8px) 0;
+      color: var(--bg-primary, #0058ab);
+      font-weight: var(--fw-semibold, 600);
+    }
+
+    p {
+      margin: 0;
+      color: var(--text-muted, #696e75);
+    }
+  }
+}
