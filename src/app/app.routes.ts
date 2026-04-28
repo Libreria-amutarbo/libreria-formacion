@@ -33,6 +33,7 @@ import { DcxNgPageScrollTopDownComponent } from './pages/dcx-ng-page-scroll-top-
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
+import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page-editor.component';
 
 export const appRoutes: Route[] = [
   {
@@ -130,6 +131,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.DRAWER,
     component: DcxNgPageDrawerComponent,
+  },
+  {
+    path: APP_ROUTES.EDITOR,
+    component: DcxNgPageEditorComponent,
   },
   {
     path: APP_ROUTES.TABS,

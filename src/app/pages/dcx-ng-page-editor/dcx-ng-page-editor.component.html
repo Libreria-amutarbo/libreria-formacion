@@ -1,0 +1,42 @@
+<section>
+  <h2 class="example-title">Ejemplo 1 - Editor por defecto</h2>
+  <dcx-ng-editor
+    label="Contenido"
+    placeholder="Escribe el contenido..."
+  ></dcx-ng-editor>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Con valor inicial</h2>
+  <dcx-ng-editor
+    label="Descripcion"
+    [value]="value"
+    (valueChange)="onValueChange($event)"
+  ></dcx-ng-editor>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Solo lectura</h2>
+  <dcx-ng-editor
+    label="Resumen"
+    [value]="'<p>Contenido disponible en modo lectura.</p>'"
+    readonly
+  ></dcx-ng-editor>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Invalido</h2>
+  <dcx-ng-editor
+    label="Observaciones"
+    placeholder="Anade observaciones"
+    required
+    isInvalid
+    errorMessage="El contenido es obligatorio"
+  ></dcx-ng-editor>
+</section>

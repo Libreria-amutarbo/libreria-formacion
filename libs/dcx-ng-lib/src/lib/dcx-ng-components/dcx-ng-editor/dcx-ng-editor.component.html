@@ -1,0 +1,52 @@
+@if (label()) {
+  <label class="dcx-ng-editor__label" [attr.for]="id()">
+    {{ label() }}
+    @if (required()) {
+      <span class="dcx-ng-editor__required">*</span>
+    }
+  </label>
+}
+
+<div class="dcx-ng-editor" [class.is-disabled]="isDisabled()">
+  <div class="dcx-ng-editor__toolbar" role="toolbar" [attr.aria-label]="'Formato'">
+    @for (item of toolbarItems(); track item.action) {
+      <dcx-ng-button
+        variant="icon-only"
+        size="s"
+        icon
+        [iconName]="item.icon"
+        [ariaLabel]="item.ariaLabel"
+        [disabled]="isDisabled() || readonly()"
+        (mousedown)="onToolbarMouseDown($event)"
+        (pointerdown)="onToolbarPointerDown($event, item)"
+      ></dcx-ng-button>
+    }
+  </div>
+
+  <div
+    #editor
+    [id]="id()"
+    [class]="editorClasses()"
+    [style.min-height]="minHeight()"
+    role="textbox"
+    aria-multiline="true"
+    [attr.contenteditable]="isDisabled() || readonly() ? 'false' : 'true'"
+    [attr.tabindex]="isDisabled() || readonly() ? null : '0'"
+    [attr.data-placeholder]="placeholder()"
+    [attr.aria-label]="label() ? null : ariaLabel()"
+    [attr.aria-required]="required() ? 'true' : null"
+    [attr.aria-invalid]="isInvalid()"
+    [attr.aria-describedby]="describedBy()"
+    (input)="onInput()"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    (keyup)="saveSelection()"
+    (mouseup)="saveSelection()"
+  ></div>
+
+  @if (isInvalid() && errorMessage()) {
+    <div class="dcx-ng-editor__error" [id]="errorId()">
+      {{ errorMessage() }}
+    </div>
+  }
+</div>
