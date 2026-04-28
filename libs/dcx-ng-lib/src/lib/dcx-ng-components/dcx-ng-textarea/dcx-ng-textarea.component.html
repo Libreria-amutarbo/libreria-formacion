@@ -1,0 +1,18 @@
+<div [class]="wrapperClasses()">
+  <textarea
+    #textareaRef
+    [class]="textareaClasses()"
+    [rows]="rows()"
+    [cols]="cols()"
+    [value]="value()"
+    [placeholder]="placeholder()"
+    [disabled]="disabled()"
+    [readOnly]="readonly()"
+    (input)="onInput($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+  ></textarea>
+  @if (floatLabel()) {
+    <label class="dcx-ng-textarea__label">{{ label() }}</label>
+  }
+</div>

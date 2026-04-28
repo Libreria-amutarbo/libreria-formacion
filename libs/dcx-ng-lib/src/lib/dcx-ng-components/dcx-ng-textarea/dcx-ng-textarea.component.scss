@@ -1,0 +1,86 @@
+:host {
+  display: inline-block;
+  width: 100%;
+  font-family: var(--ff-base, 'Inter', sans-serif);
+}
+
+.dcx-ng-textarea__wrapper {
+  position: relative;
+  display: flex;
+
+  &--float {
+    .dcx-ng-textarea__label {
+      position: absolute;
+      font-size: var(--fs-base, 14px);
+      color: var(--text-label, #4f545a);
+      font-weight: var(--fw-regular, 400);
+      pointer-events: none;
+      transition: all 0.2s ease-in-out;
+      left: var(--sp-3, 12px);
+      top: var(--sp-2, 8px);
+    }
+  }
+
+  &--over.dcx-ng-textarea__wrapper--active .dcx-ng-textarea__label {
+    top: -12px;
+    font-size: var(--fs-sm, 12px);
+    background: var(--bg-default, #ffffff);
+    padding: 0 var(--sp-1, 4px);
+  }
+
+  &--in.dcx-ng-textarea__wrapper--active .dcx-ng-textarea__label {
+    top: var(--sp-2, 8px);
+    font-size: var(--fs-sm, 12px);
+    color: var(--text-placeholder, #9ca3af);
+  }
+
+  &--on.dcx-ng-textarea__wrapper--active .dcx-ng-textarea__label {
+    top: -8px;
+    font-size: var(--fs-sm, 12px);
+    color: var(--text-label, #4f545a);
+    background: var(--bg-default, #ffffff);
+    padding: 0 var(--sp-1, 4px);
+  }
+}
+
+.dcx-ng-textarea__control {
+  max-width: 100%;
+  min-height: 96px;
+  box-sizing: border-box;
+  resize: none;
+  overflow: auto;
+  max-width: 100%;
+
+  border: 2px solid var(--border-input, #d1d5db);
+  border-radius: var(--r-md, 6px);
+  background: var(--bg-default, #ffffff);
+  color: var(--text-dark, #2a2e33);
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  font-size: var(--fs-base, 14px);
+  line-height: 1.5;
+  padding: var(--sp-2, 8px) var(--sp-3, 12px);
+
+  .dcx-ng-textarea__wrapper--float & {
+    padding-top: var(--sp-6, 24px);
+  }
+
+  &::placeholder {
+    color: var(--text-placeholder, #9ca3af);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--bg-primary, #0058ab);
+  }
+
+  &:disabled {
+    background: var(--bg-disabled, #f3f4f6);
+    color: var(--text-disabled, #696e75);
+    cursor: not-allowed;
+  }
+
+  &--autoresize {
+    resize: none;
+    overflow: hidden;
+  }
+}
