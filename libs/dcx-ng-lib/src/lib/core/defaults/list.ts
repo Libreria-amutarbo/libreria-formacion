@@ -19,7 +19,6 @@ export const LIST_DIVIDER_ONLY: DcxListItem[] = [{ divider: true }];
 
 export const DEFAULT_LIST_ITEMS: DcxListItem[] = [
   { text: 'One' },
-  { text: 'Two', icon: 'star' },
   { text: 'Three', description: 'This is a description' },
   {
     text: 'Nested List',
@@ -28,8 +27,6 @@ export const DEFAULT_LIST_ITEMS: DcxListItem[] = [
 ];
 
 export const SIMPLE_LIST_ITEMS: DcxListItem[] = [
-  { text: 'One' },
-  { text: 'Two' },
   { text: 'Three' },
   { text: 'Four' },
 ];

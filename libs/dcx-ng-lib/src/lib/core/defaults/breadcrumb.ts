@@ -1,4 +1,4 @@
-import { DcxBreadcrumbItem, DcxBreadCrumbSeparatorIcons } from '../interfaces';
+import { DcxBreadcrumbItem, DcxBreadCrumbSeparatorIcons } from '@dcx-ng-components/dcx-ng-lib';
 
 export const DcxBreadCrumbItemDefault: DcxBreadcrumbItem[] = [
   { label: 'Inicio', href: '/', disabled: false },
@@ -22,6 +22,14 @@ export const DcxBreadCrumbCurrentPage: DcxBreadcrumbItem[] = [
   { label: 'Inicio', href: '/', disabled: false },
   { label: 'Catálogo', href: '/catalogo', disabled: false },
   { label: 'Portátiles', disabled: false },
+];
+
+export const DcxBreadCrumbOverflow: DcxBreadcrumbItem[] = [
+  { label: 'Inicio', href: '/', disabled: false },
+  { label: 'Electrónica', href: '/electronica', disabled: false },
+  { label: 'Ordenadores', href: '/ordenadores', disabled: false },
+  { label: 'Portátiles', href: '/portatiles', disabled: false },
+  { label: 'Gaming', disabled: false },
 ];
 
 export const DcxBreadCrumbSlashIcon: DcxBreadCrumbSeparatorIcons = 'slash-lg';

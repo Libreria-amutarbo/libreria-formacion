@@ -1,6 +1,7 @@
 @if (isOpen()) {
   <div
     class="dcx-context-menu"
+    [class.dcx-context-menu--absolute]="positionMode() === 'absolute'"
     [style.top]="menuStyle().top"
     [style.left]="menuStyle().left"
     (click)="$event.stopPropagation()"

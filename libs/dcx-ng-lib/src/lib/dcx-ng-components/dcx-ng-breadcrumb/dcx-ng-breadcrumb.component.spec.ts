@@ -63,4 +63,38 @@ describe('DcxNgBreadcrumbComponent', () => {
     fixture.detectChanges();
     expect(component.items().length).toBe(2);
   });
+
+  it('should show all items when there are three or fewer', () => {
+    const items: DcxBreadcrumbItem[] = [
+      { label: 'Home', href: '/', disabled: false },
+      { label: 'Library', href: '/lib', disabled: false },
+      { label: 'Data', disabled: false },
+    ];
+
+    fixture.componentRef.setInput('items', items);
+    fixture.detectChanges();
+    const nav = host().querySelector('nav');
+    expect(nav).toBeTruthy();
+  });
+
+  it('should accept different iconSeparator values', () => {
+    fixture.componentRef.setInput('iconSeparator', 'slash-lg');
+    fixture.detectChanges();
+    expect(component.iconSeparator()).toBe('slash-lg');
+  });
+
+  it('should accept items input signal', () => {
+    const items: DcxBreadcrumbItem[] = [
+      { label: 'A', disabled: false },
+      { label: 'B', disabled: false },
+    ];
+    fixture.componentRef.setInput('items', items);
+    fixture.detectChanges();
+    expect(component.items().length).toBe(2);
+  });
+
+  it('should return a TemplateRef from getItemContentTpl', () => {
+    const tpl = component.getItemContentTpl();
+    expect(tpl).toBeTruthy();
+  });
 });

@@ -247,6 +247,104 @@
         transform: none;
       }
     }
+
+    &.danger {
+      color: var(--color-danger, #dc2626);
+      .dcx-list-icon {
+        color: var(--color-danger, #dc2626);
+      }
+      &.selectable:hover {
+        background-color: #fef2f2;
+      }
+    }
+  }
+
+  .dcx-list-nested {
+    margin-left: 0;
+    margin-top: 0;
+    position: absolute;
+    top: -6px;
+    left: calc(100% + 4px);
+    min-width: 200px;
+    background: var(--bg-default, rgba(255, 255, 255, 0.95));
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid var(--border-light, rgba(209, 213, 219, 0.4));
+    border-radius: var(--r-lg, 8px);
+    box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1));
+    padding: var(--sp-1, 6px) 0;
+    display: none;
+    z-index: 10000;
+
+    .dcx-list-divider {
+      margin: 6px 8px;
+      background-color: var(--bg-pressed, rgba(0, 0, 0, 0.06));
+      height: 1px;
+      border: none;
+    }
+  }
+
+  .dcx-list-item.has-children:hover > .dcx-list-nested {
+    display: block;
+  }
+}
+
+.dcx-list-icon {
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  width: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dcx-list-text {
+  flex: 1;
+}
+
+.dcx-list-children-indicator {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--text-disabled);
+}
+
+.dcx-list-divider {
+  height: 1px;
+  background-color: var(--border-default);
+  margin: 0.25rem 0;
+}
+
+.dcx-list-nested {
+  margin-top: 0.25rem;
+  margin-left: 1.5rem;
+
+  ul {
+    padding-left: 0;
+  }
+}
+
+:host-context(.dcx-context-menu) {
+  ul {
+    padding-left: 0;
+  }
+
+  .dcx-list-item {
+    line-height: 1.5;
+    position: relative;
+
+    .dcx-list-item-content {
+      padding: 0.5rem 1rem;
+      border-radius: 0;
+    }
+
+    &.selectable {
+      .dcx-list-item-content {
+        &:hover {
+          background-color: var(--background-hover);
+        }
+      }
+    }
   }
 
   .dcx-list-nested {

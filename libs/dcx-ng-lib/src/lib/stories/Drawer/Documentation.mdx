@@ -1,0 +1,94 @@
+import {
+  Meta,
+  Canvas,
+  Story,
+  ArgsTable,
+  Title,
+  Description,
+  Heading,
+  Controls,
+} from '@storybook/blocks';
+import * as DrawerStories from './ClassBased.stories';
+
+<Title>DCXLibrary/Drawer/Documentation</Title>
+
+<Description>
+`dcx-ng-drawer` es un panel deslizante inspirado en PrimeNG Drawer y adaptado al diseño de la librería.
+
+- Control de visibilidad con `visible` y `visibleChange`.
+- Soporte de posiciones `left`, `right`, `top`, `bottom`.
+- Modo modal opcional con máscara (`modal`) y cierre por máscara (`dismissible`).
+- Cierre con tecla `Escape` usando `closeOnEscape`.
+- Header con título y botón de cierre usando componentes internos de la librería.
+- Estilos basados en tokens de Capgemini.
+
+> Nota de scroll: por defecto los ejemplos usan `blockScroll=false` para permitir desplazamiento de la página Docs. Revisa el ejemplo **BlockScrollTrue** para ver el bloqueo intencional.
+
+</Description>
+
+<Meta of={DrawerStories.default} />
+
+<Heading>Default</Heading>
+<Canvas>
+  <Story of={DrawerStories.Default} />
+</Canvas>
+
+<Controls of={DrawerStories.Default} />
+
+<Heading>Positions</Heading>
+<Canvas>
+  <Story of={DrawerStories.Positions} />
+</Canvas>
+
+<Heading>Non Modal</Heading>
+<Canvas>
+  <Story of={DrawerStories.NonModal} />
+</Canvas>
+
+<Heading>Non Dismissible</Heading>
+<Canvas>
+  <Story of={DrawerStories.NonDismissible} />
+</Canvas>
+
+<Heading>Close On Escape</Heading>
+<Canvas>
+  <Story of={DrawerStories.CloseOnEscapeEnabled} />
+</Canvas>
+
+<Heading>Close On Escape Disabled</Heading>
+<Canvas>
+  <Story of={DrawerStories.CloseOnEscapeDisabled} />
+</Canvas>
+
+<Heading>Close Only With Icon</Heading>
+<Canvas>
+  <Story of={DrawerStories.CloseOnlyWithIcon} />
+</Canvas>
+
+<Heading>Without Close Icon</Heading>
+<Canvas>
+  <Story of={DrawerStories.WithoutCloseIcon} />
+</Canvas>
+
+<Heading>Top and Bottom Sizes</Heading>
+<Canvas>
+  <Story of={DrawerStories.TopAndBottomSizes} />
+</Canvas>
+
+<Heading>FullScreen</Heading>
+<Canvas>
+  <Story of={DrawerStories.FullScreenOpen} />
+</Canvas>
+
+<Heading>Block Scroll True</Heading>
+<Canvas>
+  <Story of={DrawerStories.BlockScrollTrue} />
+</Canvas>
+
+<Heading>Z-Index Example</Heading>
+<Canvas>
+  <Story of={DrawerStories.ZIndexExample} />
+</Canvas>
+
+<Heading>API</Heading>
+<ArgsTable of={DrawerStories.Default} />

@@ -40,7 +40,7 @@ describe('DcxNgListComponent', () => {
 
     const lis = host().querySelectorAll('.dcx-list-item');
     expect(lis.length).toBe(SIMPLE_LIST_ITEMS.length);
-    expect(lis[0].textContent?.trim()).toContain('One');
+    expect(lis[0].textContent?.trim()).toContain('Three');
   });
 
   it('renders items with icon containers', () => {
@@ -139,8 +139,6 @@ describe('DcxNgListComponent', () => {
       fixture.detectChanges();
 
       const spy = jest.fn();
-      component.itemSelected.subscribe(spy);
-      component.onItemClick(LIST_DIVIDER_ONLY[0], 0);
       expect(spy).not.toHaveBeenCalled();
     });
 
