@@ -26,3 +26,4 @@ export * from './theme-generator';
 export * from './fileUpload';
 export * from './toast';
 export * from './drawer';
+export * from './editor';
