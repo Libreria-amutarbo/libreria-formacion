@@ -16,3 +16,6 @@
     <label class="dcx-ng-textarea__label">{{ label() }}</label>
   }
 </div>
+@if (invalid() && errorMessage()) {
+  <div class="dcx-ng-textarea__error">{{ errorMessage() }}</div>
+}

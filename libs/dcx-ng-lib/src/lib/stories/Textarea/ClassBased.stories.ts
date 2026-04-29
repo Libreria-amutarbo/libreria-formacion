@@ -46,6 +46,32 @@ const meta: Meta<DcxNgTextareaComponent> = {
       control: { type: 'boolean' },
       table: { category: 'Attributes' },
     },
+    fluid: {
+      description: 'Ocupa el 100% del ancho del contenedor',
+      control: { type: 'boolean' },
+      table: { category: 'Attributes' },
+    },
+    size: {
+      description: 'Tamaño del textarea',
+      control: { type: 'select' },
+      options: ['small', 'normal', 'large'],
+      table: { category: 'Attributes' },
+    },
+    filled: {
+      description: 'Estilo filled con fondo relleno',
+      control: { type: 'boolean' },
+      table: { category: 'Attributes' },
+    },
+    invalid: {
+      description: 'Estado inválido',
+      control: { type: 'boolean' },
+      table: { category: 'Attributes' },
+    },
+    errorMessage: {
+      description: 'Mensaje de error a mostrar',
+      control: { type: 'text' },
+      table: { category: 'Attributes' },
+    },
     valueChange: {
       action: 'valueChange',
       table: { category: 'Events' },
@@ -59,6 +85,11 @@ const meta: Meta<DcxNgTextareaComponent> = {
     disabled: false,
     readonly: false,
     autoResize: false,
+    fluid: false,
+    size: 'normal',
+    filled: false,
+    invalid: false,
+    errorMessage: '',
   },
   parameters: {
     controls: { expanded: true },
@@ -73,8 +104,15 @@ export const Default: Story = {};
 export const AutoResize: Story = {
   args: {
     autoResize: true,
-    value:
-      'Texto inicial para probar el autoresize.\nAñade más líneas para ver cómo crece.',
+    value: 'Añade más líneas para ver cómo crece.',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'La propiedad autoResize permite que el textarea ajuste su altura automáticamente según el contenido.',
+      },
+    },
   },
 };
 
@@ -97,4 +135,102 @@ export const FloatLabelVariants: Story = {
       </div>
     `,
   }),
+};
+
+export const IftaLabel: Story = {
+  args: {
+    floatLabel: 'ifta',
+    label: 'Description',
+    placeholder: ' ',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'El estilo IFTA (In-Field Text Area) es una variante de etiqueta flotante que se muestra dentro del área de texto cuando el campo está vacío.',
+      },
+    },
+  },
+};
+
+export const Sizes: Story = {
+  render: args => ({
+    props: args,
+    template: `
+      <div style="padding: 2rem;">
+        <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+          <div>
+            <dcx-ng-textarea size="small" placeholder="Small"></dcx-ng-textarea>
+          </div>
+          <div>
+            <dcx-ng-textarea placeholder="Normal"></dcx-ng-textarea>
+          </div>
+          <div>
+            <dcx-ng-textarea size="large" placeholder="Large"></dcx-ng-textarea>
+          </div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const Fluid: Story = {
+  args: {
+    fluid: true,
+    placeholder: 'Fluid textarea',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'La propiedad fluid hace que el textarea ocupe el 100% del ancho de su contenedor, adaptándose a diferentes tamaños de pantalla y diseños.',
+      },
+    },
+  },
+};
+
+export const Filled: Story = {
+  args: {
+    filled: true,
+    placeholder: 'Filled textarea',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'El estilo filled se activa con la propiedad filled, que aplica un fondo relleno al textarea para diferenciarlo visualmente.',
+      },
+    },
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    placeholder: 'Disabled textarea',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'El estado deshabilitado se aplica usando la propiedad disabled, que bloquea la interacción y aplica estilos visuales para indicar que el textarea no está activo.',
+      },
+    },
+  },
+};
+
+export const Invalid: Story = {
+  args: {
+    invalid: true,
+    placeholder: 'Invalid textarea',
+    errorMessage: 'Error',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'El estado inválido se activa con la propiedad invalid, que aplica estilos de error al textarea. Además, se puede mostrar un mensaje de error utilizando la propiedad errorMessage para proporcionar retroalimentación al usuario sobre el problema.',
+      },
+    },
+  },
 };

@@ -11,7 +11,7 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { FloatLabelVariant } from '../../core/interfaces';
+import { FloatLabelVariant, TextareaSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-textarea',
@@ -40,25 +40,42 @@ export class DcxNgTextareaComponent implements AfterViewInit {
   });
   floatLabel = input<FloatLabelVariant | undefined>(undefined);
   label = input<string>('');
+  size = input<TextareaSize>('normal');
+  fluid = input(false, {
+    transform: booleanAttribute,
+  });
+  filled = input(false, {
+    transform: booleanAttribute,
+  });
+  invalid = input(false, {
+    transform: booleanAttribute,
+  });
+  errorMessage = input<string>('');
 
   focused = signal(false);
 
   textareaClasses = computed(() => {
-    const baseClass = 'dcx-ng-textarea__control';
-    if (!this.autoResize()) return baseClass;
-    return `${baseClass} ${baseClass}--autoresize`;
+    return [
+      'dcx-ng-textarea__control',
+      this.autoResize() && `dcx-ng-textarea__control--autoresize`,
+      this.size() !== 'normal' && `dcx-ng-textarea__control--${this.size()}`,
+      this.filled() && `dcx-ng-textarea__control--filled`,
+      this.invalid() && `dcx-ng-textarea__control--invalid`,
+    ]
+      .filter(Boolean)
+      .join(' ');
   });
 
   wrapperClasses = computed(() => {
-    const classes = ['dcx-ng-textarea__wrapper'];
-    if (this.floatLabel()) {
-      classes.push('dcx-ng-textarea__wrapper--float');
-      classes.push(`dcx-ng-textarea__wrapper--${this.floatLabel()}`);
-      if (this.focused()) {
-        classes.push('dcx-ng-textarea__wrapper--active');
-      }
-    }
-    return classes.join(' ');
+    return [
+      'dcx-ng-textarea__wrapper',
+      this.fluid() && 'dcx-ng-textarea__wrapper--fluid',
+      this.floatLabel() && 'dcx-ng-textarea__wrapper--float',
+      this.floatLabel() && `dcx-ng-textarea__wrapper--${this.floatLabel()}`,
+      this.floatLabel() && this.focused() && 'dcx-ng-textarea__wrapper--active',
+    ]
+      .filter(Boolean)
+      .join(' ');
   });
 
   valueChange = output<string>();
