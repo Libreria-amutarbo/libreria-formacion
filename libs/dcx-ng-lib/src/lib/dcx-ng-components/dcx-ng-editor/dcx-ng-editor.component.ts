@@ -235,11 +235,10 @@ export class DcxNgEditorComponent implements AfterViewInit {
   onBeforeInput(event: InputEvent): void {
     if (this.isDisabled() || this.readonly()) return;
     if (event.inputType !== 'insertText' || !event.data) return;
-    if (!this.pendingToolbarActions().size) return;
 
     event.preventDefault();
     this.restoreSelection();
-    this.insertTextWithPendingFormats(event.data);
+    this.insertTextWithToolbarState(event.data);
     this.saveSelection();
     this.updateActiveToolbarActions();
     this.updateValueFromEditor();
@@ -386,6 +385,9 @@ export class DcxNgEditorComponent implements AfterViewInit {
         action === 'orderedList' ? 'unorderedList' : 'orderedList';
       pendingActions.delete(oppositeAction);
       this.toggleSetValue(pendingActions, action);
+    } else if (this.isInlineActionActive(action)) {
+      pendingActions.delete(action);
+      this.escapeInlineFormat(action);
     } else {
       this.toggleSetValue(pendingActions, action);
     }
@@ -404,7 +406,7 @@ export class DcxNgEditorComponent implements AfterViewInit {
     }
   }
 
-  private insertTextWithPendingFormats(text: string): void {
+  private insertTextWithToolbarState(text: string): void {
     const range = this.getEditableRange();
     if (!range) return;
 
@@ -481,6 +483,59 @@ export class DcxNgEditorComponent implements AfterViewInit {
     return null;
   }
 
+  private escapeInlineFormat(action: DcxEditorToolbarAction): void {
+    const range = this.getEditableRange();
+    if (!range || !range.collapsed) return;
+
+    const wrapper = this.getClosestInlineFormatWrapper(
+      range.startContainer,
+      action,
+    );
+    const parent = wrapper?.parentNode;
+    if (!wrapper || !parent) return;
+
+    const afterRange = document.createRange();
+    afterRange.setStart(range.startContainer, range.startOffset);
+    afterRange.setEnd(wrapper, wrapper.childNodes.length);
+    const afterContents = afterRange.extractContents();
+    const caretNode = document.createTextNode('');
+
+    if (this.isNodeEmpty(wrapper)) {
+      parent.insertBefore(caretNode, wrapper);
+      wrapper.remove();
+    } else {
+      parent.insertBefore(caretNode, wrapper.nextSibling);
+    }
+
+    if (!this.isNodeEmpty(afterContents)) {
+      const afterWrapper = wrapper.cloneNode(false) as HTMLElement;
+      afterWrapper.appendChild(afterContents);
+      parent.insertBefore(afterWrapper, caretNode.nextSibling);
+    }
+
+    this.moveSelectionToEnd(caretNode);
+  }
+
+  private isInlineActionActive(action: DcxEditorToolbarAction): boolean {
+    const node = this.getSelectionContextNode();
+    return !!node && !!this.getClosestInlineFormatWrapper(node, action);
+  }
+
+  private getClosestInlineFormatWrapper(
+    node: Node,
+    action: DcxEditorToolbarAction,
+  ): HTMLElement | null {
+    const tagsByAction: Partial<Record<DcxEditorToolbarAction, string[]>> = {
+      bold: ['B', 'STRONG'],
+      italic: ['I', 'EM'],
+      underline: ['U'],
+    };
+    const tagNames = tagsByAction[action];
+    if (!tagNames) return null;
+
+    return this.getClosestAncestorTag(node, tagNames);
+  }
+
   private updateActiveToolbarActions(): void {
     const activeActions = new Set<DcxEditorToolbarAction>(
       this.pendingToolbarActions(),
@@ -509,6 +564,13 @@ export class DcxNgEditorComponent implements AfterViewInit {
   }
 
   private hasAncestorTag(node: Node, tagNames: string[]): boolean {
+    return !!this.getClosestAncestorTag(node, tagNames);
+  }
+
+  private getClosestAncestorTag(
+    node: Node,
+    tagNames: string[],
+  ): HTMLElement | null {
     const editor = this.editorRef?.nativeElement;
     let current: Node | null =
       node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
@@ -518,13 +580,25 @@ export class DcxNgEditorComponent implements AfterViewInit {
         current.nodeType === Node.ELEMENT_NODE &&
         tagNames.includes((current as HTMLElement).tagName)
       ) {
-        return true;
+        return current as HTMLElement;
       }
 
       current = current.parentElement;
     }
 
-    return false;
+    return null;
+  }
+
+  private isNodeEmpty(node: Node): boolean {
+    if (node.nodeType === Node.TEXT_NODE) {
+      return !node.textContent;
+    }
+
+    if (!node.childNodes.length) {
+      return !node.textContent;
+    }
+
+    return Array.from(node.childNodes).every(child => this.isNodeEmpty(child));
   }
 
   private selectionBelongsToEditor(): boolean {

@@ -152,6 +152,40 @@ describe('DcxNgEditorComponent', () => {
     expect(component.value()).toBe('Te<strong>A</strong>xto');
   });
 
+  it('should stop applying inline format when toggled off inside formatted content', () => {
+    const editor = getEditor();
+    editor.innerHTML = '<strong>Texto</strong>';
+    const textNode = editor.querySelector('strong')?.firstChild;
+    expect(textNode).toBeTruthy();
+
+    const range = document.createRange();
+    range.setStart(textNode as Node, 5);
+    range.collapse(true);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+    component.saveSelection();
+    component.onEditorSelectionChange();
+
+    component.applyCommand({
+      action: 'bold',
+      icon: 'type-bold',
+      ariaLabel: 'Negrita',
+    });
+
+    component.onBeforeInput(
+      new InputEvent('beforeinput', {
+        cancelable: true,
+        data: 'A',
+        inputType: 'insertText',
+      }),
+    );
+
+    expect(component.isToolbarActionActive('bold')).toBe(false);
+    expect(editor.innerHTML).toBe('<strong>Texto</strong>A');
+    expect(component.value()).toBe('<strong>Texto</strong>A');
+  });
+
   it('should mark toolbar action as active when selection is inside formatted content', () => {
     const editor = getEditor();
     editor.innerHTML = '<strong>Texto</strong>';
