@@ -124,6 +124,53 @@ describe('DcxNgEditorComponent', () => {
     expect(component.value()).toBe('<ul><li>Texto</li></ul>');
   });
 
+  it('should apply pending format when typing with collapsed selection', () => {
+    const editor = getEditor();
+    editor.textContent = 'Texto';
+    const range = document.createRange();
+    range.setStart(editor.firstChild as Node, 2);
+    range.collapse(true);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+    component.saveSelection();
+
+    component.applyCommand({
+      action: 'bold',
+      icon: 'type-bold',
+      ariaLabel: 'Negrita',
+    });
+    component.onBeforeInput(
+      new InputEvent('beforeinput', {
+        cancelable: true,
+        data: 'A',
+        inputType: 'insertText',
+      }),
+    );
+
+    expect(editor.innerHTML).toBe('Te<strong>A</strong>xto');
+    expect(component.value()).toBe('Te<strong>A</strong>xto');
+  });
+
+  it('should mark toolbar action as active when selection is inside formatted content', () => {
+    const editor = getEditor();
+    editor.innerHTML = '<strong>Texto</strong>';
+    const textNode = editor.querySelector('strong')?.firstChild;
+    expect(textNode).toBeTruthy();
+
+    const range = document.createRange();
+    range.setStart(textNode as Node, 1);
+    range.collapse(true);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+
+    component.onEditorSelectionChange();
+
+    expect(component.isToolbarActionActive('bold')).toBe(true);
+    expect(component.isToolbarActionActive('italic')).toBe(false);
+  });
+
   it('should mark contenteditable as false when disabled', () => {
     component.setDisabledState(true);
     fixture.detectChanges();

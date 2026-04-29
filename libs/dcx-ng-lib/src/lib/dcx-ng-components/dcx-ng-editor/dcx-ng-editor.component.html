@@ -15,8 +15,10 @@
         size="s"
         icon
         [iconName]="item.icon"
+        iconSize="m"
         [ariaLabel]="item.ariaLabel"
         [disabled]="isDisabled() || readonly()"
+        [pressed]="isToolbarActionActive(item.action)"
         (mousedown)="onToolbarMouseDown($event)"
         (pointerdown)="onToolbarPointerDown($event, item)"
       ></dcx-ng-button>
@@ -37,11 +39,12 @@
     [attr.aria-required]="required() ? 'true' : null"
     [attr.aria-invalid]="isInvalid()"
     [attr.aria-describedby]="describedBy()"
+    (beforeinput)="onBeforeInput($event)"
     (input)="onInput()"
     (focus)="onFocus()"
     (blur)="onBlur()"
-    (keyup)="saveSelection()"
-    (mouseup)="saveSelection()"
+    (keyup)="onEditorSelectionChange()"
+    (mouseup)="onEditorSelectionChange()"
   ></div>
 
   @if (isInvalid() && errorMessage()) {

@@ -6,6 +6,7 @@ import {
   effect,
   ElementRef,
   forwardRef,
+  HostListener,
   input,
   model,
   output,
@@ -85,6 +86,8 @@ export class DcxNgEditorComponent implements AfterViewInit {
   focusEvent = output<void>();
 
   focused = signal(false);
+  activeToolbarActions = signal<Set<DcxEditorToolbarAction>>(new Set());
+  private pendingToolbarActions = signal<Set<DcxEditorToolbarAction>>(new Set());
 
   private onChange: (value: string) => void = () => null;
   private onTouched: () => void = () => null;
@@ -188,17 +191,20 @@ export class DcxNgEditorComponent implements AfterViewInit {
   onInput(): void {
     if (this.isDisabled() || this.readonly()) return;
     this.saveSelection();
+    this.updateActiveToolbarActions();
     this.updateValueFromEditor();
   }
 
   onFocus(): void {
     this.focused.set(true);
     this.saveSelection();
+    this.updateActiveToolbarActions();
     this.focusEvent.emit();
   }
 
   onBlur(): void {
     this.focused.set(false);
+    this.activeToolbarActions.set(new Set());
     this.onTouched();
     this.blurEvent.emit();
   }
@@ -208,6 +214,7 @@ export class DcxNgEditorComponent implements AfterViewInit {
     this.restoreSelection();
     this.applyToolbarAction(item.action);
     this.saveSelection();
+    this.updateActiveToolbarActions();
     this.updateValueFromEditor();
   }
 
@@ -218,6 +225,35 @@ export class DcxNgEditorComponent implements AfterViewInit {
   onToolbarPointerDown(event: PointerEvent, item: DcxEditorToolbarItem): void {
     event.preventDefault();
     this.applyCommand(item);
+  }
+
+  onEditorSelectionChange(): void {
+    this.saveSelection();
+    this.updateActiveToolbarActions();
+  }
+
+  onBeforeInput(event: InputEvent): void {
+    if (this.isDisabled() || this.readonly()) return;
+    if (event.inputType !== 'insertText' || !event.data) return;
+    if (!this.pendingToolbarActions().size) return;
+
+    event.preventDefault();
+    this.restoreSelection();
+    this.insertTextWithPendingFormats(event.data);
+    this.saveSelection();
+    this.updateActiveToolbarActions();
+    this.updateValueFromEditor();
+  }
+
+  isToolbarActionActive(action: DcxEditorToolbarAction): boolean {
+    return this.activeToolbarActions().has(action);
+  }
+
+  @HostListener('document:selectionchange')
+  onDocumentSelectionChange(): void {
+    if (this.selectionBelongsToEditor()) {
+      this.onEditorSelectionChange();
+    }
   }
 
   saveSelection(): void {
@@ -249,6 +285,12 @@ export class DcxNgEditorComponent implements AfterViewInit {
   }
 
   private applyToolbarAction(action: DcxEditorToolbarAction): void {
+    const range = this.getEditableRange();
+    if (range?.collapsed) {
+      this.togglePendingToolbarAction(action);
+      return;
+    }
+
     const handlers: Record<DcxEditorToolbarAction, () => void> = {
       bold: () => this.wrapSelection('strong'),
       italic: () => this.wrapSelection('em'),
@@ -259,6 +301,7 @@ export class DcxNgEditorComponent implements AfterViewInit {
     };
 
     handlers[action]();
+    this.pendingToolbarActions.set(new Set());
   }
 
   private wrapSelection(tagName: string): void {
@@ -319,6 +362,173 @@ export class DcxNgEditorComponent implements AfterViewInit {
     selection.removeAllRanges();
     selection.addRange(range);
     this.savedRange = range.cloneRange();
+  }
+
+  private moveSelectionToEnd(node: Node): void {
+    const selection = window.getSelection();
+    if (!selection) return;
+
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    range.collapse(false);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    this.savedRange = range.cloneRange();
+  }
+
+  private togglePendingToolbarAction(action: DcxEditorToolbarAction): void {
+    const pendingActions = new Set(this.pendingToolbarActions());
+
+    if (action === 'removeFormat') {
+      pendingActions.clear();
+    } else if (action === 'orderedList' || action === 'unorderedList') {
+      const oppositeAction =
+        action === 'orderedList' ? 'unorderedList' : 'orderedList';
+      pendingActions.delete(oppositeAction);
+      this.toggleSetValue(pendingActions, action);
+    } else {
+      this.toggleSetValue(pendingActions, action);
+    }
+
+    this.pendingToolbarActions.set(pendingActions);
+  }
+
+  private toggleSetValue(
+    values: Set<DcxEditorToolbarAction>,
+    value: DcxEditorToolbarAction,
+  ): void {
+    if (values.has(value)) {
+      values.delete(value);
+    } else {
+      values.add(value);
+    }
+  }
+
+  private insertTextWithPendingFormats(text: string): void {
+    const range = this.getEditableRange();
+    if (!range) return;
+
+    const pendingActions = this.pendingToolbarActions();
+    const textNode = document.createTextNode(text);
+    const formattedNode = this.wrapTextNodeWithPendingInlineFormats(textNode);
+    const listAction = pendingActions.has('orderedList')
+      ? 'orderedList'
+      : pendingActions.has('unorderedList')
+        ? 'unorderedList'
+        : null;
+
+    range.deleteContents();
+
+    if (listAction) {
+      const listItem = this.getCurrentListItem(range);
+      if (listItem) {
+        range.insertNode(formattedNode);
+        this.moveSelectionAfter(formattedNode);
+        return;
+      }
+
+      const list = document.createElement(
+        listAction === 'orderedList' ? 'ol' : 'ul',
+      );
+      const item = document.createElement('li');
+      item.append(formattedNode);
+      list.append(item);
+      range.insertNode(list);
+      this.moveSelectionToEnd(item);
+      return;
+    }
+
+    range.insertNode(formattedNode);
+    this.moveSelectionAfter(formattedNode);
+  }
+
+  private wrapTextNodeWithPendingInlineFormats(textNode: Text): Node {
+    let node: Node = textNode;
+    const pendingActions = this.pendingToolbarActions();
+
+    [
+      ['underline', 'u'],
+      ['italic', 'em'],
+      ['bold', 'strong'],
+    ].forEach(([action, tagName]) => {
+      if (!pendingActions.has(action as DcxEditorToolbarAction)) return;
+
+      const wrapper = document.createElement(tagName);
+      wrapper.append(node);
+      node = wrapper;
+    });
+
+    return node;
+  }
+
+  private getCurrentListItem(range: Range): HTMLLIElement | null {
+    let current: Node | null =
+      range.startContainer.nodeType === Node.ELEMENT_NODE
+        ? range.startContainer
+        : range.startContainer.parentElement;
+
+    while (current && current !== this.editorRef?.nativeElement) {
+      if (
+        current.nodeType === Node.ELEMENT_NODE &&
+        (current as HTMLElement).tagName === 'LI'
+      ) {
+        return current as HTMLLIElement;
+      }
+
+      current = current.parentElement;
+    }
+
+    return null;
+  }
+
+  private updateActiveToolbarActions(): void {
+    const activeActions = new Set<DcxEditorToolbarAction>(
+      this.pendingToolbarActions(),
+    );
+    const node = this.getSelectionContextNode();
+
+    if (node) {
+      if (this.hasAncestorTag(node, ['B', 'STRONG'])) activeActions.add('bold');
+      if (this.hasAncestorTag(node, ['I', 'EM'])) activeActions.add('italic');
+      if (this.hasAncestorTag(node, ['U'])) activeActions.add('underline');
+      if (this.hasAncestorTag(node, ['OL'])) activeActions.add('orderedList');
+      if (this.hasAncestorTag(node, ['UL'])) activeActions.add('unorderedList');
+    }
+
+    this.activeToolbarActions.set(activeActions);
+  }
+
+  private getSelectionContextNode(): Node | null {
+    const editor = this.editorRef?.nativeElement;
+    const selection = window.getSelection();
+    if (!editor || !selection || selection.rangeCount === 0) return null;
+
+    const range = selection.getRangeAt(0);
+    const node = range.startContainer;
+    return editor.contains(node) || editor === node ? node : null;
+  }
+
+  private hasAncestorTag(node: Node, tagNames: string[]): boolean {
+    const editor = this.editorRef?.nativeElement;
+    let current: Node | null =
+      node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+
+    while (current && current !== editor) {
+      if (
+        current.nodeType === Node.ELEMENT_NODE &&
+        tagNames.includes((current as HTMLElement).tagName)
+      ) {
+        return true;
+      }
+
+      current = current.parentElement;
+    }
+
+    return false;
+  }
+
+  private selectionBelongsToEditor(): boolean {
+    return !!this.getSelectionContextNode();
   }
 
   private updateValueFromEditor(): void {
