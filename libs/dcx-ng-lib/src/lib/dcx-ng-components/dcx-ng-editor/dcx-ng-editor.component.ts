@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   booleanAttribute,
+  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -46,6 +47,7 @@ let uuid = 0;
   imports: [CommonModule, DcxNgButtonComponent],
   templateUrl: './dcx-ng-editor.component.html',
   styleUrls: ['./dcx-ng-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -377,33 +379,51 @@ export class DcxNgEditorComponent implements AfterViewInit {
 
   private togglePendingToolbarAction(action: DcxEditorToolbarAction): void {
     const pendingActions = new Set(this.pendingToolbarActions());
+    const handlers: Partial<
+      Record<DcxEditorToolbarAction, () => void>
+    > = {
+      removeFormat: () => pendingActions.clear(),
+      orderedList: () => this.togglePendingListAction(pendingActions, action),
+      unorderedList: () => this.togglePendingListAction(pendingActions, action),
+    };
 
-    if (action === 'removeFormat') {
-      pendingActions.clear();
-    } else if (action === 'orderedList' || action === 'unorderedList') {
-      const oppositeAction =
-        action === 'orderedList' ? 'unorderedList' : 'orderedList';
-      pendingActions.delete(oppositeAction);
-      this.toggleSetValue(pendingActions, action);
-    } else if (this.isInlineActionActive(action)) {
-      pendingActions.delete(action);
-      this.escapeInlineFormat(action);
-    } else {
-      this.toggleSetValue(pendingActions, action);
-    }
+    const handler =
+      handlers[action] ??
+      (() => this.togglePendingInlineAction(pendingActions, action));
+    handler();
 
     this.pendingToolbarActions.set(pendingActions);
+  }
+
+  private togglePendingListAction(
+    pendingActions: Set<DcxEditorToolbarAction>,
+    action: DcxEditorToolbarAction,
+  ): void {
+    const oppositeAction =
+      action === 'orderedList' ? 'unorderedList' : 'orderedList';
+    pendingActions.delete(oppositeAction);
+    this.toggleSetValue(pendingActions, action);
+  }
+
+  private togglePendingInlineAction(
+    pendingActions: Set<DcxEditorToolbarAction>,
+    action: DcxEditorToolbarAction,
+  ): void {
+    if (!this.isInlineActionActive(action)) {
+      this.toggleSetValue(pendingActions, action);
+      return;
+    }
+
+    pendingActions.delete(action);
+    this.escapeInlineFormat(action);
   }
 
   private toggleSetValue(
     values: Set<DcxEditorToolbarAction>,
     value: DcxEditorToolbarAction,
   ): void {
-    if (values.has(value)) {
-      values.delete(value);
-    } else {
-      values.add(value);
-    }
+    const operation = values.has(value) ? 'delete' : 'add';
+    values[operation](value);
   }
 
   private insertTextWithToolbarState(text: string): void {
@@ -413,35 +433,52 @@ export class DcxNgEditorComponent implements AfterViewInit {
     const pendingActions = this.pendingToolbarActions();
     const textNode = document.createTextNode(text);
     const formattedNode = this.wrapTextNodeWithPendingInlineFormats(textNode);
-    const listAction = pendingActions.has('orderedList')
-      ? 'orderedList'
-      : pendingActions.has('unorderedList')
-        ? 'unorderedList'
-        : null;
+    const listAction = this.getPendingListAction(pendingActions);
 
     range.deleteContents();
 
-    if (listAction) {
-      const listItem = this.getCurrentListItem(range);
-      if (listItem) {
-        range.insertNode(formattedNode);
-        this.moveSelectionAfter(formattedNode);
-        return;
-      }
-
-      const list = document.createElement(
-        listAction === 'orderedList' ? 'ol' : 'ul',
-      );
-      const item = document.createElement('li');
-      item.append(formattedNode);
-      list.append(item);
-      range.insertNode(list);
-      this.moveSelectionToEnd(item);
+    if (!listAction) {
+      this.insertNodeAtRange(range, formattedNode);
       return;
     }
 
-    range.insertNode(formattedNode);
-    this.moveSelectionAfter(formattedNode);
+    this.insertNodeInList(range, formattedNode, listAction);
+  }
+
+  private getPendingListAction(
+    pendingActions: Set<DcxEditorToolbarAction>,
+  ): DcxEditorToolbarAction | null {
+    const listActions: DcxEditorToolbarAction[] = [
+      'orderedList',
+      'unorderedList',
+    ];
+    return listActions.find(action => pendingActions.has(action)) ?? null;
+  }
+
+  private insertNodeAtRange(range: Range, node: Node): void {
+    range.insertNode(node);
+    this.moveSelectionAfter(node);
+  }
+
+  private insertNodeInList(
+    range: Range,
+    node: Node,
+    action: DcxEditorToolbarAction,
+  ): void {
+    const listItem = this.getCurrentListItem(range);
+    if (listItem) {
+      this.insertNodeAtRange(range, node);
+      return;
+    }
+
+    const list = document.createElement(
+      action === 'orderedList' ? 'ol' : 'ul',
+    );
+    const item = document.createElement('li');
+    item.append(node);
+    list.append(item);
+    range.insertNode(list);
+    this.moveSelectionToEnd(item);
   }
 
   private wrapTextNodeWithPendingInlineFormats(textNode: Text): Node {
@@ -541,14 +578,18 @@ export class DcxNgEditorComponent implements AfterViewInit {
       this.pendingToolbarActions(),
     );
     const node = this.getSelectionContextNode();
+    if (!node) return this.activeToolbarActions.set(activeActions);
 
-    if (node) {
-      if (this.hasAncestorTag(node, ['B', 'STRONG'])) activeActions.add('bold');
-      if (this.hasAncestorTag(node, ['I', 'EM'])) activeActions.add('italic');
-      if (this.hasAncestorTag(node, ['U'])) activeActions.add('underline');
-      if (this.hasAncestorTag(node, ['OL'])) activeActions.add('orderedList');
-      if (this.hasAncestorTag(node, ['UL'])) activeActions.add('unorderedList');
-    }
+    const actionTags: Array<[DcxEditorToolbarAction, string[]]> = [
+      ['bold', ['B', 'STRONG']],
+      ['italic', ['I', 'EM']],
+      ['underline', ['U']],
+      ['orderedList', ['OL']],
+      ['unorderedList', ['UL']],
+    ];
+    actionTags
+      .filter(([, tagNames]) => this.hasAncestorTag(node, tagNames))
+      .forEach(([action]) => activeActions.add(action));
 
     this.activeToolbarActions.set(activeActions);
   }
@@ -606,7 +647,9 @@ export class DcxNgEditorComponent implements AfterViewInit {
   }
 
   private updateValueFromEditor(): void {
-    const nextValue = this.editorRef?.nativeElement.innerHTML ?? '';
+    const nextValue = this.sanitizeHtml(
+      this.editorRef?.nativeElement.innerHTML ?? '',
+    );
     this.value.set(nextValue);
     this.onChange(nextValue);
     this.valueChange.emit(nextValue);
@@ -618,11 +661,14 @@ export class DcxNgEditorComponent implements AfterViewInit {
 
   private renderValue(value: string): void {
     if (!this.viewReady || !this.editorRef) return;
-    const sanitizedValue =
-      this.sanitizer.sanitize(SecurityContext.HTML, value) ?? '';
+    const sanitizedValue = this.sanitizeHtml(value);
     const element = this.editorRef.nativeElement;
     if (element.innerHTML !== sanitizedValue) {
       element.innerHTML = sanitizedValue;
     }
+  }
+
+  private sanitizeHtml(value: string): string {
+    return this.sanitizer.sanitize(SecurityContext.HTML, value) ?? '';
   }
 }

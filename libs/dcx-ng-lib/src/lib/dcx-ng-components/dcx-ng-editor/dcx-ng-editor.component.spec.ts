@@ -55,6 +55,18 @@ describe('DcxNgEditorComponent', () => {
     expect(spy).toHaveBeenCalledWith('<p>Texto</p>');
   });
 
+  it('should sanitize emitted html on input', () => {
+    const spy = jest.fn();
+    component.valueChange.subscribe(spy);
+    const editor = getEditor();
+
+    editor.innerHTML = '<p>Texto</p><script>alert("xss")</script>';
+    editor.dispatchEvent(new Event('input'));
+
+    expect(component.value()).not.toContain('<script>');
+    expect(spy).toHaveBeenCalledWith(expect.not.stringContaining('<script>'));
+  });
+
   it('should prevent toolbar mousedown to keep editor selection', () => {
     const event = new MouseEvent('mousedown', { cancelable: true });
 

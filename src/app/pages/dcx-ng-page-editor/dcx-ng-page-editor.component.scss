@@ -1,7 +1,11 @@
 section {
-  margin-bottom: 24px;
+  margin-bottom: var(--sp-6, 24px);
 }
 
 .example-title {
-  margin-bottom: 16px;
+  margin-bottom: var(--sp-4, 16px);
+}
+
+.divider {
+  margin: var(--sp-6, 24px) 0;
 }
