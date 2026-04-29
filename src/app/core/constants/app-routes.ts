@@ -30,6 +30,7 @@ export const APP_ROUTES = {
   NAVBAR: 'navbar',
   POPOVER: 'popover',
   FILE_UPLOAD: 'file-upload',
+  STEPPER: 'stepper',
   THEME_GENERATOR: 'theme-generator',
   SCROLL_TOP_DOWN: 'scroll-top-down',
 };
