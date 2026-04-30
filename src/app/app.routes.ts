@@ -33,7 +33,7 @@ import { DcxNgPageScrollTopDownComponent } from './pages/dcx-ng-page-scroll-top-
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
-import { DcxNgThemeGeneratorComponent } from 'libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-theme-generator/dcx-ng-theme-generator.component';
+import { DcxNgPageThemeGeneratorComponent } from './pages/dcx-ng-page-theme-generator/dcx-ng-page-theme-generator.component';
 
 export const appRoutes: Route[] = [
   {
@@ -166,6 +166,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: APP_ROUTES.THEME_GENERATOR,
-    component: DcxNgThemeGeneratorComponent,
+    component: DcxNgPageThemeGeneratorComponent,
   }
 ];

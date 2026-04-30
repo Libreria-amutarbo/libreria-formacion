@@ -2,7 +2,29 @@
 
 **Status:** Done
 **Date:** 2026-04-23
-**Author:** GitHub Copilot
+
+---
+
+## Resumen de cambios (para nuevos integrantes)
+
+La carpeta `core/mock` existía desde el inicio del proyecto y mezclaba tres tipos de contenido sin distinción: defaults de runtime, datos de ejemplo para tests/stories y tokens de diseño. Esto dificultaba saber dónde añadir cosas nuevas y hacía que código de producción dependiera de un namespace llamado "mock".
+
+**Lo que se hizo:**
+
+- Se crearon tres carpetas con responsabilidad única: `core/defaults`, `core/fixtures` y `core/tokens`.
+- Todos los archivos de `core/mock` se migraron a su carpeta correspondiente.
+- Los componentes de producción y las stories actualizaron sus imports.
+- `core/mock` fue eliminada completamente.
+
+**Regla práctica para el día a día:**
+
+| Carpeta           | Qué va aquí                                                                                   |
+| ----------------- | --------------------------------------------------------------------------------------------- |
+| `core/defaults`   | Valores por defecto usados en runtime por los componentes (ej. posición inicial de un drawer) |
+| `core/fixtures`   | Datos de ejemplo para tests y stories (ej. listas de items, objetos de demo)                  |
+| `core/tokens`     | Catálogos y constantes de diseño (ej. paletas de colores, listas de tokens)                   |
+| `core/interfaces` | Tipos e interfaces TypeScript compartidas                                                     |
+| `core/mapping`    | Funciones de transformación/mapeo de datos                                                    |
 
 ---
 
@@ -64,8 +86,7 @@ Implementación de transición aplicada:
 - Se crearon los nuevos barrels `defaults`, `fixtures` y `tokens`.
 - Los archivos se movieron físicamente desde `core/mock` a sus carpetas de responsabilidad.
 - Los componentes de producción y stories directas se migraron a esas rutas nuevas.
-- `core/mock` se mantiene como capa de compatibilidad mediante re-exports para evitar breaking changes en esta fase.
-- Se añadió una regla de lint para impedir nuevos imports desde `core/mock` en código productivo.
+- `core/mock` fue eliminada. No existe capa de compatibilidad.
 
 ---
 
@@ -114,9 +135,9 @@ No aplica directamente (sin cambios funcionales en componentes).
 
 ## 9. Open Questions
 
-- [ ] ¿Queremos deprecar explícitamente los exports legacy de `core/mock` o mantener compatibilidad total por una release?
-- [ ] ¿Queremos dividir `fixtures` en `test-fixtures` y `story-fixtures`, o mantener una carpeta única por simplicidad?
-- [ ] ¿`mapping` se mantiene en `core` o debe evaluarse moverlo a una carpeta más semántica en una fase futura?
+- [x] ¿Queremos deprecar explícitamente los exports legacy de `core/mock` o mantener compatibilidad total por una release? → **Eliminado directamente. La carpeta `core/mock` ya no existe.**
+- [x] ¿Queremos dividir `fixtures` en `test-fixtures` y `story-fixtures`, o mantener una carpeta única por simplicidad? → **Carpeta única. No se divide.**
+- [x] ¿`mapping` se mantiene en `core` o debe evaluarse moverlo a una carpeta más semántica en una fase futura? → **Se mantiene en `core`. No se mueve.**
 
 ---
 

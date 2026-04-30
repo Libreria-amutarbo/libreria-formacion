@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GROUPS, GROUP_LABELS } from '../../core/constants/theme-generator';
-import { CAPGEMINI_THEME_TOKENS } from '../../core/mock/theme-tokens';
+import { CAPGEMINI_THEME_TOKENS } from '../../core/fixtures/theme-tokens';
 import {
   ThemeToken,
   ThemeTokenGroup,

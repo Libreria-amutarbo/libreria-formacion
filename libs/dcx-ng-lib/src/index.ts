@@ -1,5 +1,4 @@
 export * from './lib/core/interfaces';
-export * from './lib/core/mock';
 export * from './lib/core/defaults';
 export * from './lib/core/fixtures';
 export * from './lib/core/tokens';

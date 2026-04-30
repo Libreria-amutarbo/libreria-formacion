@@ -19,19 +19,20 @@ When generating Storybook stories for a component:
    - `libs/dcx-ng-lib/src/index.ts`
 5. Check if a stories folder already exists:
    - `libs/dcx-ng-lib/src/lib/stories/[Name]/`
-6. Check if mock data already exists:
-   - `libs/dcx-ng-lib/src/lib/core/mock/[name].ts`
+6. Check if fixture data already exists:
+   - `libs/dcx-ng-lib/src/lib/core/fixtures/[name].ts`
 
-## Step 2 — Create mock data in `core/mock`
+## Step 2 — Create fixture data in `core/fixtures`
 
-If the component accepts arrays or objects as inputs, create (or update) the mock file:
-`libs/dcx-ng-lib/src/lib/core/mock/[name].ts`
+If the component accepts arrays or objects as inputs, create (or update) the fixture file:
+`libs/dcx-ng-lib/src/lib/core/fixtures/[name].ts`
 
 - Name constants with the component prefix to avoid collisions (e.g. `navbarItems`, `navbarDefaultBrand`)
 - Import types from `@dcx-ng-components/dcx-ng-lib`
 - Export all constants so they can be reused in unit tests
 
-Then add the export to `libs/dcx-ng-lib/src/lib/core/mock/index.ts`:
+Then add the export to `libs/dcx-ng-lib/src/lib/core/fixtures/index.ts`:
+
 ```typescript
 export * from './[name]';
 ```
@@ -125,6 +126,7 @@ export const Interactive: Story = {
 ```
 
 ### Control type mapping
+
 - `string` input → `control: 'text'`
 - `boolean` input → `control: 'boolean'`
 - union/enum with imported list → `control: 'select'`, `options: IMPORTED_LIST`
@@ -132,6 +134,7 @@ export const Interactive: Story = {
 - array/object → `control: { type: 'object' }`
 
 ### Special cases
+
 - If the component requires `moduleMetadata` (uses other DCX components in its template), add:
   ```typescript
   import { moduleMetadata } from '@storybook/angular';
@@ -144,7 +147,7 @@ export const Interactive: Story = {
 
 Create the file at `libs/dcx-ng-lib/src/lib/stories/[Name]/Documentation.mdx`.
 
-```mdx
+````mdx
 import { Meta, Canvas } from '@storybook/blocks';
 import * as [Name]Stories from './ClassBased.stories';
 
@@ -176,7 +179,7 @@ Brief description of what the component does and its main characteristics.
   [prop]="value"
   (event)="handler($event)"
 ></dcx-ng-[name]>
-```
+````
 
 ## Estados y variantes
 
@@ -187,7 +190,8 @@ Brief description of what the component does and its main characteristics.
 ## Step 5 — Checklist before finishing
 
 Verify that:
-- [ ] Mock data is in `core/mock/[name].ts` and exported from `core/mock/index.ts`
+
+- [ ] Fixture data is in `core/fixtures/[name].ts` and exported from `core/fixtures/index.ts`
 - [ ] `ClassBased.stories.ts` imports all mocks from `@dcx-ng-components/dcx-ng-lib` (no inline data)
 - [ ] `ClassBased.stories.ts` has at least 3 stories
 - [ ] All `input()` signals have an `argType` with control, description, and table
