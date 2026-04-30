@@ -123,13 +123,13 @@ export const FloatLabelVariants: Story = {
       <div style="padding: 2rem;">
         <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
           <div>
-            <dcx-ng-textarea [floatLabel]="'over'" label="Over Label" placeholder=" "></dcx-ng-textarea>
+            <dcx-ng-textarea [floatLabel]="'over'" label="Over Label"></dcx-ng-textarea>
           </div>
           <div>
-            <dcx-ng-textarea [floatLabel]="'in'" label="In Label" placeholder=" "></dcx-ng-textarea>
+            <dcx-ng-textarea [floatLabel]="'in'" label="In Label" ></dcx-ng-textarea>
           </div>
           <div>
-            <dcx-ng-textarea [floatLabel]="'on'" label="On Label" placeholder=" "></dcx-ng-textarea>
+            <dcx-ng-textarea [floatLabel]="'on'" label="On Label" ></dcx-ng-textarea>
           </div>
         </div>
       </div>
@@ -141,7 +141,6 @@ export const IftaLabel: Story = {
   args: {
     floatLabel: 'ifta',
     label: 'Description',
-    placeholder: ' ',
   },
   parameters: {
     docs: {
