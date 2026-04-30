@@ -105,7 +105,6 @@ export class DcxNgStepperComponent {
     const currentId = step.id;
     const currentIndex = index;
 
-    this._previousStepId.set(previousId);
     this._activeStepId.set(currentId);
 
     this.stepClick.emit(step);
