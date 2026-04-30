@@ -174,7 +174,7 @@
 
   &--completed {
     .dcx-stepper__step-indicator {
-      background: var(--color-success, #28a745);
+      background: var(--color-success, #16a34a);
       color: var(--text-white, #ffffff);
       border: none;
       box-shadow: 0 0 0 1px var(--bg-default, #ffffff);
@@ -187,14 +187,14 @@
 
   &--error {
     .dcx-stepper__step-indicator {
-      background: var(--color-error, #e74c3c);
+      background: var(--color-error, #dc2626);
       color: var(--text-white, #ffffff);
       border: none;
       box-shadow: 0 0 0 1px var(--bg-default, #ffffff);
     }
 
     .dcx-stepper__label-text {
-      color: var(--color-error, #e74c3c);
+      color: var(--color-error, #dc2626);
       font-weight: var(--fw-semibold, 600);
     }
   }
@@ -204,7 +204,7 @@
     opacity: 0.5;
 
     .dcx-stepper__step-indicator {
-      background: var(--bg-disabled, #f0f2f5);
+      background: var(--bg-disabled, #f3f4f6);
       color: var(--text-disabled, #d1d5db);
       box-shadow: 0 0 0 1px var(--bg-default, #ffffff);
     }
@@ -215,7 +215,7 @@
 
     &:hover {
       .dcx-stepper__step-indicator {
-        background: var(--bg-disabled, #f0f2f5);
+        background: var(--bg-disabled, #f3f4f6);
         color: var(--text-disabled, #d1d5db);
         box-shadow: none;
       }
@@ -231,7 +231,7 @@
   width: var(--sp-8, 32px);
   height: var(--sp-8, 32px);
   border-radius: 50%;
-  background: var(--bg-surface, #f7f8fa);
+  background: var(--bg-surface, #f4f5f7);
   color: var(--text-muted, #696e75);
   font-weight: var(--fw-medium, 500);
   border: 2px solid var(--border-light, #d1d5db);
@@ -299,7 +299,7 @@
 
 .dcx-stepper__label-optional {
   font-size: var(--fs-xs, 11px);
-  color: var(--text-subtle, #9ca3af);
+  color: var(--text-placeholder, #9ca3af);
   font-style: italic;
 }
 

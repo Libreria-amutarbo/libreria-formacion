@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import {
   DcxStepperChangeEvent,
-  DcxStepperItem
+  DcxStepperItem,
 } from '../../core/interfaces/stepper';
 import { DcxLayout, DcxSize } from '../../core/interfaces';
 
@@ -67,14 +67,29 @@ export class DcxNgStepperComponent {
 
   constructor() {
     effect(() => {
-      const newId = this.activeStepId();
-      if (newId !== '' && newId !== null && newId !== undefined) {
-        this._activeStepId.set(newId);
-      } else {
-        const firstEnabled = this.steps().find(s => !s.disabled);
-        this._activeStepId.set(firstEnabled?.id ?? null);
-      }
+      this.syncActiveStepId();
     });
+  }
+
+  private syncActiveStepId(): void {
+    const activeStepId = this.activeStepId();
+
+    if (
+      activeStepId === '' ||
+      activeStepId === null ||
+      activeStepId === undefined
+    ) {
+      this.setFirstEnabledStepAsActive();
+      return;
+    }
+
+    this._activeStepId.set(activeStepId);
+  }
+
+  private setFirstEnabledStepAsActive(): void {
+    const firstEnabledStep = this.steps().find(step => !step.disabled);
+
+    this._activeStepId.set(firstEnabledStep?.id ?? null);
   }
 
   onStepClick(step: DcxStepperItem, index: number): void {
@@ -103,13 +118,13 @@ export class DcxNgStepperComponent {
     });
   }
 
-  onStepKeydown(event: KeyboardEvent, step: DcxStepperItem, index: number): void {
+  onStepKeydown(
+    event: KeyboardEvent,
+    step: DcxStepperItem,
+    index: number,
+  ): void {
     const isHorizontal = this.orientation() === 'horizontal';
     const isEnter = event.key === 'Enter' || event.key === ' ';
-    const isArrowRight = event.key === 'ArrowRight';
-    const isArrowLeft = event.key === 'ArrowLeft';
-    const isArrowDown = event.key === 'ArrowDown';
-    const isArrowUp = event.key === 'ArrowUp';
 
     if (isEnter) {
       event.preventDefault();
@@ -118,33 +133,35 @@ export class DcxNgStepperComponent {
     }
 
     if (isHorizontal) {
-      if (isArrowRight) {
-        event.preventDefault();
-        const nextEnabledIndex = this.findNextEnabledStep(index, 1);
-        if (nextEnabledIndex >= 0) {
-          this.onStepClick(this.steps()[nextEnabledIndex], nextEnabledIndex);
-        }
-      } else if (isArrowLeft) {
-        event.preventDefault();
-        const prevEnabledIndex = this.findNextEnabledStep(index, -1);
-        if (prevEnabledIndex >= 0) {
-          this.onStepClick(this.steps()[prevEnabledIndex], prevEnabledIndex);
-        }
-      }
+      this.navigateByArrowKey(event, index, 'ArrowRight', 'ArrowLeft');
     } else {
-      if (isArrowDown) {
-        event.preventDefault();
-        const nextEnabledIndex = this.findNextEnabledStep(index, 1);
-        if (nextEnabledIndex >= 0) {
-          this.onStepClick(this.steps()[nextEnabledIndex], nextEnabledIndex);
-        }
-      } else if (isArrowUp) {
-        event.preventDefault();
-        const prevEnabledIndex = this.findNextEnabledStep(index, -1);
-        if (prevEnabledIndex >= 0) {
-          this.onStepClick(this.steps()[prevEnabledIndex], prevEnabledIndex);
-        }
-      }
+      this.navigateByArrowKey(event, index, 'ArrowDown', 'ArrowUp');
+    }
+  }
+
+  private navigateByArrowKey(
+    event: KeyboardEvent,
+    index: number,
+    nextKey: string,
+    previousKey: string,
+  ): void {
+    if (event.key === nextKey) {
+      event.preventDefault();
+      this.navigateToEnabledStep(index, 1);
+      return;
+    }
+
+    if (event.key === previousKey) {
+      event.preventDefault();
+      this.navigateToEnabledStep(index, -1);
+    }
+  }
+
+  private navigateToEnabledStep(currentIndex: number, direction: number): void {
+    const nextEnabledIndex = this.findNextEnabledStep(currentIndex, direction);
+
+    if (nextEnabledIndex >= 0) {
+      this.onStepClick(this.steps()[nextEnabledIndex], nextEnabledIndex);
     }
   }
 
@@ -176,7 +193,8 @@ export class DcxNgStepperComponent {
 
   getStepClasses(step: DcxStepperItem): string {
     const base = 'dcx-stepper__step';
-    const active = this._activeStepId() === step.id ? 'dcx-stepper__step--active' : '';
+    const active =
+      this._activeStepId() === step.id ? 'dcx-stepper__step--active' : '';
     const completed = step.completed ? 'dcx-stepper__step--completed' : '';
     const disabled = step.disabled ? 'dcx-stepper__step--disabled' : '';
     const error = step.error ? 'dcx-stepper__step--error' : '';
