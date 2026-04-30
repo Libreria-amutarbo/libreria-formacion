@@ -2,8 +2,7 @@ name: Release library
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: write
