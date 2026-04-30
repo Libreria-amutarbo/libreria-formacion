@@ -39,8 +39,6 @@ export class DcxNgIconFieldComponent {
     return [mapped].filter(Boolean).join(' ');
   });
 
-  constructor() { }
-
   onIconClick() {
     this.iconClick.emit();
   }
