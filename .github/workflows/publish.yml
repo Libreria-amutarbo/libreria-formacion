@@ -25,11 +25,11 @@ jobs:
       - run: npm install --legacy-peer-deps
 
       - name: Build library
-        run: npx nx build dcx-ng-components --no-cloud
+        run: npx nx build dcx-ng-lib --no-cloud
 
       - name: Create Release Pull Request or Publish
         uses: changesets/action@v1
         with:
-          publish: npm publish dist/dcx-ng-components/source
+          publish: npm publish dist/dcx-ng-lib/source
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
