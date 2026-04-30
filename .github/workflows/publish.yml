@@ -2,8 +2,7 @@ name: Release library
 
 on:
   push:
-    branches:
-      - main
+    branches: [develop]
 
 permissions:
   contents: write
@@ -23,7 +22,7 @@ jobs:
           node-version: 20
           registry-url: https://npm.pkg.github.com/
 
-      - run: npm ci --legacy-peer-deps
+      - run: npm install --legacy-peer-deps
 
       - name: Build library
         run: npx nx build dcx-ng-components --no-cloud
