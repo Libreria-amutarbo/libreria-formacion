@@ -2,6 +2,9 @@
   "name": "@dcx-ng-components/source",
   "version": "0.0.0",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "peerDependencies": {
     "@angular/animations": "^20.0.0",
     "@angular/common": "^20.0.0",
