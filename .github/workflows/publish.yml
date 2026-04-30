@@ -19,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.19
           registry-url: https://npm.pkg.github.com/
 
       - run: npm install --legacy-peer-deps
@@ -30,6 +30,6 @@ jobs:
       - name: Create Release Pull Request or Publish
         uses: changesets/action@v1
         with:
-          publish: npm publish dist/dcx-ng-lib/source
+          publish: npm publish dist/dcx-ng-lib
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
