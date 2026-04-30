@@ -211,6 +211,8 @@ export const Variants: Story = {
         <dcx-ng-button label="Secondary" size="m" variant="secondary"></dcx-ng-button>
         <dcx-ng-button label="Terciary"  size="m" variant="terciary"></dcx-ng-button>
         <dcx-ng-button label="Danger"    size="m" variant="danger"></dcx-ng-button>
+        <dcx-ng-button label="Text"      size="m" variant="text"></dcx-ng-button>
+        <dcx-ng-button ariaLabel="Icon only" size="m" variant="icon-only" icon iconName="search"></dcx-ng-button>
       </div>
     `,
   }),
