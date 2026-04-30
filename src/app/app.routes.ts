@@ -33,6 +33,7 @@ import { DcxNgPageScrollTopDownComponent } from './pages/dcx-ng-page-scroll-top-
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
+import { DcxNgPageProgressbarComponent } from './pages/dcx-ng-page-progressbar/dcx-ng-page-progressbar.component';
 
 export const appRoutes: Route[] = [
   {
@@ -154,6 +155,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.POPOVER,
     component: DcxNgPagePopoverComponent,
+  },
+  {
+    path: APP_ROUTES.PROGRESSBAR,
+    component: DcxNgPageProgressbarComponent,
   },
   {
     path: APP_ROUTES.FILE_UPLOAD,

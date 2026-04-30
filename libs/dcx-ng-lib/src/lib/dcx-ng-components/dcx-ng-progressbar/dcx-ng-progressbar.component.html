@@ -1,0 +1,60 @@
+<div class="dcx-progressbar" [class.dcx-progressbar--segmented]="isSegmentedVariant()" [class.dcx-progressbar--stepper]="isStepperVariant()">
+  @if (isDefaultVariant() || isSegmentedVariant()) {
+    <div class="dcx-progressbar__container">
+      <div class="dcx-progressbar__track">
+        <div 
+          class="dcx-progressbar__fill"
+          [style.--progress-width]="progressPercentage() + '%'"
+          [attr.data-value]="progressPercentage()">
+        </div>
+        @if (isSegmentedVariant()) {
+          <div class="dcx-progressbar__segments">
+            @for (segment of [1,2,3,4,5]; track segment) {
+              <div class="dcx-progressbar__segment"></div>
+            }
+          </div>
+        }
+      </div>
+      @if (showTooltip()) {
+        <div class="dcx-progressbar__tooltip" [style.--tooltip-position]="progressPercentage() + '%'">
+          {{ progressPercentage() }}%
+        </div>
+      }
+      @if (showLabel()) {
+        <span class="dcx-progressbar__label">{{ progressPercentage() }}%</span>
+      }
+    </div>
+  }
+
+  @if (isStepperVariant()) {
+    <div class="dcx-progressbar__stepper">
+      <div class="dcx-progressbar__stepper-track">
+        <div 
+          class="dcx-progressbar__stepper-progress"
+          [style.--stepper-progress]="stepProgress() + '%'">
+        </div>
+      </div>
+      <div class="dcx-progressbar__steps">
+        @for (step of steps(); track $index) {
+          <div 
+            class="dcx-progressbar__step"
+            [class.dcx-progressbar__step--completed]="isStepCompleted($index)"
+            [class.dcx-progressbar__step--active]="isStepActive($index)">
+            <div class="dcx-progressbar__step-circle">
+              @if (showCheckmarks() && isStepCompleted($index)) {
+                <svg class="dcx-progressbar__checkmark" viewBox="0 0 16 16" fill="none">
+                  <path d="M13.3333 4L6 11.3333L2.66666 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              } @else {
+                <span class="dcx-progressbar__step-number">{{ $index + 1 }}</span>
+              }
+            </div>
+            @if (step.label) {
+              <span class="dcx-progressbar__step-label">{{ step.label }}</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
