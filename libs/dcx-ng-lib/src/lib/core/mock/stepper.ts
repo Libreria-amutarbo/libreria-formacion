@@ -1,4 +1,4 @@
-import { DcxStepperItem } from '../interfaces/stepper';
+import { DcxStepperItem } from '../interfaces';
 
 export const STEPPER_BASIC_STEPS: DcxStepperItem[] = [
   {

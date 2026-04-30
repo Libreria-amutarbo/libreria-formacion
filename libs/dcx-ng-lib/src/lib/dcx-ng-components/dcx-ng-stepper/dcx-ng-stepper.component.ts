@@ -36,7 +36,6 @@ export class DcxNgStepperComponent {
   readonly stepClick = output<DcxStepperItem>();
 
   private readonly _activeStepId = signal<string | number | null>(null);
-  private readonly _previousStepId = signal<string | number | null>(null);
 
   readonly activeStepIndex = computed(() => {
     const id = this._activeStepId();
