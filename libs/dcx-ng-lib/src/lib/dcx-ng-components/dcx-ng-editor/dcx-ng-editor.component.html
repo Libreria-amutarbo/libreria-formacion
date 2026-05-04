@@ -32,7 +32,7 @@
     [style.min-height]="minHeight()"
     role="textbox"
     aria-multiline="true"
-    [attr.contenteditable]="isDisabled() || readonly() ? 'false' : 'true'"
+    [attr.contenteditable]="!isDisabled() && !readonly()"
     [attr.tabindex]="isDisabled() || readonly() ? null : '0'"
     [attr.data-placeholder]="placeholder()"
     [attr.aria-labelledby]="label() ? id() + '-label' : null"
