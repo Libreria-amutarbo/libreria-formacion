@@ -35,4 +35,3 @@ jobs:
           createPullRequest: false
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-``
