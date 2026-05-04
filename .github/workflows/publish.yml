@@ -22,14 +22,17 @@ jobs:
           node-version: 20.19
           registry-url: https://npm.pkg.github.com/
 
-      - run: npm install --legacy-peer-deps
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
 
       - name: Build library
         run: npx nx build dcx-ng-lib --no-cloud
 
-      - name: Create Release Pull Request or Publish
+      - name: Version and publish (no PRs)
         uses: changesets/action@v1
         with:
           publish: npm publish dist/libs/dcx-ng-lib
+          createPullRequest: false
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+``
