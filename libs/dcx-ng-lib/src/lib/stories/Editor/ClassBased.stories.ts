@@ -140,7 +140,7 @@ export const withPlaceholder: Story = {
 
 export const withValue: Story = {
   args: {
-    label: 'Descripcion',
+    label: 'Descripción',
     value: '<p>Texto con <strong>formato</strong>.</p>',
   },
 };

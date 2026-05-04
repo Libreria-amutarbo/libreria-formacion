@@ -1,5 +1,5 @@
 @if (label()) {
-  <label class="dcx-ng-editor__label" [attr.for]="id()">
+  <label class="dcx-ng-editor__label" [attr.id]="id() + '-label'">
     {{ label() }}
     @if (required()) {
       <span class="dcx-ng-editor__required">*</span>
@@ -8,7 +8,7 @@
 }
 
 <div class="dcx-ng-editor" [class.is-disabled]="isDisabled()">
-  <div class="dcx-ng-editor__toolbar" role="toolbar" [attr.aria-label]="'Formato'">
+  <div class="dcx-ng-editor__toolbar" role="toolbar" aria-label='Formato'>
     @for (item of toolbarItems(); track item.action) {
       <dcx-ng-button
         variant="icon-only"
@@ -20,7 +20,7 @@
         [disabled]="isDisabled() || readonly()"
         [pressed]="isToolbarActionActive(item.action)"
         (mousedown)="onToolbarMouseDown($event)"
-        (pointerdown)="onToolbarPointerDown($event, item)"
+        (buttonClick)="onToolbarButtonClick(item)"
       ></dcx-ng-button>
     }
   </div>
@@ -35,6 +35,7 @@
     [attr.contenteditable]="isDisabled() || readonly() ? 'false' : 'true'"
     [attr.tabindex]="isDisabled() || readonly() ? null : '0'"
     [attr.data-placeholder]="placeholder()"
+    [attr.aria-labelledby]="label() ? id() + '-label' : null"
     [attr.aria-label]="label() ? null : ariaLabel()"
     [attr.aria-required]="required() ? 'true' : null"
     [attr.aria-invalid]="isInvalid()"

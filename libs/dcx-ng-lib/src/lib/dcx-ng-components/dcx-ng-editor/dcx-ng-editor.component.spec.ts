@@ -75,16 +75,12 @@ describe('DcxNgEditorComponent', () => {
     expect(event.defaultPrevented).toBe(true);
   });
 
-  it('should apply toolbar command on pointerdown', () => {
+  it('should apply toolbar command on buttonClick', () => {
     const item = component.toolbarItems()[0];
-    const event = new MouseEvent('pointerdown', {
-      cancelable: true,
-    }) as PointerEvent;
     const spy = jest.spyOn(component, 'applyCommand');
 
-    component.onToolbarPointerDown(event, item);
+    component.onToolbarButtonClick(item);
 
-    expect(event.defaultPrevented).toBe(true);
     expect(spy).toHaveBeenCalledWith(item);
   });
 

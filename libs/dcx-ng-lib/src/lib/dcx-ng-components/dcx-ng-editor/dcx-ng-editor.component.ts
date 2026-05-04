@@ -8,6 +8,7 @@ import {
   ElementRef,
   forwardRef,
   HostListener,
+  inject,
   input,
   model,
   output,
@@ -17,7 +18,7 @@ import {
   untracked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   DcxEditorToolbarAction,
@@ -56,7 +57,7 @@ let uuid = 0;
     },
   ],
 })
-export class DcxNgEditorComponent implements AfterViewInit {
+export class DcxNgEditorComponent implements AfterViewInit, ControlValueAccessor {
   @ViewChild('editor') editorRef?: ElementRef<HTMLElement>;
 
   id = input<string>(`dcx-editor-${++uuid}`);
@@ -158,16 +159,16 @@ export class DcxNgEditorComponent implements AfterViewInit {
     return this.toolbarActions().map(action => itemMap[action]);
   });
 
-  constructor(private readonly sanitizer: DomSanitizer) {
-    effect(() => {
-      const value = this.value();
-      untracked(() => {
-        if (!this.isEditorFocused()) {
-          this.renderValue(value);
-        }
-      });
+  private readonly sanitizer = inject(DomSanitizer);
+
+  private readonly _renderEffect = effect(() => {
+    const value = this.value();
+    untracked(() => {
+      if (!this.isEditorFocused()) {
+        this.renderValue(value);
+      }
     });
-  }
+  });
 
   ngAfterViewInit(): void {
     this.viewReady = true;
@@ -224,14 +225,20 @@ export class DcxNgEditorComponent implements AfterViewInit {
     event.preventDefault();
   }
 
-  onToolbarPointerDown(event: PointerEvent, item: DcxEditorToolbarItem): void {
-    event.preventDefault();
+  onToolbarButtonClick(item: DcxEditorToolbarItem): void {
     this.applyCommand(item);
   }
 
   onEditorSelectionChange(): void {
     this.saveSelection();
     this.updateActiveToolbarActions();
+  }
+
+  @HostListener('document:selectionchange')
+  onDocumentSelectionChange(): void {
+    if (this.selectionBelongsToEditor()) {
+      this.onEditorSelectionChange();
+    }
   }
 
   onBeforeInput(event: InputEvent): void {
@@ -248,13 +255,6 @@ export class DcxNgEditorComponent implements AfterViewInit {
 
   isToolbarActionActive(action: DcxEditorToolbarAction): boolean {
     return this.activeToolbarActions().has(action);
-  }
-
-  @HostListener('document:selectionchange')
-  onDocumentSelectionChange(): void {
-    if (this.selectionBelongsToEditor()) {
-      this.onEditorSelectionChange();
-    }
   }
 
   saveSelection(): void {
