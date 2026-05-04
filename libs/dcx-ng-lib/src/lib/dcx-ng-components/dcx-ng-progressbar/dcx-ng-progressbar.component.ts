@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
 export interface DcxProgressStep {
   label: string;
@@ -10,7 +11,7 @@ export type DcxProgressVariant = 'default' | 'segmented' | 'stepper';
 @Component({
   selector: 'dcx-ng-progressbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DcxNgIconComponent],
   templateUrl: './dcx-ng-progressbar.component.html',
   styleUrls: ['./dcx-ng-progressbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,6 +24,7 @@ export class DcxNgProgressbarComponent {
   readonly steps = input<DcxProgressStep[]>([]);
   readonly currentStep = input<number>(0);
   readonly showCheckmarks = input<boolean>(false);
+  readonly segments = input<number>(5);
 
   readonly progressPercentage = computed(() => {
     const val = this.value();
@@ -32,6 +34,10 @@ export class DcxNgProgressbarComponent {
   readonly isStepperVariant = computed(() => this.variant() === 'stepper');
   readonly isSegmentedVariant = computed(() => this.variant() === 'segmented');
   readonly isDefaultVariant = computed(() => this.variant() === 'default');
+
+  readonly segmentArray = computed(() => 
+    Array(this.segments()).fill(0).map((_, i) => i)
+  );
 
   readonly stepProgress = computed(() => {
     const total = this.steps().length;

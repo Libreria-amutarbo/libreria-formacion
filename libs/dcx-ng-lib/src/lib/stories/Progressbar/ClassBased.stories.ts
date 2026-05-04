@@ -79,6 +79,14 @@ const meta: Meta<DcxNgProgressbarComponent> = {
         defaultValue: { summary: 'false' },
       },
     },
+    segments: {
+      control: { type: 'number', min: 1, max: 20 },
+      description: 'Número de segmentos visibles. Solo aplica para variante segmented',
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '5' },
+      },
+    },
   },
 };
 
@@ -113,6 +121,7 @@ export const Segmented: Story = {
     value: 70,
     showTooltip: false,
     showLabel: false,
+    segments: 5,
   },
 };
 

@@ -5,11 +5,19 @@
   <!-- Loading Segmented -->
   <div class="demo-section">
     <h2>Loading Segmented</h2>
-    <p class="demo-description">Barra de progreso con segmentos animados, ideal para estados de carga.</p>
+    <p class="demo-description">Barra de progreso con segmentos animados, ideal para estados de carga. Configurable con 3, 5 o 10 segmentos.</p>
     <div class="demo-box">
       <div class="progress-example">
-        <h3>Loading...</h3>
+        <h3>Loading con 3 segmentos...</h3>
+        <dcx-ng-progressbar variant="segmented" [segments]="3"></dcx-ng-progressbar>
+      </div>
+      <div class="progress-example">
+        <h3>Loading con 5 segmentos (default)...</h3>
         <dcx-ng-progressbar variant="segmented"></dcx-ng-progressbar>
+      </div>
+      <div class="progress-example">
+        <h3>Loading con 10 segmentos...</h3>
+        <dcx-ng-progressbar variant="segmented" [segments]="10"></dcx-ng-progressbar>
       </div>
     </div>
   </div>
