@@ -28,10 +28,10 @@ jobs:
       - name: Build library
         run: npx nx build dcx-ng-lib --no-cloud
 
-      - name: Version and publish (no PRs)
+      - name: Version and publish (direct)
         uses: changesets/action@v1
         with:
           publish: npm publish dist/libs/dcx-ng-lib
-          createPullRequest: false
+          branch: false
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
