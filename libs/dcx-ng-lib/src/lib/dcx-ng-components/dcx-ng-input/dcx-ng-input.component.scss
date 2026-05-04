@@ -88,6 +88,16 @@
   font-size: var(--font-size-body-small);
 }
 
+.dcx-ng-input__error-list {
+  margin: var(--spacing-inset-xxs, 4px) 0 0;
+  padding-left: var(--spacing-inset-m, 16px);
+  list-style: disc;
+}
+
+.dcx-ng-input__error-list li {
+  margin-bottom: var(--spacing-inset-xxs, 4px);
+}
+
 .dcx-ng-input__buttons {
   display: flex;
   align-items: center;
