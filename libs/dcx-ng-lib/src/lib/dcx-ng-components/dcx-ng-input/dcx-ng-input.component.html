@@ -52,7 +52,7 @@
   }
 
   @if (isInvalid() && (errorMessage() || errorMessages().length > 0)) {
-    <div class="dcx-ng-input__error">
+    <div class="dcx-ng-input__error" [id]="errorId()">
       <dcx-ng-icon [name]="errorIcon()"></dcx-ng-icon>
 
       @if (errorMessage()) {
