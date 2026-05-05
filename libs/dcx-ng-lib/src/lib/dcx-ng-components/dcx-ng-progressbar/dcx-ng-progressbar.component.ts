@@ -45,11 +45,7 @@ export class DcxNgProgressbarComponent {
     return (this.currentStep() / total) * 100;
   });
 
-  isStepCompleted = (index: number): boolean => {
-    return index < this.currentStep() - 1;
-  };
+  isStepCompleted = (index: number): boolean => index < this.currentStep() - 1;
 
-  isStepActive = (index: number): boolean => {
-    return index === this.currentStep() - 1;
-  };
+  isStepActive = (index: number): boolean => index === this.currentStep() - 1;
 }

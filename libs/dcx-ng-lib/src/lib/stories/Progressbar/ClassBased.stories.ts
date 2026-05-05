@@ -1,5 +1,4 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { fn } from '@storybook/test';
 import { DcxNgProgressbarComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgProgressbarComponent> = {
