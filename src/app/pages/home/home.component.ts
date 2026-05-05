@@ -18,7 +18,6 @@ const ROUTE_ICONS: Record<string, string> = {
   'date-picker': 'calendar',
   dialog: 'window',
   drawer: 'layout-sidebar',
-  editor: 'textarea-t',
   divider: 'dash-lg',
   grid: 'grid-3x3',
   icon: 'star',
