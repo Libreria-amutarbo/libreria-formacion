@@ -1,4 +1,11 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+
+# ⛔️ No ejecutar hooks en CI
+if [ "$CI" = "true" ]; then
+  exit 0
+fi
+
+
 npm run verify:push
