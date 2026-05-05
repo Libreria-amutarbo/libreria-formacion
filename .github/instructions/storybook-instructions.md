@@ -175,8 +175,8 @@ const preview: Preview = {
 
 ### 3. Mock Data
 
-- **Ubicación**: En `libs/dcx-ng-lib/src/lib/core/mock/[componente].ts` — nunca inline en el stories file
-- **Export**: Añadir `export * from './[componente]'` en `core/mock/index.ts` para que sean reutilizables en unit tests
+- **Ubicación**: En `libs/dcx-ng-lib/src/lib/core/fixtures/[componente].ts` — nunca inline en el stories file
+- **Export**: Añadir `export * from './[componente]'` en `core/fixtures/index.ts` para que sean reutilizables en unit tests
 - **Prefijo**: Nombrar las constantes con el nombre del componente para evitar colisiones (ej. `navbarItems`, `buttonVariants`)
 - **Import en stories**: Desde `@dcx-ng-components/dcx-ng-lib` (como cualquier otro tipo o constante de la lib)
 - **Realista**: Usar datos que representen casos reales

@@ -14,7 +14,7 @@ When checking code quality:
    - **Early return**: avoid if-else when an early return can be used
    - **Constructor effects**: do not use constructor, create effects for signals outside constructors
    - **Unsubscribe**: always unsubscribe from observables
-   - **Mocks**: use mocks for testing from `libs/dcx-ng-lib/src/lib/core/mock`
+   - **Fixtures**: use fixture data for testing/stories from `libs/dcx-ng-lib/src/lib/core/fixtures`
    - **Types**: use standard types from `libs/dcx-ng-lib/src/lib/core/interfaces`
 
 3. Report findings using this format:
@@ -24,15 +24,20 @@ When checking code quality:
 ## Code Quality Report
 
 ### Lint
+
 ✅ No errors / ❌ Errors found — list them
 
 ### Tests
+
 ✅ All passing (coverage: X%) / ❌ Failing tests — list them
 
 ### Good Practices Review
+
 For each changed file, flag any violations:
+
 - **File**: `path/to/file.ts`
   - Issue description and suggested fix
 
 ### Summary
+
 Overall assessment and recommended actions before merging.

@@ -31,7 +31,7 @@ import {
   SHADOW_DEFAULT,
   INTERACTIVE,
   DISABLED,
-} from '../../core/mock';
+} from '../../core/defaults';
 
 @Component({
   selector: 'dcx-ng-card',
