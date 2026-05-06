@@ -21,4 +21,5 @@ export * from './navbar';
 export * from './theme-tokens';
 export * from './drawer';
 export * from './toast';
+export * from './editor';
 export * from './stepper';

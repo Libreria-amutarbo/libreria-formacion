@@ -20,6 +20,7 @@ export const APP_ROUTES = {
   SLIDER: 'slider',
   DATEPICKER: 'date-picker',
   DRAWER: 'drawer',
+  EDITOR: 'editor',
   ACCORDION: 'accordion',
   DIALOG: 'dialog',
   SEARCH: 'search',
@@ -33,4 +34,5 @@ export const APP_ROUTES = {
   STEPPER: 'stepper',
   THEME_GENERATOR: 'theme-generator',
   SCROLL_TOP_DOWN: 'scroll-top-down',
+  TEXTAREA: 'textarea',
 };

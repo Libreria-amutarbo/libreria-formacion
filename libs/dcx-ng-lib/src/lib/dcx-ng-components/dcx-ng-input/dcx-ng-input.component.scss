@@ -1,8 +1,8 @@
 :host {
   display: inline-block;
   width: 100%;
-  color: var(--color-text-primary);
-  font-family: var(--font-family-primary);
+  color: var(--text-dark, #2a2e33);
+  font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
 :host(.vertical) .dcx-ng-input__control {
@@ -12,9 +12,9 @@
 
 .dcx-ng-input__label {
   display: inline-block;
-  margin-bottom: var(--spacing-inset-xs, 4px);
-  font-size: var(--font-size-body);
-  font-weight: 500;
+  margin-bottom: var(--sp-2, 8px);
+  font-size: var(--fs-base, 14px);
+  font-weight: var(--fw-medium, 500);
 }
 
 .dcx-ng-input__wrapper {
@@ -25,11 +25,11 @@
 .dcx-ng-input__control {
   width: 100%;
 
-  background-color: var(--background-default);
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  font-size: var(--font-size-body);
-  color: var(--text-body);
+  background-color: var(--bg-default, #ffffff);
+  border: 1px solid var(--border-default, #2a2e33);
+  border-radius: var(--r-sm, 4px);
+  font-size: var(--fs-base, 14px);
+  color: var(--text-dark, #2a2e33);
   display: flex;
   align-items: center;
   cursor: auto;
@@ -37,41 +37,41 @@
 
   &:focus-visible {
     outline: none;
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 2px var(--color-primary-light);
+    border-color: var(--border-focus, #1db8f2);
+    box-shadow: 0 0 0 2px rgba(1, 88, 171, 0.15);
   }
 
   &.is-disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    background-color: var(--background-disabled);
-    color: var(--text-disabled);
+    background-color: var(--bg-disabled, #f3f4f6);
+    color: var(--text-disabled, #696e75);
   }
 
   &.is-invalid {
-    border-color: var(--border-error);
-    box-shadow: 0 0 0 1px var(--border-error);
-    color: var(--text-error);
+    border-color: var(--border-error, #dc2626);
+    box-shadow: 0 0 0 1px var(--border-error, #dc2626);
+    color: var(--color-error, #dc2626);
   }
 
   &--xs {
-    padding: var(--spacing-inset-xs);
+    padding: var(--sp-2, 8px);
   }
   &--s {
-    padding: var(--spacing-inset-s);
+    padding: var(--sp-3, 12px);
   }
   &--m {
-    padding: var(--spacing-inset-m);
+    padding: var(--sp-4, 16px);
   }
   &--l {
-    padding: var(--spacing-inset-l);
+    padding: var(--sp-5, 20px);
   }
   &--xl {
-    padding: var(--spacing-inset-xl);
+    padding: var(--sp-6, 24px);
   }
 
   &.has-action {
-    padding-right: 40px;
+    padding-right: var(--sp-10, 40px);
   }
 }
 
@@ -79,32 +79,42 @@
   flex: 1;
 }
 .dcx-ng-input__required {
-  color: var(--content-error);
+  color: var(--color-error, #dc2626);
 }
 
 .dcx-ng-input__error {
-  margin-top: var(--spacing-inset-xs);
-  color: var(--text-error);
-  font-size: var(--font-size-body-small);
+  margin-top: var(--sp-2, 8px);
+  color: var(--color-error, #dc2626);
+  font-size: var(--fs-sm, 12px);
+}
+
+.dcx-ng-input__error-list {
+  margin: var(--sp-1, 4px) 0 0;
+  padding-left: var(--sp-4, 16px);
+  list-style: disc;
+}
+
+.dcx-ng-input__error-list li {
+  margin-bottom: var(--sp-1, 4px);
 }
 
 .dcx-ng-input__buttons {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--sp-1, 4px);
 }
 
 .dcx-ng-input__control:hover:not(.is-disabled) {
-  box-shadow: 0 0 0 2px var(--border-hover);
+  box-shadow: 0 0 0 2px var(--border-hover, #9ca3af);
 }
 
 .dcx-ng-input__action-button {
   position: absolute;
-  right: 8px;
+  right: var(--sp-2, 8px);
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  padding: 4px !important;
+  padding: var(--sp-1, 4px) !important;
 }
 
 .dcx-ng-input__clear-btn {
@@ -112,7 +122,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--fs-base, 14px);
   opacity: 0.7;
 
   &:hover {
