@@ -36,6 +36,7 @@ const ROUTE_ICONS: Record<string, string> = {
   spinner: 'arrow-clockwise',
   table: 'table',
   tabs: 'folder',
+  'theme-generator': 'palette',
   toggle: 'toggles',
   tooltip: 'chat-square-text',
 };
