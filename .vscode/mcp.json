@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "mempalace": {
+      "type": "stdio",
+      "command": "mempalace-mcp",
+      "disabled": false
+    }
+  }
+}
