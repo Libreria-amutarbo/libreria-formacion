@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { DcxInputType, DcxSpacing, DcxSize } from '../../core/interfaces';
+import { DcxInputErrorMessage, DcxInputType, DcxSpacing, DcxSize } from '../../core/interfaces';
 import {
   INPUT_DEFAULT_VALUE,
   INPUT_DEFAULT_DISABLED,
@@ -104,6 +104,7 @@ export class DcxNgInputComponent {
   ariaLabel = input<string | null>(INPUT_DEFAULT_ARIA_LABEL);
   ariaDescribedBy = input<string | null>(INPUT_DEFAULT_ARIA_DESCRIBEDBY);
   errorMessage = input<string>(INPUT_DEFAULT_ERROR_MESSAGE);
+  errorMessages = input<DcxInputErrorMessage[]>([]);
   errorIcon = input<string>(ERRORICON);
   spacing = input<DcxSpacing>(SPACING_DEFAULT);
   orientation = input<'horizontal' | 'vertical'>('horizontal');

@@ -51,13 +51,23 @@
     ></dcx-ng-button>
   }
 
-  @if (isInvalid() && errorMessage()) {
-    <div class="dcx-ng-input__error">
+  @if (isInvalid() && (errorMessage() || errorMessages().length > 0)) {
+    <div class="dcx-ng-input__error" [id]="errorId()">
       <dcx-ng-icon [name]="errorIcon()"></dcx-ng-icon>
 
-      <span>
-        {{ errorMessage() }}
-      </span>
+      @if (errorMessage()) {
+        <span>
+          {{ errorMessage() }}
+        </span>
+      }
+
+      @if (errorMessages().length > 0) {
+        <ul class="dcx-ng-input__error-list">
+          @for (error of errorMessages(); track error.type) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
+      }
     </div>
   }
 </div>
