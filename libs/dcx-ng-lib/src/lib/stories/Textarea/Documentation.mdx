@@ -1,0 +1,230 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/Textarea/Documentation" />
+
+# Textarea Component
+
+## Overview
+
+El componente `DcxNgTextareaComponent` es un elemento de entrada de múltiples líneas que permite a los usuarios escribir y editar texto largo. Proporciona soporte para diferentes estados visuales, etiquetas flotantes, redimensionamiento automático y validación de errores.
+
+## Use Cases
+
+- **Formularios de feedback**: Captura comentarios extensos de usuarios
+- **Descripciones y notas**: Permite entrada de texto detallado
+- **Editor de contenido**: Base para editores de texto enriquecido
+- **Mensajes**: Composición de mensajes o comentarios
+- **Búsqueda avanzada**: Filtros de búsqueda complejos
+
+## API
+
+### Inputs
+
+| Propiedad      | Tipo                                  | Default     | Descripción                                                  |
+| -------------- | ------------------------------------- | ----------- | ------------------------------------------------------------ |
+| `value`        | `string`                              | `''`        | Valor vinculable del textarea mediante `[(ngModel)]` o model |
+| `rows`         | `number`                              | `5`         | Número de filas visibles                                     |
+| `cols`         | `number`                              | `30`        | Número de columnas visibles                                  |
+| `placeholder`  | `string`                              | `''`        | Texto placeholder                                            |
+| `disabled`     | `boolean`                             | `false`     | Deshabilita el textarea                                      |
+| `readonly`     | `boolean`                             | `false`     | Modo solo lectura                                            |
+| `autoResize`   | `boolean`                             | `false`     | Ajusta altura automáticamente según contenido                |
+| `floatLabel`   | `'over' \| 'in' \| 'on' \| undefined` | `undefined` | Tipo de etiqueta flotante                                    |
+| `label`        | `string`                              | `''`        | Texto de la etiqueta                                         |
+| `size`         | `'small' \| 'normal' \| 'large'`      | `'normal'`  | Tamaño del textarea                                          |
+| `fluid`        | `boolean`                             | `false`     | Ocupa 100% del ancho                                         |
+| `filled`       | `boolean`                             | `false`     | Estilo con fondo relleno                                     |
+| `invalid`      | `boolean`                             | `false`     | Estado inválido                                              |
+| `errorMessage` | `string`                              | `''`        | Mensaje de error a mostrar                                   |
+
+### Outputs
+
+| Evento        | Tipo                   | Descripción                    |
+| ------------- | ---------------------- | ------------------------------ |
+| `valueChange` | `EventEmitter<string>` | Emitido cuando el valor cambia |
+
+## Examples
+
+### Basic Usage
+
+```typescript
+import { DcxNgTextareaComponent } from '@dcx-ng-components/dcx-ng-lib';
+
+@Component({
+  selector: 'app-feedback-form',
+  standalone: true,
+  imports: [DcxNgTextareaComponent],
+  template: `
+    <dcx-ng-textarea
+      [(ngModel)]="feedback"
+      placeholder="Comparte tu opinión..."
+      [rows]="5"
+    ></dcx-ng-textarea>
+  `,
+})
+export class FeedbackFormComponent {
+  feedback = '';
+}
+```
+
+### With Float Label
+
+```html
+<dcx-ng-textarea
+  [(ngModel)]="description"
+  [floatLabel]="'over'"
+  label="Description"
+  placeholder=" "
+></dcx-ng-textarea>
+```
+
+### Auto-Resizing
+
+```html
+<dcx-ng-textarea
+  [(ngModel)]="notes"
+  [autoResize]="true"
+  placeholder="Escribe notas que crecerán con el contenido..."
+></dcx-ng-textarea>
+```
+
+### Validation
+
+```html
+<dcx-ng-textarea
+  [(ngModel)]="userText"
+  [invalid]="!isValid"
+  [errorMessage]="errorMsg"
+  placeholder="Campo requerido"
+></dcx-ng-textarea>
+```
+
+### Fluid and Filled
+
+```html
+<dcx-ng-textarea
+  [(ngModel)]="content"
+  [fluid]="true"
+  [filled]="true"
+  placeholder="Textarea que ocupa ancho completo"
+></dcx-ng-textarea>
+```
+
+## Visual Variants
+
+### Sizes
+
+El componente soporta tres tamaños:
+
+- **small**: Texto y espaciado compacto
+- **normal** (default): Tamaño estándar
+- **large**: Mayor tamaño de fuente y espaciado
+
+### States
+
+- **Default**: Estado normal del textarea
+- **Focused**: El foco está en el campo
+- **Disabled**: Campo deshabilitado, no interactivo
+- **Readonly**: Campo visible pero no editable
+- **Invalid**: Estado de error con mensaje
+
+### Float Label Variants
+
+- **over**: La etiqueta flota sobre el textarea
+- **in**: La etiqueta flota dentro del textarea
+- **on**: La etiqueta flota sobre el borde superior
+
+## Best Practices
+
+### Accessibility
+
+- Siempre asocia un `label` cuando uses `floatLabel`
+- Proporciona `errorMessage` claro para validación fallida
+- El placeholder no debe ser el único indicador del propósito
+- Asegúrate de que el contrast sea suficiente en estados disabled
+
+### Performance
+
+- Usa `autoResize` solo si es necesario (recalcula layout)
+- Para valores muy grandes, considera `readonly` en lugar de deshabilitar
+
+### UX Guidelines
+
+- Establece un `rows` apropiado al contexto (feedback: 4-6, editor: 10+)
+- Combina `placeholder` descriptivo con `label` para claridad
+- Muestra mensajes de error específicos y accionables
+- Usa `fluid` para layouts responsivos
+
+## Component Structure
+
+```
+dcx-ng-textarea
+├── wrapper (div)
+│   ├── textarea
+│   └── label (si floatLabel)
+└── error (div, si invalid)
+```
+
+## CSS Classes
+
+| Clase                                   | Aplicada cuando                   |
+| --------------------------------------- | --------------------------------- |
+| `.dcx-ng-textarea__wrapper`             | Siempre en el contenedor          |
+| `.dcx-ng-textarea__wrapper--fluid`      | `fluid === true`                  |
+| `.dcx-ng-textarea__wrapper--float`      | `floatLabel` es definido          |
+| `.dcx-ng-textarea__wrapper--active`     | Focused con floatLabel            |
+| `.dcx-ng-textarea__control`             | Siempre en el textarea            |
+| `.dcx-ng-textarea__control--autoresize` | `autoResize === true`             |
+| `.dcx-ng-textarea__control--{size}`     | Por cada tamaño (si no es normal) |
+| `.dcx-ng-textarea__control--filled`     | `filled === true`                 |
+| `.dcx-ng-textarea__control--invalid`    | `invalid === true`                |
+
+## Integration with Forms
+
+El componente funciona con Angular Forms:
+
+```typescript
+import { ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  imports: [DcxNgTextareaComponent, ReactiveFormsModule],
+  template: `
+    <form [formGroup]="form">
+      <dcx-ng-textarea
+        formControlName="description"
+        [floatLabel]="'over'"
+        label="Description"
+        [invalid]="isFieldInvalid('description')"
+        [errorMessage]="getErrorMessage('description')"
+      ></dcx-ng-textarea>
+    </form>
+  `,
+})
+export class MyFormComponent {
+  form = this.fb.group({
+    description: ['', [Validators.required, Validators.minLength(10)]],
+  });
+
+  constructor(private fb: FormBuilder) {}
+
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.form.get(fieldName);
+    return field ? field.invalid && (field.dirty || field.touched) : false;
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const field = this.form.get(fieldName);
+    if (!field?.errors) return '';
+    if (field.errors['required']) return 'Este campo es obligatorio';
+    if (field.errors['minlength'])
+      return `Mínimo ${field.errors['minlength'].requiredLength} caracteres`;
+    return '';
+  }
+}
+```
+
+## Related Components
+
+- [Input](/docs/dcxlibrary-components-input--documentation): Para entrada de una línea
+- [Form](/docs/form): Validación y gestión de formularios
+- [Button](/docs/dcxlibrary-components-button--documentation): Para envío de formularios

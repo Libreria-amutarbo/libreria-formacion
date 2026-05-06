@@ -33,7 +33,7 @@ import { DcxNgPageScrollTopDownComponent } from './pages/dcx-ng-page-scroll-top-
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
-import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page-editor.component';
+import { DcxNgPageTextareaComponent } from './pages/dcx-ng-page-textarea/dcx-ng-page-textarea.component';
 
 export const appRoutes: Route[] = [
   {
@@ -133,10 +133,6 @@ export const appRoutes: Route[] = [
     component: DcxNgPageDrawerComponent,
   },
   {
-    path: APP_ROUTES.EDITOR,
-    component: DcxNgPageEditorComponent,
-  },
-  {
     path: APP_ROUTES.TABS,
     component: DcxNgPageTabsComponent,
   },
@@ -167,5 +163,9 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.SCROLL_TOP_DOWN,
     component: DcxNgPageScrollTopDownComponent,
+  },
+  {
+    path: APP_ROUTES.TEXTAREA,
+    component: DcxNgPageTextareaComponent,
   },
 ];
