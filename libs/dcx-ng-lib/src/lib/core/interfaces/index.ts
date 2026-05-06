@@ -26,3 +26,4 @@ export * from './fileUpload';
 export * from './toast';
 export * from './drawer';
 export * from './textarea';
+export * from './editor';

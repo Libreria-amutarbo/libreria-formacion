@@ -20,6 +20,7 @@ export const APP_ROUTES = {
   SLIDER: 'slider',
   DATEPICKER: 'date-picker',
   DRAWER: 'drawer',
+  EDITOR: 'editor',
   ACCORDION: 'accordion',
   DIALOG: 'dialog',
   SEARCH: 'search',
