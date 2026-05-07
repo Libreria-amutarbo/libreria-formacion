@@ -52,6 +52,13 @@ export const CAPGEMINI_THEME_TOKENS: ThemeToken[] = [
     group: 'background',
   },
   {
+    name: '--bg-disabled',
+    value: '#f3f4f6',
+    defaultValue: '#f3f4f6',
+    label: 'Fondo deshabilitado',
+    group: 'background',
+  },
+  {
     name: '--bg-sidebar',
     value: '#f0f2f5',
     defaultValue: '#f0f2f5',
@@ -130,6 +137,13 @@ export const CAPGEMINI_THEME_TOKENS: ThemeToken[] = [
     value: '#1db8f2',
     defaultValue: '#1db8f2',
     label: 'Borde foco',
+    group: 'border',
+  },
+  {
+    name: '--border-hover',
+    value: '#9ca3af',
+    defaultValue: '#9ca3af',
+    label: 'Borde hover',
     group: 'border',
   },
   {
