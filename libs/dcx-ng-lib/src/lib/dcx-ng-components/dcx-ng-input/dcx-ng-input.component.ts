@@ -34,7 +34,7 @@ import {
   SPACING_DEFAULT,
   INPUT_DEFAULT_SIZE,
   SLIDER_DEFAULT_VALUES,
-} from '../../core/mock';
+} from '../../core/defaults';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 

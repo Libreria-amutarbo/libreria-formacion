@@ -12,7 +12,7 @@ import {
   DcxButtonVariant,
   DcxCheckboxValue,
 } from '../../core/interfaces';
-import { ERRORICON } from '../../core/mock';
+import { ERRORICON } from '../../core/defaults';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
