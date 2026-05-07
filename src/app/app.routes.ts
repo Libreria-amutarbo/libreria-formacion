@@ -30,9 +30,11 @@ import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-gri
 import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
 import { DcxNgPageFileUploadComponent } from './pages/dcx-ng-page-file-upload/dcx-ng-page-file-upload.component';
 import { DcxNgPageScrollTopDownComponent } from './pages/dcx-ng-page-scroll-top-down/dcx-ng-page-scroll-top-down.component';
+import { DcxNgPageStepperComponent } from './pages/dcx-ng-page-stepper/dcx-ng-page-stepper.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
+import { DcxNgPageProgressbarComponent } from './pages/dcx-ng-page-progressbar/dcx-ng-page-progressbar.component';
 import { DcxNgPageTextareaComponent } from './pages/dcx-ng-page-textarea/dcx-ng-page-textarea.component';
 import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page-editor.component';
 
@@ -162,8 +164,16 @@ export const appRoutes: Route[] = [
     component: DcxNgPagePopoverComponent,
   },
   {
+    path: APP_ROUTES.PROGRESSBAR,
+    component: DcxNgPageProgressbarComponent,
+  },
+  {
     path: APP_ROUTES.FILE_UPLOAD,
     component: DcxNgPageFileUploadComponent,
+  },
+  {
+    path: APP_ROUTES.STEPPER,
+    component: DcxNgPageStepperComponent,
   },
   {
     path: APP_ROUTES.SCROLL_TOP_DOWN,
