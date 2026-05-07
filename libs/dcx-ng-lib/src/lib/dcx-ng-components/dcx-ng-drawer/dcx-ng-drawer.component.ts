@@ -23,6 +23,7 @@ import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 })
 export class DcxNgDrawerComponent {
   private static globalZIndex = 0;
+  private readonly closeTransitionMs = 220;
 
   readonly visible = input<boolean>(false);
   readonly position = input<DcxPosition>('left');
@@ -48,6 +49,7 @@ export class DcxNgDrawerComponent {
   private wasVisible = false;
   private hideAlreadyEmitted = false;
   private readonly currentZIndex = signal(1000);
+  readonly rendered = signal(false);
 
   readonly drawerClasses = computed(() => {
     const base = 'dcx-drawer';
@@ -99,6 +101,8 @@ export class DcxNgDrawerComponent {
     return null;
   });
 
+  readonly isClosing = computed(() => this.rendered() && !this.visible());
+
   readonly hasHeader = computed(
     () => !!this.headerTemplate() || !!this.header() || this.showCloseIcon(),
   );
@@ -123,6 +127,19 @@ export class DcxNgDrawerComponent {
     }
 
     this.wasVisible = isVisible;
+  });
+
+  readonly _renderEffect = effect(() => {
+    if (this.visible()) {
+      this.rendered.set(true);
+      return;
+    }
+
+    if (!this.rendered()) return;
+
+    setTimeout(() => {
+      this.rendered.set(false);
+    }, this.closeTransitionMs);
   });
 
   readonly _escapeEffect = effect(onCleanup => {

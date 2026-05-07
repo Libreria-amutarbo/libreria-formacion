@@ -1,0 +1,225 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+
+<Meta title="DCXLibrary/Stepper/Documentation" />
+
+# Stepper Component
+
+The Stepper component guides users through a series of steps in a process, supporting both linear and non-linear navigation with multiple orientations and states.
+
+## Overview
+
+The stepper component is ideal for:
+- Multi-step forms
+- Wizards
+- Process flows
+- Sequential workflows
+
+## Key Features
+
+- **Flexible Navigation**: Support for linear (sequential) and non-linear (free navigation) modes
+- **Multiple Orientations**: Horizontal or vertical layout
+- **Rich States**: Active, completed, error, and disabled states
+- **Keyboard Navigation**: Full accessibility with arrow keys and Enter/Space
+- **Customizable Appearance**: Configurable sizes (sm, md, lg) and optional step numbers
+- **Template Support**: Render custom content for each step
+
+## Basic Usage
+
+```typescript
+import { DcxNgStepperComponent } from '@dcx-ng-components/dcx-ng-lib';
+
+const steps = [
+  { id: '1', label: 'Step 1', description: 'First step' },
+  { id: '2', label: 'Step 2', description: 'Second step' },
+  { id: '3', label: 'Step 3', description: 'Third step' },
+];
+
+// In your component
+<dcx-ng-stepper
+  [steps]="steps"
+  [activeStepId]="'1'"
+  [orientation]="'horizontal'"
+  [linear]="false"
+  (stepChange)="onStepChange($event)"
+></dcx-ng-stepper>
+```
+
+## Inputs
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `steps` | `DcxStepperItem[]` | Required | Array of step items |
+| `activeStepId` | `string \| number` | First enabled | ID of active step |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout orientation |
+| `linear` | `boolean` | `false` | Only allow sequential navigation |
+| `showStepNumbers` | `boolean` | `true` | Display step numbers |
+| `size` | `'s' \| 'm' \| 'lg'` | `'m'` | Component size |
+
+## Outputs
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `stepChange` | `DcxStepperChangeEvent` | Emitted when active step changes |
+| `stepClick` | `DcxStepperItem` | Emitted when a step is clicked |
+
+## DcxStepperItem Interface
+
+```typescript
+interface DcxStepperItem {
+  id: string | number;
+  label: string;
+  description?: string;
+  disabled?: boolean;
+  completed?: boolean;
+  error?: boolean;
+  optional?: boolean;
+  icon?: string;
+  contentTpl?: TemplateRef<unknown>;
+}
+```
+
+## DcxStepperChangeEvent Interface
+
+```typescript
+interface DcxStepperChangeEvent {
+  previousStepId: string | number | null;
+  currentStepId: string | number;
+  previousIndex: number;
+  currentIndex: number;
+}
+```
+
+## States
+
+### Active
+The currently visible step, highlighted with primary color.
+
+### Completed
+A step that has been finished, showing a checkmark indicator.
+
+### Error
+A step with validation errors, highlighted with error color.
+
+### Disabled
+A step that cannot be interacted with, visually grayed out.
+
+## Examples
+
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--default" />
+</Canvas>
+
+## Horizontal Layout
+
+The default horizontal layout is perfect for workflows where steps progress left to right.
+
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--default" />
+</Canvas>
+
+## Vertical Layout
+
+Use vertical orientation for flows where vertical space is preferred or for better mobile responsiveness.
+
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--vertical" />
+</Canvas>
+
+## Linear Mode
+
+In linear mode, users can only proceed to the next step sequentially. They cannot jump ahead to future steps.
+
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--linear" />
+</Canvas>
+
+## Completed Steps
+
+Display completed steps with a visual indicator to show progress.
+
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--with-completed-steps" />
+</Canvas>
+
+## Error State
+
+Show error state on steps that have validation issues.
+
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--with-error-steps" />
+</Canvas>
+
+## Disabled Steps
+
+Disable specific steps when they should not be accessible.
+
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--with-disabled-steps" />
+</Canvas>
+
+## Optional Steps
+
+Mark steps as optional to indicate they can be skipped.
+
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--with-optional-steps" />
+</Canvas>
+
+## Size Variants
+
+### Small
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--small" />
+</Canvas>
+
+### Medium (Default)
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--default" />
+</Canvas>
+
+### Large
+<Canvas sourceState="shown">
+  <Story id="dcxlibrary-components-stepper--large" />
+</Canvas>
+
+## Accessibility
+
+The Stepper component includes full keyboard support:
+- **Arrow Keys**: Navigate between steps (horizontal: left/right, vertical: up/down)
+- **Enter / Space**: Activate current step
+- **Tab**: Navigate to next step button
+- **Aria Labels**: Proper ARIA attributes for screen readers
+
+## Best Practices
+
+1. **Clear Labels**: Use descriptive, action-oriented labels for each step
+2. **Visual Feedback**: Use completed and error states to provide clear feedback
+3. **Linear Workflows**: Use linear mode for dependent steps
+4. **Mobile Friendly**: Consider vertical orientation for mobile layouts
+5. **Descriptions**: Add descriptions to steps for additional context
+
+## CSS Classes
+
+You can target stepper elements with these CSS classes:
+- `.dcx-stepper`: Root container
+- `.dcx-stepper--horizontal`: Horizontal orientation
+- `.dcx-stepper--vertical`: Vertical orientation
+. `.dcx-stepper--s|m|l|xl`: Size modifiers
+- `.dcx-stepper__step`: Individual step button
+- `.dcx-stepper__step--active`: Active step
+- `.dcx-stepper__step--completed`: Completed step
+- `.dcx-stepper__step--error`: Error state
+- `.dcx-stepper__step--disabled`: Disabled step
+- `.dcx-stepper__content`: Content container
+
+## Theming
+
+The component uses CSS custom properties for theming:
+- `--background-primary`: Primary background color
+- `--border-light`: Light border color
+- `--text-dark`: Primary text color
+- `--text-muted`: Secondary text color
+- `--color-success`: Success state color
+- `--color-error`: Error state color
+
+Customize these variables in your stylesheet to match your design system.

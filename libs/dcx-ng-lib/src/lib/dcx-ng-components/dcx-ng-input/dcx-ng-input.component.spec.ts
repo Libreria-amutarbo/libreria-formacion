@@ -385,6 +385,25 @@ describe('DcxNgInputComponent', () => {
       expect(errorEl.nativeElement.textContent).toContain('Field is required');
     });
 
+    it('should show error list when isInvalid and errorMessages set', () => {
+      fixture.componentRef.setInput('isInvalid', true);
+      fixture.componentRef.setInput('errorMessages', [
+        { type: 'minLength', message: 'Minimum 6 characters' },
+        { type: 'uppercase', message: 'Must contain an uppercase letter' },
+      ]);
+      fixture.detectChanges();
+      const errorListItems = fixture.debugElement.queryAll(
+        By.css('.dcx-ng-input__error-list li'),
+      );
+      expect(errorListItems.length).toBe(2);
+      expect(errorListItems[0].nativeElement.textContent).toContain(
+        'Minimum 6 characters',
+      );
+      expect(errorListItems[1].nativeElement.textContent).toContain(
+        'Must contain an uppercase letter',
+      );
+    });
+
     it('should not show error when isInvalid is false', () => {
       fixture.componentRef.setInput('isInvalid', false);
       fixture.componentRef.setInput('errorMessage', 'Some error');
@@ -395,9 +414,10 @@ describe('DcxNgInputComponent', () => {
       expect(errorEl).toBeFalsy();
     });
 
-    it('should not show error when errorMessage is empty', () => {
+    it('should not show error when errorMessage is empty and no errorMessages', () => {
       fixture.componentRef.setInput('isInvalid', true);
       fixture.componentRef.setInput('errorMessage', '');
+      fixture.componentRef.setInput('errorMessages', []);
       fixture.detectChanges();
       const errorEl = fixture.debugElement.query(
         By.css('.dcx-ng-input__error'),

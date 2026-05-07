@@ -1,0 +1,28 @@
+.page-title {
+  font-size: var(--fs-2xl, 24px);
+  font-weight: var(--fw-bold, 700);
+  margin-bottom: var(--sp-6, 24px);
+  color: var(--text-dark, #2a2e33);
+}
+
+.example-title {
+  margin-bottom: var(--sp-4, 16px);
+}
+
+section {
+  padding: var(--sp-6, 24px) 0;
+}
+
+.examples-container {
+  display: flex;
+  gap: var(--sp-4, 16px);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.variant-group {
+  display: flex;
+  gap: var(--sp-4, 16px);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}

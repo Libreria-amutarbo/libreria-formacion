@@ -1,0 +1,13 @@
+@use './../../app.component.scss';
+
+.example-title {
+  margin-bottom: var(--sp-3, 12px);
+}
+
+dcx-ng-stepper {
+  margin-top: var(--sp-4, 16px);
+}
+
+.divider {
+  margin: var(--sp-6, 24px) 0;
+}

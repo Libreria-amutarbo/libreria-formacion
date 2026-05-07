@@ -16,3 +16,5 @@ export * from './slider';
 export * from './tabs';
 export * from './toast';
 export * from './tooltip';
+export * from './editor';
+export * from './stepper';

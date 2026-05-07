@@ -48,6 +48,7 @@
             [multiSelect]="multiSelect()"
             [showChildrenIndicator]="showChildrenIndicator()"
             [renderChildren]="renderChildren()"
+            (click)="$event.stopPropagation()"
             (itemSelected)="itemSelected.emit($event)"
             (itemDeselected)="itemDeselected.emit($event)"
           >

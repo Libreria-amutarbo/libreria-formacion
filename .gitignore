@@ -23,6 +23,7 @@ node_modules
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/mcp.json
 
 # misc
 /.sass-cache
@@ -48,3 +49,10 @@ storybook-static
 
 # Packages
 package-lock.json
+
+# MemPalace per-project files (issue #185)
+mempalace.yaml
+entities.json
+
+# MemPalace metrics artifacts
+metrics/mempalace/

@@ -1,5 +1,13 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { DcxNgListComponent, LIST_ITEMS_WITH_ICONS, LIST_ITEMS_WITH_SUBLISTS, SELECTABLE_LIST_ITEMS, SIMPLE_LIST_ITEMS, MULTI_SELECT_LIST_ITEMS, LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgListComponent,
+  LIST_ITEMS_WITH_ICONS,
+  LIST_ITEMS_WITH_NESTED_SUBLISTS,
+  SELECTABLE_LIST_ITEMS,
+  SIMPLE_LIST_ITEMS,
+  MULTI_SELECT_LIST_ITEMS,
+  LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 type ListSelectionEvent = { item: { text?: string }; index: number };
 
@@ -30,7 +38,8 @@ const meta: Meta<DcxNgListComponent> = {
     multiSelect: {
       name: 'multiSelect',
       control: { type: 'boolean' },
-      description: 'Permite seleccionar múltiples elementos cuando selectable=true',
+      description:
+        'Permite seleccionar múltiples elementos cuando selectable=true',
       table: {
         category: 'Atributos',
         type: { summary: 'boolean' },
@@ -63,17 +72,22 @@ const meta: Meta<DcxNgListComponent> = {
       description: 'Evento emitido al seleccionar un item',
       table: {
         category: 'Eventos',
-        type: { summary: '(event: { item: DcxListItem; index: number }) => void' },
+        type: {
+          summary: '(event: { item: DcxListItem; index: number }) => void',
+        },
         defaultValue: { summary: '-' },
       },
     },
     itemDeselected: {
       name: 'itemDeselected',
       action: 'itemDeselected',
-      description: 'Evento emitido al deseleccionar un item en modo multi-select',
+      description:
+        'Evento emitido al deseleccionar un item en modo multi-select',
       table: {
         category: 'Eventos',
-        type: { summary: '(event: { item: DcxListItem; index: number }) => void' },
+        type: {
+          summary: '(event: { item: DcxListItem; index: number }) => void',
+        },
         defaultValue: { summary: '-' },
       },
     },
@@ -160,7 +174,7 @@ export const WithSubLists: Story = {
   render: args => ({
     props: {
       ...args,
-      items: LIST_ITEMS_WITH_SUBLISTS,
+      items: LIST_ITEMS_WITH_NESTED_SUBLISTS,
     },
     template: `
       <div style="max-width: 600px;">
@@ -191,7 +205,7 @@ export const Selectable: Story = {
       },
       onItemDeselected(event: ListSelectionEvent) {
         this['itemDeselected'](event);
-      }
+      },
     },
     template: `
       <div style="max-width: 600px;">
@@ -222,16 +236,20 @@ export const MultiSelectable: Story = {
       items: MULTI_SELECT_LIST_ITEMS,
       selectedItems: [] as ListSelectionEvent[],
       onItemSelected(event: ListSelectionEvent) {
-        const exists = this['selectedItems'].find((item: ListSelectionEvent) => item.index === event.index);
+        const exists = this['selectedItems'].find(
+          (item: ListSelectionEvent) => item.index === event.index,
+        );
         if (!exists) {
           this['selectedItems'] = [...this['selectedItems'], event];
         }
         this['itemSelected'](event);
       },
       onItemDeselected(event: ListSelectionEvent) {
-        this['selectedItems'] = this['selectedItems'].filter((item: ListSelectionEvent) => item.index !== event.index);
+        this['selectedItems'] = this['selectedItems'].filter(
+          (item: ListSelectionEvent) => item.index !== event.index,
+        );
         this['itemDeselected'](event);
-      }
+      },
     },
     template: `
       <div style="max-width: 600px;">
@@ -261,4 +279,3 @@ export const MultiSelectable: Story = {
     `,
   }),
 };
-

@@ -55,6 +55,30 @@ export const LIST_ITEMS_WITH_SUBLISTS = [
   },
 ];
 
+export const LIST_ITEMS_WITH_NESTED_SUBLISTS: DcxListItem[] = [
+  {
+    text: 'Frutas',
+    icon: 'basket',
+    children: [
+      {
+        text: 'Manzana',
+        children: [{ text: 'Subitem 1' }, { text: 'Subitem 2' }],
+      },
+      { text: 'Naranja' },
+      { text: 'Plátano' },
+    ],
+  },
+  {
+    text: 'Verduras',
+    icon: 'basket2',
+    children: [{ text: 'Zanahoria' }, { text: 'Lechuga' }],
+  },
+  {
+    text: 'Lácteos',
+    icon: 'cup',
+  },
+];
+
 export const SELECTABLE_LIST_ITEMS = [
   { text: 'Option 1', icon: 'check-circle' },
   { text: 'Option 2', icon: 'check-circle' },

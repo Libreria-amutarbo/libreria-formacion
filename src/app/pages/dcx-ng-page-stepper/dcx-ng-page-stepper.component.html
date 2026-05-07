@@ -1,0 +1,68 @@
+<section>
+  <h2 class="example-title">Ejemplo 1 - Stepper por defecto</h2>
+  <dcx-ng-stepper [steps]="basicSteps" [activeStepId]="'1'"></dcx-ng-stepper>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Stepper vertical</h2>
+  <dcx-ng-stepper
+    [steps]="basicSteps"
+    [activeStepId]="'1'"
+    [orientation]="'vertical'"
+  ></dcx-ng-stepper>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Stepper lineal</h2>
+  <dcx-ng-stepper
+    [steps]="basicSteps"
+    [activeStepId]="'1'"
+    [linear]="true"
+  ></dcx-ng-stepper>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Steps completados</h2>
+  <dcx-ng-stepper
+    [steps]="completedSteps"
+    [activeStepId]="'3'"
+  ></dcx-ng-stepper>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Steps deshabilitados</h2>
+  <dcx-ng-stepper [steps]="disabledSteps" [activeStepId]="'1'"></dcx-ng-stepper>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 6 - Estado de error</h2>
+  <dcx-ng-stepper [steps]="errorSteps" [activeStepId]="'2'"></dcx-ng-stepper>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 7 - Step opcional</h2>
+  <dcx-ng-stepper [steps]="optionalSteps" [activeStepId]="'1'"></dcx-ng-stepper>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 8 - Sin números (con íconos)</h2>
+  <dcx-ng-stepper
+    [steps]="iconSteps"
+    [activeStepId]="'1'"
+    [showStepNumbers]="false"
+  ></dcx-ng-stepper>
+</section>

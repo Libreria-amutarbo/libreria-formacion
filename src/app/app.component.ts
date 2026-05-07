@@ -35,8 +35,10 @@ const ROUTE_ICONS: Record<string, string> = {
   select: 'menu-button',
   slider: 'sliders',
   spinner: 'arrow-clockwise',
+  stepper: 'diagram-3',
   table: 'table',
   tabs: 'folder',
+  'theme-generator': 'palette',
   toggle: 'toggles',
   tooltip: 'chat-square-text',
 };

@@ -1,5 +1,9 @@
-@if (visible()) {
-  <div class="dcx-drawer-root" [style.z-index]="resolvedBaseZIndex()">
+@if (rendered()) {
+  <div
+    class="dcx-drawer-root"
+    [class.dcx-drawer-root--closing]="isClosing()"
+    [style.z-index]="resolvedBaseZIndex()"
+  >
     @if (modal()) {
       <div
         [class]="maskClasses()"
