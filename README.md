@@ -78,6 +78,21 @@ npx nx build dcx-ng-lib
 npx nx build dcx-ng-components
 ```
 
+## MemPalace (AI memory)
+
+This repository includes a local MemPalace integration for project memory and semantic search.
+
+- Team and Copilot operational guide: [specs/mempalace-integration.spec.md](specs/mempalace-integration.spec.md)
+- MCP workspace config (VS Code): [.vscode/mcp.json](.vscode/mcp.json)
+
+Quick commands:
+
+```bash
+mempalace wake-up
+mempalace search "storybook"
+mempalace mine .
+```
+
 ## Component Development
 
 Library components are created under:
