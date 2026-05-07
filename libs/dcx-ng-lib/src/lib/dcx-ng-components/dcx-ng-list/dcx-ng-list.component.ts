@@ -45,7 +45,10 @@ export class DcxNgListComponent {
         this.itemSelected.emit({ item, index });
       }
     } else {
-      if (!this.isSelected(index)) {
+      if (this.isSelected(index)) {
+        this.selectedIndices.set([]);
+        this.itemDeselected.emit({ item, index });
+      } else {
         this.selectedIndices.set([index]);
         this.itemSelected.emit({ item, index });
       }
