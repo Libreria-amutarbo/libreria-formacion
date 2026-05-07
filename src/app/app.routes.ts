@@ -34,6 +34,7 @@ import { DcxNgPageStepperComponent } from './pages/dcx-ng-page-stepper/dcx-ng-pa
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
+import { DcxNgPageProgressbarComponent } from './pages/dcx-ng-page-progressbar/dcx-ng-page-progressbar.component';
 import { DcxNgPageTextareaComponent } from './pages/dcx-ng-page-textarea/dcx-ng-page-textarea.component';
 import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page-editor.component';
 import { DcxNgPageThemeGeneratorComponent } from './pages/dcx-ng-page-theme-generator/dcx-ng-page-theme-generator.component';
@@ -162,6 +163,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.POPOVER,
     component: DcxNgPagePopoverComponent,
+  },
+  {
+    path: APP_ROUTES.PROGRESSBAR,
+    component: DcxNgPageProgressbarComponent,
   },
   {
     path: APP_ROUTES.FILE_UPLOAD,
