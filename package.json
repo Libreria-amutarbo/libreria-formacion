@@ -10,7 +10,7 @@
     "test": "nx run-many --target=test --all -- --coverage --coverageDirectory='coverage/libs'",
     "lint": "nx lint dcx-ng-lib",
     "lint-fix": "nx lint dcx-ng-lib --fix",
-    "clean:dist": "rm -rf dist",
+    "clean:dist": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "verify:commit": "npm run lint",
     "verify:push": "nx affected -t lint test build build-storybook && npm run clean:dist",
     "deploy:main": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy main' -b gh-pages --dest main --add --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git",
