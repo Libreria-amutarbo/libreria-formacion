@@ -63,7 +63,7 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
     items: keepSamePage(DcxBreadCrumbItemDefault),
     iconSeparator: DcxBreadCrumbSlashIcon,
     itemSelected: fn((item: any) => {
-      // alert(`Navegando a: ${item.label}`);
+      alert(`Navegando a: ${item.label}`);
     }),
   },
 };
@@ -74,7 +74,7 @@ type Story = StoryObj<DcxNgBreadcrumbComponent>;
 export const ClassBased: Story = {
   args: {
     itemSelected: fn((item: any) => {
-      // alert(`Navegando a: ${item.label}`);
+      alert(`Navegando a: ${item.label}`);
     }),
   },
   render: args => ({
@@ -94,7 +94,7 @@ export const WithIconInText: Story = {
     items: keepSamePage(DcxBreadCrumbItemWithIcon),
     iconSeparator: DcxBreadCrumbSlashIcon,
     itemSelected: fn((item: any) => {
-      // alert(`Navegando a: ${item.label}`);
+      alert(`Navegando a: ${item.label}`);
     }),
   },
   render: args => ({
@@ -114,7 +114,7 @@ export const Disabled: Story = {
     items: keepSamePage(DcxBreadCrumbDisabled),
     iconSeparator: DcxBreadCrumbSlashIcon,
     itemSelected: fn((item: any) => {
-      // alert(`Navegando a: ${item.label}`);
+      alert(`Navegando a: ${item.label}`);
     }),
   },
   render: args => ({
@@ -134,7 +134,7 @@ export const ArrowIcon: Story = {
     items: keepSamePage(DcxBreadCrumbItemDefault),
     iconSeparator: DcxBreadCrumbArrowhIcon,
     itemSelected: fn((item: any) => {
-      // alert(`Navegando a: ${item.label}`);
+      alert(`Navegando a: ${item.label}`);
     }),
   },
   render: args => ({
@@ -154,7 +154,7 @@ export const ChevronIcon: Story = {
     items: keepSamePage(DcxBreadCrumbItemDefault),
     iconSeparator: DcxBreadChevronSlashIcon,
     itemSelected: fn((item: any) => {
-      // alert(`Navegando a: ${item.label}`);
+      alert(`Navegando a: ${item.label}`);
     }),
   },
   render: args => ({
@@ -174,7 +174,7 @@ export const CurrentPage: Story = {
     items: keepSamePage(DcxBreadCrumbCurrentPage),
     iconSeparator: DcxBreadCrumbSlashIcon,
     itemSelected: fn((item: any) => {
-      // alert(`Navegando a: ${item.label}`);
+      alert(`Navegando a: ${item.label}`);
     }),
   },
   render: args => ({
@@ -194,7 +194,7 @@ export const OverflowMenu: Story = {
     items: keepSamePage(DcxBreadCrumbOverflow),
     iconSeparator: DcxBreadCrumbSlashIcon,
     itemSelected: fn((item: any) => {
-      // alert(`Navegando a: ${item.label}`);
+      alert(`Navegando a: ${item.label}`);
     }),
   },
   parameters: {
