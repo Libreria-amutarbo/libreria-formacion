@@ -1,0 +1,216 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ProgressbarStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Progressbar/Documentation" />
+
+# Progressbar
+
+El componente `dcx-ng-progressbar` es un indicador visual versátil para mostrar el progreso de una tarea o guiar al usuario a través de un proceso de múltiples pasos. Ofrece tres variantes distintas para adaptarse a diferentes necesidades de UI.
+
+---
+
+## Características
+
+### 🎯 **Tres Variantes**
+
+- **Default**: Barra de progreso simple y limpia para mostrar porcentajes
+- **Segmented**: Barra dividida en segmentos con animación de pulsación para procesos de carga
+- **Stepper**: Indicador de pasos con círculos numerados o checkmarks para procesos multi-paso
+
+### 📊 **Opciones de Visualización**
+
+- **Tooltip**: Muestra el porcentaje en un tooltip flotante sobre la barra
+- **Label**: Muestra el porcentaje como texto al lado de la barra
+- **Checkmarks**: Indica visualmente los pasos completados con iconos de check
+
+### 🎨 **Diseño**
+
+- **Tokens Capgemini**: Totalmente estilizado con variables CSS del Design System
+- **Animaciones**: Efecto de pulsación suave en la variante segmented
+- **Responsive**: Se adapta al ancho del contenedor
+- **Accesible**: Indicadores claros de estado y progreso
+
+---
+
+## API
+
+### Inputs
+
+| Input | Tipo | Default | Descripción |
+|-------|------|---------|-------------|
+| `variant` | `'default' \| 'segmented' \| 'stepper'` | `'default'` | Variante del progressbar |
+| `value` | `number` | `0` | Porcentaje de progreso (0-100) para variantes default/segmented |
+| `showTooltip` | `boolean` | `false` | Muestra tooltip con el porcentaje |
+| `showLabel` | `boolean` | `false` | Muestra label con el porcentaje |
+| `steps` | `DcxProgressStep[]` | `[]` | Array de pasos para variante stepper |
+| `currentStep` | `number` | `1` | Número del paso actual (1=primer paso, 2=segundo paso...) |
+| `showCheckmarks` | `boolean` | `false` | Muestra checkmarks en pasos completados |
+
+### Interface DcxProgressStep
+
+```typescript
+export interface DcxProgressStep {
+  label: string;  // Texto descriptivo del paso
+}
+```
+
+---
+
+## Ejemplos
+
+### Barra de Progreso Simple
+
+Barra de progreso básica mostrando un porcentaje.
+
+<Canvas of={ProgressbarStories.Default} />
+
+```html
+<dcx-ng-progressbar [value]="60"></dcx-ng-progressbar>
+```
+
+---
+
+### Barra Segmentada con Animación
+
+Ideal para mostrar procesos de carga con animación continua.
+
+<Canvas of={ProgressbarStories.Segmented} />
+
+```html
+<dcx-ng-progressbar variant="segmented"></dcx-ng-progressbar>
+```
+
+---
+
+### Con Tooltip
+
+Muestra el porcentaje en un tooltip que sigue el progreso.
+
+<Canvas of={ProgressbarStories.WithTooltip} />
+
+```html
+<dcx-ng-progressbar [value]="75" [showTooltip]="true"></dcx-ng-progressbar>
+```
+
+---
+
+### Con Label
+
+Muestra el porcentaje como texto al lado de la barra.
+
+<Canvas of={ProgressbarStories.WithLabel} />
+
+```html
+<dcx-ng-progressbar [value]="85" [showLabel]="true"></dcx-ng-progressbar>
+```
+
+---
+
+### Stepper con Números
+
+Perfecto para procesos de múltiples pasos con indicadores numéricos.
+
+<Canvas of={ProgressbarStories.StepperNumbered} />
+
+```typescript
+steps = [
+  { label: 'Step 1' },
+  { label: 'Step 2' },
+  { label: 'Step 3' },
+  { label: 'Step 4' }
+];
+```
+
+```html
+<dcx-ng-progressbar
+  variant="stepper"
+  [steps]="steps"
+  [currentStep]="3">
+</dcx-ng-progressbar>
+```
+
+---
+
+### Stepper con Checkmarks
+
+Indica visualmente los pasos completados con iconos de check.
+
+<Canvas of={ProgressbarStories.StepperCheckmarks} />
+
+```html
+<dcx-ng-progressbar
+  variant="stepper"
+  [steps]="steps"
+  [currentStep]="3"
+  [showCheckmarks]="true">
+</dcx-ng-progressbar>
+```
+
+---
+
+### Stepper de Proceso
+
+Usa labels descriptivos para guiar al usuario a través de un flujo.
+
+<Canvas of={ProgressbarStories.StepperProcess} />
+
+```typescript
+processSteps = [
+  { label: 'Carrito' },
+  { label: 'Envío' },
+  { label: 'Revisión' },
+  { label: 'Pago' }
+];
+```
+
+```html
+<dcx-ng-progressbar
+  variant="stepper"
+  [steps]="processSteps"
+  [currentStep]="3">
+</dcx-ng-progressbar>
+```
+
+---
+
+## Casos de Uso
+
+### 📦 **Barra de Progreso (Default/Segmented)**
+
+- **Descarga de archivos**: Mostrar porcentaje de descarga
+- **Upload de contenido**: Indicar progreso de subida
+- **Carga de página**: Feedback visual durante inicialización
+- **Instalación**: Progreso de instalación de aplicaciones
+
+### 🔄 **Stepper**
+
+- **Checkout de e-commerce**: Carrito → Envío → Pago → Confirmación
+- **Formularios multi-paso**: Dividir formularios largos en secciones
+- **Onboarding**: Guiar nuevos usuarios a través de la configuración
+- **Procesos de registro**: KYC, verificación de identidad, etc.
+
+---
+
+## Tokens CSS Utilizados
+
+El componente utiliza los siguientes tokens del Capgemini Design System:
+
+- `--bg-primary`: Color de fondo de la barra de progreso y pasos activos
+- `--bg-secondary`: Color de fondo del track
+- `--bg-success`: Color de los pasos completados (verde)
+- `--bg-surface`: Fondo blanco de los círculos de pasos
+- `--bg-inverse`: Fondo del tooltip
+- `--text-default`, `--text-subtle`, `--text-inverse`: Colores de texto
+- `--border-light`: Color de borde para pasos inactivos
+- `--r-full`, `--r-md`: Border radius
+- `--sp-*`: Espaciados
+- `--fs-*`, `--fw-*`: Tipografía
+
+---
+
+## Accesibilidad
+
+- ✅ Indicadores visuales claros de progreso y estado
+- ✅ Contraste adecuado entre estados (activo, completado, pendiente)
+- ✅ Labels descriptivos para cada paso en modo stepper
+- ✅ Animaciones suaves y no intrusivas

@@ -30,6 +30,7 @@ export const APP_ROUTES = {
   GRID: 'grid',
   NAVBAR: 'navbar',
   POPOVER: 'popover',
+  PROGRESSBAR: 'progressbar',
   FILE_UPLOAD: 'file-upload',
   STEPPER: 'stepper',
   THEME_GENERATOR: 'theme-generator',
