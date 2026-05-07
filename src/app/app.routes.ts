@@ -30,9 +30,12 @@ import { DcxNgPageGridComponent } from './pages/dcx-ng-page-grid/dcx-ng-page-gri
 import { DcxNgPageNavbarComponent } from './pages/dcx-ng-page-navbar/dcx-ng-page-navbar.component';
 import { DcxNgPageFileUploadComponent } from './pages/dcx-ng-page-file-upload/dcx-ng-page-file-upload.component';
 import { DcxNgPageScrollTopDownComponent } from './pages/dcx-ng-page-scroll-top-down/dcx-ng-page-scroll-top-down.component';
+import { DcxNgPageStepperComponent } from './pages/dcx-ng-page-stepper/dcx-ng-page-stepper.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
+import { DcxNgPageTextareaComponent } from './pages/dcx-ng-page-textarea/dcx-ng-page-textarea.component';
+import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page-editor.component';
 
 export const appRoutes: Route[] = [
   {
@@ -132,6 +135,10 @@ export const appRoutes: Route[] = [
     component: DcxNgPageDrawerComponent,
   },
   {
+    path: APP_ROUTES.EDITOR,
+    component: DcxNgPageEditorComponent,
+  },
+  {
     path: APP_ROUTES.TABS,
     component: DcxNgPageTabsComponent,
   },
@@ -160,7 +167,15 @@ export const appRoutes: Route[] = [
     component: DcxNgPageFileUploadComponent,
   },
   {
+    path: APP_ROUTES.STEPPER,
+    component: DcxNgPageStepperComponent,
+  },
+  {
     path: APP_ROUTES.SCROLL_TOP_DOWN,
     component: DcxNgPageScrollTopDownComponent,
+  },
+  {
+    path: APP_ROUTES.TEXTAREA,
+    component: DcxNgPageTextareaComponent,
   },
 ];

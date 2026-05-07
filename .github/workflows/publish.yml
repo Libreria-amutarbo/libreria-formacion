@@ -2,11 +2,12 @@ name: Release library
 
 on:
   push:
-    branches: [main]
+    branches: [develop]
 
 permissions:
   contents: write
   packages: write
+  pull-requests: write
 
 jobs:
   release:
@@ -19,17 +20,19 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.19
           registry-url: https://npm.pkg.github.com/
 
-      - run: npm ci --legacy-peer-deps
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
 
       - name: Build library
-        run: npx nx build dcx-ng-components --no-cloud
+        run: npx nx build dcx-ng-lib --no-cloud
 
-      - name: Create Release Pull Request or Publish
-        uses: changesets/action@v1
-        with:
-          publish: npm publish dist/dcx-ng-components/source
+      - name: Create version
+        run: npx changeset version
+
+      - name: Publish
+        run: npx changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
