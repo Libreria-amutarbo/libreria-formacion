@@ -11,7 +11,13 @@ import {
   DcxBreadCrumbCurrentPage,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
-import { userEvent, within } from '@storybook/test';
+import { userEvent, within, fn } from '@storybook/test';
+
+const keepSamePage = <T extends { href?: string }>(items: T[]): T[] =>
+  items.map(item => ({
+    ...item,
+    href: '#',
+  }));
 
 const meta: Meta<DcxNgBreadcrumbComponent> = {
   title: 'DCXLibrary/Components/Breadcrumb',
@@ -54,55 +60,142 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
     },
   },
   args: {
-    items: DcxBreadCrumbItemDefault,
+    items: keepSamePage(DcxBreadCrumbItemDefault),
     iconSeparator: DcxBreadCrumbSlashIcon,
+    itemSelected: fn((item: any) => {
+      // alert(`Navegando a: ${item.label}`);
+    }),
   },
 };
 
 export default meta;
 type Story = StoryObj<DcxNgBreadcrumbComponent>;
 
-export const ClassBased: Story = {};
+export const ClassBased: Story = {
+  args: {
+    itemSelected: fn((item: any) => {
+      // alert(`Navegando a: ${item.label}`);
+    }),
+  },
+  render: args => ({
+    props: args,
+    template: `
+      <dcx-ng-breadcrumb
+        [items]="items"
+        [iconSeparator]="iconSeparator"
+        (itemSelected)="itemSelected($event)"
+      ></dcx-ng-breadcrumb>
+    `,
+  }),
+};
 
 export const WithIconInText: Story = {
   args: {
-    items: DcxBreadCrumbItemWithIcon,
+    items: keepSamePage(DcxBreadCrumbItemWithIcon),
     iconSeparator: DcxBreadCrumbSlashIcon,
+    itemSelected: fn((item: any) => {
+      // alert(`Navegando a: ${item.label}`);
+    }),
   },
+  render: args => ({
+    props: args,
+    template: `
+      <dcx-ng-breadcrumb
+        [items]="items"
+        [iconSeparator]="iconSeparator"
+        (itemSelected)="itemSelected($event)"
+      ></dcx-ng-breadcrumb>
+    `,
+  }),
 };
 
 export const Disabled: Story = {
   args: {
-    items: DcxBreadCrumbDisabled,
+    items: keepSamePage(DcxBreadCrumbDisabled),
     iconSeparator: DcxBreadCrumbSlashIcon,
+    itemSelected: fn((item: any) => {
+      // alert(`Navegando a: ${item.label}`);
+    }),
   },
+  render: args => ({
+    props: args,
+    template: `
+      <dcx-ng-breadcrumb
+        [items]="items"
+        [iconSeparator]="iconSeparator"
+        (itemSelected)="itemSelected($event)"
+      ></dcx-ng-breadcrumb>
+    `,
+  }),
 };
 
 export const ArrowIcon: Story = {
   args: {
-    items: DcxBreadCrumbItemDefault,
+    items: keepSamePage(DcxBreadCrumbItemDefault),
     iconSeparator: DcxBreadCrumbArrowhIcon,
+    itemSelected: fn((item: any) => {
+      // alert(`Navegando a: ${item.label}`);
+    }),
   },
+  render: args => ({
+    props: args,
+    template: `
+      <dcx-ng-breadcrumb
+        [items]="items"
+        [iconSeparator]="iconSeparator"
+        (itemSelected)="itemSelected($event)"
+      ></dcx-ng-breadcrumb>
+    `,
+  }),
 };
 
 export const ChevronIcon: Story = {
   args: {
-    items: DcxBreadCrumbItemDefault,
+    items: keepSamePage(DcxBreadCrumbItemDefault),
     iconSeparator: DcxBreadChevronSlashIcon,
+    itemSelected: fn((item: any) => {
+      // alert(`Navegando a: ${item.label}`);
+    }),
   },
+  render: args => ({
+    props: args,
+    template: `
+      <dcx-ng-breadcrumb
+        [items]="items"
+        [iconSeparator]="iconSeparator"
+        (itemSelected)="itemSelected($event)"
+      ></dcx-ng-breadcrumb>
+    `,
+  }),
 };
 
 export const CurrentPage: Story = {
   args: {
-    items: DcxBreadCrumbCurrentPage,
+    items: keepSamePage(DcxBreadCrumbCurrentPage),
     iconSeparator: DcxBreadCrumbSlashIcon,
+    itemSelected: fn((item: any) => {
+      // alert(`Navegando a: ${item.label}`);
+    }),
   },
+  render: args => ({
+    props: args,
+    template: `
+      <dcx-ng-breadcrumb
+        [items]="items"
+        [iconSeparator]="iconSeparator"
+        (itemSelected)="itemSelected($event)"
+      ></dcx-ng-breadcrumb>
+    `,
+  }),
 };
 
 export const OverflowMenu: Story = {
   args: {
-    items: DcxBreadCrumbOverflow,
+    items: keepSamePage(DcxBreadCrumbOverflow),
     iconSeparator: DcxBreadCrumbSlashIcon,
+    itemSelected: fn((item: any) => {
+      // alert(`Navegando a: ${item.label}`);
+    }),
   },
   parameters: {
     layout: 'fullscreen',

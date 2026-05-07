@@ -32,7 +32,7 @@ export class DcxNgPageBreadcrumbComponent {
 
   dcxBreadCrumbWithIcon: DcxBreadcrumbItem[] = [
     { label: 'Inicio', href: '/', icon: 'house', disabled: false },
-    { label: 'Productos', href: '/productos', icon: 'bag', disabled: false },
-    { label: 'Teclados', icon: 'keyboard', disabled: false },
+    { label: 'Componentes', href: '/', icon: 'grid', disabled: false },
+    { label: 'Breadcrumb', icon: 'link-45deg', disabled: false },
   ];
 }
