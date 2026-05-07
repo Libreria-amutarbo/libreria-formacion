@@ -9,6 +9,7 @@ import {
   DcxBreadCrumbArrowhIcon,
   DcxBreadChevronSlashIcon,
   DcxBreadCrumbCurrentPage,
+  DcxBreadcrumbItem,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, StoryObj } from '@storybook/angular';
 import { userEvent, within, fn } from '@storybook/test';
@@ -16,8 +17,24 @@ import { userEvent, within, fn } from '@storybook/test';
 const keepSamePage = <T extends { href?: string }>(items: T[]): T[] =>
   items.map(item => ({
     ...item,
-    href: '#',
+    href: undefined,
   }));
+
+const onItemSelected = fn((item: DcxBreadcrumbItem) => {
+  alert(`Navegando a: ${item.label}`);
+});
+
+const breadcrumbRender: NonNullable<Meta<DcxNgBreadcrumbComponent>['render']> =
+  args => ({
+    props: args,
+    template: `
+      <dcx-ng-breadcrumb
+        [items]="items"
+        [iconSeparator]="iconSeparator"
+        (itemSelected)="itemSelected($event)"
+      ></dcx-ng-breadcrumb>
+    `,
+  });
 
 const meta: Meta<DcxNgBreadcrumbComponent> = {
   title: 'DCXLibrary/Components/Breadcrumb',
@@ -62,10 +79,9 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
   args: {
     items: keepSamePage(DcxBreadCrumbItemDefault),
     iconSeparator: DcxBreadCrumbSlashIcon,
-    itemSelected: fn((item: any) => {
-      alert(`Navegando a: ${item.label}`);
-    }),
+    itemSelected: onItemSelected,
   },
+  render: breadcrumbRender,
 };
 
 export default meta;
@@ -73,152 +89,59 @@ type Story = StoryObj<DcxNgBreadcrumbComponent>;
 
 export const ClassBased: Story = {
   args: {
-    itemSelected: fn((item: any) => {
-      alert(`Navegando a: ${item.label}`);
-    }),
+    itemSelected: onItemSelected,
   },
-  render: args => ({
-    props: args,
-    template: `
-      <dcx-ng-breadcrumb
-        [items]="items"
-        [iconSeparator]="iconSeparator"
-        (itemSelected)="itemSelected($event)"
-      ></dcx-ng-breadcrumb>
-    `,
-  }),
 };
 
 export const WithIconInText: Story = {
   args: {
     items: keepSamePage(DcxBreadCrumbItemWithIcon),
     iconSeparator: DcxBreadCrumbSlashIcon,
-    itemSelected: fn((item: any) => {
-      alert(`Navegando a: ${item.label}`);
-    }),
+    itemSelected: onItemSelected,
   },
-  render: args => ({
-    props: args,
-    template: `
-      <dcx-ng-breadcrumb
-        [items]="items"
-        [iconSeparator]="iconSeparator"
-        (itemSelected)="itemSelected($event)"
-      ></dcx-ng-breadcrumb>
-    `,
-  }),
 };
 
 export const Disabled: Story = {
   args: {
     items: keepSamePage(DcxBreadCrumbDisabled),
     iconSeparator: DcxBreadCrumbSlashIcon,
-    itemSelected: fn((item: any) => {
-      alert(`Navegando a: ${item.label}`);
-    }),
+    itemSelected: onItemSelected,
   },
-  render: args => ({
-    props: args,
-    template: `
-      <dcx-ng-breadcrumb
-        [items]="items"
-        [iconSeparator]="iconSeparator"
-        (itemSelected)="itemSelected($event)"
-      ></dcx-ng-breadcrumb>
-    `,
-  }),
 };
 
 export const ArrowIcon: Story = {
   args: {
     items: keepSamePage(DcxBreadCrumbItemDefault),
     iconSeparator: DcxBreadCrumbArrowhIcon,
-    itemSelected: fn((item: any) => {
-      alert(`Navegando a: ${item.label}`);
-    }),
+    itemSelected: onItemSelected,
   },
-  render: args => ({
-    props: args,
-    template: `
-      <dcx-ng-breadcrumb
-        [items]="items"
-        [iconSeparator]="iconSeparator"
-        (itemSelected)="itemSelected($event)"
-      ></dcx-ng-breadcrumb>
-    `,
-  }),
 };
 
 export const ChevronIcon: Story = {
   args: {
     items: keepSamePage(DcxBreadCrumbItemDefault),
     iconSeparator: DcxBreadChevronSlashIcon,
-    itemSelected: fn((item: any) => {
-      alert(`Navegando a: ${item.label}`);
-    }),
+    itemSelected: onItemSelected,
   },
-  render: args => ({
-    props: args,
-    template: `
-      <dcx-ng-breadcrumb
-        [items]="items"
-        [iconSeparator]="iconSeparator"
-        (itemSelected)="itemSelected($event)"
-      ></dcx-ng-breadcrumb>
-    `,
-  }),
 };
 
 export const CurrentPage: Story = {
   args: {
     items: keepSamePage(DcxBreadCrumbCurrentPage),
     iconSeparator: DcxBreadCrumbSlashIcon,
-    itemSelected: fn((item: any) => {
-      alert(`Navegando a: ${item.label}`);
-    }),
+    itemSelected: onItemSelected,
   },
-  render: args => ({
-    props: args,
-    template: `
-      <dcx-ng-breadcrumb
-        [items]="items"
-        [iconSeparator]="iconSeparator"
-        (itemSelected)="itemSelected($event)"
-      ></dcx-ng-breadcrumb>
-    `,
-  }),
 };
 
 export const OverflowMenu: Story = {
   args: {
     items: keepSamePage(DcxBreadCrumbOverflow),
     iconSeparator: DcxBreadCrumbSlashIcon,
-    itemSelected: fn((item: any) => {
-      alert(`Navegando a: ${item.label}`);
-    }),
+    itemSelected: onItemSelected,
   },
   parameters: {
     layout: 'fullscreen',
   },
-  render: args => ({
-    props: args,
-    template: `
-      <div
-        style="
-          min-height: 320px;
-          padding: 16px 24px;
-          overflow: visible;
-          box-sizing: border-box;
-        "
-      >
-        <dcx-ng-breadcrumb
-          [items]="items"
-          [iconSeparator]="iconSeparator"
-          (itemSelected)="itemSelected($event)"
-        ></dcx-ng-breadcrumb>
-      </div>
-    `,
-  }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const ellipsisButton = canvas.getByRole('button', {
