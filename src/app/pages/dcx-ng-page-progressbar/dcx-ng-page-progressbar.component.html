@@ -1,0 +1,92 @@
+<div class="page-container">
+  <h1>Progressbar Component</h1>
+  <p>El componente Progressbar muestra el progreso de una tarea o proceso. Soporta diferentes variantes: barra simple, segmentada, stepper con pasos numerados y stepper con labels.</p>
+  
+  <!-- Loading Segmented -->
+  <div class="demo-section">
+    <h2>Loading Segmented</h2>
+    <p class="demo-description">Barra de progreso con segmentos animados, ideal para estados de carga. Configurable con 3, 5 o 10 segmentos.</p>
+    <div class="demo-box">
+      <div class="progress-example">
+        <h3>Loading con 3 segmentos...</h3>
+        <dcx-ng-progressbar variant="segmented" [segments]="3"></dcx-ng-progressbar>
+      </div>
+      <div class="progress-example">
+        <h3>Loading con 5 segmentos (default)...</h3>
+        <dcx-ng-progressbar variant="segmented"></dcx-ng-progressbar>
+      </div>
+      <div class="progress-example">
+        <h3>Loading con 10 segmentos...</h3>
+        <dcx-ng-progressbar variant="segmented" [segments]="10"></dcx-ng-progressbar>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress with Tooltip -->
+  <div class="demo-section">
+    <h2>Progress with Tooltip</h2>
+    <p class="demo-description">Barra de progreso con tooltip mostrando el porcentaje actual.</p>
+    <div class="demo-box">
+      <div class="progress-example">
+        <dcx-ng-progressbar [value]="70" [showTooltip]="true"></dcx-ng-progressbar>
+      </div>
+    </div>
+  </div>
+
+  <!-- Simple Progress -->
+  <div class="demo-section">
+    <h2>Simple Progress</h2>
+    <p class="demo-description">Barra de progreso básica con porcentaje mostrado arriba.</p>
+    <div class="demo-box">
+      <div class="progress-example">
+        <dcx-ng-progressbar [value]="70" [showLabel]="true"></dcx-ng-progressbar>
+      </div>
+    </div>
+  </div>
+
+  <!-- Numbered Stepper -->
+  <div class="demo-section">
+    <h2>Numbered Stepper</h2>
+    <p class="demo-description">Stepper con pasos numerados, mostrando el progreso a través de múltiples etapas.</p>
+    <div class="demo-box">
+      <div class="progress-example">
+        <dcx-ng-progressbar
+          variant="stepper"
+          [steps]="numberedSteps"
+          [currentStep]="3">
+        </dcx-ng-progressbar>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkmark Stepper -->
+  <div class="demo-section">
+    <h2>Checkmark Stepper</h2>
+    <p class="demo-description">Stepper con checkmarks para indicar pasos completados.</p>
+    <div class="demo-box">
+      <div class="progress-example">
+        <dcx-ng-progressbar
+          variant="stepper"
+          [steps]="checkmarkSteps"
+          [currentStep]="3"
+          [showCheckmarks]="true">
+        </dcx-ng-progressbar>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process Stepper -->
+  <div class="demo-section">
+    <h2>Process Stepper</h2>
+    <p class="demo-description">Stepper con labels descriptivos para procesos de múltiples pasos como checkout.</p>
+    <div class="demo-box">
+      <div class="progress-example">
+        <dcx-ng-progressbar
+          variant="stepper"
+          [steps]="processSteps"
+          [currentStep]="3">
+        </dcx-ng-progressbar>
+      </div>
+    </div>
+  </div>
+</div>
