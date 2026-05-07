@@ -26,10 +26,7 @@ export class DcxNgProgressbarComponent {
   readonly showCheckmarks = input<boolean>(false);
   readonly segments = input<number>(5);
 
-  readonly progressPercentage = computed(() => {
-    const val = this.value();
-    return Math.min(Math.max(val, 0), 100);
-  });
+  readonly progressPercentage = computed(() => Math.min(Math.max(this.value(), 0), 100));
 
   readonly isStepperVariant = computed(() => this.variant() === 'stepper');
   readonly isSegmentedVariant = computed(() => this.variant() === 'segmented');
