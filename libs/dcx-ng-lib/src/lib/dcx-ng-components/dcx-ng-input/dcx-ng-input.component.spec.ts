@@ -505,4 +505,39 @@ describe('DcxNgInputComponent', () => {
       expect(component.verticalClass).toBe(true);
     });
   });
+
+  describe('Required warning', () => {
+    it('should show required warning when required, empty and touched', () => {
+      fixture.componentRef.setInput('required', true);
+      fixture.detectChanges();
+      component.onBlur();
+      fixture.detectChanges();
+      expect(component.showRequiredWarning()).toBe(true);
+      const warning = fixture.debugElement.query(
+        By.css('.dcx-ng-input__error'),
+      );
+      expect(warning).toBeTruthy();
+      expect(warning.nativeElement.textContent).toContain(
+        'Este campo es requerido',
+      );
+    });
+
+    it('should show custom required message if provided', () => {
+      fixture.componentRef.setInput('required', true);
+      fixture.componentRef.setInput(
+        'requiredMessage',
+        'Campo obligatorio personalizado',
+      );
+      fixture.detectChanges();
+      component.onBlur();
+      fixture.detectChanges();
+      const warning = fixture.debugElement.query(
+        By.css('.dcx-ng-input__error'),
+      );
+      expect(warning).toBeTruthy();
+      expect(warning.nativeElement.textContent).toContain(
+        'Campo obligatorio personalizado',
+      );
+    });
+  });
 });
