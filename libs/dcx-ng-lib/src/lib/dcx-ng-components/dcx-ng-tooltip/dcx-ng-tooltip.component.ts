@@ -18,7 +18,7 @@ import {
   AvailableSpace,
   TooltipPositionOption,
 } from '../../core/interfaces';
-import { TOOLTIP_DEFAULT_CONFIG } from '../../core/mock';
+import { TOOLTIP_DEFAULT_CONFIG } from '../../core/defaults';
 
 @Component({
   selector: 'dcx-ng-tooltip',

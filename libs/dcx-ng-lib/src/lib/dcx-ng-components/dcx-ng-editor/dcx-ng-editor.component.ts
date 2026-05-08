@@ -37,7 +37,7 @@ import {
   EDITOR_DEFAULT_REQUIRED,
   EDITOR_DEFAULT_TOOLBAR_ACTIONS,
   EDITOR_DEFAULT_VALUE,
-} from '../../core/mock';
+} from '../../core/defaults';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
 let uuid = 0;
