@@ -3,7 +3,7 @@
     class="dcx-datepicker__input-wrapper"
     [class.dcx-datepicker__input-wrapper--disabled]="disabled()"
     [class.dcx-datepicker__input-wrapper--open]="isOpen()"
-    (click)="toggleCalendar()"
+    (click)="openCalendar()"
     tabindex="0"
     role="button"
   >
@@ -14,9 +14,11 @@
       [disabled]="disabled()"
       [required]="false"
       [type]="DcxInputType.TEXT"
-      [value]="formattedSelectedDate()"
-      [readonly]="true"
-      (valueChange)="null"
+      [value]="inputValue()"
+      [readonly]="false"
+      [inputMode]="'numeric'"
+      (focusEvent)="openCalendar()"
+      (valueChange)="onManualInput($event)"
     ></dcx-ng-input>
   </div>
   @if (isOpen()) {

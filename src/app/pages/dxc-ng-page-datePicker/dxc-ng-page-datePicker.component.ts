@@ -50,11 +50,9 @@ export class DxcNgPageDatePickerComponent {
     this.selectedDates.set(dates);
   }
   get formattedSelectedDates(): string {
-    return this.selectedDates().length
-      ? this.selectedDates()
-          .map(d => d.toLocaleDateString('es-ES'))
-          .join(', ')
-      : 'ninguna';
+    const dates = this.selectedDates();
+    if (!dates.length) return 'ninguna';
+    return dates.map(d => d.toLocaleDateString('es-ES')).join(', ');
   }
 
   // Range select

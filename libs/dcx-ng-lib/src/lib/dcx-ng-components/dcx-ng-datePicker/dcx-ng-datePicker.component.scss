@@ -2,11 +2,24 @@
   position: relative;
   display: flex;
   align-items: center;
+  min-width: 0;
+  width: 100%;
 }
 
 .dcx-datepicker__input {
+  display: block;
+  min-width: 0;
   width: 100%;
 }
+
+.dcx-datepicker__input ::ng-deep .dcx-ng-input__control {
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .dp-nav .dcx-icon,
 .dp-nav .dcx-icon i {
   color: #fff !important;
@@ -19,6 +32,7 @@
   border: 1px solid var(--border-default);
   border-radius: var(--r-xl, 12px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
   width: 100%;
   max-width: 280px;
   overflow: hidden;
