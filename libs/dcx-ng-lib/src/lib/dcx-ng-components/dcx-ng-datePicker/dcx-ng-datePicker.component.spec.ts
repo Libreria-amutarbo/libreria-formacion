@@ -1,18 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgDatePickerComponent } from './dcx-ng-datePicker.component';
-import { Component, ComponentRef } from '@angular/core';
+import { ComponentRef } from '@angular/core';
 import { makeDay } from '@dcx-ng-components/dcx-ng-lib';
-import { By } from '@angular/platform-browser';
-
-@Component({
-  standalone: true,
-  imports: [DcxNgDatePickerComponent],
-  template: `
-    <dcx-ng-date-picker></dcx-ng-date-picker>
-    <dcx-ng-date-picker [multiSelect]="true"></dcx-ng-date-picker>
-  `,
-})
-class MultiDatePickerHostComponent {}
 
 describe('DcxNgDatePickerComponent', () => {
   let component: DcxNgDatePickerComponent;
@@ -21,7 +10,7 @@ describe('DcxNgDatePickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcxNgDatePickerComponent, MultiDatePickerHostComponent],
+      imports: [DcxNgDatePickerComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DcxNgDatePickerComponent);
@@ -75,7 +64,7 @@ describe('DcxNgDatePickerComponent', () => {
       expect(component.isOpen()).toBe(false);
     });
 
-    it('should open calendar on click of input wrapper and keep it open on repeated click', () => {
+    it('should toggle calendar on click of input wrapper', () => {
       const wrapper = fixture.nativeElement.querySelector(
         '.dcx-datepicker__input-wrapper',
       );
@@ -85,45 +74,7 @@ describe('DcxNgDatePickerComponent', () => {
       expect(component.isOpen()).toBe(true);
       wrapper.click();
       fixture.detectChanges();
-      expect(component.isOpen()).toBe(true);
-    });
-
-    it('should open calendar via openCalendar method', () => {
       expect(component.isOpen()).toBe(false);
-      component.openCalendar();
-      expect(component.isOpen()).toBe(true);
-    });
-
-    it('should not reset mode when openCalendar is called while already open', () => {
-      component.openCalendar();
-      component.openYearSelector();
-      expect(component.isYearMode()).toBe(true);
-      component.openCalendar();
-      expect(component.isOpen()).toBe(true);
-      expect(component.isYearMode()).toBe(true);
-    });
-
-    it('should keep the correct instance open when clicking its input in a multi-datepicker page', () => {
-      const hostFixture = TestBed.createComponent(MultiDatePickerHostComponent);
-      hostFixture.detectChanges();
-      const datePickers = hostFixture.debugElement.queryAll(
-        By.directive(DcxNgDatePickerComponent),
-      );
-      const secondDatePicker = datePickers[1]
-        .componentInstance as DcxNgDatePickerComponent;
-      const secondWrapper = datePickers[1].nativeElement.querySelector(
-        '.dcx-datepicker__input-wrapper',
-      );
-
-      secondDatePicker.openCalendar();
-      hostFixture.detectChanges();
-      expect(secondDatePicker.isOpen()).toBe(true);
-
-      secondWrapper.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-      secondWrapper.click();
-      hostFixture.detectChanges();
-
-      expect(secondDatePicker.isOpen()).toBe(true);
     });
 
     it('should close calendar via closeCalendar method', () => {
@@ -164,79 +115,6 @@ describe('DcxNgDatePickerComponent', () => {
         '.dcx-datepicker__calendar',
       );
       expect(calendar).toBeFalsy();
-    });
-  });
-
-  describe('manual input', () => {
-    it('should keep native input value empty when no date is selected', () => {
-      const input = fixture.nativeElement.querySelector('input');
-      expect(input.value).toBe('');
-      expect(input.placeholder).toBe('Select date');
-    });
-
-    it('should emit selectedDateChange when typing a valid dd/MM/yyyy date', () => {
-      const spy = jest.spyOn(component.selectedDateChange, 'emit');
-      component.onManualInput('15/01/2025');
-      const emitted = spy.mock.calls[0][0] as Date;
-      expect(emitted.getFullYear()).toBe(2025);
-      expect(emitted.getMonth()).toBe(0);
-      expect(emitted.getDate()).toBe(15);
-    });
-
-    it('should emit selectedDateChange when typing a valid MM/dd/yyyy date', () => {
-      componentRef.setInput('dateFormat', 'MM/dd/yyyy');
-      fixture.detectChanges();
-      const spy = jest.spyOn(component.selectedDateChange, 'emit');
-      component.onManualInput('01/15/2025');
-      const emitted = spy.mock.calls[0][0] as Date;
-      expect(emitted.getFullYear()).toBe(2025);
-      expect(emitted.getMonth()).toBe(0);
-      expect(emitted.getDate()).toBe(15);
-    });
-
-    it('should not emit when typing an invalid date', () => {
-      const spy = jest.spyOn(component.selectedDateChange, 'emit');
-      component.onManualInput('31/02/2025');
-      expect(spy).not.toHaveBeenCalled();
-    });
-
-    it('should not emit when typed date is outside min and max dates', () => {
-      componentRef.setInput('minDate', new Date(2025, 0, 10));
-      componentRef.setInput('maxDate', new Date(2025, 0, 20));
-      fixture.detectChanges();
-      const spy = jest.spyOn(component.selectedDateChange, 'emit');
-      component.onManualInput('21/01/2025');
-      expect(spy).not.toHaveBeenCalled();
-    });
-
-    it('should add a manually typed date in multi-select mode', () => {
-      componentRef.setInput('multiSelect', true);
-      fixture.detectChanges();
-      const spy = jest.spyOn(component.selectedDatesChange, 'emit');
-      component.onManualInput('10/01/2025');
-      expect(spy).toHaveBeenCalled();
-      expect(spy.mock.calls[0][0]).toHaveLength(1);
-    });
-
-    it('should remove a manually typed date already selected in multi-select mode', () => {
-      const existing = new Date(2025, 0, 10);
-      existing.setHours(0, 0, 0, 0);
-      componentRef.setInput('multiSelect', true);
-      componentRef.setInput('selectedDates', [existing]);
-      fixture.detectChanges();
-      const spy = jest.spyOn(component.selectedDatesChange, 'emit');
-      component.onManualInput('10/01/2025');
-      expect(spy).toHaveBeenCalledWith([]);
-    });
-
-    it('should use range selection logic for manually typed dates in range mode', () => {
-      componentRef.setInput('rangeSelect', true);
-      fixture.detectChanges();
-      const startSpy = jest.spyOn(component.startDateChange, 'emit');
-      const endSpy = jest.spyOn(component.endDateChange, 'emit');
-      component.onManualInput('10/01/2025');
-      expect(startSpy).toHaveBeenCalled();
-      expect(endSpy).toHaveBeenCalledWith(null);
     });
   });
 
@@ -738,27 +616,8 @@ describe('DcxNgDatePickerComponent', () => {
       expect(formatted).toContain(' - ');
     });
 
-    it('should keep multi-select input empty without rendering extra selected date rows', () => {
-      componentRef.setInput('selectedDates', [
-        new Date(2025, 0, 10),
-        new Date(2025, 0, 15),
-        new Date(2025, 0, 20),
-      ]);
-      fixture.detectChanges();
-      expect(component.inputValue()).toBe('');
-      expect(component.formattedSelectedDate()).toBe(
-        '10/01/2025 - 15/01/2025 - 20/01/2025',
-      );
-
-      const selectedDateItems = fixture.nativeElement.querySelectorAll(
-        '.dcx-datepicker__selected-date',
-      );
-      expect(selectedDateItems.length).toBe(0);
-    });
-
     it('should show placeholder when no dates selected', () => {
       expect(component.formattedSelectedDate()).toBe('Select date');
-      expect(component.inputValue()).toBe('');
     });
 
     it('should clear multi dates', () => {
