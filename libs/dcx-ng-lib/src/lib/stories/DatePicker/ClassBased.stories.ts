@@ -32,10 +32,10 @@ import { CommonModule } from '@angular/common';
         <span>{{ displayValue() }}</span>
       </div>
       <div *ngIf="showMinMaxHint()" class="datepicker-story__state datepicker-story__state--compact">
-        <strong>Fecha minima:</strong>
+        <strong>Fecha mínima:</strong>
         <span>{{ formattedMinDate() }}</span>
         <br />
-        <strong>Fecha maxima:</strong>
+        <strong>Fecha máxima:</strong>
         <span>{{ formattedMaxDate() }}</span>
       </div>
     </div>
@@ -201,12 +201,12 @@ class StorybookDatePickerWrapperComponent {
 
   readonly formattedMinDate = computed(() => {
     const date = this._minDate();
-    return date ? this.formatDateByFormat(date) : 'sin limite';
+    return date ? this.formatDateByFormat(date) : 'sin límite';
   });
 
   readonly formattedMaxDate = computed(() => {
     const date = this._maxDate();
-    return date ? this.formatDateByFormat(date) : 'sin limite';
+    return date ? this.formatDateByFormat(date) : 'sin límite';
   });
 
   readonly formattedSelectedDate = computed(() => {
