@@ -49,8 +49,9 @@
       [placeholder]="'Selecciona varias fechas'"
       (selectedDatesChange)="handleDatesChange($event)"
     ></dcx-ng-date-picker>
-    <div class="demo-state">
-      <strong>Fechas seleccionadas:</strong> {{ formattedSelectedDates }}
+    <div class="demo-state demo-state--bounded">
+      <strong>Fechas seleccionadas:</strong>
+      <span>{{ formattedSelectedDates }}</span>
     </div>
   </section>
 
