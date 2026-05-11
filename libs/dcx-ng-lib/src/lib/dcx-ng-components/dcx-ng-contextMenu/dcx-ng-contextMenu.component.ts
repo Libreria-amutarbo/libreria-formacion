@@ -72,13 +72,11 @@ export class DcxNgContextMenuComponent {
     let topPosition = pos.y - parentRect.top;
     let leftPosition = pos.x - parentRect.left;
 
-    // Adjust horizontal position if menu would overflow viewport
     if (pos.x + menuRect.width > window.innerWidth - 10) {
       leftPosition = window.innerWidth - 10 - menuRect.width - parentRect.left;
       if (leftPosition < 0) leftPosition = 0;
     }
 
-    // Adjust vertical position if menu would overflow viewport
     const wouldGoBelow = pos.y + menuRect.height > window.innerHeight - 10;
     const topIfFlipped = pos.y - parentRect.top - menuRect.height;
     if (wouldGoBelow && topIfFlipped >= gap) {

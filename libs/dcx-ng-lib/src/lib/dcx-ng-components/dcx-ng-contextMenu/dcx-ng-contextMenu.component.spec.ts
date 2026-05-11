@@ -183,7 +183,6 @@ describe('DcxNgContextMenuComponent', () => {
   describe('onDocumentClick()', () => {
     it('should close menu when open and document is clicked', () => {
       component.open();
-      // First call is ignored due to ignoreNextClick set on open()
       component.onDocumentClick(new MouseEvent('click'));
       component.onDocumentClick(new MouseEvent('click'));
       expect(component.isOpen()).toBe(false);
