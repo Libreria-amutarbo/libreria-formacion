@@ -1,8 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  OnDestroy,
   computed,
   input,
   output,
@@ -32,7 +30,7 @@ import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
   styleUrl: './dcx-ng-datePicker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DcxNgDatePickerComponent implements OnDestroy {
+export class DcxNgDatePickerComponent {
   onCalendarIconClick(event: any): void {
     if (event && typeof event.stopPropagation === 'function') {
       event.stopPropagation();
@@ -49,16 +47,9 @@ export class DcxNgDatePickerComponent implements OnDestroy {
     'dd/MM/yyyy': (day, month, year) => `${day}/${month}/${year}`,
     'MM/dd/yyyy': (day, month, year) => `${month}/${day}/${year}`,
   };
-  private readonly fullDateInputPattern = /^\s*(\d{1,2})[/-](\d{1,2})[/-](\d{4})\s*$/;
-  private readonly onDocumentMouseDown = (event: MouseEvent) =>
-    this._onDocumentClick(event);
 
-  constructor(private readonly elementRef: ElementRef<HTMLElement>) {
-    document.addEventListener('mousedown', this.onDocumentMouseDown);
-  }
-
-  ngOnDestroy(): void {
-    document.removeEventListener('mousedown', this.onDocumentMouseDown);
+  constructor() {
+    document.addEventListener('mousedown', this._onDocumentClick.bind(this));
   }
 
   readonly selectedDate = input<Date | null>(null);
@@ -89,12 +80,13 @@ export class DcxNgDatePickerComponent implements OnDestroy {
 
   private _onDocumentClick(event: MouseEvent) {
     if (!this.isOpen()) return;
-    const target = event.target;
-
-    if (
-      target instanceof Node &&
-      !this.elementRef.nativeElement.contains(target)
-    ) {
+    const calendar = document.querySelector('.dcx-datepicker__calendar');
+    const inputWrapper = document.querySelector(
+      '.dcx-datepicker__input-wrapper',
+    );
+    if (!calendar || !inputWrapper) return;
+    const target = event.target as HTMLElement;
+    if (!calendar.contains(target) && !inputWrapper.contains(target)) {
       this.closeCalendar();
     }
   }
@@ -164,26 +156,6 @@ export class DcxNgDatePickerComponent implements OnDestroy {
     return this.formatSingleDate();
   });
 
-  readonly inputValue = computed(() => {
-    if (this.rangeSelect()) {
-      const start = this.startDate();
-      const end = this.endDate();
-
-      if (start && end) {
-        return `${this.formatDate(start)} - ${this.formatDate(end)}`;
-      }
-
-      return start ? this.formatDate(start) : '';
-    }
-
-    if (this.multiSelect()) {
-      return '';
-    }
-
-    const date = this.selectedDate();
-    return date ? this.formatDate(date) : '';
-  });
-
   private formatRangeDate(): string {
     const start = this.startDate();
     const end = this.endDate();
@@ -212,7 +184,6 @@ export class DcxNgDatePickerComponent implements OnDestroy {
     const date = this.selectedDate();
     return date ? this.formatDate(date) : this.placeholder();
   }
-
   readonly calendarDays = computed(() => {
     const currentMonth = this.currentMonth();
     const year = currentMonth.getFullYear();
@@ -331,11 +302,6 @@ export class DcxNgDatePickerComponent implements OnDestroy {
     }
   }
 
-  openCalendar(): void {
-    if (this.disabled() || this._isOpen()) return;
-    this._isOpen.set(true);
-  }
-
   closeCalendar(): void {
     this._isOpen.set(false);
     this._currentMonth.set(null);
@@ -426,27 +392,6 @@ export class DcxNgDatePickerComponent implements OnDestroy {
     this.closeCalendar();
   }
 
-  onManualInput(value: string | number | null): void {
-    if (this.disabled() || typeof value !== 'string') return;
-
-    const parsedDate = this.parseManualDate(value);
-    if (!parsedDate || this.isDateDisabled(parsedDate)) return;
-
-    this._currentMonth.set(new Date(parsedDate));
-
-    if (this.rangeSelect()) {
-      this.handleRangeSelection(parsedDate);
-      return;
-    }
-
-    if (this.multiSelect()) {
-      this.handleMultiSelection(parsedDate);
-      return;
-    }
-
-    this.handleSingleSelection(parsedDate);
-  }
-
   selectDate(day: CalendarDay): void {
     if (day.isDisabled || this.disabled()) return;
 
@@ -479,8 +424,7 @@ export class DcxNgDatePickerComponent implements OnDestroy {
 
   private handleMultiSelection(selectedDate: Date): void {
     const currentDates = [...this.selectedDates()];
-    const normalizedSelectedDate = this.normalizeDate(selectedDate);
-    const dateTime = normalizedSelectedDate.getTime();
+    const dateTime = selectedDate.getTime();
     const existingIndex = currentDates.findIndex(
       d => new Date(d).setHours(0, 0, 0, 0) === dateTime,
     );
@@ -488,7 +432,7 @@ export class DcxNgDatePickerComponent implements OnDestroy {
     if (existingIndex > -1) {
       currentDates.splice(existingIndex, 1);
     } else {
-      currentDates.push(normalizedSelectedDate);
+      currentDates.push(selectedDate);
     }
 
     currentDates.sort((a, b) => a.getTime() - b.getTime());
@@ -527,43 +471,7 @@ export class DcxNgDatePickerComponent implements OnDestroy {
   private isDateDisabled(date: Date): boolean {
     const min = this.minDate();
     const max = this.maxDate();
-    const normalizedDate = this.normalizeDate(date);
-    const normalizedMin = min ? this.normalizeDate(min) : null;
-    const normalizedMax = max ? this.normalizeDate(max) : null;
-
-    return (
-      !!(normalizedMin && normalizedDate < normalizedMin) ||
-      !!(normalizedMax && normalizedDate > normalizedMax)
-    );
-  }
-
-  private parseManualDate(value: string): Date | null {
-    const match = value.match(this.fullDateInputPattern);
-    if (!match) return null;
-
-    const first = Number(match[1]);
-    const second = Number(match[2]);
-    const year = Number(match[3]);
-    const day = this.dateFormat() === 'MM/dd/yyyy' ? second : first;
-    const month = this.dateFormat() === 'MM/dd/yyyy' ? first : second;
-
-    if (month < 1 || month > 12 || day < 1 || day > 31) return null;
-
-    const parsedDate = new Date(year, month - 1, day);
-    parsedDate.setHours(0, 0, 0, 0);
-
-    const isValidCalendarDate =
-      parsedDate.getFullYear() === year &&
-      parsedDate.getMonth() === month - 1 &&
-      parsedDate.getDate() === day;
-
-    return isValidCalendarDate ? parsedDate : null;
-  }
-
-  private normalizeDate(date: Date): Date {
-    const normalized = new Date(date);
-    normalized.setHours(0, 0, 0, 0);
-    return normalized;
+    return !!(min && date < min) || !!(max && date > max);
   }
 
   goToToday(): void {

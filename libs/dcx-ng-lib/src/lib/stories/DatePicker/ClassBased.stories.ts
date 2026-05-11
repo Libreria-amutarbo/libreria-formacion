@@ -9,63 +9,28 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [DcxNgDatePickerComponent, CommonModule],
   template: `
-    <div class="datepicker-story">
-      <dcx-ng-date-picker
-        [selectedDate]="_selectedDate()"
-        [selectedDates]="_selectedDates()"
-        [multiSelect]="_multiSelect()"
-        [rangeSelect]="_rangeSelect()"
-        [startDate]="_startDate()"
-        [endDate]="_endDate()"
-        [dateFormat]="_dateFormat()"
-        (selectedDateChange)="onSelectedDateChange($event)"
-        (selectedDatesChange)="onSelectedDatesChange($event)"
-        (startDateChange)="onStartDateChange($event)"
-        (endDateChange)="onEndDateChange($event)"
-        [minDate]="_minDate()"
-        [maxDate]="_maxDate()"
-        [disabled]="_disabled()"
-        [placeholder]="_placeholder()">
-      </dcx-ng-date-picker>
-      <div class="datepicker-story__state">
-        <strong>{{ displayLabel() }}</strong>
-        <span>{{ displayValue() }}</span>
-      </div>
-      <div *ngIf="showMinMaxHint()" class="datepicker-story__state datepicker-story__state--compact">
-        <strong>Fecha mínima:</strong>
-        <span>{{ formattedMinDate() }}</span>
-        <br />
-        <strong>Fecha máxima:</strong>
-        <span>{{ formattedMaxDate() }}</span>
-      </div>
+    <dcx-ng-date-picker
+      [selectedDate]="_selectedDate()"
+      [selectedDates]="_selectedDates()"
+      [multiSelect]="_multiSelect()"
+      [rangeSelect]="_rangeSelect()"
+      [startDate]="_startDate()"
+      [endDate]="_endDate()"
+      [dateFormat]="_dateFormat()"
+      (selectedDateChange)="onSelectedDateChange($event)"
+      (selectedDatesChange)="onSelectedDatesChange($event)"
+      (startDateChange)="onStartDateChange($event)"
+      (endDateChange)="onEndDateChange($event)"
+      [minDate]="_minDate()"
+      [maxDate]="_maxDate()"
+      [disabled]="_disabled()"
+      [placeholder]="_placeholder()">
+    </dcx-ng-date-picker>
+    <div style="margin-top: 1rem;">
+      <strong>{{ displayLabel() }}</strong>
+      <span>{{ displayValue() }}</span>
     </div>
   `,
-  styles: [
-    `
-      .datepicker-story {
-        width: 320px;
-        max-width: 320px;
-        min-width: 0;
-      }
-
-      .datepicker-story__state {
-        box-sizing: border-box;
-        margin-top: 1rem;
-        max-width: 100%;
-        min-width: 0;
-        overflow-wrap: anywhere;
-      }
-
-      .datepicker-story__state--compact {
-        margin-top: 0.5rem;
-      }
-
-      .datepicker-story__state span {
-        display: inline;
-        min-width: 0;
-      }
-    `,
-  ],
 })
 class StorybookDatePickerWrapperComponent {
 
@@ -195,20 +160,6 @@ class StorybookDatePickerWrapperComponent {
     return this.formattedSelectedDate();
   });
 
-  readonly showMinMaxHint = computed(() => {
-    return !!(this._minDate() || this._maxDate());
-  });
-
-  readonly formattedMinDate = computed(() => {
-    const date = this._minDate();
-    return date ? this.formatDateByFormat(date) : 'sin límite';
-  });
-
-  readonly formattedMaxDate = computed(() => {
-    const date = this._maxDate();
-    return date ? this.formatDateByFormat(date) : 'sin límite';
-  });
-
   readonly formattedSelectedDate = computed(() => {
     const date = this._selectedDate();
     if (!date) return 'ninguna';
@@ -218,7 +169,7 @@ class StorybookDatePickerWrapperComponent {
   readonly formattedSelectedDates = computed(() => {
     const dates = this._selectedDates();
     if (!dates || dates.length === 0) return 'ninguna';
-    return dates.map(date => this.formatDateByFormat(date)).join(', ');
+    return dates.map(date => this.formatDateByFormat(date)).join(' - ');
   });
 
   readonly formattedRangeDates = computed(() => {
