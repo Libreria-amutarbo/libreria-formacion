@@ -33,6 +33,7 @@ const ROUTE_ICONS: Record<string, string> = {
   search: 'search',
   select: 'menu-button',
   slider: 'sliders',
+  skeleton: 'columns-gap',
   spinner: 'arrow-clockwise',
   table: 'table',
   tabs: 'folder',

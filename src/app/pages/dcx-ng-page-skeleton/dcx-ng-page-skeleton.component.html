@@ -1,0 +1,90 @@
+<section>
+  <h2 class="example-title">Ejemplo 1 - Rectangulos</h2>
+  <div class="example-stack">
+    <dcx-ng-skeleton></dcx-ng-skeleton>
+    <dcx-ng-skeleton width="18rem"></dcx-ng-skeleton>
+    <dcx-ng-skeleton width="12rem"></dcx-ng-skeleton>
+    <dcx-ng-skeleton height="2rem"></dcx-ng-skeleton>
+    <dcx-ng-skeleton width="18rem" height="5rem"></dcx-ng-skeleton>
+  </div>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Rounded, square y circle</h2>
+  <div class="shape-grid">
+    <div class="shape-group">
+      <dcx-ng-skeleton width="18rem" borderRadius="16px"></dcx-ng-skeleton>
+      <dcx-ng-skeleton width="12rem" borderRadius="16px"></dcx-ng-skeleton>
+      <dcx-ng-skeleton
+        width="18rem"
+        height="4rem"
+        borderRadius="16px"
+      ></dcx-ng-skeleton>
+    </div>
+
+    <div class="inline-shapes">
+      <dcx-ng-skeleton size="2rem"></dcx-ng-skeleton>
+      <dcx-ng-skeleton size="3rem"></dcx-ng-skeleton>
+      <dcx-ng-skeleton size="4rem"></dcx-ng-skeleton>
+      <dcx-ng-skeleton shape="circle" size="2rem"></dcx-ng-skeleton>
+      <dcx-ng-skeleton shape="circle" size="3rem"></dcx-ng-skeleton>
+      <dcx-ng-skeleton shape="circle" size="4rem"></dcx-ng-skeleton>
+    </div>
+  </div>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Placeholder de tarjeta</h2>
+  <div class="card-placeholder" aria-busy="true">
+    <div class="card-header">
+      <dcx-ng-skeleton shape="circle" size="3rem"></dcx-ng-skeleton>
+      <div class="card-lines">
+        <dcx-ng-skeleton width="70%"></dcx-ng-skeleton>
+        <dcx-ng-skeleton width="42%" height="0.75rem"></dcx-ng-skeleton>
+      </div>
+    </div>
+
+    <dcx-ng-skeleton
+      width="100%"
+      height="9rem"
+      borderRadius="8px"
+    ></dcx-ng-skeleton>
+
+    <div class="card-actions">
+      <dcx-ng-skeleton width="5rem" height="2rem"></dcx-ng-skeleton>
+      <dcx-ng-skeleton width="5rem" height="2rem"></dcx-ng-skeleton>
+    </div>
+  </div>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Placeholder de lista</h2>
+  <div class="list-placeholder" aria-busy="true">
+    @for (item of listItems; track item) {
+      <div class="list-item">
+        <dcx-ng-skeleton shape="circle" size="3rem"></dcx-ng-skeleton>
+        <div class="list-lines">
+          <dcx-ng-skeleton width="100%" height="0.875rem"></dcx-ng-skeleton>
+          <dcx-ng-skeleton width="72%" height="0.875rem"></dcx-ng-skeleton>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Sin animacion</h2>
+  <div class="example-stack">
+    <dcx-ng-skeleton animation="none"></dcx-ng-skeleton>
+    <dcx-ng-skeleton width="82%" animation="none"></dcx-ng-skeleton>
+    <dcx-ng-skeleton width="64%" animation="none"></dcx-ng-skeleton>
+  </div>
+</section>

@@ -1,0 +1,69 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as SkeletonStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Skeleton/Documentation" />
+
+# Skeleton
+
+`dcx-ng-skeleton` muestra un placeholder decorativo mientras el contenido real esta cargando.
+Esta inspirado en PrimeNG Skeleton y mantiene una API simple para formas, medidas y animacion.
+
+---
+
+## Default
+
+<Canvas of={SkeletonStories.Default} />
+
+---
+
+## Shapes
+
+<Canvas of={SkeletonStories.Shapes} />
+
+---
+
+## Card Placeholder
+
+<Canvas of={SkeletonStories.CardPlaceholder} />
+
+---
+
+## List Placeholder
+
+<Canvas of={SkeletonStories.ListPlaceholder} />
+
+---
+
+## No Animation
+
+<Canvas of={SkeletonStories.NoAnimation} />
+
+---
+
+## Available Properties
+
+- **shape**: `'rectangle' | 'circle'` - Forma visual del placeholder (default: `'rectangle'`).
+- **width**: `string` - Ancho CSS cuando no se usa `size` (default: `'100%'`).
+- **height**: `string` - Alto CSS cuando no se usa `size` (default: `'1rem'`).
+- **size**: `string | null` - Tamano unico para ancho y alto (default: `null`).
+- **borderRadius**: `string | null` - Radio CSS para rectangulos (default: `null`).
+- **animation**: `'wave' | 'none'` - Animacion del placeholder (default: `'wave'`).
+
+---
+
+## Usage
+
+```html
+<dcx-ng-skeleton></dcx-ng-skeleton>
+
+<dcx-ng-skeleton width="10rem" height="4rem"></dcx-ng-skeleton>
+
+<dcx-ng-skeleton shape="circle" size="3rem"></dcx-ng-skeleton>
+
+<dcx-ng-skeleton animation="none"></dcx-ng-skeleton>
+```
+
+## Accessibility
+
+El componente expone `aria-hidden="true"` porque es decorativo y no interactivo.
+Cuando varios skeletons representen una region en carga, el contenedor consumidor puede usar `aria-busy="true"`.
