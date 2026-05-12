@@ -21,7 +21,7 @@ hr {
   justify-content: center;
   user-select: none;
   border: 2px dashed var(--border-default);
-  border-radius: var(--border-radius-md, 6px);
+  border-radius: var(--r-md, 6px);
   margin-top: var(--sp-3, 12px);
 }
 
@@ -42,9 +42,9 @@ hr {
     width: 80px;
     padding: var(--sp-1, 4px) var(--sp-2, 8px);
     border: 1px solid var(--border-default);
-    border-radius: var(--border-radius-sm, 4px);
-    font-family: var(--font-family-primary, 'Inter', sans-serif);
-    font-size: var(--fs-sm, 13px);
+    border-radius: var(--r-sm, 4px);
+    font-family: var(--ff-base, 'Inter', sans-serif);
+    font-size: var(--fs-sm, 12px);
 
     &:focus {
       outline: 2px solid var(--color-primary);
