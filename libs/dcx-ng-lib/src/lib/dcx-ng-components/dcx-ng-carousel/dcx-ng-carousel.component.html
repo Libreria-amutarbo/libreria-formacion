@@ -1,0 +1,60 @@
+<div 
+  class="dcx-carousel" 
+  [class.dcx-carousel--vertical]="orientation() === 'vertical'"
+  role="region"
+  aria-roledescription="carousel"
+>
+  <div class="dcx-carousel-content">
+    @if (showNavigators() && totalItems() > 1) {
+      <dcx-ng-button 
+        variant="secondary" 
+        size="s" 
+        class="dcx-carousel-prev"
+        (click)="prev()"
+        aria-label="Previous slide"
+      >
+        <dcx-ng-icon [name]="orientation() === 'horizontal' ? 'chevron-left' : 'chevron-up'"></dcx-ng-icon>
+      </dcx-ng-button>
+    }
+
+    <div class="dcx-carousel-container">
+      <div 
+        class="dcx-carousel-items-wrapper" 
+        [style.transform]="wrapperTransform()"
+        [style.flex-direction]="orientation() === 'vertical' ? 'column' : 'row'"
+      >
+        @for (item of value(); track $index) {
+          <div class="dcx-carousel-item">
+            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (showNavigators() && totalItems() > 1) {
+      <dcx-ng-button 
+        variant="secondary" 
+        size="s" 
+        class="dcx-carousel-next"
+        (click)="next()"
+        aria-label="Next slide"
+      >
+        <dcx-ng-icon [name]="orientation() === 'horizontal' ? 'chevron-right' : 'chevron-down'"></dcx-ng-icon>
+      </dcx-ng-button>
+    }
+  </div>
+
+  @if (showIndicators() && totalItems() > 1) {
+    <div class="dcx-carousel-indicators">
+      @for (item of value(); track $index) {
+        <button 
+          type="button"
+          class="dcx-carousel-indicator"
+          [class.dcx-carousel-indicator--active]="$index === currentPage()"
+          (click)="setPage($index)"
+          [attr.aria-label]="'Go to slide ' + ($index + 1)"
+        ></button>
+      }
+    </div>
+  }
+</div>
