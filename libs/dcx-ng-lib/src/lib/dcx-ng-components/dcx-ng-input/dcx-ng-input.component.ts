@@ -138,12 +138,12 @@ export class DcxNgInputComponent {
   private onTouched: () => void = () => null;
   errorId = computed(() => `${this.id()}-error`);
 
+  arrayValues: (string | number | null | undefined)[] = ['', null, undefined];
+
   showRequiredWarning = computed<boolean>(
     () =>
       this.required() &&
-      (this.value() === '' ||
-        this.value() === null ||
-        this.value() === undefined) &&
+      this.arrayValues.includes(this.value()) &&
       this.touched(),
   );
 
