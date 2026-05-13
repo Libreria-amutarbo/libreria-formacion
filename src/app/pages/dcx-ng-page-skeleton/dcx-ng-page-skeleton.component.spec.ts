@@ -26,10 +26,10 @@ describe('DcxNgPageSkeletonComponent', () => {
   it('should render the main sections', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.textContent).toContain('Rectangulos');
+    expect(compiled.textContent).toContain('Rectángulos');
     expect(compiled.textContent).toContain('Placeholder de tarjeta');
     expect(compiled.textContent).toContain('Placeholder de lista');
-    expect(compiled.textContent).toContain('Sin animacion');
+    expect(compiled.textContent).toContain('Sin animación');
   });
 
   it('should render skeleton components in the page', () => {

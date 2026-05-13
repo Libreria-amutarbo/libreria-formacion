@@ -49,7 +49,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
     },
     size: {
       control: 'text',
-      description: 'Tamano unico para ancho y alto',
+      description: 'Tamaño único para ancho y alto',
       table: {
         type: { summary: 'string | null' },
         defaultValue: { summary: 'null' },
@@ -57,7 +57,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
     },
     borderRadius: {
       control: 'text',
-      description: 'Radio CSS para rectangulos',
+      description: 'Radio CSS para rectángulos',
       table: {
         type: { summary: 'string | null' },
         defaultValue: { summary: 'null' },
@@ -66,7 +66,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
     animation: {
       control: 'select',
       options: ['wave', 'none'],
-      description: 'Animacion visual del placeholder',
+      description: 'Animación visual del placeholder',
       table: {
         type: { summary: "'wave' | 'none'" },
         defaultValue: { summary: 'wave' },
