@@ -183,9 +183,9 @@ export const NoAnimation: Story = {
     props: args,
     template: `
       <div style="display: grid; gap: var(--sp-2, 8px); max-width: 28rem;">
-        <dcx-ng-skeleton width="100%" height="1rem" animation="none"></dcx-ng-skeleton>
-        <dcx-ng-skeleton width="82%" height="1rem" animation="none"></dcx-ng-skeleton>
-        <dcx-ng-skeleton width="64%" height="1rem" animation="none"></dcx-ng-skeleton>
+        <dcx-ng-skeleton width="100%" height="1rem" [animation]="animation"></dcx-ng-skeleton>
+        <dcx-ng-skeleton width="82%" height="1rem" [animation]="animation"></dcx-ng-skeleton>
+        <dcx-ng-skeleton width="64%" height="1rem" [animation]="animation"></dcx-ng-skeleton>
       </div>
     `,
   }),
