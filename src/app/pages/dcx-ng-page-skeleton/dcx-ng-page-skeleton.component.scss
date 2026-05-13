@@ -32,16 +32,6 @@
   gap: var(--sp-3, 12px);
 }
 
-.card-placeholder {
-  display: grid;
-  gap: var(--sp-4, 16px);
-  max-width: 24rem;
-  padding: var(--sp-5, 20px);
-  border: 1px solid var(--border-light, #d1d5db);
-  border-radius: var(--r-lg, 8px);
-  background: var(--bg-default, #ffffff);
-}
-
 .card-header,
 .list-item {
   display: flex;

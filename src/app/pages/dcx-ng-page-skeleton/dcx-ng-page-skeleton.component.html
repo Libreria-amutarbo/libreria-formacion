@@ -39,7 +39,7 @@
 
 <section>
   <h2 class="example-title">Ejemplo 3 - Placeholder de tarjeta</h2>
-  <div class="card-placeholder" aria-busy="true">
+  <ng-template #cardSkeletonHeaderTpl>
     <div class="card-header">
       <dcx-ng-skeleton shape="circle" size="3rem"></dcx-ng-skeleton>
       <div class="card-lines">
@@ -47,18 +47,34 @@
         <dcx-ng-skeleton width="42%" height="0.75rem"></dcx-ng-skeleton>
       </div>
     </div>
+  </ng-template>
 
+  <ng-template #cardSkeletonContentTpl>
     <dcx-ng-skeleton
       width="100%"
       height="9rem"
       borderRadius="8px"
     ></dcx-ng-skeleton>
+  </ng-template>
 
+  <ng-template #cardSkeletonFooterTpl>
     <div class="card-actions">
       <dcx-ng-skeleton width="5rem" height="2rem"></dcx-ng-skeleton>
       <dcx-ng-skeleton width="5rem" height="2rem"></dcx-ng-skeleton>
     </div>
-  </div>
+  </ng-template>
+
+  <dcx-ng-card
+    aria-busy="true"
+    [image]="null"
+    [header]="cardSkeletonHeaderTpl"
+    [content]="cardSkeletonContentTpl"
+    [footer]="cardSkeletonFooterTpl"
+    [bordered]="true"
+    [shadow]="1"
+    align="start"
+    maxContentWidth="24rem"
+  ></dcx-ng-card>
 </section>
 
 <dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>

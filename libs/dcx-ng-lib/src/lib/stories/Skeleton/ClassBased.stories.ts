@@ -1,5 +1,8 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { DcxNgSkeletonComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgCardComponent,
+  DcxNgSkeletonComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const meta: Meta<DcxNgSkeletonComponent> = {
   title: 'DCXLibrary/Components/Skeleton',
@@ -7,7 +10,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [DcxNgSkeletonComponent],
+      imports: [DcxNgSkeletonComponent, DcxNgCardComponent],
     }),
   ],
   args: {
@@ -117,7 +120,7 @@ export const CardPlaceholder: Story = {
   render: args => ({
     props: args,
     template: `
-      <div style="max-width: 24rem; border: 1px solid var(--border-light, #d1d5db); border-radius: var(--r-lg, 8px); padding: var(--sp-5, 20px); background: var(--bg-default, #ffffff);">
+      <ng-template #cardSkeletonHeaderTpl>
         <div style="display: flex; gap: var(--sp-3, 12px); align-items: center; margin-bottom: var(--sp-4, 16px);">
           <dcx-ng-skeleton shape="circle" size="3rem" [animation]="animation"></dcx-ng-skeleton>
           <div style="display: grid; gap: var(--sp-2, 8px); flex: 1;">
@@ -125,12 +128,30 @@ export const CardPlaceholder: Story = {
             <dcx-ng-skeleton width="42%" height="0.75rem" [animation]="animation"></dcx-ng-skeleton>
           </div>
         </div>
+      </ng-template>
+
+      <ng-template #cardSkeletonContentTpl>
         <dcx-ng-skeleton width="100%" height="9rem" borderRadius="8px" [animation]="animation"></dcx-ng-skeleton>
+      </ng-template>
+
+      <ng-template #cardSkeletonFooterTpl>
         <div style="display: flex; justify-content: space-between; margin-top: var(--sp-4, 16px);">
           <dcx-ng-skeleton width="5rem" height="2rem" borderRadius="6px" [animation]="animation"></dcx-ng-skeleton>
           <dcx-ng-skeleton width="5rem" height="2rem" borderRadius="6px" [animation]="animation"></dcx-ng-skeleton>
         </div>
-      </div>
+      </ng-template>
+
+      <dcx-ng-card
+        aria-busy="true"
+        [image]="null"
+        [header]="cardSkeletonHeaderTpl"
+        [content]="cardSkeletonContentTpl"
+        [footer]="cardSkeletonFooterTpl"
+        [bordered]="true"
+        [shadow]="1"
+        align="start"
+        maxContentWidth="24rem"
+      ></dcx-ng-card>
     `,
   }),
 };
