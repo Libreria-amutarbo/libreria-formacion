@@ -39,12 +39,41 @@ export class DcxNgCarouselComponent implements OnDestroy {
 
   totalItems = computed(() => this.value().length);
 
+  isVertical = computed(() => this.orientation() === 'vertical');
+
+  carouselClass = computed(() => {
+    return this.isVertical()
+      ? 'dcx-carousel dcx-carousel--vertical'
+      : 'dcx-carousel';
+  });
+
+  slideDirection = computed(() => (this.isVertical() ? 'column' : 'row'));
+
+  currentIcon = computed(() =>
+    this.isVertical() ? 'chevron-up' : 'chevron-left',
+  );
+
+  nextIcon = computed(() =>
+    this.isVertical() ? 'chevron-down' : 'chevron-right',
+  );
+
+  canNavigate = computed(() => this.totalItems() > 1);
+
+  showNavigatorButtons = computed(
+    () => this.showNavigators() && this.canNavigate(),
+  );
+
+  showIndicatorDots = computed(
+    () => this.showIndicators() && this.canNavigate(),
+  );
+
   wrapperTransform = computed(() => {
     const page = this.currentPage();
-    const isVertical = this.orientation() === 'vertical';
     const shift = page * 100;
-    
-    return isVertical ? `translateY(-${shift}%)` : `translateX(-${shift}%)`;
+
+    return this.isVertical()
+      ? `translateY(-${shift}%)`
+      : `translateX(-${shift}%)`;
   });
 
   constructor() {
@@ -70,7 +99,7 @@ export class DcxNgCarouselComponent implements OnDestroy {
     } else if (this.circular()) {
       this.currentPage.set(0);
     }
-    
+
     this.pageChange.emit({ page: this.currentPage() });
   }
 
@@ -100,6 +129,7 @@ export class DcxNgCarouselComponent implements OnDestroy {
   private clearTimer(): void {
     if (this._timer) {
       clearInterval(this._timer);
+      this._timer = undefined;
     }
   }
 }
