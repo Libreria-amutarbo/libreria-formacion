@@ -18,6 +18,7 @@ export const APP_ROUTES = {
   LIST: 'list',
   PAGINATOR: 'paginator',
   SLIDER: 'slider',
+  SKELETON: 'skeleton',
   DATEPICKER: 'date-picker',
   DRAWER: 'drawer',
   EDITOR: 'editor',

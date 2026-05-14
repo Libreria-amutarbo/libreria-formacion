@@ -1,0 +1,59 @@
+@use './../../app.component.scss';
+
+.example-title {
+  margin-bottom: var(--sp-3, 12px);
+}
+
+.divider {
+  margin: var(--sp-6, 24px) 0;
+}
+
+.example-stack {
+  display: grid;
+  gap: var(--sp-3, 12px);
+  max-width: 32rem;
+}
+
+.shape-grid {
+  display: grid;
+  gap: var(--sp-5, 20px);
+}
+
+.shape-group {
+  display: grid;
+  gap: var(--sp-3, 12px);
+  max-width: 24rem;
+}
+
+.inline-shapes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3, 12px);
+}
+
+.card-header,
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3, 12px);
+}
+
+.card-lines,
+.list-lines {
+  display: grid;
+  flex: 1;
+  gap: var(--sp-2, 8px);
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3, 12px);
+}
+
+.list-placeholder {
+  display: grid;
+  gap: var(--sp-4, 16px);
+  max-width: 28rem;
+}
