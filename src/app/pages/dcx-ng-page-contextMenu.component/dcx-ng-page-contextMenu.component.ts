@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   DcxNgContextMenuComponent,
   DcxContextMenuItem,
@@ -8,7 +9,7 @@ import {
 @Component({
   selector: 'app-dcx-ng-page-context-menu',
   standalone: true,
-  imports: [DcxNgContextMenuComponent, DcxNgButtonComponent],
+  imports: [DcxNgContextMenuComponent, DcxNgButtonComponent, FormsModule],
   templateUrl: './dcx-ng-page-contextMenu.component.html',
   styleUrl: './dcx-ng-page-contextMenu.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -73,11 +74,22 @@ export class DcxNgPageContextMenuComponent {
   menuPosition3 = { x: 0, y: 0 };
   selectedItem: DcxContextMenuItem | null = null;
 
-  openContextMenu(event: MouseEvent, menuNumber: number): void {
+  coordX1 = 330;
+  coordY1 = 70;
+  coordX3 = 330;
+  coordY3 = 70;
+
+  openContextMenu(event: MouseEvent, menuNumber: number, area: HTMLElement): void {
     event.preventDefault();
     event.stopPropagation();
 
-    const position = { x: event.clientX, y: event.clientY };
+    const areaRect = area.getBoundingClientRect();
+    const menuWidth = 240;
+    const coordX = menuNumber === 1 ? this.coordX1 : this.coordX3;
+    const coordY = menuNumber === 1 ? this.coordY1 : this.coordY3;
+    const clampedX = Math.max(0, Math.min(coordX, areaRect.width - menuWidth));
+    const clampedY = Math.max(0, Math.min(coordY, areaRect.height));
+    const position = { x: areaRect.left + clampedX, y: areaRect.top + clampedY };
 
     if (menuNumber === 1) {
       this.menuPosition1 = position;
