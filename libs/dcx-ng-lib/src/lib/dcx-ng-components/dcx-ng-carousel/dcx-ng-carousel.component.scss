@@ -1,22 +1,27 @@
 .dcx-carousel {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
   gap: var(--sp-4, 16px);
   box-sizing: border-box;
 
   &-content {
     display: flex;
     align-items: center;
-    gap: var(--sp-2, 8px);
+    gap: var(--sp-5, 20px);
     position: relative;
     width: 100%;
-    overflow: hidden;
+    margin: 0 auto;
   }
 
   &-container {
     overflow: hidden;
     flex: 1;
     display: flex;
+    gap: var(--sp-5, 20px);
+    padding: var(--sp-5, 20px);
+    box-sizing: border-box;
   }
 
   &-items-wrapper {

@@ -38,6 +38,7 @@ import { DcxNgPageThemeGeneratorComponent } from './pages/dcx-ng-page-theme-gene
 import { DcxNgPageTextareaComponent } from './pages/dcx-ng-page-textarea/dcx-ng-page-textarea.component';
 import { DcxNgPageProgressbarComponent } from './pages/dcx-ng-page-progressbar/dcx-ng-page-progressbar.component';
 import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page-editor.component';
+import { DcxNgPageCarouselComponent } from './pages/dcx-ng-page-carousel/dcx-ng-page-carousel.component';
 
 export const appRoutes: Route[] = [
   {
@@ -191,5 +192,9 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.THEME_GENERATOR,
     component: DcxNgPageThemeGeneratorComponent,
+  },
+  {
+    path: APP_ROUTES.CAROUSEL,
+    component: DcxNgPageCarouselComponent,
   },
 ];
