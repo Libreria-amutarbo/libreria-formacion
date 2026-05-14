@@ -28,3 +28,4 @@ export * from './drawer';
 export * from './textarea';
 export * from './editor';
 export * from './stepper';
+export * from './badge';

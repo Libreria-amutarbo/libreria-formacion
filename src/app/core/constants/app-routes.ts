@@ -36,4 +36,5 @@ export const APP_ROUTES = {
   THEME_GENERATOR: 'theme-generator',
   SCROLL_TOP_DOWN: 'scroll-top-down',
   TEXTAREA: 'textarea',
+  BADGE: 'badge',
 };

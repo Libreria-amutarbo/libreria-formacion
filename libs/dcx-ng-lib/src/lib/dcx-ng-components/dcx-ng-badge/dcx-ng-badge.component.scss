@@ -1,0 +1,72 @@
+.dcx-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-pill, 999px);
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  font-weight: var(--fw-semibold, 600);
+  line-height: 1;
+  white-space: nowrap;
+  min-width: 1.5rem;
+  padding: 0 var(--sp-2, 8px);
+  height: 1.5rem;
+  font-size: var(--fs-xs, 11px);
+
+  &--sm {
+    min-width: 1rem;
+    height: 1rem;
+    padding: 0 var(--sp-1, 4px);
+    font-size: var(--fs-xs, 11px);
+  }
+
+  &--md {
+    min-width: 1.5rem;
+    height: 1.5rem;
+    padding: 0 var(--sp-2, 8px);
+    font-size: var(--fs-xs, 11px);
+  }
+
+  &--lg {
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 var(--sp-2, 8px);
+    font-size: var(--fs-sm, 12px);
+  }
+
+  &--xl {
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 var(--sp-3, 12px);
+    font-size: var(--fs-base, 14px);
+  }
+
+  &--primary {
+    background-color: var(--bg-primary, #0058ab);
+    color: var(--text-white, #ffffff);
+  }
+
+  &--secondary {
+    background-color: var(--text-muted, #696e75);
+    color: var(--text-white, #ffffff);
+  }
+
+  &--success {
+    background-color: var(--color-success, #16a34a);
+    color: var(--text-white, #ffffff);
+  }
+
+  &--info {
+    background-color: var(--color-info, #0058ab);
+    color: var(--text-white, #ffffff);
+  }
+
+  &--warn {
+    background-color: var(--color-warning, #d97706);
+    color: var(--text-white, #ffffff);
+  }
+
+  &--danger {
+    background-color: var(--color-danger, #dc2626);
+    color: var(--text-white, #ffffff);
+  }
+}
