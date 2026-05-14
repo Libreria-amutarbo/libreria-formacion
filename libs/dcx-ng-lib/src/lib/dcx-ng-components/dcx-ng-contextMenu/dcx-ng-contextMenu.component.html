@@ -1,9 +1,11 @@
 @if (isOpen()) {
   <div
+    #container
     class="dcx-context-menu"
     [class.dcx-context-menu--absolute]="positionMode() === 'absolute'"
-    [style.top]="menuStyle().top"
-    [style.left]="menuStyle().left"
+    [style.top]="top()"
+    [style.left]="left()"
+    [style.opacity]="isPositioned() ? '1' : '0'"
     (click)="$event.stopPropagation()"
     tabindex="0"
     role="menu"
