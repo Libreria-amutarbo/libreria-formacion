@@ -6,7 +6,7 @@ import {
   input,
   output,
   signal,
-  viewChild,
+  ViewChild,
 } from '@angular/core';
 import { DcxContextMenuItem } from '../../core/interfaces';
 import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
@@ -20,7 +20,7 @@ import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgContextMenuComponent {
-  container = viewChild<ElementRef>('container');
+  @ViewChild('container') container!: ElementRef;
 
   items = input.required<DcxContextMenuItem[]>();
   position = input<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -34,10 +34,7 @@ export class DcxNgContextMenuComponent {
   top = signal<string>('-9999px');
   left = signal<string>('-9999px');
 
-  private ignoreNextClick = false;
-
   open(): void {
-    this.ignoreNextClick = true;
     this.isOpen.set(true);
     setTimeout(() => {
       this.calculatePosition();
@@ -60,9 +57,9 @@ export class DcxNgContextMenuComponent {
       return;
     }
 
-    if (!this.container()) return;
+    if (!this.container) return;
 
-    const menuEl = this.container()!.nativeElement;
+    const menuEl = this.container.nativeElement;
     const menuRect = menuEl.getBoundingClientRect();
     const gap = 8;
 
@@ -111,9 +108,8 @@ export class DcxNgContextMenuComponent {
   }
 
   @HostListener('document:click', ['$event'])
-  onDocumentClick(_event: Event): void {
-    if (this.ignoreNextClick) {
-      this.ignoreNextClick = false;
+  onDocumentClick(event: Event): void {
+    if (this.container?.nativeElement.contains(event.target as Node)) {
       return;
     }
 
