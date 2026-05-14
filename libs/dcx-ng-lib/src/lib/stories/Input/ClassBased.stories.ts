@@ -16,6 +16,7 @@ import {
   INPUT_DEFAULT_SIZE,
   INPUT_DEFAULT_TYPE,
   INPUT_DEFAULT_VALUE,
+  INPUT_DEFAULT_REQUIRED_MESSAGE,
 } from '@dcx-ng-components/dcx-ng-lib';
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
@@ -131,6 +132,13 @@ const meta: Meta<DcxNgInputComponent> = {
       defaultValue: null,
       table: { category: 'Attributes' },
     },
+    requiredMessage: {
+      description:
+        'Texto a mostrar cuando el campo requerido está vacío tras perder el foco',
+      control: { type: 'text' },
+      defaultValue: null,
+      table: { category: 'Attributes' },
+    },
     errorIcon: {
       control: 'text',
       defaultValue: null,
@@ -212,6 +220,7 @@ const meta: Meta<DcxNgInputComponent> = {
     type: INPUT_DEFAULT_TYPE,
     name: INPUT_DEFAULT_NAME,
     required: INPUT_DEFAULT_REQUIRED,
+    requiredMessage: INPUT_DEFAULT_REQUIRED_MESSAGE,
     autocomplete: INPUT_DEFAULT_AUTOCOMPLETE,
     inputMode: INPUT_DEFAULT_INPUTMODE,
     isInvalid: INPUT_DEFAULT_INVALID,
@@ -280,6 +289,7 @@ export const diferentsTypes: Story = {
 
 export const required: Story = {
   args: {
+    label: 'Requerido',
     required: true,
   },
 };

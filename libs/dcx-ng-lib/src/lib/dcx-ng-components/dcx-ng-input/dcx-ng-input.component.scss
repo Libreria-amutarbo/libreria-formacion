@@ -17,6 +17,10 @@
   font-weight: var(--fw-medium, 500);
 }
 
+.dcx-ng-input__label.is-invalid {
+  color: var(--color-error, #dc2626);
+}
+
 .dcx-ng-input__wrapper {
   position: relative;
   width: 100%;
