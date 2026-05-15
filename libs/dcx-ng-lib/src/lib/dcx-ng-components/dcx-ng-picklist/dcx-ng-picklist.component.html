@@ -7,7 +7,7 @@
         size="s"
         icon
         iconName="chevron-double-up"
-        ariaLabel="Mover disponibles seleccionados al inicio"
+        [ariaLabel]="getReorderControlLabel('source', 'top')"
         [disabled]="disabled() || !hasSelectedSource()"
         (buttonClick)="moveTop('source')"
       ></dcx-ng-button>
@@ -17,7 +17,7 @@
         size="s"
         icon
         iconName="chevron-up"
-        ariaLabel="Mover disponibles seleccionados arriba"
+        [ariaLabel]="getReorderControlLabel('source', 'up')"
         [disabled]="disabled() || !hasSelectedSource()"
         (buttonClick)="moveUp('source')"
       ></dcx-ng-button>
@@ -27,7 +27,7 @@
         size="s"
         icon
         iconName="chevron-down"
-        ariaLabel="Mover disponibles seleccionados abajo"
+        [ariaLabel]="getReorderControlLabel('source', 'down')"
         [disabled]="disabled() || !hasSelectedSource()"
         (buttonClick)="moveDown('source')"
       ></dcx-ng-button>
@@ -37,7 +37,7 @@
         size="s"
         icon
         iconName="chevron-double-down"
-        ariaLabel="Mover disponibles seleccionados al final"
+        [ariaLabel]="getReorderControlLabel('source', 'bottom')"
         [disabled]="disabled() || !hasSelectedSource()"
         (buttonClick)="moveBottom('source')"
       ></dcx-ng-button>
@@ -122,7 +122,7 @@
       size="s"
       icon
       iconName="chevron-right"
-      ariaLabel="Mover seleccionados a seleccionados"
+      [ariaLabel]="getMoveSelectedLabel('source')"
       [disabled]="disabled() || !hasSelectedSource()"
       (buttonClick)="moveSelectedToTarget()"
     ></dcx-ng-button>
@@ -132,7 +132,7 @@
       size="s"
       icon
       iconName="chevron-double-right"
-      ariaLabel="Mover todos a seleccionados"
+      [ariaLabel]="getMoveAllLabel('source')"
       [disabled]="disabled() || !canMoveAllToTarget()"
       (buttonClick)="moveEveryItemToTarget()"
     ></dcx-ng-button>
@@ -142,7 +142,7 @@
       size="s"
       icon
       iconName="chevron-left"
-      ariaLabel="Mover seleccionados a disponibles"
+      [ariaLabel]="getMoveSelectedLabel('target')"
       [disabled]="disabled() || !hasSelectedTarget()"
       (buttonClick)="moveSelectedToSource()"
     ></dcx-ng-button>
@@ -152,7 +152,7 @@
       size="s"
       icon
       iconName="chevron-double-left"
-      ariaLabel="Mover todos a disponibles"
+      [ariaLabel]="getMoveAllLabel('target')"
       [disabled]="disabled() || !canMoveAllToSource()"
       (buttonClick)="moveEveryItemToSource()"
     ></dcx-ng-button>
@@ -237,7 +237,7 @@
         size="s"
         icon
         iconName="chevron-double-up"
-        ariaLabel="Mover seleccionados al inicio"
+        [ariaLabel]="getReorderControlLabel('target', 'top')"
         [disabled]="disabled() || !hasSelectedTarget()"
         (buttonClick)="moveTop('target')"
       ></dcx-ng-button>
@@ -247,7 +247,7 @@
         size="s"
         icon
         iconName="chevron-up"
-        ariaLabel="Mover seleccionados arriba"
+        [ariaLabel]="getReorderControlLabel('target', 'up')"
         [disabled]="disabled() || !hasSelectedTarget()"
         (buttonClick)="moveUp('target')"
       ></dcx-ng-button>
@@ -257,7 +257,7 @@
         size="s"
         icon
         iconName="chevron-down"
-        ariaLabel="Mover seleccionados abajo"
+        [ariaLabel]="getReorderControlLabel('target', 'down')"
         [disabled]="disabled() || !hasSelectedTarget()"
         (buttonClick)="moveDown('target')"
       ></dcx-ng-button>
@@ -267,7 +267,7 @@
         size="s"
         icon
         iconName="chevron-double-down"
-        ariaLabel="Mover seleccionados al final"
+        [ariaLabel]="getReorderControlLabel('target', 'bottom')"
         [disabled]="disabled() || !hasSelectedTarget()"
         (buttonClick)="moveBottom('target')"
       ></dcx-ng-button>

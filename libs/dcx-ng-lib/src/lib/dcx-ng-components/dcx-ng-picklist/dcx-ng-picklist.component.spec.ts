@@ -86,12 +86,15 @@ describe('DcxNgPickListComponent', () => {
     component.toggleItem(item, 'source');
     fixture.detectChanges();
 
-    const transferButton = host().querySelector(
-      'button[aria-label="Mover seleccionados a seleccionados"]',
-    ) as HTMLButtonElement;
+    const transferButton = host().querySelector<HTMLButtonElement>(
+      'button[aria-label="Mover seleccionados de Disponibles a Seleccionados"]',
+    );
 
-    expect(host().querySelectorAll('dcx-ng-button').length).toBe(12);
+    expect(transferButton).not.toBeNull();
 
+    if (!transferButton) {
+      return;
+    }
     transferButton.click();
 
     expect(component.sourceItems().some(sourceItem => sourceItem.id === item.id))
@@ -128,6 +131,70 @@ describe('DcxNgPickListComponent', () => {
       side: 'source',
       items: component.sourceItems(),
     });
+  });
+
+  it('translates filtered drag indexes when reordering within a list', () => {
+    fixture.componentRef.setInput('source', PICKLIST_AVAILABLE_COURSES.slice(0, 4));
+    fixture.componentRef.setInput('filterBy', 'category');
+    fixture.componentRef.setInput('dragdrop', true);
+    fixture.detectChanges();
+    component.onFilterChange('source', 'Frontend');
+    const container = {
+      id: component.sourceListId,
+      data: component.visibleSourceItems(),
+    };
+
+    component.onDrop(
+      {
+        previousContainer: container,
+        container,
+        previousIndex: 1,
+        currentIndex: 0,
+      } as never,
+      'source',
+    );
+
+    expect(component.sourceItems().map(item => item.id)).toEqual([
+      'rxjs-practical',
+      'angular-foundations',
+      'design-system',
+      'testing-library',
+    ]);
+  });
+
+  it('translates filtered drag indexes when transferring between lists', () => {
+    fixture.componentRef.setInput('source', PICKLIST_AVAILABLE_COURSES.slice(0, 4));
+    fixture.componentRef.setInput('target', PICKLIST_SELECTED_COURSES);
+    fixture.componentRef.setInput('filterBy', 'category,label');
+    fixture.componentRef.setInput('dragdrop', true);
+    fixture.detectChanges();
+    component.onFilterChange('source', 'UX');
+    component.onFilterChange('target', 'Git');
+
+    component.onDrop(
+      {
+        previousContainer: {
+          id: component.sourceListId,
+          data: component.visibleSourceItems(),
+        },
+        container: {
+          id: component.targetListId,
+          data: component.visibleTargetItems(),
+        },
+        previousIndex: 0,
+        currentIndex: 0,
+      } as never,
+      'target',
+    );
+
+    expect(component.sourceItems().map(item => item.id)).not.toContain(
+      'design-system',
+    );
+    expect(component.targetItems().map(item => item.id)).toEqual([
+      'design-system',
+      'git-workflow',
+      'agile-delivery',
+    ]);
   });
 
   it('filters source items by the configured field', () => {
@@ -173,5 +240,19 @@ describe('DcxNgPickListComponent', () => {
     expect(component.selectedSourceIds()).toEqual(
       component.visibleSourceItems().map(item => item.id),
     );
+  });
+
+  it('moves DOM focus when navigating options with arrow keys', () => {
+    const options = host().querySelectorAll<HTMLElement>('[role="option"]');
+    options[0].focus();
+
+    component.onItemKeydown(
+      new KeyboardEvent('keydown', { key: 'ArrowDown' }),
+      component.sourceItems()[0],
+      'source',
+      0,
+    );
+
+    expect(document.activeElement).toBe(options[1]);
   });
 });

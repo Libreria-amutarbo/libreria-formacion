@@ -15,7 +15,7 @@ La implementacion mantiene toda la logica dentro del `.component.ts` porque la l
 
 - [x] Existe el componente standalone `dcx-ng-picklist` en `libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-picklist/`.
 - [x] Usa `ChangeDetectionStrategy.OnPush` y Signals API (`input`, `output`, `signal`, `computed`, `effect`).
-- [x] Registra los `effect` en `ngOnInit` con `inject(Injector)`, evitando constructor explicito.
+- [x] Registra los `effect` como inicializadores de clase en contexto de inyeccion, evitando constructor explicito.
 - [x] Soporta `source` y `target` como arrays de `DcxPickListItem`.
 - [x] Permite seleccionar multiples elementos por lista y deseleccionarlos.
 - [x] Permite mover seleccionados a target/source y mover todos a target/source.
@@ -25,6 +25,7 @@ La implementacion mantiene toda la logica dentro del `.component.ts` porque la l
 - [x] Emite eventos de movimiento, reordenacion, seleccion y filtrado.
 - [x] Emite `sourceChange` y `targetChange` para uso controlado.
 - [x] Soporta `dragdrop` con Angular CDK para reordenar dentro de una lista o transferir entre listas.
+- [x] Traduce indices visibles a indices reales cuando el drag/drop se usa con filtros activos.
 - [x] Soporta estado `disabled` global y elementos deshabilitados por item.
 - [x] Expone roles ARIA de listbox/option y labels accesibles en los controles.
 - [x] Usa `DcxNgButtonComponent` y `(buttonClick)` en los controles de mover/reordenar, alineado con el patron de botones de la libreria.
@@ -33,6 +34,7 @@ La implementacion mantiene toda la logica dentro del `.component.ts` porque la l
 - [x] Incluye fixtures reutilizables y export en `core/fixtures`.
 - [x] Incluye tests unitarios del comportamiento principal.
 - [x] Incluye stories de Storybook y pagina demo de la app.
+- [x] Incluye documentacion MDX para Storybook.
 - [x] Exporta el componente desde `libs/dcx-ng-lib/src/index.ts`.
 
 ## 3. API
@@ -113,6 +115,8 @@ export interface DcxPickListMoveEvent {
 - Motivo: `DcxNgListComponent` gestiona seleccion interna, trabaja con `DcxListItem` y no expone hoy puntos naturales para `cdkDropList/cdkDrag`, roles `listbox/option`, seleccion controlada por dos listas ni template de item con contexto `side/selected`.
 - Los controles de mover/reordenar usan `DcxNgButtonComponent` con `(buttonClick)`. Las opciones mantienen `(click)` en `li` porque su semantica es `role="option"` dentro de `listbox`, no boton.
 - Los filtros usan `DcxNgInputComponent` con `DcxInputType.SEARCH`, `valueChange`, `ariaLabel` y placeholders configurables.
+- Los labels accesibles de los controles se derivan de `sourceHeader` y `targetHeader` para respetar cabeceras configuradas.
+- El drag/drop usa los indices visibles emitidos por CDK y los traduce a posiciones de la lista completa para mantener el orden correcto cuando hay filtros activos.
 - El componente soporta explicitamente los escenarios PrimeNG de `Filter` y `Template`:
   - Demo app `/picklist`: ejemplos `Basic`, `Filter` y `Template`.
   - Storybook: stories `Default`, `Filter`, `CustomTemplate` y `Disabled`.
@@ -121,8 +125,8 @@ export interface DcxPickListMoveEvent {
 
 ## 6. Validation
 
-- `npx.cmd jest --runTestsByPath src/lib/dcx-ng-components/dcx-ng-picklist/dcx-ng-picklist.component.spec.ts --config jest.config.ts --runInBand`: passing, 10 tests.
-- `npx.cmd jest src/app/pages/dcx-ng-page-picklist/dcx-ng-page-picklist.component.spec.ts --config jest.config.app.ts --runInBand`: passing, 1 test.
+- `npx.cmd jest --runTestsByPath src/lib/dcx-ng-components/dcx-ng-picklist/dcx-ng-picklist.component.spec.ts --config jest.config.ts --runInBand`: passing, 13 tests.
+- `npx.cmd jest src/app/pages/dcx-ng-page-picklist/dcx-ng-page-picklist.component.spec.ts --config jest.config.app.ts --runInBand`: passing, 2 tests.
 - `npx.cmd nx build dcx-ng-lib`: passing.
 - `npx.cmd nx build dcx-ng-components`: passing.
 - `npx.cmd nx run dcx-ng-components:build-storybook`: passing.

@@ -203,8 +203,8 @@ export const CustomTemplate: Story = {
           (sourceChange)="updateSource($event)"
           (targetChange)="updateTarget($event)">
           <ng-template #item let-item let-selected="selected">
-            <div style="display:flex; align-items:center; gap:12px; width:100%; padding:8px 12px;">
-              <span style="display:inline-flex; width:32px; height:32px; align-items:center; justify-content:center; border-radius:var(--r-md, 6px); background:var(--color-info-bg, #eff6ff); color:var(--bg-primary, #0058ab); font-weight:var(--fw-bold, 700);">
+            <div style="display:flex; align-items:center; gap:var(--sp-3, 12px); width:100%; padding:var(--sp-2, 8px) var(--sp-3, 12px);">
+              <span style="display:inline-flex; width:var(--sp-8, 32px); height:var(--sp-8, 32px); align-items:center; justify-content:center; border-radius:var(--r-md, 6px); background:var(--color-info-bg, #eff6ff); color:var(--bg-primary, #0058ab); font-weight:var(--fw-bold, 700);">
                 {{ item.label.charAt(0) }}
               </span>
               <span style="display:flex; flex-direction:column; min-width:0; flex:1;">
@@ -225,9 +225,16 @@ export const CustomTemplate: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
+    source: PICKLIST_AVAILABLE_COURSES,
+  },
+};
+
+export const ItemDisabled: Story = {
+  args: {
     source: PICKLIST_AVAILABLE_COURSES.map((item, index) => ({
       ...item,
       disabled: index === 1,
     })),
+    target: PICKLIST_SELECTED_COURSES,
   },
 };
