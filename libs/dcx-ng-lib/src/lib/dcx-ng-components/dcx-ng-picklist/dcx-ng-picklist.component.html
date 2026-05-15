@@ -78,9 +78,7 @@
     >
       @for (item of visibleSourceItems(); track item.id; let index = $index) {
         <li
-          class="dcx-picklist__item"
-          [class.dcx-picklist__item--selected]="isSelected(item, 'source')"
-          [class.dcx-picklist__item--disabled]="isItemDisabled(item)"
+          [class]="getItemClasses(item, 'source')"
           role="option"
           cdkDrag
           [cdkDragData]="item"
@@ -192,9 +190,7 @@
     >
       @for (item of visibleTargetItems(); track item.id; let index = $index) {
         <li
-          class="dcx-picklist__item"
-          [class.dcx-picklist__item--selected]="isSelected(item, 'target')"
-          [class.dcx-picklist__item--disabled]="isItemDisabled(item)"
+          [class]="getItemClasses(item, 'target')"
           role="option"
           cdkDrag
           [cdkDragData]="item"
