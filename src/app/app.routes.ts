@@ -10,6 +10,7 @@ import { DcxNgPageRadioComponent } from './pages/dcx-ng-page-radio/dcx-ng-page-r
 import { DcxNgPageInputComponent } from './pages/dcx-ng-page-input/dcx-ng-page-input.component';
 import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component';
 import { DcxNgPagePaginatorComponent } from './pages/dcx-ng-page-paginator/dcx-ng-page-paginator.component';
+import { DcxNgPagePickListComponent } from './pages/dcx-ng-page-picklist/dcx-ng-page-picklist.component';
 import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCheckboxComponent } from './pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component';
@@ -92,6 +93,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.PAGINATOR,
     component: DcxNgPagePaginatorComponent,
+  },
+  {
+    path: APP_ROUTES.PICKLIST,
+    component: DcxNgPagePickListComponent,
   },
   {
     path: APP_ROUTES.CHIP,

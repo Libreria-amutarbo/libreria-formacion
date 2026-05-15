@@ -1,0 +1,70 @@
+<section>
+  <h2 class="example-title">Ejemplo 1 - PickList basico</h2>
+  <dcx-ng-picklist
+    sourceHeader="Disponibles"
+    targetHeader="Asignados"
+    [source]="basicSource()"
+    [target]="basicTarget()"
+    (sourceChange)="updateBasicSource($event)"
+    (targetChange)="updateBasicTarget($event)"
+  ></dcx-ng-picklist>
+</section>
+
+<dcx-ng-divider
+  class="divider"
+  [thickness]="0.1"
+  color="#0058ab"
+></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - PickList con filtros</h2>
+  <dcx-ng-picklist
+    sourceHeader="Cursos disponibles"
+    targetHeader="Plan formativo"
+    filterBy="label,description,category"
+    sourceFilterPlaceholder="Buscar cursos"
+    targetFilterPlaceholder="Buscar seleccionados"
+    scrollHeight="20rem"
+    dragdrop
+    showSourceFilter
+    showTargetFilter
+    [source]="filterSource()"
+    [target]="filterTarget()"
+    (sourceChange)="updateFilterSource($event)"
+    (targetChange)="updateFilterTarget($event)"
+  ></dcx-ng-picklist>
+</section>
+
+<dcx-ng-divider
+  class="divider"
+  [thickness]="0.1"
+  color="#0058ab"
+></dcx-ng-divider>
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - PickList con template</h2>
+  <dcx-ng-picklist
+    sourceHeader="Cursos disponibles"
+    targetHeader="Plan formativo"
+    filterBy="label,description,category"
+    scrollHeight="20rem"
+    dragdrop
+    [source]="templateSource()"
+    [target]="templateTarget()"
+    (sourceChange)="updateTemplateSource($event)"
+    (targetChange)="updateTemplateTarget($event)"
+  >
+    <ng-template #item let-item let-selected="selected">
+      <div class="course-option">
+        <span class="course-option__initial">{{ item.label.charAt(0) }}</span>
+        <span class="course-option__content">
+          <strong>{{ item.label }}</strong>
+          <small>{{ item.description }}</small>
+        </span>
+        @if (selected) {
+          <span class="course-option__badge">Incluido</span>
+        }
+      </div>
+    </ng-template>
+  </dcx-ng-picklist>
+</section>

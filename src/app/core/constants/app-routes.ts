@@ -17,6 +17,7 @@ export const APP_ROUTES = {
   ICON_FIELD: 'icon-field',
   LIST: 'list',
   PAGINATOR: 'paginator',
+  PICKLIST: 'picklist',
   SLIDER: 'slider',
   SKELETON: 'skeleton',
   DATEPICKER: 'date-picker',

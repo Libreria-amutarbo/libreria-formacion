@@ -29,6 +29,7 @@ const ROUTE_ICONS: Record<string, string> = {
   toast: 'bell',
   navbar: 'layout-sidebar',
   paginator: 'skip-end',
+  picklist: 'list-check',
   popover: 'window',
   radio: 'record-circle',
   search: 'search',
