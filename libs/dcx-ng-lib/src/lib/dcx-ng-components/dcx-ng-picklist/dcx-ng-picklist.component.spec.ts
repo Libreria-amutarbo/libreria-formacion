@@ -80,6 +80,26 @@ describe('DcxNgPickListComponent', () => {
     });
   });
 
+  it('uses library buttonClick controls to move selected source items', () => {
+    const item = component.sourceItems()[0];
+
+    component.toggleItem(item, 'source');
+    fixture.detectChanges();
+
+    const transferButton = host().querySelector(
+      'button[aria-label="Mover seleccionados a seleccionados"]',
+    ) as HTMLButtonElement;
+
+    expect(host().querySelectorAll('dcx-ng-button').length).toBe(12);
+
+    transferButton.click();
+
+    expect(component.sourceItems().some(sourceItem => sourceItem.id === item.id))
+      .toBe(false);
+    expect(component.targetItems().some(targetItem => targetItem.id === item.id))
+      .toBe(true);
+  });
+
   it('moves all enabled target items to source', () => {
     const moveSpy = jest.fn();
     component.moveAllToSource.subscribe(moveSpy);
@@ -116,6 +136,9 @@ describe('DcxNgPickListComponent', () => {
     fixture.componentRef.setInput('showSourceFilter', true);
     fixture.detectChanges();
     component.sourceFilter.subscribe(filterSpy);
+
+    expect(host().querySelector('dcx-ng-input')).toBeTruthy();
+    expect(host().querySelector('input[type="search"]')).toBeTruthy();
 
     component.onFilterChange('source', 'UX');
 

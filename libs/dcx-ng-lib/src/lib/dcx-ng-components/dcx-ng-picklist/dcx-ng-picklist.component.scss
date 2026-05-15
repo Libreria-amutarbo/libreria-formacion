@@ -10,7 +10,7 @@
   --dcx-picklist-radius: var(--r-lg, 8px);
   --dcx-picklist-item-radius: var(--r-md, 6px);
   --dcx-picklist-selected-bg: var(--color-info-bg, #eff6ff);
-  --dcx-picklist-selected-color: var(--bg-primary, #0058ab);
+  --dcx-picklist-selected-color: var(--color-info, #0058ab);
   --dcx-picklist-focus: var(--border-focus, #1db8f2);
 }
 
@@ -45,7 +45,7 @@
 
   h3 {
     margin: 0;
-    font-size: var(--fs-md, 14px);
+    font-size: var(--fs-md, 16px);
     font-weight: var(--fw-semibold, 600);
     line-height: 1.3;
   }
@@ -63,26 +63,8 @@
 }
 
 .dcx-picklist__filter {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2, 8px);
   padding: var(--sp-2, 8px) var(--sp-3, 12px);
   border-bottom: 1px solid var(--dcx-picklist-panel-border);
-  color: var(--dcx-picklist-muted);
-
-  input {
-    width: 100%;
-    min-width: 0;
-    border: 0;
-    outline: none;
-    color: inherit;
-    background: transparent;
-    font: inherit;
-  }
-
-  &:focus-within {
-    box-shadow: inset 0 0 0 2px var(--dcx-picklist-focus);
-  }
 }
 
 .dcx-picklist__list {
@@ -187,40 +169,13 @@
 
 .dcx-picklist__control-button {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+}
+
+:host ::ng-deep .dcx-picklist__control-button .dcx-ng-button,
+:host ::ng-deep .dcx-ng-button.dcx-picklist__control-button {
   width: 2.25rem;
   height: 2.25rem;
-  border: 1px solid var(--dcx-picklist-panel-border);
-  border-radius: var(--r-md, 6px);
-  background: var(--bg-default, #ffffff);
-  color: var(--text-dark, #2a2e33);
-  cursor: pointer;
-  transition:
-    background-color 0.16s ease,
-    border-color 0.16s ease,
-    color 0.16s ease,
-    transform 0.16s ease;
-
-  &:hover:not(:disabled) {
-    border-color: var(--dcx-picklist-selected-color);
-    background: var(--dcx-picklist-selected-bg);
-    color: var(--dcx-picklist-selected-color);
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.96);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--dcx-picklist-focus);
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.42;
-  }
+  padding: 0;
 }
 
 .dcx-picklist__empty {
@@ -247,7 +202,7 @@
 .cdk-drag-preview {
   border-radius: var(--dcx-picklist-item-radius);
   background: var(--bg-default, #ffffff);
-  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.16));
+  box-shadow: var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12));
 }
 
 .cdk-drag-placeholder {

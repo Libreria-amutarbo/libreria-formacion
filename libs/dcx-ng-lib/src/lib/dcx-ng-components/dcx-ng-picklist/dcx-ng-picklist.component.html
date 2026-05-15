@@ -1,42 +1,46 @@
 <div [class]="pickListClasses()">
   @if (showSourceControls()) {
     <div class="dcx-picklist__reorder-controls" aria-label="Reordenar disponibles">
-      <button
-        type="button"
+      <dcx-ng-button
         class="dcx-picklist__control-button"
-        aria-label="Mover disponibles seleccionados al inicio"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-double-up"
+        ariaLabel="Mover disponibles seleccionados al inicio"
         [disabled]="disabled() || !hasSelectedSource()"
-        (click)="moveTop('source')"
-      >
-        <dcx-ng-icon name="chevron-double-up" aria-hidden="true"></dcx-ng-icon>
-      </button>
-      <button
-        type="button"
+        (buttonClick)="moveTop('source')"
+      ></dcx-ng-button>
+      <dcx-ng-button
         class="dcx-picklist__control-button"
-        aria-label="Mover disponibles seleccionados arriba"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-up"
+        ariaLabel="Mover disponibles seleccionados arriba"
         [disabled]="disabled() || !hasSelectedSource()"
-        (click)="moveUp('source')"
-      >
-        <dcx-ng-icon name="chevron-up" aria-hidden="true"></dcx-ng-icon>
-      </button>
-      <button
-        type="button"
+        (buttonClick)="moveUp('source')"
+      ></dcx-ng-button>
+      <dcx-ng-button
         class="dcx-picklist__control-button"
-        aria-label="Mover disponibles seleccionados abajo"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-down"
+        ariaLabel="Mover disponibles seleccionados abajo"
         [disabled]="disabled() || !hasSelectedSource()"
-        (click)="moveDown('source')"
-      >
-        <dcx-ng-icon name="chevron-down" aria-hidden="true"></dcx-ng-icon>
-      </button>
-      <button
-        type="button"
+        (buttonClick)="moveDown('source')"
+      ></dcx-ng-button>
+      <dcx-ng-button
         class="dcx-picklist__control-button"
-        aria-label="Mover disponibles seleccionados al final"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-double-down"
+        ariaLabel="Mover disponibles seleccionados al final"
         [disabled]="disabled() || !hasSelectedSource()"
-        (click)="moveBottom('source')"
-      >
-        <dcx-ng-icon name="chevron-double-down" aria-hidden="true"></dcx-ng-icon>
-      </button>
+        (buttonClick)="moveBottom('source')"
+      ></dcx-ng-button>
     </div>
   }
 
@@ -47,18 +51,17 @@
     </header>
 
     @if (showSourceFilter()) {
-      <label class="dcx-picklist__filter">
-        <span class="dcx-picklist__visually-hidden">Filtrar disponibles</span>
-        <dcx-ng-icon name="search" aria-hidden="true"></dcx-ng-icon>
-        <input
-          type="search"
+      <div class="dcx-picklist__filter">
+        <dcx-ng-input
+          [type]="DcxInputType.SEARCH"
+          size="s"
           [placeholder]="sourceFilterPlaceholder()"
           [value]="sourceQuery()"
           [disabled]="disabled()"
-          [attr.aria-label]="sourceFilterPlaceholder()"
-          (input)="onFilterChange('source', $any($event.target).value)"
-        />
-      </label>
+          [ariaLabel]="sourceFilterPlaceholder()"
+          (valueChange)="onFilterChange('source', $event)"
+        ></dcx-ng-input>
+      </div>
     }
 
     <ul
@@ -113,42 +116,46 @@
   </section>
 
   <div class="dcx-picklist__transfer-controls" aria-label="Transferir elementos">
-    <button
-      type="button"
+    <dcx-ng-button
       class="dcx-picklist__control-button"
-      aria-label="Mover seleccionados a seleccionados"
+      variant="secondary"
+      size="s"
+      icon
+      iconName="chevron-right"
+      ariaLabel="Mover seleccionados a seleccionados"
       [disabled]="disabled() || !hasSelectedSource()"
-      (click)="moveSelectedToTarget()"
-    >
-      <dcx-ng-icon name="chevron-right" aria-hidden="true"></dcx-ng-icon>
-    </button>
-    <button
-      type="button"
+      (buttonClick)="moveSelectedToTarget()"
+    ></dcx-ng-button>
+    <dcx-ng-button
       class="dcx-picklist__control-button"
-      aria-label="Mover todos a seleccionados"
+      variant="secondary"
+      size="s"
+      icon
+      iconName="chevron-double-right"
+      ariaLabel="Mover todos a seleccionados"
       [disabled]="disabled() || !canMoveAllToTarget()"
-      (click)="moveEveryItemToTarget()"
-    >
-      <dcx-ng-icon name="chevron-double-right" aria-hidden="true"></dcx-ng-icon>
-    </button>
-    <button
-      type="button"
+      (buttonClick)="moveEveryItemToTarget()"
+    ></dcx-ng-button>
+    <dcx-ng-button
       class="dcx-picklist__control-button"
-      aria-label="Mover seleccionados a disponibles"
+      variant="secondary"
+      size="s"
+      icon
+      iconName="chevron-left"
+      ariaLabel="Mover seleccionados a disponibles"
       [disabled]="disabled() || !hasSelectedTarget()"
-      (click)="moveSelectedToSource()"
-    >
-      <dcx-ng-icon name="chevron-left" aria-hidden="true"></dcx-ng-icon>
-    </button>
-    <button
-      type="button"
+      (buttonClick)="moveSelectedToSource()"
+    ></dcx-ng-button>
+    <dcx-ng-button
       class="dcx-picklist__control-button"
-      aria-label="Mover todos a disponibles"
+      variant="secondary"
+      size="s"
+      icon
+      iconName="chevron-double-left"
+      ariaLabel="Mover todos a disponibles"
       [disabled]="disabled() || !canMoveAllToSource()"
-      (click)="moveEveryItemToSource()"
-    >
-      <dcx-ng-icon name="chevron-double-left" aria-hidden="true"></dcx-ng-icon>
-    </button>
+      (buttonClick)="moveEveryItemToSource()"
+    ></dcx-ng-button>
   </div>
 
   <section class="dcx-picklist__panel" [attr.aria-labelledby]="targetHeadingId">
@@ -158,18 +165,17 @@
     </header>
 
     @if (showTargetFilter()) {
-      <label class="dcx-picklist__filter">
-        <span class="dcx-picklist__visually-hidden">Filtrar seleccionados</span>
-        <dcx-ng-icon name="search" aria-hidden="true"></dcx-ng-icon>
-        <input
-          type="search"
+      <div class="dcx-picklist__filter">
+        <dcx-ng-input
+          [type]="DcxInputType.SEARCH"
+          size="s"
           [placeholder]="targetFilterPlaceholder()"
           [value]="targetQuery()"
           [disabled]="disabled()"
-          [attr.aria-label]="targetFilterPlaceholder()"
-          (input)="onFilterChange('target', $any($event.target).value)"
-        />
-      </label>
+          [ariaLabel]="targetFilterPlaceholder()"
+          (valueChange)="onFilterChange('target', $event)"
+        ></dcx-ng-input>
+      </div>
     }
 
     <ul
@@ -225,42 +231,46 @@
 
   @if (showTargetControls()) {
     <div class="dcx-picklist__reorder-controls" aria-label="Reordenar seleccionados">
-      <button
-        type="button"
+      <dcx-ng-button
         class="dcx-picklist__control-button"
-        aria-label="Mover seleccionados al inicio"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-double-up"
+        ariaLabel="Mover seleccionados al inicio"
         [disabled]="disabled() || !hasSelectedTarget()"
-        (click)="moveTop('target')"
-      >
-        <dcx-ng-icon name="chevron-double-up" aria-hidden="true"></dcx-ng-icon>
-      </button>
-      <button
-        type="button"
+        (buttonClick)="moveTop('target')"
+      ></dcx-ng-button>
+      <dcx-ng-button
         class="dcx-picklist__control-button"
-        aria-label="Mover seleccionados arriba"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-up"
+        ariaLabel="Mover seleccionados arriba"
         [disabled]="disabled() || !hasSelectedTarget()"
-        (click)="moveUp('target')"
-      >
-        <dcx-ng-icon name="chevron-up" aria-hidden="true"></dcx-ng-icon>
-      </button>
-      <button
-        type="button"
+        (buttonClick)="moveUp('target')"
+      ></dcx-ng-button>
+      <dcx-ng-button
         class="dcx-picklist__control-button"
-        aria-label="Mover seleccionados abajo"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-down"
+        ariaLabel="Mover seleccionados abajo"
         [disabled]="disabled() || !hasSelectedTarget()"
-        (click)="moveDown('target')"
-      >
-        <dcx-ng-icon name="chevron-down" aria-hidden="true"></dcx-ng-icon>
-      </button>
-      <button
-        type="button"
+        (buttonClick)="moveDown('target')"
+      ></dcx-ng-button>
+      <dcx-ng-button
         class="dcx-picklist__control-button"
-        aria-label="Mover seleccionados al final"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-double-down"
+        ariaLabel="Mover seleccionados al final"
         [disabled]="disabled() || !hasSelectedTarget()"
-        (click)="moveBottom('target')"
-      >
-        <dcx-ng-icon name="chevron-double-down" aria-hidden="true"></dcx-ng-icon>
-      </button>
+        (buttonClick)="moveBottom('target')"
+      ></dcx-ng-button>
     </div>
   }
 </div>

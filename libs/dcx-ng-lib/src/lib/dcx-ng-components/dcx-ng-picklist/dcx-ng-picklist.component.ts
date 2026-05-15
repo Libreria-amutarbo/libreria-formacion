@@ -22,6 +22,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import {
+  DcxInputType,
   DcxPickListFilterEvent,
   DcxPickListItem,
   DcxPickListItemTemplateContext,
@@ -30,12 +31,20 @@ import {
   DcxPickListSelectionEvent,
   DcxPickListSide,
 } from '../../core/interfaces';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 
 @Component({
   selector: 'dcx-ng-picklist',
   standalone: true,
-  imports: [CommonModule, DragDropModule, DcxNgIconComponent],
+  imports: [
+    CommonModule,
+    DragDropModule,
+    DcxNgButtonComponent,
+    DcxNgIconComponent,
+    DcxNgInputComponent,
+  ],
   templateUrl: './dcx-ng-picklist.component.html',
   styleUrl: './dcx-ng-picklist.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,6 +52,8 @@ import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 export class DcxNgPickListComponent implements OnInit {
   private static nextId = 0;
   private readonly injector = inject(Injector);
+
+  readonly DcxInputType = DcxInputType;
 
   readonly instanceId = `dcx-picklist-${DcxNgPickListComponent.nextId++}`;
   readonly sourceHeadingId = `${this.instanceId}-source-heading`;
@@ -153,8 +164,11 @@ export class DcxNgPickListComponent implements OnInit {
     );
   }
 
-  onFilterChange(side: DcxPickListSide, value: string): void {
-    const query = value ?? '';
+  onFilterChange(
+    side: DcxPickListSide,
+    value: string | number | null,
+  ): void {
+    const query = `${value ?? ''}`;
 
     if (side === 'source') {
       this.sourceQuery.set(query);

@@ -27,6 +27,8 @@ La implementacion mantiene toda la logica dentro del `.component.ts` porque la l
 - [x] Soporta `dragdrop` con Angular CDK para reordenar dentro de una lista o transferir entre listas.
 - [x] Soporta estado `disabled` global y elementos deshabilitados por item.
 - [x] Expone roles ARIA de listbox/option y labels accesibles en los controles.
+- [x] Usa `DcxNgButtonComponent` y `(buttonClick)` en los controles de mover/reordenar, alineado con el patron de botones de la libreria.
+- [x] Usa `DcxNgInputComponent` en los filtros de source/target en lugar de inputs nativos.
 - [x] Incluye estilos consistentes con la libreria y prioriza tokens de `designs/capgemini-tokens.css`.
 - [x] Incluye fixtures reutilizables y export en `core/fixtures`.
 - [x] Incluye tests unitarios del comportamiento principal.
@@ -109,6 +111,8 @@ export interface DcxPickListMoveEvent {
 
 - El template usa listas HTML propias (`ul/li`) en lugar de `DcxNgListComponent`.
 - Motivo: `DcxNgListComponent` gestiona seleccion interna, trabaja con `DcxListItem` y no expone hoy puntos naturales para `cdkDropList/cdkDrag`, roles `listbox/option`, seleccion controlada por dos listas ni template de item con contexto `side/selected`.
+- Los controles de mover/reordenar usan `DcxNgButtonComponent` con `(buttonClick)`. Las opciones mantienen `(click)` en `li` porque su semantica es `role="option"` dentro de `listbox`, no boton.
+- Los filtros usan `DcxNgInputComponent` con `DcxInputType.SEARCH`, `valueChange`, `ariaLabel` y placeholders configurables.
 - El componente soporta explicitamente los escenarios PrimeNG de `Filter` y `Template`:
   - Demo app `/picklist`: ejemplos `Basic`, `Filter` y `Template`.
   - Storybook: stories `Default`, `Filter`, `CustomTemplate` y `Disabled`.
@@ -117,10 +121,11 @@ export interface DcxPickListMoveEvent {
 
 ## 6. Validation
 
-- `npx.cmd jest --runTestsByPath src/lib/dcx-ng-components/dcx-ng-picklist/dcx-ng-picklist.component.spec.ts --config jest.config.ts --runInBand`: passing, 9 tests.
+- `npx.cmd jest --runTestsByPath src/lib/dcx-ng-components/dcx-ng-picklist/dcx-ng-picklist.component.spec.ts --config jest.config.ts --runInBand`: passing, 10 tests.
 - `npx.cmd jest src/app/pages/dcx-ng-page-picklist/dcx-ng-page-picklist.component.spec.ts --config jest.config.app.ts --runInBand`: passing, 1 test.
 - `npx.cmd nx build dcx-ng-lib`: passing.
 - `npx.cmd nx build dcx-ng-components`: passing.
+- `npx.cmd nx run dcx-ng-components:build-storybook`: passing.
 - `npx.cmd nx lint dcx-ng-lib`: passing con warning existente de dependencia circular Nx/app.
 
 ## 7. Out of Scope
