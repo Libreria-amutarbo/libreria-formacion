@@ -44,13 +44,14 @@
   @if (showIndicatorDots()) {
     <div class="dcx-carousel-indicators">
       @for (item of value(); track $index) {
-        <button
+        <dcx-ng-button
           type="button"
-          class="dcx-carousel-indicator"
-          [class.dcx-carousel-indicator--active]="$index === currentPage()"
-          (click)="setPage($index)"
-          [attr.aria-label]="'Go to slide ' + ($index + 1)"
-        ></button>
+          variant="terciary"
+          size="s"
+          [class]="indicatorClass($index)"
+          [ariaLabel]="'Go to slide ' + ($index + 1)"
+          (buttonClick)="setPage($index)"
+        ></dcx-ng-button>
       }
     </div>
   }

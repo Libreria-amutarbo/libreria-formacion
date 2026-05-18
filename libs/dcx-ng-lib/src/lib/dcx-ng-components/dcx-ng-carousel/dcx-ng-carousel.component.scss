@@ -69,25 +69,34 @@
     justify-content: center;
     gap: var(--sp-2, 8px);
     padding: var(--sp-2, 8px) 0;
-  }
 
-  &-indicator {
-    width: 8px;
-    height: 8px;
-    border-radius: var(--r-pill, 999px);
-    border: none;
-    background-color: var(--border-light, #d1d5db);
-    cursor: pointer;
-    padding: 0;
-    transition: all 0.3s ease;
-
-    &--active {
-      background-color: var(--bg-primary, #0058ab);
-      width: 24px;
+    ::ng-deep .dcx-ng-button--carousel-indicator {
+      width: var(--sp-2, 8px);
+      height: var(--sp-2, 8px);
+      padding: 0;
+      gap: 0;
+      border: 1px solid transparent;
+      border-radius: var(--r-pill, 999px);
+      background-color: var(--border-light, #d1d5db);
+      color: transparent;
+      overflow: hidden;
+      transition: all 0.3s ease;
     }
 
-    &:hover:not(&--active) {
+    ::ng-deep
+      .dcx-ng-button--carousel-indicator:hover:not(:disabled):not(
+        .dcx-ng-button--carousel-indicator--active
+      ) {
       background-color: var(--border-hover, #9ca3af);
+    }
+
+    ::ng-deep .dcx-ng-button--carousel-indicator--active {
+      width: var(--sp-6, 24px);
+      background-color: var(--bg-primary, #0058ab);
+    }
+
+    ::ng-deep .dcx-ng-button--carousel-indicator--active:hover:not(:disabled) {
+      background-color: var(--bg-primary-hover, #004080);
     }
   }
 

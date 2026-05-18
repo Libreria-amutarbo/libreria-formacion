@@ -121,6 +121,16 @@ export class DcxNgCarouselComponent implements OnDestroy {
     this.pageChange.emit({ page });
   }
 
+  indicatorClass(pageIndex: number): string {
+    const baseClass = 'dcx-ng-button--carousel-indicator';
+
+    if (pageIndex !== this.currentPage()) {
+      return baseClass;
+    }
+
+    return `${baseClass} ${baseClass}--active`;
+  }
+
   private startAutoplay(): void {
     const interval = this.autoplayInterval();
     this._timer = setInterval(() => this.next(), interval);
