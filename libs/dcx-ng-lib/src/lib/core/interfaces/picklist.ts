@@ -1,10 +1,12 @@
-export interface DcxPickListItem {
+import { DcxListItem } from './list';
+
+export interface DcxPickListItem extends Omit<DcxListItem, 'children' | 'divider' | 'text'> {
   id: string | number;
   label: string;
   description?: string;
   icon?: string;
   disabled?: boolean;
-  [key: string]: unknown;
+  category?: string;
 }
 
 export type DcxPickListSide = 'source' | 'target';

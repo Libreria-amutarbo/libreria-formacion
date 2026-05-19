@@ -587,11 +587,16 @@ export class DcxNgPickListComponent {
 
     return items.filter(item =>
       fields.some(field =>
-        String(item[field] ?? '')
+        this.getFilterValue(item, field)
           .toLocaleLowerCase()
           .includes(normalizedQuery),
       ),
     );
+  }
+
+  private getFilterValue(item: DcxPickListItem, field: string): string {
+    const value = (item as unknown as Record<string, unknown>)[field];
+    return String(value ?? '');
   }
 
   private filterFields(): string[] {
