@@ -38,4 +38,5 @@ export const APP_ROUTES = {
   SCROLL_TOP_DOWN: 'scroll-top-down',
   TEXTAREA: 'textarea',
   BADGE: 'badge',
+  CAROUSEL: 'carousel',
 };

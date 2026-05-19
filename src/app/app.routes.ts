@@ -39,6 +39,7 @@ import { DcxNgPageTextareaComponent } from './pages/dcx-ng-page-textarea/dcx-ng-
 import { DcxNgPageProgressbarComponent } from './pages/dcx-ng-page-progressbar/dcx-ng-page-progressbar.component';
 import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page-editor.component';
 import { DcxNgPageBadgeComponent } from './pages/dcx-ng-page-badge/dcx-ng-page-badge.component';
+import { DcxNgPageCarouselComponent } from './pages/dcx-ng-page-carousel/dcx-ng-page-carousel.component';
 import { DcxNgPageSkeletonComponent } from './pages/dcx-ng-page-skeleton/dcx-ng-page-skeleton.component';
 
 export const appRoutes: Route[] = [
@@ -201,5 +202,7 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.BADGE,
     component: DcxNgPageBadgeComponent,
+    path: APP_ROUTES.CAROUSEL,
+    component: DcxNgPageCarouselComponent,
   },
 ];
