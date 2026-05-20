@@ -10,6 +10,7 @@ import {
 
 const ROUTE_ICONS: Record<string, string> = {
   accordion: 'chevron-down',
+  badge: 'patch-exclamation',
   breadcrumb: 'signpost-split',
   button: 'toggle-on',
   card: 'card-text',
