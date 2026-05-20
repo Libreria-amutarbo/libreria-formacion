@@ -349,9 +349,10 @@ export class DcxNgEditorComponent
       fragment.append(l);
     });
 
-    if (fragment.lastChild) {
+    const last = fragment.lastChild;
+    if (last) {
       range.insertNode(fragment);
-      this.moveSelectionAfter(fragment.lastChild);
+      this.moveSelectionAfter(last);
     }
   }
 

@@ -202,6 +202,8 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.BADGE,
     component: DcxNgPageBadgeComponent,
+  },
+  {
     path: APP_ROUTES.CAROUSEL,
     component: DcxNgPageCarouselComponent,
   },
