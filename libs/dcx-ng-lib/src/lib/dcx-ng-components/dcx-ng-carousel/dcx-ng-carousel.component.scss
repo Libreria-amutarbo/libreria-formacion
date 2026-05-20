@@ -1,0 +1,108 @@
+.dcx-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: var(--sp-4, 16px);
+  box-sizing: border-box;
+
+  &-content {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-5, 20px);
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  &-container {
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    gap: var(--sp-5, 20px);
+    padding: var(--sp-5, 20px);
+    box-sizing: border-box;
+  }
+
+  &-items-wrapper {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    will-change: transform;
+    width: 100%;
+    height: 100%;
+  }
+
+  &-item {
+    flex: 0 0 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &--vertical {
+    height: 500px;
+
+    .dcx-carousel-content {
+      flex-direction: column;
+      height: 100%;
+      flex: 1;
+    }
+
+    .dcx-carousel-container {
+      height: 100%;
+    }
+
+    .dcx-carousel-items-wrapper {
+      flex-direction: column;
+    }
+
+    .dcx-carousel-item {
+      flex: 0 0 100%;
+      height: 100%;
+    }
+  }
+
+  &-indicators {
+    display: flex;
+    justify-content: center;
+    gap: var(--sp-2, 8px);
+    padding: var(--sp-2, 8px) 0;
+
+    ::ng-deep .dcx-ng-button--carousel-indicator {
+      width: var(--sp-2, 8px);
+      height: var(--sp-2, 8px);
+      padding: 0;
+      gap: 0;
+      border: 1px solid transparent;
+      border-radius: var(--r-pill, 999px);
+      background-color: var(--border-light, #d1d5db);
+      color: transparent;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    ::ng-deep
+      .dcx-ng-button--carousel-indicator:hover:not(:disabled):not(
+        .dcx-ng-button--carousel-indicator--active
+      ) {
+      background-color: var(--border-hover, #9ca3af);
+    }
+
+    ::ng-deep .dcx-ng-button--carousel-indicator--active {
+      width: var(--sp-6, 24px);
+      background-color: var(--bg-primary, #0058ab);
+    }
+
+    ::ng-deep .dcx-ng-button--carousel-indicator--active:hover:not(:disabled) {
+      background-color: var(--bg-primary-hover, #004080);
+    }
+  }
+
+  &-prev,
+  &-next {
+    flex-shrink: 0;
+    z-index: 10;
+  }
+}
