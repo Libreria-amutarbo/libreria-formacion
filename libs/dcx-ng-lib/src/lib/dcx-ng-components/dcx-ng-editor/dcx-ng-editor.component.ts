@@ -57,7 +57,9 @@ let uuid = 0;
     },
   ],
 })
-export class DcxNgEditorComponent implements AfterViewInit, ControlValueAccessor {
+export class DcxNgEditorComponent
+  implements AfterViewInit, ControlValueAccessor
+{
   @ViewChild('editor') editorRef?: ElementRef<HTMLElement>;
 
   id = input<string>(`dcx-editor-${++uuid}`);
@@ -90,7 +92,9 @@ export class DcxNgEditorComponent implements AfterViewInit, ControlValueAccessor
 
   focused = signal(false);
   activeToolbarActions = signal<Set<DcxEditorToolbarAction>>(new Set());
-  private pendingToolbarActions = signal<Set<DcxEditorToolbarAction>>(new Set());
+  private pendingToolbarActions = signal<Set<DcxEditorToolbarAction>>(
+    new Set(),
+  );
 
   private onChange: (value: string) => void = () => null;
   private onTouched: () => void = () => null;
@@ -331,10 +335,76 @@ export class DcxNgEditorComponent implements AfterViewInit, ControlValueAccessor
     const range = this.getEditableRange();
     if (!range || range.collapsed) return;
 
-    const textNode = document.createTextNode(range.toString());
+    const temp = document.createElement('div');
+    temp.append(range.cloneContents());
+    const lines = this.getPlainText(temp).split(/\r?\n/);
+
     range.deleteContents();
-    range.insertNode(textNode);
-    this.moveSelectionAfter(textNode);
+    this.cleanupFormattingAtRange(range);
+
+    const fragment = document.createDocumentFragment();
+    lines.forEach((l, i) => {
+      if (i === lines.length - 1 && !l && i > 0) return;
+      if (i > 0) fragment.append(document.createElement('br'));
+      fragment.append(l);
+    });
+
+    const last = fragment.lastChild;
+    if (last) {
+      range.insertNode(fragment);
+      this.moveSelectionAfter(last);
+    }
+  }
+
+  private cleanupFormattingAtRange(range: Range): void {
+    const editor = this.editorRef?.nativeElement;
+    const tags = [
+      'STRONG',
+      'B',
+      'EM',
+      'I',
+      'U',
+      'LI',
+      'UL',
+      'OL',
+      'SPAN',
+      'P',
+      'DIV',
+    ];
+    let a;
+    while (
+      editor &&
+      (a = this.getClosestAncestorTag(range.startContainer, tags)) &&
+      a !== editor
+    ) {
+      if (this.isNodeEmpty(a)) {
+        range.setStartBefore(a);
+        range.collapse(true);
+        a.remove();
+      } else {
+        const r = range.cloneRange();
+        r.setEndAfter(a);
+        a.after(r.extractContents());
+        range.setStartAfter(a);
+        range.collapse(true);
+        if (this.isNodeEmpty(a)) a.remove();
+      }
+    }
+  }
+
+  private getPlainText(el: HTMLElement): string {
+    const clone = el.cloneNode(true) as HTMLElement;
+    const M = '\ue000';
+    clone.querySelectorAll('br').forEach(b => b.replaceWith(M));
+    clone.querySelectorAll('div, p, li').forEach(e => {
+      e.prepend('\n');
+      e.append('\n');
+    });
+    return (clone.textContent || '')
+      .replace(/\n+/g, '\n')
+      .split(M)
+      .join('\n')
+      .replace(/^\n|\n$/g, '');
   }
 
   private getEditableRange(): Range | null {
@@ -379,9 +449,7 @@ export class DcxNgEditorComponent implements AfterViewInit, ControlValueAccessor
 
   private togglePendingToolbarAction(action: DcxEditorToolbarAction): void {
     const pendingActions = new Set(this.pendingToolbarActions());
-    const handlers: Partial<
-      Record<DcxEditorToolbarAction, () => void>
-    > = {
+    const handlers: Partial<Record<DcxEditorToolbarAction, () => void>> = {
       removeFormat: () => pendingActions.clear(),
       orderedList: () => this.togglePendingListAction(pendingActions, action),
       unorderedList: () => this.togglePendingListAction(pendingActions, action),
@@ -471,9 +539,7 @@ export class DcxNgEditorComponent implements AfterViewInit, ControlValueAccessor
       return;
     }
 
-    const list = document.createElement(
-      action === 'orderedList' ? 'ol' : 'ul',
-    );
+    const list = document.createElement(action === 'orderedList' ? 'ol' : 'ul');
     const item = document.createElement('li');
     item.append(node);
     list.append(item);
@@ -632,11 +698,19 @@ export class DcxNgEditorComponent implements AfterViewInit, ControlValueAccessor
 
   private isNodeEmpty(node: Node): boolean {
     if (node.nodeType === Node.TEXT_NODE) {
-      return !node.textContent;
+      const content = node.textContent || '';
+      return content.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
     }
 
-    if (!node.childNodes.length) {
-      return !node.textContent;
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const el = node as HTMLElement;
+      if (el.tagName === 'BR') return true;
+      if (el.childNodes.length === 0) {
+        const content = el.textContent || '';
+        return (
+          content.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0
+        );
+      }
     }
 
     return Array.from(node.childNodes).every(child => this.isNodeEmpty(child));
@@ -647,9 +721,16 @@ export class DcxNgEditorComponent implements AfterViewInit, ControlValueAccessor
   }
 
   private updateValueFromEditor(): void {
-    const nextValue = this.sanitizeHtml(
-      this.editorRef?.nativeElement.innerHTML ?? '',
-    );
+    const editor = this.editorRef?.nativeElement;
+    if (!editor) return;
+
+    if (this.isNodeEmpty(editor)) {
+      if (editor.innerHTML !== '') {
+        editor.innerHTML = '';
+      }
+    }
+
+    const nextValue = this.sanitizeHtml(editor.innerHTML);
     this.value.set(nextValue);
     this.onChange(nextValue);
     this.valueChange.emit(nextValue);
