@@ -333,6 +333,18 @@ export class DcxNgPickListComponent {
     return `Mover todos de ${this.getPanelLabel(from)} a ${this.getPanelLabel(to)}`;
   }
 
+  getItemClasses(item: DcxPickListItem, side: DcxPickListSide): string {
+    const base = 'dcx-picklist__item';
+
+    return [
+      base,
+      this.isSelected(item, side) ? `${base}--selected` : '',
+      this.isItemDisabled(item) ? `${base}--disabled` : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+  }
+
   isSelected(item: DcxPickListItem, side: DcxPickListSide): boolean {
     const selectedIds =
       side === 'source' ? this.selectedSourceIds() : this.selectedTargetIds();
@@ -575,11 +587,16 @@ export class DcxNgPickListComponent {
 
     return items.filter(item =>
       fields.some(field =>
-        String(item[field] ?? '')
+        this.getFilterValue(item, field)
           .toLocaleLowerCase()
           .includes(normalizedQuery),
       ),
     );
+  }
+
+  private getFilterValue(item: DcxPickListItem, field: string): string {
+    const value = (item as unknown as Record<string, unknown>)[field];
+    return String(value ?? '');
   }
 
   private filterFields(): string[] {
