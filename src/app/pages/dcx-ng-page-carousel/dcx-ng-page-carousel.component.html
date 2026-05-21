@@ -1,0 +1,148 @@
+<div class="carousel-section">
+  <h2 class="carousel-title">Default Carousel</h2>
+  <div class="carousel-container">
+    <dcx-ng-carousel
+      [value]="defaultItems"
+      [circular]="false"
+      [orientation]="'horizontal'"
+      [showNavigators]="true"
+      [showIndicators]="true"
+      [autoplayInterval]="0"
+    >
+      <ng-template #item let-data>
+        <dcx-ng-card
+          [title]="data.title"
+          [content]="cardContentTpl"
+          [interactive]="true"
+          class="carousel-card"
+        >
+          <ng-template #cardContentTpl>
+            <dcx-ng-chip
+              [label]="data.tag"
+              size="s"
+              class="card-chip"
+            ></dcx-ng-chip>
+            <p class="card-description">{{ data.description }}</p>
+          </ng-template>
+        </dcx-ng-card>
+      </ng-template>
+    </dcx-ng-carousel>
+  </div>
+</div>
+
+<dcx-ng-divider></dcx-ng-divider>
+
+<div class="carousel-section">
+  <h2 class="carousel-title">Autoplay Circular Carousel</h2>
+  <div class="carousel-container">
+    <dcx-ng-carousel
+      [value]="defaultItems"
+      [circular]="true"
+      [orientation]="'horizontal'"
+      [showNavigators]="true"
+      [showIndicators]="true"
+      [autoplayInterval]="3000"
+    >
+      <ng-template #item let-data>
+        <dcx-ng-card
+          [title]="data.title"
+          [content]="cardContentTpl2"
+          [interactive]="true"
+          class="carousel-card"
+        >
+          <ng-template #cardContentTpl2>
+            <dcx-ng-chip
+              [label]="data.tag"
+              size="s"
+              class="card-chip"
+            ></dcx-ng-chip>
+            <p class="card-description">{{ data.description }}</p>
+          </ng-template>
+        </dcx-ng-card>
+      </ng-template>
+    </dcx-ng-carousel>
+  </div>
+</div>
+
+<dcx-ng-divider></dcx-ng-divider>
+
+<div class="carousel-section">
+  <h2 class="carousel-title">Vertical Carousel</h2>
+  <div class="carousel-container carousel-container--vertical">
+    <dcx-ng-carousel
+      [value]="defaultItems"
+      [circular]="false"
+      [orientation]="'vertical'"
+      [showNavigators]="true"
+      [showIndicators]="true"
+      [autoplayInterval]="0"
+    >
+      <ng-template #item let-data>
+        <dcx-ng-card
+          [title]="data.title"
+          [content]="verticalContentTpl"
+          class="carousel-card"
+        >
+          <ng-template #verticalContentTpl>
+            <p class="card-description">{{ data.description }}</p>
+          </ng-template>
+        </dcx-ng-card>
+      </ng-template>
+    </dcx-ng-carousel>
+  </div>
+</div>
+
+<dcx-ng-divider></dcx-ng-divider>
+
+<div class="carousel-section">
+  <h2 class="carousel-title">Mixed Content Carousel</h2>
+  <div class="carousel-container carousel-container--mixed">
+    <dcx-ng-carousel
+      [value]="mixedItems"
+      [circular]="true"
+      [showIndicators]="true"
+    >
+      <ng-template #item let-data>
+        <div class="mixed-content-wrapper">
+          <div class="mixed-content-inner">
+            @switch (data.type) {
+              @case ('list') {
+                <h3 class="mixed-content-title">{{ data.title }}</h3>
+                <dcx-ng-list
+                  [items]="listItems"
+                  [selectable]="true"
+                ></dcx-ng-list>
+              }
+              @case ('radio') {
+                <h3 class="mixed-content-title">{{ data.title }}</h3>
+                <div class="radio-group">
+                  <dcx-ng-radio
+                    [name]="'group-' + data.id"
+                    [value]="'1'"
+                    label="Basic option"
+                  ></dcx-ng-radio>
+                  <dcx-ng-radio
+                    [name]="'group-' + data.id"
+                    [value]="'2'"
+                    label="Pro option"
+                  ></dcx-ng-radio>
+                  <dcx-ng-radio
+                    [name]="'group-' + data.id"
+                    [value]="'3'"
+                    label="Premium option"
+                  ></dcx-ng-radio>
+                </div>
+              }
+              @default {
+                <dcx-ng-card
+                  [title]="data.title"
+                  [interactive]="true"
+                ></dcx-ng-card>
+              }
+            }
+          </div>
+        </div>
+      </ng-template>
+    </dcx-ng-carousel>
+  </div>
+</div>

@@ -1,0 +1,182 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/Carousel/Documentation" />
+
+# Carousel
+
+## Overview
+
+El componente `DcxNgCarousel` es un carrusel interactivo que permite mostrar múltiples elementos de forma secuencial. Soporta navegación manual mediante botones, indicadores de página, autoplay y orientación horizontal o vertical.
+
+### Características principales
+
+- **Navegación flexible**: Botones prev/next personalizables
+- **Orientación dual**: Horizontal o vertical
+- **Indicadores visuales**: Puntos de navegación por página
+- **Autoplay**: Cambio automático de slides con intervalo configurable
+- **Circular/Infinito**: Navegación continua sin límites
+- **Template personalizado**: Soporte para contenido dinámico con `ng-template`
+- **Eventos**: Notificación de cambios de página
+
+---
+
+## Props
+
+| Prop               | Tipo                         | Default        | Descripción                                                                   |
+| ------------------ | ---------------------------- | -------------- | ----------------------------------------------------------------------------- |
+| `value`            | `any[]`                      | `[]`           | Array de elementos a mostrar en el carousel                                   |
+| `circular`         | `boolean`                    | `false`        | Indica si el carousel es infinito (vuelve al inicio al llegar al final)       |
+| `orientation`      | `'horizontal' \| 'vertical'` | `'horizontal'` | Dirección del desplazamiento del carousel                                     |
+| `showNavigators`   | `boolean`                    | `true`         | Muestra u oculta los botones de navegación (prev/next)                        |
+| `showIndicators`   | `boolean`                    | `true`         | Muestra u oculta los indicadores de página                                    |
+| `autoplayInterval` | `number`                     | `0`            | Tiempo en milisegundos para el cambio automático de slide (0 para desactivar) |
+
+---
+
+## Eventos
+
+| Evento       | Tipo de dato | Descripción                                                          |
+| ------------ | ------------ | -------------------------------------------------------------------- |
+| `pageChange` | `number`     | Se dispara al cambiar de página, emite el índice de la página actual |
+
+---
+
+## Slots (Templates)
+
+### `#item`
+
+Template para renderizar cada elemento del carousel. Recibe como contexto el elemento actual de la lista.
+
+```typescript
+<ng-template #item let-data>
+  <!-- Contenido del slide -->
+  <div>{{ data.title }}</div>
+</ng-template>
+```
+
+---
+
+## Casos de uso
+
+### 1. Galería de tarjetas básica
+
+```html
+<dcx-ng-carousel
+  [value]="items"
+  [showNavigators]="true"
+  [showIndicators]="true"
+>
+  <ng-template #item let-card>
+    <dcx-ng-card
+      [title]="card.title"
+      [content]="cardContent"
+    >
+      <ng-template #cardContent>
+        <p>{{ card.description }}</p>
+      </ng-template>
+    </dcx-ng-card>
+  </ng-template>
+</dcx-ng-carousel>
+```
+
+### 2. Carousel infinito con autoplay
+
+```html
+<dcx-ng-carousel
+  [value]="items"
+  [circular]="true"
+  [autoplayInterval]="3000"
+>
+  <ng-template #item let-item>
+    <img [src]="item.imageUrl" alt="{{ item.title }}" />
+  </ng-template>
+</dcx-ng-carousel>
+```
+
+### 3. Navegación vertical
+
+```html
+<dcx-ng-carousel
+  [value]="items"
+  [orientation]="'vertical'"
+  style="height: 600px;"
+>
+  <ng-template #item let-item>
+    <div>{{ item.content }}</div>
+  </ng-template>
+</dcx-ng-carousel>
+```
+
+### 4. Escuchando cambios de página
+
+```html
+<dcx-ng-carousel
+  [value]="items"
+  (pageChange)="onPageChange($event)"
+>
+  <ng-template #item let-item>
+    <div>{{ item.content }}</div>
+  </ng-template>
+</dcx-ng-carousel>
+```
+
+```typescript
+onPageChange(pageIndex: number) {
+  console.log('Página actual:', pageIndex);
+  // Realizar acciones basadas en el cambio de página
+}
+```
+
+---
+
+## Comportamiento
+
+### Navegación
+
+- **Prev/Next**: Los botones permiten desplazarse manualmente entre slides
+- **Circular**: Si está activado, al llegar al último slide presionar "next" vuelve al primero y viceversa
+- **Indicadores**: Click en los indicadores salta directamente a la página correspondiente
+
+### Autoplay
+
+- El autoplay cambia automáticamente de slide en el intervalo especificado
+- El intervalo debe ser ≥ 500ms para evitar cambios muy rápidos
+- Usar `autoplayInterval: 0` para desactivar el autoplay
+
+### Responsive
+
+- El carousel se adapta al ancho del contenedor
+- Para orientación vertical, asegúrate de establecer una altura fija en el contenedor
+
+---
+
+## Estilos y Tokens
+
+El componente utiliza los siguientes tokens CSS:
+
+```scss
+--color-primary          // Color de los navegadores
+--background-primary     // Fondo de los indicadores activos
+--border-default         // Bordes
+--shadow-sm              // Sombras
+--border-radius-md       // Radio de bordes
+--font-family-primary    // Tipografía
+```
+
+---
+
+## Notas importantes
+
+- **Template requerido**: Siempre debes proporcionar el template `#item` para renderizar el contenido
+- **Altura en vertical**: Cuando uses orientación vertical, establece una altura en el contenedor del carousel
+- **Datos dinámicos**: El array `value` es reactivo, los cambios se reflejarán automáticamente
+- **Rendimiento**: Para listas muy grandes (>100 items), considera implementar virtualización
+
+---
+
+## Compatibilidad
+
+- Angular 20+
+- Standalone Component
+- OnPush Change Detection
+- Signals API
