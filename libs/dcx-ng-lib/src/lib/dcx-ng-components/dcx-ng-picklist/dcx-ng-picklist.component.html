@@ -1,6 +1,9 @@
 <div [class]="pickListClasses()">
   @if (showSourceControls()) {
-    <div class="dcx-picklist__reorder-controls" aria-label="Reordenar disponibles">
+    <div
+      class="dcx-picklist__reorder-controls"
+      aria-label="Reordenar disponibles"
+    >
       <dcx-ng-button
         class="dcx-picklist__control-button"
         variant="secondary"
@@ -64,56 +67,31 @@
       </div>
     }
 
-    <ul
+    <dcx-ng-list
       [id]="sourceListId"
       class="dcx-picklist__list"
-      role="listbox"
-      aria-multiselectable="true"
+      [items]="visibleSourceItems()"
       [style.max-height]="scrollHeight()"
-      cdkDropList
+      [selectable]="true"
+      [externalSelection]="true"
+      listRole="listbox"
+      itemRole="option"
+      [itemTemplate]="sourceItemWrapper"
+      [cdkDropList]="true"
       [cdkDropListData]="visibleSourceItems()"
-      [cdkDropListConnectedTo]="[targetListId]"
+      [cdkDropListConnectedTo]="targetListId"
       [cdkDropListDisabled]="disabled() || !dragdrop()"
+      [dragEnabled]="dragdrop()"
       (cdkDropListDropped)="onDrop($event, 'source')"
+      (itemSelected)="toggleItem($event.item, 'source')"
     >
-      @for (item of visibleSourceItems(); track item.id; let index = $index) {
-        <li
-          [class]="getItemClasses(item, 'source')"
-          role="option"
-          cdkDrag
-          [cdkDragData]="item"
-          [cdkDragDisabled]="disabled() || !dragdrop() || isItemDisabled(item)"
-          [attr.aria-selected]="isSelected(item, 'source')"
-          [attr.aria-disabled]="isItemDisabled(item)"
-          [attr.tabindex]="isFocused(index, 'source') && !isItemDisabled(item) ? 0 : -1"
-          (click)="toggleItem(item, 'source', $event)"
-          (keydown)="onItemKeydown($event, item, 'source', index)"
-        >
-          @if (itemTemplate) {
-            <ng-container
-              *ngTemplateOutlet="
-                itemTemplate;
-                context: getTemplateContext(item, index, 'source')
-              "
-            ></ng-container>
-          } @else {
-            <ng-container
-              *ngTemplateOutlet="
-                defaultItem;
-                context: getTemplateContext(item, index, 'source')
-              "
-            ></ng-container>
-          }
-        </li>
-      } @empty {
-        <li class="dcx-picklist__empty">
-          {{ sourceQuery() ? 'Sin resultados' : 'Sin elementos' }}
-        </li>
-      }
-    </ul>
+    </dcx-ng-list>
   </section>
 
-  <div class="dcx-picklist__transfer-controls" aria-label="Transferir elementos">
+  <div
+    class="dcx-picklist__transfer-controls"
+    aria-label="Transferir elementos"
+  >
     <dcx-ng-button
       class="dcx-picklist__control-button"
       variant="secondary"
@@ -176,57 +154,32 @@
       </div>
     }
 
-    <ul
+    <dcx-ng-list
       [id]="targetListId"
       class="dcx-picklist__list"
-      role="listbox"
-      aria-multiselectable="true"
+      [items]="visibleTargetItems()"
       [style.max-height]="scrollHeight()"
-      cdkDropList
+      [selectable]="true"
+      [externalSelection]="true"
+      listRole="listbox"
+      itemRole="option"
+      [itemTemplate]="targetItemWrapper"
+      [cdkDropList]="true"
       [cdkDropListData]="visibleTargetItems()"
-      [cdkDropListConnectedTo]="[sourceListId]"
+      [cdkDropListConnectedTo]="sourceListId"
       [cdkDropListDisabled]="disabled() || !dragdrop()"
+      [dragEnabled]="dragdrop()"
       (cdkDropListDropped)="onDrop($event, 'target')"
+      (itemSelected)="toggleItem($event.item, 'target')"
     >
-      @for (item of visibleTargetItems(); track item.id; let index = $index) {
-        <li
-          [class]="getItemClasses(item, 'target')"
-          role="option"
-          cdkDrag
-          [cdkDragData]="item"
-          [cdkDragDisabled]="disabled() || !dragdrop() || isItemDisabled(item)"
-          [attr.aria-selected]="isSelected(item, 'target')"
-          [attr.aria-disabled]="isItemDisabled(item)"
-          [attr.tabindex]="isFocused(index, 'target') && !isItemDisabled(item) ? 0 : -1"
-          (click)="toggleItem(item, 'target', $event)"
-          (keydown)="onItemKeydown($event, item, 'target', index)"
-        >
-          @if (itemTemplate) {
-            <ng-container
-              *ngTemplateOutlet="
-                itemTemplate;
-                context: getTemplateContext(item, index, 'target')
-              "
-            ></ng-container>
-          } @else {
-            <ng-container
-              *ngTemplateOutlet="
-                defaultItem;
-                context: getTemplateContext(item, index, 'target')
-              "
-            ></ng-container>
-          }
-        </li>
-      } @empty {
-        <li class="dcx-picklist__empty">
-          {{ targetQuery() ? 'Sin resultados' : 'Sin elementos' }}
-        </li>
-      }
-    </ul>
+    </dcx-ng-list>
   </section>
 
   @if (showTargetControls()) {
-    <div class="dcx-picklist__reorder-controls" aria-label="Reordenar seleccionados">
+    <div
+      class="dcx-picklist__reorder-controls"
+      aria-label="Reordenar seleccionados"
+    >
       <dcx-ng-button
         class="dcx-picklist__control-button"
         variant="secondary"
@@ -271,11 +224,45 @@
   }
 </div>
 
-<ng-template
-  #defaultItem
-  let-item
-  let-selected="selected"
->
+<ng-template #sourceItemWrapper let-item let-index="index">
+  <ng-container
+    *ngTemplateOutlet="itemWrapper; context: { $implicit: item, index: index, side: 'source' }"
+  ></ng-container>
+</ng-template>
+
+<ng-template #targetItemWrapper let-item let-index="index">
+  <ng-container
+    *ngTemplateOutlet="itemWrapper; context: { $implicit: item, index: index, side: 'target' }"
+  ></ng-container>
+</ng-template>
+
+<ng-template #itemWrapper let-item let-index="index" let-side="side">
+  <div
+    [class]="getItemClasses(item, side)"
+    [attr.aria-selected]="isSelected(item, side)"
+    [attr.aria-disabled]="isItemDisabled(item)"
+    [attr.tabindex]="isFocused(index, side) && !isItemDisabled(item) ? 0 : -1"
+    (keydown)="onItemKeydown($event, item, side, index)"
+  >
+    @if (itemTemplate) {
+      <ng-container
+        *ngTemplateOutlet="
+          itemTemplate;
+          context: getTemplateContext(item, index, side)
+        "
+      ></ng-container>
+    } @else {
+      <ng-container
+        *ngTemplateOutlet="
+          defaultItem;
+          context: getTemplateContext(item, index, side)
+        "
+      ></ng-container>
+    }
+  </div>
+</ng-template>
+
+<ng-template #defaultItem let-item let-selected="selected">
   <div class="dcx-picklist__item-content">
     @if (item.icon) {
       <span class="dcx-picklist__item-icon">

@@ -17,6 +17,7 @@ import {
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import {
   DcxInputType,
+  DcxListItem,
   DcxPickListFilterEvent,
   DcxPickListItem,
   DcxPickListItemTemplateContext,
@@ -28,6 +29,7 @@ import {
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
+import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
 
 @Component({
   selector: 'dcx-ng-picklist',
@@ -38,6 +40,7 @@ import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
     DcxNgButtonComponent,
     DcxNgIconComponent,
     DcxNgInputComponent,
+    DcxNgListComponent,
   ],
   templateUrl: './dcx-ng-picklist.component.html',
   styleUrl: './dcx-ng-picklist.component.scss',
@@ -146,10 +149,7 @@ export class DcxNgPickListComponent {
     untracked(() => this.pruneSelection('target', target));
   });
 
-  onFilterChange(
-    side: DcxPickListSide,
-    value: string | number | null,
-  ): void {
+  onFilterChange(side: DcxPickListSide, value: string | number | null): void {
     const query = `${value ?? ''}`;
 
     if (side === 'source') {
@@ -171,11 +171,11 @@ export class DcxNgPickListComponent {
   }
 
   toggleItem(
-    item: DcxPickListItem,
+    item: DcxListItem,
     side: DcxPickListSide,
     originalEvent?: Event,
   ): void {
-    if (this.disabled() || this.isItemDisabled(item)) {
+    if (this.disabled() || this.isItemDisabled(item) || !item.id) {
       return;
     }
 
@@ -194,7 +194,7 @@ export class DcxNgPickListComponent {
 
   onItemKeydown(
     event: KeyboardEvent,
-    item: DcxPickListItem,
+    item: DcxListItem,
     side: DcxPickListSide,
     visibleIndex: number,
   ): void {
@@ -266,26 +266,36 @@ export class DcxNgPickListComponent {
     this.reorderSelected(side, 'bottom');
   }
 
-  onDrop(event: CdkDragDrop<DcxPickListItem[]>, side: DcxPickListSide): void {
+  onDrop<T extends DcxPickListItem = DcxPickListItem>(
+    event: CdkDragDrop<T[]>,
+    side: DcxPickListSide,
+  ): void {
     if (this.disabled() || !this.dragdrop()) {
       return;
     }
 
-    const previousSide: DcxPickListSide =
-      event.previousContainer.id === this.sourceListId ? 'source' : 'target';
+    const isReorder = event.previousContainer === event.container;
+    const previousSide: DcxPickListSide = isReorder
+      ? side
+      : side === 'source'
+        ? 'target'
+        : 'source';
+
     const sourceList = this.getList(previousSide);
     const targetList = this.getList(side);
-    const draggedItem = event.previousContainer.data[event.previousIndex];
+
+    const previousData = event.previousContainer.data as T[];
+    const draggedItem = previousData[event.previousIndex];
 
     if (!draggedItem || this.isItemDisabled(draggedItem)) {
       return;
     }
 
-    if (event.previousContainer === event.container) {
+    if (isReorder) {
       const nextList = this.reorderVisibleDrop(
         sourceList,
-        event.container.data,
-        draggedItem,
+        previousData as DcxPickListItem[],
+        draggedItem as DcxPickListItem,
         event.currentIndex,
       );
       this.setList(side, nextList);
@@ -297,15 +307,15 @@ export class DcxNgPickListComponent {
     const nextSource = sourceList.filter(item => item.id !== draggedItem.id);
     const nextTarget = this.insertVisibleDrop(
       targetList,
-      event.container.data,
-      draggedItem,
+      event.container.data as DcxPickListItem[],
+      draggedItem as DcxPickListItem,
       event.currentIndex,
     );
 
     this.setList(previousSide, nextSource);
     this.setList(side, nextTarget);
     this.emitChanges();
-    this.emitMove(previousSide, [draggedItem], false);
+    this.emitMove(previousSide, [draggedItem as DcxPickListItem], false);
   }
 
   getReorderControlLabel(
@@ -333,7 +343,7 @@ export class DcxNgPickListComponent {
     return `Mover todos de ${this.getPanelLabel(from)} a ${this.getPanelLabel(to)}`;
   }
 
-  getItemClasses(item: DcxPickListItem, side: DcxPickListSide): string {
+  getItemClasses(item: DcxListItem, side: DcxPickListSide): string {
     const base = 'dcx-picklist__item';
 
     return [
@@ -345,7 +355,8 @@ export class DcxNgPickListComponent {
       .join(' ');
   }
 
-  isSelected(item: DcxPickListItem, side: DcxPickListSide): boolean {
+  isSelected(item: DcxListItem, side: DcxPickListSide): boolean {
+    if (!item.id) return false;
     const selectedIds =
       side === 'source' ? this.selectedSourceIds() : this.selectedTargetIds();
     return selectedIds.includes(item.id);
@@ -357,8 +368,12 @@ export class DcxNgPickListComponent {
       : this.focusedTargetIndex() === index;
   }
 
-  isItemDisabled(item: DcxPickListItem): boolean {
+  isItemDisabled(item: DcxListItem): boolean {
     return this.disabled() || item.disabled === true;
+  }
+
+  asPickListItem(item: DcxListItem): DcxPickListItem {
+    return item as DcxPickListItem;
   }
 
   getTemplateContext(
@@ -417,9 +432,9 @@ export class DcxNgPickListComponent {
   ): void {
     const movingIds = movingItems.map(item => item.id);
     const to: DcxPickListSide = from === 'source' ? 'target' : 'source';
-    const nextFrom = this
-      .getList(from)
-      .filter(item => !movingIds.includes(item.id));
+    const nextFrom = this.getList(from).filter(
+      item => !movingIds.includes(item.id),
+    );
     const nextTo = [...this.getList(to), ...movingItems];
 
     this.setList(from, nextFrom);
@@ -519,16 +534,19 @@ export class DcxNgPickListComponent {
     draggedItem: DcxPickListItem,
     visibleIndex: number,
   ): DcxPickListItem[] {
-    const listWithoutDragged = list.filter(item => item.id !== draggedItem.id);
+    const nextList = list.filter(item => item.id !== draggedItem.id);
     const visibleWithoutDragged = visibleItems.filter(
       item => item.id !== draggedItem.id,
     );
-    return this.insertVisibleDrop(
-      listWithoutDragged,
+
+    const insertIndex = this.resolveFullInsertIndex(
+      nextList,
       visibleWithoutDragged,
-      draggedItem,
       visibleIndex,
     );
+
+    nextList.splice(insertIndex, 0, draggedItem);
+    return nextList;
   }
 
   private insertVisibleDrop(
@@ -537,7 +555,11 @@ export class DcxNgPickListComponent {
     item: DcxPickListItem,
     visibleIndex: number,
   ): DcxPickListItem[] {
-    const insertIndex = this.resolveFullInsertIndex(list, visibleItems, visibleIndex);
+    const insertIndex = this.resolveFullInsertIndex(
+      list,
+      visibleItems,
+      visibleIndex,
+    );
     const nextList = [...list];
     nextList.splice(insertIndex, 0, item);
     return nextList;
@@ -548,22 +570,24 @@ export class DcxNgPickListComponent {
     visibleItems: DcxPickListItem[],
     visibleIndex: number,
   ): number {
-    const normalizedIndex = Math.max(0, Math.min(visibleIndex, visibleItems.length));
-    const nextVisibleItem = visibleItems[normalizedIndex];
+    const normalizedIndex = Math.max(
+      0,
+      Math.min(visibleIndex, visibleItems.length),
+    );
 
-    if (nextVisibleItem) {
-      const nextVisibleIndex = this.findItemIndex(list, nextVisibleItem);
-      return nextVisibleIndex === -1 ? list.length : nextVisibleIndex;
+    if (normalizedIndex < visibleItems.length) {
+      const nextVisibleItem = visibleItems[normalizedIndex];
+      const index = this.findItemIndex(list, nextVisibleItem);
+      return index !== -1 ? index : list.length;
     }
 
-    const previousVisibleItem = visibleItems[normalizedIndex - 1];
-
-    if (!previousVisibleItem) {
-      return list.length;
+    if (visibleItems.length > 0) {
+      const lastVisibleItem = visibleItems[visibleItems.length - 1];
+      const index = this.findItemIndex(list, lastVisibleItem);
+      return index !== -1 ? index + 1 : list.length;
     }
 
-    const previousVisibleIndex = this.findItemIndex(list, previousVisibleItem);
-    return previousVisibleIndex === -1 ? list.length : previousVisibleIndex + 1;
+    return list.length;
   }
 
   private findItemIndex(
@@ -608,12 +632,8 @@ export class DcxNgPickListComponent {
     return fields.length > 0 ? fields : ['label', 'description'];
   }
 
-  private selectAllVisible(
-    side: DcxPickListSide,
-    originalEvent?: Event,
-  ): void {
-    const ids = this
-      .getVisibleItems(side)
+  private selectAllVisible(side: DcxPickListSide, originalEvent?: Event): void {
+    const ids = this.getVisibleItems(side)
       .filter(item => !this.isItemDisabled(item))
       .map(item => item.id);
 
@@ -676,10 +696,7 @@ export class DcxNgPickListComponent {
     );
   }
 
-  private emitSelection(
-    side: DcxPickListSide,
-    originalEvent?: Event,
-  ): void {
+  private emitSelection(side: DcxPickListSide, originalEvent?: Event): void {
     const event: DcxPickListSelectionEvent = {
       originalEvent,
       side,

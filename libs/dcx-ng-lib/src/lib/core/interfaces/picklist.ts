@@ -1,11 +1,8 @@
 import { DcxListItem } from './list';
 
-export interface DcxPickListItem extends Omit<DcxListItem, 'children' | 'divider' | 'text'> {
+export interface DcxPickListItem extends DcxListItem {
   id: string | number;
   label: string;
-  description?: string;
-  icon?: string;
-  disabled?: boolean;
   category?: string;
 }
 
