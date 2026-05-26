@@ -1,5 +1,15 @@
-<ul class="dcx-list-container" aria-label="Lista de elementos">
-  @for (item of items(); track $index) {
+<ul
+  [attr.id]="id()"
+  class="dcx-list-container"
+  [attr.role]="listRole()"
+  [attr.aria-label]="'Lista de elementos'"
+  cdkDropList
+  [cdkDropListData]="cdkDropListData()"
+  [cdkDropListConnectedTo]="cdkDropListConnectedTo() || []"
+  [cdkDropListDisabled]="!cdkDropList() || cdkDropListDisabled()"
+  (cdkDropListDropped)="onDropped($event)"
+>
+  @for (item of items(); track item.id || $index) {
     @if (item.divider) {
       <li class="dcx-list-divider" role="separator"></li>
     } @else {
@@ -12,38 +22,45 @@
         [class.danger]="item.variant === 'danger'"
         (click)="onItemClick(item, $index)"
         [attr.tabindex]="selectable() && !item.disabled ? 0 : null"
-        [attr.role]="selectable() ? 'button' : null"
+        [attr.role]="itemRole()"
+        cdkDrag
+        [cdkDragData]="item"
+        [cdkDragDisabled]="!dragEnabled() || cdkDragDisabled()(item)"
       >
-        <div class="dcx-list-item-content">
-          @if (item.icon) {
-            <div class="dcx-list-icon-container">
-              <dcx-ng-icon
-                class="dcx-list-icon"
-                [name]="item.icon"
-              ></dcx-ng-icon>
-            </div>
-          }
-          <div class="dcx-list-text-container">
-            @if (item.text !== undefined && item.text !== null) {
-              <span class="dcx-list-text">{{ item.text }}</span>
+        @if (itemTemplate(); as template) {
+          <ng-container
+            *ngTemplateOutlet="template; context: { $implicit: item, index: $index, selected: isSelected($index) }"
+          ></ng-container>
+        } @else {
+          <div class="dcx-list-item-content">
+            @if (item.icon) {
+              <div class="dcx-list-icon-container">
+                <dcx-ng-icon
+                  class="dcx-list-icon"
+                  [name]="item.icon"
+                ></dcx-ng-icon>
+              </div>
             }
-            @if (item.description) {
-              <span class="dcx-list-description">{{ item.description }}</span>
+            <div class="dcx-list-text-container">
+              @if (item.label || item.text) {
+                <span class="dcx-list-text">{{ item.label || item.text }}</span>
+              }
+              @if (item.description) {
+                <span class="dcx-list-description">{{ item.description }}</span>
+              }
+            </div>
+            @if (showChildrenIndicator() && getChildren(item).length > 0) {
+              <dcx-ng-icon
+                class="dcx-list-children-indicator"
+                name="chevron-right"
+              ></dcx-ng-icon>
             }
           </div>
-          @if (
-            showChildrenIndicator() && item.children && item.children.length > 0
-          ) {
-            <dcx-ng-icon
-              class="dcx-list-children-indicator"
-              name="chevron-right"
-            ></dcx-ng-icon>
-          }
-        </div>
-        @if (renderChildren() && item.children && item.children.length > 0) {
+        }
+        @if (renderChildren() && getChildren(item).length > 0) {
           <dcx-ng-list
             class="dcx-list-nested"
-            [items]="item.children"
+            [items]="getChildren(item)"
             [selectable]="selectable()"
             [multiSelect]="multiSelect()"
             [showChildrenIndicator]="showChildrenIndicator()"

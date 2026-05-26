@@ -1,0 +1,54 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/PickList/Documentation" />
+
+# PickList
+
+`dcx-ng-picklist` permite mover elementos entre dos listas, reordenarlos y filtrar el contenido disponible. Esta implementación está inspirada en PrimeNG PickList y adaptada a la librería con componentes propios.
+
+## Uso básico
+
+```html
+<dcx-ng-picklist
+  sourceHeader="Disponibles"
+  targetHeader="Seleccionados"
+  [source]="sourceItems"
+  [target]="targetItems"
+  (sourceChange)="sourceItems = $event"
+  (targetChange)="targetItems = $event"
+/>
+```
+
+## Filtros
+
+```html
+<dcx-ng-picklist
+  filterBy="label,description,category"
+  showSourceFilter
+  showTargetFilter
+  sourceFilterPlaceholder="Buscar disponibles"
+  targetFilterPlaceholder="Buscar seleccionados"
+  [source]="sourceItems"
+  [target]="targetItems"
+/>
+```
+
+## Template de item
+
+```html
+<dcx-ng-picklist [source]="sourceItems" [target]="targetItems">
+  <ng-template #item let-item let-selected="selected">
+    <strong>{{ item.label }}</strong>
+    @if (selected) {
+      <span>Incluido</span>
+    }
+  </ng-template>
+</dcx-ng-picklist>
+```
+
+## Accesibilidad
+
+- Usa `role="listbox"` y `role="option"`.
+- Los controles de mover y reordenar usan `dcx-ng-button` y labels accesibles.
+- Los filtros usan `dcx-ng-input` con tipo `search`.
+- Permite navegar opciones con teclado y seleccionar con `Enter` o `Space`.
