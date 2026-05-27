@@ -1,0 +1,27 @@
+import { create } from 'storybook/theming/create';
+
+export const dcxTheme = create({
+  base: 'light',
+  colorPrimary: '#0070ad',
+  colorSecondary: '#0070ad',
+  appBg: '#f7f9fc',
+  appContentBg: '#ffffff',
+  appPreviewBg: '#ffffff',
+  appBorderColor: '#d9e2ec',
+  appBorderRadius: 8,
+  fontBase: "'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif",
+  fontCode: "'Roboto Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace",
+  textColor: '#1f2933',
+  textInverseColor: '#ffffff',
+  textMutedColor: '#52606d',
+  barTextColor: '#52606d',
+  barSelectedColor: '#0070ad',
+  barHoverColor: '#005b8c',
+  barBg: '#eef4f8',
+  inputBg: '#ffffff',
+  inputBorder: '#bcccdc',
+  inputTextColor: '#1f2933',
+  inputBorderRadius: 6,
+  brandTitle: 'DCX Library',
+  brandUrl: 'https://libreria-amutarbo.github.io/libreria-formacion/develop/',
+});
