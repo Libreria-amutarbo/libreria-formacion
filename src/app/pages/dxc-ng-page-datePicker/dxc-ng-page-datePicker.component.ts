@@ -2,13 +2,13 @@ import { DcxNgDatePickerComponent } from '@dcx-ng-components/dcx-ng-lib';
 import { Component, signal } from '@angular/core';
 
 @Component({
-  selector: 'app-dxc-ng-page-date-picker',
+  selector: 'app-dcx-ng-page-date-picker',
   standalone: true,
   imports: [DcxNgDatePickerComponent],
   templateUrl: './dxc-ng-page-datePicker.component.html',
   styleUrl: './dxc-ng-page-datePicker.component.scss',
 })
-export class DxcNgPageDatePickerComponent {
+export class DcxNgPageDatePickerComponent {
   selectedDate = signal<Date | null>(new Date());
   minDate = signal<Date | null>(new Date(2026, 3, 15));
   maxDate = signal<Date | null>(new Date(2026, 3, 30));
