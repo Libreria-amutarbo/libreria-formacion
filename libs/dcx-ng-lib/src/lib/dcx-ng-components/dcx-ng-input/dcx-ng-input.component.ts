@@ -38,7 +38,6 @@ import {
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
-let uuid = 0;
 @Component({
   selector: 'dcx-ng-input',
   standalone: true,
@@ -74,7 +73,7 @@ export class DcxNgInputComponent {
       this.inputRef.nativeElement.value = '';
     }
   }
-  id = input<string>(`my-input-${++uuid}`);
+  id = input<string>(`dcx-input-${Math.random().toString(36).substring(2, 9)}`);
   value = model<string | number>(INPUT_DEFAULT_VALUE);
   disabled = input(INPUT_DEFAULT_DISABLED, {
     transform: booleanAttribute,

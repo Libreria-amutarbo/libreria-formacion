@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DxcNgPageDatePickerComponent } from './dxc-ng-page-datePicker.component';
+import { DcxNgPageDatePickerComponent } from './dxc-ng-page-datePicker.component';
 
-describe('DxcNgPageDatePickerComponent', () => {
-  let component: DxcNgPageDatePickerComponent;
-  let fixture: ComponentFixture<DxcNgPageDatePickerComponent>;
+describe('DcxNgPageDatePickerComponent', () => {
+  let component: DcxNgPageDatePickerComponent;
+  let fixture: ComponentFixture<DcxNgPageDatePickerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DxcNgPageDatePickerComponent],
+      imports: [DcxNgPageDatePickerComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DxcNgPageDatePickerComponent);
+    fixture = TestBed.createComponent(DcxNgPageDatePickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
