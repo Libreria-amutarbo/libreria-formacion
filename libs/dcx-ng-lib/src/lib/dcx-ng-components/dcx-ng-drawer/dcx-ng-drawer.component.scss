@@ -8,10 +8,35 @@
   inset: 0;
   background: var(--dcx-drawer-mask-background, rgba(0, 0, 0, 0.45));
   opacity: 1;
+  will-change: opacity;
   transition: opacity 220ms ease;
 
   @starting-style {
     opacity: 0;
+  }
+}
+
+.dcx-drawer-root--closing {
+  .dcx-drawer-mask {
+    opacity: 0;
+  }
+
+  .dcx-drawer {
+    &--left {
+      transform: translateX(-100%);
+    }
+
+    &--right {
+      transform: translateX(100%);
+    }
+
+    &--top {
+      transform: translateY(-100%);
+    }
+
+    &--bottom {
+      transform: translateY(100%);
+    }
   }
 }
 
@@ -25,6 +50,7 @@
   flex-direction: column;
   max-width: 100%;
   max-height: 100%;
+  will-change: transform;
   transition: transform 220ms ease;
 
   &--left {

@@ -1,6 +1,10 @@
 <section>
   <h2 class="example-title">Ejemplo 1 - Context Menu Básico</h2>
-  <div class="context-area" (contextmenu)="openContextMenu($event, 1)">
+  <div class="coordinates-input">
+    <label>X: <input type="number" [(ngModel)]="coordX1" min="0" /></label>
+    <label>Y: <input type="number" [(ngModel)]="coordY1" min="0" /></label>
+  </div>
+  <div #area1 class="context-area" (contextmenu)="openContextMenu($event, 1, area1)">
     <p>Haz clic derecho aquí para abrir el menú contextual</p>
   </div>
 
@@ -39,7 +43,11 @@
 
 <section>
   <h2 class="example-title">Ejemplo 3 - Context Menu con Sublistas</h2>
-  <div class="context-area" (contextmenu)="openContextMenu($event, 3)">
+  <div class="coordinates-input">
+    <label>X: <input type="number" [(ngModel)]="coordX3" min="0" /></label>
+    <label>Y: <input type="number" [(ngModel)]="coordY3" min="0" /></label>
+  </div>
+  <div #area3 class="context-area" (contextmenu)="openContextMenu($event, 3, area3)">
     <p>Haz clic derecho aquí para abrir el menú con sublistas</p>
   </div>
 

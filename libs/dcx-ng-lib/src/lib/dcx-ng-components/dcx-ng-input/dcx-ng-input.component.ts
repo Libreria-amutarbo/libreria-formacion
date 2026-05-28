@@ -14,7 +14,12 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { DcxInputErrorMessage, DcxInputType, DcxSpacing, DcxSize } from '../../core/interfaces';
+import {
+  DcxInputErrorMessage,
+  DcxInputType,
+  DcxSpacing,
+  DcxSize,
+} from '../../core/interfaces';
 import {
   INPUT_DEFAULT_VALUE,
   INPUT_DEFAULT_DISABLED,
@@ -30,11 +35,12 @@ import {
   INPUT_DEFAULT_ARIA_LABEL,
   INPUT_DEFAULT_ARIA_DESCRIBEDBY,
   INPUT_DEFAULT_ERROR_MESSAGE,
+  INPUT_DEFAULT_REQUIRED_MESSAGE,
   ERRORICON,
   SPACING_DEFAULT,
   INPUT_DEFAULT_SIZE,
   SLIDER_DEFAULT_VALUES,
-} from '../../core/mock';
+} from '../../core/defaults';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 
@@ -103,6 +109,7 @@ export class DcxNgInputComponent {
   ariaLabel = input<string | null>(INPUT_DEFAULT_ARIA_LABEL);
   ariaDescribedBy = input<string | null>(INPUT_DEFAULT_ARIA_DESCRIBEDBY);
   errorMessage = input<string>(INPUT_DEFAULT_ERROR_MESSAGE);
+  requiredMessage = input<string | null>(INPUT_DEFAULT_REQUIRED_MESSAGE);
   errorMessages = input<DcxInputErrorMessage[]>([]);
   errorIcon = input<string>(ERRORICON);
   spacing = input<DcxSpacing>(SPACING_DEFAULT);
@@ -118,6 +125,7 @@ export class DcxNgInputComponent {
   enterPressed = output<void>();
 
   showPassword = signal(false);
+  touched = signal(false);
 
   //Input for slider
   min = input(SLIDER_DEFAULT_VALUES.min);
@@ -128,6 +136,15 @@ export class DcxNgInputComponent {
   private onChange: (val: any) => void = () => null;
   private onTouched: () => void = () => null;
   errorId = computed(() => `${this.id()}-error`);
+
+  arrayValues: (string | number | null | undefined)[] = ['', null, undefined];
+
+  showRequiredWarning = computed<boolean>(
+    () =>
+      this.required() &&
+      this.arrayValues.includes(this.value()) &&
+      this.touched(),
+  );
 
   displayType = computed<string>(() => {
     const inputType = this.type();
@@ -217,8 +234,14 @@ export class DcxNgInputComponent {
   }
 
   onBlur() {
+    this.touched.set(true);
     this.onTouched();
     this.blurEvent.emit();
+  }
+
+  onFocus() {
+    this.touched.set(false);
+    this.focusEvent.emit();
   }
 
   onInput(newValue: string) {

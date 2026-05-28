@@ -108,14 +108,14 @@ export class DcxNg{Name}Component {
 
 ### Naming
 
-| Artefacto | Convención | Ejemplo |
-|-----------|-----------|---------|
-| Selector | `dcx-ng-{kebab}` | `dcx-ng-button` |
-| Clase | `DcxNg{Pascal}Component` | `DcxNgButtonComponent` |
-| Clase CSS raíz | `.dcx-{kebab}` | `.dcx-button` |
-| Modificadores BEM | `.dcx-{kebab}--{state}` | `.dcx-button--disabled` |
-| Interfaces | `Dcx{Pascal}Options` | `DcxButtonOptions` |
-| Rutas | snake_case en `APP_ROUTES` | `BUTTON: 'button'` |
+| Artefacto         | Convención                 | Ejemplo                 |
+| ----------------- | -------------------------- | ----------------------- |
+| Selector          | `dcx-ng-{kebab}`           | `dcx-ng-button`         |
+| Clase             | `DcxNg{Pascal}Component`   | `DcxNgButtonComponent`  |
+| Clase CSS raíz    | `.dcx-{kebab}`             | `.dcx-button`           |
+| Modificadores BEM | `.dcx-{kebab}--{state}`    | `.dcx-button--disabled` |
+| Interfaces        | `Dcx{Pascal}Options`       | `DcxButtonOptions`      |
+| Rutas             | snake_case en `APP_ROUTES` | `BUTTON: 'button'`      |
 
 ---
 
@@ -144,8 +144,8 @@ Tokens principales: `--color-primary`, `--background-primary`, `--background-pri
 ## Testing
 
 - Framework: **Jest**
-- Mocks en: `libs/dcx-ng-lib/src/lib/core/mock/{name}.ts` (nunca inline en el spec)
-- Exportar mocks desde `core/mock/index.ts` para que sean reutilizables en stories y tests
+- Fixtures en: `libs/dcx-ng-lib/src/lib/core/fixtures/{name}.ts` (nunca inline en el spec)
+- Exportar fixtures desde `core/fixtures/index.ts` para que sean reutilizables en stories y tests
 - Cobertura mínima: **80%**
 - Patrón: Arrange / Act / Assert
 
@@ -182,7 +182,7 @@ it('should emit clicked when button is pressed', () => {
 - [ ] Sin `console.log`
 - [ ] Tests unitarios (>80% cobertura)
 - [ ] Stories con ≥3 casos y documentación MDX
-- [ ] Mock data en `core/mock/` (no inline)
+- [ ] Fixtures en `core/fixtures/` (no inline)
 - [ ] Lint sin errores (`npm run lint`)
 - [ ] Build sin errores (`npx nx build dcx-ng-components`)
 

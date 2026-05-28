@@ -1,0 +1,221 @@
+:host {
+  display: block;
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  color: var(--text-dark, #2a2e33);
+
+  --dcx-picklist-gap: var(--sp-4, 16px);
+  --dcx-picklist-panel-bg: var(--bg-default, #ffffff);
+  --dcx-picklist-panel-border: var(--border-light, #d1d5db);
+  --dcx-picklist-muted: var(--text-muted, #696e75);
+  --dcx-picklist-radius: var(--r-lg, 8px);
+  --dcx-picklist-item-radius: var(--r-md, 6px);
+  --dcx-picklist-selected-bg: var(--color-info-bg, #eff6ff);
+  --dcx-picklist-selected-color: var(--color-info, #0058ab);
+  --dcx-picklist-focus: var(--border-focus, #1db8f2);
+}
+
+.dcx-picklist {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  gap: var(--dcx-picklist-gap);
+  align-items: center;
+}
+
+.dcx-picklist--disabled {
+  opacity: 0.72;
+}
+
+.dcx-picklist__panel {
+  min-width: 0;
+  border: 1px solid var(--dcx-picklist-panel-border);
+  border-radius: var(--dcx-picklist-radius);
+  background: var(--dcx-picklist-panel-bg);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06));
+  overflow: hidden;
+}
+
+.dcx-picklist__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3, 12px);
+  padding: var(--sp-3, 12px) var(--sp-4, 16px);
+  border-bottom: 1px solid var(--dcx-picklist-panel-border);
+  background: var(--bg-hover, #f7f8fa);
+
+  h3 {
+    margin: 0;
+    font-size: var(--fs-md, 16px);
+    font-weight: var(--fw-semibold, 600);
+    line-height: 1.3;
+  }
+
+  span {
+    min-width: 1.75rem;
+    padding: 2px 8px;
+    border-radius: var(--r-pill, 999px);
+    background: var(--bg-default, #ffffff);
+    color: var(--dcx-picklist-muted);
+    font-size: var(--fs-xs, 11px);
+    font-weight: var(--fw-semibold, 600);
+    text-align: center;
+  }
+}
+
+.dcx-picklist__filter {
+  padding: var(--sp-2, 8px) var(--sp-3, 12px);
+  border-bottom: 1px solid var(--dcx-picklist-panel-border);
+}
+
+.dcx-picklist__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1, 4px);
+  min-height: 12rem;
+  margin: 0;
+  padding: var(--sp-2, 8px);
+  overflow: auto;
+  list-style: none;
+}
+
+.dcx-picklist__item {
+  border: 1px solid transparent;
+  border-radius: var(--dcx-picklist-item-radius);
+  outline: none;
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+
+  &:hover:not(.dcx-picklist__item--disabled) {
+    background: var(--bg-hover, #f7f8fa);
+  }
+
+  &:focus-visible {
+    border-color: var(--dcx-picklist-focus);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--dcx-picklist-focus) 20%, transparent);
+  }
+}
+
+.dcx-picklist__item--selected {
+  border-color: color-mix(in srgb, var(--dcx-picklist-selected-color) 24%, transparent);
+  background: var(--dcx-picklist-selected-bg);
+  color: var(--dcx-picklist-selected-color);
+}
+
+.dcx-picklist__item--disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.dcx-picklist__item-content {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3, 12px);
+  min-height: 3.25rem;
+  padding: var(--sp-2, 8px) var(--sp-3, 12px);
+}
+
+.dcx-picklist__item-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--r-md, 6px);
+  background: var(--bg-hover, #f7f8fa);
+  color: var(--text-dark, #2a2e33);
+}
+
+.dcx-picklist__item-text {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dcx-picklist__item-label {
+  overflow: hidden;
+  font-size: var(--fs-sm, 12px);
+  font-weight: var(--fw-semibold, 600);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dcx-picklist__item-description {
+  overflow: hidden;
+  color: var(--dcx-picklist-muted);
+  font-size: var(--fs-xs, 11px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dcx-picklist__selected-icon {
+  flex: 0 0 auto;
+  color: var(--dcx-picklist-selected-color);
+}
+
+.dcx-picklist__reorder-controls,
+.dcx-picklist__transfer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2, 8px);
+  align-items: center;
+  justify-content: center;
+}
+
+.dcx-picklist__control-button {
+  display: inline-flex;
+}
+
+:host ::ng-deep .dcx-picklist__control-button .dcx-ng-button,
+:host ::ng-deep .dcx-ng-button.dcx-picklist__control-button {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+}
+
+.dcx-picklist__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 9rem;
+  color: var(--dcx-picklist-muted);
+  font-size: var(--fs-sm, 12px);
+  text-align: center;
+}
+
+.dcx-picklist__visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.cdk-drag-preview {
+  border-radius: var(--dcx-picklist-item-radius);
+  background: var(--bg-default, #ffffff);
+  box-shadow: var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12));
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.32;
+}
+
+@media (max-width: 900px) {
+  .dcx-picklist--responsive {
+    grid-template-columns: 1fr;
+
+    .dcx-picklist__reorder-controls,
+    .dcx-picklist__transfer-controls {
+      flex-direction: row;
+    }
+  }
+}

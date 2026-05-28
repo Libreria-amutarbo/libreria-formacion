@@ -10,6 +10,7 @@ import {
 
 const ROUTE_ICONS: Record<string, string> = {
   accordion: 'chevron-down',
+  badge: 'patch-exclamation',
   breadcrumb: 'signpost-split',
   button: 'toggle-on',
   card: 'card-text',
@@ -29,15 +30,18 @@ const ROUTE_ICONS: Record<string, string> = {
   toast: 'bell',
   navbar: 'layout-sidebar',
   paginator: 'skip-end',
+  picklist: 'list-check',
   popover: 'window',
   radio: 'record-circle',
   search: 'search',
   select: 'menu-button',
   slider: 'sliders',
+  skeleton: 'columns-gap',
   spinner: 'arrow-clockwise',
   stepper: 'diagram-3',
   table: 'table',
   tabs: 'folder',
+  'theme-generator': 'palette',
   toggle: 'toggles',
   tooltip: 'chat-square-text',
 };

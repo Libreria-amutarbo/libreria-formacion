@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
+  ElementRef,
   HostListener,
   input,
   output,
   signal,
+  ViewChild,
 } from '@angular/core';
 import { DcxContextMenuItem } from '../../core/interfaces';
 import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
@@ -19,6 +20,8 @@ import { DcxNgListComponent } from '../dcx-ng-list/dcx-ng-list.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgContextMenuComponent {
+  @ViewChild('container') container!: ElementRef;
+
   items = input.required<DcxContextMenuItem[]>();
   position = input<{ x: number; y: number }>({ x: 0, y: 0 });
   positionMode = input<'fixed' | 'absolute'>('fixed');
@@ -27,22 +30,59 @@ export class DcxNgContextMenuComponent {
   menuClosed = output<void>();
 
   isOpen = signal<boolean>(false);
-
-  menuStyle = computed(() => {
-    const pos = this.position();
-    return {
-      top: `${pos.y}px`,
-      left: `${pos.x}px`,
-    };
-  });
+  isPositioned = signal<boolean>(false);
+  top = signal<string>('-9999px');
+  left = signal<string>('-9999px');
 
   open(): void {
     this.isOpen.set(true);
+    setTimeout(() => {
+      this.calculatePosition();
+    });
   }
 
   close(): void {
     this.isOpen.set(false);
+    this.isPositioned.set(false);
     this.menuClosed.emit();
+  }
+
+  private calculatePosition(): void {
+    const pos = this.position();
+
+    if (this.positionMode() === 'absolute') {
+      this.left.set(`${pos.x}px`);
+      this.top.set(`${pos.y}px`);
+      this.isPositioned.set(true);
+      return;
+    }
+
+    if (!this.container) return;
+
+    const menuEl = this.container.nativeElement;
+    const menuRect = menuEl.getBoundingClientRect();
+    const gap = 8;
+
+    const offsetParent = menuEl.offsetParent as HTMLElement || document.documentElement;
+    const parentRect = offsetParent.getBoundingClientRect();
+
+    let topPosition = pos.y - parentRect.top;
+    let leftPosition = pos.x - parentRect.left;
+
+    if (pos.x + menuRect.width > window.innerWidth - 10) {
+      leftPosition = window.innerWidth - 10 - menuRect.width - parentRect.left;
+      if (leftPosition < 0) leftPosition = 0;
+    }
+
+    const wouldGoBelow = pos.y + menuRect.height > window.innerHeight - 10;
+    const topIfFlipped = pos.y - parentRect.top - menuRect.height;
+    if (wouldGoBelow && topIfFlipped >= gap) {
+      topPosition = topIfFlipped;
+    }
+
+    this.left.set(`${leftPosition}px`);
+    this.top.set(`${topPosition}px`);
+    this.isPositioned.set(true);
   }
 
   onItemClick(item: DcxContextMenuItem, event?: Event): void {
@@ -67,10 +107,21 @@ export class DcxNgContextMenuComponent {
     this.onItemClick(event.item);
   }
 
-  @HostListener('document:click')
-  onDocumentClick(): void {
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    if (this.container?.nativeElement.contains(event.target as Node)) {
+      return;
+    }
+
     if (this.isOpen()) {
       this.close();
+    }
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    if (this.isOpen()) {
+      this.calculatePosition();
     }
   }
 }

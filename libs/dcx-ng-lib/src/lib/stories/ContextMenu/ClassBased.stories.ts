@@ -59,7 +59,7 @@ const meta: Meta<DcxNgContextMenuComponent> = {
   },
   args: {
     items: SIMPLE_CONTEXT_MENU_ITEMS,
-    position: { x: 100, y: 100 },
+    position: { x: 315, y: 70 },
   },
 };
 
@@ -67,13 +67,20 @@ export default meta;
 type Story = StoryObj<DcxNgContextMenuComponent>;
 
 export const ContextMenuOnRightClick: Story = {
-  render: () => ({
+  render: (args) => ({
     props: {
-      items: SIMPLE_CONTEXT_MENU_ITEMS,
-      menuPosition: { x: 0, y: 0 },
-      openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent) {
+      items: args.items,
+      position: args.position,
+      openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent, area: HTMLElement) {
         event.preventDefault();
-        (this as any).menuPosition = { x: event.clientX, y: event.clientY };
+        const areaRect = area.getBoundingClientRect();
+        const menuWidth = 240;
+        const clampedX = Math.max(0, Math.min((this as any).position.x, areaRect.width - menuWidth));
+        const clampedY = Math.max(0, Math.min((this as any).position.y, areaRect.height));
+        (this as any)._computedPosition = {
+          x: areaRect.left + clampedX,
+          y: areaRect.top + clampedY,
+        };
         setTimeout(() => menu.open(), 0);
       },
       onItemSelected(item: any) {
@@ -82,8 +89,8 @@ export const ContextMenuOnRightClick: Story = {
     },
     template: `
       <div style="padding: 2rem;">
-        <div 
-          (contextmenu)="openContextMenu(contextMenu, $event)"
+        <div #area
+          (contextmenu)="openContextMenu(contextMenu, $event, area)"
           style="
             border: 2px dashed #ccc; 
             padding: 3rem; 
@@ -97,7 +104,7 @@ export const ContextMenuOnRightClick: Story = {
         <dcx-ng-context-menu 
           #contextMenu
           [items]="items"
-          [position]="menuPosition"
+          [position]="_computedPosition || position"
           (itemSelected)="onItemSelected($event)">
         </dcx-ng-context-menu>
       </div>
@@ -106,13 +113,20 @@ export const ContextMenuOnRightClick: Story = {
 };
 
 export const ContextMenuWithSublists: Story = {
-  render: () => ({
+  render: (args) => ({
     props: {
-      items: SUBLIST_CONTEXT_MENU_ITEMS,
-      menuPosition: { x: 0, y: 0 },
-      openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent) {
+      items: args.items,
+      position: args.position,
+      openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent, area: HTMLElement) {
         event.preventDefault();
-        (this as any).menuPosition = { x: event.clientX, y: event.clientY };
+        const areaRect = area.getBoundingClientRect();
+        const menuWidth = 240;
+        const clampedX = Math.max(0, Math.min((this as any).position.x, areaRect.width - menuWidth));
+        const clampedY = Math.max(0, Math.min((this as any).position.y, areaRect.height));
+        (this as any)._computedPosition = {
+          x: areaRect.left + clampedX,
+          y: areaRect.top + clampedY,
+        };
         setTimeout(() => menu.open(), 0);
       },
       onItemSelected(item: any) {
@@ -121,8 +135,8 @@ export const ContextMenuWithSublists: Story = {
     },
     template: `
             <div style="padding: 2rem;">
-                <div 
-                    (contextmenu)="openContextMenu(contextMenu, $event)"
+                <div #area
+                    (contextmenu)="openContextMenu(contextMenu, $event, area)"
                     style="
                         border: 2px dashed #ccc; 
                         padding: 3rem; 
@@ -136,10 +150,13 @@ export const ContextMenuWithSublists: Story = {
                 <dcx-ng-context-menu 
                     #contextMenu
                     [items]="items"
-                    [position]="menuPosition"
+                    [position]="_computedPosition || position"
                     (itemSelected)="onItemSelected($event)">
                 </dcx-ng-context-menu>
             </div>
         `,
   }),
+  args: {
+    items: SUBLIST_CONTEXT_MENU_ITEMS,
+  },
 };

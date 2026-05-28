@@ -1,0 +1,288 @@
+<div [class]="pickListClasses()">
+  @if (showSourceControls()) {
+    <div
+      class="dcx-picklist__reorder-controls"
+      aria-label="Reordenar disponibles"
+    >
+      <dcx-ng-button
+        class="dcx-picklist__control-button"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-double-up"
+        [ariaLabel]="getReorderControlLabel('source', 'top')"
+        [disabled]="disabled() || !hasSelectedSource()"
+        (buttonClick)="moveTop('source')"
+      ></dcx-ng-button>
+      <dcx-ng-button
+        class="dcx-picklist__control-button"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-up"
+        [ariaLabel]="getReorderControlLabel('source', 'up')"
+        [disabled]="disabled() || !hasSelectedSource()"
+        (buttonClick)="moveUp('source')"
+      ></dcx-ng-button>
+      <dcx-ng-button
+        class="dcx-picklist__control-button"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-down"
+        [ariaLabel]="getReorderControlLabel('source', 'down')"
+        [disabled]="disabled() || !hasSelectedSource()"
+        (buttonClick)="moveDown('source')"
+      ></dcx-ng-button>
+      <dcx-ng-button
+        class="dcx-picklist__control-button"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-double-down"
+        [ariaLabel]="getReorderControlLabel('source', 'bottom')"
+        [disabled]="disabled() || !hasSelectedSource()"
+        (buttonClick)="moveBottom('source')"
+      ></dcx-ng-button>
+    </div>
+  }
+
+  <section class="dcx-picklist__panel" [attr.aria-labelledby]="sourceHeadingId">
+    <header class="dcx-picklist__header">
+      <h3 [id]="sourceHeadingId">{{ sourceHeader() }}</h3>
+      <span>{{ sourceItems().length }}</span>
+    </header>
+
+    @if (showSourceFilter()) {
+      <div class="dcx-picklist__filter">
+        <dcx-ng-input
+          [type]="DcxInputType.SEARCH"
+          size="s"
+          [placeholder]="sourceFilterPlaceholder()"
+          [value]="sourceQuery()"
+          [disabled]="disabled()"
+          [ariaLabel]="sourceFilterPlaceholder()"
+          (valueChange)="onFilterChange('source', $event)"
+        ></dcx-ng-input>
+      </div>
+    }
+
+    <dcx-ng-list
+      [id]="sourceListId"
+      class="dcx-picklist__list"
+      [items]="visibleSourceItems()"
+      [style.max-height]="scrollHeight()"
+      [selectable]="true"
+      [externalSelection]="true"
+      listRole="listbox"
+      itemRole="option"
+      [itemTemplate]="sourceItemWrapper"
+      [cdkDropList]="true"
+      [cdkDropListData]="visibleSourceItems()"
+      [cdkDropListConnectedTo]="targetListId"
+      [cdkDropListDisabled]="disabled() || !dragdrop()"
+      [dragEnabled]="dragdrop()"
+      (cdkDropListDropped)="onDrop($event, 'source')"
+      (itemSelected)="toggleItem($event.item, 'source')"
+    >
+    </dcx-ng-list>
+  </section>
+
+  <div
+    class="dcx-picklist__transfer-controls"
+    aria-label="Transferir elementos"
+  >
+    <dcx-ng-button
+      class="dcx-picklist__control-button"
+      variant="secondary"
+      size="s"
+      icon
+      iconName="chevron-right"
+      [ariaLabel]="getMoveSelectedLabel('source')"
+      [disabled]="disabled() || !hasSelectedSource()"
+      (buttonClick)="moveSelectedToTarget()"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      class="dcx-picklist__control-button"
+      variant="secondary"
+      size="s"
+      icon
+      iconName="chevron-double-right"
+      [ariaLabel]="getMoveAllLabel('source')"
+      [disabled]="disabled() || !canMoveAllToTarget()"
+      (buttonClick)="moveEveryItemToTarget()"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      class="dcx-picklist__control-button"
+      variant="secondary"
+      size="s"
+      icon
+      iconName="chevron-left"
+      [ariaLabel]="getMoveSelectedLabel('target')"
+      [disabled]="disabled() || !hasSelectedTarget()"
+      (buttonClick)="moveSelectedToSource()"
+    ></dcx-ng-button>
+    <dcx-ng-button
+      class="dcx-picklist__control-button"
+      variant="secondary"
+      size="s"
+      icon
+      iconName="chevron-double-left"
+      [ariaLabel]="getMoveAllLabel('target')"
+      [disabled]="disabled() || !canMoveAllToSource()"
+      (buttonClick)="moveEveryItemToSource()"
+    ></dcx-ng-button>
+  </div>
+
+  <section class="dcx-picklist__panel" [attr.aria-labelledby]="targetHeadingId">
+    <header class="dcx-picklist__header">
+      <h3 [id]="targetHeadingId">{{ targetHeader() }}</h3>
+      <span>{{ targetItems().length }}</span>
+    </header>
+
+    @if (showTargetFilter()) {
+      <div class="dcx-picklist__filter">
+        <dcx-ng-input
+          [type]="DcxInputType.SEARCH"
+          size="s"
+          [placeholder]="targetFilterPlaceholder()"
+          [value]="targetQuery()"
+          [disabled]="disabled()"
+          [ariaLabel]="targetFilterPlaceholder()"
+          (valueChange)="onFilterChange('target', $event)"
+        ></dcx-ng-input>
+      </div>
+    }
+
+    <dcx-ng-list
+      [id]="targetListId"
+      class="dcx-picklist__list"
+      [items]="visibleTargetItems()"
+      [style.max-height]="scrollHeight()"
+      [selectable]="true"
+      [externalSelection]="true"
+      listRole="listbox"
+      itemRole="option"
+      [itemTemplate]="targetItemWrapper"
+      [cdkDropList]="true"
+      [cdkDropListData]="visibleTargetItems()"
+      [cdkDropListConnectedTo]="sourceListId"
+      [cdkDropListDisabled]="disabled() || !dragdrop()"
+      [dragEnabled]="dragdrop()"
+      (cdkDropListDropped)="onDrop($event, 'target')"
+      (itemSelected)="toggleItem($event.item, 'target')"
+    >
+    </dcx-ng-list>
+  </section>
+
+  @if (showTargetControls()) {
+    <div
+      class="dcx-picklist__reorder-controls"
+      aria-label="Reordenar seleccionados"
+    >
+      <dcx-ng-button
+        class="dcx-picklist__control-button"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-double-up"
+        [ariaLabel]="getReorderControlLabel('target', 'top')"
+        [disabled]="disabled() || !hasSelectedTarget()"
+        (buttonClick)="moveTop('target')"
+      ></dcx-ng-button>
+      <dcx-ng-button
+        class="dcx-picklist__control-button"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-up"
+        [ariaLabel]="getReorderControlLabel('target', 'up')"
+        [disabled]="disabled() || !hasSelectedTarget()"
+        (buttonClick)="moveUp('target')"
+      ></dcx-ng-button>
+      <dcx-ng-button
+        class="dcx-picklist__control-button"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-down"
+        [ariaLabel]="getReorderControlLabel('target', 'down')"
+        [disabled]="disabled() || !hasSelectedTarget()"
+        (buttonClick)="moveDown('target')"
+      ></dcx-ng-button>
+      <dcx-ng-button
+        class="dcx-picklist__control-button"
+        variant="secondary"
+        size="s"
+        icon
+        iconName="chevron-double-down"
+        [ariaLabel]="getReorderControlLabel('target', 'bottom')"
+        [disabled]="disabled() || !hasSelectedTarget()"
+        (buttonClick)="moveBottom('target')"
+      ></dcx-ng-button>
+    </div>
+  }
+</div>
+
+<ng-template #sourceItemWrapper let-item let-index="index">
+  <ng-container
+    *ngTemplateOutlet="itemWrapper; context: { $implicit: item, index: index, side: 'source' }"
+  ></ng-container>
+</ng-template>
+
+<ng-template #targetItemWrapper let-item let-index="index">
+  <ng-container
+    *ngTemplateOutlet="itemWrapper; context: { $implicit: item, index: index, side: 'target' }"
+  ></ng-container>
+</ng-template>
+
+<ng-template #itemWrapper let-item let-index="index" let-side="side">
+  <div
+    [class]="getItemClasses(item, side)"
+    [attr.aria-selected]="isSelected(item, side)"
+    [attr.aria-disabled]="isItemDisabled(item)"
+    [attr.tabindex]="isFocused(index, side) && !isItemDisabled(item) ? 0 : -1"
+    (keydown)="onItemKeydown($event, item, side, index)"
+  >
+    @if (itemTemplate) {
+      <ng-container
+        *ngTemplateOutlet="
+          itemTemplate;
+          context: getTemplateContext(item, index, side)
+        "
+      ></ng-container>
+    } @else {
+      <ng-container
+        *ngTemplateOutlet="
+          defaultItem;
+          context: getTemplateContext(item, index, side)
+        "
+      ></ng-container>
+    }
+  </div>
+</ng-template>
+
+<ng-template #defaultItem let-item let-selected="selected">
+  <div class="dcx-picklist__item-content">
+    @if (item.icon) {
+      <span class="dcx-picklist__item-icon">
+        <dcx-ng-icon [name]="item.icon" aria-hidden="true"></dcx-ng-icon>
+      </span>
+    }
+    <span class="dcx-picklist__item-text">
+      <span class="dcx-picklist__item-label">{{ item.label }}</span>
+      @if (item.description) {
+        <span class="dcx-picklist__item-description">
+          {{ item.description }}
+        </span>
+      }
+    </span>
+    @if (selected) {
+      <dcx-ng-icon
+        class="dcx-picklist__selected-icon"
+        name="check-lg"
+        aria-hidden="true"
+      ></dcx-ng-icon>
+    }
+  </div>
+</ng-template>

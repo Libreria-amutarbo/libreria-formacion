@@ -10,6 +10,7 @@ import { DcxNgPageRadioComponent } from './pages/dcx-ng-page-radio/dcx-ng-page-r
 import { DcxNgPageInputComponent } from './pages/dcx-ng-page-input/dcx-ng-page-input.component';
 import { DcxNgPageSpinnerComponent } from './pages/dcx-ng-page-spinner/dcx-ng-page-spinner.component';
 import { DcxNgPagePaginatorComponent } from './pages/dcx-ng-page-paginator/dcx-ng-page-paginator.component';
+import { DcxNgPagePickListComponent } from './pages/dcx-ng-page-picklist/dcx-ng-page-picklist.component';
 import { DcxNgPageChipComponent } from './pages/dcx-ng-page-chip/dcx-ng-page-chip.component';
 import { DcxNgPageTooltipComponent } from './pages/dcx-ng-page-tooltip/dcx-ng-page-tooltip.component';
 import { DcxNgPageCheckboxComponent } from './pages/dcx-ng-page-checkbox/dcx-ng-page-checkbox.component';
@@ -34,9 +35,13 @@ import { DcxNgPageStepperComponent } from './pages/dcx-ng-page-stepper/dcx-ng-pa
 import { HomeComponent } from './pages/home/home.component';
 import { AppComponent } from './app.component';
 import { DcxNgPagePopoverComponent } from './pages/dcx-ng-page-popover/dcx-ng-page-popover';
-import { DcxNgPageTextareaComponent } from './pages/dcx-ng-page-textarea/dcx-ng-page-textarea.component';
-import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page-editor.component';
 import { DcxNgPageThemeGeneratorComponent } from './pages/dcx-ng-page-theme-generator/dcx-ng-page-theme-generator.component';
+import { DcxNgPageTextareaComponent } from './pages/dcx-ng-page-textarea/dcx-ng-page-textarea.component';
+import { DcxNgPageProgressbarComponent } from './pages/dcx-ng-page-progressbar/dcx-ng-page-progressbar.component';
+import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page-editor.component';
+import { DcxNgPageBadgeComponent } from './pages/dcx-ng-page-badge/dcx-ng-page-badge.component';
+import { DcxNgPageCarouselComponent } from './pages/dcx-ng-page-carousel/dcx-ng-page-carousel.component';
+import { DcxNgPageSkeletonComponent } from './pages/dcx-ng-page-skeleton/dcx-ng-page-skeleton.component';
 
 export const appRoutes: Route[] = [
   {
@@ -92,6 +97,10 @@ export const appRoutes: Route[] = [
     component: DcxNgPagePaginatorComponent,
   },
   {
+    path: APP_ROUTES.PICKLIST,
+    component: DcxNgPagePickListComponent,
+  },
+  {
     path: APP_ROUTES.CHIP,
     component: DcxNgPageChipComponent,
   },
@@ -118,6 +127,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.SLIDER,
     component: DcxNgPageSliderComponent,
+  },
+  {
+    path: APP_ROUTES.SKELETON,
+    component: DcxNgPageSkeletonComponent,
   },
   {
     path: APP_ROUTES.DATEPICKER,
@@ -164,6 +177,10 @@ export const appRoutes: Route[] = [
     component: DcxNgPagePopoverComponent,
   },
   {
+    path: APP_ROUTES.PROGRESSBAR,
+    component: DcxNgPageProgressbarComponent,
+  },
+  {
     path: APP_ROUTES.FILE_UPLOAD,
     component: DcxNgPageFileUploadComponent,
   },
@@ -176,11 +193,23 @@ export const appRoutes: Route[] = [
     component: DcxNgPageScrollTopDownComponent,
   },
   {
+    path: APP_ROUTES.THEME_GENERATOR,
+    component: DcxNgPageThemeGeneratorComponent,
+  },
+  {
     path: APP_ROUTES.TEXTAREA,
     component: DcxNgPageTextareaComponent,
   },
   {
     path: APP_ROUTES.THEME_GENERATOR,
     component: DcxNgPageThemeGeneratorComponent,
+  },
+  {
+    path: APP_ROUTES.BADGE,
+    component: DcxNgPageBadgeComponent,
+  },
+  {
+    path: APP_ROUTES.CAROUSEL,
+    component: DcxNgPageCarouselComponent,
   },
 ];

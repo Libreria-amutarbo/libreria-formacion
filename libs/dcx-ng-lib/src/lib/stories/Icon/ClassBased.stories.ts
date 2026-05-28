@@ -1,7 +1,7 @@
 
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { SIZE_LIST, SIZE_DEFAULT, ICON_SPACING_LIST, ICON_SPACING_DEFAULT } from '../../core/mock';
+import { SIZE_LIST, SIZE_DEFAULT, ICON_SPACING_LIST, ICON_SPACING_DEFAULT } from '../../core/defaults';
 import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
 import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 

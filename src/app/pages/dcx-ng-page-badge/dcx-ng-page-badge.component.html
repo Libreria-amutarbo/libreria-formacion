@@ -1,0 +1,68 @@
+<section>
+  <h2 class="example-title">Ejemplo 1 - Badge básico</h2>
+  <div class="example-row">
+    <dcx-ng-badge value="2" />
+  </div>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 2 - Severidades</h2>
+  <div class="example-row">
+    <dcx-ng-badge value="2" severity="primary" />
+    <dcx-ng-badge value="6" severity="secondary" />
+    <dcx-ng-badge value="8" severity="success" />
+    <dcx-ng-badge value="4" severity="info" />
+    <dcx-ng-badge value="9" severity="warn" />
+    <dcx-ng-badge value="3" severity="danger" />
+  </div>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 3 - Tamaños</h2>
+  <div class="example-row items-end">
+    <dcx-ng-badge value="8" size="xl" severity="success" />
+    <dcx-ng-badge value="6" size="lg" severity="warn" />
+    <dcx-ng-badge value="4" severity="info" />
+    <dcx-ng-badge value="2" size="sm" />
+  </div>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 4 - Overlay sobre icono</h2>
+  <div class="example-row">
+    <div class="overlay-wrapper">
+      <dcx-ng-badge value="2" />
+      <dcx-ng-icon name="bell" size="xl" />
+    </div>
+    <div class="overlay-wrapper">
+      <dcx-ng-badge value="5" severity="danger" />
+      <dcx-ng-icon name="envelope" size="xl" />
+    </div>
+    <div class="overlay-wrapper">
+      <dcx-ng-badge severity="danger" />
+      <dcx-ng-icon name="calendar" size="xl" />
+    </div>
+  </div>
+</section>
+
+<hr />
+
+<section>
+  <h2 class="example-title">Ejemplo 5 - Botón con badge</h2>
+  <div class="example-row">
+    <div class="overlay-wrapper">
+      <dcx-ng-badge value="2" />
+      <dcx-ng-button label="Notificaciones" variant="primary" size="m" icon iconName="bell" iconPosition="left" iconSize="m" />
+    </div>
+    <div class="overlay-wrapper">
+      <dcx-ng-badge value="4" severity="danger" />
+      <dcx-ng-button label="Bandeja" variant="secondary" size="m" icon iconName="inbox" iconPosition="left" iconSize="m" />
+    </div>
+  </div>
+</section>

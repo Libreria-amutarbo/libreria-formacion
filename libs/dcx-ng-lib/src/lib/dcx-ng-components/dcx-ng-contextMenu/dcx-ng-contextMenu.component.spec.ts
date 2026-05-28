@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DcxNgContextMenuComponent } from '@dcx-ng-components/dcx-ng-lib';
@@ -62,14 +62,14 @@ describe('DcxNgContextMenuComponent', () => {
       expect(contextMenu).toBeTruthy();
     });
 
-    it('should apply correct position styles', () => {
+    it('should apply correct position styles', fakeAsync(() => {
       fixture.componentRef.setInput('position', { x: 100, y: 200 });
+      fixture.componentRef.setInput('positionMode', 'absolute');
       component.open();
-      fixture.detectChanges();
-      const contextMenu = compiled.query(By.css('.dcx-context-menu'));
-      expect(contextMenu.nativeElement.style.left).toBe('100px');
-      expect(contextMenu.nativeElement.style.top).toBe('200px');
-    });
+      tick();
+      expect(component.left()).toBe('100px');
+      expect(component.top()).toBe('200px');
+    }));
   });
 
   describe('open() method', () => {
@@ -183,7 +183,8 @@ describe('DcxNgContextMenuComponent', () => {
   describe('onDocumentClick()', () => {
     it('should close menu when open and document is clicked', () => {
       component.open();
-      component.onDocumentClick();
+      component.onDocumentClick(new MouseEvent('click'));
+      component.onDocumentClick(new MouseEvent('click'));
       expect(component.isOpen()).toBe(false);
     });
 
@@ -191,28 +192,25 @@ describe('DcxNgContextMenuComponent', () => {
       const spy = jest.fn();
       component.menuClosed.subscribe(spy);
       component.isOpen.set(false);
-      component.onDocumentClick();
+      component.onDocumentClick(new MouseEvent('click'));
       expect(spy).not.toHaveBeenCalled();
     });
   });
 
-  describe('menuStyle computed', () => {
-    it('should compute correct style from position', () => {
-      fixture.componentRef.setInput('position', { x: 50, y: 75 });
-      fixture.detectChanges();
-      const style = component.menuStyle();
-      expect(style).toEqual({ top: '75px', left: '50px' });
+  describe('top/left signals', () => {
+    it('should start with offscreen values', () => {
+      expect(component.top()).toBe('-9999px');
+      expect(component.left()).toBe('-9999px');
     });
 
-    it('should update when position changes', () => {
+    it('should update when position changes in absolute mode', fakeAsync(() => {
       fixture.componentRef.setInput('position', { x: 10, y: 20 });
-      fixture.detectChanges();
-      expect(component.menuStyle()).toEqual({ top: '20px', left: '10px' });
-
-      fixture.componentRef.setInput('position', { x: 300, y: 400 });
-      fixture.detectChanges();
-      expect(component.menuStyle()).toEqual({ top: '400px', left: '300px' });
-    });
+      fixture.componentRef.setInput('positionMode', 'absolute');
+      component.open();
+      tick();
+      expect(component.left()).toBe('10px');
+      expect(component.top()).toBe('20px');
+    }));
   });
 
   describe('Integration Tests', () => {

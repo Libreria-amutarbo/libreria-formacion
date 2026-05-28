@@ -1,5 +1,10 @@
 @if (label()) {
-  <label class="dcx-ng-input__label" [attr.for]="inputId" [attr.id]="labelId">
+  <label
+    class="dcx-ng-input__label"
+    [class.is-invalid]="isInvalid()"
+    [attr.for]="inputId"
+    [attr.id]="labelId"
+  >
     {{ label() }}
     @if (required()) {
       <span class="dcx-ng-input__required">*</span>
@@ -32,7 +37,7 @@
     [attr.aria-describedby]="describedBy()"
     (input)="!isFileType() && !isRadioType() ? onInput($event.target.value) : null"
     (change)="onChangeEvent($event)"
-    (focus)="focusEvent.emit()"
+    (focus)="onFocus()"
     (blur)="onBlur()"
     (keydown.enter)="enterPressed.emit()"
   />
@@ -49,6 +54,12 @@
       [disabled]="disabled()"
       (buttonClick)="onActionButtonClick()"
     ></dcx-ng-button>
+  }
+
+  @if (showRequiredWarning()) {
+    <div class="dcx-ng-input__error" [id]="errorId()">
+      <span>{{ requiredMessage() || 'Este campo es requerido' }}</span>
+    </div>
   }
 
   @if (isInvalid() && (errorMessage() || errorMessages().length > 0)) {

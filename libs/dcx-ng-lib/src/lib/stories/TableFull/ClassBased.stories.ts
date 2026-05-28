@@ -7,7 +7,7 @@ import {
   USER_HEADERS_WITH_MENU,
   USER_HEADERS_WITH_INLINE,
   generateUserRows,
-} from '../../core/mock';
+} from '../../core/fixtures';
 import {
   DcxNgFullTableComponent,
   DcxNgFullTableTemplateDirective,
