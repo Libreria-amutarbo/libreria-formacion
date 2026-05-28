@@ -9,15 +9,15 @@ import {
 import {
   DcxToastType,
   DCX_TOAST_ICON_BY_TYPE,
-  DCX_TOAST_COLOR_BY_TYPE,
 } from '../../core/interfaces';
+import { DcxMessageType } from '../../core/interfaces/message';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
-import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import { DcxNgMessageComponent } from '../dcx-ng-message/dcx-ng-message.component';
 
 @Component({
   selector: 'dcx-ng-toast',
   standalone: true,
-  imports: [DcxNgButtonComponent, DcxNgIconComponent],
+  imports: [DcxNgButtonComponent, DcxNgMessageComponent],
   templateUrl: './dcx-ng-toast.component.html',
   styleUrl: './dcx-ng-toast.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,9 +44,16 @@ export class DcxNgToastComponent {
     return DCX_TOAST_ICON_BY_TYPE[this.type()];
   });
 
-  readonly resolvedIconColor = computed(
-    () => DCX_TOAST_COLOR_BY_TYPE[this.type()],
-  );
+  readonly resolvedMessageType = computed<DcxMessageType>(() => {
+    const map: Record<DcxToastType, DcxMessageType> = {
+      info: 'notification',
+      success: 'success',
+      warning: 'warning',
+      error: 'error',
+    };
+    return map[this.type()];
+  });
+
   readonly hasAction = computed(() => {
     return !!this.actionLabel().trim() || !!this.actionIconName().trim();
   });

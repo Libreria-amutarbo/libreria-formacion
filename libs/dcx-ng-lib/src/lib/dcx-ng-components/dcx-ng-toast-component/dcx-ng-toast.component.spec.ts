@@ -23,10 +23,9 @@ describe('DcxNgToastComponent', () => {
     });
 
     it('should render required message', () => {
-        const messageElement = fixture.debugElement.query(By.css('.dcx-toast__message'));
-        expect(messageElement.nativeElement.textContent.trim()).toBe(
-            'Proyecto guardado correctamente',
-        );
+        const messageElement = fixture.debugElement.query(By.css('dcx-ng-message'));
+        expect(messageElement).toBeTruthy();
+        expect(messageElement.componentInstance.body()).toBe('Proyecto guardado correctamente');
     });
 
     it('should apply info class by default', () => {
@@ -42,11 +41,11 @@ describe('DcxNgToastComponent', () => {
         expect(toastElement.nativeElement.classList).toContain('dcx-toast--success');
     });
 
-    it('should resolve icon color according to toast type', () => {
+    it('should resolve message type according to toast type', () => {
         fixture.componentRef.setInput('type', 'error');
         fixture.detectChanges();
 
-        expect(component.resolvedIconColor()).toBe('var(--color-error, #dc2626)');
+        expect(component.resolvedMessageType()).toBe('error');
     });
 
     it('should always render undo action button', () => {
