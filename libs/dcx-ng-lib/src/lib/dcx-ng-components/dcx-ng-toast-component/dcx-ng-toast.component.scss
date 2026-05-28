@@ -41,8 +41,27 @@
     color: var(--dcx-toast-accent);
   }
 
-  &__message {
+  &__message-content {
+    flex: 1;
     min-width: 0;
+
+    ::ng-deep .message__container {
+      background: transparent;
+      border: none;
+      padding: 0;
+      gap: var(--sp-3, 12px);
+      color: var(--text-white, #ffffff);
+    }
+
+    ::ng-deep .icon__container {
+      color: var(--dcx-toast-accent);
+    }
+
+    ::ng-deep .message__container__paragraph {
+      color: var(--text-white, #ffffff);
+      font-size: var(--fs-base, 14px);
+      margin: 0;
+    }
   }
 
   &__action {
