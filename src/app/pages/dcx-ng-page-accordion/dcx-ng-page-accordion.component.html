@@ -1,160 +1,277 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Default</h2>
-  <dcx-ng-accordion [items]="defaultItems"> </dcx-ng-accordion>
-</section>
+<div class="demo-page">
 
-<hr />
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Accordion</h1>
+    <p class="demo-page-header__desc">
+      Panel de contenido expandible. Permite mostrar u ocultar secciones de
+      información de forma organizada, con soporte para transiciones, iconos,
+      control externo y contenido enriquecido.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - With Icons</h2>
-  <dcx-ng-accordion [items]="withIcons"> </dcx-ng-accordion>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 3 - With Disabled Items</h2>
-  <dcx-ng-accordion [items]="WithDisabledItems"> </dcx-ng-accordion>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 4 - With Content Disabled Items</h2>
-  <dcx-ng-accordion [items]="WithContentDisabledItems"> </dcx-ng-accordion>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 5 - Multiple Open</h2>
-  <dcx-ng-accordion [items]="multipleOpenItems" [closeOthers]="false">
-  </dcx-ng-accordion>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 6 - Fast Transition</h2>
-  <dcx-ng-accordion [items]="fastTransitionItems" [transition]="'fast'">
-  </dcx-ng-accordion>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 7 - Slow Transition</h2>
-  <dcx-ng-accordion [items]="slowTransitionItems" [transition]="'slow'">
-  </dcx-ng-accordion>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 8 - No Transition</h2>
-  <dcx-ng-accordion [items]="noTransitionItems" [transition]="'none'">
-  </dcx-ng-accordion>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 9 - Large Content</h2>
-  <dcx-ng-accordion [items]="largeContentItems"> </dcx-ng-accordion>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 10 - Control Externo</h2>
-  <p style="margin-bottom: 1rem; color: var(--content-subtle);">
-    Usa los botones para controlar el estado del acordeón programáticamente
-    mediante <code>ViewChild</code> o referencias de plantilla.
-  </p>
-
-  <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
-    <dcx-ng-button
-      [label]="getExternalButtonLabel('1')"
-      [variant]="getExternalButtonVariant('1')"
-      (buttonClick)="toggleExternalItem('1')"
-    >
-    </dcx-ng-button>
-
-    <dcx-ng-button
-      [label]="getExternalButtonLabel('2')"
-      [variant]="getExternalButtonVariant('2')"
-      (buttonClick)="toggleExternalItem('2')"
-    >
-    </dcx-ng-button>
+  <!-- ── 01 Default ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="defaultItems" />
+    </div>
   </div>
 
-  <dcx-ng-accordion
-    #externalAccordion
-    [items]="defaultItems"
-    [transition]="'smooth'"
-  >
-  </dcx-ng-accordion>
-</section>
+  <!-- ── 02 With Icons ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">With Icons</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="withIcons" />
+    </div>
+  </div>
 
-<!-- templates used for the "Con componentes" example -->
+  <!-- ── 03 With Description ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">With Description</span>
+    </div>
+    <p class="demo-section__desc">
+      Cada item puede incluir un subtítulo bajo el título principal mediante el
+      campo <code>description</code>.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="withDescriptionItems" />
+    </div>
+  </div>
+
+  <!-- ── 04 Disabled Items ─────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">With Disabled Items</span>
+    </div>
+    <p class="demo-section__desc">
+      Los items con <code>disabled: true</code> no se pueden abrir ni reciben
+      foco mediante teclado.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="withDisabledItems" />
+    </div>
+  </div>
+
+  <!-- ── 05 Content Disabled ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">With Content Disabled</span>
+    </div>
+    <p class="demo-section__desc">
+      <code>disabledContent: true</code> muestra el panel abierto pero desactiva
+      la interacción con su contenido interno.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="withContentDisabledItems" />
+    </div>
+  </div>
+
+  <!-- ── 06 Multiple Open ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Multiple Open</span>
+    </div>
+    <p class="demo-section__desc">
+      Con <code>[closeOthers]="false"</code> varios paneles pueden estar abiertos
+      simultáneamente.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="multipleOpenItems" [closeOthers]="false" />
+    </div>
+  </div>
+
+  <!-- ── 07 Large Content ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Large Content</span>
+    </div>
+    <p class="demo-section__desc">
+      Cuando el contenido es muy extenso, <code>maxContentHeight</code> limita la
+      altura del panel y activa el scroll interno.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="largeContentItems" />
+    </div>
+  </div>
+
+  <!-- ── 08 Fast Transition ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Fast Transition</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="fastTransitionItems" [transition]="'fast'" />
+    </div>
+  </div>
+
+  <!-- ── 09 Slow Transition ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">09</span>
+      <span class="demo-section__title">Slow Transition</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="slowTransitionItems" [transition]="'slow'" />
+    </div>
+  </div>
+
+  <!-- ── 10 No Transition ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">10</span>
+      <span class="demo-section__title">No Transition</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="noTransitionItems" [transition]="'none'" />
+    </div>
+  </div>
+
+  <!-- ── 11 External Control ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">11</span>
+      <span class="demo-section__title">External Control</span>
+    </div>
+    <p class="demo-section__desc">
+      Controla el acordeón desde fuera usando <code>expandItemById</code> y
+      <code>collapseItemById</code>. El label de cada botón cambia al abrir o
+      cerrar el panel, incluso si interactúas directamente con la cabecera.
+    </p>
+    <div class="demo-section__body">
+      <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+        @for (item of defaultItems; track item.id) {
+          @if (!item.disabled) {
+            <dcx-ng-button
+              [label]="getExternalButtonLabel(item)"
+              [variant]="isItemExpanded(item.id) ? 'primary' : 'secondary'"
+              (buttonClick)="toggleExternalItem(item.id)"
+            />
+          }
+        }
+      </div>
+      <dcx-ng-accordion
+        #externalAccordion
+        [items]="defaultItems"
+        [transition]="'smooth'"
+        (itemToggled)="onItemToggled($event)"
+      />
+    </div>
+  </div>
+
+  <!-- ── 13 Expand / Collapse All ─────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">13</span>
+      <span class="demo-section__title">Expand / Collapse All</span>
+    </div>
+    <p class="demo-section__desc">
+      Los métodos públicos <code>expandAll()</code> y <code>collapseAll()</code>
+      permiten controlar todos los paneles de golpe desde fuera del componente.
+    </p>
+    <div class="demo-section__body">
+      <div style="display:flex; gap:8px; margin-bottom:16px;">
+        <dcx-ng-button
+          [label]="'Expandir todo'"
+          [variant]="'primary'"
+          (buttonClick)="expandAllDemo.expandAll()"
+        />
+        <dcx-ng-button
+          [label]="'Colapsar todo'"
+          [variant]="'secondary'"
+          (buttonClick)="expandAllDemo.collapseAll()"
+        />
+      </div>
+      <dcx-ng-accordion
+        #expandAllDemo
+        [items]="defaultItems"
+        [closeOthers]="false"
+      />
+    </div>
+  </div>
+
+  <!-- ── 14 Flush ───────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">14</span>
+      <span class="demo-section__title">Flush</span>
+    </div>
+    <p class="demo-section__desc">
+      La variante <code>flush</code> elimina el borde exterior y el
+      border-radius. Ideal para incrustar el acordeón dentro de otra card u
+      otro contenedor con borde propio.
+    </p>
+    <div class="demo-section__body" style="border:1px solid #e5e7eb; border-radius:8px; overflow:hidden;">
+      <dcx-ng-accordion [items]="withIcons" [variant]="'flush'" />
+    </div>
+  </div>
+
+  <!-- ── 15 With Components ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">15</span>
+      <span class="demo-section__title">With Components</span>
+    </div>
+    <p class="demo-section__desc">
+      El campo <code>contentTemplate</code> acepta cualquier
+      <code>TemplateRef</code>, permitiendo insertar componentes Angular dentro
+      del panel.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-accordion [items]="withComponents" />
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Templates for example 12 ───────────────────────────────────── -->
 <ng-template #buttonTemplate>
-  <div style="display: flex; gap: 8px; flex-wrap: wrap; padding: 8px 0;">
-    <dcx-ng-button
-      [label]="'Primary Action'"
-      [variant]="'primary'"
-      [size]="'m'"
-    >
-    </dcx-ng-button>
-    <dcx-ng-button
-      [label]="'Secondary Action'"
-      [variant]="'secondary'"
-      [size]="'m'"
-    >
-    </dcx-ng-button>
-    <dcx-ng-button [label]="'Outline Action'" [size]="'m'"> </dcx-ng-button>
+  <div style="display:flex; gap:8px; flex-wrap:wrap; padding:8px 0;">
+    <dcx-ng-button [label]="'Primary'" [variant]="'primary'" [size]="'m'" />
+    <dcx-ng-button [label]="'Secondary'" [variant]="'secondary'" [size]="'m'" />
+    <dcx-ng-button [label]="'Terciary'" [variant]="'terciary'" [size]="'m'" />
   </div>
 </ng-template>
 
 <ng-template #formTemplate>
-  <div
-    style="display: flex; flex-direction: column; gap: 12px; padding: 8px 0;"
-  >
+  <div style="display:flex; flex-direction:column; gap:12px; padding:8px 0;">
     <dcx-ng-input
-      [label]="'Name'"
-      [placeholder]="'Enter your name...'"
+      [label]="'Nombre'"
+      [placeholder]="'Escribe tu nombre...'"
       [type]="DcxInputType.TEXT"
-      [size]="'m'"
       [required]="true"
-    >
-    </dcx-ng-input>
-
+    />
     <dcx-ng-input
       [label]="'Email'"
-      [placeholder]="'Enter your email...'"
+      [placeholder]="'tu@email.com'"
       [type]="DcxInputType.EMAIL"
-      [size]="'m'"
       [required]="true"
-    >
-    </dcx-ng-input>
-
-    <dcx-ng-button [label]="'Submit'" [variant]="'primary'" [size]="'m'">
-    </dcx-ng-button>
+    />
+    <dcx-ng-button [label]="'Enviar'" [variant]="'primary'" [size]="'m'" />
   </div>
 </ng-template>
 
 <ng-template #listTemplate>
-  <div style="padding: 8px 0;">
-    <dcx-ng-list [items]="listItems"></dcx-ng-list>
-
-    <div style="margin-top: 12px; display: flex; gap: 8px;">
-      <dcx-ng-button [label]="'Add Item'" [variant]="'primary'" [size]="'s'">
-      </dcx-ng-button>
-      <dcx-ng-button [label]="'Remove Last'" [size]="'s'"> </dcx-ng-button>
+  <div style="padding:8px 0;">
+    <dcx-ng-list [items]="listItems" />
+    <div style="margin-top:12px; display:flex; gap:8px;">
+      <dcx-ng-button [label]="'Añadir'" [variant]="'primary'" [size]="'s'" />
+      <dcx-ng-button [label]="'Eliminar último'" [variant]="'secondary'" [size]="'s'" />
     </div>
   </div>
 </ng-template>
-
-<section>
-  <h2 class="example-title">Ejemplo 10 - Con componentes</h2>
-  <dcx-ng-accordion [items]="withComponents"> </dcx-ng-accordion>
-</section>

@@ -10,16 +10,22 @@
 
   &.transition-smooth {
     .accordion-content-wrapper {
-      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+      // cubic-bezier(0.4, 0, 0.2, 1) is the Material Design "standard" easing.
+      // It feels more natural than ease-in-out for max-height transitions.
+      transition:
+        max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .accordion-chevron {
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 
   &.transition-fast {
     .accordion-content-wrapper {
-      transition: max-height 0.15s ease-in-out, opacity 0.15s ease-in-out, padding 0.15s ease-in-out;
+      transition: max-height 0.15s ease-in-out, opacity 0.15s ease-in-out,
+        padding 0.15s ease-in-out;
     }
     .accordion-chevron {
       transition: transform 0.15s ease-in-out;
@@ -28,7 +34,8 @@
 
   &.transition-slow {
     .accordion-content-wrapper {
-      transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
+      transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out,
+        padding 0.5s ease-in-out;
     }
     .accordion-chevron {
       transition: transform 0.5s ease-in-out;
@@ -36,9 +43,7 @@
   }
 
   &.transition-none {
-    .accordion-content-wrapper {
-      transition: none;
-    }
+    .accordion-content-wrapper,
     .accordion-chevron {
       transition: none;
     }
@@ -51,17 +56,12 @@
       border-bottom: none;
     }
 
-    &.disabled {
-      .accordion-header {
-        cursor: not-allowed;
-        background-color: var(--bg-default, #ffffff);
-        color: var(--text-disabled, #696e75);
-        opacity: 0.45;
+    &.disabled .accordion-header {
+      cursor: not-allowed;
+      opacity: 0.45;
 
-        .accordion-icon,
-        .accordion-chevron {
-          color: var(--text-disabled, #696e75);
-        }
+      &:hover {
+        background-color: var(--bg-default, #ffffff);
       }
     }
 
@@ -69,110 +69,156 @@
       .accordion-header {
         background-color: var(--bg-hover, #f7f8fa);
       }
-      
+
       .accordion-chevron {
         transform: rotate(180deg);
         color: var(--bg-primary, #0058ab);
       }
     }
+  }
+
+  // ── Flush variant — removes outer card shell, shows only item dividers ──
+  &.accordion--flush {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
 
     .accordion-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: var(--sp-3, 12px);
-      padding: var(--sp-4, 16px) var(--sp-5, 20px);
-      @include flex-between;
-      @include padding(m);
-      background-color: var(--bg-default, #ffffff);
-      width: 100%;
-      font-size: var(--fs-base, 14px);
-      font-weight: var(--fw-medium, 500);
-      color: var(--text-dark, #2a2e33);
-      transition: background-color 0.15s ease-in-out;
-      cursor: pointer;
-      user-select: none;
-
-      &:hover:not(.disabled) {
-        background-color: var(--bg-hover, #f7f8fa);
-      }
+      border-radius: 0;
 
       &:focus-visible {
-        outline: 2px solid var(--border-focus, #1db8f2);
-        outline-offset: -2px;
-      }
-
-      &.disabled {
-        cursor: not-allowed;
-        opacity: 0.45;
-      }
-
-      .accordion-icon {
-        flex-shrink: 0;
-        margin-right: var(--sp-2, 8px);
-        color: var(--bg-primary, #0058ab);
-        width: var(--sp-5, 20px);
-        height: var(--sp-5, 20px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .accordion-title {
-        flex: 1;
-        font-weight: 500;
-        line-height: 1.4;
-      }
-
-      .accordion-chevron {
-        flex-shrink: 0;
-        color: var(--bg-primary, #0058ab);
-        transform: rotate(0deg);
-        width: var(--sp-5, 20px);
-        height: var(--sp-5, 20px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.2s;
+        outline-offset: 0;
       }
     }
+  }
 
-    .accordion-content-wrapper {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      padding: 0 var(--sp-5, 20px);
+  // h3 reset — headings inside accordion must not add visual weight
+  .accordion-heading {
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    font-weight: inherit;
+  }
 
-      &.expanded {
-        max-height: 2000px;
-        opacity: 1;
-        padding: 0 var(--sp-5, 20px) var(--sp-4, 16px) var(--sp-5, 20px);
-        overflow-y: auto;
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3, 12px);
+    padding: var(--sp-4, 16px) var(--sp-5, 20px);
+    background-color: var(--bg-default, #ffffff);
+    width: 100%;
+    font-family: var(--ff-base, 'Inter', sans-serif);
+    font-size: var(--fs-base, 14px);
+    font-weight: var(--fw-medium, 500);
+    color: var(--text-dark, #2a2e33);
+    border: none;
+    border-radius: 0;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease-in-out;
+
+    &:hover:not([disabled]) {
+      background-color: var(--bg-hover, #f7f8fa);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--border-focus, #1db8f2);
+      outline-offset: -2px;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+  }
+
+  .accordion-icon {
+    flex-shrink: 0;
+    color: var(--bg-primary, #0058ab);
+    width: var(--sp-5, 20px);
+    height: var(--sp-5, 20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .accordion-title-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .accordion-title {
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .accordion-description {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-muted, #696e75);
+    line-height: 1.4;
+  }
+
+  .accordion-chevron {
+    flex-shrink: 0;
+    color: var(--text-dark, #2a2e33);   // closed: dark/black
+    transform: rotate(0deg);
+    width: var(--sp-5, 20px);
+    height: var(--sp-5, 20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.2s ease;
+  }
+
+  .accordion-content-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 var(--sp-5, 20px);
+
+    &.expanded {
+      max-height: 2000px;
+      opacity: 1;
+      padding: 0 var(--sp-5, 20px) var(--sp-4, 16px);
+    }
+
+    &.disabled-content .accordion-content {
+      opacity: 0.5;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  .accordion-content {
+    padding-top: var(--sp-3, 12px);
+    background-color: var(--bg-default, #ffffff);
+    color: var(--text-muted, #696e75);
+    line-height: var(--line-height-normal, 1.6);
+    font-size: var(--fs-base, 14px);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+    &.scrollable {
+      overflow-y: auto;
+      padding-right: var(--sp-2, 8px);
+
+      &::-webkit-scrollbar {
+        width: 4px;
       }
-
-      &.disabled-content {
-        .accordion-content {
-          opacity: 0.5;
-          pointer-events: none;
-          user-select: none;
-        }
+      &::-webkit-scrollbar-track {
+        background: transparent;
       }
-
-      .accordion-content {
-        /* Removed top padding to match reference design (0 20px 16px) */
-        @include padding(m);
-        padding-top: 0;
-        padding-left: 0;
-        padding-right: 0;
-        padding-bottom: 0;
-        background-color: var(--bg-default, #ffffff);
-        color: var(--text-muted, #696e75);
-        line-height: var(--line-height-normal, 1.6);
-        font-size: var(--fs-base, 14px);
-        max-height: 600px;
-        overflow-y: auto;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
+      &::-webkit-scrollbar-thumb {
+        background: var(--border-light, #d1d5db);
+        border-radius: 999px;
       }
     }
   }

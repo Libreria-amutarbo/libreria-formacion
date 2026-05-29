@@ -127,7 +127,7 @@
 
     .size-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: var(--sp-4, 16px);
     }
 
@@ -166,6 +166,43 @@
       font-size: 13px;
       max-width: 26ch;
     }
+
+    /* ── Scroll buttons ── */
+    .scroll-btn-group {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .scroll-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #fff;
+      border: 1.5px solid var(--border-light, #d1d5db);
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      cursor: pointer;
+      color: var(--text-dark, #2a2e33);
+      flex-shrink: 0;
+    }
+    .scroll-btn:hover { border-color: #9ca3af; background: #f9fafb; }
+    .scroll-btn svg { display: block; }
+
+    .scroll-btn-s  { width: 28px; height: 28px; }
+    .scroll-btn-s svg { width: 12px; height: 12px; }
+    .scroll-btn-m  { width: 36px; height: 36px; }
+    .scroll-btn-m svg { width: 14px; height: 14px; }
+    .scroll-btn-l  { width: 44px; height: 44px; }
+    .scroll-btn-l svg { width: 16px; height: 16px; }
+    .scroll-btn-xl { width: 52px; height: 52px; }
+    .scroll-btn-xl svg { width: 18px; height: 18px; }
+
+    /* demo shell now shows the button positioned */
+    .demo-shell { position: relative; }
 
     .scroll-demo {
       position: relative;
@@ -262,6 +299,15 @@
             </p>
             <p class="float-note">Acción flotante con `size="m"` y `smooth=true`.</p>
           </div>
+          <!-- Botones flotantes posicionados en la esquina inferior derecha -->
+          <div class="scroll-btn-group">
+            <button class="scroll-btn scroll-btn-m" title="Scroll to top">
+              <svg viewBox="0 0 14 14" fill="none"><path d="M3 9l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="scroll-btn scroll-btn-m" title="Scroll to bottom">
+              <svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -276,28 +322,65 @@
           <article class="size-tile">
             <div class="size-tile__head">
               <span class="size-tag">Size S</span>
-              <span class="size-tag">Icon s</span>
             </div>
             <div class="size-tile__body">
               Versión compacta para espacios reducidos.
+            </div>
+            <div class="scroll-btn-group">
+              <button class="scroll-btn scroll-btn-s" title="Scroll to top">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M3 9l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="scroll-btn scroll-btn-s" title="Scroll to bottom">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </article>
+          <article class="size-tile">
+            <div class="size-tile__head">
+              <span class="size-tag">Size M (default)</span>
+            </div>
+            <div class="size-tile__body">
+              Tamaño estándar recomendado.
+            </div>
+            <div class="scroll-btn-group">
+              <button class="scroll-btn scroll-btn-m" title="Scroll to top">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M3 9l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="scroll-btn scroll-btn-m" title="Scroll to bottom">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
             </div>
           </article>
           <article class="size-tile">
             <div class="size-tile__head">
               <span class="size-tag">Size L</span>
-              <span class="size-tag">Icon s</span>
             </div>
             <div class="size-tile__body">
               Variante más prominente para entornos con mayor densidad visual.
+            </div>
+            <div class="scroll-btn-group">
+              <button class="scroll-btn scroll-btn-l" title="Scroll to top">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M3 9l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="scroll-btn scroll-btn-l" title="Scroll to bottom">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
             </div>
           </article>
           <article class="size-tile">
             <div class="size-tile__head">
               <span class="size-tag">Size XL</span>
-              <span class="size-tag">Icon m</span>
             </div>
             <div class="size-tile__body">
               Tamaño extra grande para enfatizar la acción flotante.
+            </div>
+            <div class="scroll-btn-group">
+              <button class="scroll-btn scroll-btn-xl" title="Scroll to top">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M3 9l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="scroll-btn scroll-btn-xl" title="Scroll to bottom">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
             </div>
           </article>
         </div>
@@ -310,7 +393,16 @@
         <h2 class="section-title">Scroll dentro de un contenedor</h2>
       </div>
       <div class="section-body">
-        <div class="scroll-demo">
+        <div class="scroll-demo" style="position:relative">
+          <!-- Botón flotante dentro del contenedor -->
+          <div style="position:sticky;top:0;float:right;z-index:10;display:flex;flex-direction:column;gap:6px;margin-left:12px">
+            <button class="scroll-btn scroll-btn-m" title="Scroll to top">
+              <svg viewBox="0 0 14 14" fill="none"><path d="M3 9l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="scroll-btn scroll-btn-m" title="Scroll to bottom">
+              <svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
           <div class="scroll-demo__content">
             <p>
               Este bloque simula un contenedor con contenido largo. El componente
@@ -347,7 +439,7 @@
               Sed dignissim interdum arcu, sed tincidunt tortor luctus non.
             </p>
           </div>
-        </div>
+        </div></div>
       </div>
     </section>
   </div>

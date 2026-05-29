@@ -1,0 +1,138 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// page-demo.scss
+// Shared showcase styles for all component demo pages.
+//
+// Usage in a page component:
+//   @use '../../../styles/page-demo';   (adjust path depth as needed)
+//
+// HTML structure:
+//   <div class="demo-page">
+//     <header class="demo-page-header">
+//       <p class="demo-page-header__kicker">Components</p>
+//       <h1 class="demo-page-header__title">Component Name</h1>
+//       <p class="demo-page-header__desc">Brief description…</p>
+//     </header>
+//
+//     <div class="demo-section">
+//       <div class="demo-section__header">
+//         <span class="demo-section__num">01</span>
+//         <span class="demo-section__title">Example Title</span>
+//       </div>
+//       <p class="demo-section__desc">Optional note about this example.</p>
+//       <div class="demo-section__body">
+//         <!-- component goes here -->
+//       </div>
+//     </div>
+//   </div>
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Tokens (fallbacks match the project design system) ───────────────────────
+$bg-surface:    var(--bg-surface,    #f4f5f7);
+$bg-default:    var(--bg-default,    #ffffff);
+$text-dark:     var(--text-dark,     #2a2e33);
+$text-muted:    var(--text-muted,    #696e75);
+$border-light:  var(--border-light,  #e5e7eb);
+$border-focus:  var(--border-focus,  #1db8f2);
+$bg-primary:    var(--bg-primary,    #0058ab);
+
+// ── Page wrapper ─────────────────────────────────────────────────────────────
+.demo-page {
+  width: 100%;
+  max-width: 860px;
+  padding-bottom: 3rem;
+}
+
+// ── Page header ──────────────────────────────────────────────────────────────
+.demo-page-header {
+  margin-bottom: 2rem;
+
+  &__kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: $text-muted;
+    margin-bottom: .3rem;
+  }
+
+  &__title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -.3px;
+    color: $text-dark;
+    margin-bottom: .6rem;
+    margin-top: 0;
+  }
+
+  &__desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: $text-muted;
+    max-width: 560px;
+    margin: 0 0 1.25rem;
+  }
+
+  &__divider {
+    border: none;
+    border-top: 1px solid $border-light;
+    margin: 0;
+  }
+}
+
+// ── Example section card ─────────────────────────────────────────────────────
+.demo-section {
+  background: $bg-default;
+  border: 1px solid $border-light;
+  border-radius: 8px;
+  overflow: visible;
+  margin-bottom: 1.25rem;
+
+  // ── Header bar ─────────────────────────────────────────────────────────────
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: $bg-surface;
+    border-bottom: 1px solid $border-light;
+    border-radius: 8px 8px 0 0;
+  }
+
+  &__num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: $text-muted;
+    background: #edf0f3;
+    border-radius: 4px;
+    padding: 2px 8px;
+    flex-shrink: 0;
+    line-height: 1.6;
+  }
+
+  &__title {
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  // ── Optional note below header ─────────────────────────────────────────────
+  &__desc {
+    padding: 10px 16px 0;
+    font-size: 12px;
+    line-height: 1.55;
+    color: $text-muted;
+    margin: 0;
+  }
+
+  // ── Demo content ───────────────────────────────────────────────────────────
+  &__body {
+    padding: 20px 16px;
+  }
+
+  // ── Narrow variant — limits width for focused demos ────────────────────────
+  &__body--narrow {
+    max-width: 480px;
+  }
+}
