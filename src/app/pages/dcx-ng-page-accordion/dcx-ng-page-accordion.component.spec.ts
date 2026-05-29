@@ -39,7 +39,7 @@ xdescribe('DcxNgPageAccordionComponent', () => {
 
   it('should have all item sets initialized correctly', () => {
     expect(component.withIcons).toBe(DcxAccordionItemsWithIcon);
-    expect(component.WithDisabledItems).toBe(DcxAccordionItemsDisabled);
+    expect(component.withDisabledItems).toBe(DcxAccordionItemsDisabled);
     expect(component.multipleOpenItems).toBe(DcxAccordionItemsWithExpanded);
     expect(component.largeContentItems).toBe(DcxAccordionLargeContent);
   });
