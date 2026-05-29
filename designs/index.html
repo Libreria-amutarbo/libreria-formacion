@@ -57,8 +57,21 @@
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 1rem;
       width: 100%;
-      max-width: 900px
+      max-width: 960px
     }
+
+    .group-label {
+      grid-column: 1 / -1;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: .5rem 0 .2rem;
+      border-bottom: 1px solid var(--border);
+      margin-top: .5rem;
+    }
+    .group-label:first-child { margin-top: 0; }
 
     .card {
       background: var(--white);
@@ -103,65 +116,108 @@
   <h1>DCX NG Library</h1>
   <h2>Designs</h2>
   <div class="grid">
+
+    <!-- ── ENTRADAS / FORMULARIOS ── -->
+    <div class="group-label">Entradas &amp; Formularios</div>
+
     <a class="card" href="dcx-ng-page-button.html">
       <div class="card-icon">🔘</div>
       <div class="card-name">Button</div>
       <div class="card-file">dcx-ng-page-button.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-checkbox-toggle-chip.html">
+      <div class="card-icon">✅</div>
+      <div class="card-name">Checkbox · Toggle · Chip</div>
+      <div class="card-file">dcx-ng-page-checkbox-toggle-chip.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-controls.html">
+      <div class="card-icon">🎛️</div>
+      <div class="card-name">Form Controls (Select)</div>
+      <div class="card-file">dcx-ng-page-controls.html</div>
     </a>
     <a class="card" href="dcx-ng-page-input.html">
       <div class="card-icon">⌨️</div>
       <div class="card-name">Input</div>
       <div class="card-file">dcx-ng-page-input.html</div>
     </a>
+    <a class="card" href="dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html">
+      <div class="card-icon">🗓️</div>
+      <div class="card-name">Radio · Slider · Datepicker · Tooltip…</div>
+      <div class="card-file">dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-textarea-editor-file-upload.html">
+      <div class="card-icon">📝</div>
+      <div class="card-name">Textarea · Editor · File Upload</div>
+      <div class="card-file">dcx-ng-page-textarea-editor-file-upload.html</div>
+    </a>
+
+    <!-- ── LAYOUT & NAVEGACIÓN ── -->
+    <div class="group-label">Layout &amp; Navegación</div>
+
     <a class="card" href="dcx-ng-page-accordion.html">
       <div class="card-icon">🪗</div>
       <div class="card-name">Accordion</div>
       <div class="card-file">dcx-ng-page-accordion.html</div>
     </a>
     <a class="card" href="dcx-ng-page-breadcrumb-divider-icon-message.html">
-      <div class="card-icon">🧭</div>
+      <div class="card-icon">🔗</div>
       <div class="card-name">Breadcrumb · Divider · Icon · Message</div>
-      <div class="card-file">
-        dcx-ng-page-breadcrumb-divider-icon-message.html
-      </div>
+      <div class="card-file">dcx-ng-page-breadcrumb-divider-icon-message.html</div>
     </a>
     <a class="card" href="dcx-ng-page-card.html">
       <div class="card-icon">🃏</div>
       <div class="card-name">Card</div>
       <div class="card-file">dcx-ng-page-card.html</div>
     </a>
-    <a class="card" href="dcx-ng-page-controls.html">
-      <div class="card-icon">🎛️</div>
-      <div class="card-name">Controls</div>
-      <div class="card-file">dcx-ng-page-controls.html</div>
-    </a>
-    <a class="card" href="dcx-ng-page-dialog.html">
-      <div class="card-icon">💬</div>
-      <div class="card-name">Dialog</div>
-      <div class="card-file">dcx-ng-page-dialog.html</div>
-    </a>
-    <a class="card" href="dcx-ng-page-full-table-paginator-list.html">
-      <div class="card-icon">📋</div>
-      <div class="card-name">Table · Paginator · List</div>
-      <div class="card-file">dcx-ng-page-full-table-paginator-list.html</div>
-    </a>
-    <a class="card" href="dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html">
-      <div class="card-icon">🗓️</div>
-      <div class="card-name">Radio · Slider · Tooltip · Datepicker…</div>
-      <div class="card-file">
-        dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html
-      </div>
-    </a>
-    <a class="card" href="dcx-ng-page-tabs.html">
-      <div class="card-icon">📑</div>
-      <div class="card-name">Tabs</div>
-      <div class="card-file">dcx-ng-page-tabs.html</div>
+    <a class="card" href="dcx-ng-page-navbar.html">
+      <div class="card-icon">🧭</div>
+      <div class="card-name">Navbar</div>
+      <div class="card-file">dcx-ng-page-navbar.html</div>
     </a>
     <a class="card" href="dcx-ng-page-scroll-top-down.html">
       <div class="card-icon">⬆️⬇️</div>
       <div class="card-name">Scroll Top Down</div>
       <div class="card-file">dcx-ng-page-scroll-top-down.html</div>
     </a>
+    <a class="card" href="dcx-ng-page-stepper.html">
+      <div class="card-icon">🪜</div>
+      <div class="card-name">Stepper</div>
+      <div class="card-file">dcx-ng-page-stepper.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-tabs.html">
+      <div class="card-icon">📑</div>
+      <div class="card-name">Tabs</div>
+      <div class="card-file">dcx-ng-page-tabs.html</div>
+    </a>
+
+    <!-- ── OVERLAYS & FEEDBACK ── -->
+    <div class="group-label">Overlays &amp; Feedback</div>
+
+    <a class="card" href="dcx-ng-page-dialog.html">
+      <div class="card-icon">💬</div>
+      <div class="card-name">Dialog</div>
+      <div class="card-file">dcx-ng-page-dialog.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-drawer-popover.html">
+      <div class="card-icon">🗂️</div>
+      <div class="card-name">Drawer · Popover</div>
+      <div class="card-file">dcx-ng-page-drawer-popover.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-spinner-toast.html">
+      <div class="card-icon">⏳</div>
+      <div class="card-name">Spinner · Toast</div>
+      <div class="card-file">dcx-ng-page-spinner-toast.html</div>
+    </a>
+
+    <!-- ── DATOS ── -->
+    <div class="group-label">Datos</div>
+
+    <a class="card" href="dcx-ng-page-full-table-paginator-list.html">
+      <div class="card-icon">📋</div>
+      <div class="card-name">Table · Paginator · List</div>
+      <div class="card-file">dcx-ng-page-full-table-paginator-list.html</div>
+    </a>
+
   </div>
 </body>
 

@@ -1,4 +1,8 @@
-import { DcxAccordionTransition, DcxNgAccordionItem } from '../interfaces';
+import {
+  DcxAccordionTransition,
+  DcxAccordionVariant,
+  DcxNgAccordionItem,
+} from '../interfaces';
 
 export const DcxAccordionTransitionList: DcxAccordionTransition[] = [
   'fast',
@@ -7,26 +11,34 @@ export const DcxAccordionTransitionList: DcxAccordionTransition[] = [
   'smooth',
 ];
 
+export const DcxAccordionVariantList: DcxAccordionVariant[] = [
+  'default',
+  'flush',
+];
+
 export const DcxAccordionDefault: DcxNgAccordionItem[] = [
   {
     id: '1',
-    title: 'Item 1',
-    content: 'Content 1',
+    title: '¿Qué es DCX?',
+    content:
+      'DCX es el centro de excelencia en experiencia digital de Capgemini. Desarrollamos soluciones de interfaz de usuario reutilizables, accesibles y coherentes para los proyectos de nuestros clientes.',
   },
   {
     id: '2',
-    title: 'Item 2',
-    content: 'Content 2',
+    title: '¿Cómo se instala la librería?',
+    content:
+      'Instala el paquete con npm install @dcx-ng-components/dcx-ng-lib y añade el módulo en tu AppModule o importa directamente los componentes standalone que necesites.',
   },
   {
     id: '3',
-    title: 'Item with disabled content',
-    content: 'Content 3',
+    title: 'Contenido con interacción deshabilitada',
+    content:
+      'Este panel es visible pero sus controles internos están deshabilitados mediante disabledContent. Útil para mostrar información de solo lectura.',
     disabledContent: true,
   },
   {
     id: '4',
-    title: 'Item with disabled',
+    title: 'Elemento deshabilitado',
     disabled: true,
   },
 ];
@@ -55,21 +67,19 @@ export const DcxAccordionItemsWithIcon: DcxNgAccordionItem[] = [
 export const DcxAccordionItemsWithExpanded: DcxNgAccordionItem[] = [
   {
     id: '1',
-    title: 'Section 1',
-    content: 'This section is expanded by default.',
+    title: 'Sección de bienvenida',
+    content: 'Esta sección está expandida por defecto gracias a expanded: true.',
     expanded: true,
   },
   {
     id: '2',
-    title: 'Section 2',
-    content: 'This section is collapsed by default.',
-    expanded: true,
+    title: 'Características principales',
+    content: 'Esta sección está colapsada por defecto.',
   },
   {
     id: '3',
-    title: 'Section 3',
-    content: 'This section is also collapsed by default.',
-    expanded: true,
+    title: 'Configuración avanzada',
+    content: 'Esta sección también está colapsada por defecto.',
   },
 ];
 
@@ -138,8 +148,10 @@ export const DcxAccordionItemsContentDisabled: DcxNgAccordionItem[] = [
 export const DcxAccordionLargeContent: DcxNgAccordionItem[] = [
   {
     id: '1',
-    title: 'Detailed Information with Very Long Content',
+    title: 'Contenido extenso con scroll interno',
+    description: 'Desplázate dentro del panel para ver todo el texto',
     icon: 'info-circle-fill',
+    maxContentHeight: '280px',
     content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -177,6 +189,30 @@ At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praese
 Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
 
 Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+  },
+];
+
+export const DcxAccordionItemsWithDescription: DcxNgAccordionItem[] = [
+  {
+    id: '1',
+    title: 'Información general',
+    description: 'Datos básicos del servicio',
+    content: 'Aquí encontrarás los datos generales del servicio contratado.',
+    icon: 'info-circle-fill',
+  },
+  {
+    id: '2',
+    title: 'Configuración',
+    description: 'Ajustes y preferencias',
+    content: 'Modifica los parámetros del servicio según tus necesidades.',
+    icon: 'gear-fill',
+  },
+  {
+    id: '3',
+    title: 'Historial de cambios',
+    description: 'Registro de actividad reciente',
+    content: 'Consulta todos los cambios realizados durante el último mes.',
+    icon: 'clock-history',
   },
 ];
 

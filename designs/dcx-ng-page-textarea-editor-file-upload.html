@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:        #0058ab;
+    --bg-primary-hover:  #004f9a;
+    --bg-default:        #ffffff;
+    --bg-surface:        #f4f5f7;
+    --bg-disabled:       #f3f4f6;
+    --text-dark:         #1e2226;
+    --text-muted:        #6b7280;
+    --text-disabled:     #adb5bd;
+    --border-default:    #d1d5db;
+    --border-hover:      #9ca3af;
+    --border-focus:      #1db8f2;
+    --color-danger:      #dc2626;
+    --ff: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--ff);
+    background: var(--bg-surface);
+    color: var(--text-dark);
+    padding: 2.5rem 2.5rem 72px;
+    min-height: 100vh;
+  }
+
+  .page-title { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .35rem; }
+  .comp-title  { font-size: 26px; font-weight: 700; letter-spacing: -.3px; margin-bottom: .6rem; }
+  .divider     { border: none; border-top: 1px solid #e5e7eb; margin-bottom: 2.25rem; }
+
+  .sec { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin: 2.25rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid #e5e7eb; }
+  .sec:first-of-type { margin-top: 0; }
+
+  .size-header { display: flex; align-items: center; gap: 12px; margin-bottom: .75rem; margin-top: 2rem; }
+  .size-header:first-of-type { margin-top: 0; }
+  .size-badge { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); background: #edf0f3; border-radius: 4px; padding: 2px 8px; line-height: 1.6; }
+  .size-header hr { flex: 1; border: none; border-top: 1px solid #e5e7eb; }
+
+  .card { background: var(--bg-default); border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
+
+  .col-headers { display: grid; padding: 10px 16px 8px; border-bottom: 1px solid #f3f4f6; }
+  .col-headers span { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-disabled); text-align: center; }
+  .col-headers span:first-child { text-align: left; }
+
+  .variant-row { display: grid; align-items: start; padding: 14px 16px; border-bottom: 1px solid #f9fafb; gap: 16px; }
+  .variant-row:last-child { border-bottom: none; }
+  .variant-label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); padding-top: 4px; }
+  .cell { display: flex; justify-content: center; align-items: flex-start; }
+
+  /* ── TEXTAREA ── */
+  .textarea-cols { grid-template-columns: 100px repeat(4, 1fr); }
+  .col-headers.textarea-cols span:first-child { text-align: left; }
+
+  .dcx-field { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+  .dcx-label { font-size: 12px; font-weight: 500; color: var(--text-dark); }
+  .dcx-label .req { color: var(--color-danger); margin-left: 2px; }
+
+  .dcx-textarea {
+    font-family: var(--ff); font-size: 13px; color: var(--text-dark);
+    border: 1px solid var(--border-default); border-radius: 4px;
+    padding: 8px 10px; width: 100%; resize: vertical;
+    background: var(--bg-default); outline: none; line-height: 1.5;
+    transition: border-color .12s, box-shadow .12s;
+  }
+  .dcx-textarea::placeholder { color: var(--text-disabled); }
+  .dcx-textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 2px rgba(29,184,242,.18); }
+  .dcx-textarea.is-invalid { border-color: var(--color-danger); }
+  .dcx-textarea.is-invalid:focus { box-shadow: 0 0 0 2px rgba(220,38,38,.15); }
+  .dcx-textarea:disabled { background: var(--bg-disabled); color: var(--text-disabled); cursor: not-allowed; border-color: #e5e7eb; }
+  .dcx-textarea[readonly] { background: #f9fafb; color: var(--text-muted); cursor: default; }
+  .dcx-textarea.filled { background: #f4f5f7; border-color: transparent; }
+  .dcx-textarea.filled:focus { background: var(--bg-default); border-color: var(--border-focus); }
+
+  .dcx-textarea.ta-sm { font-size: 11px; padding: 6px 8px; min-height: 56px; }
+  .dcx-textarea.ta-md { font-size: 13px; padding: 8px 10px; min-height: 80px; }
+  .dcx-textarea.ta-lg { font-size: 14px; padding: 10px 12px; min-height: 104px; }
+
+  .dcx-error-msg { font-size: 11px; color: var(--color-danger); margin-top: 3px; }
+  .dcx-hint { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+  /* ── EDITOR ── */
+  .editor-states-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; }
+
+  .dcx-editor { border: 1px solid var(--border-default); border-radius: 6px; overflow: hidden; background: var(--bg-default); }
+  .dcx-editor.focused { border-color: var(--border-focus); box-shadow: 0 0 0 2px rgba(29,184,242,.18); }
+  .dcx-editor.is-invalid { border-color: var(--color-danger); }
+  .dcx-editor.is-disabled { opacity: .5; pointer-events: none; background: var(--bg-disabled); }
+
+  .editor-toolbar {
+    display: flex; align-items: center; gap: 2px; padding: 6px 8px;
+    border-bottom: 1px solid #f3f4f6; background: #fafafa;
+  }
+  .editor-btn {
+    width: 26px; height: 26px; border: none; background: transparent;
+    border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); font-family: var(--ff);
+  }
+  .editor-btn:hover { background: #f0f2f5; color: var(--text-dark); }
+  .editor-btn.active { background: #dbeafe; color: var(--bg-primary); }
+  .editor-btn svg { width: 13px; height: 13px; display: block; }
+  .editor-btn.bold { font-weight: 800; font-size: 13px; color: inherit; }
+  .editor-btn.italic { font-style: italic; font-size: 13px; color: inherit; }
+  .editor-btn.underline { text-decoration: underline; font-size: 13px; color: inherit; }
+  .editor-divider { width: 1px; height: 18px; background: #e5e7eb; margin: 0 4px; flex-shrink: 0; }
+
+  .editor-content {
+    min-height: 80px; padding: 10px 12px; font-size: 13px; color: var(--text-dark);
+    line-height: 1.6;
+  }
+  .editor-content.placeholder { color: var(--text-disabled); }
+  .editor-content strong { font-weight: 700; }
+  .editor-content em { font-style: italic; }
+  .editor-content u { text-decoration: underline; }
+
+  .editor-label { font-size: 12px; font-weight: 500; color: var(--text-dark); margin-bottom: 6px; }
+  .editor-error { font-size: 11px; color: var(--color-danger); margin-top: 4px; }
+
+  /* ── FILE UPLOAD ── */
+  .file-upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; }
+
+  .dcx-file-upload { display: flex; flex-direction: column; gap: 8px; }
+  .dcx-file-upload-label { font-size: 12px; font-weight: 500; color: var(--text-dark); }
+
+  .dcx-dropzone {
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--border-default); border-radius: 6px;
+    background: var(--bg-default); padding: 8px 10px; cursor: pointer;
+    transition: border-color .12s, background .12s;
+  }
+  .dcx-dropzone:hover { border-color: var(--border-hover); background: #fafafa; }
+  .dcx-dropzone.drag-over { border-color: var(--bg-primary); background: #eff5fb; border-style: dashed; }
+  .dcx-dropzone.disabled { background: var(--bg-disabled); cursor: not-allowed; opacity: .6; }
+
+  .dcx-dropzone-btn {
+    display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px;
+    border-radius: 4px; border: 1px solid var(--border-default); background: var(--bg-default);
+    font-size: 12px; font-weight: 500; color: var(--text-dark); cursor: pointer;
+    font-family: var(--ff); white-space: nowrap; flex-shrink: 0;
+  }
+  .dcx-dropzone-btn svg { width: 12px; height: 12px; }
+  .dcx-dropzone-placeholder { font-size: 12px; color: var(--text-disabled); }
+  .dcx-dropzone-filename { font-size: 12px; color: var(--text-dark); font-weight: 500; }
+
+  /* large dropzone */
+  .dcx-dropzone-lg {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    border: 2px dashed var(--border-default); border-radius: 8px;
+    padding: 28px 16px; cursor: pointer; background: var(--bg-default); text-align: center;
+    transition: border-color .12s, background .12s;
+  }
+  .dcx-dropzone-lg:hover { border-color: var(--bg-primary); background: #f8fbff; }
+  .dcx-dropzone-lg.drag-over { border-color: var(--bg-primary); background: #eff5fb; }
+  .dcx-dropzone-lg.disabled { opacity: .5; cursor: not-allowed; }
+  .dcx-dropzone-lg svg { width: 28px; height: 28px; color: var(--text-muted); }
+  .dcx-dropzone-lg .upload-title { font-size: 13px; font-weight: 600; color: var(--text-dark); }
+  .dcx-dropzone-lg .upload-sub { font-size: 11px; color: var(--text-muted); }
+  .dcx-dropzone-lg .upload-link { color: var(--bg-primary); font-weight: 600; cursor: pointer; }
+
+  /* file list */
+  .file-list { display: flex; flex-direction: column; gap: 4px; }
+  .file-item { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f9fafb; border: 1px solid #f3f4f6; border-radius: 4px; }
+  .file-item svg { width: 14px; height: 14px; color: var(--text-muted); flex-shrink: 0; }
+  .file-item-name { flex: 1; font-size: 12px; color: var(--text-dark); }
+  .file-item-size { font-size: 11px; color: var(--text-muted); }
+  .file-item-remove { background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 0; display: flex; }
+  .file-item-remove svg { width: 12px; height: 12px; }
+
+  .file-error { font-size: 11px; color: var(--color-danger); }
+
+  /* ── BOTTOM NAV ── */
+  #_dnav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; padding: .65rem 1.5rem; font-size: 13px; z-index: 999; box-shadow: 0 -2px 8px rgba(0,0,0,.06); }
+  #_dnav a { color: #0058ab; text-decoration: none; font-weight: 500; }
+  #_dnav a:hover { text-decoration: underline; }
+  #_dnav .idx { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<p class="page-title">Components</p>
+<p class="comp-title">Textarea · Editor · File Upload</p>
+<hr class="divider">
+
+<!-- ════════════ TEXTAREA ════════════ -->
+<div class="sec">Textarea</div>
+
+<div class="size-header"><span class="size-badge">Tamaños</span><hr></div>
+<div class="card">
+  <div class="col-headers" style="grid-template-columns:100px repeat(3,1fr)">
+    <span></span><span>Small</span><span>Normal</span><span>Large</span>
+  </div>
+  <div class="variant-row" style="grid-template-columns:100px repeat(3,1fr)">
+    <span class="variant-label">Default</span>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label">Comentarios</label>
+        <textarea class="dcx-textarea ta-sm" placeholder="Escribe aquí..."></textarea>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label">Descripción</label>
+        <textarea class="dcx-textarea ta-md" placeholder="Escribe una descripción..."></textarea>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label">Notas</label>
+        <textarea class="dcx-textarea ta-lg" placeholder="Notas adicionales..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="size-header"><span class="size-badge">Estados</span><hr></div>
+<div class="card">
+  <div class="col-headers" style="grid-template-columns:100px repeat(4,1fr)">
+    <span></span><span>Default</span><span>Focus</span><span>Error</span><span>Disabled</span>
+  </div>
+  <div class="variant-row" style="grid-template-columns:100px repeat(4,1fr)">
+    <span class="variant-label">Normal</span>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label">Observaciones</label>
+        <textarea class="dcx-textarea ta-md" placeholder="Escribe aquí..."></textarea>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label">Observaciones</label>
+        <textarea class="dcx-textarea ta-md focused" style="border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(29,184,242,.18)" placeholder="Escribe aquí..."></textarea>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label" style="color:var(--color-danger)">Descripción<span class="req">*</span></label>
+        <textarea class="dcx-textarea ta-md is-invalid" placeholder="Escribe aquí..."></textarea>
+        <span class="dcx-error-msg">Este campo es obligatorio</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label" style="color:var(--text-disabled)">Observaciones</label>
+        <textarea class="dcx-textarea ta-md" disabled placeholder="No disponible"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="variant-row" style="grid-template-columns:100px repeat(4,1fr)">
+    <span class="variant-label">Filled</span>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label">Notas</label>
+        <textarea class="dcx-textarea ta-md filled" placeholder="Escribe aquí..."></textarea>
+        <span class="dcx-hint">Max. 500 caracteres</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label">Notas</label>
+        <textarea class="dcx-textarea ta-md filled" style="border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(29,184,242,.18);background:var(--bg-default)">Contenido de ejemplo escrito por el usuario.</textarea>
+      </div>
+    </div>
+    <div class="cell"></div>
+    <div class="cell">
+      <div class="dcx-field" style="width:100%">
+        <label class="dcx-label" style="color:var(--text-disabled)">Notas</label>
+        <textarea class="dcx-textarea ta-md" disabled placeholder="No disponible"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ EDITOR ════════════ -->
+<div class="sec">Editor</div>
+
+<div class="size-header"><span class="size-badge">Estados</span><hr></div>
+<div class="card">
+  <div class="editor-states-grid">
+
+    <!-- Default -->
+    <div>
+      <div class="editor-label">Contenido</div>
+      <div class="dcx-editor">
+        <div class="editor-toolbar">
+          <button class="editor-btn bold">B</button>
+          <button class="editor-btn italic">I</button>
+          <button class="editor-btn underline">U</button>
+          <div class="editor-divider"></div>
+          <button class="editor-btn">
+            <svg viewBox="0 0 13 13" fill="none"><path d="M2 3h9M2 6h9M2 9h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+          <button class="editor-btn">
+            <svg viewBox="0 0 13 13" fill="none"><path d="M4 3l-2 2 2 2M4 9l-2-2 2-2M7 5h4M7 8h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+          <div class="editor-divider"></div>
+          <button class="editor-btn">
+            <svg viewBox="0 0 13 13" fill="none"><path d="M3 4.5h7M4 6.5h5M5 8.5h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="editor-content placeholder">Empieza a escribir tu contenido aquí...</div>
+      </div>
+    </div>
+
+    <!-- Focused with formatting -->
+    <div>
+      <div class="editor-label">Descripción del proyecto</div>
+      <div class="dcx-editor focused">
+        <div class="editor-toolbar">
+          <button class="editor-btn bold active">B</button>
+          <button class="editor-btn italic">I</button>
+          <button class="editor-btn underline">U</button>
+          <div class="editor-divider"></div>
+          <button class="editor-btn">
+            <svg viewBox="0 0 13 13" fill="none"><path d="M2 3h9M2 6h9M2 9h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+          <button class="editor-btn">
+            <svg viewBox="0 0 13 13" fill="none"><path d="M4 3l-2 2 2 2M4 9l-2-2 2-2M7 5h4M7 8h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+          <div class="editor-divider"></div>
+          <button class="editor-btn">
+            <svg viewBox="0 0 13 13" fill="none"><path d="M3 4.5h7M4 6.5h5M5 8.5h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="editor-content">
+          <strong>Objetivos principales</strong> del proyecto:<br>
+          Desarrollar una solución <em>escalable</em> y <u>mantenible</u> para el cliente.
+        </div>
+      </div>
+    </div>
+
+    <!-- Invalid -->
+    <div>
+      <div class="editor-label">Descripción <span style="color:var(--color-danger)">*</span></div>
+      <div class="dcx-editor is-invalid">
+        <div class="editor-toolbar">
+          <button class="editor-btn bold">B</button>
+          <button class="editor-btn italic">I</button>
+          <button class="editor-btn underline">U</button>
+          <div class="editor-divider"></div>
+          <button class="editor-btn">
+            <svg viewBox="0 0 13 13" fill="none"><path d="M2 3h9M2 6h9M2 9h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+          <button class="editor-btn">
+            <svg viewBox="0 0 13 13" fill="none"><path d="M4 3l-2 2 2 2M4 9l-2-2 2-2M7 5h4M7 8h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="editor-content placeholder">Campo obligatorio...</div>
+      </div>
+      <div class="editor-error">La descripción no puede estar vacía</div>
+    </div>
+
+    <!-- Disabled -->
+    <div>
+      <div class="editor-label" style="color:var(--text-disabled)">Notas (solo lectura)</div>
+      <div class="dcx-editor is-disabled">
+        <div class="editor-toolbar">
+          <button class="editor-btn bold">B</button>
+          <button class="editor-btn italic">I</button>
+          <button class="editor-btn underline">U</button>
+        </div>
+        <div class="editor-content">Contenido bloqueado. No se puede editar.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════ FILE UPLOAD ════════════ -->
+<div class="sec">File Upload</div>
+
+<div class="size-header"><span class="size-badge">Dropzone pequeño (default)</span><hr></div>
+<div class="card">
+  <div class="file-upload-grid">
+
+    <!-- Sin fichero -->
+    <div>
+      <div class="dcx-file-upload">
+        <label class="dcx-file-upload-label">Adjuntar documento</label>
+        <div class="dcx-dropzone">
+          <button class="dcx-dropzone-btn">
+            <svg viewBox="0 0 12 12" fill="none"><path d="M6 2v6M3 5l3-3 3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 10h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Elegir archivo
+          </button>
+          <span class="dcx-dropzone-placeholder">Ningún archivo seleccionado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Con fichero seleccionado -->
+    <div>
+      <div class="dcx-file-upload">
+        <label class="dcx-file-upload-label">Adjuntar documento</label>
+        <div class="dcx-dropzone">
+          <button class="dcx-dropzone-btn">
+            <svg viewBox="0 0 12 12" fill="none"><path d="M6 2v6M3 5l3-3 3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 10h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Cambiar
+          </button>
+          <span class="dcx-dropzone-filename">informe-final.pdf</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deshabilitado -->
+    <div>
+      <div class="dcx-file-upload">
+        <label class="dcx-file-upload-label" style="color:var(--text-disabled)">Adjuntar documento</label>
+        <div class="dcx-dropzone disabled">
+          <button class="dcx-dropzone-btn" disabled>Elegir archivo</button>
+          <span class="dcx-dropzone-placeholder">No disponible</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error de validación -->
+    <div>
+      <div class="dcx-file-upload">
+        <label class="dcx-file-upload-label">Adjuntar imagen</label>
+        <div class="dcx-dropzone" style="border-color:var(--color-danger)">
+          <button class="dcx-dropzone-btn">Elegir archivo</button>
+          <span class="dcx-dropzone-placeholder">documento.exe</span>
+        </div>
+        <span class="file-error">Tipo de archivo no permitido. Solo se aceptan imágenes.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="size-header"><span class="size-badge">Dropzone grande — Drag &amp; Drop</span><hr></div>
+<div class="card">
+  <div class="file-upload-grid">
+
+    <!-- Drag & Drop vacío -->
+    <div>
+      <div class="dcx-file-upload">
+        <label class="dcx-file-upload-label">Subir archivos</label>
+        <div class="dcx-dropzone-lg">
+          <svg viewBox="0 0 28 28" fill="none"><path d="M14 4v14M8 10l6-6 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 22h20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span class="upload-title">Arrastra archivos aquí</span>
+          <span class="upload-sub">o <span class="upload-link">elige desde tu equipo</span></span>
+          <span class="upload-sub">PDF, DOCX, PNG — máx. 10 MB</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drag over -->
+    <div>
+      <div class="dcx-file-upload">
+        <label class="dcx-file-upload-label">Subir archivos</label>
+        <div class="dcx-dropzone-lg drag-over">
+          <svg viewBox="0 0 28 28" fill="none" style="color:var(--bg-primary)"><path d="M14 4v14M8 10l6-6 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 22h20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span class="upload-title" style="color:var(--bg-primary)">Suelta para subir</span>
+          <span class="upload-sub">Archivo detectado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Con múltiples archivos -->
+    <div>
+      <div class="dcx-file-upload">
+        <label class="dcx-file-upload-label">Documentos adjuntos</label>
+        <div class="dcx-dropzone-lg" style="padding:14px 16px">
+          <svg viewBox="0 0 28 28" fill="none"><path d="M14 4v14M8 10l6-6 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 22h20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span class="upload-sub"><span class="upload-link">Añadir más archivos</span></span>
+        </div>
+        <div class="file-list" style="margin-top:8px">
+          <div class="file-item">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M3 2h5.5L11 4.5V12a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2"/><path d="M8.5 2v3H11" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span class="file-item-name">contrato-2026.pdf</span>
+            <span class="file-item-size">2.4 MB</span>
+            <button class="file-item-remove"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2L2 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+          </div>
+          <div class="file-item">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M3 2h5.5L11 4.5V12a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2"/><path d="M8.5 2v3H11" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span class="file-item-name">anexo-técnico.docx</span>
+            <span class="file-item-size">840 KB</span>
+            <button class="file-item-remove"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2L2 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deshabilitado -->
+    <div>
+      <div class="dcx-file-upload">
+        <label class="dcx-file-upload-label" style="color:var(--text-disabled)">Subir archivos</label>
+        <div class="dcx-dropzone-lg disabled">
+          <svg viewBox="0 0 28 28" fill="none"><path d="M14 4v14M8 10l6-6 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 22h20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span class="upload-title">Carga deshabilitada</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<nav id="_dnav">
+  <a href="dcx-ng-page-stepper.html">&larr; Stepper</a>
+  <a class="idx" href="index.html">&#8862;&nbsp;Designs</a>
+  <span></span>
+</nav>
+
+</body>
+</html>

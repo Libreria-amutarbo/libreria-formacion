@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:        #0058ab;
+    --bg-primary-hover:  #004f9a;
+    --bg-hover:          #f0f2f5;
+    --bg-pressed:        #e1e4e8;
+    --bg-default:        #ffffff;
+    --bg-surface:        #f4f5f7;
+    --bg-disabled:       #f3f4f6;
+    --text-dark:         #1e2226;
+    --text-muted:        #6b7280;
+    --text-disabled:     #adb5bd;
+    --border-default:    #d1d5db;
+    --border-focus:      #1db8f2;
+    --color-danger:      #dc2626;
+    --color-success:     #16a34a;
+    --color-warning:     #d97706;
+    --color-info:        #0058ab;
+    --color-grey:        #6b7280;
+    --ff: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--ff);
+    background: var(--bg-surface);
+    color: var(--text-dark);
+    padding: 2.5rem 2.5rem 72px;
+    min-height: 100vh;
+  }
+
+  .page-title { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .35rem; }
+  .comp-title  { font-size: 26px; font-weight: 700; letter-spacing: -.3px; margin-bottom: .6rem; }
+  .divider     { border: none; border-top: 1px solid #e5e7eb; margin-bottom: 2.25rem; }
+
+  .sec {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--text-muted); margin: 2.25rem 0 1rem; padding-bottom: .5rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .sec:first-of-type { margin-top: 0; }
+
+  .size-header { display: flex; align-items: center; gap: 12px; margin-bottom: .75rem; margin-top: 2rem; }
+  .size-header:first-of-type { margin-top: 0; }
+  .size-badge { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); background: #edf0f3; border-radius: 4px; padding: 2px 8px; line-height: 1.6; }
+  .size-header hr { flex: 1; border: none; border-top: 1px solid #e5e7eb; }
+
+  .card {
+    background: var(--bg-default);
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .col-headers {
+    display: grid;
+    padding: 10px 16px 8px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .col-headers span {
+    font-size: 10px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--text-disabled); text-align: center;
+  }
+  .col-headers span:first-child { text-align: left; }
+
+  .variant-row {
+    display: grid;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f9fafb;
+    gap: 8px;
+  }
+  .variant-row:last-child { border-bottom: none; }
+  .variant-label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); }
+  .cell { display: flex; justify-content: center; align-items: center; }
+  .cell-left { display: flex; align-items: center; }
+
+  /* ── CHECKBOX ── */
+  .checkbox-cols { grid-template-columns: 120px repeat(4, 1fr); }
+  .col-headers.checkbox-cols span { text-align: center; }
+  .col-headers.checkbox-cols span:first-child { text-align: left; }
+  .variant-row.checkbox-cols { grid-template-columns: 120px repeat(4, 1fr); }
+
+  .dcx-checkbox-wrap { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .dcx-checkbox-wrap.disabled { cursor: not-allowed; opacity: .45; }
+
+  .dcx-checkbox-btn {
+    width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--border-default);
+    background: var(--bg-default); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all .12s;
+  }
+  .dcx-checkbox-btn.checked { background: var(--bg-primary); border-color: var(--bg-primary); }
+  .dcx-checkbox-btn.indeterminate { background: var(--bg-default); border-color: var(--bg-primary); }
+  .dcx-checkbox-btn.error { border-color: var(--color-danger); }
+  .dcx-checkbox-btn.checked.error { background: var(--color-danger); border-color: var(--color-danger); }
+
+  .dcx-checkbox-btn svg { width: 10px; height: 10px; color: #fff; }
+  .dcx-checkbox-btn.indeterminate svg { color: var(--bg-primary); }
+
+  .dcx-checkbox-lbl { font-size: 13px; color: var(--text-dark); }
+  .dcx-checkbox-wrap.disabled .dcx-checkbox-lbl { color: var(--text-disabled); }
+
+  .dcx-checkbox-error { font-size: 11px; color: var(--color-danger); margin-top: 4px; }
+
+  /* ── TOGGLE ── */
+  .toggle-cols { grid-template-columns: 100px repeat(3, 1fr); }
+  .col-headers.toggle-cols span { text-align: center; }
+  .col-headers.toggle-cols span:first-child { text-align: left; }
+  .variant-row.toggle-cols { grid-template-columns: 100px repeat(3, 1fr); }
+
+  .dcx-toggle { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .dcx-toggle.disabled { cursor: not-allowed; opacity: .45; }
+
+  .toggle-track {
+    border-radius: 999px; background: #d1d5db; position: relative;
+    transition: background .15s; flex-shrink: 0;
+  }
+  .toggle-track.on { background: var(--bg-primary); }
+
+  .toggle-thumb {
+    border-radius: 50%; background: #fff; position: absolute; top: 50%; transform: translateY(-50%);
+    box-shadow: 0 1px 3px rgba(0,0,0,.2); transition: left .15s;
+  }
+
+  /* sizes */
+  .toggle-s .toggle-track { width: 28px; height: 16px; }
+  .toggle-s .toggle-thumb { width: 12px; height: 12px; left: 2px; }
+  .toggle-s .toggle-track.on .toggle-thumb { left: 14px; }
+  .toggle-s .toggle-lbl { font-size: 11px; }
+
+  .toggle-m .toggle-track { width: 36px; height: 20px; }
+  .toggle-m .toggle-thumb { width: 16px; height: 16px; left: 2px; }
+  .toggle-m .toggle-track.on .toggle-thumb { left: 18px; }
+  .toggle-m .toggle-lbl { font-size: 13px; }
+
+  .toggle-l .toggle-track { width: 44px; height: 24px; }
+  .toggle-l .toggle-thumb { width: 20px; height: 20px; left: 2px; }
+  .toggle-l .toggle-track.on .toggle-thumb { left: 22px; }
+  .toggle-l .toggle-lbl { font-size: 14px; }
+
+  .toggle-xl .toggle-track { width: 52px; height: 28px; }
+  .toggle-xl .toggle-thumb { width: 24px; height: 24px; left: 2px; }
+  .toggle-xl .toggle-track.on .toggle-thumb { left: 26px; }
+  .toggle-xl .toggle-lbl { font-size: 15px; }
+
+  .toggle-lbl { color: var(--text-dark); }
+
+  /* ── CHIP ── */
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 16px; border-bottom: 1px solid #f9fafb; align-items: center; }
+  .chip-row:last-child { border-bottom: none; }
+  .chip-row-label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); min-width: 90px; flex-shrink: 0; }
+
+  .dcx-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 500;
+    border: 1.5px solid transparent; cursor: default; user-select: none;
+    font-family: var(--ff);
+  }
+  .dcx-chip svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+  .dcx-chip-remove {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 14px; height: 14px; border-radius: 50%; cursor: pointer;
+    background: rgba(0,0,0,.12); border: none; padding: 0; margin-left: 2px;
+  }
+  .dcx-chip-remove svg { width: 8px; height: 8px; color: currentColor; }
+
+  /* colors */
+  .chip-primary   { background: #dbeafe; color: #1d4ed8; border-color: #bfdbfe; }
+  .chip-secondary { background: #f3f4f6; color: #374151; border-color: #e5e7eb; }
+  .chip-success   { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+  .chip-warning   { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+  .chip-error     { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+  .chip-info      { background: #e0f2fe; color: #075985; border-color: #bae6fd; }
+  .chip-grey      { background: #f9fafb; color: #6b7280; border-color: #e5e7eb; }
+
+  /* ── BOTTOM NAV ── */
+  #_dnav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #fff; border-top: 1px solid #e5e7eb;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .65rem 1.5rem; font-size: 13px;
+    z-index: 999; box-shadow: 0 -2px 8px rgba(0,0,0,.06);
+  }
+  #_dnav a       { color: #0058ab; text-decoration: none; font-weight: 500; }
+  #_dnav a:hover { text-decoration: underline; }
+  #_dnav .idx    { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<p class="page-title">Components</p>
+<p class="comp-title">Checkbox · Toggle · Chip</p>
+<hr class="divider">
+
+<!-- ════════════ CHECKBOX ════════════ -->
+<div class="sec">Checkbox</div>
+
+<div class="size-header"><span class="size-badge">Estados</span><hr></div>
+<div class="card">
+  <div class="col-headers checkbox-cols">
+    <span></span>
+    <span>Unchecked</span>
+    <span>Checked</span>
+    <span>Indeterminate</span>
+    <span>Disabled</span>
+  </div>
+
+  <div class="variant-row checkbox-cols">
+    <span class="variant-label">Sin label</span>
+    <div class="cell">
+      <span class="dcx-checkbox-btn"></span>
+    </div>
+    <div class="cell">
+      <span class="dcx-checkbox-btn checked">
+        <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+    <div class="cell">
+      <span class="dcx-checkbox-btn indeterminate">
+        <svg viewBox="0 0 10 10" fill="none"><path d="M2 5h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
+    </div>
+    <div class="cell">
+      <span class="dcx-checkbox-wrap disabled">
+        <span class="dcx-checkbox-btn"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="variant-row checkbox-cols">
+    <span class="variant-label">Label right</span>
+    <div class="cell">
+      <label class="dcx-checkbox-wrap">
+        <span class="dcx-checkbox-btn"></span>
+        <span class="dcx-checkbox-lbl">Opción</span>
+      </label>
+    </div>
+    <div class="cell">
+      <label class="dcx-checkbox-wrap">
+        <span class="dcx-checkbox-btn checked"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="dcx-checkbox-lbl">Opción</span>
+      </label>
+    </div>
+    <div class="cell">
+      <label class="dcx-checkbox-wrap">
+        <span class="dcx-checkbox-btn indeterminate"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <span class="dcx-checkbox-lbl">Opción</span>
+      </label>
+    </div>
+    <div class="cell">
+      <label class="dcx-checkbox-wrap disabled">
+        <span class="dcx-checkbox-btn"></span>
+        <span class="dcx-checkbox-lbl">Opción</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="variant-row checkbox-cols">
+    <span class="variant-label">Label left</span>
+    <div class="cell">
+      <label class="dcx-checkbox-wrap">
+        <span class="dcx-checkbox-lbl">Opción</span>
+        <span class="dcx-checkbox-btn"></span>
+      </label>
+    </div>
+    <div class="cell">
+      <label class="dcx-checkbox-wrap">
+        <span class="dcx-checkbox-lbl">Opción</span>
+        <span class="dcx-checkbox-btn checked"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </label>
+    </div>
+    <div class="cell"></div>
+    <div class="cell">
+      <label class="dcx-checkbox-wrap disabled">
+        <span class="dcx-checkbox-lbl">Opción</span>
+        <span class="dcx-checkbox-btn checked"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="variant-row checkbox-cols">
+    <span class="variant-label">Error</span>
+    <div class="cell">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <label class="dcx-checkbox-wrap">
+          <span class="dcx-checkbox-btn error"></span>
+          <span class="dcx-checkbox-lbl" style="color:var(--color-danger)">Requerido</span>
+        </label>
+        <span class="dcx-checkbox-error">Este campo es obligatorio</span>
+      </div>
+    </div>
+    <div class="cell">
+      <label class="dcx-checkbox-wrap">
+        <span class="dcx-checkbox-btn checked error"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="dcx-checkbox-lbl">Opción</span>
+      </label>
+    </div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+</div>
+
+<!-- ════════════ TOGGLE ════════════ -->
+<div class="sec">Toggle</div>
+
+<div class="size-header"><span class="size-badge">Tamaños × Estados</span><hr></div>
+<div class="card">
+  <div class="col-headers toggle-cols">
+    <span></span>
+    <span>Off</span>
+    <span>On</span>
+    <span>Disabled</span>
+  </div>
+
+  <div class="variant-row toggle-cols">
+    <span class="variant-label">Small</span>
+    <div class="cell">
+      <div class="dcx-toggle toggle-s">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-toggle toggle-s">
+        <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-toggle toggle-s disabled">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="variant-row toggle-cols">
+    <span class="variant-label">Medium</span>
+    <div class="cell">
+      <div class="dcx-toggle toggle-m">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-toggle toggle-m">
+        <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-toggle toggle-m disabled">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="variant-row toggle-cols">
+    <span class="variant-label">Large</span>
+    <div class="cell">
+      <div class="dcx-toggle toggle-l">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-toggle toggle-l">
+        <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-toggle toggle-l disabled">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="variant-row toggle-cols">
+    <span class="variant-label">XLarge</span>
+    <div class="cell">
+      <div class="dcx-toggle toggle-xl">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-toggle toggle-xl">
+        <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="dcx-toggle toggle-xl disabled">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-lbl">Label</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ CHIP ════════════ -->
+<div class="sec">Chip</div>
+
+<div class="size-header"><span class="size-badge">Colores — Variant choice</span><hr></div>
+<div class="card">
+  <div class="chip-row">
+    <span class="chip-row-label">Primary</span>
+    <span class="dcx-chip chip-primary">Etiqueta</span>
+    <span class="dcx-chip chip-primary">
+      <svg viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="5"/></svg>Etiqueta
+    </span>
+  </div>
+  <div class="chip-row">
+    <span class="chip-row-label">Secondary</span>
+    <span class="dcx-chip chip-secondary">Etiqueta</span>
+    <span class="dcx-chip chip-secondary">
+      <svg viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="5"/></svg>Etiqueta
+    </span>
+  </div>
+  <div class="chip-row">
+    <span class="chip-row-label">Success</span>
+    <span class="dcx-chip chip-success">Etiqueta</span>
+    <span class="dcx-chip chip-success">
+      <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Activo
+    </span>
+  </div>
+  <div class="chip-row">
+    <span class="chip-row-label">Warning</span>
+    <span class="dcx-chip chip-warning">Etiqueta</span>
+  </div>
+  <div class="chip-row">
+    <span class="chip-row-label">Error</span>
+    <span class="dcx-chip chip-error">Etiqueta</span>
+  </div>
+  <div class="chip-row">
+    <span class="chip-row-label">Info</span>
+    <span class="dcx-chip chip-info">Etiqueta</span>
+  </div>
+  <div class="chip-row">
+    <span class="chip-row-label">Grey</span>
+    <span class="dcx-chip chip-grey">Etiqueta</span>
+  </div>
+</div>
+
+<div class="size-header"><span class="size-badge">Variant filter — Con botón eliminar</span><hr></div>
+<div class="card">
+  <div class="chip-row">
+    <span class="chip-row-label">Removable</span>
+    <span class="dcx-chip chip-primary">
+      Etiqueta
+      <button class="dcx-chip-remove"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+    </span>
+    <span class="dcx-chip chip-success">
+      Activo
+      <button class="dcx-chip-remove"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+    </span>
+    <span class="dcx-chip chip-warning">
+      Pendiente
+      <button class="dcx-chip-remove"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+    </span>
+    <span class="dcx-chip chip-error">
+      Error
+      <button class="dcx-chip-remove"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+    </span>
+    <span class="dcx-chip chip-grey">
+      Inactivo
+      <button class="dcx-chip-remove"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+    </span>
+  </div>
+</div>
+
+<nav id="_dnav">
+  <a href="dcx-ng-page-scroll-top-down.html">&larr; Scroll Top Down</a>
+  <a class="idx" href="index.html">&#8862;&nbsp;Designs</a>
+  <a href="dcx-ng-page-spinner-toast.html">Spinner · Toast &rarr;</a>
+</nav>
+
+</body>
+</html>
