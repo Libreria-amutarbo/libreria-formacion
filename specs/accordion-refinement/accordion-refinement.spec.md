@@ -1,15 +1,7 @@
-# Spec: Accordion Refinement
-
-**Status:** Done
-**Date:** 2026-05-29
-**Author:** Claude Code
-
----
-
 ## 1. Overview
 
-Refinamiento del componente `dcx-ng-accordion` para corregir incumplimientos de WCAG AA, 
-mejorar la coherencia visual respecto al design de referencia 
+Refinamiento del componente `dcx-ng-accordion` para corregir incumplimientos de WCAG AA,
+mejorar la coherencia visual respecto al design de referencia
 (`designs/dcx-ng-page-accordion.html`) y solucionar bugs detectados en la implementación actual.
 
 El componente solo se usa en la página demo `src/app/pages/dcx-ng-page-accordion/` y en las stories de Storybook. No hay uso en producción fuera de la librería.
@@ -20,33 +12,33 @@ El componente solo se usa en la página demo `src/app/pages/dcx-ng-page-accordio
 
 ### 2.1 WCAG AA — Críticos
 
-| # | Criterio | Problema actual | Solución |
-|---|----------|-----------------|----------|
-| 1 | **4.1.2 Name, Role, Value** | El header usa `<div role="button">` en lugar de un elemento nativo `<button>` dentro de un `<h3>`. Los lectores de pantalla anuncian `<button>` mucho mejor que `role="button"`. | Refactorizar a `<h3><button aria-expanded>…</button></h3>` |
-| 2 | **1.3.1 Info and Relationships** | El panel de contenido colapsado tiene `max-height:0; overflow:hidden` pero no `aria-hidden`. Algunos lectores de pantalla leen contenido oculto via CSS. | Añadir `[attr.aria-hidden]="!isExpanded(item.id)"` al panel (se descarta `[hidden]` porque deshabilita las transiciones CSS) |
-| 3 | **2.4.3 Focus Order** | El header div captura el foco con `tabindex`, pero sin `<button>` nativo el foco puede perderse cuando el item se expande/colapsa. | El `<button>` nativo gestiona el foco correctamente por sí solo |
+| #   | Criterio                         | Problema actual                                                                                                                                                                  | Solución                                                                                                                     |
+| --- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **4.1.2 Name, Role, Value**      | El header usa `<div role="button">` en lugar de un elemento nativo `<button>` dentro de un `<h3>`. Los lectores de pantalla anuncian `<button>` mucho mejor que `role="button"`. | Refactorizar a `<h3><button aria-expanded>…</button></h3>`                                                                   |
+| 2   | **1.3.1 Info and Relationships** | El panel de contenido colapsado tiene `max-height:0; overflow:hidden` pero no `aria-hidden`. Algunos lectores de pantalla leen contenido oculto via CSS.                         | Añadir `[attr.aria-hidden]="!isExpanded(item.id)"` al panel (se descarta `[hidden]` porque deshabilita las transiciones CSS) |
+| 3   | **2.4.3 Focus Order**            | El header div captura el foco con `tabindex`, pero sin `<button>` nativo el foco puede perderse cuando el item se expande/colapsa.                                               | El `<button>` nativo gestiona el foco correctamente por sí solo                                                              |
 
 ### 2.2 WCAG AA — Recomendados (nivel "should" del APG)
 
-| # | Criterio | Descripción |
-|---|----------|-------------|
-| 4 | Keyboard navigation | Flechas Arriba/Abajo, Home y End deben mover el foco entre headers (WAI-ARIA APG Accordion pattern) |
+| #   | Criterio            | Descripción                                                                                         |
+| --- | ------------------- | --------------------------------------------------------------------------------------------------- |
+| 4   | Keyboard navigation | Flechas Arriba/Abajo, Home y End deben mover el foco entre headers (WAI-ARIA APG Accordion pattern) |
 
 ### 2.3 Bugs de lógica
 
-| # | Descripción |
-|---|-------------|
-| 5 | `_initEffect` se re-ejecuta en **cada cambio de `items` o `expandedIds`**, reseteando el estado expandido aunque el usuario ya haya interactuado con el acordeón. Se debe separar la inicialización de la reacción a cambios. |
-| 6 | Doble scroll: `.accordion-content-wrapper` tiene `overflow-y:auto` cuando expanded Y `.accordion-content` también tiene `overflow-y:auto; max-height:600px`. Esto crea una barra de scroll dentro de otra. |
-| 7 | Duplicación de estilos en `.accordion-header`: combina declaraciones directas (`display:flex`, `padding`) con mixins `@include flex-between` y `@include padding(m)` que probablemente hacen lo mismo. |
+| #   | Descripción                                                                                                                                                                                                                   |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 5   | `_initEffect` se re-ejecuta en **cada cambio de `items` o `expandedIds`**, reseteando el estado expandido aunque el usuario ya haya interactuado con el acordeón. Se debe separar la inicialización de la reacción a cambios. |
+| 6   | Doble scroll: `.accordion-content-wrapper` tiene `overflow-y:auto` cuando expanded Y `.accordion-content` también tiene `overflow-y:auto; max-height:600px`. Esto crea una barra de scroll dentro de otra.                    |
+| 7   | Duplicación de estilos en `.accordion-header`: combina declaraciones directas (`display:flex`, `padding`) con mixins `@include flex-between` y `@include padding(m)` que probablemente hacen lo mismo.                        |
 
 ### 2.4 Mejoras de UX / coherencia
 
-| # | Descripción |
-|---|-------------|
-| 8 | El mock `DcxAccordionDefault` usa `content: 'Content 1'` — texto de placeholder sin valor. Deben ser textos realistas en los mocks para que la demo y Storybook sean coherentes con el design. |
-| 9 | El mock `DcxAccordionItemsWithExpanded` tiene los 3 ítems con `expanded: true` pero `closeOthers: true` por defecto, con lo que solo quedará abierto el último. Es confuso. |
-| 10 | Falta `description` en la interfaz `DcxNgAccordionItem`. El design de referencia no lo muestra, pero es un campo habitual en accordions reales para añadir un subtítulo o texto de apoyo bajo el título del header. |
+| #   | Descripción                                                                                                                                                                                                         |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 8   | El mock `DcxAccordionDefault` usa `content: 'Content 1'` — texto de placeholder sin valor. Deben ser textos realistas en los mocks para que la demo y Storybook sean coherentes con el design.                      |
+| 9   | El mock `DcxAccordionItemsWithExpanded` tiene los 3 ítems con `expanded: true` pero `closeOthers: true` por defecto, con lo que solo quedará abierto el último. Es confuso.                                         |
+| 10  | Falta `description` en la interfaz `DcxNgAccordionItem`. El design de referencia no lo muestra, pero es un campo habitual en accordions reales para añadir un subtítulo o texto de apoyo bajo el título del header. |
 
 ---
 
@@ -72,28 +64,28 @@ export interface DcxNgAccordionItem {
 
 ### Inputs (sin cambios)
 
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `items` | `DcxNgAccordionItem[]` | `[]` | Items del acordeón |
-| `transition` | `DcxAccordionTransition` | `'smooth'` | Velocidad de la transición |
-| `closeOthers` | `boolean` | `true` | Colapsa el resto al abrir uno |
-| `expandedIds` | `string[]` | `[]` | IDs expandidos por defecto |
+| Name          | Type                     | Default    | Description                   |
+| ------------- | ------------------------ | ---------- | ----------------------------- |
+| `items`       | `DcxNgAccordionItem[]`   | `[]`       | Items del acordeón            |
+| `transition`  | `DcxAccordionTransition` | `'smooth'` | Velocidad de la transición    |
+| `closeOthers` | `boolean`                | `true`     | Colapsa el resto al abrir uno |
+| `expandedIds` | `string[]`               | `[]`       | IDs expandidos por defecto    |
 
 ### Outputs (sin cambios)
 
-| Name | Emitted Type | Description |
-|------|-------------|-------------|
-| `itemToggled` | `DcxNgAccordionItem` | Cualquier cambio |
-| `itemExpanded` | `DcxNgAccordionItem` | Al expandir |
-| `itemCollapsed` | `DcxNgAccordionItem` | Al colapsar |
+| Name            | Emitted Type         | Description      |
+| --------------- | -------------------- | ---------------- |
+| `itemToggled`   | `DcxNgAccordionItem` | Cualquier cambio |
+| `itemExpanded`  | `DcxNgAccordionItem` | Al expandir      |
+| `itemCollapsed` | `DcxNgAccordionItem` | Al colapsar      |
 
 ### Métodos públicos (sin cambios)
 
-| Method | Signature | Description |
-|--------|-----------|-------------|
-| `expandItemById` | `(id: string): void` | Expande por ID externamente |
-| `collapseItemById` | `(id: string): void` | Colapsa por ID externamente |
-| `isExpanded` | `(id: string): boolean` | Consulta estado |
+| Method             | Signature               | Description                 |
+| ------------------ | ----------------------- | --------------------------- |
+| `expandItemById`   | `(id: string): void`    | Expande por ID externamente |
+| `collapseItemById` | `(id: string): void`    | Colapsa por ID externamente |
+| `isExpanded`       | `(id: string): boolean` | Consulta estado             |
 
 ---
 
@@ -101,14 +93,14 @@ export interface DcxNgAccordionItem {
 
 Alineado con `designs/dcx-ng-page-accordion.html`:
 
-| Estado | Descripción |
-|--------|-------------|
-| **Default** | Fondo blanco, borde `#e5e7eb`, header con texto dark |
-| **Hover** | Header fondo `#f7f8fa` |
-| **Expanded** | Header fondo `#f7f8fa`, chevron rotado 180°, contenido visible |
-| **Disabled** | 45% opacity, cursor `not-allowed`, sin hover, `tabindex="-1"` en el botón |
-| **Content Disabled** | Panel visible pero con `opacity:0.5; pointer-events:none` |
-| **Focus Visible** | Outline `2px solid #1db8f2` con `outline-offset:-2px` en el botón |
+| Estado               | Descripción                                                               |
+| -------------------- | ------------------------------------------------------------------------- |
+| **Default**          | Fondo blanco, borde `#e5e7eb`, header con texto dark                      |
+| **Hover**            | Header fondo `#f7f8fa`                                                    |
+| **Expanded**         | Header fondo `#f7f8fa`, chevron rotado 180°, contenido visible            |
+| **Disabled**         | 45% opacity, cursor `not-allowed`, sin hover, `tabindex="-1"` en el botón |
+| **Content Disabled** | Panel visible pero con `opacity:0.5; pointer-events:none`                 |
+| **Focus Visible**    | Outline `2px solid #1db8f2` con `outline-offset:-2px` en el botón         |
 
 No se añaden variantes visuales nuevas (el diseño no las contempla).
 
@@ -117,6 +109,7 @@ No se añaden variantes visuales nuevas (el diseño no las contempla).
 ## 5. SCSS / Tokens
 
 Tokens usados (sin cambios):
+
 - `--bg-default` / `--bg-hover` / `--bg-primary`
 - `--border-light`, `--border-focus`
 - `--text-dark`, `--text-muted`, `--text-disabled`
@@ -124,6 +117,7 @@ Tokens usados (sin cambios):
 - `--r-lg`, `--fs-base`, `--fw-medium`
 
 Cambios en SCSS:
+
 - Eliminar la duplicación de `display:flex` / `padding` en `.accordion-header`
 - Eliminar `overflow-y: auto` del `.accordion-content-wrapper` (mantener solo en `.accordion-content` si se quiere scroll interno) o del `.accordion-content`; no en ambos
 
@@ -167,13 +161,13 @@ Cambios en SCSS:
 
 ### Keyboard interaction
 
-| Tecla | Comportamiento |
-|-------|---------------|
-| `Enter` / `Space` | Toggle del item con foco |
-| `↓` | Foco al siguiente header (circular) |
-| `↑` | Foco al header anterior (circular) |
-| `Home` | Foco al primer header |
-| `End` | Foco al último header |
+| Tecla             | Comportamiento                      |
+| ----------------- | ----------------------------------- |
+| `Enter` / `Space` | Toggle del item con foco            |
+| `↓`               | Foco al siguiente header (circular) |
+| `↑`               | Foco al header anterior (circular)  |
+| `Home`            | Foco al primer header               |
+| `End`             | Foco al último header               |
 
 > Los items disabled se saltan en la navegación con flechas.
 

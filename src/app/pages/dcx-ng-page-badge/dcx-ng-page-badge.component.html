@@ -1,68 +1,146 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Badge básico</h2>
-  <div class="example-row">
-    <dcx-ng-badge value="2" />
-  </div>
-</section>
+<div class="demo-page">
 
-<hr />
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Badge</h1>
+    <p class="demo-page-header__desc">
+      Etiqueta visual que muestra un valor numérico o texto breve con un color semántico.
+      Se usa principalmente como contador de notificaciones superpuesto sobre iconos o botones,
+      y como indicador de estado en tablas o listados.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Severidades</h2>
-  <div class="example-row">
-    <dcx-ng-badge value="2" severity="primary" />
-    <dcx-ng-badge value="6" severity="secondary" />
-    <dcx-ng-badge value="8" severity="success" />
-    <dcx-ng-badge value="4" severity="info" />
-    <dcx-ng-badge value="9" severity="warn" />
-    <dcx-ng-badge value="3" severity="danger" />
-  </div>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 3 - Tamaños</h2>
-  <div class="example-row items-end">
-    <dcx-ng-badge value="8" size="xl" severity="success" />
-    <dcx-ng-badge value="6" size="lg" severity="warn" />
-    <dcx-ng-badge value="4" severity="info" />
-    <dcx-ng-badge value="2" size="sm" />
-  </div>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 4 - Overlay sobre icono</h2>
-  <div class="example-row">
-    <div class="overlay-wrapper">
+  <!-- ── 01 Default ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
       <dcx-ng-badge value="2" />
-      <dcx-ng-icon name="bell" size="xl" />
     </div>
-    <div class="overlay-wrapper">
-      <dcx-ng-badge value="5" severity="danger" />
-      <dcx-ng-icon name="envelope" size="xl" />
+  </div>
+
+  <!-- ── 02 Dot ─────────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Dot</span>
     </div>
-    <div class="overlay-wrapper">
+    <p class="demo-section__desc">
+      Sin <code>value</code>, el badge aparece como un punto indicador de estado.
+    </p>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center;">
+      <dcx-ng-badge severity="primary" />
       <dcx-ng-badge severity="danger" />
-      <dcx-ng-icon name="calendar" size="xl" />
+      <dcx-ng-badge severity="success" />
+      <dcx-ng-badge severity="warn" />
     </div>
   </div>
-</section>
 
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 5 - Botón con badge</h2>
-  <div class="example-row">
-    <div class="overlay-wrapper">
-      <dcx-ng-badge value="2" />
-      <dcx-ng-button label="Notificaciones" variant="primary" size="m" icon iconName="bell" iconPosition="left" iconSize="m" />
+  <!-- ── 03 Severidades ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Severidades</span>
     </div>
-    <div class="overlay-wrapper">
-      <dcx-ng-badge value="4" severity="danger" />
-      <dcx-ng-button label="Bandeja" variant="secondary" size="m" icon iconName="inbox" iconPosition="left" iconSize="m" />
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-badge value="2" severity="primary" />
+      <dcx-ng-badge value="6" severity="secondary" />
+      <dcx-ng-badge value="8" severity="success" />
+      <dcx-ng-badge value="4" severity="info" />
+      <dcx-ng-badge value="9" severity="warn" />
+      <dcx-ng-badge value="3" severity="danger" />
     </div>
   </div>
-</section>
+
+  <!-- ── 04 Tamaños ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Tamaños</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap;">
+      <dcx-ng-badge value="8" size="xl" severity="success" />
+      <dcx-ng-badge value="6" size="lg" severity="warn" />
+      <dcx-ng-badge value="4" size="md" severity="info" />
+      <dcx-ng-badge value="2" size="sm" severity="primary" />
+    </div>
+  </div>
+
+  <!-- ── 05 Overlay sobre icono ────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Overlay sobre icono</span>
+    </div>
+    <p class="demo-section__desc">
+      Posicionar el badge en la esquina del icono usando <code>position: absolute</code>.
+    </p>
+    <div class="demo-section__body" style="display:flex; gap:24px; align-items:center; flex-wrap:wrap;">
+      <div style="position:relative; display:inline-flex;">
+        <dcx-ng-badge value="2" style="position:absolute; top:0; right:0; transform:translate(50%,-50%); z-index:1;" />
+        <dcx-ng-icon name="bell" size="xl" />
+      </div>
+      <div style="position:relative; display:inline-flex;">
+        <dcx-ng-badge value="5" severity="danger" style="position:absolute; top:0; right:0; transform:translate(50%,-50%); z-index:1;" />
+        <dcx-ng-icon name="envelope" size="xl" />
+      </div>
+      <div style="position:relative; display:inline-flex;">
+        <dcx-ng-badge severity="danger" style="position:absolute; top:0; right:0; transform:translate(50%,-50%); z-index:1;" />
+        <dcx-ng-icon name="calendar" size="xl" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 06 Overlay sobre botón ────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Overlay sobre botón</span>
+    </div>
+    <p class="demo-section__desc">
+      Cuando el badge decora un botón que ya describe su contenido, usa
+      <code>[ariaHidden]="true"</code> para evitar la doble lectura por parte del lector
+      de pantalla.
+    </p>
+    <div class="demo-section__body" style="display:flex; gap:24px; align-items:center; flex-wrap:wrap;">
+      <div style="position:relative; display:inline-flex;">
+        <dcx-ng-badge
+          value="2"
+          [ariaHidden]="true"
+          style="position:absolute; top:0; right:0; transform:translate(50%,-50%); z-index:1;"
+        />
+        <dcx-ng-button
+          label="Notificaciones"
+          variant="primary"
+          size="m"
+          icon iconName="bell"
+          iconPosition="left"
+          iconSize="m"
+          ariaLabel="Notificaciones, 2 sin leer"
+        />
+      </div>
+      <div style="position:relative; display:inline-flex;">
+        <dcx-ng-badge
+          value="4"
+          severity="danger"
+          [ariaHidden]="true"
+          style="position:absolute; top:0; right:0; transform:translate(50%,-50%); z-index:1;"
+        />
+        <dcx-ng-button
+          label="Bandeja"
+          variant="secondary"
+          size="m"
+          icon iconName="inbox"
+          iconPosition="left"
+          iconSize="m"
+          ariaLabel="Bandeja, 4 mensajes sin leer"
+        />
+      </div>
+    </div>
+  </div>
+
+</div>
