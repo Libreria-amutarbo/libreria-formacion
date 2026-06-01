@@ -1,39 +1,95 @@
-<section class="breadcrumb-page">
-  <div class="breadcrumb-card">
-    <p class="breadcrumb-card__label">BREADCRUMB</p>
+<div class="demo-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Breadcrumb</h1>
+    <p class="demo-page-header__desc">
+      Muestra la ruta de navegación jerárquica hasta la página actual. Soporta separadores configurables, ítems con icono y menú desplegable cuando hay más de tres niveles.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-    <div class="breadcrumb-example">
-      <h2 class="example-title">Ejemplo 1 - BreadCrumb con chevron como separador</h2>
-      <dcx-ng-breadcrumb
-        [items]="dcxBreadCrumbItem"
-        iconSeparator="chevron-right"
-      ></dcx-ng-breadcrumb>
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default (chevron)</span>
     </div>
-
-    <div class="breadcrumb-example">
-      <h2 class="example-title">Ejemplo 2 - BreadCrumb con slash como separador</h2>
+    <div class="demo-section__body">
       <dcx-ng-breadcrumb
-        [items]="dcxBreadCrumbSlashes"
-        iconSeparator="slash-lg"
-      ></dcx-ng-breadcrumb>
-    </div>
-
-    <div class="breadcrumb-example">
-      <h2 class="example-title">Ejemplo 3 - BreadCrumb con iconos</h2>
-      <dcx-ng-breadcrumb
-        [items]="dcxBreadCrumbWithIcon"
-        iconSeparator="chevron-right"
-      ></dcx-ng-breadcrumb>
-    </div>
-
-    <div class="breadcrumb-example">
-      <h2 class="example-title">
-        Ejemplo 4 - BreadCrumb con los elementos deshabilitados
-      </h2>
-      <dcx-ng-breadcrumb
-        [items]="dcxBreadCrumbDisabled"
+        [items]="itemsChevron"
         iconSeparator="chevron-right"
       ></dcx-ng-breadcrumb>
     </div>
   </div>
-</section>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Con separador slash</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-breadcrumb
+        [items]="itemsSlash"
+        iconSeparator="slash-lg"
+      ></dcx-ng-breadcrumb>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Con separador arrow</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-breadcrumb
+        [items]="itemsArrow"
+        iconSeparator="arrow-right-short"
+      ></dcx-ng-breadcrumb>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Con iconos</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-breadcrumb
+        [items]="itemsWithIcon"
+        iconSeparator="chevron-right"
+      ></dcx-ng-breadcrumb>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Elementos deshabilitados</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-breadcrumb
+        [items]="itemsDisabled"
+        iconSeparator="chevron-right"
+      ></dcx-ng-breadcrumb>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Overflow (más de 3 niveles)</span>
+    </div>
+    <p class="demo-section__desc">Cuando hay más de tres ítems, los anteriores se agrupan bajo el botón "···". Haz clic en él para desplegar el menú con las rutas ocultas.</p>
+    <div class="demo-section__body">
+      <dcx-ng-breadcrumb
+        [items]="itemsOverflow"
+        iconSeparator="chevron-right"
+        (itemSelected)="onItemSelected($event)"
+      ></dcx-ng-breadcrumb>
+      @if (selectedLabel()) {
+        <p class="demo-overflow-feedback">
+          Ítem seleccionado: <strong>{{ selectedLabel() }}</strong>
+        </p>
+      }
+    </div>
+  </div>
+</div>

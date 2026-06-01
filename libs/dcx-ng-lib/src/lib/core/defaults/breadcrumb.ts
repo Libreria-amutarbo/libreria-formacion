@@ -20,8 +20,8 @@ export const DcxBreadCrumbDisabled: DcxBreadcrumbItem[] = [
 
 export const DcxBreadCrumbCurrentPage: DcxBreadcrumbItem[] = [
   { label: 'Inicio', href: '/', disabled: false },
-  { label: 'Catálogo', href: '/catalogo', disabled: false },
-  { label: 'Portátiles', disabled: false },
+  { label: 'Documentación', href: '/docs', disabled: false },
+  { label: 'Breadcrumb', disabled: false },
 ];
 
 export const DcxBreadCrumbOverflow: DcxBreadcrumbItem[] = [
