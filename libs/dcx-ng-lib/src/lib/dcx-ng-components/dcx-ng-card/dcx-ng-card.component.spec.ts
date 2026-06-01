@@ -246,4 +246,32 @@ describe('DcxNgCardComponent', () => {
       expect(spy).not.toHaveBeenCalled();
     });
   });
+
+  describe('WCAG AA', () => {
+    it('should have empty string as default imageAlt', () => {
+      expect(component.imageAlt()).toBe('');
+    });
+
+    it('should include size-xl class in innerClassMap when size is xl', () => {
+      fixture.componentRef.setInput('size', 'xl');
+      fixture.detectChanges();
+      expect(component.innerClassMap()['size-xl']).toBe(true);
+    });
+
+    it('should set aria-label from title when card is non-interactive and has no header template', () => {
+      fixture.componentRef.setInput('interactive', false);
+      fixture.componentRef.setInput('title', 'Mi tarjeta');
+      fixture.detectChanges();
+      const host = fixture.debugElement.query(By.css('.dcx-card')).nativeElement as HTMLElement;
+      expect(host.getAttribute('aria-label')).toBe('Mi tarjeta');
+    });
+
+    it('should not set aria-label when card is interactive', () => {
+      fixture.componentRef.setInput('interactive', true);
+      fixture.componentRef.setInput('title', 'Mi tarjeta');
+      fixture.detectChanges();
+      const host = fixture.debugElement.query(By.css('.dcx-card')).nativeElement as HTMLElement;
+      expect(host.getAttribute('aria-label')).toBeNull();
+    });
+  });
 });

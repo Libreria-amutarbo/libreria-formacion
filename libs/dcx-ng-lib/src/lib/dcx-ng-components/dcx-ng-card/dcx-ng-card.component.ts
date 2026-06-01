@@ -93,6 +93,7 @@ export class DcxNgCardComponent {
     'size-s': this.size() === 's',
     'size-m': this.size() === 'm',
     'size-l': this.size() === 'l',
+    'size-xl': this.size() === 'xl',
 
     'accent-top': this.accent(),
   }));
