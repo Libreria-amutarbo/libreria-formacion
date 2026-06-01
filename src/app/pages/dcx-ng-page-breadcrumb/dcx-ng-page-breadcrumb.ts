@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   DcxBreadcrumbItem,
   DcxNgBreadcrumbComponent,
@@ -34,5 +34,15 @@ export class DcxNgPageBreadcrumbComponent {
 
   readonly itemsDisabled = DcxBreadCrumbDisabled;
 
-  readonly itemsOverflow = DcxBreadCrumbOverflow;
+  // Sin hrefs para evitar navegación real en la demo
+  readonly itemsOverflow: DcxBreadcrumbItem[] = DcxBreadCrumbOverflow.map(item => ({
+    ...item,
+    href: undefined,
+  }));
+
+  readonly selectedLabel = signal<string | null>(null);
+
+  onItemSelected(item: DcxBreadcrumbItem): void {
+    this.selectedLabel.set(item.label);
+  }
 }

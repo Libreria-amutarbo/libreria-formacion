@@ -1,1 +1,11 @@
 // page-demo styles are provided globally via src/styles.scss
+
+.demo-overflow-feedback {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-muted, #696e75);
+  padding: 6px 10px;
+  background: var(--bg-surface, #f4f5f7);
+  border-radius: var(--r-sm, 4px);
+  border-left: 3px solid var(--bg-primary, #0058ab);
+}

@@ -78,12 +78,18 @@
       <span class="demo-section__num">06</span>
       <span class="demo-section__title">Overflow (más de 3 niveles)</span>
     </div>
-    <p class="demo-section__desc">Cuando hay más de tres ítems visibles, los anteriores se agrupan en un menú desplegable.</p>
+    <p class="demo-section__desc">Cuando hay más de tres ítems, los anteriores se agrupan bajo el botón "···". Haz clic en él para desplegar el menú con las rutas ocultas.</p>
     <div class="demo-section__body">
       <dcx-ng-breadcrumb
         [items]="itemsOverflow"
         iconSeparator="chevron-right"
+        (itemSelected)="onItemSelected($event)"
       ></dcx-ng-breadcrumb>
+      @if (selectedLabel()) {
+        <p class="demo-overflow-feedback">
+          Ítem seleccionado: <strong>{{ selectedLabel() }}</strong>
+        </p>
+      }
     </div>
   </div>
 </div>
