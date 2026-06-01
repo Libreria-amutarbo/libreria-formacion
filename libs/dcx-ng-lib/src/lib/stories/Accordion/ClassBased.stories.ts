@@ -2,17 +2,20 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import {
   DcxNgAccordionComponent,
+  DcxNgAccordionItem,
   DcxNgButtonComponent,
   DcxNgListComponent,
   DcxNgInputComponent,
   DcxInputType,
   DcxAccordionTransitionList,
+  DcxAccordionVariantList,
   DcxAccordionDefault,
   DcxAccordionItemsWithIcon,
   DcxAccordionItemsWithExpanded,
   DcxAccordionItemsDisabled,
   DcxAccordionLargeContent,
   DcxAccordionItemsContentDisabled,
+  DcxAccordionItemsWithDescription,
   LIST_ITEMS_MOCK,
 } from '@dcx-ng-components/dcx-ng-lib';
 
@@ -37,9 +40,9 @@ const meta: Meta<DcxNgAccordionComponent> = {
       name: 'items',
       control: { type: 'object' },
       description:
-        'Array of accordion items with title, content, and optional properties',
+        'Lista de items del acordeón. Cada item define al menos un `id` y un `title`; el resto de propiedades son opcionales.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'DcxNgAccordionItem[]' },
         defaultValue: { summary: '[]' },
       },
@@ -48,9 +51,9 @@ const meta: Meta<DcxNgAccordionComponent> = {
       name: 'transition',
       control: { type: 'select' },
       options: DcxAccordionTransitionList,
-      description: 'Transition effect when expanding/collapsing items',
+      description: 'Velocidad de la animación al expandir o colapsar los paneles.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'DcxAccordionTransition' },
         defaultValue: { summary: 'smooth' },
       },
@@ -59,9 +62,9 @@ const meta: Meta<DcxNgAccordionComponent> = {
       name: 'closeOthers',
       control: { type: 'boolean' },
       description:
-        'When true, opening one item closes all others (accordion mode)',
+        'Si es `true`, abrir un panel cierra automáticamente el resto (modo acordeón estándar).',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -69,38 +72,108 @@ const meta: Meta<DcxNgAccordionComponent> = {
     expandedIds: {
       name: 'expandedIds',
       control: { type: 'object' },
-      description: 'Array of item IDs that should be expanded by default',
+      description:
+        'Array de IDs de los items que deben estar abiertos al inicializar el componente. Si se deja vacío, se usa la propiedad `expanded` de cada item.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'string[]' },
         defaultValue: { summary: '[]' },
+      },
+    },
+    variant: {
+      name: 'variant',
+      control: { type: 'select' },
+      options: DcxAccordionVariantList,
+      description:
+        'Variante visual. `default` muestra un card con borde y esquinas redondeadas. `flush` elimina el borde exterior y el border-radius para incrustar el acordeón dentro de otro contenedor.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxAccordionVariant' },
+        defaultValue: { summary: 'default' },
+      },
+    },
+    ariaLabel: {
+      name: 'ariaLabel',
+      control: { type: 'text' },
+      description:
+        'Etiqueta accesible para el elemento raíz del acordeón. Usar cuando haya varios acordeones en la misma página para que los lectores de pantalla puedan distinguirlos.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string | null' },
+        defaultValue: { summary: 'null' },
       },
     },
     itemToggled: {
       name: 'itemToggled',
       action: 'itemToggled',
-      description: 'Event emitted when any item is toggled',
+      description: 'Se emite cada vez que un item cambia de estado (se abre o se cierra).',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: { summary: '(item: DcxNgAccordionItem) => void' },
       },
     },
     itemExpanded: {
       name: 'itemExpanded',
       action: 'itemExpanded',
-      description: 'Event emitted when an item is expanded',
+      description: 'Se emite cuando un item se expande.',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: { summary: '(item: DcxNgAccordionItem) => void' },
       },
     },
     itemCollapsed: {
       name: 'itemCollapsed',
       action: 'itemCollapsed',
-      description: 'Event emitted when an item is collapsed',
+      description: 'Se emite cuando un item se colapsa.',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: { summary: '(item: DcxNgAccordionItem) => void' },
+      },
+    },
+    expandAll: {
+      name: 'expandAll()',
+      description:
+        'Expande todos los items no deshabilitados de golpe. Funciona independientemente del valor de `closeOthers`.',
+      control: false,
+      table: {
+        category: 'Métodos',
+        type: { summary: '() => void' },
+      },
+    },
+    collapseAll: {
+      name: 'collapseAll()',
+      description: 'Colapsa todos los items actualmente abiertos.',
+      control: false,
+      table: {
+        category: 'Métodos',
+        type: { summary: '() => void' },
+      },
+    },
+    expandItemById: {
+      name: 'expandItemById(id)',
+      description: 'Expande programáticamente el item con el ID indicado.',
+      control: false,
+      table: {
+        category: 'Métodos',
+        type: { summary: '(id: string) => void' },
+      },
+    },
+    collapseItemById: {
+      name: 'collapseItemById(id)',
+      description: 'Colapsa programáticamente el item con el ID indicado.',
+      control: false,
+      table: {
+        category: 'Métodos',
+        type: { summary: '(id: string) => void' },
+      },
+    },
+    isExpanded: {
+      name: 'isExpanded(id)',
+      description: 'Devuelve `true` si el item con el ID indicado está actualmente expandido.',
+      control: false,
+      table: {
+        category: 'Métodos',
+        type: { summary: '(id: string) => boolean' },
       },
     },
   },
@@ -170,6 +243,12 @@ export const NoTransition: Story = {
 export const LargeContent: Story = {
   args: {
     items: DcxAccordionLargeContent,
+  },
+};
+
+export const WithDescription: Story = {
+  args: {
+    items: DcxAccordionItemsWithDescription,
   },
 };
 
@@ -248,15 +327,13 @@ export const WithComponents: Story = {
           <div style="margin-top: 12px; display: flex; gap: 8px;">
             <dcx-ng-button
               [label]="'Add Item'"
-              [iconStart]="'plus'"
               [variant]="'primary'"
               [size]="'s'"
               (buttonClick)="addItem()">
             </dcx-ng-button>
             <dcx-ng-button
               [label]="'Remove Last'"
-              [iconStart]="'trash'"
-              [variant]="'outline'"
+              [variant]="'secondary'"
               [size]="'s'"
               (buttonClick)="removeLastItem()">
             </dcx-ng-button>
@@ -296,36 +373,105 @@ export const ExternalControl: Story = {
   render: args => ({
     props: {
       ...args,
+      // Mirror of the accordion's expanded state for button labels.
+      // Updated via (itemToggled) so it stays in sync even when headers
+      // are clicked directly inside the accordion.
+      expandedMap: {} as Record<string, boolean>,
+      onItemToggled(item: DcxNgAccordionItem) {
+        const wasOpen = !!this['expandedMap'][item.id];
+        // When closeOthers=true opening one item closes the rest.
+        // Rebuild the map from scratch: clear all, then toggle this one.
+        const next: Record<string, boolean> = {};
+        next[item.id] = !wasOpen;
+        this['expandedMap'] = next;
+      },
+      isExp(id: string): boolean {
+        return !!this['expandedMap'][id];
+      },
+      toggle(acc: DcxNgAccordionComponent, id: string): void {
+        if (this['isExp'](id)) {
+          acc.collapseItemById(id);
+        } else {
+          acc.expandItemById(id);
+        }
+      },
     },
     template: `
-      <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
-        <dcx-ng-button 
-          [label]="'Abrir Item 1'" 
-          [variant]="'primary'" 
-          (buttonClick)="externalAccordion.expandItemById('1')">
-        </dcx-ng-button>
-        
-        <dcx-ng-button 
-          [label]="'Abrir Item 2'" 
-          [variant]="'secondary'" 
-          (buttonClick)="externalAccordion.expandItemById('2')">
-        </dcx-ng-button>
+      <p style="font-size:13px;color:#696e75;margin-bottom:12px">
+        Los botones controlan el acordeón desde fuera mediante referencias de plantilla.
+        Abre un panel haciendo clic en el botón <strong>o</strong> directamente en la cabecera.
+      </p>
 
-         <dcx-ng-button 
-          [label]="'Cerrar Item 1'" 
-          [variant]="'secondary'" 
-          (buttonClick)="externalAccordion.collapseItemById('1')">
-        </dcx-ng-button>
+      <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+        @for (item of items; track item.id) {
+          @if (!item.disabled) {
+            <dcx-ng-button
+              [label]="isExp(item.id) ? 'Cerrar: ' + item.title : 'Abrir: ' + item.title"
+              [variant]="isExp(item.id) ? 'primary' : 'secondary'"
+              (buttonClick)="toggle(acc, item.id)">
+            </dcx-ng-button>
+          }
+        }
       </div>
 
-      <dcx-ng-accordion 
-        #externalAccordion 
-        [items]="items" 
-        [transition]="'smooth'">
+      <dcx-ng-accordion
+        #acc
+        [items]="items"
+        [transition]="'smooth'"
+        (itemToggled)="onItemToggled($event)">
       </dcx-ng-accordion>
     `,
   }),
   args: {
     items: DcxAccordionDefault,
+  },
+};
+
+export const ExpandCollapseAll: Story = {
+  render: args => ({
+    props: {
+      ...args,
+      updateState(acc: DcxNgAccordionComponent) {
+        // no-op — just ensures (itemToggled) triggers CD so button labels update
+        void acc;
+      },
+    },
+    template: `
+      <p style="font-size:13px;color:#696e75;margin-bottom:12px">
+        Usa los botones para expandir o colapsar todos los paneles de golpe.
+        Funciona independientemente de <code>closeOthers</code>.
+      </p>
+
+      <div style="display:flex; gap:8px; margin-bottom:16px;">
+        <dcx-ng-button
+          label="Expandir todo"
+          variant="primary"
+          (buttonClick)="acc.expandAll(); updateState(acc)">
+        </dcx-ng-button>
+        <dcx-ng-button
+          label="Colapsar todo"
+          variant="secondary"
+          (buttonClick)="acc.collapseAll(); updateState(acc)">
+        </dcx-ng-button>
+      </div>
+
+      <dcx-ng-accordion
+        #acc
+        [items]="items"
+        [closeOthers]="false"
+        (itemToggled)="updateState(acc)">
+      </dcx-ng-accordion>
+    `,
+  }),
+  args: {
+    items: DcxAccordionDefault,
+    closeOthers: false,
+  },
+};
+
+export const Flush: Story = {
+  args: {
+    items: DcxAccordionItemsWithIcon,
+    variant: 'flush',
   },
 };

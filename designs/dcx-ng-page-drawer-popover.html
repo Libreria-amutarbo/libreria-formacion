@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:     #0058ab;
+    --bg-default:     #ffffff;
+    --bg-surface:     #f4f5f7;
+    --text-dark:      #1e2226;
+    --text-muted:     #6b7280;
+    --text-disabled:  #adb5bd;
+    --border-default: #d1d5db;
+    --border-focus:   #1db8f2;
+    --ff: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--ff);
+    background: var(--bg-surface);
+    color: var(--text-dark);
+    padding: 2.5rem 2.5rem 72px;
+    min-height: 100vh;
+  }
+
+  .page-title { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .35rem; }
+  .comp-title  { font-size: 26px; font-weight: 700; letter-spacing: -.3px; margin-bottom: .6rem; }
+  .divider     { border: none; border-top: 1px solid #e5e7eb; margin-bottom: 2.25rem; }
+
+  .sec { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin: 2.25rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid #e5e7eb; }
+  .sec:first-of-type { margin-top: 0; }
+
+  .size-header { display: flex; align-items: center; gap: 12px; margin-bottom: .75rem; margin-top: 2rem; }
+  .size-header:first-of-type { margin-top: 0; }
+  .size-badge { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); background: #edf0f3; border-radius: 4px; padding: 2px 8px; line-height: 1.6; }
+  .size-header hr { flex: 1; border: none; border-top: 1px solid #e5e7eb; }
+
+  .card { background: var(--bg-default); border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
+  .card-body { padding: 20px; }
+
+  .drawers-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px; }
+
+  /* ── DRAWER PREVIEW ── */
+  .drawer-demo {
+    position: relative; height: 160px; background: #f9fafb; border-radius: 8px;
+    border: 1px solid #e5e7eb; overflow: hidden;
+  }
+  .drawer-mask {
+    position: absolute; inset: 0; background: rgba(0,0,0,.35);
+  }
+  .drawer-panel {
+    position: absolute; background: var(--bg-default);
+    box-shadow: 0 8px 32px rgba(0,0,0,.18); display: flex; flex-direction: column;
+  }
+  .drawer-panel.left  { top: 0; left: 0; bottom: 0; width: 55%; border-right: 1px solid #e5e7eb; }
+  .drawer-panel.right { top: 0; right: 0; bottom: 0; width: 55%; border-left: 1px solid #e5e7eb; }
+  .drawer-panel.top   { top: 0; left: 0; right: 0; height: 55%; border-bottom: 1px solid #e5e7eb; }
+  .drawer-panel.bottom { bottom: 0; left: 0; right: 0; height: 55%; border-top: 1px solid #e5e7eb; }
+
+  .drawer-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 12px; border-bottom: 1px solid #f3f4f6;
+    font-size: 12px; font-weight: 600; color: var(--text-dark); flex-shrink: 0;
+  }
+  .drawer-close { background: none; border: none; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; }
+  .drawer-close svg { width: 14px; height: 14px; }
+
+  .drawer-content { flex: 1; padding: 10px 12px; }
+  .drawer-content-line { height: 6px; background: #f3f4f6; border-radius: 3px; margin-bottom: 6px; }
+  .drawer-content-line:last-child { width: 70%; margin-bottom: 0; }
+
+  .drawer-footer {
+    padding: 8px 12px; border-top: 1px solid #f3f4f6;
+    display: flex; gap: 6px; justify-content: flex-end; flex-shrink: 0;
+  }
+  .drawer-btn { font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 4px; border: 1px solid; cursor: pointer; font-family: var(--ff); }
+  .drawer-btn.primary { background: var(--bg-primary); color: #fff; border-color: var(--bg-primary); }
+  .drawer-btn.secondary { background: #fff; color: var(--text-dark); border-color: var(--border-default); }
+
+  .drawer-pos-label { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); text-align: center; margin-top: 8px; }
+
+  /* ── FULLSCREEN DRAWER PREVIEW ── */
+  .drawer-fullscreen {
+    position: relative; height: 140px; background: var(--bg-default); border-radius: 8px;
+    border: 1px solid #e5e7eb; overflow: hidden; display: flex; flex-direction: column;
+  }
+  .drawer-fullscreen .drawer-header { font-size: 12px; }
+  .drawer-fullscreen .drawer-content { overflow: hidden; }
+
+  /* ── POPOVER ── */
+  .popover-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 20px; }
+
+  .popover-demo { display: flex; flex-direction: column; align-items: center; gap: 0; position: relative; }
+
+  .popover-trigger {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 4px; border: 1px solid var(--border-default);
+    background: var(--bg-default); font-size: 12px; font-weight: 500; cursor: pointer;
+    font-family: var(--ff); color: var(--text-dark);
+  }
+  .popover-trigger svg { width: 10px; height: 10px; }
+
+  .popover-panel {
+    background: var(--bg-default); border: 1px solid #e5e7eb; border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.12); min-width: 160px; overflow: hidden;
+    margin-top: 8px; width: 100%;
+  }
+
+  /* flecha del popover: doble triángulo CSS superpuesto */
+  .popover-arrow-wrap {
+    display: flex; flex-direction: column; align-items: center; margin-bottom: -1px;
+  }
+  .popover-arrow-outer {
+    width: 0; height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid #d1d5db;
+  }
+  .popover-arrow-inner {
+    width: 0; height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--bg-default);
+    margin-top: -8px;
+  }
+
+  .popover-item {
+    display: flex; align-items: center; gap: 8px; padding: 9px 12px;
+    font-size: 12px; color: var(--text-dark); cursor: pointer; border-bottom: 1px solid #f9fafb;
+  }
+  .popover-item:last-child { border-bottom: none; }
+  .popover-item:hover { background: var(--bg-surface); }
+  .popover-item svg { width: 13px; height: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .popover-item.danger { color: #dc2626; }
+  .popover-item.danger svg { color: #dc2626; }
+
+  .popover-divider { border: none; border-top: 1px solid #f3f4f6; }
+
+  .popover-content-demo { padding: 12px 14px; font-size: 12px; line-height: 1.5; color: var(--text-dark); }
+  .popover-content-demo strong { font-size: 12px; display: block; margin-bottom: 4px; }
+  .popover-content-demo p { color: var(--text-muted); }
+
+  .popover-label { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); text-align: center; margin-top: 12px; }
+
+  /* ── BOTTOM NAV ── */
+  #_dnav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; padding: .65rem 1.5rem; font-size: 13px; z-index: 999; box-shadow: 0 -2px 8px rgba(0,0,0,.06); }
+  #_dnav a { color: #0058ab; text-decoration: none; font-weight: 500; }
+  #_dnav a:hover { text-decoration: underline; }
+  #_dnav .idx { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<p class="page-title">Components</p>
+<p class="comp-title">Drawer · Popover</p>
+<hr class="divider">
+
+<!-- ════════════ DRAWER ════════════ -->
+<div class="sec">Drawer</div>
+
+<div class="size-header"><span class="size-badge">Posiciones</span><hr></div>
+<div class="card">
+  <div class="drawers-grid">
+
+    <!-- Left -->
+    <div>
+      <div class="drawer-demo">
+        <div class="drawer-mask"></div>
+        <div class="drawer-panel left">
+          <div class="drawer-header">
+            Filtros
+            <button class="drawer-close"><svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          </div>
+          <div class="drawer-content">
+            <div class="drawer-content-line"></div>
+            <div class="drawer-content-line"></div>
+            <div class="drawer-content-line"></div>
+          </div>
+          <div class="drawer-footer">
+            <button class="drawer-btn secondary">Limpiar</button>
+            <button class="drawer-btn primary">Aplicar</button>
+          </div>
+        </div>
+      </div>
+      <p class="drawer-pos-label">Left (default)</p>
+    </div>
+
+    <!-- Right -->
+    <div>
+      <div class="drawer-demo">
+        <div class="drawer-mask"></div>
+        <div class="drawer-panel right">
+          <div class="drawer-header">
+            Detalle
+            <button class="drawer-close"><svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          </div>
+          <div class="drawer-content">
+            <div class="drawer-content-line"></div>
+            <div class="drawer-content-line"></div>
+            <div class="drawer-content-line"></div>
+          </div>
+          <div class="drawer-footer">
+            <button class="drawer-btn secondary">Cancelar</button>
+            <button class="drawer-btn primary">Guardar</button>
+          </div>
+        </div>
+      </div>
+      <p class="drawer-pos-label">Right</p>
+    </div>
+
+    <!-- Top -->
+    <div>
+      <div class="drawer-demo">
+        <div class="drawer-mask"></div>
+        <div class="drawer-panel top">
+          <div class="drawer-header">
+            Búsqueda global
+            <button class="drawer-close"><svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          </div>
+          <div class="drawer-content">
+            <div class="drawer-content-line" style="width:60%"></div>
+          </div>
+        </div>
+      </div>
+      <p class="drawer-pos-label">Top</p>
+    </div>
+
+    <!-- Bottom -->
+    <div>
+      <div class="drawer-demo">
+        <div class="drawer-mask"></div>
+        <div class="drawer-panel bottom">
+          <div class="drawer-header">
+            Acciones
+            <button class="drawer-close"><svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          </div>
+          <div class="drawer-content">
+            <div class="drawer-content-line" style="width:80%"></div>
+          </div>
+        </div>
+      </div>
+      <p class="drawer-pos-label">Bottom</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="size-header"><span class="size-badge">Full screen</span><hr></div>
+<div class="card">
+  <div class="card-body">
+    <div class="drawer-fullscreen">
+      <div class="drawer-header" style="padding:12px 16px">
+        <span style="font-size:14px">Editar perfil</span>
+        <button class="drawer-close"><svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="drawer-content">
+        <div class="drawer-content-line" style="width:45%;margin-bottom:8px"></div>
+        <div class="drawer-content-line" style="width:70%;margin-bottom:8px"></div>
+        <div class="drawer-content-line" style="width:55%"></div>
+      </div>
+      <div class="drawer-footer">
+        <button class="drawer-btn secondary">Cancelar</button>
+        <button class="drawer-btn primary">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ POPOVER ════════════ -->
+<div class="sec">Popover</div>
+
+<div class="size-header"><span class="size-badge">Tipos de contenido</span><hr></div>
+<div class="card">
+  <div class="popover-grid">
+
+    <!-- Menú de acciones -->
+    <div class="popover-demo">
+      <button class="popover-trigger">
+        Acciones
+        <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="popover-arrow-wrap"><div class="popover-arrow-outer"></div><div class="popover-arrow-inner"></div></div>
+      <div class="popover-panel">
+        <div class="popover-item">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Abrir
+        </div>
+        <div class="popover-item">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M9.5 2h-6a1 1 0 00-1 1v8a1 1 0 001 1h7a1 1 0 001-1V5.5L9.5 2zm0 0V5.5H12.5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          Duplicar
+        </div>
+        <div class="popover-item">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 4h10M5 4V2.5a.5.5 0 01.5-.5h3a.5.5 0 01.5.5V4M11.5 4l-.6 7H3.1L2.5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Archivar
+        </div>
+        <hr class="popover-divider">
+        <div class="popover-item danger">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 4h10M5 4V2.5a.5.5 0 01.5-.5h3a.5.5 0 01.5.5V4M11.5 4l-.6 7H3.1L2.5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Eliminar
+        </div>
+      </div>
+      <p class="popover-label">Menú de acciones</p>
+    </div>
+
+    <!-- Información contextual -->
+    <div class="popover-demo">
+      <button class="popover-trigger">
+        <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M7 6.5v3M7 5h.01" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Más info
+      </button>
+      <div class="popover-arrow-wrap"><div class="popover-arrow-outer"></div><div class="popover-arrow-inner"></div></div>
+      <div class="popover-panel">
+        <div class="popover-content-demo">
+          <strong>Nombre del campo</strong>
+          <p>Este valor se utiliza para identificar el registro en el sistema externo de facturación.</p>
+        </div>
+      </div>
+      <p class="popover-label">Información contextual</p>
+    </div>
+
+    <!-- Selector compacto -->
+    <div class="popover-demo">
+      <button class="popover-trigger">
+        Filtrar por estado
+        <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="popover-arrow-wrap"><div class="popover-arrow-outer"></div><div class="popover-arrow-inner"></div></div>
+      <div class="popover-panel">
+        <div class="popover-item" style="gap:10px">
+          <span style="width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0"></span>Activo
+        </div>
+        <div class="popover-item" style="gap:10px">
+          <span style="width:8px;height:8px;border-radius:50%;background:#d97706;flex-shrink:0"></span>Pendiente
+        </div>
+        <div class="popover-item" style="gap:10px">
+          <span style="width:8px;height:8px;border-radius:50%;background:#6b7280;flex-shrink:0"></span>Inactivo
+        </div>
+        <div class="popover-item" style="gap:10px">
+          <span style="width:8px;height:8px;border-radius:50%;background:#dc2626;flex-shrink:0"></span>Error
+        </div>
+      </div>
+      <p class="popover-label">Selector compacto</p>
+    </div>
+
+  </div>
+</div>
+
+
+
+<nav id="_dnav"><a href="dcx-ng-page-dialog.html">&larr; Dialog</a><a class="idx" href="index.html">&#8862;&nbsp;Designs</a><a href="dcx-ng-page-spinner-toast.html">Spinner · Toast &rarr;</a></nav>
+</body>
+</html>

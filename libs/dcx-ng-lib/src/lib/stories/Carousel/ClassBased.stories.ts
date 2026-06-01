@@ -32,7 +32,7 @@ const meta: Meta<DcxNgCarouselComponent> = {
       control: 'object',
       description: 'Array de elementos a mostrar en el carousel.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'any[]' },
       },
     },
@@ -40,7 +40,7 @@ const meta: Meta<DcxNgCarouselComponent> = {
       control: 'boolean',
       description: 'Indica si el carousel es infinito.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -50,7 +50,7 @@ const meta: Meta<DcxNgCarouselComponent> = {
       options: ['horizontal', 'vertical'],
       description: 'Dirección del desplazamiento del carousel.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: "'horizontal' | 'vertical'" },
         defaultValue: { summary: 'horizontal' },
       },
@@ -59,7 +59,7 @@ const meta: Meta<DcxNgCarouselComponent> = {
       control: 'boolean',
       description: 'Muestra u oculta los botones de navegación (prev/next).',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -68,7 +68,7 @@ const meta: Meta<DcxNgCarouselComponent> = {
       control: 'boolean',
       description: 'Muestra u oculta los indicadores de página.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -78,15 +78,25 @@ const meta: Meta<DcxNgCarouselComponent> = {
       description:
         'Tiempo en milisegundos para el cambio automático de slide (0 para desactivar).',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'number' },
         defaultValue: { summary: '0' },
+      },
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Nombre accesible de la región del carousel (atributo aria-label).',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Carousel' },
       },
     },
     pageChange: {
       description: 'Evento que se dispara al cambiar de página.',
       table: {
-        category: 'Events',
+        category: 'Eventos',
+        type: { summary: '(event: { page: number }) => void' },
       },
     },
   },

@@ -18,9 +18,6 @@
   &-container {
     overflow: hidden;
     flex: 1;
-    display: flex;
-    gap: var(--sp-5, 20px);
-    padding: var(--sp-5, 20px);
     box-sizing: border-box;
   }
 
@@ -39,19 +36,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--sp-3, 12px);
   }
 
   &--vertical {
-    height: 500px;
+    flex-direction: row;
+    align-items: center;
+    height: auto;
 
     .dcx-carousel-content {
       flex-direction: column;
-      height: 100%;
       flex: 1;
+      height: auto;
+      gap: var(--sp-2, 8px);
+      align-items: stretch;
     }
 
     .dcx-carousel-container {
-      height: 100%;
+      height: 420px;
+      flex: none;
     }
 
     .dcx-carousel-items-wrapper {
@@ -61,6 +64,22 @@
     .dcx-carousel-item {
       flex: 0 0 100%;
       height: 100%;
+    }
+
+    .dcx-carousel-indicators {
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 var(--sp-2, 8px);
+
+      ::ng-deep .dcx-ng-button--carousel-indicator {
+        width: var(--sp-2, 8px);
+        height: var(--sp-2, 8px);
+      }
+
+      ::ng-deep .dcx-ng-button--carousel-indicator--active {
+        width: var(--sp-2, 8px);
+        height: var(--sp-6, 24px);
+      }
     }
   }
 
@@ -103,6 +122,25 @@
   &-prev,
   &-next {
     flex-shrink: 0;
+    align-self: center;
     z-index: 10;
+  }
+
+  &-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dcx-carousel-items-wrapper {
+    transition: none;
   }
 }

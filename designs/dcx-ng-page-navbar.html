@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:     #0058ab;
+    --bg-default:     #ffffff;
+    --bg-surface:     #f4f5f7;
+    --bg-hover:       #f0f2f5;
+    --text-dark:      #1e2226;
+    --text-muted:     #6b7280;
+    --text-disabled:  #adb5bd;
+    --border-default: #d1d5db;
+    --border-focus:   #1db8f2;
+    --ff: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--ff);
+    background: var(--bg-surface);
+    color: var(--text-dark);
+    padding: 2.5rem 2.5rem 72px;
+    min-height: 100vh;
+  }
+
+  .page-title { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .35rem; }
+  .comp-title  { font-size: 26px; font-weight: 700; letter-spacing: -.3px; margin-bottom: .6rem; }
+  .divider     { border: none; border-top: 1px solid #e5e7eb; margin-bottom: 2.25rem; }
+
+  .sec { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin: 2.25rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid #e5e7eb; }
+  .sec:first-of-type { margin-top: 0; }
+
+  .size-header { display: flex; align-items: center; gap: 12px; margin-bottom: .75rem; margin-top: 2rem; }
+  .size-header:first-of-type { margin-top: 0; }
+  .size-badge { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); background: #edf0f3; border-radius: 4px; padding: 2px 8px; line-height: 1.6; }
+  .size-header hr { flex: 1; border: none; border-top: 1px solid #e5e7eb; }
+
+  .card { background: var(--bg-default); border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
+  .card-pad { padding: 20px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-disabled); margin-bottom: 12px; }
+
+  /* ── NAVBAR HORIZONTAL ── */
+  .dcx-navbar {
+    display: flex; align-items: center; background: var(--bg-default);
+    border-bottom: 1px solid #e5e7eb; padding: 0 16px; height: 52px; gap: 0;
+  }
+
+  .navbar-brand {
+    display: flex; align-items: center; gap: 8px; margin-right: 24px; flex-shrink: 0;
+    text-decoration: none;
+  }
+  .navbar-logo {
+    width: 28px; height: 28px; background: var(--bg-primary); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .navbar-logo svg { width: 16px; height: 16px; color: #fff; }
+  .navbar-brand-title { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+
+  .navbar-items { display: flex; align-items: stretch; flex: 1; height: 100%; gap: 2px; }
+
+  .navbar-item {
+    display: flex; align-items: center; gap: 6px;
+    padding: 0 12px; font-size: 13px; font-weight: 500; color: var(--text-muted);
+    cursor: pointer; border: none; background: transparent; height: 100%;
+    border-bottom: 2px solid transparent; white-space: nowrap; font-family: var(--ff);
+    transition: color .12s, border-color .12s;
+  }
+  .navbar-item:hover { color: var(--text-dark); background: var(--bg-hover); }
+  .navbar-item.active { color: var(--bg-primary); border-bottom-color: var(--bg-primary); font-weight: 600; }
+  .navbar-item.disabled { color: var(--text-disabled); cursor: not-allowed; pointer-events: none; }
+  .navbar-item svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .navbar-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+  .navbar-avatar {
+    width: 30px; height: 30px; border-radius: 50%; background: #dbeafe;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--bg-primary); flex-shrink: 0;
+  }
+
+  /* ── NAVBAR DARK ── */
+  .dcx-navbar.dark {
+    background: #1e2226; border-bottom-color: #2d3238;
+  }
+  .dcx-navbar.dark .navbar-brand-title { color: #fff; }
+  .dcx-navbar.dark .navbar-item { color: rgba(255,255,255,.55); }
+  .dcx-navbar.dark .navbar-item:hover { color: #fff; background: rgba(255,255,255,.06); }
+  .dcx-navbar.dark .navbar-item.active { color: #1db8f2; border-bottom-color: #1db8f2; }
+
+  /* ── NAVBAR VERTICAL ── */
+  .dcx-navbar-vertical {
+    display: flex; flex-direction: column; background: var(--bg-default);
+    border-right: 1px solid #e5e7eb; width: 200px; height: 360px;
+    border-radius: 8px; overflow: hidden;
+  }
+
+  .navbar-vert-brand {
+    display: flex; align-items: center; gap: 8px;
+    padding: 16px; border-bottom: 1px solid #f3f4f6;
+  }
+  .navbar-vert-items { display: flex; flex-direction: column; flex: 1; padding: 8px 0; overflow: hidden; }
+
+  .navbar-vert-item {
+    display: flex; align-items: center; gap: 8px; padding: 9px 14px;
+    font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer;
+    border: none; background: transparent; font-family: var(--ff); text-align: left;
+    border-left: 3px solid transparent; transition: all .12s;
+  }
+  .navbar-vert-item:hover { background: var(--bg-hover); color: var(--text-dark); }
+  .navbar-vert-item.active { color: var(--bg-primary); background: #eff5fb; border-left-color: var(--bg-primary); font-weight: 600; }
+  .navbar-vert-item.disabled { color: var(--text-disabled); cursor: not-allowed; pointer-events: none; }
+  .navbar-vert-item svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  /* ── MOBILE MENU OPEN ── */
+  .dcx-navbar-mobile {
+    display: flex; flex-direction: column; background: var(--bg-default);
+    border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;
+  }
+  .navbar-mobile-top { display: flex; align-items: center; padding: 0 16px; height: 52px; border-bottom: 1px solid #f3f4f6; }
+  .navbar-mobile-items { display: flex; flex-direction: column; padding: 8px 0; }
+  .navbar-mobile-item { display: flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .navbar-mobile-item.active { color: var(--bg-primary); background: #eff5fb; font-weight: 600; }
+
+  .hamburger-btn { margin-left: auto; background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-dark); }
+  .hamburger-btn svg { width: 18px; height: 18px; display: block; }
+
+  /* ── BOTTOM NAV ── */
+  #_dnav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; padding: .65rem 1.5rem; font-size: 13px; z-index: 999; box-shadow: 0 -2px 8px rgba(0,0,0,.06); }
+  #_dnav a { color: #0058ab; text-decoration: none; font-weight: 500; }
+  #_dnav a:hover { text-decoration: underline; }
+  #_dnav .idx { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<p class="page-title">Components</p>
+<p class="comp-title">Navbar</p>
+<hr class="divider">
+
+<!-- ════════════ HORIZONTAL ════════════ -->
+<div class="sec">Horizontal</div>
+
+<div class="size-header"><span class="size-badge">Light (default)</span><hr></div>
+<div class="card">
+  <nav class="dcx-navbar">
+    <a class="navbar-brand" href="#">
+      <div class="navbar-logo">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="2" width="5" height="5" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="9" width="5" height="5" rx="1" fill="currentColor" opacity=".6"/><rect x="9" y="9" width="5" height="5" rx="1" fill="currentColor"/></svg>
+      </div>
+      <span class="navbar-brand-title">DCX App</span>
+    </a>
+    <div class="navbar-items">
+      <button class="navbar-item active">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l5-5 5 5v5.5a.5.5 0 01-.5.5H9V9H5v4H2.5a.5.5 0 01-.5-.5V7z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        Inicio
+      </button>
+      <button class="navbar-item">
+        <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.2"/><path d="M2 12c0-2.2 2.2-4 5-4s5 1.8 5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Usuarios
+      </button>
+      <button class="navbar-item">
+        <svg viewBox="0 0 14 14" fill="none"><rect x="2" y="3" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5 3V2M9 3V2M2 6h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Proyectos
+      </button>
+      <button class="navbar-item">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M12 7A5 5 0 112 7a5 5 0 0110 0z" stroke="currentColor" stroke-width="1.2"/><path d="M7 4.5V7l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Historial
+      </button>
+      <button class="navbar-item disabled">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M7 2v2M7 10v2M2 7h2M10 7h2M3.9 3.9l1.4 1.4M8.7 8.7l1.4 1.4M3.9 10.1l1.4-1.4M8.7 5.3l1.4-1.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Configuración
+      </button>
+    </div>
+    <div class="navbar-actions">
+      <div class="navbar-avatar">LG</div>
+    </div>
+  </nav>
+</div>
+
+<div class="size-header"><span class="size-badge">Dark</span><hr></div>
+<div class="card">
+  <nav class="dcx-navbar dark">
+    <a class="navbar-brand" href="#">
+      <div class="navbar-logo">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="2" width="5" height="5" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="9" width="5" height="5" rx="1" fill="currentColor" opacity=".6"/><rect x="9" y="9" width="5" height="5" rx="1" fill="currentColor"/></svg>
+      </div>
+      <span class="navbar-brand-title">DCX App</span>
+    </a>
+    <div class="navbar-items">
+      <button class="navbar-item active">Inicio</button>
+      <button class="navbar-item">Usuarios</button>
+      <button class="navbar-item">Proyectos</button>
+      <button class="navbar-item">Historial</button>
+    </div>
+    <div class="navbar-actions">
+      <div class="navbar-avatar">LG</div>
+    </div>
+  </nav>
+</div>
+
+<!-- ════════════ VERTICAL ════════════ -->
+<div class="sec">Vertical</div>
+
+<div class="size-header"><span class="size-badge">Sidebar</span><hr></div>
+<div class="card card-pad">
+  <div style="display:flex;gap:0">
+    <nav class="dcx-navbar-vertical">
+      <div class="navbar-vert-brand">
+        <div class="navbar-logo">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="2" width="5" height="5" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="9" width="5" height="5" rx="1" fill="currentColor" opacity=".6"/><rect x="9" y="9" width="5" height="5" rx="1" fill="currentColor"/></svg>
+        </div>
+        <span class="navbar-brand-title">DCX App</span>
+      </div>
+      <div class="navbar-vert-items">
+        <button class="navbar-vert-item active">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l5-5 5 5v5.5a.5.5 0 01-.5.5H9V9H5v4H2.5a.5.5 0 01-.5-.5V7z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          Inicio
+        </button>
+        <button class="navbar-vert-item">
+          <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.2"/><path d="M2 12c0-2.2 2.2-4 5-4s5 1.8 5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Usuarios
+        </button>
+        <button class="navbar-vert-item">
+          <svg viewBox="0 0 14 14" fill="none"><rect x="2" y="3" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5 3V2M9 3V2M2 6h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Proyectos
+        </button>
+        <button class="navbar-vert-item">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M12 7A5 5 0 112 7a5 5 0 0110 0z" stroke="currentColor" stroke-width="1.2"/><path d="M7 4.5V7l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Historial
+        </button>
+        <button class="navbar-vert-item disabled">
+          <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 5v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Configuración
+        </button>
+      </div>
+    </nav>
+    <div style="flex:1;padding:20px;background:#f9fafb;border-radius:0 8px 8px 0;border:1px solid #e5e7eb;border-left:none;display:flex;align-items:center;justify-content:center">
+      <p style="font-size:12px;color:var(--text-muted)">Área de contenido</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ MOBILE ════════════ -->
+<div class="sec">Mobile — Menú abierto</div>
+
+<div class="size-header"><span class="size-badge">Hamburger expandido</span><hr></div>
+<div class="card card-pad" style="max-width:360px">
+  <div class="dcx-navbar-mobile">
+    <div class="navbar-mobile-top">
+      <div class="navbar-logo" style="margin-right:8px">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="2" width="5" height="5" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="9" width="5" height="5" rx="1" fill="currentColor" opacity=".6"/><rect x="9" y="9" width="5" height="5" rx="1" fill="currentColor"/></svg>
+      </div>
+      <span class="navbar-brand-title">DCX App</span>
+      <button class="hamburger-btn">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="navbar-mobile-items">
+      <div class="navbar-mobile-item active">Inicio</div>
+      <div class="navbar-mobile-item">Usuarios</div>
+      <div class="navbar-mobile-item">Proyectos</div>
+      <div class="navbar-mobile-item">Historial</div>
+    </div>
+  </div>
+</div>
+
+
+
+<nav id="_dnav"><a href="dcx-ng-page-carousel.html">&larr; Carousel</a><a class="idx" href="index.html">&#8862;&nbsp;Designs</a><a href="dcx-ng-page-scroll-top-down.html">Scroll Top Down &rarr;</a></nav>
+</body>
+</html>

@@ -21,13 +21,19 @@
       transform: translateY(-2px);
     }
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--border-focus, #1db8f2);
+    outline-offset: 3px;
+    border-radius: var(--r-sm, 4px);
+  }
 }
 
 .card-inner {
   display: flex;
   flex-direction: column;
   gap: var(--sp-4, 16px);
-  background: var(--background-default);
+  background: var(--background-default, #ffffff);
   border-style: var(--card-border-style);
   border-color: var(--border-primary);
   border-width: var(--card-border-width);
@@ -71,6 +77,14 @@
     --card-title-font-size: 1.4rem;
     --card-subtitle-font-size: 1.05rem;
     --card-radius: 10px;
+    --card-max-image-width: 100%;
+  }
+  &.size-xl {
+    --card-padding: 2.25rem;
+    --card-gap: 1.25rem;
+    --card-title-font-size: 1.6rem;
+    --card-subtitle-font-size: 1.1rem;
+    --card-radius: var(--r-lg, 12px);
     --card-max-image-width: 100%;
   }
 

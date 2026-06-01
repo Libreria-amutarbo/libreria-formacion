@@ -12,7 +12,7 @@ export const SUBTITLE = 'Subtítulo de la carta';
 
 export const IMAGE = 'https://picsum.photos/360/240';
 
-export const IMAGE_ALT = '-';
+export const IMAGE_ALT = '';
 
 export const MAX_CONTENT_WIDTH = '560px';
 

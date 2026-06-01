@@ -29,13 +29,17 @@ export class DcxNgCarouselComponent implements OnDestroy {
   showNavigators = input<boolean>(true);
   showIndicators = input<boolean>(true);
   autoplayInterval = input<number>(0);
+  ariaLabel = input<string>('Carousel');
 
   pageChange = output<{ page: number }>();
 
   @ContentChild('item') itemTemplate!: TemplateRef<any>;
 
   currentPage = signal(0);
-  private _timer: any;
+  liveAnnouncement = signal('');
+
+  private _timer: ReturnType<typeof setInterval> | undefined;
+  private _autoplayEnabled = false;
 
   totalItems = computed(() => this.value().length);
 
@@ -67,6 +71,14 @@ export class DcxNgCarouselComponent implements OnDestroy {
     () => this.showIndicators() && this.canNavigate(),
   );
 
+  isPrevDisabled = computed(
+    () => !this.circular() && this.currentPage() === 0,
+  );
+
+  isNextDisabled = computed(
+    () => !this.circular() && this.currentPage() === this.totalItems() - 1,
+  );
+
   wrapperTransform = computed(() => {
     const page = this.currentPage();
     const shift = page * 100;
@@ -80,8 +92,17 @@ export class DcxNgCarouselComponent implements OnDestroy {
     effect(() => {
       const interval = this.autoplayInterval();
       this.clearTimer();
-      if (interval > 0) {
+      this._autoplayEnabled = interval > 0;
+      if (this._autoplayEnabled) {
         this.startAutoplay();
+      }
+    });
+
+    effect(() => {
+      const page = this.currentPage();
+      const total = this.totalItems();
+      if (total > 0) {
+        this.liveAnnouncement.set(`Diapositiva ${page + 1} de ${total}`);
       }
     });
   }
@@ -129,6 +150,32 @@ export class DcxNgCarouselComponent implements OnDestroy {
     }
 
     return `${baseClass} ${baseClass}--active`;
+  }
+
+  onKeydown(event: KeyboardEvent): void {
+    const isHorizontal = !this.isVertical();
+    const prevKey = isHorizontal ? 'ArrowLeft' : 'ArrowUp';
+    const nextKey = isHorizontal ? 'ArrowRight' : 'ArrowDown';
+
+    if (event.key === prevKey) {
+      event.preventDefault();
+      this.prev();
+    } else if (event.key === nextKey) {
+      event.preventDefault();
+      this.next();
+    }
+  }
+
+  pauseAutoplay(): void {
+    if (this._autoplayEnabled) {
+      this.clearTimer();
+    }
+  }
+
+  resumeAutoplay(): void {
+    if (this._autoplayEnabled && !this._timer) {
+      this.startAutoplay();
+    }
   }
 
   private startAutoplay(): void {

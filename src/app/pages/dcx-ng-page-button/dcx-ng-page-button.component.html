@@ -1,177 +1,210 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Botón por defecto</h2>
-  <dcx-ng-button label="Default"></dcx-ng-button>
-</section>
+<div class="demo-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Button</h1>
+    <p class="demo-page-header__desc">
+      Componente de botón base. Soporta múltiples variantes, tamaños, estados estáticos, iconos y tipos de formulario HTML nativos.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<hr />
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Default"></dcx-ng-button>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Tipos de botón</h2>
-  <form style="display:flex; gap:12px; align-items:center;">
-    <dcx-ng-button label="Submit" type="submit" variant="primary"></dcx-ng-button>
-    <dcx-ng-button label="Reset" type="reset" variant="primary"></dcx-ng-button>
-    <dcx-ng-button label="Button" type="button" variant="primary"></dcx-ng-button>
-  </form>
-</section>
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Tipos de botón</span>
+    </div>
+    <div class="demo-section__body">
+      <form style="display:flex; gap:12px; align-items:center;">
+        <dcx-ng-button label="Submit" type="submit" variant="primary"></dcx-ng-button>
+        <dcx-ng-button label="Reset"  type="reset"  variant="primary"></dcx-ng-button>
+        <dcx-ng-button label="Button" type="button" variant="primary"></dcx-ng-button>
+      </form>
+    </div>
+  </div>
 
-<hr />
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Deshabilitado</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Botón deshabilitado</h2>
-  <dcx-ng-button label="Disabled" variant="primary" [disabled]="true"></dcx-ng-button>
-</section>
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Variantes</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Primary"   size="m" variant="primary"></dcx-ng-button>
+      <dcx-ng-button label="Secondary" size="m" variant="secondary"></dcx-ng-button>
+      <dcx-ng-button label="Terciary"  size="m" variant="terciary"></dcx-ng-button>
+      <dcx-ng-button label="Danger"    size="m" variant="danger"></dcx-ng-button>
+      <dcx-ng-button label="Text"      size="m" variant="text"></dcx-ng-button>
+    </div>
+  </div>
 
-<hr />
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Con icono</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Guardar"   size="m" variant="primary"   icon iconName="save"        iconPosition="left" iconSize="m"></dcx-ng-button>
+      <dcx-ng-button label="Siguiente" size="m" variant="secondary" icon iconName="arrow-right" iconPosition="left" iconSize="m"></dcx-ng-button>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 4 - Formatos de Botón</h2>
-  <article style="display:flex; gap:12px; align-items:center;">
-    <dcx-ng-button label="Primary" size="m" variant="primary"></dcx-ng-button>
-    <dcx-ng-button label="Secondary" size="m" variant="secondary"></dcx-ng-button>
-    <dcx-ng-button label="Terciary" size="m" variant="terciary"></dcx-ng-button>
-    <dcx-ng-button label="Danger" size="m" variant="danger"></dcx-ng-button>
-  </article>
-</section>
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Estados — Primary</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Default"  size="m" variant="primary"></dcx-ng-button>
+      <dcx-ng-button label="Hover"    size="m" variant="primary" hover></dcx-ng-button>
+      <dcx-ng-button label="Pressed"  size="m" variant="primary" pressed></dcx-ng-button>
+      <dcx-ng-button label="Focus"    size="m" variant="primary" focused></dcx-ng-button>
+      <dcx-ng-button label="Disabled" size="m" variant="primary" [disabled]="true"></dcx-ng-button>
+    </div>
+  </div>
 
-<hr />
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Estados — Secondary</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Default"  size="m" variant="secondary"></dcx-ng-button>
+      <dcx-ng-button label="Hover"    size="m" variant="secondary" hover></dcx-ng-button>
+      <dcx-ng-button label="Pressed"  size="m" variant="secondary" pressed></dcx-ng-button>
+      <dcx-ng-button label="Focus"    size="m" variant="secondary" focused></dcx-ng-button>
+      <dcx-ng-button label="Disabled" size="m" variant="secondary" [disabled]="true"></dcx-ng-button>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 5 - Botón con icono</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Guardar" size="m" variant="primary" icon iconName="save" iconPosition="left"
-      iconSize="m"></dcx-ng-button>
-    <dcx-ng-button label="Siguiente" size="m" variant="primary" icon iconName="arrow-right" iconPosition="left"
-      iconSize="m"></dcx-ng-button>
-  </article>
-</section>
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Estados — Terciary</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Default"  size="m" variant="terciary"></dcx-ng-button>
+      <dcx-ng-button label="Hover"    size="m" variant="terciary" hover></dcx-ng-button>
+      <dcx-ng-button label="Pressed"  size="m" variant="terciary" pressed></dcx-ng-button>
+      <dcx-ng-button label="Focus"    size="m" variant="terciary" focused></dcx-ng-button>
+      <dcx-ng-button label="Disabled" size="m" variant="terciary" [disabled]="true"></dcx-ng-button>
+    </div>
+  </div>
 
-<hr />
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">09</span>
+      <span class="demo-section__title">Estados — Danger</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Default"  size="m" variant="danger"></dcx-ng-button>
+      <dcx-ng-button label="Hover"    size="m" variant="danger" hover></dcx-ng-button>
+      <dcx-ng-button label="Pressed"  size="m" variant="danger" pressed></dcx-ng-button>
+      <dcx-ng-button label="Focus"    size="m" variant="danger" focused></dcx-ng-button>
+      <dcx-ng-button label="Disabled" size="m" variant="danger" [disabled]="true"></dcx-ng-button>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 6 - Estados Primary</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Default" size="m" variant="primary"></dcx-ng-button>
-    <dcx-ng-button label="Hover" size="m" variant="primary" hover></dcx-ng-button>
-    <dcx-ng-button label="Pressed" size="m" variant="primary" pressed></dcx-ng-button>
-    <dcx-ng-button label="Focus" size="m" variant="primary" focused></dcx-ng-button>
-    <dcx-ng-button label="Disabled" size="m" variant="primary" [disabled]="true"></dcx-ng-button>
-  </article>
-</section>
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">10</span>
+      <span class="demo-section__title">Estados — Text</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Default"  size="m" variant="text"></dcx-ng-button>
+      <dcx-ng-button label="Hover"    size="m" variant="text" hover></dcx-ng-button>
+      <dcx-ng-button label="Pressed"  size="m" variant="text" pressed></dcx-ng-button>
+      <dcx-ng-button label="Focus"    size="m" variant="text" focused></dcx-ng-button>
+      <dcx-ng-button label="Disabled" size="m" variant="text" [disabled]="true"></dcx-ng-button>
+    </div>
+  </div>
 
-<hr />
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">11</span>
+      <span class="demo-section__title">Variantes por tamaño — Large</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Button" size="l" variant="primary"   icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      <dcx-ng-button label="Button" size="l" variant="secondary" icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      <dcx-ng-button label="Button" size="l" variant="terciary"  icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      <dcx-ng-button label="Button" size="l" variant="danger"    icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 7 - Estados Secondary</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Default" size="m" variant="secondary"></dcx-ng-button>
-    <dcx-ng-button label="Hover" size="m" variant="secondary" hover></dcx-ng-button>
-    <dcx-ng-button label="Pressed" size="m" variant="secondary" pressed></dcx-ng-button>
-    <dcx-ng-button label="Focus" size="m" variant="secondary" focused></dcx-ng-button>
-    <dcx-ng-button label="Disabled" size="m" variant="secondary" [disabled]="true"></dcx-ng-button>
-  </article>
-</section>
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">12</span>
+      <span class="demo-section__title">Variantes por tamaño — Medium</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Button" size="m" variant="primary"   icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      <dcx-ng-button label="Button" size="m" variant="secondary" icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      <dcx-ng-button label="Button" size="m" variant="terciary"  icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      <dcx-ng-button label="Button" size="m" variant="danger"    icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+    </div>
+  </div>
 
-<hr />
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">13</span>
+      <span class="demo-section__title">Variantes por tamaño — Small</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button label="Button" size="s" variant="primary"   icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      <dcx-ng-button label="Button" size="s" variant="secondary" icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      <dcx-ng-button label="Button" size="s" variant="terciary"  icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+      <dcx-ng-button label="Button" size="s" variant="danger"    icon iconName="chevron-left" iconPosition="left" iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 8 - Estados Terciary</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Default" size="m" variant="terciary"></dcx-ng-button>
-    <dcx-ng-button label="Hover" size="m" variant="terciary" hover></dcx-ng-button>
-    <dcx-ng-button label="Pressed" size="m" variant="terciary" pressed></dcx-ng-button>
-    <dcx-ng-button label="Focus" size="m" variant="terciary" focused></dcx-ng-button>
-    <dcx-ng-button label="Disabled" size="m" variant="terciary" [disabled]="true"></dcx-ng-button>
-  </article>
-</section>
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">14</span>
+      <span class="demo-section__title">Botón como enlace</span>
+    </div>
+    <p class="demo-section__desc">Envuelve el componente en un <code>&lt;a&gt;</code> para navegación. El botón mantiene su apariencia visual.</p>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <a href="https://angular.dev" target="_blank">
+        <dcx-ng-button label="Enlace Primary"   variant="primary"></dcx-ng-button>
+      </a>
+      <a href="https://angular.dev" target="_blank">
+        <dcx-ng-button label="Enlace Secondary" variant="secondary"></dcx-ng-button>
+      </a>
+      <a href="https://angular.dev" target="_blank">
+        <dcx-ng-button label="Enlace Terciary"  variant="terciary"></dcx-ng-button>
+      </a>
+    </div>
+  </div>
 
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 9 - Estados Danger</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Default" size="m" variant="danger"></dcx-ng-button>
-    <dcx-ng-button label="Hover" size="m" variant="danger" hover></dcx-ng-button>
-    <dcx-ng-button label="Pressed" size="m" variant="danger" pressed></dcx-ng-button>
-    <dcx-ng-button label="Focus" size="m" variant="danger" focused></dcx-ng-button>
-    <dcx-ng-button label="Disabled" size="m" variant="danger" [disabled]="true"></dcx-ng-button>
-  </article>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 10 - Variantes por tamaño (Large)</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Button" size="l" variant="primary" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-    <dcx-ng-button label="Button" size="l" variant="secondary" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-    <dcx-ng-button label="Button" size="l" variant="terciary" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-    <dcx-ng-button label="Button" size="l" variant="danger" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-  </article>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 11 - Variantes por tamaño (Medium)</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Button" size="m" variant="primary" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-    <dcx-ng-button label="Button" size="m" variant="secondary" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-    <dcx-ng-button label="Button" size="m" variant="terciary" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-    <dcx-ng-button label="Button" size="m" variant="danger" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-  </article>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 12 - Variantes por tamaño (Small)</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button label="Button" size="s" variant="primary" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-    <dcx-ng-button label="Button" size="s" variant="secondary" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-    <dcx-ng-button label="Button" size="s" variant="terciary" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-    <dcx-ng-button label="Button" size="s" variant="danger" icon iconName="chevron-left" iconPosition="left"
-      iconSize="s" iconRightName="chevron-right"></dcx-ng-button>
-  </article>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 13 - Botón como enlace</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <a href="https://angular.dev" target="_blank">
-      <dcx-ng-button label="Enlace Primary" variant="primary"></dcx-ng-button>
-    </a>
-    <a href="https://angular.dev" target="_blank">
-      <dcx-ng-button label="Enlace Secondary" variant="secondary"></dcx-ng-button>
-    </a>
-    <a href="https://angular.dev" target="_blank">
-      <dcx-ng-button label="Enlace Terciary" variant="terciary"></dcx-ng-button>
-    </a>
-    <a href="https://angular.dev" target="_blank">
-      <dcx-ng-button label="Enlace Danger" variant="danger"></dcx-ng-button>
-    </a>
-  </article>
-</section>
-
-<hr>
-
-<section>
-  <h2 class="example-title">Ejemplo 13 - Botón con solo icono</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-button size="s" variant="primary" icon iconName="save" aria-label="Guardar"></dcx-ng-button>
-    <dcx-ng-button size="m" variant="primary" icon iconName="save" aria-label="Guardar"></dcx-ng-button>
-    <dcx-ng-button size="l" variant="primary" icon iconName="save" aria-label="Guardar"></dcx-ng-button>
-  </article>
-</section>
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">15</span>
+      <span class="demo-section__title">Solo icono (accesible)</span>
+    </div>
+    <p class="demo-section__desc">Usa <code>ariaLabel</code> (input del componente) para proporcionar el nombre accesible al botón interno.</p>
+    <div class="demo-section__body" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <dcx-ng-button size="s" variant="primary" icon iconName="save" ariaLabel="Guardar"></dcx-ng-button>
+      <dcx-ng-button size="m" variant="primary" icon iconName="save" ariaLabel="Guardar"></dcx-ng-button>
+      <dcx-ng-button size="l" variant="primary" icon iconName="save" ariaLabel="Guardar"></dcx-ng-button>
+    </div>
+  </div>
+</div>

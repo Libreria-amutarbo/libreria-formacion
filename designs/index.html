@@ -19,11 +19,7 @@
       --ff: 'Inter', sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0 }
 
     body {
       font-family: var(--ff);
@@ -32,8 +28,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 2rem
+      justify-content: flex-start;
+      padding: 3rem 2rem 2rem;
     }
 
     h1 {
@@ -42,23 +38,80 @@
       letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: .4rem
+      margin-bottom: .4rem;
+      text-align: center;
     }
 
     h2 {
       font-size: 28px;
       font-weight: 700;
       color: var(--text);
-      margin-bottom: 2.5rem
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
 
+    /* ── Search ── */
+    .search-wrap {
+      width: 100%;
+      max-width: 960px;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+    #search {
+      width: 100%;
+      padding: .65rem 1rem .65rem 2.5rem;
+      font-family: var(--ff);
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--text);
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    #search::placeholder { color: var(--muted); }
+    #search:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0,88,171,.12);
+    }
+    #no-results {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ── Grid ── */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 1rem;
       width: 100%;
-      max-width: 900px
+      max-width: 960px;
     }
+
+    .group-label {
+      grid-column: 1 / -1;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: .5rem 0 .2rem;
+      border-bottom: 1px solid var(--border);
+      margin-top: .5rem;
+    }
+    .group-label:first-child { margin-top: 0; }
 
     .card {
       background: var(--white);
@@ -71,98 +124,193 @@
       color: inherit;
       display: flex;
       flex-direction: column;
-      gap: .4rem
+      gap: .4rem;
     }
-
     .card:hover {
       border-color: var(--blue);
       box-shadow: 0 4px 16px rgba(0, 88, 171, .12);
-      transform: translateY(-2px)
+      transform: translateY(-2px);
     }
+    .card.hidden { display: none; }
 
-    .card-icon {
-      font-size: 22px;
-      margin-bottom: .25rem
-    }
-
-    .card-name {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text)
-    }
-
-    .card-file {
-      font-size: 11px;
-      color: var(--muted);
-      font-family: monospace
-    }
+    .card-icon { font-size: 22px; margin-bottom: .25rem; }
+    .card-name  { font-size: 15px; font-weight: 600; color: var(--text); }
+    .card-file  { font-size: 11px; color: var(--muted); font-family: monospace; }
   </style>
 </head>
 
 <body>
   <h1>DCX NG Library</h1>
   <h2>Designs</h2>
-  <div class="grid">
+
+  <div class="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <input id="search" type="search" placeholder="Buscar componente…" autocomplete="off" aria-label="Buscar componente" />
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- ── ENTRADAS / FORMULARIOS ── -->
+    <div class="group-label" data-group>Entradas &amp; Formularios</div>
+
     <a class="card" href="dcx-ng-page-button.html">
       <div class="card-icon">🔘</div>
       <div class="card-name">Button</div>
       <div class="card-file">dcx-ng-page-button.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-checkbox-toggle-chip.html">
+      <div class="card-icon">✅</div>
+      <div class="card-name">Checkbox · Toggle · Chip</div>
+      <div class="card-file">dcx-ng-page-checkbox-toggle-chip.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-controls.html">
+      <div class="card-icon">🎛️</div>
+      <div class="card-name">Form Controls (Select)</div>
+      <div class="card-file">dcx-ng-page-controls.html</div>
     </a>
     <a class="card" href="dcx-ng-page-input.html">
       <div class="card-icon">⌨️</div>
       <div class="card-name">Input</div>
       <div class="card-file">dcx-ng-page-input.html</div>
     </a>
+    <a class="card" href="dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html">
+      <div class="card-icon">🗓️</div>
+      <div class="card-name">Radio · Slider · Datepicker · Tooltip…</div>
+      <div class="card-file">dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-textarea-editor-file-upload.html">
+      <div class="card-icon">📝</div>
+      <div class="card-name">Textarea · Editor · File Upload</div>
+      <div class="card-file">dcx-ng-page-textarea-editor-file-upload.html</div>
+    </a>
+
+    <!-- ── LAYOUT & NAVEGACIÓN ── -->
+    <div class="group-label" data-group>Layout &amp; Navegación</div>
+
     <a class="card" href="dcx-ng-page-accordion.html">
       <div class="card-icon">🪗</div>
       <div class="card-name">Accordion</div>
       <div class="card-file">dcx-ng-page-accordion.html</div>
     </a>
     <a class="card" href="dcx-ng-page-breadcrumb-divider-icon-message.html">
-      <div class="card-icon">🧭</div>
+      <div class="card-icon">🔗</div>
       <div class="card-name">Breadcrumb · Divider · Icon · Message</div>
-      <div class="card-file">
-        dcx-ng-page-breadcrumb-divider-icon-message.html
-      </div>
+      <div class="card-file">dcx-ng-page-breadcrumb-divider-icon-message.html</div>
     </a>
     <a class="card" href="dcx-ng-page-card.html">
       <div class="card-icon">🃏</div>
       <div class="card-name">Card</div>
       <div class="card-file">dcx-ng-page-card.html</div>
     </a>
-    <a class="card" href="dcx-ng-page-controls.html">
-      <div class="card-icon">🎛️</div>
-      <div class="card-name">Controls</div>
-      <div class="card-file">dcx-ng-page-controls.html</div>
+    <a class="card" href="dcx-ng-page-carousel.html">
+      <div class="card-icon">🎠</div>
+      <div class="card-name">Carousel</div>
+      <div class="card-file">dcx-ng-page-carousel.html</div>
     </a>
-    <a class="card" href="dcx-ng-page-dialog.html">
-      <div class="card-icon">💬</div>
-      <div class="card-name">Dialog</div>
-      <div class="card-file">dcx-ng-page-dialog.html</div>
-    </a>
-    <a class="card" href="dcx-ng-page-full-table-paginator-list.html">
-      <div class="card-icon">📋</div>
-      <div class="card-name">Table · Paginator · List</div>
-      <div class="card-file">dcx-ng-page-full-table-paginator-list.html</div>
-    </a>
-    <a class="card" href="dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html">
-      <div class="card-icon">🗓️</div>
-      <div class="card-name">Radio · Slider · Tooltip · Datepicker…</div>
-      <div class="card-file">
-        dcx-ng-page-radio-slider-tooltip-contextmenu-iconfield-grid-datepicker.html
-      </div>
-    </a>
-    <a class="card" href="dcx-ng-page-tabs.html">
-      <div class="card-icon">📑</div>
-      <div class="card-name">Tabs</div>
-      <div class="card-file">dcx-ng-page-tabs.html</div>
+    <a class="card" href="dcx-ng-page-navbar.html">
+      <div class="card-icon">🧭</div>
+      <div class="card-name">Navbar</div>
+      <div class="card-file">dcx-ng-page-navbar.html</div>
     </a>
     <a class="card" href="dcx-ng-page-scroll-top-down.html">
       <div class="card-icon">⬆️⬇️</div>
       <div class="card-name">Scroll Top Down</div>
       <div class="card-file">dcx-ng-page-scroll-top-down.html</div>
     </a>
+    <a class="card" href="dcx-ng-page-stepper.html">
+      <div class="card-icon">🪜</div>
+      <div class="card-name">Stepper</div>
+      <div class="card-file">dcx-ng-page-stepper.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-tabs.html">
+      <div class="card-icon">📑</div>
+      <div class="card-name">Tabs</div>
+      <div class="card-file">dcx-ng-page-tabs.html</div>
+    </a>
+
+    <!-- ── OVERLAYS & FEEDBACK ── -->
+    <div class="group-label" data-group>Overlays &amp; Feedback</div>
+
+    <a class="card" href="dcx-ng-page-badge.html">
+      <div class="card-icon">🔴</div>
+      <div class="card-name">Badge</div>
+      <div class="card-file">dcx-ng-page-badge.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-dialog.html">
+      <div class="card-icon">💬</div>
+      <div class="card-name">Dialog</div>
+      <div class="card-file">dcx-ng-page-dialog.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-drawer-popover.html">
+      <div class="card-icon">🗂️</div>
+      <div class="card-name">Drawer · Popover</div>
+      <div class="card-file">dcx-ng-page-drawer-popover.html</div>
+    </a>
+    <a class="card" href="dcx-ng-page-spinner-toast.html">
+      <div class="card-icon">⏳</div>
+      <div class="card-name">Spinner · Toast</div>
+      <div class="card-file">dcx-ng-page-spinner-toast.html</div>
+    </a>
+
+    <!-- ── DATOS ── -->
+    <div class="group-label" data-group>Datos</div>
+
+    <a class="card" href="dcx-ng-page-full-table-paginator-list.html">
+      <div class="card-icon">📋</div>
+      <div class="card-name">Table · Paginator · List</div>
+      <div class="card-file">dcx-ng-page-full-table-paginator-list.html</div>
+    </a>
+
+    <div id="no-results">No se encontraron componentes para "<span id="no-results-term"></span>"</div>
   </div>
+
+  <script>
+    const input   = document.getElementById('search');
+    const cards   = document.querySelectorAll('.card');
+    const groups  = document.querySelectorAll('[data-group]');
+    const noRes   = document.getElementById('no-results');
+    const noTerm  = document.getElementById('no-results-term');
+
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const show = !q || text.includes(q);
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+
+      // Hide group labels that have no visible cards
+      groups.forEach(label => {
+        let next = label.nextElementSibling;
+        let hasVisible = false;
+        while (next && !next.hasAttribute('data-group')) {
+          if (next.classList.contains('card') && !next.classList.contains('hidden')) {
+            hasVisible = true;
+          }
+          next = next.nextElementSibling;
+        }
+        label.classList.toggle('hidden', !hasVisible);
+      });
+
+      noRes.style.display = visible === 0 ? 'block' : 'none';
+      noTerm.textContent  = input.value.trim();
+    });
+
+    // Focus search on Ctrl+K / Cmd+K
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        input.focus();
+        input.select();
+      }
+    });
+  </script>
 </body>
 
 </html>

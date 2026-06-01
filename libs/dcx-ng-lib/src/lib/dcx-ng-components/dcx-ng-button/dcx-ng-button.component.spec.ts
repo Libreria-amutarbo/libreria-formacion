@@ -131,4 +131,33 @@ describe('DcxNgButtonComponent', () => {
 
     expect(component.resolvedIconSize()).toBe('s');
   });
+
+  describe('WCAG AA', () => {
+    it('should render a native <button> element', () => {
+      const btn = fixture.debugElement.query(By.css('button'));
+      expect(btn).toBeTruthy();
+    });
+
+    it('should set aria-pressed="true" on inner button when pressed is true', () => {
+      fixture.componentRef.setInput('pressed', true);
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.getAttribute('aria-pressed')).toBe('true');
+    });
+
+    it('should not set aria-pressed when pressed is false', () => {
+      fixture.componentRef.setInput('pressed', false);
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.hasAttribute('aria-pressed')).toBe(false);
+    });
+
+    it('should apply ariaLabel to the inner button when label is empty', () => {
+      fixture.componentRef.setInput('label', '');
+      fixture.componentRef.setInput('ariaLabel', 'Guardar');
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.getAttribute('aria-label')).toBe('Guardar');
+    });
+  });
 });

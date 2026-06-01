@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary:     #0058ab;
+    --bg-default:     #ffffff;
+    --bg-surface:     #f4f5f7;
+    --text-dark:      #1e2226;
+    --text-muted:     #6b7280;
+    --text-disabled:  #adb5bd;
+    --border-default: #d1d5db;
+    --color-danger:   #dc2626;
+    --color-success:  #16a34a;
+    --ff: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--ff);
+    background: var(--bg-surface);
+    color: var(--text-dark);
+    padding: 2.5rem 2.5rem 72px;
+    min-height: 100vh;
+  }
+
+  .page-title { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .35rem; }
+  .comp-title  { font-size: 26px; font-weight: 700; letter-spacing: -.3px; margin-bottom: .6rem; }
+  .divider     { border: none; border-top: 1px solid #e5e7eb; margin-bottom: 2.25rem; }
+
+  .sec { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin: 2.25rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid #e5e7eb; }
+  .sec:first-of-type { margin-top: 0; }
+
+  .size-header { display: flex; align-items: center; gap: 12px; margin-bottom: .75rem; margin-top: 2rem; }
+  .size-header:first-of-type { margin-top: 0; }
+  .size-badge { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); background: #edf0f3; border-radius: 4px; padding: 2px 8px; line-height: 1.6; }
+  .size-header hr { flex: 1; border: none; border-top: 1px solid #e5e7eb; }
+
+  .card { background: var(--bg-default); border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 1rem; padding: 20px 24px; }
+
+  /* ── STEPPER HORIZONTAL ── */
+  .dcx-stepper-h {
+    display: flex; align-items: flex-start; width: 100%;
+  }
+
+  .step-h {
+    display: flex; flex-direction: column; align-items: center; position: relative; flex: 1;
+  }
+  .step-h:last-child { flex: 0 0 auto; }
+
+  /* connector line */
+  .step-h::before {
+    content: ''; position: absolute; top: var(--ind-half); left: calc(50% + var(--ind-half));
+    right: calc(-50% + var(--ind-half)); height: 1.5px; background: var(--border-default); z-index: 0;
+  }
+  .step-h:last-child::before { display: none; }
+  .step-h.completed::before { background: var(--bg-primary); }
+
+  .step-h-indicator {
+    width: var(--ind); height: var(--ind); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--border-default); background: var(--bg-default);
+    font-size: var(--num-fs); font-weight: 700; color: var(--text-muted);
+    position: relative; z-index: 1; flex-shrink: 0; transition: all .15s;
+  }
+  .step-h-indicator svg { width: var(--ic-size); height: var(--ic-size); }
+
+  .step-h.active .step-h-indicator   { border-color: var(--bg-primary); color: var(--bg-primary); }
+  .step-h.completed .step-h-indicator { border-color: var(--bg-primary); background: var(--bg-primary); color: #fff; }
+  .step-h.disabled .step-h-indicator  { border-color: #e5e7eb; color: #d1d5db; background: #f9fafb; }
+  .step-h.error .step-h-indicator     { border-color: var(--color-danger); color: var(--color-danger); }
+
+  .step-h-labels { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 8px; }
+  .step-h-label { font-weight: 600; color: var(--text-muted); }
+  .step-h.active .step-h-label { color: var(--bg-primary); }
+  .step-h.completed .step-h-label { color: var(--text-dark); }
+  .step-h.disabled .step-h-label { color: var(--text-disabled); }
+  .step-h.error .step-h-label { color: var(--color-danger); }
+
+  .step-h-desc { color: var(--text-muted); margin-top: 2px; }
+  .step-h.disabled .step-h-desc { color: var(--text-disabled); }
+
+  /* sizes */
+  .stepper-s { --ind: 22px; --ind-half: 11px; --num-fs: 10px; --ic-size: 10px; }
+  .stepper-s .step-h-label { font-size: 11px; }
+  .stepper-s .step-h-desc  { font-size: 10px; }
+
+  .stepper-m { --ind: 28px; --ind-half: 14px; --num-fs: 11px; --ic-size: 12px; }
+  .stepper-m .step-h-label { font-size: 12px; }
+  .stepper-m .step-h-desc  { font-size: 11px; }
+
+  .stepper-l { --ind: 36px; --ind-half: 18px; --num-fs: 13px; --ic-size: 14px; }
+  .stepper-l .step-h-label { font-size: 13px; }
+  .stepper-l .step-h-desc  { font-size: 11px; }
+
+  .stepper-xl { --ind: 44px; --ind-half: 22px; --num-fs: 15px; --ic-size: 16px; }
+  .stepper-xl .step-h-label { font-size: 14px; }
+  .stepper-xl .step-h-desc  { font-size: 12px; }
+
+  /* step states for icon-mode */
+  .step-h-indicator.no-num { /* just shows icon */ }
+
+  /* ── STEPPER VERTICAL ── */
+  .dcx-stepper-v { display: flex; flex-direction: column; }
+
+  .step-v { display: flex; gap: 14px; position: relative; }
+  .step-v + .step-v { margin-top: 0; }
+
+  .step-v-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+
+  .step-v-indicator {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--border-default); background: var(--bg-default);
+    font-size: 11px; font-weight: 700; color: var(--text-muted);
+    position: relative; z-index: 1; flex-shrink: 0;
+  }
+  .step-v-indicator svg { width: 12px; height: 12px; }
+
+  .step-v.active .step-v-indicator   { border-color: var(--bg-primary); color: var(--bg-primary); }
+  .step-v.completed .step-v-indicator { border-color: var(--bg-primary); background: var(--bg-primary); color: #fff; }
+  .step-v.disabled .step-v-indicator  { border-color: #e5e7eb; color: #d1d5db; background: #f9fafb; }
+  .step-v.error .step-v-indicator     { border-color: var(--color-danger); color: var(--color-danger); }
+
+  .step-v-line { flex: 1; width: 1.5px; background: var(--border-default); min-height: 32px; margin: 4px 0; }
+  .step-v.completed .step-v-line { background: var(--bg-primary); }
+  .step-v:last-child .step-v-line { display: none; }
+
+  .step-v-body { padding: 4px 0 20px; }
+  .step-v-label { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+  .step-v.active .step-v-label    { color: var(--bg-primary); }
+  .step-v.completed .step-v-label { color: var(--text-dark); }
+  .step-v.disabled .step-v-label  { color: var(--text-disabled); }
+  .step-v.error .step-v-label     { color: var(--color-danger); }
+
+  .step-v-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .step-v-content { margin-top: 10px; padding: 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #f3f4f6; font-size: 12px; color: var(--text-muted); }
+
+  /* ── BOTTOM NAV ── */
+  #_dnav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; padding: .65rem 1.5rem; font-size: 13px; z-index: 999; box-shadow: 0 -2px 8px rgba(0,0,0,.06); }
+  #_dnav a { color: #0058ab; text-decoration: none; font-weight: 500; }
+  #_dnav a:hover { text-decoration: underline; }
+  #_dnav .idx { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<p class="page-title">Components</p>
+<p class="comp-title">Stepper</p>
+<hr class="divider">
+
+<!-- ════════════ HORIZONTAL — TAMAÑOS ════════════ -->
+<div class="sec">Horizontal</div>
+
+<div class="size-header"><span class="size-badge">Small</span><hr></div>
+<div class="card">
+  <div class="dcx-stepper-h stepper-s">
+    <div class="step-h completed">
+      <div class="step-h-indicator"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="step-h-labels"><span class="step-h-label">Datos</span></div>
+    </div>
+    <div class="step-h active">
+      <div class="step-h-indicator">2</div>
+      <div class="step-h-labels"><span class="step-h-label">Revisión</span></div>
+    </div>
+    <div class="step-h">
+      <div class="step-h-indicator">3</div>
+      <div class="step-h-labels"><span class="step-h-label">Confirmación</span></div>
+    </div>
+    <div class="step-h disabled">
+      <div class="step-h-indicator">4</div>
+      <div class="step-h-labels"><span class="step-h-label">Finalizar</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="size-header"><span class="size-badge">Medium</span><hr></div>
+<div class="card">
+  <div class="dcx-stepper-h stepper-m">
+    <div class="step-h completed">
+      <div class="step-h-indicator"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Datos personales</span>
+        <span class="step-h-desc">Completado</span>
+      </div>
+    </div>
+    <div class="step-h active">
+      <div class="step-h-indicator">2</div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Dirección</span>
+        <span class="step-h-desc">En curso</span>
+      </div>
+    </div>
+    <div class="step-h">
+      <div class="step-h-indicator">3</div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Documentos</span>
+        <span class="step-h-desc">Pendiente</span>
+      </div>
+    </div>
+    <div class="step-h error">
+      <div class="step-h-indicator"><svg viewBox="0 0 12 12" fill="none"><path d="M6 3v3.5M6 9h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Verificación</span>
+        <span class="step-h-desc">Error</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="size-header"><span class="size-badge">Large</span><hr></div>
+<div class="card">
+  <div class="dcx-stepper-h stepper-l">
+    <div class="step-h completed">
+      <div class="step-h-indicator"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Datos básicos</span>
+        <span class="step-h-desc">Completado</span>
+      </div>
+    </div>
+    <div class="step-h active">
+      <div class="step-h-indicator">2</div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Configuración</span>
+        <span class="step-h-desc">En curso</span>
+      </div>
+    </div>
+    <div class="step-h">
+      <div class="step-h-indicator">3</div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Publicar</span>
+        <span class="step-h-desc">Pendiente</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="size-header"><span class="size-badge">XLarge</span><hr></div>
+<div class="card">
+  <div class="dcx-stepper-h stepper-xl">
+    <div class="step-h completed">
+      <div class="step-h-indicator"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4L13 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Información</span>
+      </div>
+    </div>
+    <div class="step-h active">
+      <div class="step-h-indicator">2</div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Revisión</span>
+      </div>
+    </div>
+    <div class="step-h disabled">
+      <div class="step-h-indicator">3</div>
+      <div class="step-h-labels">
+        <span class="step-h-label">Envío</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ VERTICAL ════════════ -->
+<div class="sec">Vertical</div>
+
+<div class="size-header"><span class="size-badge">Con contenido expandido</span><hr></div>
+<div class="card">
+  <div class="dcx-stepper-v">
+
+    <div class="step-v completed">
+      <div class="step-v-left">
+        <div class="step-v-indicator"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="step-v-line"></div>
+      </div>
+      <div class="step-v-body">
+        <div class="step-v-label">Datos personales</div>
+        <div class="step-v-desc">Completado</div>
+      </div>
+    </div>
+
+    <div class="step-v active">
+      <div class="step-v-left">
+        <div class="step-v-indicator">2</div>
+        <div class="step-v-line"></div>
+      </div>
+      <div class="step-v-body">
+        <div class="step-v-label">Dirección de envío</div>
+        <div class="step-v-desc">Introduce tu dirección</div>
+        <div class="step-v-content">
+          Calle Ejemplo, 42 · 28001 Madrid<br>
+          España
+        </div>
+      </div>
+    </div>
+
+    <div class="step-v">
+      <div class="step-v-left">
+        <div class="step-v-indicator">3</div>
+        <div class="step-v-line"></div>
+      </div>
+      <div class="step-v-body">
+        <div class="step-v-label">Método de pago</div>
+        <div class="step-v-desc">Pendiente</div>
+      </div>
+    </div>
+
+    <div class="step-v error">
+      <div class="step-v-left">
+        <div class="step-v-indicator"><svg viewBox="0 0 12 12" fill="none"><path d="M6 3v3.5M6 9h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="step-v-line"></div>
+      </div>
+      <div class="step-v-body">
+        <div class="step-v-label">Verificación</div>
+        <div class="step-v-desc">Error en la verificación del documento</div>
+      </div>
+    </div>
+
+    <div class="step-v disabled">
+      <div class="step-v-left">
+        <div class="step-v-indicator">5</div>
+      </div>
+      <div class="step-v-body">
+        <div class="step-v-label">Confirmación final</div>
+        <div class="step-v-desc">Deshabilitado</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<nav id="_dnav"><a href="dcx-ng-page-scroll-top-down.html">&larr; Scroll Top Down</a><a class="idx" href="index.html">&#8862;&nbsp;Designs</a><a href="dcx-ng-page-tabs.html">Tabs &rarr;</a></nav>
+</body>
+</html>

@@ -14,12 +14,12 @@ import {
   DcxAccordionItemsDisabled,
   DcxAccordionLargeContent,
   DcxAccordionItemsContentDisabled,
+  DcxAccordionItemsWithDescription,
   DcxNgButtonComponent,
   DcxNgListComponent,
   DcxNgInputComponent,
   DcxInputType,
   DcxNgAccordionItem,
-  DcxButtonVariant,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -37,24 +37,23 @@ import {
 })
 export class DcxNgPageAccordionComponent implements AfterViewInit {
   constructor(private cdr: ChangeDetectorRef) {}
+
   defaultItems = DcxAccordionDefault;
-
   withIcons = DcxAccordionItemsWithIcon;
-
-  WithDisabledItems = DcxAccordionItemsDisabled;
-  WithContentDisabledItems = DcxAccordionItemsContentDisabled;
-
+  withDisabledItems = DcxAccordionItemsDisabled;
+  withContentDisabledItems = DcxAccordionItemsContentDisabled;
   multipleOpenItems = DcxAccordionItemsWithExpanded;
-
   fastTransitionItems = DcxAccordionDefault;
-
   slowTransitionItems = DcxAccordionDefault;
-
   noTransitionItems = DcxAccordionDefault;
-
   largeContentItems = DcxAccordionLargeContent;
+  withDescriptionItems = DcxAccordionItemsWithDescription;
 
-  // templates grabbed via ViewChild
+  // External control
+  @ViewChild('externalAccordion') externalAccordion!: DcxNgAccordionComponent;
+  expandedMap: Record<string, boolean> = {};
+
+  // WithComponents
   @ViewChild('buttonTemplate', { read: TemplateRef })
   buttonTemplate!: TemplateRef<any>;
 
@@ -63,8 +62,6 @@ export class DcxNgPageAccordionComponent implements AfterViewInit {
 
   @ViewChild('listTemplate', { read: TemplateRef })
   listTemplate!: TemplateRef<any>;
-
-  @ViewChild('externalAccordion') externalAccordion!: DcxNgAccordionComponent;
 
   withComponents: DcxNgAccordionItem[] = [];
 
@@ -77,7 +74,6 @@ export class DcxNgPageAccordionComponent implements AfterViewInit {
   DcxInputType = DcxInputType;
 
   ngAfterViewInit(): void {
-    // avoid ExpressionChangedAfterItHasBeenChecked by running assignment later
     Promise.resolve().then(() => {
       this.withComponents = [
         {
@@ -103,25 +99,29 @@ export class DcxNgPageAccordionComponent implements AfterViewInit {
     });
   }
 
-  isExternalExpanded(id: string): boolean {
-    return this.externalAccordion?.isExpanded(id) ?? false;
+  // External control helpers
+  onItemToggled(item: DcxNgAccordionItem): void {
+    const wasOpen = !!this.expandedMap[item.id];
+    const next: Record<string, boolean> = {};
+    next[item.id] = !wasOpen;
+    this.expandedMap = next;
+  }
+
+  isItemExpanded(id: string): boolean {
+    return !!this.expandedMap[id];
   }
 
   toggleExternalItem(id: string): void {
-    if (this.isExternalExpanded(id)) {
+    if (this.isItemExpanded(id)) {
       this.externalAccordion.collapseItemById(id);
     } else {
       this.externalAccordion.expandItemById(id);
     }
   }
 
-  getExternalButtonLabel(id: string): string {
-    return this.isExternalExpanded(id)
-      ? `Cerrar Item ${id}`
-      : `Abrir Item ${id}`;
-  }
-
-  getExternalButtonVariant(id: string): DcxButtonVariant {
-    return this.isExternalExpanded(id) ? 'primary' : 'secondary';
+  getExternalButtonLabel(item: DcxNgAccordionItem): string {
+    return this.isItemExpanded(item.id)
+      ? `Cerrar: ${item.title}`
+      : `Abrir: ${item.title}`;
   }
 }

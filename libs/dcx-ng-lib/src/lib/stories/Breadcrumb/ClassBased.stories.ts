@@ -51,6 +51,7 @@ const meta: Meta<DcxNgBreadcrumbComponent> = {
       table: {
         category: 'Atributos',
         type: { summary: 'DcxBreadcrumbItem[]' },
+        defaultValue: { summary: 'DcxBreadCrumbItemDefault' },
       },
     },
     iconSeparator: {

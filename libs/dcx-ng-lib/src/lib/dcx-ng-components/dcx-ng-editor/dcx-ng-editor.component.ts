@@ -40,8 +40,6 @@ import {
 } from '../../core/defaults';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 
-let uuid = 0;
-
 @Component({
   selector: 'dcx-ng-editor',
   standalone: true,
@@ -62,7 +60,7 @@ export class DcxNgEditorComponent
 {
   @ViewChild('editor') editorRef?: ElementRef<HTMLElement>;
 
-  id = input<string>(`dcx-editor-${++uuid}`);
+  id = input<string>(`dcx-editor-${Math.random().toString(36).substring(2, 9)}`);
   value = model<string>(EDITOR_DEFAULT_VALUE);
   label = input<string>(EDITOR_DEFAULT_LABEL);
   placeholder = input<string>(EDITOR_DEFAULT_PLACEHOLDER);
