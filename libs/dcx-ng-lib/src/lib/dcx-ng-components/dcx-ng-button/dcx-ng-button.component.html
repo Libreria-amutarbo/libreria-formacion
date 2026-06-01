@@ -4,7 +4,8 @@
 </ng-template>
 
 <button [type]="type()" [disabled]="disabled()" [class]="buttonClasses()" (click)="onClick()"
-  [attr.aria-label]="computedAriaLabel()">
+  [attr.aria-label]="computedAriaLabel()"
+  [attr.aria-pressed]="pressed() || null">
   @if (icon() && (iconPosition() === 'left' || iconPosition() === 'top')) {
   <ng-container *ngTemplateOutlet="iconTpl" />
   }

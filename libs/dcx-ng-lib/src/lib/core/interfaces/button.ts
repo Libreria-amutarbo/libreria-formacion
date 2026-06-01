@@ -5,8 +5,7 @@ export type DcxButtonVariant =
   | 'terciary'
   | 'danger'
   | 'icon-only'
-  | 'text'
-  | 'test';
+  | 'text';
 
 export const ICON_POSITION = {
   left: 'left',
