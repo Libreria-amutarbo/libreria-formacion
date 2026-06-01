@@ -1,12 +1,27 @@
-<div [class]="carouselClass()" role="region" aria-roledescription="carousel">
+<div
+  [class]="carouselClass()"
+  role="region"
+  aria-roledescription="carousel"
+  [attr.aria-label]="ariaLabel()"
+  (keydown)="onKeydown($event)"
+  (mouseenter)="pauseAutoplay()"
+  (mouseleave)="resumeAutoplay()"
+  (focusin)="pauseAutoplay()"
+  (focusout)="resumeAutoplay()"
+>
+  <!-- Región aria-live para anunciar cambios de slide a lectores de pantalla -->
+  <div class="dcx-carousel-sr-only" aria-live="polite" aria-atomic="true">
+    {{ liveAnnouncement() }}
+  </div>
+
   <div class="dcx-carousel-content">
-    @if (showNavigatorButtons()) {
+    @if (showNavigatorButtons() && !isPrevDisabled()) {
       <dcx-ng-button
         variant="secondary"
         size="s"
         class="dcx-carousel-prev"
         (click)="prev()"
-        aria-label="Previous slide"
+        ariaLabel="Diapositiva anterior"
       >
         <dcx-ng-icon [name]="currentIcon()"></dcx-ng-icon>
       </dcx-ng-button>
@@ -19,7 +34,11 @@
         [style.flex-direction]="slideDirection()"
       >
         @for (item of value(); track $index) {
-          <div class="dcx-carousel-item">
+          <div
+            class="dcx-carousel-item"
+            [attr.aria-hidden]="$index !== currentPage() || null"
+            [attr.aria-label]="'Diapositiva ' + ($index + 1) + ' de ' + totalItems()"
+          >
             <ng-container
               *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"
             ></ng-container>
@@ -28,13 +47,13 @@
       </div>
     </div>
 
-    @if (showNavigatorButtons()) {
+    @if (showNavigatorButtons() && !isNextDisabled()) {
       <dcx-ng-button
         variant="secondary"
         size="s"
         class="dcx-carousel-next"
         (click)="next()"
-        aria-label="Next slide"
+        ariaLabel="Diapositiva siguiente"
       >
         <dcx-ng-icon [name]="nextIcon()"></dcx-ng-icon>
       </dcx-ng-button>
@@ -42,14 +61,15 @@
   </div>
 
   @if (showIndicatorDots()) {
-    <div class="dcx-carousel-indicators">
+    <div class="dcx-carousel-indicators" role="group" aria-label="Indicadores de diapositiva">
       @for (item of value(); track $index) {
         <dcx-ng-button
           type="button"
           variant="terciary"
           size="s"
           [class]="indicatorClass($index)"
-          [ariaLabel]="'Go to slide ' + ($index + 1)"
+          [ariaLabel]="'Ir a la diapositiva ' + ($index + 1)"
+          [attr.aria-pressed]="$index === currentPage()"
           (buttonClick)="setPage($index)"
         ></dcx-ng-button>
       }

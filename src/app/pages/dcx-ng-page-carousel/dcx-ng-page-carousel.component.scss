@@ -1,29 +1,8 @@
-.carousel-section {
-  padding: var(--sp-5, 20px) 0;
-}
+// page-demo styles are provided globally via src/styles.scss
 
-.carousel-title {
-  max-width: 450px;
-  margin: 0 auto var(--sp-4, 16px) auto;
-  padding: 0 var(--sp-5, 20px);
-  font-size: var(--fs-lg, 18px);
-  font-weight: var(--fw-semibold, 600);
-  color: var(--text-dark, #2a2e33);
-}
-
-.carousel-container {
+.carousel-vertical-wrapper {
   max-width: 450px;
   margin: auto;
-  padding: var(--sp-5, 20px);
-}
-
-.carousel-container--vertical {
-  max-width: 400px;
-  height: 650px;
-}
-
-.carousel-container--mixed {
-  max-width: 450px;
 }
 
 .carousel-card {

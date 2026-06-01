@@ -5,6 +5,7 @@
   [attr.tabindex]="tabIndex()"
   [attr.aria-disabled]="disabled()"
   [attr.role]="role()"
+  [attr.aria-label]="role() === 'region' && !header() && title() ? title() : null"
   (click)="onHostClick($event)"
   (keydown)="onKeydown($event)"
 >

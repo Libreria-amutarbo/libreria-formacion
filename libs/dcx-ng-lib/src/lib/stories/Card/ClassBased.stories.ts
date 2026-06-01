@@ -36,7 +36,7 @@ const meta: Meta<DcxNgCardComponent> = {
       options: ALIGN_LIST,
       control: { type: 'select' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: { summary: ALIGN_DEFAULT },
       },
     },
@@ -44,7 +44,7 @@ const meta: Meta<DcxNgCardComponent> = {
       description: 'Activa borde explícito.',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     borderStyle: {
@@ -52,7 +52,7 @@ const meta: Meta<DcxNgCardComponent> = {
       options: BORDER_STYLE_LIST,
       control: { type: 'select' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: { summary: BORDER_STYLE_DEFAULT },
       },
     },
@@ -60,42 +60,42 @@ const meta: Meta<DcxNgCardComponent> = {
       description: 'Grosor del borde (px). Máx 16px',
       control: { type: 'number', min: 0, max: 16, step: 1 },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     accent: {
       description: 'Aplica color de acento al borde.',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     disabled: {
       description: 'Deshabilita la carta',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     image: {
       description: 'URL de la imagen.',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     imageAlt: {
       description: 'Texto alternativo para la imagen.',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     interactive: {
       description: 'Convierte la carta en interactivo (hover/cursor).',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     layout: {
@@ -103,7 +103,7 @@ const meta: Meta<DcxNgCardComponent> = {
       options: LAYOUT_LIST,
       control: { type: 'select' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: { summary: LAYOUT_DEFAULT },
       },
     },
@@ -111,14 +111,14 @@ const meta: Meta<DcxNgCardComponent> = {
       description: 'Ancho máx. del bloque (en cualquier layout).',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     maxImageWidth: {
       description: 'Ancho máx. de imagen.',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     shadow: {
@@ -126,7 +126,7 @@ const meta: Meta<DcxNgCardComponent> = {
       options: SHADOW_LIST,
       control: { type: 'select' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     size: {
@@ -134,7 +134,7 @@ const meta: Meta<DcxNgCardComponent> = {
       options: SIZE_LIST,
       control: { type: 'select' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: { summary: SIZE_DEFAULT },
       },
     },
@@ -142,14 +142,21 @@ const meta: Meta<DcxNgCardComponent> = {
       description: 'Subtítulo o descripción corta de la carta.',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     title: {
       description: 'Título principal de la carta.',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
+      },
+    },
+    cardClick: {
+      description: 'Se emite al hacer clic o activar con teclado (Enter/Space) cuando la carta es interactiva.',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(event: MouseEvent | KeyboardEvent) => void' },
       },
     },
   },
@@ -484,6 +491,84 @@ export const WithSlotsVertical: Story = {
     bordered: true,
     borderStyle: 'solid',
     borderWidth: 1,
+    shadow: 2,
+    interactive: true,
+    disabled: false,
+  },
+};
+
+export const AccentVariant: Story = {
+  name: 'Acento',
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex;gap:16px;align-items:stretch;">
+        <dcx-ng-card
+          title="Sin acento"
+          subtitle="accent = false"
+          [image]="null"
+          size="m" layout="vertical" align="start"
+          maxContentWidth="280px"
+          [shadow]="1"
+          [accent]="false"
+          [interactive]="false"
+        ></dcx-ng-card>
+        <dcx-ng-card
+          title="Con acento"
+          subtitle="accent = true"
+          [image]="null"
+          size="m" layout="vertical" align="start"
+          maxContentWidth="280px"
+          [shadow]="1"
+          [accent]="true"
+          [interactive]="false"
+        ></dcx-ng-card>
+      </div>
+    `,
+  }),
+};
+
+export const BorderStyles: Story = {
+  name: 'Estilos de borde',
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <dcx-ng-card title="solid"   subtitle="borderStyle" [image]="null" size="s" [bordered]="true" borderStyle="solid"   [borderWidth]="2" maxContentWidth="160px" [interactive]="false"></dcx-ng-card>
+        <dcx-ng-card title="dashed"  subtitle="borderStyle" [image]="null" size="s" [bordered]="true" borderStyle="dashed"  [borderWidth]="2" maxContentWidth="160px" [interactive]="false"></dcx-ng-card>
+        <dcx-ng-card title="dotted"  subtitle="borderStyle" [image]="null" size="s" [bordered]="true" borderStyle="dotted"  [borderWidth]="2" maxContentWidth="160px" [interactive]="false"></dcx-ng-card>
+        <dcx-ng-card title="double"  subtitle="borderStyle" [image]="null" size="s" [bordered]="true" borderStyle="double"  [borderWidth]="4" maxContentWidth="160px" [interactive]="false"></dcx-ng-card>
+        <dcx-ng-card title="none"    subtitle="borderStyle" [image]="null" size="s" [bordered]="true" borderStyle="none"             maxContentWidth="160px" [interactive]="false"></dcx-ng-card>
+      </div>
+    `,
+  }),
+};
+
+export const ShadowVariants: Story = {
+  name: 'Sombras',
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex;gap:20px;flex-wrap:wrap;padding:20px;background:var(--bg-surface,#f4f5f7);">
+        <dcx-ng-card title="shadow 0" subtitle="sin sombra"    [image]="null" size="s" [shadow]="0" maxContentWidth="160px" [interactive]="false"></dcx-ng-card>
+        <dcx-ng-card title="shadow 1" subtitle="sombra suave"  [image]="null" size="s" [shadow]="1" maxContentWidth="160px" [interactive]="false"></dcx-ng-card>
+        <dcx-ng-card title="shadow 2" subtitle="sombra media"  [image]="null" size="s" [shadow]="2" maxContentWidth="160px" [interactive]="false"></dcx-ng-card>
+        <dcx-ng-card title="shadow 3" subtitle="sombra fuerte" [image]="null" size="s" [shadow]="3" maxContentWidth="160px" [interactive]="false"></dcx-ng-card>
+      </div>
+    `,
+  }),
+};
+
+export const SizeXL: Story = {
+  name: 'Tamaño XL',
+  args: {
+    size: 'xl',
+    layout: 'vertical',
+    align: 'start',
+    image: 'https://picsum.photos/640/360',
+    title: 'Tarjeta XL',
+    subtitle: 'Este tamaño usa un padding y tipografía ampliados para destacar.',
+    maxContentWidth: '640px',
     shadow: 2,
     interactive: true,
     disabled: false,

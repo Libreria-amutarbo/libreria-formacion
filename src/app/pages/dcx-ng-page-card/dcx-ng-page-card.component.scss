@@ -1,62 +1,22 @@
-@use './../../app.component.scss';
+// page-demo styles are provided globally via src/styles.scss
 
-:host {
-  width: 100%;
-  display: block;
-  padding: 2.5rem;
-  background: var(--bg-surface, #f4f5f7);
-  font-family: var(--ff-base, 'Inter', sans-serif);
-  color: var(--text-dark, #2a2e33);
-}
-
-.page-title {
-  margin: 0 0 0.25rem;
-  font-size: 20px;
-  font-weight: 300;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: #000;
-}
-
-.comp-title {
-  margin: 0 0 0.5rem;
-  font-size: 24px;
-  font-weight: 700;
-  color: #000;
-}
-
-.section-label {
-  margin: 0 0 1rem;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #9ca3af;
-}
-.content-project-slider {
-  margin-bottom: 0.25rem;
-  width: 100%;
-}
-
-.grid {
+.card-demo-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  margin-bottom: 2rem;
   align-items: stretch;
-}
 
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+  &--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 dcx-ng-card {
   display: block;
   width: 100%;
 }
+
+// ── Template-specific styles (used inside ng-templates projected into the card) ──
 
 .card-header-row {
   display: flex;
@@ -134,6 +94,11 @@ dcx-ng-card {
   color: var(--text-muted, #696e75);
 }
 
+.content-project-slider {
+  margin-bottom: 0.25rem;
+  width: 100%;
+}
+
 .progress-header {
   margin: 0.75rem 0 0.25rem;
   display: flex;
@@ -148,14 +113,6 @@ dcx-ng-card {
   }
 }
 
-.kpi-eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #9ca3af;
-}
-
 .kpi-value {
   margin: 0.5rem 0 0.25rem;
   font-size: 36px;
@@ -168,7 +125,7 @@ dcx-ng-card {
   margin: 0 0 0.25rem;
   font-size: 12px;
   font-weight: 600;
-  color: #16a34a;
+  color: var(--color-success, #16a34a);
 }
 
 .kpi-label {
@@ -188,4 +145,10 @@ dcx-ng-card {
   display: flex;
   gap: 0.5rem;
   margin-top: 1rem;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-muted, #696e75);
+  margin-top: 0.25rem;
 }
