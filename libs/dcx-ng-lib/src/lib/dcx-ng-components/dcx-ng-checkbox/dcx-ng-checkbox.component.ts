@@ -26,12 +26,9 @@ import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 })
 export class DcxNgCheckboxComponent {
   options = input<DcxCheckbox[]>([]);
-  _options = signal<DcxCheckbox[]>([]);
-
-  iconName = signal('check');
-  buttonVariant = signal<DcxButtonVariant>('primary');
-
   errorIcon = input<string>(ERRORICON);
+
+  _options = signal<DcxCheckbox[]>([]);
 
   changeOptions = output<DcxCheckbox[]>();
 
@@ -68,17 +65,29 @@ export class DcxNgCheckboxComponent {
     }
   }
 
-  changeValue(id: string) {
+  getAriaChecked(option: DcxCheckbox): boolean | 'mixed' {
+    switch (option.value) {
+      case true:
+        return true;
+      case false:
+        return 'mixed';
+      case null:
+      default:
+        return false;
+    }
+  }
+
+  changeValue(id: string): void {
     this._options.update(opts =>
       opts.map(f => ({
         ...f,
-        value: f.id === id ? this.getValue(f.value!) : f.value,
+        value: f.id === id ? this.getValue(f.value) : f.value,
       })),
     );
     this.changeOptions.emit(this._options());
   }
 
-  getValue(value: boolean): DcxCheckboxValue {
+  getValue(value: DcxCheckboxValue): DcxCheckboxValue {
     switch (value) {
       case true:
         return false;

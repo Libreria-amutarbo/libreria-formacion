@@ -37,8 +37,6 @@ describe('DcxNgCheckboxComponent', () => {
   it('should have default values', () => {
     expect(component.options()).toEqual([]);
     expect(component._options()).toEqual([]);
-    expect(component.iconName()).toBe('check');
-    expect(component.buttonVariant()).toBe('primary');
     expect(component.errorIcon()).toBe(ERRORICON);
   });
 
@@ -302,6 +300,46 @@ describe('DcxNgCheckboxComponent', () => {
     it('should render all checkbox labels from options', () => {
       const labels = fixture.nativeElement.querySelectorAll('.dcx-checkbox-label');
       expect(labels.length).toBe(mockCheckboxOptions.length);
+    });
+  });
+
+  describe('WCAG AA', () => {
+    it('should return aria-checked true when value is true', () => {
+      const opt: DcxCheckbox = { id: '1', value: true };
+      expect(component.getAriaChecked(opt)).toBe(true);
+    });
+
+    it('should return aria-checked false when value is null (unchecked)', () => {
+      const opt: DcxCheckbox = { id: '1', value: null };
+      expect(component.getAriaChecked(opt)).toBe(false);
+    });
+
+    it('should return aria-checked mixed when value is false (indeterminate)', () => {
+      const opt: DcxCheckbox = { id: '1', value: false };
+      expect(component.getAriaChecked(opt)).toBe('mixed');
+    });
+
+    it('should render error message with an id for aria-describedby', () => {
+      const errorOption: DcxCheckbox[] = [
+        { id: 'cbE', value: true, error: true, errorMessage: 'Campo requerido' },
+      ];
+      fixture.componentRef.setInput('options', errorOption);
+      fixture.detectChanges();
+
+      const errorDiv = fixture.nativeElement.querySelector('#checkbox-error-cbE');
+      expect(errorDiv).toBeTruthy();
+      expect(errorDiv.textContent).toContain('Campo requerido');
+    });
+
+    it('should have aria-hidden on error icon', () => {
+      const errorOption: DcxCheckbox[] = [
+        { id: 'cbE', value: true, error: true, errorMessage: 'Error' },
+      ];
+      fixture.componentRef.setInput('options', errorOption);
+      fixture.detectChanges();
+
+      const icon = fixture.nativeElement.querySelector('.dcx-ng-checkbox__error dcx-ng-icon');
+      expect(icon?.getAttribute('aria-hidden')).toBe('true');
     });
   });
 });

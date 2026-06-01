@@ -22,11 +22,29 @@ const meta: Meta<DcxNgCheckboxComponent> = {
     options: {
       name: 'options',
       control: { type: 'object' },
-      description: 'Array de opciones para grupo de checkboxes',
+      description: 'Array de opciones para el grupo de checkboxes. Cada opción define id, value (true/false/null), label, labelPosition, disabled, required y error.',
       table: {
-        category: 'Attributes',
-        type: { summary: 'CheckboxOption[]' },
+        category: 'Atributos',
+        type: { summary: 'DcxCheckbox[]' },
         defaultValue: { summary: '[]' },
+      },
+    },
+    errorIcon: {
+      name: 'errorIcon',
+      control: { type: 'text' },
+      description: 'Nombre del icono (Bootstrap Icons) que se muestra junto al mensaje de error.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'exclamation-circle' },
+      },
+    },
+    changeOptions: {
+      name: 'changeOptions',
+      description: 'Se emite cada vez que el usuario cambia el estado de algún checkbox. Devuelve el array completo de opciones actualizado.',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(options: DcxCheckbox[]) => void' },
       },
     },
   },
@@ -82,23 +100,14 @@ export const CheckboxGroup: Story = {
   `,
 })
 class DcxNgCheckboxExampleComponent {
-  checkboxGroup = signal<DcxCheckbox[]>(DcxCheckboxGroup);
+  checkboxGroup = signal<DcxCheckbox[]>(DcxCheckboxGroup.map(cb => ({ ...cb })));
 
-  changeLabel(checkbox: DcxCheckbox[]) {
-    checkbox.map((cb: DcxCheckbox) => {
-      switch (cb.value) {
-        case true:
-          cb.label = 'Válido';
-          break;
-        case false:
-          cb.label = 'Inválido';
-          break;
-        case null:
-        default:
-          cb.label = 'Sin valor';
-          break;
-      }
-    });
+  changeLabel(checkbox: DcxCheckbox[]): void {
+    const updated = checkbox.map(cb => ({
+      ...cb,
+      label: cb.value === true ? 'Válido' : cb.value === false ? 'Indeterminado' : 'Sin valor',
+    }));
+    this.checkboxGroup.set(updated);
   }
 }
 

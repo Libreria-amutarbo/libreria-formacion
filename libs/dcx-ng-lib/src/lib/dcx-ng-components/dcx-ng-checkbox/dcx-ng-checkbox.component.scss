@@ -1,8 +1,9 @@
 @use '../../../scss/utils/mixins' as *;
 @use '../../../scss/utils' as utils;
+
 :host {
   display: block;
-  font-family: var(--font-family-primary);
+  font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
 .dcx-checkbox-label {
@@ -10,7 +11,7 @@
   cursor: pointer;
   user-select: none;
   width: fit-content;
-  gap: 8px;
+  gap: var(--sp-2, 8px);
 
   &.label-left {
     flex-direction: row;
@@ -19,34 +20,37 @@
 
 .dcx-checkbox-label.disabled {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.45;
 }
 
 .dcx-checkbox-text {
-  font-weight: var(--weight-regular);
-  font-size: var(--font-size-body-small);
+  font-weight: var(--fw-regular, 400);
+  font-size: var(--fs-base, 14px);
 }
 
 .dcx-checkbox-text.error {
-  color: var(--text-error);
+  color: var(--text-error, var(--color-error, #dc2626));
 }
 
 .dcx-checkbox-group {
   @include flex-column;
-  gap: 0.5rem;
+  gap: var(--sp-2, 8px);
 
   &__options {
     @include flex-column;
-    gap: 0.75rem;
+    gap: var(--sp-3, 12px);
   }
 }
 
 .dcx-ng-checkbox__required {
-  color: var(--content-error);
+  color: var(--color-error, #dc2626);
 }
 
 .dcx-ng-checkbox__error {
-  margin-top: var(--spacing-inset-xs);
-  color: var(--text-error);
-  font-size: var(--font-size-body-small);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1, 4px);
+  margin-top: var(--sp-1, 4px);
+  color: var(--text-error, var(--color-error, #dc2626));
+  font-size: var(--fs-sm, 12px);
 }

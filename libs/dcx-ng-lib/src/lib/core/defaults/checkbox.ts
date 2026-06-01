@@ -4,7 +4,7 @@ export const DcxSingleCheck: DcxCheckbox[] = [
   {
     id: '1',
     value: true,
-    label: 'Chceckbox único',
+    label: 'Checkbox único',
   },
 ];
 
@@ -12,7 +12,7 @@ export const DcxErrorCheck: DcxCheckbox[] = [
   {
     id: '1',
     value: true,
-    label: 'Chceckbox erróneo',
+    label: 'Checkbox erróneo',
     error: true,
     errorMessage: 'Checkbox con error',
   },
@@ -22,7 +22,7 @@ export const DcxDisabledCheck: DcxCheckbox[] = [
   {
     id: '1',
     value: true,
-    label: 'Chceckbox dehabilitado',
+    label: 'Checkbox deshabilitado',
     disabled: true,
   },
 ];
@@ -41,11 +41,12 @@ export const DcxDiferentsLabelPositionsCheck: DcxCheckbox[] = [
     labelPosition: 'right',
   },
 ];
+
 export const DcxRequiredCheck: DcxCheckbox[] = [
   {
     id: '1',
     value: true,
-    label: 'Required',
+    label: 'Requerido',
     labelPosition: 'right',
     required: true,
   },
@@ -61,7 +62,7 @@ export const DcxCheckboxGroup: DcxCheckbox[] = [
   {
     id: '2',
     value: false,
-    label: 'Inválido',
+    label: 'Indeterminado',
     labelPosition: 'right',
   },
   {
