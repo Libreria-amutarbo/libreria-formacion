@@ -31,22 +31,13 @@ export class DcxNgPageCheckboxComponent {
   );
   requiredCheck = signal<DcxCheckbox[]>(DcxRequiredCheck);
 
-  checkboxGroup = signal<DcxCheckbox[]>(DcxCheckboxGroup);
+  checkboxGroup = signal<DcxCheckbox[]>(DcxCheckboxGroup.map(cb => ({ ...cb })));
 
-  changeLabel(checkbox: DcxCheckbox[]) {
-    checkbox.map((cb: DcxCheckbox) => {
-      switch (cb.value) {
-        case true:
-          cb.label = 'Válido';
-          break;
-        case false:
-          cb.label = 'Inválido';
-          break;
-        case null:
-        default:
-          cb.label = 'Sin valor';
-          break;
-      }
-    });
+  changeLabel(checkbox: DcxCheckbox[]): void {
+    const updated = checkbox.map(cb => ({
+      ...cb,
+      label: cb.value === true ? 'Válido' : cb.value === false ? 'Indeterminado' : 'Sin valor',
+    }));
+    this.checkboxGroup.set(updated);
   }
 }

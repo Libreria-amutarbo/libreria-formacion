@@ -5,7 +5,9 @@
 
 <button [type]="type()" [disabled]="disabled()" [class]="buttonClasses()" (click)="onClick()"
   [attr.aria-label]="computedAriaLabel()"
-  [attr.aria-pressed]="pressed() || null">
+  [attr.aria-pressed]="pressed() || null"
+  [attr.role]="isCheckbox() ? 'checkbox' : null"
+  [attr.aria-checked]="isCheckbox() && ariaChecked() !== null ? ariaChecked() : null">
   @if (icon() && (iconPosition() === 'left' || iconPosition() === 'top')) {
   <ng-container *ngTemplateOutlet="iconTpl" />
   }

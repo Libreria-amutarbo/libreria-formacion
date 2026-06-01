@@ -1,6 +1,6 @@
 <div class="dcx-checkbox-group">
   <div class="dcx-checkbox-group__options">
-    @for (option of _options(); track option.value) {
+    @for (option of _options(); track option.id) {
       <label
         class="dcx-checkbox-label"
         [class.disabled]="option.disabled"
@@ -21,6 +21,10 @@
           [checkboxError]="getCheckboxError(option)"
           [iconName]="getIconName(option)"
           [iconSize]="'l'"
+          [ariaLabel]="option.label ?? 'Checkbox'"
+          [ariaChecked]="getAriaChecked(option)"
+          [attr.aria-disabled]="option.disabled || null"
+          [attr.aria-describedby]="option.error && option.errorMessage ? 'checkbox-error-' + option.id : null"
           (buttonClick)="changeValue(option.id)"
         >
         </dcx-ng-button>
@@ -32,12 +36,13 @@
         }
       </label>
       @if (option.error && option.errorMessage !== '') {
-        <div class="dcx-ng-checkbox__error">
-          <dcx-ng-icon [name]="errorIcon()"></dcx-ng-icon>
-
-          <span>
-            {{ option.errorMessage }}
-          </span>
+        <div
+          class="dcx-ng-checkbox__error"
+          [id]="'checkbox-error-' + option.id"
+          role="alert"
+        >
+          <dcx-ng-icon [name]="errorIcon()" aria-hidden="true"></dcx-ng-icon>
+          <span>{{ option.errorMessage }}</span>
         </div>
       }
     }
@@ -51,6 +56,6 @@
     >{{ option.label }}</span
   >
   @if (option.required) {
-    <span class="dcx-ng-checkbox__required">*</span>
+    <span class="dcx-ng-checkbox__required" aria-hidden="true">*</span>
   }
 </ng-template>
