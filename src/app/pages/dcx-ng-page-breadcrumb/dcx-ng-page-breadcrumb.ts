@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import {
   DcxBreadcrumbItem,
   DcxNgBreadcrumbComponent,
+  DcxBreadCrumbItemDefault,
+  DcxBreadCrumbItemWithIcon,
+  DcxBreadCrumbDisabled,
+  DcxBreadCrumbOverflow,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -11,28 +15,24 @@ import {
   styleUrl: './dcx-ng-page-breadcrumb.scss',
 })
 export class DcxNgPageBreadcrumbComponent {
-  dcxBreadCrumbItem: DcxBreadcrumbItem[] = [
+  readonly itemsChevron: DcxBreadcrumbItem[] = [
     { label: 'Inicio', href: '#', disabled: false },
     { label: 'Proyectos', href: '#', disabled: false },
     { label: 'Cloud Migration', disabled: false },
   ];
 
-  dcxBreadCrumbSlashes: DcxBreadcrumbItem[] = [
+  readonly itemsSlash: DcxBreadcrumbItem[] = [
     { label: 'Inicio', href: '#', disabled: false },
     { label: 'Clientes', href: '#', disabled: false },
     { label: 'Airbus', href: '#', disabled: false },
     { label: 'SAP S/4HANA', disabled: false },
   ];
 
-  dcxBreadCrumbDisabled: DcxBreadcrumbItem[] = [
-    { label: 'Inicio', href: '#', disabled: false },
-    { label: 'Práctica (deshabilitado)', href: '#', disabled: true },
-    { label: 'Página actual', disabled: false },
-  ];
+  readonly itemsArrow = DcxBreadCrumbItemDefault;
 
-  dcxBreadCrumbWithIcon: DcxBreadcrumbItem[] = [
-    { label: 'Inicio', href: '/', icon: 'house', disabled: false },
-    { label: 'Componentes', href: '/', icon: 'grid', disabled: false },
-    { label: 'Breadcrumb', icon: 'link-45deg', disabled: false },
-  ];
+  readonly itemsWithIcon = DcxBreadCrumbItemWithIcon;
+
+  readonly itemsDisabled = DcxBreadCrumbDisabled;
+
+  readonly itemsOverflow = DcxBreadCrumbOverflow;
 }
