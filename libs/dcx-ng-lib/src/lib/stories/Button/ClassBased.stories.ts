@@ -18,19 +18,19 @@ const meta: Meta<DcxNgButtonComponent> = {
     label: {
       control: 'text',
       description: 'Texto visible del botón',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     ariaLabel: {
       control: 'text',
       description: 'Nombre accesible (úsalo en botones de solo icono)',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     type: {
       control: 'select',
       options: ['button', 'submit', 'reset'],
       description: 'Tipo nativo del botón',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: 'button',
         },
@@ -40,7 +40,7 @@ const meta: Meta<DcxNgButtonComponent> = {
       control: 'boolean',
       description: 'Deshabilita el botón y previene interacción',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: 'false',
         },
@@ -50,7 +50,7 @@ const meta: Meta<DcxNgButtonComponent> = {
       control: 'boolean',
       description: 'Estado hover estático del botón',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: 'false',
         },
@@ -60,7 +60,7 @@ const meta: Meta<DcxNgButtonComponent> = {
       control: 'boolean',
       description: 'Estado focus estático del botón',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: 'false',
         },
@@ -70,7 +70,7 @@ const meta: Meta<DcxNgButtonComponent> = {
       control: 'boolean',
       description: 'Estado presionado del botón',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: 'false',
         },
@@ -82,7 +82,7 @@ const meta: Meta<DcxNgButtonComponent> = {
       description:
         'Estilo visual del botón (primary, secondary, ghost, danger)',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: 'primary',
         },
@@ -93,7 +93,7 @@ const meta: Meta<DcxNgButtonComponent> = {
       options: SIZE_LIST,
       description: 'Tamaño del botón (s, m, l)',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: 'm',
         },
@@ -102,7 +102,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     icon: {
       control: 'boolean',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: 'false',
         },
@@ -112,33 +112,50 @@ const meta: Meta<DcxNgButtonComponent> = {
       control: 'select',
       options: DcxIconPositionList,
       description: 'Posición del icono para cuando el button tiene label',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     iconName: {
       control: 'select',
       options: BOOTSTRAP_ICONS,
       description: 'Icono de Bootstrap Icons (p.ej. "chevron-left", "save")',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     iconRightName: {
       control: 'select',
       options: BOOTSTRAP_ICONS,
       description: 'Icono derecho de Bootstrap Icons (p.ej. "chevron-right")',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     iconSize: {
       control: 'select',
       options: ['s', 'm', 'l', 'xl'],
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     iconSpacing: {
       control: 'select',
       options: ['none', 'compact', 'spacious'],
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     iconColor: {
       control: 'color',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
+    },
+    isCheckbox: {
+      control: 'boolean',
+      description:
+        'Activa el modo checkbox (ajusta tamaño para usarse como control de formulario interno)',
+      table: {
+        category: 'Atributos',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    checkboxError: {
+      control: 'boolean',
+      description: 'Estado de error para el modo checkbox',
+      table: {
+        category: 'Atributos',
+        defaultValue: { summary: 'false' },
+      },
     },
     buttonClick: {
       action: 'buttonClick',
@@ -161,7 +178,7 @@ const meta: Meta<DcxNgButtonComponent> = {
     variant: 'primary',
     size: 'm',
     icon: false,
-    iconPosition: 'start',
+    iconPosition: 'left',
     iconSize: undefined,
     iconSpacing: 'none',
     iconColor: '',
@@ -289,6 +306,22 @@ export const StatesDanger: Story = {
         <dcx-ng-button label="Pressed"  size="m" variant="danger" pressed></dcx-ng-button>
         <dcx-ng-button label="Focus"    size="m" variant="danger" focused></dcx-ng-button>
         <dcx-ng-button label="Disabled" size="m" variant="danger" [disabled]="true"></dcx-ng-button>
+      </div>
+    `,
+  }),
+};
+
+export const StatesText: Story = {
+  name: 'Estados — Text',
+  render: args => ({
+    props: { ...args },
+    template: `
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-button label="Default"  size="m" variant="text"></dcx-ng-button>
+        <dcx-ng-button label="Hover"    size="m" variant="text" hover></dcx-ng-button>
+        <dcx-ng-button label="Pressed"  size="m" variant="text" pressed></dcx-ng-button>
+        <dcx-ng-button label="Focus"    size="m" variant="text" focused></dcx-ng-button>
+        <dcx-ng-button label="Disabled" size="m" variant="text" [disabled]="true"></dcx-ng-button>
       </div>
     `,
   }),

@@ -1,61 +1,104 @@
 import { Meta, Canvas } from '@storybook/blocks';
-import * as ButtonUnstyledStories from './UnStyled.stories';
 import * as ButtonClassBasedStories from './ClassBased.stories';
 
-<Meta title="DCXLibrary/Button/Documentation" />
+<Meta title="DCXLibrary/Components/Button/Documentation" />
 
 # Button
 
-The `dcx-ng-button` component is a flexible, accessible button that supports labels, icons, multiple variants and sizes, and native button types.
+`dcx-ng-button` es el componente de botón base de la librería. Soporta múltiples variantes, tamaños, estados, iconos y el tipo nativo de formulario HTML.
 
 ---
 
-## Unstyled Version
-
-Use this version when you want full control over the appearance.  
-(For demo purposes, this story uses the same component with minimal configuration.)
-
-<Canvas of={ButtonUnstyledStories.Unstyled} />
-
----
-
-## Class-Based Version
-
-The class-based button uses minimal default styles with CSS variables, BEM naming, and SCSS.
-
-<Canvas of={ButtonClassBasedStories.Primary} />
-
-You can customize:
-
-- **variant**: `primary`, `secondary`, `link`, `icon`
-- **size**: `small`, `medium`, `large`, `block`
-- **disabled**: disables the button
-- **label / ariaLabel**: visible text or accessible name for icon-only buttons
-- **iconName**: Material Icons name (e.g., `"save"`, `"settings"`)
-- **DcxIconPosition**: `start` | `end`
-- **iconSize**: `s` | `m` | `l` | `xl`
-- **iconSpacing**: `none` | `compact` | `spacious`
-- **iconColor**: hex or CSS color
-
----
-
-## Usage Example
+## Uso básico
 
 ```html
-<!-- Label + start icon -->
-<dcx-ng-button
-  label="Start Now"
-  type="submit"
-  variant="primary"
-  size="medium"
-  iconName="arrow_forward"
-  DcxIconPosition="start">
-</dcx-ng-button>
+<dcx-ng-button label="Guardar" variant="primary" size="m"></dcx-ng-button>
+```
 
-<!-- Icon-only (accessible) -->
+<Canvas of={ButtonClassBasedStories.Default} />
+
+---
+
+## Variantes
+
+| Variante    | Uso recomendado                          |
+|-------------|------------------------------------------|
+| `primary`   | Acción principal de la pantalla          |
+| `secondary` | Acción secundaria o alternativa          |
+| `terciary`  | Acción de bajo énfasis (ghost)           |
+| `danger`    | Acciones destructivas o de alerta        |
+| `text`      | Acción inline sin fondo ni borde         |
+| `icon-only` | Botón solo con icono; requiere `ariaLabel` |
+
+<Canvas of={ButtonClassBasedStories.Variants} />
+
+---
+
+## Tamaños
+
+`size`: `'s'` | `'m'` | `'l'` | `'xl'`
+
+<Canvas of={ButtonClassBasedStories.VariantsMedium} />
+
+---
+
+## Estados (primary)
+
+`hover`, `pressed`, `focused` son inputs booleanos para forzar un estado visual estático (útil en Storybook y tests visuales). El estado `disabled` usa el atributo nativo `[disabled]`.
+
+<Canvas of={ButtonClassBasedStories.StatesPrimary} />
+
+---
+
+## Con iconos
+
+Usa `icon`, `iconName` (Bootstrap Icons), `iconPosition` (`left` | `right` | `top` | `bottom`) e `iconSize`.
+
+Para añadir un icono adicional a la derecha usa `iconRightName`.
+
+```html
 <dcx-ng-button
-  ariaLabel="Open settings"
-  variant="icon"
-  iconName="settings">
+  label="Guardar"
+  variant="primary"
+  icon
+  iconName="save"
+  iconPosition="left"
+  iconSize="m">
 </dcx-ng-button>
+```
+
+<Canvas of={ButtonClassBasedStories.WithIcons} />
+
+---
+
+## Solo icono (accesible)
+
+Cuando no hay `label`, es obligatorio usar `ariaLabel` para proporcionar un nombre accesible al botón.
+
+```html
+<dcx-ng-button
+  ariaLabel="Guardar"
+  variant="icon-only"
+  icon
+  iconName="save"
+  size="m">
+</dcx-ng-button>
+```
+
+---
+
+## Tipos de formulario
+
+`type`: `'button'` (por defecto) | `'submit'` | `'reset'`
+
+<Canvas of={ButtonClassBasedStories.Types} />
+
+---
+
+## Output
+
+El componente emite `buttonClick: OutputEmitterRef<{ clicked: boolean }>` en lugar del evento nativo `click`. Esto permite distinguir entre clics de usuario y eventos sintéticos en tests.
+
+```html
+<dcx-ng-button label="Acción" (buttonClick)="onAction($event)"></dcx-ng-button>
 ```

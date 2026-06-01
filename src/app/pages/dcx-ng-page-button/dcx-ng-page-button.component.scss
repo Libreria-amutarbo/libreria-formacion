@@ -1,9 +1,1 @@
-@use './../../app.component.scss';
-
-a {
-    text-decoration: none;
-
-    ::ng-deep .label {
-        text-decoration: underline;
-    }
-}
+// page-demo styles are provided globally via src/styles.scss
