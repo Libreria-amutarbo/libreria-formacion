@@ -70,9 +70,9 @@ const meta: Meta<DcxNg[Name]Component> = {
     [inputName]: {
       control: { type: 'text' | 'boolean' | 'select' | 'object' | 'number' },
       options: [/* only for select controls — use imported list if available */],
-      description: 'Clear description of the input',
+      description: 'Descripción en español.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',          // ← always Spanish
         type: { summary: 'TypeScriptType' },
         defaultValue: { summary: 'defaultValue' },
       },
@@ -80,9 +80,9 @@ const meta: Meta<DcxNg[Name]Component> = {
     // One entry per output()
     [outputName]: {
       action: '[outputName]',
-      description: 'Emitted when ...',
+      description: 'Se emite cuando…',
       table: {
-        category: 'Events',
+        category: 'Eventos',            // ← always Spanish
         type: { summary: 'EventType' },
       },
     },
