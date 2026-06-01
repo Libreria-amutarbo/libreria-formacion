@@ -3,7 +3,6 @@
   [ngClass]="chipClasses"
   [attr.data-chip-type]="chipType()"
   [attr.data-variant]="variant()"
-  tabindex="0"
 >
   @if (chipType() === ChipTypeValues.WITH_IMAGE && image()) {
     <img
@@ -15,14 +14,14 @@
   }
 
   @if (chipType() === ChipTypeValues.WITH_ICON && icon()) {
-    <dcx-ng-icon class="dcx-ng-chip__icon" [name]="icon()" size="m" />
+    <dcx-ng-icon class="dcx-ng-chip__icon" [name]="icon()" size="m" aria-hidden="true" />
   }
 
   @if (label()) {
     <span class="dcx-ng-chip__label">{{ label() }}</span>
   }
 
-  @if (variant() === ChipVariant.FILTER) {
+  @if (variant() === ChipVariant.FILTER || removable()) {
     <dcx-ng-button
       type="button"
       class="dcx-ng-chip__remove-btn"
