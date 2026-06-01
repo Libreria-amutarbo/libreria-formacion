@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-primary:#0058ab;--bg-primary-hover:#004080;--bg-primary-pressed:#121a38;
+        --bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;--bg-default:#fff;--bg-surface:#f4f5f7;
+        --text-dark:#2a2e33;--text-muted:#696e75;--text-disabled:#9ca3af;--text-white:#fff;
+        --border-default:#e5e7eb;--border-light:#d1d5db;--border-hover:#9ca3af;--border-focus:#1db8f2;
+        --color-success:#16a34a;--color-success-bg:#f0fdf4;
+        --color-warning:#d97706;--color-warning-bg:#fffbeb;
+        --color-error:#dc2626;
+        --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;
+        --r-sm:4px;--r-md:6px;--r-lg:8px;--r-pill:999px;
+        --fs-sm:12px;--fs-base:14px;--fs-lg:18px;
+        --fw-medium:500;--fw-semibold:600;--fw-bold:700;
+        --ff:'Inter',sans-serif;
+        --shadow-md:0 4px 12px rgba(0,0,0,.08);
+        --shadow-lg:0 8px 24px rgba(0,0,0,.12);
+      }
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+      .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;text-transform:uppercase;color:#000;margin-bottom:.25rem}
+      .comp-title{font-size:24px;font-weight:700;color:#000;margin-bottom:.5rem}
+      .hr{border:none;border-top:1px solid var(--border-default);margin-bottom:2rem}
+      .sec{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:.75rem;margin-top:2rem}
+
+      /* ── CAROUSEL BASE ── */
+      .dcx-carousel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: var(--sp-4);
+        max-width: 520px;
+        margin: auto;
+      }
+      .dcx-carousel-content {
+        display: flex;
+        align-items: center;
+        gap: var(--sp-5);
+        width: 100%;
+      }
+      .dcx-carousel-container {
+        overflow: hidden;
+        flex: 1;
+        box-sizing: border-box;
+      }
+      .dcx-carousel-track {
+        display: flex;
+        transition: transform .5s cubic-bezier(.65,0,.35,1);
+        will-change: transform;
+      }
+      .dcx-carousel-item {
+        flex: 0 0 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: var(--sp-3);
+      }
+
+      /* ── CARD inside carousel ── */
+      .slide-card {
+        background: var(--bg-default);
+        border-radius: var(--r-lg);
+        border: 1px solid var(--border-default);
+        box-shadow: var(--shadow-md);
+        padding: var(--sp-4) var(--sp-5);
+        width: 100%;
+        transition: transform .2s ease, box-shadow .2s ease;
+      }
+      .slide-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); cursor: pointer; }
+      .slide-card__title { font-size: 15px; font-weight: var(--fw-semibold); color: var(--text-dark); margin-bottom: var(--sp-2); }
+      .slide-card__desc  { font-size: var(--fs-base); color: var(--text-muted); margin: 0; line-height: 1.5; }
+      .slide-card__tag   {
+        display: inline-flex;
+        align-items: center;
+        font-size: var(--fs-sm);
+        font-weight: var(--fw-semibold);
+        padding: 2px 8px;
+        border-radius: var(--r-pill);
+        margin-bottom: var(--sp-2);
+      }
+      .tag-primary   { background:#dbeafe; color:#1d4ed8; }
+      .tag-success   { background:var(--color-success-bg); color:var(--color-success); }
+      .tag-warning   { background:var(--color-warning-bg); color:var(--color-warning); }
+
+      /* ── NAV ARROWS ── */
+      .dcx-carousel-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        background: var(--bg-default);
+        border: 1px solid var(--border-light);
+        border-radius: var(--r-md);
+        color: var(--text-dark);
+        cursor: pointer;
+        flex-shrink: 0;
+        font-size: 14px;
+        transition: background .1s, border-color .1s;
+      }
+      .dcx-carousel-btn:hover { background: var(--bg-hover); border-color: var(--border-hover); }
+      .dcx-carousel-btn:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+      .dcx-carousel-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+      /* ── INDICATORS ── */
+      .dcx-carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: var(--sp-2);
+      }
+      .dcx-carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: var(--r-pill);
+        background: var(--border-light);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: all .3s ease;
+        flex-shrink: 0;
+      }
+      .dcx-carousel-dot--active {
+        width: 24px;
+        background: var(--bg-primary);
+      }
+      .dcx-carousel-dot:hover:not(.dcx-carousel-dot--active) { background: var(--border-hover); }
+      .dcx-carousel-dot:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+      /* ── VERTICAL VARIANT ── */
+      .dcx-carousel--vertical {
+        height: 420px;
+        flex-direction: row;
+        max-width: 440px;
+      }
+      .dcx-carousel--vertical .dcx-carousel-content {
+        flex-direction: column;
+        height: 100%;
+        flex: 1;
+      }
+      .dcx-carousel--vertical .dcx-carousel-container {
+        height: 100%;
+        flex: 1;
+        overflow: hidden;
+      }
+      .dcx-carousel--vertical .dcx-carousel-track {
+        flex-direction: column;
+        height: 100%;
+      }
+      .dcx-carousel--vertical .dcx-carousel-item {
+        flex: 0 0 100%;
+        height: 100%;
+        padding: var(--sp-3);
+      }
+      .dcx-carousel--vertical .dcx-carousel-indicators {
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 var(--sp-2);
+        gap: var(--sp-2);
+      }
+      .dcx-carousel--vertical .dcx-carousel-dot { width: 8px; height: 8px; }
+      .dcx-carousel--vertical .dcx-carousel-dot--active { width: 8px; height: 24px; }
+      #_dnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.5rem;font-family:'Inter',sans-serif;font-size:13px;z-index:9999;box-shadow:0 -2px 10px rgba(0,0,0,.07)}
+  #_dnav a{color:#0058ab;text-decoration:none;font-weight:500}
+  #_dnav a:hover{text-decoration:underline}
+  #_dnav .idx{color:#696e75;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+  </style>
+  </head>
+  <body>
+    <p class="page-title">Components</p>
+    <p class="comp-title">Carousel</p>
+    <hr class="hr" />
+
+    <!-- 1 — Default: slide 1 (sin flecha prev) -->
+    <div class="sec">Slide 1 — flecha prev oculta (límite izquierdo)</div>
+    <div class="dcx-carousel">
+      <div class="dcx-carousel-content">
+        <!-- prev oculto en slide 1 -->
+        <div class="dcx-carousel-container">
+          <div class="dcx-carousel-track" style="transform:translateX(0%)">
+            <div class="dcx-carousel-item">
+              <div class="slide-card">
+                <span class="slide-card__tag tag-primary">Cloud</span>
+                <p class="slide-card__title">Cloud Migration · BNP Paribas</p>
+                <p class="slide-card__desc">Migración de infraestructura on-premise a Azure para el core bancario.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="dcx-carousel-btn" aria-label="Diapositiva siguiente">&#8250;</button>
+      </div>
+      <div class="dcx-carousel-indicators">
+        <button class="dcx-carousel-dot dcx-carousel-dot--active" aria-label="Ir a la diapositiva 1" aria-pressed="true"></button>
+        <button class="dcx-carousel-dot" aria-label="Ir a la diapositiva 2" aria-pressed="false"></button>
+        <button class="dcx-carousel-dot" aria-label="Ir a la diapositiva 3" aria-pressed="false"></button>
+      </div>
+    </div>
+
+    <!-- 2 — Slide 2 activo -->
+    <div class="sec">Estado — diapositiva 2 activa</div>
+    <div class="dcx-carousel">
+      <div class="dcx-carousel-content">
+        <button class="dcx-carousel-btn" aria-label="Diapositiva anterior">&#8249;</button>
+        <div class="dcx-carousel-container">
+          <div class="dcx-carousel-track" style="transform:translateX(-100%)">
+            <div class="dcx-carousel-item">
+              <div class="slide-card">
+                <span class="slide-card__tag tag-primary">Cloud</span>
+                <p class="slide-card__title">Cloud Migration · BNP Paribas</p>
+                <p class="slide-card__desc">Migración de infraestructura on-premise a Azure.</p>
+              </div>
+            </div>
+            <div class="dcx-carousel-item">
+              <div class="slide-card">
+                <span class="slide-card__tag tag-success">Data</span>
+                <p class="slide-card__title">Data Platform · Renault</p>
+                <p class="slide-card__desc">Plataforma centralizada de datos en Azure Synapse.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="dcx-carousel-btn" aria-label="Diapositiva siguiente">&#8250;</button>
+      </div>
+      <div class="dcx-carousel-indicators">
+        <button class="dcx-carousel-dot" aria-label="Ir a la diapositiva 1" aria-pressed="false"></button>
+        <button class="dcx-carousel-dot dcx-carousel-dot--active" aria-label="Ir a la diapositiva 2" aria-pressed="true"></button>
+        <button class="dcx-carousel-dot" aria-label="Ir a la diapositiva 3" aria-pressed="false"></button>
+      </div>
+    </div>
+
+    <!-- 3 — Sin flechas, solo indicadores -->
+    <div class="sec">Sin flechas — solo indicadores (showNavigators=false)</div>
+    <div class="dcx-carousel">
+      <div class="dcx-carousel-content">
+        <div class="dcx-carousel-container" style="padding:var(--sp-5)">
+          <div class="dcx-carousel-track">
+            <div class="dcx-carousel-item">
+              <div class="slide-card">
+                <span class="slide-card__tag tag-warning">ERP</span>
+                <p class="slide-card__title">SAP S/4HANA · Airbus</p>
+                <p class="slide-card__desc">Implementación de módulos FI/CO y MM con migración de datos históricos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dcx-carousel-indicators">
+        <button class="dcx-carousel-dot dcx-carousel-dot--active" aria-label="Ir a la diapositiva 1" aria-pressed="true"></button>
+        <button class="dcx-carousel-dot" aria-label="Ir a la diapositiva 2" aria-pressed="false"></button>
+      </div>
+    </div>
+
+    <!-- 4 — Vertical -->
+    <div class="sec">Vertical (orientation="vertical")</div>
+    <div class="dcx-carousel dcx-carousel--vertical">
+      <div class="dcx-carousel-content">
+        <button class="dcx-carousel-btn" aria-label="Diapositiva anterior">&#8963;</button>
+        <div class="dcx-carousel-container">
+          <div class="dcx-carousel-track">
+            <div class="dcx-carousel-item">
+              <div class="slide-card">
+                <span class="slide-card__tag tag-primary">Cloud</span>
+                <p class="slide-card__title">Cloud Migration · BNP Paribas</p>
+                <p class="slide-card__desc">Migración de infraestructura on-premise a Azure.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="dcx-carousel-btn" aria-label="Diapositiva siguiente">&#8964;</button>
+      </div>
+      <div class="dcx-carousel-indicators">
+        <button class="dcx-carousel-dot dcx-carousel-dot--active" aria-label="Ir a la diapositiva 1" aria-pressed="true"></button>
+        <button class="dcx-carousel-dot" aria-label="Ir a la diapositiva 2" aria-pressed="false"></button>
+        <button class="dcx-carousel-dot" aria-label="Ir a la diapositiva 3" aria-pressed="false"></button>
+      </div>
+    </div>
+  <nav id="_dnav"><a href="dcx-ng-page-card.html">&larr; Card</a><a class="idx" href="index.html">&#8862;&nbsp;Designs</a><a href="dcx-ng-page-navbar.html">Navbar &rarr;</a></nav>
+</body>
+</html>

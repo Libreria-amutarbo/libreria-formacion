@@ -1,148 +1,151 @@
-<div class="carousel-section">
-  <h2 class="carousel-title">Default Carousel</h2>
-  <div class="carousel-container">
-    <dcx-ng-carousel
-      [value]="defaultItems"
-      [circular]="false"
-      [orientation]="'horizontal'"
-      [showNavigators]="true"
-      [showIndicators]="true"
-      [autoplayInterval]="0"
-    >
-      <ng-template #item let-data>
-        <dcx-ng-card
-          [title]="data.title"
-          [content]="cardContentTpl"
-          [interactive]="true"
-          class="carousel-card"
-        >
-          <ng-template #cardContentTpl>
-            <dcx-ng-chip
-              [label]="data.tag"
-              size="s"
-              class="card-chip"
-            ></dcx-ng-chip>
-            <p class="card-description">{{ data.description }}</p>
-          </ng-template>
-        </dcx-ng-card>
-      </ng-template>
-    </dcx-ng-carousel>
+<div class="demo-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Carousel</h1>
+    <p class="demo-page-header__desc">
+      Componente de carrusel accesible con soporte de orientación horizontal y vertical, navegación por flechas, indicadores de punto, modo circular y autoplay con pausa en hover/foco.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
+
+  <!-- 01 Default -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-carousel
+        [value]="defaultItems"
+        [circular]="false"
+        orientation="horizontal"
+        [showNavigators]="true"
+        [showIndicators]="true"
+        [autoplayInterval]="0"
+        ariaLabel="Proyectos destacados"
+      >
+        <ng-template #item let-data>
+          <dcx-ng-card
+            [title]="data.title"
+            [content]="cardContentTpl"
+            [interactive]="true"
+            class="carousel-card"
+          >
+            <ng-template #cardContentTpl>
+              <dcx-ng-chip [label]="data.tag" size="s" class="card-chip"></dcx-ng-chip>
+              <p class="card-description">{{ data.description }}</p>
+            </ng-template>
+          </dcx-ng-card>
+        </ng-template>
+      </dcx-ng-carousel>
+    </div>
   </div>
-</div>
 
-<dcx-ng-divider></dcx-ng-divider>
-
-<div class="carousel-section">
-  <h2 class="carousel-title">Autoplay Circular Carousel</h2>
-  <div class="carousel-container">
-    <dcx-ng-carousel
-      [value]="defaultItems"
-      [circular]="true"
-      [orientation]="'horizontal'"
-      [showNavigators]="true"
-      [showIndicators]="true"
-      [autoplayInterval]="3000"
-    >
-      <ng-template #item let-data>
-        <dcx-ng-card
-          [title]="data.title"
-          [content]="cardContentTpl2"
-          [interactive]="true"
-          class="carousel-card"
-        >
-          <ng-template #cardContentTpl2>
-            <dcx-ng-chip
-              [label]="data.tag"
-              size="s"
-              class="card-chip"
-            ></dcx-ng-chip>
-            <p class="card-description">{{ data.description }}</p>
-          </ng-template>
-        </dcx-ng-card>
-      </ng-template>
-    </dcx-ng-carousel>
+  <!-- 02 Autoplay circular -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Autoplay circular</span>
+    </div>
+    <p class="demo-section__desc">Avanza automáticamente cada 3 s. El autoplay se pausa al pasar el ratón o recibir el foco.</p>
+    <div class="demo-section__body">
+      <dcx-ng-carousel
+        [value]="defaultItems"
+        [circular]="true"
+        orientation="horizontal"
+        [showNavigators]="true"
+        [showIndicators]="true"
+        [autoplayInterval]="3000"
+        ariaLabel="Proyectos — avance automático"
+      >
+        <ng-template #item let-data>
+          <dcx-ng-card
+            [title]="data.title"
+            [content]="cardContentTpl2"
+            [interactive]="true"
+            class="carousel-card"
+          >
+            <ng-template #cardContentTpl2>
+              <dcx-ng-chip [label]="data.tag" size="s" class="card-chip"></dcx-ng-chip>
+              <p class="card-description">{{ data.description }}</p>
+            </ng-template>
+          </dcx-ng-card>
+        </ng-template>
+      </dcx-ng-carousel>
+    </div>
   </div>
-</div>
 
-<dcx-ng-divider></dcx-ng-divider>
-
-<div class="carousel-section">
-  <h2 class="carousel-title">Vertical Carousel</h2>
-  <div class="carousel-container carousel-container--vertical">
-    <dcx-ng-carousel
-      [value]="defaultItems"
-      [circular]="false"
-      [orientation]="'vertical'"
-      [showNavigators]="true"
-      [showIndicators]="true"
-      [autoplayInterval]="0"
-    >
-      <ng-template #item let-data>
-        <dcx-ng-card
-          [title]="data.title"
-          [content]="verticalContentTpl"
-          class="carousel-card"
+  <!-- 03 Vertical -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Vertical</span>
+    </div>
+    <div class="demo-section__body">
+      <div class="carousel-vertical-wrapper">
+        <dcx-ng-carousel
+          [value]="defaultItems"
+          [circular]="false"
+          orientation="vertical"
+          [showNavigators]="true"
+          [showIndicators]="true"
+          [autoplayInterval]="0"
+          ariaLabel="Proyectos — orientación vertical"
         >
-          <ng-template #verticalContentTpl>
-            <p class="card-description">{{ data.description }}</p>
+          <ng-template #item let-data>
+            <dcx-ng-card
+              [title]="data.title"
+              [content]="verticalContentTpl"
+              class="carousel-card"
+            >
+              <ng-template #verticalContentTpl>
+                <p class="card-description">{{ data.description }}</p>
+              </ng-template>
+            </dcx-ng-card>
           </ng-template>
-        </dcx-ng-card>
-      </ng-template>
-    </dcx-ng-carousel>
+        </dcx-ng-carousel>
+      </div>
+    </div>
   </div>
-</div>
 
-<dcx-ng-divider></dcx-ng-divider>
-
-<div class="carousel-section">
-  <h2 class="carousel-title">Mixed Content Carousel</h2>
-  <div class="carousel-container carousel-container--mixed">
-    <dcx-ng-carousel
-      [value]="mixedItems"
-      [circular]="true"
-      [showIndicators]="true"
-    >
-      <ng-template #item let-data>
-        <div class="mixed-content-wrapper">
-          <div class="mixed-content-inner">
-            @switch (data.type) {
-              @case ('list') {
-                <h3 class="mixed-content-title">{{ data.title }}</h3>
-                <dcx-ng-list
-                  [items]="listItems"
-                  [selectable]="true"
-                ></dcx-ng-list>
+  <!-- 04 Contenido mixto -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Contenido mixto</span>
+    </div>
+    <p class="demo-section__desc">Cada slide puede contener un tipo de componente distinto (lista, radio, card).</p>
+    <div class="demo-section__body">
+      <dcx-ng-carousel
+        [value]="mixedItems"
+        [circular]="true"
+        [showIndicators]="true"
+        ariaLabel="Opciones de configuración"
+      >
+        <ng-template #item let-data>
+          <div class="mixed-content-wrapper">
+            <div class="mixed-content-inner">
+              @switch (data.type) {
+                @case ('list') {
+                  <h3 class="mixed-content-title">{{ data.title }}</h3>
+                  <dcx-ng-list [items]="listItems" [selectable]="true"></dcx-ng-list>
+                }
+                @case ('radio') {
+                  <h3 class="mixed-content-title">{{ data.title }}</h3>
+                  <div class="radio-group">
+                    <dcx-ng-radio [name]="'group-' + data.id" [value]="'1'" label="Basic option"></dcx-ng-radio>
+                    <dcx-ng-radio [name]="'group-' + data.id" [value]="'2'" label="Pro option"></dcx-ng-radio>
+                    <dcx-ng-radio [name]="'group-' + data.id" [value]="'3'" label="Premium option"></dcx-ng-radio>
+                  </div>
+                }
+                @default {
+                  <dcx-ng-card [title]="data.title" [interactive]="true"></dcx-ng-card>
+                }
               }
-              @case ('radio') {
-                <h3 class="mixed-content-title">{{ data.title }}</h3>
-                <div class="radio-group">
-                  <dcx-ng-radio
-                    [name]="'group-' + data.id"
-                    [value]="'1'"
-                    label="Basic option"
-                  ></dcx-ng-radio>
-                  <dcx-ng-radio
-                    [name]="'group-' + data.id"
-                    [value]="'2'"
-                    label="Pro option"
-                  ></dcx-ng-radio>
-                  <dcx-ng-radio
-                    [name]="'group-' + data.id"
-                    [value]="'3'"
-                    label="Premium option"
-                  ></dcx-ng-radio>
-                </div>
-              }
-              @default {
-                <dcx-ng-card
-                  [title]="data.title"
-                  [interactive]="true"
-                ></dcx-ng-card>
-              }
-            }
+            </div>
           </div>
-        </div>
-      </ng-template>
-    </dcx-ng-carousel>
+        </ng-template>
+      </dcx-ng-carousel>
+    </div>
   </div>
 </div>
