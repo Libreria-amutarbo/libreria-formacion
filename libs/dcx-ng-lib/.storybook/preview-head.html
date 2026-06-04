@@ -5,11 +5,18 @@
 <style>
   :root{ --app-font: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
   html, body, #root, .sb-show-main, .sbdocs, .sbDocsWrapper {
-    /* font-family: var(--app-font) !important; */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   .sbdocs.sbdocs-preview {
     overflow: hidden !important;
+  }
+
+  [data-theme='dark'] .sbdocs.sbdocs-wrapper {
+    background-color: #191919 !important;
+  }
+  [data-theme='dark'] .sbdocs-content {
+    background-color: #1C1C1C !important;
+    color: #FFFFFF !important;
   }
 </style>

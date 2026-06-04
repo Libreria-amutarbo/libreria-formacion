@@ -3,6 +3,7 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import {
   DcxNgPopoverComponent,
   DcxNgButtonComponent,
+  DcxNgIconComponent,
   DcxNgListComponent,
   DcxNgChipComponent,
   DcxNgDividerComponent,
@@ -11,15 +12,19 @@ import {
 @Component({
   selector: 'dcx-ng-popover-story-wrapper',
   standalone: true,
-  imports: [DcxNgPopoverComponent, DcxNgButtonComponent],
+  imports: [DcxNgPopoverComponent, DcxNgButtonComponent, DcxNgIconComponent],
   template: `
     <div style="padding: 100px; display: flex; justify-content: center; position: relative;">
       <div #buttonContainer style="display: inline-block;">
         <dcx-ng-button
-          [label]="buttonLabel()"
+          [label]="buttonVariant() === 'icon-only' ? '' : buttonLabel()"
           [variant]="buttonVariant()"
           (buttonClick)="onButtonClick($event)"
-        ></dcx-ng-button>
+        >
+          @if (buttonVariant() === 'icon-only') {
+            <dcx-ng-icon name="house-fill"></dcx-ng-icon>
+          }
+        </dcx-ng-button>
       </div>
 
       <dcx-ng-popover #popover (opened)="opened.emit()" (closed)="closed.emit()">
@@ -32,7 +37,9 @@ import {
 })
 class PopoverStoryWrapperComponent {
   readonly buttonLabel = input<string>('Open Popover');
-  readonly buttonVariant = input<'primary' | 'secondary' | 'terciary' | 'danger' | 'icon-only' | 'text'>('primary');
+  readonly buttonVariant = input<
+    'primary' | 'secondary' | 'terciary' | 'danger' | 'icon-only' | 'text'
+  >('primary');
   readonly popoverTitle = input<string>('');
   readonly popoverContent = input<string>('');
   readonly opened = output<void>();
@@ -59,7 +66,14 @@ const meta: Meta<PopoverStoryWrapperComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [PopoverStoryWrapperComponent, DcxNgPopoverComponent, DcxNgButtonComponent, DcxNgListComponent, DcxNgChipComponent, DcxNgDividerComponent],
+      imports: [
+        PopoverStoryWrapperComponent,
+        DcxNgPopoverComponent,
+        DcxNgButtonComponent,
+        DcxNgListComponent,
+        DcxNgChipComponent,
+        DcxNgDividerComponent,
+      ],
     }),
   ],
   parameters: {
@@ -86,11 +100,21 @@ const meta: Meta<PopoverStoryWrapperComponent> = {
     buttonVariant: {
       name: 'buttonVariant',
       control: 'select',
-      options: ['primary', 'secondary', 'terciary', 'danger', 'icon-only', 'text'],
+      options: [
+        'primary',
+        'secondary',
+        'terciary',
+        'danger',
+        'icon-only',
+        'text',
+      ],
       description: 'Variante visual del botón trigger',
       table: {
         category: 'Atributos',
-        type: { summary: "'primary' | 'secondary' | 'terciary' | 'danger' | 'icon-only' | 'text'" },
+        type: {
+          summary:
+            "'primary' | 'secondary' | 'terciary' | 'danger' | 'icon-only' | 'text'",
+        },
         defaultValue: { summary: 'primary' },
       },
     },
@@ -107,7 +131,8 @@ const meta: Meta<PopoverStoryWrapperComponent> = {
     popoverContent: {
       name: 'popoverContent',
       control: 'text',
-      description: 'Texto de contenido del popover. Se puede sustituir por contenido enriquecido via ng-content',
+      description:
+        'Texto de contenido del popover. Se puede sustituir por contenido enriquecido via ng-content',
       table: {
         category: 'Atributos',
         type: { summary: 'string' },
@@ -139,7 +164,8 @@ const meta: Meta<PopoverStoryWrapperComponent> = {
     buttonLabel: 'Open Popover',
     buttonVariant: 'primary',
     popoverTitle: 'Popover Title',
-    popoverContent: 'This is the content inside the popover. It can be any HTML or Angular component.',
+    popoverContent:
+      'This is the content inside the popover. It can be any HTML or Angular component.',
   },
 };
 
@@ -148,7 +174,7 @@ type Story = StoryObj<PopoverStoryWrapperComponent>;
 
 export const Default: Story = {
   name: 'Default',
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <dcx-ng-popover-story-wrapper
@@ -162,7 +188,8 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Popover básico con título y contenido de texto. Haz clic en el botón para abrirlo.',
+        story:
+          'Popover básico con título y contenido de texto. Haz clic en el botón para abrirlo.',
       },
     },
   },
@@ -174,7 +201,7 @@ export const WithRichContent: Story = {
     buttonLabel: 'User Info',
     buttonVariant: 'secondary',
   },
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <dcx-ng-popover-story-wrapper [buttonLabel]="buttonLabel" [buttonVariant]="buttonVariant">
@@ -189,7 +216,8 @@ export const WithRichContent: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Popover con contenido enriquecido: nombre, cargo y email. Ideal para mostrar información de usuario.',
+        story:
+          'Popover con contenido enriquecido: nombre, cargo y email. Ideal para mostrar información de usuario.',
       },
     },
   },
@@ -201,7 +229,7 @@ export const WithActions: Story = {
     buttonLabel: 'Options',
     buttonVariant: 'terciary',
   },
-  render: (args) => ({
+  render: args => ({
     props: {
       ...args,
       actionItems: [
@@ -220,7 +248,8 @@ export const WithActions: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Popover con lista de acciones. Puede usarse como menú contextual ligero.',
+        story:
+          'Popover con lista de acciones. Puede usarse como menú contextual ligero.',
       },
     },
   },
@@ -232,7 +261,7 @@ export const WithComponents: Story = {
     buttonLabel: 'Filtrar',
     buttonVariant: 'secondary',
   },
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <dcx-ng-popover-story-wrapper [buttonLabel]="buttonLabel" [buttonVariant]="buttonVariant">
@@ -256,7 +285,8 @@ export const WithComponents: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Popover con componentes de la librería: chips de filtro, divider y botones de acción.',
+        story:
+          'Popover con componentes de la librería: chips de filtro, divider y botones de acción.',
       },
     },
   },
@@ -268,7 +298,7 @@ export const LongContent: Story = {
     buttonLabel: 'Ver detalles',
     buttonVariant: 'secondary',
   },
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <dcx-ng-popover-story-wrapper [buttonLabel]="buttonLabel" [buttonVariant]="buttonVariant">
@@ -285,7 +315,8 @@ export const LongContent: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Popover con texto largo para verificar que el contenido no desborda el contenedor y se adapta correctamente al ancho máximo definido.',
+        story:
+          'Popover con texto largo para verificar que el contenido no desborda el contenedor y se adapta correctamente al ancho máximo definido.',
       },
     },
   },
@@ -297,7 +328,7 @@ export const WithImage: Story = {
     buttonLabel: 'Ver preview',
     buttonVariant: 'secondary',
   },
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <dcx-ng-popover-story-wrapper [buttonLabel]="buttonLabel" [buttonVariant]="buttonVariant">
@@ -312,7 +343,8 @@ export const WithImage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Popover con imagen y descripción. Ideal para vistas previas de contenido visual.',
+        story:
+          'Popover con imagen y descripción. Ideal para vistas previas de contenido visual.',
       },
     },
   },
@@ -324,7 +356,7 @@ export const Interactive: Story = {
     buttonLabel: 'Click me',
     buttonVariant: 'primary',
   },
-  render: (args) => ({
+  render: args => ({
     props: args,
     template: `
       <dcx-ng-popover-story-wrapper [buttonLabel]="buttonLabel" [buttonVariant]="buttonVariant">
