@@ -41,30 +41,31 @@ describe('DcxNgChipComponent', () => {
     expect(component.chipType()).toBe('with-image');
   });
 
-  it('should emit removeChip when remove button is clicked and removable is true', () => {
+  it('should emit removeChip when variant is filter', () => {
     const spy = jest.fn();
     component.removeChip.subscribe(spy);
-
-    fixture.componentRef.setInput('removable', true);
     fixture.componentRef.setInput('variant', 'filter');
     fixture.detectChanges();
-
-    const mockEvent = new Event('click');
-    component.handleRemove(mockEvent);
-
+    component.handleRemove(new Event('click'));
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should not emit removeChip when removable is false', () => {
+  it('should emit removeChip when removable=true (without variant=filter)', () => {
     const spy = jest.fn();
     component.removeChip.subscribe(spy);
+    fixture.componentRef.setInput('removable', true);
+    fixture.detectChanges();
+    component.handleRemove(new Event('click'));
+    expect(spy).toHaveBeenCalled();
+  });
 
+  it('should not emit removeChip when variant is choice and removable is false', () => {
+    const spy = jest.fn();
+    component.removeChip.subscribe(spy);
+    fixture.componentRef.setInput('variant', 'choice');
     fixture.componentRef.setInput('removable', false);
     fixture.detectChanges();
-
-    const mockEvent = new Event('click');
-    component.handleRemove(mockEvent);
-
+    component.handleRemove(new Event('click'));
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -75,5 +76,35 @@ describe('DcxNgChipComponent', () => {
     fixture.detectChanges();
     component.handleRemove();
     expect(spy).toHaveBeenCalled();
+  });
+
+  describe('WCAG AA', () => {
+    it('should not have tabindex on chip container', () => {
+      const chip = fixture.nativeElement.querySelector('.dcx-ng-chip') as HTMLElement;
+      expect(chip.hasAttribute('tabindex')).toBe(false);
+    });
+
+    it('should show remove button when removable=true', () => {
+      fixture.componentRef.setInput('removable', true);
+      fixture.componentRef.setInput('label', 'Tag');
+      fixture.detectChanges();
+      const btn = fixture.nativeElement.querySelector('.dcx-ng-chip__remove-btn');
+      expect(btn).toBeTruthy();
+    });
+
+    it('should not show remove button when variant=choice and removable=false', () => {
+      fixture.componentRef.setInput('variant', 'choice');
+      fixture.componentRef.setInput('removable', false);
+      fixture.detectChanges();
+      const btn = fixture.nativeElement.querySelector('.dcx-ng-chip__remove-btn');
+      expect(btn).toBeNull();
+    });
+
+    it('icon should have aria-hidden="true"', () => {
+      fixture.componentRef.setInput('icon', 'house');
+      fixture.detectChanges();
+      const icon = fixture.nativeElement.querySelector('.dcx-ng-chip__icon');
+      expect(icon?.getAttribute('aria-hidden')).toBe('true');
+    });
   });
 });

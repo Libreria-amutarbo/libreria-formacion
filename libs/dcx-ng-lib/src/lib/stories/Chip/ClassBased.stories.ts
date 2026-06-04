@@ -20,7 +20,7 @@ const meta: Meta<DcxNgChipComponent> = {
       description: 'Texto del chip (obligatorio)',
       table: {
         type: { summary: 'string' },
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: { summary: '""' },
       },
     },
@@ -30,7 +30,7 @@ const meta: Meta<DcxNgChipComponent> = {
       description: 'Color del chip según el sistema de diseño',
       table: {
         type: { summary: 'ThemeColors' },
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: { summary: ThemeColors.PRIMARY },
       },
     },
@@ -41,7 +41,7 @@ const meta: Meta<DcxNgChipComponent> = {
         'Variante del chip: `choice` (no removible) o `filter` (muestra botón de eliminar)',
       table: {
         type: { summary: '"choice" | "filter"' },
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: { summary: 'choice' },
       },
     },
@@ -51,7 +51,7 @@ const meta: Meta<DcxNgChipComponent> = {
       description: 'Icono de boostrap (opcional)',
       table: {
         type: { summary: 'string' },
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: { summary: '' },
       },
     },
@@ -60,16 +60,25 @@ const meta: Meta<DcxNgChipComponent> = {
       description: 'URL de imagen para mostrar en el chip (opcional)',
       table: {
         type: { summary: 'string' },
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: { summary: '""' },
       },
     },
+    removable: {
+      control: { type: 'boolean' },
+      description: 'Muestra el botón de eliminar independientemente de la variante. Alternativa a `variant="filter"`.',
+      table: {
+        type: { summary: 'boolean' },
+        category: 'Atributos',
+        defaultValue: { summary: 'false' },
+      },
+    },
     removeChip: {
-      action: 'onRemove',
-      description: 'Evento emitido cuando se hace clic en el botón X',
+      action: 'removeChip',
+      description: 'Evento emitido cuando se hace clic en el botón de eliminar (variant="filter" o removable=true)',
       table: {
         type: { summary: 'EventEmitter<void>' },
-        category: 'Events',
+        category: 'Eventos',
       },
     },
   },
@@ -214,25 +223,25 @@ export const RemovableChips: Story = {
   render: () => ({
     template: `
       <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
-        <dcx-ng-chip 
-          label="Removible" 
-          color="primary" 
+        <dcx-ng-chip
+          label="Removible"
+          color="primary"
           variant="filter"
-          (onRemove)="handleRemove('Removible')">
+          (removeChip)="handleRemove('Removible')">
         </dcx-ng-chip>
-        <dcx-ng-chip 
-          label="Con icono" 
-          icon="star" 
-          color="warning" 
+        <dcx-ng-chip
+          label="Con icono"
+          icon="star"
+          color="warning"
           variant="filter"
-          (onRemove)="handleRemove('Con icono')">
+          (removeChip)="handleRemove('Con icono')">
         </dcx-ng-chip>
-        <dcx-ng-chip 
-          label="Con imagen" 
-          image="https://picsum.photos/seed/rm/360/240" 
-          color="error" 
+        <dcx-ng-chip
+          label="Con imagen"
+          image="https://picsum.photos/seed/rm/360/240"
+          color="error"
           variant="filter"
-          (onRemove)="handleRemove('Con imagen')">
+          (removeChip)="handleRemove('Con imagen')">
         </dcx-ng-chip>
       </div>
     `,
@@ -256,38 +265,48 @@ export const TechnologyTags: Story = {
   render: () => ({
     template: `
       <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
-        <dcx-ng-chip 
-          label="Angular" 
-          icon="code-slash" 
-          color="error" 
-          variant="filter">
+        <dcx-ng-chip
+          label="Angular"
+          icon="code-slash"
+          color="error"
+          variant="filter"
+          (removeChip)="handleRemove('Angular')">
         </dcx-ng-chip>
-        <dcx-ng-chip 
-          label="TypeScript" 
-          icon="terminal" 
-          color="primary" 
-          variant="filter">
+        <dcx-ng-chip
+          label="TypeScript"
+          icon="terminal"
+          color="primary"
+          variant="filter"
+          (removeChip)="handleRemove('TypeScript')">
         </dcx-ng-chip>
-        <dcx-ng-chip 
-          label="SCSS" 
-          icon="palette" 
-          color="secondary" 
-          variant="filter">
+        <dcx-ng-chip
+          label="SCSS"
+          icon="palette"
+          color="secondary"
+          variant="filter"
+          (removeChip)="handleRemove('SCSS')">
         </dcx-ng-chip>
-        <dcx-ng-chip 
-          label="Storybook" 
-          icon="book" 
-          color="success" 
-          variant="filter">
+        <dcx-ng-chip
+          label="Storybook"
+          icon="book"
+          color="success"
+          variant="filter"
+          (removeChip)="handleRemove('Storybook')">
         </dcx-ng-chip>
-        <dcx-ng-chip 
-          label="Jest" 
-          icon="bug" 
-          color="warning" 
-          variant="filter">
+        <dcx-ng-chip
+          label="Jest"
+          icon="bug"
+          color="warning"
+          variant="filter"
+          (removeChip)="handleRemove('Jest')">
         </dcx-ng-chip>
       </div>
     `,
+    props: {
+      handleRemove: (label: string) => {
+        console.log(`Chip removido: ${label}`);
+      },
+    },
   }),
   parameters: {
     docs: {
