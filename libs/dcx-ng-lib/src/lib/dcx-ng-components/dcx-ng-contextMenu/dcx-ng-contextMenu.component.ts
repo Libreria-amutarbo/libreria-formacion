@@ -34,7 +34,12 @@ export class DcxNgContextMenuComponent {
   top = signal<string>('-9999px');
   left = signal<string>('-9999px');
 
-  open(): void {
+  private _openPosition: { x: number; y: number } | null = null;
+
+  open(position?: { x: number; y: number }): void {
+    if (position) {
+      this._openPosition = position;
+    }
     this.isOpen.set(true);
     setTimeout(() => {
       this.calculatePosition();
@@ -42,13 +47,14 @@ export class DcxNgContextMenuComponent {
   }
 
   close(): void {
+    this._openPosition = null;
     this.isOpen.set(false);
     this.isPositioned.set(false);
     this.menuClosed.emit();
   }
 
   private calculatePosition(): void {
-    const pos = this.position();
+    const pos = this._openPosition ?? this.position();
 
     if (this.positionMode() === 'absolute') {
       this.left.set(`${pos.x}px`);
@@ -57,27 +63,25 @@ export class DcxNgContextMenuComponent {
       return;
     }
 
-    if (!this.container) return;
+    // Fixed mode: pos.x/y are already viewport coordinates (clientX/Y).
+    // Do NOT subtract parentRect — getBoundingClientRect on the documentElement
+    // returns { top: -scrollY } when scrolled, which would incorrectly shift the menu.
+    let leftPosition = pos.x;
+    let topPosition = pos.y;
+    const padding = 10;
 
-    const menuEl = this.container.nativeElement;
-    const menuRect = menuEl.getBoundingClientRect();
-    const gap = 8;
+    if (this.container) {
+      const menuRect = this.container.nativeElement.getBoundingClientRect();
 
-    const offsetParent = menuEl.offsetParent as HTMLElement || document.documentElement;
-    const parentRect = offsetParent.getBoundingClientRect();
+      if (leftPosition + menuRect.width > window.innerWidth - padding) {
+        leftPosition = window.innerWidth - padding - menuRect.width;
+        if (leftPosition < 0) leftPosition = 0;
+      }
 
-    let topPosition = pos.y - parentRect.top;
-    let leftPosition = pos.x - parentRect.left;
-
-    if (pos.x + menuRect.width > window.innerWidth - 10) {
-      leftPosition = window.innerWidth - 10 - menuRect.width - parentRect.left;
-      if (leftPosition < 0) leftPosition = 0;
-    }
-
-    const wouldGoBelow = pos.y + menuRect.height > window.innerHeight - 10;
-    const topIfFlipped = pos.y - parentRect.top - menuRect.height;
-    if (wouldGoBelow && topIfFlipped >= gap) {
-      topPosition = topIfFlipped;
+      if (topPosition + menuRect.height > window.innerHeight - padding) {
+        const flipped = topPosition - menuRect.height;
+        topPosition = flipped >= 0 ? flipped : padding;
+      }
     }
 
     this.left.set(`${leftPosition}px`);
@@ -105,6 +109,13 @@ export class DcxNgContextMenuComponent {
 
   onListItemSelected(event: { item: DcxContextMenuItem; index: number }): void {
     this.onItemClick(event.item);
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.isOpen()) {
+      this.close();
+    }
   }
 
   @HostListener('document:click', ['$event'])

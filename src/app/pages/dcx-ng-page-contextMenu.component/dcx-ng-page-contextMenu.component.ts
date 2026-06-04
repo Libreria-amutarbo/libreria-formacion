@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
 import {
   DcxNgContextMenuComponent,
   DcxContextMenuItem,
@@ -9,15 +8,16 @@ import {
 @Component({
   selector: 'app-dcx-ng-page-context-menu',
   standalone: true,
-  imports: [DcxNgContextMenuComponent, DcxNgButtonComponent, FormsModule],
+  imports: [DcxNgContextMenuComponent, DcxNgButtonComponent],
   templateUrl: './dcx-ng-page-contextMenu.component.html',
   styleUrl: './dcx-ng-page-contextMenu.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageContextMenuComponent {
   @ViewChild('contextMenu1') contextMenu1!: DcxNgContextMenuComponent;
   @ViewChild('contextMenu2') contextMenu2!: DcxNgContextMenuComponent;
   @ViewChild('contextMenu3') contextMenu3!: DcxNgContextMenuComponent;
+  @ViewChild('contextMenu4') contextMenu4!: DcxNgContextMenuComponent;
+  @ViewChild('contextMenu5') contextMenu5!: DcxNgContextMenuComponent;
 
   menuItems: DcxContextMenuItem[] = [
     { text: 'Nuevo archivo', icon: 'file-earmark-plus' },
@@ -26,13 +26,12 @@ export class DcxNgPageContextMenuComponent {
     { text: 'Guardar', icon: 'save' },
     { text: 'Guardar como...', icon: 'save-fill' },
     { divider: true },
-    { text: 'Cerrar', icon: 'x-lg', disabled: true },
+    { text: 'Eliminar', icon: 'trash', variant: 'danger' },
   ];
 
   advancedMenuItems: DcxContextMenuItem[] = [
-    { text: 'Copiar', icon: 'clipboard' },
-    { text: 'Pegar', icon: 'clipboard-check' },
-    { text: 'Cortar', icon: 'scissors' },
+    { text: 'Ver perfil', icon: 'person' },
+    { text: 'Configuración', icon: 'gear' },
     { divider: true },
     {
       text: 'Más opciones',
@@ -42,6 +41,8 @@ export class DcxNgPageContextMenuComponent {
         { text: 'Opción 2', icon: 'check' },
       ],
     },
+    { divider: true },
+    { text: 'Cerrar sesión', icon: 'box-arrow-right', variant: 'danger' },
   ];
 
   nestedMenuItems: DcxContextMenuItem[] = [
@@ -66,66 +67,57 @@ export class DcxNgPageContextMenuComponent {
       ],
     },
     { divider: true },
-    { text: 'Eliminar', icon: 'trash', disabled: true },
+    { text: 'Eliminar', icon: 'trash', variant: 'danger' },
   ];
 
-  menuPosition1 = { x: 0, y: 0 };
-  menuPosition2 = { x: 0, y: 0 };
-  menuPosition3 = { x: 0, y: 0 };
-  selectedItem: DcxContextMenuItem | null = null;
+  disabledMenuItems: DcxContextMenuItem[] = [
+    { text: 'Nuevo archivo', icon: 'file-earmark-plus' },
+    { text: 'Abrir', icon: 'folder-open' },
+    { divider: true },
+    { text: 'Guardar', icon: 'save', disabled: true },
+    { text: 'Guardar como...', icon: 'save-fill', disabled: true },
+    { divider: true },
+    { text: 'Cerrar', icon: 'x-lg', disabled: true },
+  ];
 
-  coordX1 = 330;
-  coordY1 = 70;
-  coordX3 = 330;
-  coordY3 = 70;
+  dangerMenuItems: DcxContextMenuItem[] = [
+    { text: 'Editar', icon: 'pencil' },
+    { text: 'Duplicar', icon: 'copy' },
+    { divider: true },
+    { text: 'Archivar', icon: 'archive', variant: 'danger' },
+    { text: 'Eliminar permanentemente', icon: 'trash', variant: 'danger' },
+  ];
 
-  openContextMenu(event: MouseEvent, menuNumber: number, area: HTMLElement): void {
+
+  openContextMenu(event: MouseEvent, menuNumber: number): void {
     event.preventDefault();
-    event.stopPropagation();
+    const pos = { x: event.clientX, y: event.clientY };
 
-    const areaRect = area.getBoundingClientRect();
-    const menuWidth = 240;
-    const coordX = menuNumber === 1 ? this.coordX1 : this.coordX3;
-    const coordY = menuNumber === 1 ? this.coordY1 : this.coordY3;
-    const clampedX = Math.max(0, Math.min(coordX, areaRect.width - menuWidth));
-    const clampedY = Math.max(0, Math.min(coordY, areaRect.height));
-    const position = { x: areaRect.left + clampedX, y: areaRect.top + clampedY };
+    const menuMap: Record<number, DcxNgContextMenuComponent> = {
+      1: this.contextMenu1,
+      3: this.contextMenu3,
+      4: this.contextMenu4,
+      5: this.contextMenu5,
+    };
 
-    if (menuNumber === 1) {
-      this.menuPosition1 = position;
-      setTimeout(() => this.contextMenu1.open(), 0);
-    } else if (menuNumber === 2) {
-      this.menuPosition2 = position;
-      setTimeout(() => this.contextMenu2.open(), 0);
-    } else {
-      this.menuPosition3 = position;
-      setTimeout(() => this.contextMenu3.open(), 0);
-    }
+    menuMap[menuNumber]?.open(pos);
   }
 
   openContextMenuFromButton(triggerElement: HTMLElement): void {
-    const triggerRect = triggerElement.getBoundingClientRect();
+    const rect = triggerElement.getBoundingClientRect();
     const menuWidth = 240;
     const viewportPadding = 8;
-
-    const menuX = Math.min(
-      triggerRect.left,
-      window.innerWidth - menuWidth - viewportPadding,
-    );
-
-    this.menuPosition2 = {
+    const menuX = Math.min(rect.left, window.innerWidth - menuWidth - viewportPadding);
+    const pos = {
       x: Math.max(viewportPadding, menuX),
-      y: triggerRect.bottom + 4,
+      y: rect.bottom + 4,
     };
-
-    setTimeout(() => this.contextMenu2.open(), 0);
+    // setTimeout deja pasar el document:click del botón antes de abrir el menú
+    setTimeout(() => this.contextMenu2.open(pos));
   }
 
   onItemSelected(item: DcxContextMenuItem): void {
-    if (!item.text) {
-      return;
-    }
-
-    this.selectedItem = item;
+    if (!item.text) return;
+    console.log('Item seleccionado:', item.text);
   }
 }
