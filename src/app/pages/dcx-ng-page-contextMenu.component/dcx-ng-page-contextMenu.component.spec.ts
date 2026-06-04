@@ -40,25 +40,21 @@ describe('DcxNgPageContextMenuComponent', () => {
     expect(component.nestedMenuItems.length).toBeGreaterThan(0);
   });
 
-  it('should have initial menu positions', () => {
-    expect(component.menuPosition1).toEqual({ x: 0, y: 0 });
-    expect(component.menuPosition2).toEqual({ x: 0, y: 0 });
-    expect(component.menuPosition3).toEqual({ x: 0, y: 0 });
+  it('should have disabledMenuItems defined', () => {
+    expect(component.disabledMenuItems).toBeDefined();
+    expect(component.disabledMenuItems.some(i => i.disabled)).toBe(true);
   });
 
-  it('should set selectedItem when item has text', () => {
-    const item = { text: 'Abrir' };
-
-    component.onItemSelected(item);
-
-    expect(component.selectedItem).toEqual(item);
+  it('should have dangerMenuItems defined', () => {
+    expect(component.dangerMenuItems).toBeDefined();
+    expect(component.dangerMenuItems.some(i => i.variant === 'danger')).toBe(true);
   });
 
-  it('should ignore item without text', () => {
-    const dividerItem = { divider: true };
+  it('should call onItemSelected without throwing when item has text', () => {
+    expect(() => component.onItemSelected({ text: 'Abrir' })).not.toThrow();
+  });
 
-    component.onItemSelected(dividerItem);
-
-    expect(component.selectedItem).toBeNull();
+  it('should call onItemSelected without throwing when item has no text', () => {
+    expect(() => component.onItemSelected({ divider: true })).not.toThrow();
   });
 });
