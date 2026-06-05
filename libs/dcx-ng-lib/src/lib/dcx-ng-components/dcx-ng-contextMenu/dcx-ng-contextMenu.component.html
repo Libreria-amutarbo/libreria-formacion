@@ -7,8 +7,9 @@
     [style.left]="left()"
     [style.opacity]="isPositioned() ? '1' : '0'"
     (click)="$event.stopPropagation()"
-    tabindex="0"
+    tabindex="-1"
     role="menu"
+    aria-label="Menú contextual"
   >
     <dcx-ng-list
       class="dcx-context-menu-list"
@@ -16,6 +17,8 @@
       [selectable]="true"
       [renderChildren]="true"
       [showChildrenIndicator]="true"
+      listRole="presentation"
+      itemRole="menuitem"
       (itemSelected)="onListItemSelected($event)"
     >
     </dcx-ng-list>

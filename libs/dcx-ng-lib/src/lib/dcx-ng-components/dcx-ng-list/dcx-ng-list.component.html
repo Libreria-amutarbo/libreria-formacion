@@ -21,8 +21,11 @@
         [class.has-children]="item.children && item.children.length > 0"
         [class.danger]="item.variant === 'danger'"
         (click)="onItemClick(item, $index)"
+        (keydown)="onKeydown($event, item, $index)"
         [attr.tabindex]="selectable() && !item.disabled ? 0 : null"
         [attr.role]="itemRole()"
+        [attr.aria-disabled]="item.disabled || null"
+        [attr.aria-haspopup]="getChildren(item).length > 0 ? 'menu' : null"
         cdkDrag
         [cdkDragData]="item"
         [cdkDragDisabled]="!dragEnabled() || cdkDragDisabled()(item)"
@@ -38,6 +41,7 @@
                 <dcx-ng-icon
                   class="dcx-list-icon"
                   [name]="item.icon"
+                  aria-hidden="true"
                 ></dcx-ng-icon>
               </div>
             }
@@ -53,6 +57,7 @@
               <dcx-ng-icon
                 class="dcx-list-children-indicator"
                 name="chevron-right"
+                aria-hidden="true"
               ></dcx-ng-icon>
             }
           </div>

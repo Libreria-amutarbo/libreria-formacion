@@ -94,4 +94,23 @@ export class DcxNgListComponent<T extends DcxListItem = DcxListItem> {
   getChildren(item: T): T[] {
     return (item.children as T[]) || [];
   }
+
+  onKeydown(event: KeyboardEvent, item: T, index: number): void {
+    const children = this.getChildren(item);
+
+    if (event.key === 'ArrowRight' && children.length > 0) {
+      event.preventDefault();
+      const li = event.currentTarget as HTMLElement;
+      const firstChild = li.querySelector<HTMLElement>('.dcx-list-nested [tabindex="0"]');
+      firstChild?.focus();
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      const li = event.currentTarget as HTMLElement;
+      const parentLi = li.closest<HTMLElement>('.dcx-list-nested')?.closest<HTMLElement>('li');
+      parentLi?.focus();
+    } else if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.onItemClick(item, index);
+    }
+  }
 }

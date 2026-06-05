@@ -3,16 +3,20 @@
   font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
-.dcx-context-menu {
-  position: fixed;
-  z-index: 9999;
-  width: 240px;
-  overflow: visible;
+@mixin glass-panel {
   background: var(--bg-default, rgba(255, 255, 255, 0.95));
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--border-light, rgba(209, 213, 219, 0.4));
   border-radius: var(--r-lg, 8px);
+}
+
+.dcx-context-menu {
+  position: fixed;
+  z-index: 9999;
+  width: 240px;
+  overflow: visible;
+  @include glass-panel;
   box-shadow:
     var(--shadow-sm, 0 4px 6px -1px rgba(0, 0, 0, 0.1)),
     var(--shadow-md, 0 10px 15px -3px rgba(0, 0, 0, 0.1)),
@@ -83,6 +87,13 @@
         }
       }
 
+      &.selectable:focus-visible {
+        outline: 2px solid var(--border-focus, #1db8f2);
+        outline-offset: -2px;
+        border-radius: var(--r-md, 6px);
+        background-color: var(--background-hover);
+      }
+
       &.danger {
         color: var(--color-danger);
 
@@ -138,11 +149,7 @@
 
       .dcx-list-nested {
         padding: var(--sp-1, 6px);
-        background: var(--bg-default, rgba(255, 255, 255, 0.95));
-        backdrop-filter: blur(12px) saturate(180%);
-        -webkit-backdrop-filter: blur(12px) saturate(180%);
-        border: 1px solid var(--border-light, rgba(209, 213, 219, 0.4));
-        border-radius: var(--r-lg, 8px);
+        @include glass-panel;
         box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1));
         animation: dcxSubmenuEnter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         min-width: 200px;
@@ -151,16 +158,10 @@
         position: absolute;
         z-index: 10000;
         display: none;
-
-        .dcx-list-divider {
-          margin: 6px 8px;
-          background-color: var(--bg-pressed, rgba(0, 0, 0, 0.06));
-          height: 1px;
-          border: none;
-        }
       }
 
-      &.has-children:hover > .dcx-list-nested {
+      &.has-children:hover > .dcx-list-nested,
+      &.has-children:focus-within > .dcx-list-nested {
         display: block;
       }
     }

@@ -137,20 +137,7 @@
     }
   }
 
-  &:focus {
-    outline: none;
-  }
-
-  &:focus::after {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: calc(var(--dcx-chip-radius) + 4px);
-    border: 2px solid map.get($border, 'focus');
-    pointer-events: none;
-  }
-
-  &--secondary:focus::after {
+  &:focus-visible::after {
     content: '';
     position: absolute;
     inset: -4px;

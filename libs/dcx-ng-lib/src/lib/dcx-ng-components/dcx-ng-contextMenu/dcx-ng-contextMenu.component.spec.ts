@@ -259,4 +259,48 @@ describe('DcxNgContextMenuComponent', () => {
       expect(component.items().length).toBeGreaterThan(0);
     });
   });
+
+  describe('WCAG AA', () => {
+    it('should render role="menu" on the container when open', () => {
+      component.open();
+      fixture.detectChanges();
+      const menu = compiled.query(By.css('[role="menu"]'));
+      expect(menu).toBeTruthy();
+    });
+
+    it('should have aria-label="Menú contextual" on the container', () => {
+      component.open();
+      fixture.detectChanges();
+      const menu = compiled.query(By.css('[role="menu"]'));
+      expect(menu.nativeElement.getAttribute('aria-label')).toBe('Menú contextual');
+    });
+
+    it('should have tabindex="-1" on the container', () => {
+      component.open();
+      fixture.detectChanges();
+      const menu = compiled.query(By.css('.dcx-context-menu'));
+      expect(menu.nativeElement.getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('should close on Escape key when open', () => {
+      component.open();
+      component.onEscapeKey();
+      expect(component.isOpen()).toBe(false);
+    });
+
+    it('should not emit menuClosed on Escape when already closed', () => {
+      const spy = jest.fn();
+      component.menuClosed.subscribe(spy);
+      component.onEscapeKey();
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should emit menuClosed when Escape closes the menu', () => {
+      const spy = jest.fn();
+      component.menuClosed.subscribe(spy);
+      component.open();
+      component.onEscapeKey();
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
 });
