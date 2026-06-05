@@ -1,0 +1,223 @@
+<div class="demo-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Input OTP</h1>
+    <p class="demo-page-header__desc">
+      Componente para introducir códigos de verificación en varias casillas,
+      con soporte para navegación por teclado, modo numérico, enmascarado e
+      integración con formularios Angular.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <p class="demo-section__desc">
+      Caso base de 4 posiciones con actualización del valor agregado.
+    </p>
+    <div class="demo-section__body demo-section__body--narrow">
+      <div class="example-stack">
+        <dcx-ng-input-otp [(ngModel)]="defaultValue"></dcx-ng-input-otp>
+        <p class="value-preview">Valor: {{ defaultValue || 'Sin completar' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Integer Only</span>
+    </div>
+    <p class="demo-section__desc">
+      Restringe la entrada a dígitos y emite el código cuando se completa.
+    </p>
+    <div class="demo-section__body demo-section__body--narrow">
+      <div class="example-stack">
+        <dcx-ng-input-otp
+          [(ngModel)]="numericValue"
+          [length]="6"
+          size="medium"
+          [integerOnly]="true"
+          ariaLabel="Código numérico de verificación"
+          (completed)="onCompleted($event)"
+        ></dcx-ng-input-otp>
+        <p class="value-preview">Valor: {{ numericValue }}</p>
+        <p class="value-preview">Completado: {{ completedCode || 'Pendiente' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Masked</span>
+    </div>
+    <p class="demo-section__desc">
+      Oculta cada carácter introducido manteniendo el valor real disponible.
+    </p>
+    <div class="demo-section__body demo-section__body--narrow">
+      <div class="example-stack">
+        <dcx-ng-input-otp
+          [(ngModel)]="maskedValue"
+          [mask]="true"
+          size="medium"
+          placeholder="•"
+          ariaLabel="Código OTP enmascarado"
+        ></dcx-ng-input-otp>
+        <p class="value-preview">Valor real: {{ maskedValue || 'Sin completar' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Interactive</span>
+    </div>
+    <p class="demo-section__desc">
+      Muestra el valor actual, el último código completado y permite limpiar el estado.
+    </p>
+    <div class="demo-section__body demo-section__body--narrow">
+      <div class="example-stack">
+        <dcx-ng-input-otp
+          [(ngModel)]="interactiveValue"
+          [integerOnly]="true"
+          ariaLabel="Código interactivo de verificación"
+          (completed)="onCompleted($event)"
+        ></dcx-ng-input-otp>
+        <div class="value-list">
+          <span>Valor actual: {{ interactiveValue || 'Sin completar' }}</span>
+          <span>Último código completo: {{ completedCode || 'Pendiente' }}</span>
+        </div>
+        <button type="button" class="demo-button" (click)="clearInteractiveCode()">
+          Limpiar código
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Sizes</span>
+    </div>
+    <p class="demo-section__desc">
+      El componente expone tamaños pequeño, medio y grande.
+    </p>
+    <div class="demo-section__body demo-section__body--narrow">
+      <div class="example-stack example-stack--aligned">
+        <dcx-ng-input-otp [(ngModel)]="smallValue" size="small" ariaLabel="OTP small"></dcx-ng-input-otp>
+        <dcx-ng-input-otp [(ngModel)]="mediumValue" size="medium" ariaLabel="OTP medium"></dcx-ng-input-otp>
+        <dcx-ng-input-otp [(ngModel)]="largeValue" size="large" ariaLabel="OTP large"></dcx-ng-input-otp>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Template-driven Form</span>
+    </div>
+    <p class="demo-section__desc">
+      Integración con `ngModel`, validación requerida y feedback de error.
+    </p>
+    <div class="demo-section__body demo-section__body--narrow">
+      <form #exampleForm="ngForm" (ngSubmit)="onTemplateFormSubmit(exampleForm)" class="example-stack">
+        <dcx-ng-input-otp
+          #otpModel="ngModel"
+          [(ngModel)]="templateFormValue"
+          name="templateFormValue"
+          required
+          [integerOnly]="true"
+          [invalid]="otpModel.invalid && (otpModel.touched || templateFormSubmitted)"
+          ariaLabel="OTP con formulario template-driven"
+        ></dcx-ng-input-otp>
+        <p class="error-preview">
+          {{ otpModel.invalid && (otpModel.touched || templateFormSubmitted) ? 'Passcode is required.' : '' }}
+        </p>
+        <button type="submit" class="demo-button">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Reactive Form</span>
+    </div>
+    <p class="demo-section__desc">
+      Ejemplo con `formControlName`, validadores y estado inválido derivado del formulario.
+    </p>
+    <div class="demo-section__body demo-section__body--narrow">
+      <form [formGroup]="reactiveForm" (ngSubmit)="onReactiveSubmit()" class="example-stack">
+        <dcx-ng-input-otp
+          formControlName="value"
+          [integerOnly]="true"
+          [invalid]="isReactiveInvalid()"
+          ariaLabel="OTP con reactive forms"
+        ></dcx-ng-input-otp>
+        <p class="error-preview">
+          {{ isReactiveInvalid() ? 'Passcode is required.' : '' }}
+        </p>
+        <button type="submit" class="demo-button">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Sample Layout</span>
+    </div>
+    <p class="demo-section__desc">
+      Composición más cercana a un flujo real de autenticación con 6 dígitos y acciones auxiliares.
+    </p>
+    <div class="demo-section__body">
+      <div class="sample-layout">
+        <div class="sample-layout__title">Authenticate Your Account</div>
+        <p class="sample-layout__desc">Please enter the code sent to your phone.</p>
+        <dcx-ng-input-otp
+          [(ngModel)]="sampleValue"
+          [length]="6"
+          [integerOnly]="true"
+          ariaLabel="Código de autenticación de 6 dígitos"
+        >
+          <ng-template #input let-token let-index="index" let-events="events" let-attrs="attrs">
+            <div class="sample-layout__token-wrapper">
+              <input
+                type="text"
+                [value]="token"
+                [disabled]="attrs.disabled"
+                [attr.maxlength]="attrs.maxlength"
+                [attr.inputmode]="attrs.inputmode"
+                [attr.autocomplete]="attrs.autocomplete"
+                [attr.placeholder]="attrs.placeholder"
+                [attr.aria-label]="attrs.ariaLabel"
+                (input)="events.input($event)"
+                (keydown)="events.keydown($event)"
+                (paste)="events.paste($event)"
+                (focus)="events.focus()"
+                (blur)="events.blur()"
+                class="sample-layout__token-input"
+              />
+              @if (index === 2) {
+                <span class="sample-layout__token-separator">-</span>
+              }
+            </div>
+          </ng-template>
+        </dcx-ng-input-otp>
+        <div class="sample-layout__actions">
+          <button type="button" class="demo-button demo-button--link" (click)="resendCode()">
+            Resend Code
+          </button>
+          <button type="button" class="demo-button" (click)="submitSampleCode()">
+            Submit Code
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

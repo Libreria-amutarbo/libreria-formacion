@@ -1,0 +1,107 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as InputOtpStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/InputOtp/Documentation" />
+
+# Input OTP
+
+El componente `dcx-ng-input-otp` permite introducir códigos de verificación en varias casillas independientes, manteniendo un valor agregado único e integración con Angular Forms.
+
+---
+
+## Características principales
+
+- Longitud configurable mediante `length`
+- Tamaños `small`, `medium` y `large`
+- Restricción numérica con `integerOnly`
+- Modo enmascarado con `mask`
+- Estado visual inválido con `invalid`
+- Navegación por teclado entre casillas
+- Soporte para pegado de código completo
+
+---
+
+## Demo principal
+
+<Canvas of={InputOtpStories.Default} />
+
+---
+
+## API
+
+### Inputs
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `length` | `number` | `4` | Número de casillas OTP |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Tamaño visual de las casillas |
+| `integerOnly` | `boolean` | `false` | Restringe la entrada a dígitos |
+| `mask` | `boolean` | `false` | Oculta visualmente el valor introducido |
+| `invalid` | `boolean` | `false` | Aplica el estado visual de error |
+| `disabled` | `boolean` | `false` | Deshabilita toda la interacción |
+| `placeholder` | `string` | `''` | Placeholder repetido en cada casilla |
+| `ariaLabel` | `string` | `'One-time password input'` | Etiqueta accesible base del grupo |
+
+### Outputs
+
+| Evento | Tipo | Descripción |
+|--------|------|-------------|
+| `valueChange` | `string` | Emite el valor OTP agregado cada vez que cambia |
+| `completed` | `string` | Emite cuando todas las posiciones están completas |
+| `focusEvent` | `number` | Emite el índice de la casilla enfocada |
+| `blurEvent` | `number` | Emite el índice de la casilla que pierde el foco |
+
+---
+
+## Uso básico
+
+```html
+<dcx-ng-input-otp
+  [(ngModel)]="code"
+  [length]="6"
+  [integerOnly]="true"
+  (completed)="onCompleted($event)"
+></dcx-ng-input-otp>
+```
+
+---
+
+## Variantes
+
+### Integer Only
+
+<Canvas of={InputOtpStories.IntegerOnly} />
+
+### Sizes
+
+<Canvas of={InputOtpStories.Sizes} />
+
+### Enmascarado
+
+<Canvas of={InputOtpStories.Masked} />
+
+### Template-driven Form
+
+<Canvas of={InputOtpStories.TemplateDrivenForm} />
+
+### Reactive Form
+
+<Canvas of={InputOtpStories.ReactiveForm} />
+
+### Sample Layout
+
+<Canvas of={InputOtpStories.SampleLayout} />
+
+### Interactivo
+
+<Canvas of={InputOtpStories.Interactive} />
+
+---
+
+## Accesibilidad
+
+- El componente expone una etiqueta accesible del grupo mediante `ariaLabel`.
+- Cada casilla puede recorrerse con teclado.
+- `ArrowLeft` y `ArrowRight` mueven el foco entre posiciones.
+- `Backspace` borra y retrocede cuando corresponde.
+- `autocomplete="one-time-code"` ayuda a escenarios OTP compatibles.

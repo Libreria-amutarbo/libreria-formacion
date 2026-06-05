@@ -1,0 +1,38 @@
+<div
+  class="dcx-input-otp__group"
+  role="group"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-invalid]="invalid()"
+>
+  @for (token of displayTokens(); track $index) {
+    @if (inputTemplate) {
+      <ng-container
+        *ngTemplateOutlet="
+          inputTemplate;
+          context: getTemplateContext(token, $index)
+        "
+      ></ng-container>
+    } @else {
+      <input
+        #otpInput
+        class="dcx-input-otp__input"
+        [class.dcx-input-otp__input--filled]="!!token"
+        [class.dcx-input-otp__input--small]="size() === 'small'"
+        [class.dcx-input-otp__input--large]="size() === 'large'"
+        [attr.type]="inputType()"
+        [attr.inputmode]="inputMode()"
+        [attr.autocomplete]="'one-time-code'"
+        [attr.maxlength]="1"
+        [attr.placeholder]="placeholder()"
+        [attr.aria-label]="getAriaLabel($index)"
+        [disabled]="isDisabled()"
+        [value]="token"
+        (focus)="onFocus($index)"
+        (blur)="onBlur($index)"
+        (input)="onInput($event, $index)"
+        (keydown)="onKeydown($event, $index)"
+        (paste)="onPaste($event, $index)"
+      />
+    }
+  }
+</div>
