@@ -1,61 +1,121 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Context Menu Básico</h2>
-  <div class="coordinates-input">
-    <label>X: <input type="number" [(ngModel)]="coordX1" min="0" /></label>
-    <label>Y: <input type="number" [(ngModel)]="coordY1" min="0" /></label>
-  </div>
-  <div #area1 class="context-area" (contextmenu)="openContextMenu($event, 1, area1)">
-    <p>Haz clic derecho aquí para abrir el menú contextual</p>
-  </div>
+<div class="demo-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Context Menu</h1>
+    <p class="demo-page-header__desc">
+      Menú contextual flotante con soporte de sublistas, items desactivados, variante danger y apertura programática.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-  <dcx-ng-context-menu
-    #contextMenu1
-    [items]="menuItems"
-    [position]="menuPosition1"
-    (itemSelected)="onItemSelected($event)"
-  >
-  </dcx-ng-context-menu>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 2 - Context Menu con Botón</h2>
-  <div #buttonTrigger>
-    <dcx-ng-button
-      label="Abrir menú contextual"
-      variant="primary"
-      (buttonClick)="openContextMenuFromButton(buttonTrigger)"
-    >
-    </dcx-ng-button>
+  <!-- 01 — Básico (clic derecho) -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Básico (clic derecho)</span>
+    </div>
+    <div class="demo-section__body">
+      <div class="context-area" (contextmenu)="openContextMenu($event, 1)">
+        <p>Haz clic derecho aquí para abrir el menú contextual</p>
+      </div>
+      <dcx-ng-context-menu
+        #contextMenu1
+        [items]="menuItems"
+        [position]="{ x: 0, y: 0 }"
+        (itemSelected)="onItemSelected($event)"
+      ></dcx-ng-context-menu>
+    </div>
   </div>
 
-  <dcx-ng-context-menu
-    #contextMenu2
-    [items]="advancedMenuItems"
-    [position]="menuPosition2"
-    (itemSelected)="onItemSelected($event)"
-  >
-  </dcx-ng-context-menu>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 3 - Context Menu con Sublistas</h2>
-  <div class="coordinates-input">
-    <label>X: <input type="number" [(ngModel)]="coordX3" min="0" /></label>
-    <label>Y: <input type="number" [(ngModel)]="coordY3" min="0" /></label>
+  <!-- 02 — Trigger por botón -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Trigger por botón</span>
+    </div>
+    <p class="demo-section__desc">
+      El menú puede abrirse programáticamente desde cualquier elemento, no solo con clic derecho.
+    </p>
+    <div class="demo-section__body">
+      <div #buttonTrigger>
+        <dcx-ng-button
+          label="Abrir menú contextual"
+          variant="primary"
+          (buttonClick)="openContextMenuFromButton(buttonTrigger)"
+        ></dcx-ng-button>
+      </div>
+      <dcx-ng-context-menu
+        #contextMenu2
+        [items]="advancedMenuItems"
+        [position]="{ x: 0, y: 0 }"
+        (itemSelected)="onItemSelected($event)"
+      ></dcx-ng-context-menu>
+    </div>
   </div>
-  <div #area3 class="context-area" (contextmenu)="openContextMenu($event, 3, area3)">
-    <p>Haz clic derecho aquí para abrir el menú con sublistas</p>
+
+  <!-- 03 — Con sublistas -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Con sublistas</span>
+    </div>
+    <p class="demo-section__desc">
+      Usa <kbd>ArrowRight</kbd> para abrir un submenú con teclado y <kbd>ArrowLeft</kbd> para volver.
+    </p>
+    <div class="demo-section__body">
+      <div class="context-area" (contextmenu)="openContextMenu($event, 3)">
+        <p>Haz clic derecho aquí para abrir el menú con sublistas</p>
+      </div>
+      <dcx-ng-context-menu
+        #contextMenu3
+        [items]="nestedMenuItems"
+        [position]="{ x: 0, y: 0 }"
+        (itemSelected)="onItemSelected($event)"
+      ></dcx-ng-context-menu>
+    </div>
   </div>
 
-  <dcx-ng-context-menu
-    #contextMenu3
-    [items]="nestedMenuItems"
-    [position]="menuPosition3"
-    (itemSelected)="onItemSelected($event)"
-  >
-  </dcx-ng-context-menu>
-</section>
+  <!-- 04 — Items desactivados -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Items desactivados</span>
+    </div>
+    <p class="demo-section__desc">
+      Los items con <code>disabled: true</code> no son interactivos y tienen <code>aria-disabled="true"</code>.
+    </p>
+    <div class="demo-section__body">
+      <div class="context-area" (contextmenu)="openContextMenu($event, 4)">
+        <p>Haz clic derecho — "Guardar" y "Cerrar" están desactivados</p>
+      </div>
+      <dcx-ng-context-menu
+        #contextMenu4
+        [items]="disabledMenuItems"
+        [position]="{ x: 0, y: 0 }"
+        (itemSelected)="onItemSelected($event)"
+      ></dcx-ng-context-menu>
+    </div>
+  </div>
+
+  <!-- 05 — Variante danger -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Variante danger</span>
+    </div>
+    <p class="demo-section__desc">
+      Usa <code>variant: 'danger'</code> para marcar acciones destructivas en rojo.
+    </p>
+    <div class="demo-section__body">
+      <div class="context-area" (contextmenu)="openContextMenu($event, 5)">
+        <p>Haz clic derecho — "Archivar" y "Eliminar" usan la variante danger</p>
+      </div>
+      <dcx-ng-context-menu
+        #contextMenu5
+        [items]="dangerMenuItems"
+        [position]="{ x: 0, y: 0 }"
+        (itemSelected)="onItemSelected($event)"
+      ></dcx-ng-context-menu>
+    </div>
+  </div>
+</div>

@@ -1,54 +1,12 @@
-@use './../../app.component.scss';
-
-section {
-  margin-bottom: var(--sp-8, 32px);
-}
-
-hr {
-  margin: var(--sp-8, 32px) 0;
-  border: none;
-  border-top: 1px solid var(--border-default);
-}
-
-.example-title {
-  margin-bottom: var(--sp-4, 16px);
-}
+// page-demo styles are provided globally via src/styles.scss
 
 .context-area {
-  min-height: 200px;
+  min-height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
   border: 2px dashed var(--border-default);
   border-radius: var(--r-md, 6px);
-  margin-top: var(--sp-3, 12px);
-}
-
-.coordinates-input {
-  display: flex;
-  gap: var(--sp-6, 24px);
-  margin-bottom: var(--sp-4, 16px);
-
-  label {
-    display: flex;
-    align-items: center;
-    gap: var(--sp-2, 8px);
-    font-weight: var(--fw-medium, 500);
-    font-size: var(--fs-sm, 13px);
-  }
-
-  input[type='number'] {
-    width: 80px;
-    padding: var(--sp-1, 4px) var(--sp-2, 8px);
-    border: 1px solid var(--border-default);
-    border-radius: var(--r-sm, 4px);
-    font-family: var(--ff-base, 'Inter', sans-serif);
-    font-size: var(--fs-sm, 12px);
-
-    &:focus {
-      outline: 2px solid var(--bg-primary);
-      outline-offset: 1px;
-    }
-  }
+  cursor: context-menu;
 }
