@@ -71,7 +71,7 @@ describe('DcxNgDialogComponent', () => {
   it('should compute dialogClasses based on position', () => {
     fixture.componentRef.setInput('position', 'top');
     fixture.detectChanges();
-    expect(component.dialogClasses).toContain('dialog--pos-top');
+    expect(component.dialogClasses()).toContain('dialog--pos-top');
   });
 
   it('should accept title input', () => {

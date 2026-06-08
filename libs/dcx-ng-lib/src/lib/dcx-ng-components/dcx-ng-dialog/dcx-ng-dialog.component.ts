@@ -55,7 +55,6 @@ export class DcxNgDialogComponent {
     if (this.closeOnBackdrop()) this.close();
   }
 
-  get dialogClasses(): string {
-    return `dcx-dialog dialog--pos-${this.position()}`;
-  }
+  readonly dialogTitleId = computed(() => `dialog-title-${this.dialogId() ?? 'default'}`);
+  readonly dialogClasses = computed(() => `dcx-dialog dialog--pos-${this.position()}`);
 }
