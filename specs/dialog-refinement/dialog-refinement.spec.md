@@ -1,6 +1,6 @@
 # Spec: Dialog Refinement
 
-**Status:** Pendiente
+**Status:** Done
 **Date:** 2026-06-08
 **Author:** Claude Code
 
@@ -8,164 +8,108 @@
 
 ## 1. Overview
 
-`dcx-ng-dialog` es un componente modal accesible gestionado mediante `DialogService`. Soporta 9 posiciones de pantalla, backdrop opcional con cierre al clic, header con título y botón de cierre, y proyección de contenido personalizado vía `ng-template` (`#dialogBody`, `#dialogFooter`).
+`dcx-ng-dialog` es un componente modal accesible gestionado mediante `DialogService`. Soporta 9 posiciones de pantalla, backdrop opcional, header con título y botón de cierre, y proyección de contenido via `ng-template` (`#dialogBody`, `#dialogFooter`).
 
-Esta refinación actualiza la **página demo** para que refleje fielmente los 3 escenarios del diseño de referencia (`designs/dcx-ng-page-dialog.html`): diálogo destructivo, diálogo de formulario y diálogo informativo — incluyendo los iconos circulares y el contenido realista. Las correcciones al componente (WCAG, signals, tokens) ya están implementadas.
+Esta refinación añade la tecla `Escape` para cerrar, `ChangeDetectionStrategy.OnPush`, tres stories de Storybook que estaban en la demo pero no en el catálogo, y reestructura la página demo al formato estándar `demo-page / demo-section`.
 
 **Referencia de diseño:** `designs/dcx-ng-page-dialog.html`
 
 ---
 
-## 2. Estado actual del componente
+## 2. Problemas detectados
 
-Los siguientes puntos del spec anterior **ya están implementados** y no requieren cambios:
+### 2.1 WCAG AA — Críticos
 
-| Elemento | Estado |
-|----------|--------|
-| `aria-labelledby` en `role="dialog"` | ✅ Implementado |
-| `dialogTitleId` como `computed()` signal | ✅ Implementado |
-| `dialogClasses` como `computed()` signal | ✅ Implementado |
-| Header/footer usan `--border-default` | ✅ Implementado |
-| Título `font-size: 16px` | ✅ Implementado |
-| Footer `padding-top: var(--sp-3, 12px)` | ✅ Implementado |
-| Storybook argTypes en español (`Atributos` / `Eventos`) | ✅ Implementado |
-| MDX corregida (`DialogClassBasedStories.BasicDialog`) | ✅ Implementado |
+| # | Criterio | Problema actual | Solución |
+|---|----------|-----------------|----------|
+| 1 | 2.1.1 Keyboard | `Escape` no cierra el diálogo — no hay listener de teclado en el componente | Añadir `@HostListener('document:keydown.escape')` que llame a `close()` si `isVisible()` |
 
----
+### 2.2 WCAG AA — Recomendados
 
-## 3. Problemas detectados
+| # | Criterio | Descripción |
+|---|----------|-------------|
+| 1 | 2.4.3 Focus Order | Focus trap no implementado — el foco puede salir del diálogo con `Tab` | Pendiente (fuera de scope, requiere CDK) |
+| 2 | 2.4.7 Focus Visible | `:focus-visible` no declarado en SCSS del componente — delegado a `DcxNgButtonComponent` que sí lo implementa | Verificar que el botón de cierre renderiza el outline correctamente |
 
-### 3.1 Página demo no refleja el diseño
+### 2.3 Bugs de lógica
 
-La página demo (`src/app/pages/dcx-ng-page-dialog/`) muestra 4 ejemplos genéricos que **no coinciden** con los escenarios del diseño de referencia:
+| # | Descripción |
+|---|-------------|
+| 1 | `ChangeDetectionStrategy` no definido — usa la detección por defecto en lugar de `OnPush` |
+| 2 | Page demo no usa las clases `demo-page` / `demo-page-header` / `demo-section` del sistema de diseño de la app — usa `<section>` y `<h2>` ad hoc |
 
-| Problema | Impacto |
-|----------|---------|
-| No tiene el diálogo de **confirmación destructiva** (icono danger + botón "Eliminar") | El diseño lo muestra como caso principal |
-| No tiene el diálogo de **formulario** (campos de texto, select) | El diseño lo muestra como segundo caso |
-| No tiene el diálogo **informativo** con icono info circle | El diseño lo muestra como tercer caso |
-| Los cuerpos usan texto genérico ("Este es un mensaje informativo") | Deberían usar el contenido realista del diseño |
-| El ejemplo de scroll y el de posiciones no están en el diseño | Son demostraciones de funcionalidad, pero el orden difiere del diseño |
+### 2.4 Mejoras de UX / coherencia
 
-### 3.2 Página demo usa dividers con colores hardcoded
-
-```html
-<dcx-ng-divider color="#9A9A9A" [thickness]="0.05" size="l">
-```
-
-El `color` debería usar el token `var(--border-default)` en lugar de `#9A9A9A`, o simplemente omitir el atributo y dejar el color por defecto del componente.
+| # | Descripción |
+|---|-------------|
+| 1 | Storybook carece de las stories: `Destructive` (confirmación peligrosa), `WithForm` (formulario), `Informative` (con icono) — están en la demo pero no en el catálogo |
+| 2 | Page demo no está numerada (`demo-section__num`) ni sigue el orden de Storybook |
 
 ---
 
-## 4. API / Interface
+## 3. API / Interface
 
-Sin cambios. La API del componente permanece igual.
+Sin cambios breaking. Solo correcciones internas.
 
 ### Inputs (`input()` signals)
 
-| Name | Type | Default | Descripción |
-|------|------|---------|-------------|
-| `dialogId` | `string \| undefined` | `undefined` | Identificador para gestionar visibilidad desde `DialogService` |
-| `title` | `string` | `''` | Texto del header. Si está vacío, no se renderiza el elemento de título |
-| `visible` | `boolean` | `false` | Control directo de visibilidad (sin `DialogService`) |
-| `showClose` | `boolean` | `true` | Muestra u oculta el botón ✕ del header |
-| `position` | `DcxDialogPosition` | `'center'` | Posición en pantalla: `center`, `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` |
-| `closeOnBackdrop` | `boolean` | `true` | Cierra el diálogo al hacer clic en el backdrop |
+| Name | Type | Default | Required | Descripción |
+|------|------|---------|----------|-------------|
+| `dialogId` | `string \| undefined` | `undefined` | — | Identificador para gestionar visibilidad desde `DialogService` |
+| `title` | `string` | `''` | — | Texto del header. Si está vacío no se renderiza el `<h3>` |
+| `visible` | `boolean` | `false` | — | Control directo de visibilidad sin `DialogService` |
+| `showClose` | `boolean` | `true` | — | Muestra u oculta el botón ✕ del header |
+| `position` | `DcxDialogPosition` | `'center'` | — | Posición en pantalla (9 valores) |
+| `closeOnBackdrop` | `boolean` | `true` | — | Cierra al hacer clic en el backdrop |
 
 ### Outputs (`output()` signals)
 
 | Name | Emitted Type | Descripción |
 |------|--------------|-------------|
-| `closeDialog` | `void` | Emitido al cerrar el diálogo |
+| `closeDialog` | `void` | Emitido al cerrar el diálogo (botón ✕, backdrop, Escape o footer) |
 
-### Content Children (ng-template)
+### Public Methods
 
-| Template ref | Descripción |
-|--------------|-------------|
-| `#dialogBody` | Contenido del cuerpo del diálogo |
-| `#dialogFooter` | Contenido del footer (botones de acción) |
-
----
-
-## 5. Visual States & Variants
-
-Según el diseño en `designs/dcx-ng-page-dialog.html`:
-
-### Variante 1 — Confirmación destructiva
-
-- **Header:** título "Eliminar proyecto" + botón ✕
-- **Body:** icono circulo rojo (`background: var(--color-error-bg, #fef2f2)`) con SVG de papelera en rojo + texto explicativo con nombre del proyecto en negrita
-- **Footer:** botón "Cancelar" (secondary) + botón "Eliminar" (danger/error)
-
-```html
-<!-- Icono danger -->
-<div class="dialog-icon icon-danger">
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-    <path d="M8 4h4M3 6h14M5 6l1 10h8l1-10"
-      stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</div>
-<p>¿Estás seguro de que deseas eliminar el proyecto
-  <strong>Cloud Migration</strong>?
-  Esta acción es irreversible y no se puede deshacer.</p>
-```
-
-### Variante 2 — Formulario
-
-- **Header:** título "Nuevo proyecto" + botón ✕
-- **Body:** 3 campos de formulario: Nombre del proyecto (input text), Cliente (input text), Práctica (select con opciones)
-- **Footer:** botón "Cancelar" (secondary) + botón "Crear proyecto" (primary)
-
-### Variante 3 — Informativo
-
-- **Header:** título "Información importante" + botón ✕
-- **Body:** icono círculo azul (`background: #dbeafe`) con SVG de info en azul + texto con fecha en negrita
-- **Footer:** botón "Entendido" (primary)
-
-```html
-<!-- Icono info -->
-<div class="dialog-icon icon-info">
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-    <circle cx="10" cy="10" r="7" stroke="#1d4ed8" stroke-width="1.5"/>
-    <path d="M10 9v5M10 7v.5" stroke="#1d4ed8" stroke-width="1.5" stroke-linecap="round"/>
-  </svg>
-</div>
-<p>El proceso de migración comenzará el
-  <strong>lunes 22 de abril</strong>.
-  Durante este periodo algunos servicios podrían no estar disponibles temporalmente.</p>
-```
+| Method | Signature | Descripción |
+|--------|-----------|-------------|
+| `close` | `(): void` | Cierra el diálogo y emite `closeDialog` |
 
 ---
 
-## 6. SCSS de la página demo
+## 4. Visual States & Variants
 
-Los estilos de `dialog-icon`, `icon-danger`, `icon-info` deben añadirse al SCSS de la página demo (`dcx-ng-page-dialog.component.scss`):
+Según `designs/dcx-ng-page-dialog.html`:
 
-```scss
-.dialog-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--sp-3, 12px);
-}
-
-.icon-danger {
-  background: var(--color-error-bg, #fef2f2);
-}
-
-.icon-info {
-  background: #dbeafe;
-}
-```
+| Estado | Descripción |
+|--------|-------------|
+| **Cerrado** | El componente no renderiza nada (`@if (isVisible())` es false) |
+| **Informativo** | Header con título + ✕, body con icono info (azul), footer con un botón "Entendido" |
+| **Confirmación** | Header + body con texto, footer "Cancelar" + "Aceptar" |
+| **Destructivo** | Icono danger (rojo) en body, footer "Cancelar" + "Eliminar" (variant danger) |
+| **Formulario** | Body con campos input/select, footer "Cancelar" + acción primaria |
+| **Sin título** | Header solo con botón ✕ |
+| **Sin botón cierre** | Header solo con título |
+| **9 posiciones** | `center` (default) + 8 puntos de anclaje |
 
 ---
 
-## 7. Accesibilidad (WCAG AA)
+## 5. SCSS / Tokens
 
-El componente ya cumple los criterios WCAG AA implementados en la refinación anterior. Sin cambios en esta iteración.
+Sin cambios al SCSS del componente. Tokens ya correctos:
+
+| Token | Uso |
+|-------|-----|
+| `--bg-default` | Fondo del diálogo |
+| `--bg-surface` | Fondo del footer |
+| `--border-default` | Bordes header/footer |
+| `--text-dark` | Título |
+| `--text-muted` | Cuerpo |
+| `--r-lg` | Border-radius |
+| `--sp-3`, `--sp-4`, `--sp-5` | Paddings |
+
+---
+
+## 6. Accesibilidad (WCAG AA)
 
 ### Estructura ARIA (ya implementada)
 
@@ -176,50 +120,76 @@ El componente ya cumple los criterios WCAG AA implementados en la refinación an
   aria-modal="true"
   [attr.aria-labelledby]="title() ? dialogTitleId() : null"
 >
-  <div class="dialog-header">
-    <h3 [id]="dialogTitleId()" class="dialog-title">{{ title() }}</h3>
-    <dcx-ng-button ariaLabel="Cerrar diálogo" ... />
-  </div>
-  ...
+  <h3 [id]="dialogTitleId()" class="dialog-title">{{ title() }}</h3>
+  <dcx-ng-button ariaLabel="Cerrar diálogo" ... />
 </div>
 ```
 
-### Pendiente (fuera de scope)
+### Teclado
 
-| Tecla | Acción pendiente |
-|-------|-----------------|
-| `Escape` | Cierra el diálogo (requiere `HostListener`) |
-| `Tab` | Focus trap dentro del diálogo (requiere CDK FocusTrap) |
+| Tecla | Comportamiento |
+|-------|---------------|
+| `Escape` | Cierra el diálogo (nuevo) |
+| `Tab` | Navega entre elementos interactivos (sin trap — pendiente CDK) |
 
----
+### Screen reader notes
 
-## 8. Test Cases
-
-Los tests del componente ya cubren los casos críticos. La página demo no tiene casos nuevos que requieran tests de unidad.
-
-### Casos pendientes en el spec del componente
-
-- [ ] should render `aria-labelledby` pointing to title id when title is set
-- [ ] should NOT render `aria-labelledby` when title is empty
-- [ ] should render `[id]` on `<h3>` matching the `aria-labelledby` value
+- `aria-modal="true"` indica que el resto de la página no es interactiva
+- `aria-labelledby` vincula el título al contenedor `role="dialog"`
+- Cuando `title` está vacío, `aria-labelledby` no se renderiza
 
 ---
 
-## 9. Out of Scope
+## 7. Test Cases
 
-- Focus trap (foco atrapado dentro del diálogo) — requiere CDK
-- Escape key listener — requiere `HostListener`
+- [x] should create the component
+- [x] should have default values
+- [x] should be visible when `visible` input is true
+- [x] should emit `closeDialog` when `close()` is called
+- [x] should call `close()` on backdrop click when `closeOnBackdrop` is true
+- [x] should NOT call `close()` on backdrop click when `closeOnBackdrop` is false
+- [x] should compute `dialogClasses` based on position (signal)
+- [x] should accept `title` input
+- [x] `isVisible` should use `DialogService` state when `dialogId` is set
+- [x] `close()` should call `dialogService.close()` when `dialogId` is set
+- [x] should render `aria-labelledby` pointing to title id when title is set
+- [x] should NOT render `aria-labelledby` when title is empty
+- [x] should close on `Escape` key press when visible
+- [x] should NOT close on `Escape` key press when not visible
+
+---
+
+## 7b. Decisión: `@HostListener('document:keydown.escape')` vs `(keydown)` en template
+
+Se usa `@HostListener('document:keydown.escape')` porque:
+1. El diálogo está en un overlay fixed — el foco puede estar en cualquier elemento del DOM, no solo dentro del diálogo
+2. La versión template `(keydown)` requeriría que el diálogo tuviera el foco, lo que no está garantizado sin focus trap
+3. Escuchar en `document` es el patrón estándar para overlays (WAI-ARIA APG Modal Dialog)
+4. Se guarda con `if (this.isVisible())` para no interferir cuando el diálogo está cerrado
+
+---
+
+## 8. Out of Scope
+
+- Focus trap (requiere `cdkTrapFocus` o Angular CDK — tarea separada)
 - Animaciones de entrada/salida mejoradas
 - Tamaños configurables (`size` input)
 - Variante sin backdrop (drawer-style)
-- Soporte de múltiples diálogos apilados
-- Inputs de formulario como componentes Angular en el dialog (en la demo se usan inputs HTML nativos para simplicidad)
+- Uso del campo `data` de `DialogService` en el componente
+- Múltiples diálogos apilados
+
+---
+
+## 9. Open Questions
+
+_Ninguna._
 
 ---
 
 ## 10. Implementation Plan
 
-1. **HTML de la página demo** — Reemplazar los 4 ejemplos actuales por los 3 escenarios del diseño: destructivo, formulario e informativo. Mantener el ejemplo de posiciones como 4.º ejemplo.
-2. **TS de la página demo** — Añadir `openDestructive()`, `openForm()`, `openInfo()` (o unificar con el patrón de `open(id)` ya existente). Añadir mocks específicos por variante en lugar de `mockData` genérico.
-3. **SCSS de la página demo** — Añadir estilos `.dialog-icon`, `.icon-danger`, `.icon-info`. Eliminar `color="#9A9A9A"` hardcoded de los dividers.
-4. **Verificación visual** — Abrir la app y comparar lado a lado con `designs/dcx-ng-page-dialog.html`.
+1. **TS** — Añadir `ChangeDetectionStrategy.OnPush` y `@HostListener('document:keydown.escape')`
+2. **Tests** — Añadir casos para Escape y `aria-labelledby`
+3. **Storybook** — Añadir stories `Destructive`, `WithForm`, `Informative`
+4. **Page demo HTML** — Reestructurar con `demo-page / demo-section`
+5. **Page demo SCSS** — Reemplazar estilos ad hoc por comentario estándar (salvo el grid de posiciones que es funcional)

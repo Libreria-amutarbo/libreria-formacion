@@ -1,142 +1,263 @@
-<section>
-  <h2>Confirmación destructiva</h2>
-  <dcx-ng-button
-    label="Eliminar proyecto"
-    variant="primary"
-    (buttonClick)="open('destructive')"
-  />
+<div class="demo-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Dialog</h1>
+    <p class="demo-page-header__desc">
+      Modal accesible gestionado mediante <code>DialogService</code>. Soporta 9 posiciones de pantalla,
+      backdrop opcional y proyección de contenido vía <code>ng-template</code>.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-  <dcx-ng-dialog
-    dialogId="destructive"
-    title="Eliminar proyecto"
-    [showClose]="true"
-    position="center"
-    [closeOnBackdrop]="false"
-    (closeDialog)="close('destructive')"
-  >
-    <ng-template #dialogBody>
-      <div class="dialog-icon icon-danger">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M8 4h4M3 6h14M5 6l1 10h8l1-10" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <p>¿Estás seguro de que deseas eliminar el proyecto <strong>Cloud Migration</strong>? Esta acción es irreversible y no se puede deshacer.</p>
-    </ng-template>
-
-    <ng-template #dialogFooter>
-      <dcx-ng-button label="Cancelar" variant="secondary" (buttonClick)="close('destructive')" />
-      <dcx-ng-button label="Eliminar" variant="danger" (buttonClick)="close('destructive')" />
-    </ng-template>
-  </dcx-ng-dialog>
-</section>
-
-<dcx-ng-divider />
-
-<section>
-  <h2>Formulario</h2>
-  <dcx-ng-button
-    label="Nuevo proyecto"
-    variant="primary"
-    (buttonClick)="open('form')"
-  />
-
-  <dcx-ng-dialog
-    dialogId="form"
-    title="Nuevo proyecto"
-    [showClose]="true"
-    position="center"
-    [closeOnBackdrop]="true"
-    (closeDialog)="close('form')"
-  >
-    <ng-template #dialogBody>
-      <div class="dcx-field">
-        <label class="dcx-label" for="dialog-project-name">Nombre del proyecto</label>
-        <input id="dialog-project-name" class="dcx-input" type="text" placeholder="Ej: Cloud Migration v2">
-      </div>
-      <div class="dcx-field">
-        <label class="dcx-label" for="dialog-client">Cliente</label>
-        <input id="dialog-client" class="dcx-input" type="text" placeholder="Ej: Airbus">
-      </div>
-      <div class="dcx-field">
-        <label class="dcx-label" for="dialog-practice">Práctica</label>
-        <select id="dialog-practice" class="dcx-select">
-          <option value="">Selecciona una práctica</option>
-          <option>Cloud Infrastructure</option>
-          <option>SAP</option>
-          <option>Data &amp; AI</option>
-        </select>
-      </div>
-    </ng-template>
-
-    <ng-template #dialogFooter>
-      <dcx-ng-button label="Cancelar" variant="secondary" (buttonClick)="close('form')" />
-      <dcx-ng-button label="Crear proyecto" variant="primary" (buttonClick)="close('form')" />
-    </ng-template>
-  </dcx-ng-dialog>
-</section>
-
-<dcx-ng-divider />
-
-<section>
-  <h2>Informativo</h2>
-  <dcx-ng-button
-    label="Ver información"
-    variant="primary"
-    (buttonClick)="open('info')"
-  />
-
-  <dcx-ng-dialog
-    dialogId="info"
-    title="Información importante"
-    [showClose]="true"
-    position="center"
-    [closeOnBackdrop]="true"
-    (closeDialog)="close('info')"
-  >
-    <ng-template #dialogBody>
-      <div class="dialog-icon icon-info">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="10" r="7" stroke="#1d4ed8" stroke-width="1.5"/>
-          <path d="M10 9v5M10 7v.5" stroke="#1d4ed8" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <p>El proceso de migración comenzará el <strong>lunes 22 de abril</strong>. Durante este periodo algunos servicios podrían no estar disponibles temporalmente.</p>
-    </ng-template>
-
-    <ng-template #dialogFooter>
-      <dcx-ng-button label="Entendido" variant="primary" (buttonClick)="close('info')" />
-    </ng-template>
-  </dcx-ng-dialog>
-</section>
-
-<dcx-ng-divider />
-
-<section>
-  <h2>Posiciones</h2>
-  <div id="positioned-dialogs">
-    <dcx-ng-button label="↖" (buttonClick)="openPositioned('top-left')" />
-    <dcx-ng-button label="↑" (buttonClick)="openPositioned('top')" />
-    <dcx-ng-button label="↗" (buttonClick)="openPositioned('top-right')" />
-    <dcx-ng-button label="←" (buttonClick)="openPositioned('left')" />
-    <dcx-ng-button label="·" (buttonClick)="openPositioned('center')" />
-    <dcx-ng-button label="→" (buttonClick)="openPositioned('right')" />
-    <dcx-ng-button label="↙" (buttonClick)="openPositioned('bottom-left')" />
-    <dcx-ng-button label="↓" (buttonClick)="openPositioned('bottom')" />
-    <dcx-ng-button label="↘" (buttonClick)="openPositioned('bottom-right')" />
+  <!-- 01 — Básico -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Básico — Informativo</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Abrir diálogo" variant="primary" (buttonClick)="open('basic')" />
+      <dcx-ng-dialog
+        dialogId="basic"
+        title="Información"
+        [showClose]="true"
+        position="center"
+        [closeOnBackdrop]="true"
+        (closeDialog)="close('basic')"
+      >
+        <ng-template #dialogBody>
+          <p>Este es un mensaje informativo dentro del diálogo.</p>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Aceptar" variant="primary" (buttonClick)="close('basic')" />
+        </ng-template>
+      </dcx-ng-dialog>
+    </div>
   </div>
 
-  <dcx-ng-dialog
-    dialogId="positioned"
-    [title]="'Posición: ' + positionedDialogCurrentPosition()"
-    [showClose]="true"
-    [position]="positionedDialogCurrentPosition()"
-    [closeOnBackdrop]="true"
-  >
-    <ng-template #dialogBody>
-      <p>Este diálogo está posicionado en <strong>{{ positionedDialogCurrentPosition() }}</strong>.</p>
-    </ng-template>
-    <ng-template #dialogFooter>
-      <dcx-ng-button label="Cerrar" variant="primary" (buttonClick)="close('positioned')" />
-    </ng-template>
-  </dcx-ng-dialog>
-</section>
+  <!-- 02 — Confirmación -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Confirmación — Con footer de acción</span>
+    </div>
+    <p class="demo-section__desc"><code>closeOnBackdrop="false"</code> fuerza una decisión explícita del usuario.</p>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Abrir confirmación" variant="primary" (buttonClick)="open('confirm')" />
+      <dcx-ng-dialog
+        dialogId="confirm"
+        title="¿Confirmar acción?"
+        [showClose]="true"
+        position="center"
+        [closeOnBackdrop]="false"
+        (closeDialog)="close('confirm')"
+      >
+        <ng-template #dialogBody>
+          <p>¿Estás seguro de que quieres continuar? Esta acción no se puede deshacer.</p>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Cancelar" variant="secondary" (buttonClick)="close('confirm')" />
+          <dcx-ng-button label="Aceptar" variant="primary" (buttonClick)="close('confirm')" />
+        </ng-template>
+      </dcx-ng-dialog>
+    </div>
+  </div>
+
+  <!-- 03 — Sin botón de cierre -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Sin botón de cierre</span>
+    </div>
+    <p class="demo-section__desc">Solo se puede cerrar a través del footer o el backdrop.</p>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Abrir diálogo" variant="primary" (buttonClick)="open('no-close')" />
+      <dcx-ng-dialog
+        dialogId="no-close"
+        title="Acción requerida"
+        [showClose]="false"
+        position="center"
+        [closeOnBackdrop]="false"
+        (closeDialog)="close('no-close')"
+      >
+        <ng-template #dialogBody>
+          <p>Debes aceptar los términos para continuar.</p>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Cancelar" variant="secondary" (buttonClick)="close('no-close')" />
+          <dcx-ng-button label="Aceptar" variant="primary" (buttonClick)="close('no-close')" />
+        </ng-template>
+      </dcx-ng-dialog>
+    </div>
+  </div>
+
+  <!-- 04 — Sin título -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Sin título</span>
+    </div>
+    <p class="demo-section__desc">El header muestra solo el botón ✕ cuando <code>title</code> está vacío.</p>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Abrir diálogo" variant="primary" (buttonClick)="open('no-title')" />
+      <dcx-ng-dialog
+        dialogId="no-title"
+        title=""
+        [showClose]="true"
+        position="center"
+        [closeOnBackdrop]="true"
+        (closeDialog)="close('no-title')"
+      >
+        <ng-template #dialogBody>
+          <p>Este diálogo no tiene título en el header.</p>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Cerrar" variant="primary" (buttonClick)="close('no-title')" />
+        </ng-template>
+      </dcx-ng-dialog>
+    </div>
+  </div>
+
+  <!-- 05 — Confirmación destructiva -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Confirmación destructiva</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Eliminar proyecto" variant="primary" (buttonClick)="open('destructive')" />
+      <dcx-ng-dialog
+        dialogId="destructive"
+        title="Eliminar proyecto"
+        [showClose]="true"
+        position="center"
+        [closeOnBackdrop]="false"
+        (closeDialog)="close('destructive')"
+      >
+        <ng-template #dialogBody>
+          <div class="dialog-icon icon-danger">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M8 4h4M3 6h14M5 6l1 10h8l1-10" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p>¿Estás seguro de que deseas eliminar el proyecto <strong>Cloud Migration</strong>? Esta acción es irreversible y no se puede deshacer.</p>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Cancelar" variant="secondary" (buttonClick)="close('destructive')" />
+          <dcx-ng-button label="Eliminar" variant="danger" (buttonClick)="close('destructive')" />
+        </ng-template>
+      </dcx-ng-dialog>
+    </div>
+  </div>
+
+  <!-- 06 — Con formulario -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Con formulario</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Nuevo proyecto" variant="primary" (buttonClick)="open('form')" />
+      <dcx-ng-dialog
+        dialogId="form"
+        title="Nuevo proyecto"
+        [showClose]="true"
+        position="center"
+        [closeOnBackdrop]="true"
+        (closeDialog)="close('form')"
+      >
+        <ng-template #dialogBody>
+          <div class="dcx-field">
+            <label class="dcx-label" for="dialog-project-name">Nombre del proyecto</label>
+            <input id="dialog-project-name" class="dcx-input" type="text" placeholder="Ej: Cloud Migration v2">
+          </div>
+          <div class="dcx-field">
+            <label class="dcx-label" for="dialog-client">Cliente</label>
+            <input id="dialog-client" class="dcx-input" type="text" placeholder="Ej: Airbus">
+          </div>
+          <div class="dcx-field">
+            <label class="dcx-label" for="dialog-practice">Práctica</label>
+            <select id="dialog-practice" class="dcx-select">
+              <option value="">Selecciona una práctica</option>
+              <option>Cloud Infrastructure</option>
+              <option>SAP</option>
+              <option>Data &amp; AI</option>
+            </select>
+          </div>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Cancelar" variant="secondary" (buttonClick)="close('form')" />
+          <dcx-ng-button label="Crear proyecto" variant="primary" (buttonClick)="close('form')" />
+        </ng-template>
+      </dcx-ng-dialog>
+    </div>
+  </div>
+
+  <!-- 07 — Informativo con icono -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Informativo</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Ver información" variant="primary" (buttonClick)="open('info')" />
+      <dcx-ng-dialog
+        dialogId="info"
+        title="Información importante"
+        [showClose]="true"
+        position="center"
+        [closeOnBackdrop]="true"
+        (closeDialog)="close('info')"
+      >
+        <ng-template #dialogBody>
+          <div class="dialog-icon icon-info">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="7" stroke="#1d4ed8" stroke-width="1.5"/>
+              <path d="M10 9v5M10 7v.5" stroke="#1d4ed8" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p>El proceso de migración comenzará el <strong>lunes 22 de abril</strong>. Durante este periodo algunos servicios podrían no estar disponibles temporalmente.</p>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Entendido" variant="primary" (buttonClick)="close('info')" />
+        </ng-template>
+      </dcx-ng-dialog>
+    </div>
+  </div>
+
+  <!-- 08 — Posiciones -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Posiciones — Todas las variantes</span>
+    </div>
+    <p class="demo-section__desc">Cada botón abre el diálogo en la posición que indica su flecha.</p>
+    <div class="demo-section__body">
+      <div id="positioned-dialogs">
+        <dcx-ng-button label="↖" (buttonClick)="openPositioned('top-left')" />
+        <dcx-ng-button label="↑" (buttonClick)="openPositioned('top')" />
+        <dcx-ng-button label="↗" (buttonClick)="openPositioned('top-right')" />
+        <dcx-ng-button label="←" (buttonClick)="openPositioned('left')" />
+        <dcx-ng-button label="·" (buttonClick)="openPositioned('center')" />
+        <dcx-ng-button label="→" (buttonClick)="openPositioned('right')" />
+        <dcx-ng-button label="↙" (buttonClick)="openPositioned('bottom-left')" />
+        <dcx-ng-button label="↓" (buttonClick)="openPositioned('bottom')" />
+        <dcx-ng-button label="↘" (buttonClick)="openPositioned('bottom-right')" />
+      </div>
+      <dcx-ng-dialog
+        dialogId="positioned"
+        [title]="'Posición: ' + positionedDialogCurrentPosition()"
+        [showClose]="true"
+        [position]="positionedDialogCurrentPosition()"
+        [closeOnBackdrop]="true"
+      >
+        <ng-template #dialogBody>
+          <p>Este diálogo está posicionado en <strong>{{ positionedDialogCurrentPosition() }}</strong>.</p>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Cerrar" variant="primary" (buttonClick)="close('positioned')" />
+        </ng-template>
+      </dcx-ng-dialog>
+    </div>
+  </div>
+</div>
