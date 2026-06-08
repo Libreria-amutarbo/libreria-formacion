@@ -1,0 +1,1026 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg-primary:#0058ab;--bg-primary-hover:#004080;--bg-hover:#f7f8fa;--bg-pressed:#e1e3e6;
+        --bg-default:#fff;--bg-surface:#f4f5f7;
+        --text-dark:#2a2e33;--text-muted:#696e75;--text-disabled:#9ca3af;--text-white:#fff;
+        --border-default:#e5e7eb;--border-focus:#1db8f2;
+        --color-success:#16a34a;--color-error:#dc2626;--color-warning:#d97706;
+        --color-info-bg:#eff6ff;--color-info:#0058ab;
+        --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;
+        --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;--r-pill:999px;--ff:'Inter',sans-serif;
+      }
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:var(--ff);background:var(--bg-surface);padding:2.5rem;color:var(--text-dark)}
+      .page-title{font-size:20px;font-weight:300;letter-spacing:.03em;text-transform:uppercase;margin-bottom:.25rem}
+      .comp-title{font-size:24px;font-weight:700;margin-bottom:.5rem}
+      .divider{border:none;border-top:1px solid #e5e7eb;margin-bottom:2rem}
+      .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:1rem}
+      .mb-2{margin-bottom:2.5rem}
+      .showcase{display:flex;flex-wrap:wrap;gap:2rem;align-items:flex-start}
+
+      /* ═══════════════════════════════════════════
+         CALENDAR BASE
+      ═══════════════════════════════════════════ */
+      .dcx-calendar {
+        background:var(--bg-default);
+        border:1px solid var(--border-default);
+        border-radius:var(--r-xl);
+        box-shadow:0 8px 24px rgba(0,0,0,.1);
+        width:300px;
+        overflow:hidden;
+        font-family:var(--ff);
+        display:inline-block;
+        vertical-align:top;
+      }
+
+      /* ── Header ── */
+      .cal-header {
+        padding:var(--sp-3) var(--sp-4);
+        display:flex;align-items:center;justify-content:space-between;
+        background:var(--bg-primary);
+      }
+      .cal-nav {
+        background:transparent;border:none;cursor:pointer;
+        color:rgba(255,255,255,.8);padding:var(--sp-1);
+        border-radius:var(--r-sm);display:flex;align-items:center;
+        transition:background .15s;
+      }
+      .cal-nav:hover{color:white;background:rgba(255,255,255,.15)}
+      .cal-month-year{font-size:14px;font-weight:600;color:white;display:flex;gap:4px;align-items:center}
+
+      /* ── Weekdays ── */
+      .cal-weekdays{padding:var(--sp-2) var(--sp-3) 0}
+      .cal-weekdays-grid{width:100%;table-layout:fixed;border-collapse:collapse}
+      .cal-wd{font-size:11px;font-weight:600;color:var(--text-muted);text-align:center;padding:5px 0 6px}
+
+      /* ── Days grid ── */
+      .cal-grid-wrap{padding:0 var(--sp-3) var(--sp-3)}
+      .cal-grid{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:2px 1px}
+      .cal-day-btn {
+        width:100%;font-size:12px;text-align:center;
+        padding:6px 2px;border-radius:var(--r-sm);
+        cursor:pointer;color:var(--text-dark);
+        background:transparent;border:none;font-family:inherit;
+        transition:background .1s;line-height:1;
+      }
+      .cal-day-btn:hover:not(.selected):not(.in-range):not(.disabled){background:var(--bg-hover)}
+      .cal-day-btn.today{font-weight:700;color:var(--bg-primary)}
+      .cal-day-btn.selected{background:var(--bg-primary);color:white;border-radius:var(--r-pill)}
+      .cal-day-btn.selected:hover{background:var(--bg-primary-hover)}
+      .cal-day-btn.in-range{background:var(--color-info-bg);color:var(--color-info);border-radius:6px}
+      .cal-day-btn.in-range:hover{background:#dbeafe}
+      .cal-day-btn.other-month{color:var(--text-disabled)}
+      .cal-day-btn.disabled{opacity:.35;cursor:not-allowed}
+
+      /* Event dots inside day */
+      .cal-day-inner{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px}
+      .cal-day-num{font-size:12px;line-height:1}
+      .cal-dots{display:flex;gap:2px;justify-content:center;min-height:5px}
+      .cal-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0}
+      .dot-blue{background:var(--bg-primary)}
+      .dot-green{background:var(--color-success)}
+      .dot-red{background:var(--color-error)}
+      .dot-orange{background:var(--color-warning)}
+
+      /* ── Footer ── */
+      .cal-footer{
+        display:flex;justify-content:flex-end;align-items:center;gap:var(--sp-2);
+        padding:var(--sp-2) var(--sp-3);
+        border-top:1px solid var(--border-default);
+      }
+      .cal-btn{
+        font-family:var(--ff);font-size:12px;font-weight:600;
+        padding:5px 14px;border-radius:var(--r-pill);border:none;
+        cursor:pointer;transition:background .15s,color .15s;
+      }
+      .cal-btn-ghost{background:white;color:var(--text-muted);border:1px solid var(--border-default)}
+      .cal-btn-ghost:hover{border-color:#9ca3af}
+      .cal-btn-primary{background:var(--bg-primary);color:white}
+      .cal-btn-primary:hover{background:var(--bg-primary-hover)}
+
+      /* ═══════════════════════════════════════════
+         MINI
+      ═══════════════════════════════════════════ */
+      .dcx-calendar.mini{width:220px}
+      .dcx-calendar.mini .cal-header{padding:var(--sp-2) var(--sp-3)}
+      .dcx-calendar.mini .cal-month-year{font-size:13px}
+      .dcx-calendar.mini .cal-weekdays{padding:var(--sp-1) var(--sp-2) 0}
+      .dcx-calendar.mini .cal-wd{font-size:10px;padding:3px 0 4px}
+      .dcx-calendar.mini .cal-grid-wrap{padding:0 var(--sp-2) var(--sp-2)}
+      .dcx-calendar.mini .cal-day-btn{font-size:11px;padding:4px 1px}
+      .dcx-calendar.mini .cal-footer{padding:var(--sp-1) var(--sp-2)}
+
+      /* ═══════════════════════════════════════════
+         WEEK VIEW
+      ═══════════════════════════════════════════ */
+      .dcx-calendar.week-view{width:540px}
+      .cal-week-table{width:100%;border-collapse:collapse;table-layout:fixed}
+      .cal-week-th{
+        font-size:11px;font-weight:600;color:var(--text-muted);
+        text-align:center;padding:var(--sp-2) var(--sp-1) var(--sp-3);
+        border-bottom:1px solid var(--border-default);
+      }
+      .cal-week-th.today-col{color:var(--bg-primary)}
+      .cal-week-num{
+        font-size:18px;font-weight:600;color:var(--text-dark);
+        display:inline-block;text-align:center;margin-bottom:2px;
+        line-height:1;min-width:28px;
+      }
+      .cal-week-num.is-today{
+        background:var(--bg-primary);color:white;
+        border-radius:var(--r-pill);
+        width:28px;height:28px;display:inline-flex;
+        align-items:center;justify-content:center;font-size:14px;
+      }
+      .cal-time-col{
+        width:44px;font-size:10px;color:var(--text-muted);
+        text-align:right;padding:0 var(--sp-2) 0 0;
+        border-right:1px solid var(--border-default);
+        border-bottom:1px solid var(--border-default);
+        vertical-align:top;padding-top:4px;
+      }
+      .cal-week-slot{
+        height:52px;border-bottom:1px solid var(--border-default);
+        border-right:1px solid var(--border-default);
+        padding:2px;vertical-align:top;
+      }
+      .cal-week-slot:last-child{border-right:none}
+      .cal-event{
+        background:var(--color-info-bg);color:var(--color-info);
+        border-left:3px solid var(--bg-primary);
+        border-radius:3px;padding:3px 5px;font-size:11px;font-weight:500;
+        overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+        display:block;margin-bottom:2px;
+      }
+      .cal-event.green{background:#f0fdf4;color:#166534;border-left-color:var(--color-success)}
+      .cal-event.orange{background:#fffbeb;color:#92400e;border-left-color:var(--color-warning)}
+      .cal-event.red{background:#fef2f2;color:#991b1b;border-left-color:var(--color-error)}
+
+      /* ═══════════════════════════════════════════
+         YEAR VIEW
+      ═══════════════════════════════════════════ */
+      .dcx-calendar.year-view{width:660px}
+      .cal-year-header{
+        padding:var(--sp-3) var(--sp-4);
+        display:flex;align-items:center;justify-content:space-between;
+        background:var(--bg-primary);
+      }
+      .cal-year-title{font-size:16px;font-weight:700;color:white}
+      .cal-year-grid{
+        display:grid;grid-template-columns:repeat(4,1fr);
+        gap:var(--sp-3);padding:var(--sp-3) var(--sp-4) var(--sp-4);
+      }
+      .cal-mini-month-name{
+        font-size:11px;font-weight:600;color:var(--text-dark);
+        text-align:center;margin-bottom:4px;
+      }
+      .cal-mini-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px}
+      .cal-mini-wd{font-size:8px;color:var(--text-muted);text-align:center;font-weight:600;padding:1px 0 3px}
+      .cal-mini-day{
+        font-size:9px;text-align:center;padding:2px 1px;
+        border-radius:2px;color:var(--text-dark);cursor:pointer;
+      }
+      .cal-mini-day:hover:not(.other-m){background:var(--bg-hover)}
+      .cal-mini-day.today{color:var(--bg-primary);font-weight:700}
+      .cal-mini-day.selected{background:var(--bg-primary);color:white;border-radius:var(--r-pill)}
+      .cal-mini-day.other-m{color:var(--text-disabled)}
+      .cal-mini-month.active-month .cal-mini-month-name{color:var(--bg-primary)}
+      .cal-mini-month.active-month .cal-mini-grid{outline:1px solid var(--border-focus);border-radius:var(--r-md);padding:2px}
+
+      /* ═══════════════════════════════════════════
+         DISABLED
+      ═══════════════════════════════════════════ */
+      .dcx-calendar.disabled{opacity:.55;pointer-events:none}
+
+      /* ── Legend ── */
+      .legend{display:flex;gap:var(--sp-4);flex-wrap:wrap;margin-top:var(--sp-3)}
+      .legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-muted)}
+      .legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+      .legend-range{width:20px;height:8px;border-radius:4px;flex-shrink:0;background:var(--color-info-bg);border:1px solid #bfdbfe}
+
+      /* ═══════════════════════════════════════════
+         OVERLAY & DIALOG (event modal)
+      ═══════════════════════════════════════════ */
+      .ev-overlay{background:rgba(0,0,0,.45);border-radius:var(--r-xl);padding:3rem;display:inline-flex;align-items:center;justify-content:center}
+      .dcx-dialog{background:var(--bg-default);border-radius:var(--r-lg);width:440px;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);overflow:hidden}
+      .dialog-header{padding:var(--sp-4) var(--sp-5);border-bottom:1px solid var(--border-default);display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)}
+      .dialog-title{font-size:16px;font-weight:600;color:var(--text-dark)}
+      .dialog-date-badge{display:inline-flex;align-items:center;gap:5px;background:var(--color-info-bg);color:var(--color-info);font-size:12px;font-weight:600;padding:3px 10px;border-radius:var(--r-pill);margin-top:5px}
+      .dialog-close{background:transparent;border:none;cursor:pointer;color:var(--text-muted);padding:var(--sp-1);border-radius:var(--r-sm);display:flex;align-items:center;flex-shrink:0}
+      .dialog-close:hover{background:var(--bg-hover);color:var(--text-dark)}
+      .dialog-body{padding:var(--sp-4) var(--sp-5)}
+      .dialog-footer{padding:var(--sp-3) var(--sp-5);border-top:1px solid var(--border-default);background:var(--bg-surface);display:flex;justify-content:flex-end;gap:var(--sp-2);align-items:center}
+      .dialog-footer-left{margin-right:auto}
+
+      /* form */
+      .dcx-field{display:flex;flex-direction:column;gap:var(--sp-1);margin-bottom:var(--sp-3)}
+      .dcx-field:last-child{margin-bottom:0}
+      .dcx-label{font-size:12px;font-weight:500;color:var(--text-dark)}
+      .dcx-input{font-family:var(--ff);font-size:14px;padding:var(--sp-2) var(--sp-3);border:1px solid var(--border-default);border-radius:var(--r-sm);color:var(--text-dark);background:var(--bg-default);outline:none;width:100%;transition:border-color .15s}
+      .dcx-input:focus,.dcx-input.focused{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(29,184,242,.2)}
+      .dcx-textarea{font-family:var(--ff);font-size:14px;padding:var(--sp-2) var(--sp-3);border:1px solid var(--border-default);border-radius:var(--r-sm);color:var(--text-dark);background:var(--bg-default);outline:none;width:100%;resize:vertical;min-height:68px;transition:border-color .15s}
+      .dcx-textarea:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(29,184,242,.2)}
+      .dcx-select{font-family:var(--ff);font-size:14px;padding:var(--sp-2) var(--sp-3);padding-right:2rem;border:1px solid var(--border-default);border-radius:var(--r-sm);color:var(--text-dark);background:var(--bg-default);outline:none;width:100%;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%232a2e33' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+      .dcx-select:focus{border-color:var(--border-focus)}
+      .form-divider{border:none;border-top:1px solid var(--border-default);margin:var(--sp-3) 0}
+
+      /* buttons */
+      .dcx-btn{font-family:var(--ff);font-size:14px;font-weight:600;padding:var(--sp-2) var(--sp-4);border-radius:var(--r-sm);cursor:pointer;transition:all .15s;border:none;line-height:1.5;white-space:nowrap}
+      .btn-primary{background:var(--bg-primary);color:var(--text-white)}
+      .btn-primary:hover{background:var(--bg-primary-hover)}
+      .btn-secondary{background:transparent;color:var(--text-dark);border:1px solid #2a2e33}
+      .btn-secondary:hover{background:var(--bg-hover)}
+      .btn-ghost-red{background:transparent;color:var(--color-error);border:1px solid var(--color-error)}
+      .btn-ghost-red:hover{background:#fef2f2}
+      .btn-danger{background:var(--color-error);color:white}
+      .btn-danger:hover{background:#b91c1c}
+
+      /* event type color picker */
+      .ev-type-label{font-size:11px;color:var(--text-muted);font-weight:500;margin-bottom:var(--sp-1)}
+      .ev-type-row{display:flex;gap:var(--sp-2);margin-bottom:var(--sp-3)}
+      .ev-type-opt{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:3px solid transparent;transition:border-color .15s,transform .1s;box-sizing:border-box}
+      .ev-type-opt:hover{transform:scale(1.1)}
+      .ev-type-opt.active{border-color:#2a2e33}
+      .ev-type-inner{width:16px;height:16px;border-radius:50%}
+      .ev-type-blue .ev-type-inner{background:var(--bg-primary)}
+      .ev-type-green .ev-type-inner{background:var(--color-success)}
+      .ev-type-orange .ev-type-inner{background:var(--color-warning)}
+      .ev-type-red .ev-type-inner{background:var(--color-error)}
+      .ev-type-purple .ev-type-inner{background:#7c3aed}
+
+      /* all-day toggle */
+      .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-1) 0;margin-bottom:var(--sp-3)}
+      .toggle-label{font-size:14px;color:var(--text-dark)}
+      .toggle-pill{width:36px;height:20px;border-radius:999px;background:var(--border-default);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+      .toggle-pill.on{background:var(--bg-primary)}
+      .toggle-pill::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:white;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+      .toggle-pill.on::after{transform:translateX(16px)}
+
+      /* time two-col */
+      .time-cols{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);margin-bottom:var(--sp-3)}
+
+      /* quick event popover */
+      .event-popover{background:var(--bg-default);border-radius:var(--r-lg);width:272px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden}
+      .ev-pop-top{height:4px}
+      .ev-pop-header{padding:var(--sp-3) var(--sp-3) var(--sp-1);display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-2)}
+      .ev-pop-title{font-size:14px;font-weight:600;color:var(--text-dark);flex:1}
+      .ev-pop-actions{display:flex;gap:2px;flex-shrink:0}
+      .ev-icon-btn{background:transparent;border:none;cursor:pointer;color:var(--text-muted);padding:4px;border-radius:var(--r-sm);display:flex;align-items:center}
+      .ev-icon-btn:hover{background:var(--bg-hover);color:var(--text-dark)}
+      .ev-pop-body{padding:0 var(--sp-3) var(--sp-2)}
+      .ev-detail{display:flex;align-items:flex-start;gap:var(--sp-2);margin-bottom:var(--sp-2);font-size:13px;color:var(--text-muted);line-height:1.4}
+      .ev-detail:last-child{margin-bottom:0}
+      .ev-detail svg{flex-shrink:0;margin-top:1px}
+      .ev-pop-footer{padding:var(--sp-2) var(--sp-3) var(--sp-3);display:flex;justify-content:flex-end;gap:var(--sp-2);border-top:1px solid var(--border-default)}
+
+      /* ═══════════════════════════════════════════
+         MONTH GRID VIEW
+      ═══════════════════════════════════════════ */
+      .dcx-calendar.month-view{width:680px}
+      .cal-month-table{width:100%;border-collapse:collapse;table-layout:fixed}
+      .cal-month-th{font-size:11px;font-weight:600;color:var(--text-muted);text-align:center;padding:var(--sp-2) 0;border-bottom:1px solid var(--border-default);border-right:1px solid var(--border-default)}
+      .cal-month-th:last-child{border-right:none}
+      .cal-month-th.weekend{color:var(--text-disabled)}
+      .cal-month-cell{height:108px;vertical-align:top;border-bottom:1px solid var(--border-default);border-right:1px solid var(--border-default);padding:var(--sp-1) var(--sp-2);cursor:pointer;transition:background .1s}
+      .cal-month-cell:last-child{border-right:none}
+      .cal-month-table tbody tr:last-child .cal-month-cell{border-bottom:none}
+      .cal-month-cell:hover{background:var(--bg-hover)}
+      .cal-month-cell.today{background:#eff6ff}
+      .cal-month-cell.today:hover{background:#dbeafe}
+      .cal-month-cell.weekend{background:#fafafa}
+      .cal-month-cell.other-month{background:var(--bg-surface)}
+      .cal-month-daynum{font-size:12px;font-weight:600;color:var(--text-dark);display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;margin-bottom:3px}
+      .cal-month-daynum.is-today{background:var(--bg-primary);color:white}
+      .cal-month-cell.other-month .cal-month-daynum{color:var(--text-disabled)}
+      .cal-month-cell.weekend .cal-month-daynum{color:var(--text-muted)}
+      .cal-month-pill{display:block;font-size:11px;font-weight:500;padding:2px 5px;border-radius:3px;margin-bottom:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer;border-left:3px solid transparent;line-height:1.4}
+      .cal-month-pill.blue{background:var(--color-info-bg);color:var(--color-info);border-left-color:var(--bg-primary)}
+      .cal-month-pill.green{background:#f0fdf4;color:#166534;border-left-color:var(--color-success)}
+      .cal-month-pill.orange{background:#fffbeb;color:#92400e;border-left-color:var(--color-warning)}
+      .cal-month-pill.red{background:#fef2f2;color:#991b1b;border-left-color:var(--color-error)}
+      .cal-month-pill.purple{background:#f5f3ff;color:#5b21b6;border-left-color:#7c3aed}
+      .cal-month-more{font-size:11px;color:var(--text-muted);font-weight:600;cursor:pointer;padding:1px 4px;display:block}
+      .cal-month-more:hover{color:var(--bg-primary)}
+    </style>
+  </head>
+  <body>
+    <p class="page-title">Components</p>
+    <p class="comp-title">Calendar</p>
+    <hr class="divider" />
+
+
+    <!-- ════════════════════════════════
+         1. VISTA MENSUAL
+    ════════════════════════════════ -->
+    <div class="section-label mb-2" style="margin-bottom:.75rem">Vista mensual</div>
+    <div class="showcase mb-2">
+
+      <div class="dcx-calendar month-view">
+        <div class="cal-header">
+          <button class="cal-nav" aria-label="Anterior">
+            <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <span class="cal-month-year">Junio 2026</span>
+          <button class="cal-nav" aria-label="Siguiente">
+            <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <table class="cal-month-table">
+          <thead>
+            <tr>
+              <th class="cal-month-th">Lu</th>
+              <th class="cal-month-th">Ma</th>
+              <th class="cal-month-th">Mi</th>
+              <th class="cal-month-th">Ju</th>
+              <th class="cal-month-th">Vi</th>
+              <th class="cal-month-th weekend">Sa</th>
+              <th class="cal-month-th weekend">Do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cal-month-cell"><div class="cal-month-daynum">1</div></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">2</div><span class="cal-month-pill orange">Planificación</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">3</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">4</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">5</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell weekend"><div class="cal-month-daynum">6</div></td>
+              <td class="cal-month-cell weekend"><div class="cal-month-daynum">7</div></td>
+            </tr>
+            <tr>
+              <td class="cal-month-cell today"><div class="cal-month-daynum is-today">8</div><span class="cal-month-pill blue">Standup diario</span><span class="cal-month-pill purple">Onboarding nuevo</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">9</div><span class="cal-month-pill blue">Standup diario</span><span class="cal-month-pill green">Revisión PR #42</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">10</div><span class="cal-month-pill blue">Standup diario</span><span class="cal-month-pill orange">Planning sprint 24</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">11</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">12</div><span class="cal-month-pill blue">Standup diario</span><span class="cal-month-pill red">Entrega sprint 23</span></td>
+              <td class="cal-month-cell weekend"><div class="cal-month-daynum">13</div></td>
+              <td class="cal-month-cell weekend"><div class="cal-month-daynum">14</div></td>
+            </tr>
+            <tr>
+              <td class="cal-month-cell"><div class="cal-month-daynum">15</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">16</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">17</div><span class="cal-month-pill blue">Standup diario</span><span class="cal-month-pill green">Demo release 2.4</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">18</div><span class="cal-month-pill blue">Standup diario</span><span class="cal-month-pill orange">Retrospectiva</span><span class="cal-month-more">+1 más</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">19</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell weekend"><div class="cal-month-daynum">20</div></td>
+              <td class="cal-month-cell weekend"><div class="cal-month-daynum">21</div></td>
+            </tr>
+            <tr>
+              <td class="cal-month-cell"><div class="cal-month-daynum">22</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">23</div><span class="cal-month-pill blue">Standup diario</span><span class="cal-month-pill blue">Reunión cliente</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">24</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">25</div><span class="cal-month-pill blue">Standup diario</span><span class="cal-month-pill orange">Revisión Q2</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">26</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell weekend"><div class="cal-month-daynum">27</div></td>
+              <td class="cal-month-cell weekend"><div class="cal-month-daynum">28</div></td>
+            </tr>
+            <tr>
+              <td class="cal-month-cell"><div class="cal-month-daynum">29</div><span class="cal-month-pill blue">Standup diario</span><span class="cal-month-pill red">Cierre Q2</span></td>
+              <td class="cal-month-cell"><div class="cal-month-daynum">30</div><span class="cal-month-pill blue">Standup diario</span></td>
+              <td class="cal-month-cell other-month"><div class="cal-month-daynum">1</div><span class="cal-month-pill orange">Planning Q3</span></td>
+              <td class="cal-month-cell other-month"><div class="cal-month-daynum">2</div></td>
+              <td class="cal-month-cell other-month"><div class="cal-month-daynum">3</div></td>
+              <td class="cal-month-cell other-month weekend"><div class="cal-month-daynum">4</div></td>
+              <td class="cal-month-cell other-month weekend"><div class="cal-month-daynum">5</div></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="cal-footer">
+          <button class="cal-btn cal-btn-ghost">Hoy</button>
+          <button class="cal-btn cal-btn-primary">Nuevo evento</button>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <!-- ════════════════════════════════
+         3. RANGO
+    ════════════════════════════════ -->
+    <div class="section-label" style="margin-bottom:.75rem">Rango seleccionado</div>
+    <div class="showcase mb-2">
+
+      <div class="dcx-calendar">
+        <div class="cal-header">
+          <button class="cal-nav"><svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <span class="cal-month-year">Junio 2026</span>
+          <button class="cal-nav"><svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="cal-weekdays">
+          <table class="cal-weekdays-grid"><thead><tr>
+            <th class="cal-wd">Lu</th><th class="cal-wd">Ma</th><th class="cal-wd">Mi</th>
+            <th class="cal-wd">Ju</th><th class="cal-wd">Vi</th><th class="cal-wd">Sa</th><th class="cal-wd">Do</th>
+          </tr></thead></table>
+        </div>
+        <div class="cal-grid-wrap">
+          <table class="cal-grid"><tbody>
+            <tr>
+              <td><button class="cal-day-btn">1</button></td>
+              <td><button class="cal-day-btn">2</button></td>
+              <td><button class="cal-day-btn">3</button></td>
+              <td><button class="cal-day-btn">4</button></td>
+              <td><button class="cal-day-btn">5</button></td>
+              <td><button class="cal-day-btn">6</button></td>
+              <td><button class="cal-day-btn">7</button></td>
+            </tr>
+            <tr>
+              <td><button class="cal-day-btn today">8</button></td>
+              <td><button class="cal-day-btn">9</button></td>
+              <td><button class="cal-day-btn selected">10</button></td>
+              <td><button class="cal-day-btn in-range">11</button></td>
+              <td><button class="cal-day-btn in-range">12</button></td>
+              <td><button class="cal-day-btn in-range">13</button></td>
+              <td><button class="cal-day-btn in-range">14</button></td>
+            </tr>
+            <tr>
+              <td><button class="cal-day-btn in-range">15</button></td>
+              <td><button class="cal-day-btn in-range">16</button></td>
+              <td><button class="cal-day-btn in-range">17</button></td>
+              <td><button class="cal-day-btn selected">18</button></td>
+              <td><button class="cal-day-btn">19</button></td>
+              <td><button class="cal-day-btn">20</button></td>
+              <td><button class="cal-day-btn">21</button></td>
+            </tr>
+            <tr>
+              <td><button class="cal-day-btn">22</button></td>
+              <td><button class="cal-day-btn">23</button></td>
+              <td><button class="cal-day-btn">24</button></td>
+              <td><button class="cal-day-btn">25</button></td>
+              <td><button class="cal-day-btn">26</button></td>
+              <td><button class="cal-day-btn">27</button></td>
+              <td><button class="cal-day-btn">28</button></td>
+            </tr>
+            <tr>
+              <td><button class="cal-day-btn">29</button></td>
+              <td><button class="cal-day-btn">30</button></td>
+              <td><button class="cal-day-btn other-month">1</button></td>
+              <td><button class="cal-day-btn other-month">2</button></td>
+              <td><button class="cal-day-btn other-month">3</button></td>
+              <td><button class="cal-day-btn other-month">4</button></td>
+              <td><button class="cal-day-btn other-month">5</button></td>
+            </tr>
+          </tbody></table>
+        </div>
+        <div class="cal-footer">
+          <button class="cal-btn cal-btn-ghost">Limpiar</button>
+          <button class="cal-btn cal-btn-primary">Aplicar</button>
+        </div>
+      </div>
+
+      <div style="padding-top:4px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:.75rem">Mini</div>
+        <div class="dcx-calendar mini">
+          <div class="cal-header">
+            <button class="cal-nav"><svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <span class="cal-month-year">Jun 2026</span>
+            <button class="cal-nav"><svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="cal-weekdays">
+            <table class="cal-weekdays-grid"><thead><tr>
+              <th class="cal-wd">Lu</th><th class="cal-wd">Ma</th><th class="cal-wd">Mi</th>
+              <th class="cal-wd">Ju</th><th class="cal-wd">Vi</th><th class="cal-wd">Sa</th><th class="cal-wd">Do</th>
+            </tr></thead></table>
+          </div>
+          <div class="cal-grid-wrap">
+            <table class="cal-grid"><tbody>
+              <tr>
+                <td><button class="cal-day-btn">1</button></td><td><button class="cal-day-btn">2</button></td>
+                <td><button class="cal-day-btn">3</button></td><td><button class="cal-day-btn">4</button></td>
+                <td><button class="cal-day-btn">5</button></td><td><button class="cal-day-btn">6</button></td>
+                <td><button class="cal-day-btn">7</button></td>
+              </tr>
+              <tr>
+                <td><button class="cal-day-btn today">8</button></td><td><button class="cal-day-btn">9</button></td>
+                <td><button class="cal-day-btn">10</button></td><td><button class="cal-day-btn">11</button></td>
+                <td><button class="cal-day-btn">12</button></td><td><button class="cal-day-btn">13</button></td>
+                <td><button class="cal-day-btn">14</button></td>
+              </tr>
+              <tr>
+                <td><button class="cal-day-btn">15</button></td><td><button class="cal-day-btn">16</button></td>
+                <td><button class="cal-day-btn selected">17</button></td><td><button class="cal-day-btn">18</button></td>
+                <td><button class="cal-day-btn">19</button></td><td><button class="cal-day-btn">20</button></td>
+                <td><button class="cal-day-btn">21</button></td>
+              </tr>
+              <tr>
+                <td><button class="cal-day-btn">22</button></td><td><button class="cal-day-btn">23</button></td>
+                <td><button class="cal-day-btn">24</button></td><td><button class="cal-day-btn">25</button></td>
+                <td><button class="cal-day-btn">26</button></td><td><button class="cal-day-btn">27</button></td>
+                <td><button class="cal-day-btn">28</button></td>
+              </tr>
+              <tr>
+                <td><button class="cal-day-btn">29</button></td><td><button class="cal-day-btn">30</button></td>
+                <td><button class="cal-day-btn other-month">1</button></td><td><button class="cal-day-btn other-month">2</button></td>
+                <td><button class="cal-day-btn other-month">3</button></td><td><button class="cal-day-btn other-month">4</button></td>
+                <td><button class="cal-day-btn other-month">5</button></td>
+              </tr>
+            </tbody></table>
+          </div>
+          <div class="cal-footer">
+            <button class="cal-btn cal-btn-primary" style="font-size:11px;padding:4px 10px">Hoy</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ════════════════════════════════
+         4. VISTA SEMANAL
+    ════════════════════════════════ -->
+    <div class="section-label" style="margin-bottom:.75rem">Vista semanal</div>
+    <div class="showcase mb-2">
+
+      <div class="dcx-calendar week-view">
+        <div class="cal-header">
+          <button class="cal-nav"><svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <span class="cal-month-year">8 – 14 Jun 2026</span>
+          <button class="cal-nav"><svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div style="padding:0 var(--sp-3)">
+          <table class="cal-week-table">
+            <thead>
+              <tr>
+                <th style="width:44px;border-bottom:1px solid var(--border-default);border-right:1px solid var(--border-default)"></th>
+                <th class="cal-week-th today-col"><span class="cal-week-num is-today">8</span><br><span style="font-size:10px">Lu</span></th>
+                <th class="cal-week-th"><span class="cal-week-num">9</span><br><span style="font-size:10px">Ma</span></th>
+                <th class="cal-week-th"><span class="cal-week-num">10</span><br><span style="font-size:10px">Mi</span></th>
+                <th class="cal-week-th"><span class="cal-week-num">11</span><br><span style="font-size:10px">Ju</span></th>
+                <th class="cal-week-th"><span class="cal-week-num">12</span><br><span style="font-size:10px">Vi</span></th>
+                <th class="cal-week-th" style="color:var(--text-muted)"><span class="cal-week-num" style="color:var(--text-disabled)">13</span><br><span style="font-size:10px">Sa</span></th>
+                <th class="cal-week-th" style="color:var(--text-muted)"><span class="cal-week-num" style="color:var(--text-disabled)">14</span><br><span style="font-size:10px">Do</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cal-time-col">09:00</td>
+                <td class="cal-week-slot"><span class="cal-event">Standup equipo</span></td>
+                <td class="cal-week-slot"><span class="cal-event">Standup equipo</span></td>
+                <td class="cal-week-slot"><span class="cal-event">Standup equipo</span></td>
+                <td class="cal-week-slot"><span class="cal-event">Standup equipo</span></td>
+                <td class="cal-week-slot"><span class="cal-event">Standup equipo</span></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+              </tr>
+              <tr>
+                <td class="cal-time-col">10:00</td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"><span class="cal-event green">Revisión PR #42</span></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+              </tr>
+              <tr>
+                <td class="cal-time-col">11:00</td>
+                <td class="cal-week-slot"><span class="cal-event orange">Reunión cliente</span></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"><span class="cal-event orange">Planning Q3</span></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+              </tr>
+              <tr>
+                <td class="cal-time-col">16:00</td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"><span class="cal-event green">Demo release</span></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"><span class="cal-event red">Entrega sprint</span></td>
+                <td class="cal-week-slot"></td>
+                <td class="cal-week-slot"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="height:var(--sp-3)"></div>
+      </div>
+
+    </div>
+
+
+    <!-- ════════════════════════════════
+         5. VISTA ANUAL
+    ════════════════════════════════ -->
+    <div class="section-label" style="margin-bottom:.75rem">Vista anual</div>
+    <div class="showcase mb-2">
+      <div class="dcx-calendar year-view" id="cal-year"></div>
+    </div>
+
+
+
+    <!-- ════════════════════════════════
+         6. VISTA RÁPIDA DEL EVENTO
+    ════════════════════════════════ -->
+    <div class="section-label" style="margin-bottom:.75rem">Vista rápida del evento</div>
+    <div class="showcase mb-2">
+
+      <!-- Blue: meeting -->
+      <div class="event-popover">
+        <div class="ev-pop-top" style="background:var(--bg-primary)"></div>
+        <div class="ev-pop-header">
+          <span class="ev-pop-title">Standup diario</span>
+          <div class="ev-pop-actions">
+            <button class="ev-icon-btn" title="Editar">
+              <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M11 2l3 3L5 14H2v-3L11 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="ev-icon-btn" title="Eliminar">
+              <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M6 2h4M2 4h12M5 4l1 9h4l1-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="ev-icon-btn" title="Cerrar">
+              <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="ev-pop-body">
+          <div class="ev-detail">
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3.5l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Lun 8 jun &nbsp;·&nbsp; 9:00 – 9:30
+          </div>
+          <div class="ev-detail">
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M2 5h12M2 9h8M2 13h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Repite cada día laborable
+          </div>
+        </div>
+        <div class="ev-pop-footer">
+          <button class="dcx-btn btn-secondary" style="font-size:12px;padding:4px 12px">Editar</button>
+        </div>
+      </div>
+
+      <!-- Green: delivery -->
+      <div class="event-popover">
+        <div class="ev-pop-top" style="background:var(--color-success)"></div>
+        <div class="ev-pop-header">
+          <span class="ev-pop-title">Revisión PR #42</span>
+          <div class="ev-pop-actions">
+            <button class="ev-icon-btn"><svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M11 2l3 3L5 14H2v-3L11 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="ev-icon-btn"><svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M6 2h4M2 4h12M5 4l1 9h4l1-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="ev-icon-btn"><svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          </div>
+        </div>
+        <div class="ev-pop-body">
+          <div class="ev-detail">
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3.5l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Mar 9 jun &nbsp;·&nbsp; 10:30 – 11:00
+          </div>
+          <div class="ev-detail">
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M2 5h12M2 9h8M2 13h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Sprint 23 · Entrega
+          </div>
+        </div>
+        <div class="ev-pop-footer">
+          <button class="dcx-btn btn-secondary" style="font-size:12px;padding:4px 12px">Editar</button>
+        </div>
+      </div>
+
+      <!-- Red: urgent -->
+      <div class="event-popover">
+        <div class="ev-pop-top" style="background:var(--color-error)"></div>
+        <div class="ev-pop-header">
+          <span class="ev-pop-title">Entrega sprint 23</span>
+          <div class="ev-pop-actions">
+            <button class="ev-icon-btn"><svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M11 2l3 3L5 14H2v-3L11 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="ev-icon-btn"><svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M6 2h4M2 4h12M5 4l1 9h4l1-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="ev-icon-btn"><svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          </div>
+        </div>
+        <div class="ev-pop-body">
+          <div class="ev-detail">
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3.5l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Vie 12 jun &nbsp;·&nbsp; Todo el día
+          </div>
+          <div class="ev-detail" style="color:var(--color-error)">
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M8 2l.9 5.5h4.4L9.5 11l1.5 4L8 12.5 5 15l1.5-4L2.7 7.5h4.4z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Alta prioridad
+          </div>
+        </div>
+        <div class="ev-pop-footer">
+          <button class="dcx-btn btn-secondary" style="font-size:12px;padding:4px 12px">Editar</button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ════════════════════════════════
+         7. MODAL CREAR EVENTO
+    ════════════════════════════════ -->
+    <div class="section-label" style="margin-bottom:.75rem">Crear evento</div>
+    <div class="showcase mb-2">
+
+      <!-- With time -->
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:.75rem">Con hora</div>
+        <div class="ev-overlay">
+          <div class="dcx-dialog">
+            <div class="dialog-header">
+              <div>
+                <div class="dialog-title">Nuevo evento</div>
+                <div class="dialog-date-badge">
+                  <svg width="11" height="11" fill="none" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 1v4M11 1v4M2 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Miércoles, 10 jun 2026
+                </div>
+              </div>
+              <button class="dialog-close">
+                <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <div class="dialog-body">
+
+              <div class="ev-type-label">Tipo de evento</div>
+              <div class="ev-type-row">
+                <div class="ev-type-opt ev-type-blue active" title="Reunión"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-green" title="Entrega"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-orange" title="Recordatorio"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-red" title="Urgente"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-purple" title="Personal"><div class="ev-type-inner"></div></div>
+              </div>
+
+              <div class="dcx-field">
+                <label class="dcx-label">Título <span style="color:var(--color-error)">*</span></label>
+                <input class="dcx-input focused" type="text" placeholder="Ej: Reunión con el cliente">
+              </div>
+
+              <div class="toggle-row">
+                <span class="toggle-label">Todo el día</span>
+                <div class="toggle-pill"></div>
+              </div>
+
+              <div class="time-cols">
+                <div class="dcx-field" style="margin-bottom:0">
+                  <label class="dcx-label">Hora inicio</label>
+                  <input class="dcx-input" type="time" value="10:00">
+                </div>
+                <div class="dcx-field" style="margin-bottom:0">
+                  <label class="dcx-label">Hora fin</label>
+                  <input class="dcx-input" type="time" value="11:00">
+                </div>
+              </div>
+
+              <hr class="form-divider">
+
+              <div class="dcx-field">
+                <label class="dcx-label">Descripción</label>
+                <textarea class="dcx-textarea" placeholder="Añade una descripción (opcional)"></textarea>
+              </div>
+
+              <div class="dcx-field" style="margin-bottom:0">
+                <label class="dcx-label">Repetir</label>
+                <select class="dcx-select">
+                  <option>No repetir</option>
+                  <option>Cada día</option>
+                  <option>Cada semana</option>
+                  <option>Cada mes</option>
+                </select>
+              </div>
+
+            </div>
+            <div class="dialog-footer">
+              <button class="dcx-btn btn-secondary">Cancelar</button>
+              <button class="dcx-btn btn-primary">Guardar evento</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All day -->
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:.75rem">Todo el día</div>
+        <div class="ev-overlay">
+          <div class="dcx-dialog">
+            <div class="dialog-header">
+              <div>
+                <div class="dialog-title">Nuevo evento</div>
+                <div class="dialog-date-badge">
+                  <svg width="11" height="11" fill="none" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 1v4M11 1v4M2 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Miércoles, 10 jun 2026
+                </div>
+              </div>
+              <button class="dialog-close">
+                <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <div class="dialog-body">
+
+              <div class="ev-type-label">Tipo de evento</div>
+              <div class="ev-type-row">
+                <div class="ev-type-opt ev-type-blue"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-green active"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-orange"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-red"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-purple"><div class="ev-type-inner"></div></div>
+              </div>
+
+              <div class="dcx-field">
+                <label class="dcx-label">Título <span style="color:var(--color-error)">*</span></label>
+                <input class="dcx-input" type="text" value="Demo Sprint 23">
+              </div>
+
+              <div class="toggle-row">
+                <span class="toggle-label">Todo el día</span>
+                <div class="toggle-pill on"></div>
+              </div>
+
+              <hr class="form-divider">
+
+              <div class="dcx-field">
+                <label class="dcx-label">Descripción</label>
+                <textarea class="dcx-textarea">Presentación de resultados del sprint al cliente.</textarea>
+              </div>
+
+              <div class="dcx-field" style="margin-bottom:0">
+                <label class="dcx-label">Repetir</label>
+                <select class="dcx-select">
+                  <option>No repetir</option>
+                  <option>Cada día</option>
+                  <option>Cada semana</option>
+                  <option>Cada mes</option>
+                </select>
+              </div>
+
+            </div>
+            <div class="dialog-footer">
+              <button class="dcx-btn btn-secondary">Cancelar</button>
+              <button class="dcx-btn btn-primary">Guardar evento</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ════════════════════════════════
+         8. MODAL EDITAR / ELIMINAR
+    ════════════════════════════════ -->
+    <div class="section-label" style="margin-bottom:.75rem">Editar evento</div>
+    <div class="showcase mb-2">
+
+      <!-- Edit modal -->
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:.75rem">Editar</div>
+        <div class="ev-overlay">
+          <div class="dcx-dialog">
+            <div class="dialog-header">
+              <div class="dialog-title">Editar evento</div>
+              <button class="dialog-close">
+                <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <div class="dialog-body">
+
+              <div class="ev-type-label">Tipo de evento</div>
+              <div class="ev-type-row">
+                <div class="ev-type-opt ev-type-blue active"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-green"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-orange"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-red"><div class="ev-type-inner"></div></div>
+                <div class="ev-type-opt ev-type-purple"><div class="ev-type-inner"></div></div>
+              </div>
+
+              <div class="dcx-field">
+                <label class="dcx-label">Título <span style="color:var(--color-error)">*</span></label>
+                <input class="dcx-input" type="text" value="Standup equipo">
+              </div>
+
+              <div class="toggle-row">
+                <span class="toggle-label">Todo el día</span>
+                <div class="toggle-pill"></div>
+              </div>
+
+              <div class="time-cols">
+                <div class="dcx-field" style="margin-bottom:0">
+                  <label class="dcx-label">Hora inicio</label>
+                  <input class="dcx-input" type="time" value="09:00">
+                </div>
+                <div class="dcx-field" style="margin-bottom:0">
+                  <label class="dcx-label">Hora fin</label>
+                  <input class="dcx-input" type="time" value="09:30">
+                </div>
+              </div>
+
+              <hr class="form-divider">
+
+              <div class="dcx-field">
+                <label class="dcx-label">Descripción</label>
+                <textarea class="dcx-textarea">Revisión diaria del equipo. 15 minutos.</textarea>
+              </div>
+
+              <div class="dcx-field" style="margin-bottom:0">
+                <label class="dcx-label">Repetir</label>
+                <select class="dcx-select">
+                  <option>No repetir</option>
+                  <option selected>Cada día</option>
+                  <option>Cada semana</option>
+                  <option>Cada mes</option>
+                </select>
+              </div>
+
+            </div>
+            <div class="dialog-footer">
+              <div class="dialog-footer-left">
+                <button class="dcx-btn btn-ghost-red">Eliminar</button>
+              </div>
+              <button class="dcx-btn btn-secondary">Cancelar</button>
+              <button class="dcx-btn btn-primary">Actualizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete confirmation -->
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:.75rem">Confirmar eliminación</div>
+        <div class="ev-overlay">
+          <div class="dcx-dialog" style="width:380px">
+            <div class="dialog-header">
+              <div class="dialog-title">Eliminar evento</div>
+              <button class="dialog-close">
+                <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <div class="dialog-body">
+              <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+                <div style="width:44px;height:44px;border-radius:50%;background:#fef2f2;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                  <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><path d="M8 4h4M3 6h14M5 6l1 10h8l1-10" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <p style="font-size:14px;color:var(--text-muted);line-height:1.6">
+                  ¿Eliminar <strong style="color:var(--text-dark)">Standup equipo</strong>?
+                  Este es un evento recurrente. ¿Qué quieres eliminar?
+                </p>
+                <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+                  <label style="display:flex;align-items:center;gap:var(--sp-2);font-size:14px;cursor:pointer;color:var(--text-dark)">
+                    <input type="radio" name="del_scope" checked style="accent-color:var(--bg-primary)"> Solo este evento
+                  </label>
+                  <label style="display:flex;align-items:center;gap:var(--sp-2);font-size:14px;cursor:pointer;color:var(--text-dark)">
+                    <input type="radio" name="del_scope" style="accent-color:var(--bg-primary)"> Este y los siguientes
+                  </label>
+                  <label style="display:flex;align-items:center;gap:var(--sp-2);font-size:14px;cursor:pointer;color:var(--text-dark)">
+                    <input type="radio" name="del_scope" style="accent-color:var(--bg-primary)"> Todos los eventos
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="dialog-footer">
+              <button class="dcx-btn btn-secondary">Cancelar</button>
+              <button class="dcx-btn btn-danger">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+  </body>
+
+  <script>
+    // ── Render the year view ──────────────────────────────────────────────────
+    const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    const WDS    = ['Lu','Ma','Mi','Ju','Vi','Sa','Do'];
+    const TODAY  = new Date(2026, 5, 8); // June 8 2026
+
+    function renderMiniMonth(year, month, selectedDay) {
+      const firstDay = new Date(year, month, 1);
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      // Monday-first offset
+      const startOffset = (firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1);
+      const isActiveMonth = year === TODAY.getFullYear() && month === TODAY.getMonth();
+
+      let html = `<div class="cal-mini-month${isActiveMonth ? ' active-month' : ''}">`;
+      html += `<div class="cal-mini-month-name">${MONTHS[month]}</div>`;
+      html += `<div class="cal-mini-grid">`;
+      WDS.forEach(w => { html += `<div class="cal-mini-wd">${w}</div>`; });
+      for (let i = 0; i < startOffset; i++) html += `<div class="cal-mini-day other-m"></div>`;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const isToday = isActiveMonth && d === TODAY.getDate();
+        const isSelected = isActiveMonth && d === selectedDay;
+        let cls = 'cal-mini-day';
+        if (isToday) cls += ' today';
+        if (isSelected) cls += ' selected';
+        html += `<div class="${cls}">${d}</div>`;
+      }
+      html += `</div></div>`;
+      return html;
+    }
+
+    const container = document.getElementById('cal-year');
+    container.innerHTML = `
+      <div class="cal-year-header">
+        <button class="cal-nav"><svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <span class="cal-year-title">2026</span>
+        <button class="cal-nav"><svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="cal-year-grid">
+        ${Array.from({length:12},(_,i) => renderMiniMonth(2026, i, i===5 ? 8 : null)).join('')}
+      </div>`;
+  </script>
+</html>
