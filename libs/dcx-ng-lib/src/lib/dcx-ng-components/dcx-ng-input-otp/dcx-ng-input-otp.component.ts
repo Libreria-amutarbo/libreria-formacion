@@ -120,6 +120,20 @@ export class DcxNgInputOtpComponent implements ControlValueAccessor {
 
   readonly displayTokens = computed<string[]>(() => this.tokens());
 
+  readonly inputBaseClass = computed<string>(() => {
+    const classes = ['dcx-input-otp__input'];
+
+    if (this.size() === 'small') {
+      classes.push('dcx-input-otp__input--small');
+    }
+
+    if (this.size() === 'large') {
+      classes.push('dcx-input-otp__input--large');
+    }
+
+    return classes.join(' ');
+  });
+
   private readonly syncLengthEffect = effect(() => {
     const nextLength = this.normalizedLength();
     const currentTokens = this.tokens();
@@ -284,6 +298,12 @@ export class DcxNgInputOtpComponent implements ControlValueAccessor {
 
   getAriaLabel(index: number): string {
     return `${this.ariaLabel()} ${index + 1} of ${this.normalizedLength()}`;
+  }
+
+  getInputClass(token: string): string {
+    return token
+      ? `${this.inputBaseClass()} dcx-input-otp__input--filled`
+      : this.inputBaseClass();
   }
 
   private applyCharacters(index: number, characters: string): void {
