@@ -1,29 +1,55 @@
-.dcx-datepicker__input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+// ── Wrapper del componente completo (tarjeta) ────────────────────────────────
 
-.dcx-datepicker__input {
-  width: 100%;
-}
-.dp-nav .dcx-icon,
-.dp-nav .dcx-icon i {
-  color: #fff !important;
-  fill: #fff !important;
-}
-
-// --- ESTILO VISUAL IGUAL AL DISEÑO DE REFERENCIA ---
 .dcx-datepicker {
   background: var(--bg-default, #fff);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--border-default, #e5e7eb);
   border-radius: var(--r-xl, 12px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 280px;
   overflow: hidden;
   font-family: var(--ff-base, 'Inter', sans-serif);
+  display: inline-block;
 }
+
+// ── Trigger (input wrapper) ───────────────────────────────────────────────────
+
+.dcx-datepicker__input-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--border-focus, #1db8f2);
+    outline-offset: -2px;
+    border-radius: var(--r-xl, 12px);
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.dcx-datepicker__input {
+  width: 100%;
+  pointer-events: none;
+}
+
+// ── Popover — flujo normal (no flotante) ─────────────────────────────────────
+// El calendario se abre inline dentro de la tarjeta para que el canvas de
+// Storybook se expanda correctamente con el contenido.
+
+.dcx-datepicker__popover {
+  border-top: 1px solid var(--border-default, #e5e7eb);
+}
+
+.dcx-datepicker__calendar {
+  // sin borde ni sombra propios: la tarjeta padre (.dcx-datepicker) los provee
+}
+
+// ── Header ───────────────────────────────────────────────────────────────────
 
 .dp-header {
   padding: var(--sp-3, 12px) var(--sp-4, 16px);
@@ -32,91 +58,189 @@
   justify-content: space-between;
   background: var(--bg-primary, #0058ab);
 }
+
+// Nav buttons — una sola declaración sin !important
 .dp-nav {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #fff !important;
-  fill: #fff !important;
+  color: var(--content-default-white, #fff);
   padding: var(--sp-1, 4px);
   border-radius: var(--r-sm, 4px);
   display: flex;
   align-items: center;
   transition: background 0.15s;
+
+  // Icono blanco en el botón de nav — sin !important
+  dcx-ng-icon,
+  .dcx-icon,
+  .dcx-icon i {
+    color: var(--content-default-white, #fff);
+    fill: var(--content-default-white, #fff);
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+  }
 }
-.dp-nav:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.15);
-}
+
 .dp-month-year {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
+  color: var(--content-default-white, #fff);
 }
-.dp-weekdays {
+
+.dp-month--clickable,
+.dp-year--clickable {
+  background: transparent;
+  border: none;
+  color: var(--content-default-white, #fff);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: var(--r-sm, 4px);
+  transition: background 0.15s;
+  font-family: inherit;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+  }
+}
+
+.dp-month--clickable {
+  text-transform: capitalize;
+}
+
+// ── Selectores de mes / año ───────────────────────────────────────────────────
+
+.dp-select-list {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  padding: var(--sp-2, 8px) var(--sp-3, 12px) 0;
-  gap: 2px;
+  padding: var(--sp-2, 8px) var(--sp-3, 12px);
+  gap: 4px;
+
+  &--months {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &--years {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
+
+.dp-select-list__item {
+  width: 100%;
+}
+
+// ── Grid del calendario (tabla) ───────────────────────────────────────────────
+
+.dp-grid {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px 1px;
+  table-layout: fixed;
+}
+
+// Encabezado de días de semana
 .dp-wd {
-  font-size: var(--fs-xs, 11px);
-  font-weight: var(--fw-semibold, 600);
+  font-size: 11px;
+  font-weight: 600;
   color: var(--text-muted, #696e75);
   text-align: center;
-  padding: var(--sp-1, 4px) 0;
+  padding: 5px 0 6px;
 }
-.dp-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  padding: var(--sp-2, 8px) var(--sp-3, 12px) var(--sp-3, 12px);
-  gap: 2px;
+
+// Contenedor del grid (padding alrededor de la tabla)
+.dp-grid-wrapper {
+  padding: var(--sp-2, 8px) var(--sp-4, 16px) var(--sp-3, 12px);
 }
+
+// Botón de día
 .dp-day {
+  width: 100%;
   font-size: var(--fs-sm, 12px);
   text-align: center;
-  padding: 6px 4px;
+  padding: 6px 2px;
   border-radius: var(--r-sm, 4px);
   cursor: pointer;
   color: var(--text-dark, #2a2e33);
   background: transparent;
+  border: none;
+  font-family: inherit;
   transition: background 0.1s;
+  line-height: 1;
+
+  &:hover:not(:disabled):not(.selected):not(.in-range) {
+    background: var(--bg-hover, #f7f8fa);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--border-focus, #1db8f2);
+    outline-offset: -1px;
+    border-radius: var(--r-sm, 4px);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  &.today {
+    font-weight: 600;
+    color: var(--bg-primary, #0058ab);
+  }
+
+  &.selected {
+    background: var(--bg-primary, #0058ab);
+    color: var(--content-default-white, #fff);
+    border-radius: var(--r-pill, 999px);
+
+    &:hover:not(:disabled) {
+      background: var(--bg-primary-hover, #004080);
+    }
+  }
+
+  &.in-range {
+    background: var(--color-info-bg, #eff6ff);
+    color: var(--color-info, #0058ab);
+    border-radius: 6px;
+
+    &:hover:not(:disabled) {
+      background: #dbeafe;
+    }
+  }
+
+  &.other-month {
+    color: var(--text-placeholder, #9ca3af);
+  }
 }
-.dp-day:hover {
-  background: var(--bg-hover, #f7f8fa);
-}
-.dp-day.today {
-  font-weight: 600;
-  color: var(--bg-primary, #0058ab);
-}
-.dp-day.selected {
-  background: var(--bg-primary, #0058ab);
-  color: var(--text-white, #fff);
-  border-radius: var(--r-pill, 999px);
-}
-.dp-day.in-range {
-  background: var(--color-info-bg, #eff6ff);
-  color: var(--color-info, #0058ab);
-}
-.dp-day.other-month {
-  color: var(--text-placeholder, #9ca3af);
-}
-.dp-day.disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-  pointer-events: none;
-}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
 
 .dcx-datepicker__footer {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: var(--spacing-xs, 8px);
-  padding: var(--spacing-xs, 8px);
+  padding: var(--spacing-xs, 8px) var(--sp-3, 12px);
   border-top: 1px solid var(--border-default, #e5e7eb);
   flex-wrap: nowrap;
   max-width: 100%;
   box-sizing: border-box;
+  --r-sm: 20px; // botones de footer con esquinas muy redondeadas
 }
 
 .dcx-datepicker__footer-btn {
@@ -141,14 +265,10 @@
 }
 
 .dcx-datepicker__footer-btn--ghost {
-  background: var(--bg-default, #fff);
+  // El variant="secondary" del botón ya aporta borde gris, fondo blanco y texto oscuro.
+  // Solo ajustamos el color del texto para que sea más sutil.
   color: var(--text-muted, #696e75);
-  border: none;
   box-shadow: none;
-  transition: color 0.2s;
-}
-.dcx-datepicker__footer-btn--ghost:hover {
-  color: var(--color-primary-700, #003366);
 }
 
 .dcx-datepicker__footer-btn--primary {
@@ -162,9 +282,10 @@
   border: none;
   box-shadow: none;
   transition: color 0.2s;
-}
-.dcx-datepicker__footer-btn--secondary:hover {
-  color: var(--bg-primary-hover, #004080);
+
+  &:hover {
+    color: var(--bg-primary-hover, #004080);
+  }
 }
 
 .dcx-datepicker__footer-btn .dcx-icon {

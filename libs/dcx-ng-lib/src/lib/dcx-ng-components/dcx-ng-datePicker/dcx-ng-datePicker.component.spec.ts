@@ -604,7 +604,7 @@ describe('DcxNgDatePickerComponent', () => {
       expect(result[0].getTime()).toBeLessThan(result[1].getTime());
     });
 
-    it('should format multiple dates with dash separator', () => {
+    it('should format 1-2 dates with dash separator', () => {
       componentRef.setInput('selectedDates', [
         new Date(2025, 0, 10),
         new Date(2025, 0, 15),
@@ -614,6 +614,27 @@ describe('DcxNgDatePickerComponent', () => {
       expect(formatted).toContain('10/01/2025');
       expect(formatted).toContain('15/01/2025');
       expect(formatted).toContain(' - ');
+    });
+
+    it('should show count summary for more than 2 dates', () => {
+      componentRef.setInput('selectedDates', [
+        new Date(2025, 0, 5),
+        new Date(2025, 0, 10),
+        new Date(2025, 0, 15),
+      ]);
+      fixture.detectChanges();
+      expect(component.formattedSelectedDate()).toBe('3 fechas seleccionadas');
+    });
+
+    it('should show count summary for 4+ dates', () => {
+      componentRef.setInput('selectedDates', [
+        new Date(2025, 0, 1),
+        new Date(2025, 0, 5),
+        new Date(2025, 0, 10),
+        new Date(2025, 0, 15),
+      ]);
+      fixture.detectChanges();
+      expect(component.formattedSelectedDate()).toBe('4 fechas seleccionadas');
     });
 
     it('should show placeholder when no dates selected', () => {
@@ -667,40 +688,40 @@ describe('DcxNgDatePickerComponent', () => {
   describe('getDayClasses', () => {
     it('should return other-month class', () => {
       const c = component.getDayClasses(makeDay({ isCurrentMonth: false }));
-      expect(c['dcx-datepicker__day--other-month']).toBe(true);
+      expect(c['other-month']).toBe(true);
     });
 
     it('should return today class', () => {
       const c = component.getDayClasses(makeDay({ isToday: true }));
-      expect(c['dcx-datepicker__day--today']).toBe(true);
+      expect(c['today']).toBe(true);
     });
 
     it('should return selected class', () => {
       const c = component.getDayClasses(makeDay({ isSelected: true }));
-      expect(c['dcx-datepicker__day--selected']).toBe(true);
+      expect(c['selected']).toBe(true);
     });
 
     it('should return in-range class', () => {
       const c = component.getDayClasses(makeDay({ isInRange: true }));
-      expect(c['dcx-datepicker__day--in-range']).toBe(true);
+      expect(c['in-range']).toBe(true);
     });
 
     it('should return disabled class', () => {
       const c = component.getDayClasses(makeDay({ isDisabled: true }));
-      expect(c['dcx-datepicker__day--disabled']).toBe(true);
+      expect(c['disabled']).toBe(true);
     });
 
     it('should return false for all when nothing special', () => {
       const c = component.getDayClasses(makeDay());
-      expect(c['dcx-datepicker__day--other-month']).toBe(false);
-      expect(c['dcx-datepicker__day--today']).toBe(false);
-      expect(c['dcx-datepicker__day--selected']).toBe(false);
-      expect(c['dcx-datepicker__day--disabled']).toBe(false);
+      expect(c['other-month']).toBe(false);
+      expect(c['today']).toBe(false);
+      expect(c['selected']).toBe(false);
+      expect(c['disabled']).toBe(false);
     });
   });
 
   describe('goToToday', () => {
-    it('should select today in single mode and close calendar', () => {
+    it('should select today in single mode and keep calendar open', () => {
       component.toggleCalendar();
       const spy = jest.spyOn(component.selectedDateChange, 'emit');
       component.goToToday();
@@ -709,7 +730,7 @@ describe('DcxNgDatePickerComponent', () => {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       expect(emitted.getTime()).toBe(today.getTime());
-      expect(component.isOpen()).toBe(false);
+      expect(component.isOpen()).toBe(true);
     });
 
     it('should set today as range start in range mode', () => {
@@ -796,16 +817,48 @@ describe('DcxNgDatePickerComponent', () => {
   });
 
   describe('display and labels', () => {
-    it('should display Spanish weekdays', () => {
-      expect(component.weekDays).toEqual([
-        'Dom',
-        'Lun',
-        'Mar',
-        'Mié',
-        'Jue',
-        'Vie',
-        'Sáb',
+    it('should display Spanish weekdays starting on Monday (default)', () => {
+      expect(component.weekDays()).toEqual([
+        'Lu',
+        'Ma',
+        'Mi',
+        'Ju',
+        'Vi',
+        'Sa',
+        'Do',
       ]);
+    });
+
+    it('should display weekdays starting on Sunday when firstDayOfWeek is sunday', () => {
+      componentRef.setInput('firstDayOfWeek', 'sunday');
+      fixture.detectChanges();
+      expect(component.weekDays()).toEqual([
+        'Do',
+        'Lu',
+        'Ma',
+        'Mi',
+        'Ju',
+        'Vi',
+        'Sa',
+      ]);
+    });
+
+    it('should shift calendar grid to Sunday when firstDayOfWeek is sunday', () => {
+      // Feb 2025: 1st is Saturday (getDay()=6). With Sunday-start, offset=6 → grid starts Sun Jan 26
+      componentRef.setInput('selectedDate', new Date(2025, 1, 1));
+      componentRef.setInput('firstDayOfWeek', 'sunday');
+      fixture.detectChanges();
+      const days = component.calendarDays();
+      expect(days[0].date.getDay()).toBe(0); // first cell is always Sunday
+    });
+
+    it('should shift calendar grid to Monday when firstDayOfWeek is monday', () => {
+      // Feb 2025: 1st is Saturday (getDay()=6). With Monday-start, offset=5 → grid starts Mon Jan 27
+      componentRef.setInput('selectedDate', new Date(2025, 1, 1));
+      componentRef.setInput('firstDayOfWeek', 'monday');
+      fixture.detectChanges();
+      const days = component.calendarDays();
+      expect(days[0].date.getDay()).toBe(1); // first cell is always Monday
     });
 
     it('should show month name in Spanish', () => {
@@ -836,6 +889,121 @@ describe('DcxNgDatePickerComponent', () => {
       fixture.detectChanges();
       expect(component.currentMonth().getMonth()).toBe(5);
       expect(component.currentMonth().getFullYear()).toBe(2023);
+    });
+  });
+
+  describe('WCAG AA', () => {
+    it('should render the trigger wrapper with role="button"', () => {
+      const trigger = fixture.nativeElement.querySelector('.dcx-datepicker__input-wrapper');
+      expect(trigger.getAttribute('role')).toBe('button');
+    });
+
+    it('should have aria-haspopup="dialog" on the trigger', () => {
+      const trigger = fixture.nativeElement.querySelector('.dcx-datepicker__input-wrapper');
+      expect(trigger.getAttribute('aria-haspopup')).toBe('dialog');
+    });
+
+    it('should have aria-expanded="false" when calendar is closed', () => {
+      const trigger = fixture.nativeElement.querySelector('.dcx-datepicker__input-wrapper');
+      expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('should have aria-expanded="true" when calendar is open', () => {
+      component.toggleCalendar();
+      fixture.detectChanges();
+      const trigger = fixture.nativeElement.querySelector('.dcx-datepicker__input-wrapper');
+      expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('should render role="dialog" on the popover when open', () => {
+      component.toggleCalendar();
+      fixture.detectChanges();
+      const dialog = fixture.nativeElement.querySelector('[role="dialog"]');
+      expect(dialog).toBeTruthy();
+    });
+
+    it('should render role="grid" on the calendar table', () => {
+      component.toggleCalendar();
+      fixture.detectChanges();
+      const grid = fixture.nativeElement.querySelector('[role="grid"]');
+      expect(grid).toBeTruthy();
+    });
+
+    it('should render role="gridcell" on each day cell', () => {
+      component.toggleCalendar();
+      fixture.detectChanges();
+      const cells = fixture.nativeElement.querySelectorAll('[role="gridcell"]');
+      expect(cells.length).toBe(42);
+    });
+
+    it('should render <button> elements inside gridcells', () => {
+      component.toggleCalendar();
+      fixture.detectChanges();
+      const dayButtons = fixture.nativeElement.querySelectorAll('.dp-day');
+      expect(dayButtons.length).toBe(42);
+      dayButtons.forEach((btn: HTMLElement) => {
+        expect(btn.tagName.toLowerCase()).toBe('button');
+      });
+    });
+
+    it('should set aria-selected="true" on selected day', () => {
+      const today = new Date();
+      componentRef.setInput('selectedDate', today);
+      component.toggleCalendar();
+      fixture.detectChanges();
+      const selected = fixture.nativeElement.querySelector('[aria-selected="true"]');
+      expect(selected).toBeTruthy();
+    });
+
+    it('should set aria-disabled="true" on disabled days', () => {
+      const future = new Date();
+      future.setDate(future.getDate() + 10);
+      componentRef.setInput('maxDate', new Date());
+      component.toggleCalendar();
+      fixture.detectChanges();
+      const disabledCells = fixture.nativeElement.querySelectorAll('[aria-disabled="true"]');
+      expect(disabledCells.length).toBeGreaterThan(0);
+    });
+
+    it('should close calendar on Escape key via onTriggerKeydown', () => {
+      component.toggleCalendar();
+      expect(component.isOpen()).toBe(true);
+      const event = new KeyboardEvent('keydown', { key: 'Escape' });
+      component.onTriggerKeydown(event);
+      expect(component.isOpen()).toBe(false);
+    });
+
+    it('should toggle calendar on Enter key via onTriggerKeydown', () => {
+      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+      component.onTriggerKeydown(event);
+      expect(component.isOpen()).toBe(true);
+    });
+
+    it('should toggle calendar on Space key via onTriggerKeydown', () => {
+      const event = new KeyboardEvent('keydown', { key: ' ' });
+      component.onTriggerKeydown(event);
+      expect(component.isOpen()).toBe(true);
+    });
+
+    it('should render <button> elements for month and year selectors', () => {
+      component.toggleCalendar();
+      fixture.detectChanges();
+      const monthBtn = fixture.nativeElement.querySelector('.dp-month--clickable');
+      const yearBtn = fixture.nativeElement.querySelector('.dp-year--clickable');
+      expect(monthBtn.tagName.toLowerCase()).toBe('button');
+      expect(yearBtn.tagName.toLowerCase()).toBe('button');
+    });
+
+    it('isFocusedDay returns true for a selected day when no focusedDate is set', () => {
+      const today = new Date();
+      componentRef.setInput('selectedDate', today);
+      fixture.detectChanges();
+      const days = component.calendarDays();
+      const selectedDay = days.find(d => d.isSelected);
+      expect(selectedDay).toBeTruthy();
+      if (selectedDay) {
+        expect(component.isFocusedDay(selectedDay)).toBe(true);
+      }
     });
   });
 });

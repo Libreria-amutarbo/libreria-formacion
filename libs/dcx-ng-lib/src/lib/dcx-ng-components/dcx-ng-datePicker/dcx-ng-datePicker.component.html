@@ -1,11 +1,17 @@
 <div class="dcx-datepicker">
+  <!-- ── Trigger ─────────────────────────────────────────────────────────── -->
   <div
     class="dcx-datepicker__input-wrapper"
     [class.dcx-datepicker__input-wrapper--disabled]="disabled()"
     [class.dcx-datepicker__input-wrapper--open]="isOpen()"
-    (click)="toggleCalendar()"
-    tabindex="0"
     role="button"
+    tabindex="0"
+    [attr.aria-expanded]="isOpen()"
+    aria-haspopup="dialog"
+    [attr.aria-label]="'Seleccionar fecha'"
+    [attr.aria-disabled]="disabled() || null"
+    (click)="toggleCalendar()"
+    (keydown)="onTriggerKeydown($event)"
   >
     <dcx-ng-input
       class="dcx-datepicker__input"
@@ -19,107 +25,141 @@
       (valueChange)="null"
     ></dcx-ng-input>
   </div>
+
+  <!-- ── Calendar panel ──────────────────────────────────────────────────── -->
   @if (isOpen()) {
-    <div class="dcx-datepicker__popover">
+    <div
+      class="dcx-datepicker__popover"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Calendario"
+    >
       <div class="dcx-datepicker__calendar">
-        <div class="dp-header">
+
+        <!-- ── Header ────────────────────────────────────────────────────── -->
+        <div class="dp-header" aria-live="polite" aria-atomic="true">
           <dcx-ng-button
             class="dp-nav"
             [icon]="true"
             iconPosition="right"
-            iconName="arrow-left"
+            iconName="chevron-left"
             [ariaLabel]="labels.previous"
             (buttonClick)="previousMonth()"
           ></dcx-ng-button>
+
           <span class="dp-month-year">
-            <span
+            <button
               class="dp-month dp-month--clickable"
+              type="button"
+              [attr.aria-label]="'Seleccionar mes: ' + monthName()"
               (click)="openMonthSelector()"
-              tabindex="0"
-              role="button"
-              >{{ monthName() }}</span
-            >
-            <span>&nbsp;</span>
-            <span
+            >{{ monthName() }}</button>
+            <span aria-hidden="true">&nbsp;</span>
+            <button
               class="dp-year dp-year--clickable"
+              type="button"
+              [attr.aria-label]="'Seleccionar año: ' + yearNumber()"
               (click)="openYearSelector()"
-              tabindex="0"
-              role="button"
-              >{{ yearNumber() }}</span
-            >
+            >{{ yearNumber() }}</button>
           </span>
+
           <dcx-ng-button
             class="dp-nav"
             [icon]="true"
             iconPosition="right"
-            iconName="arrow-right"
+            iconName="chevron-right"
             [ariaLabel]="labels.next"
             (buttonClick)="nextMonth()"
           ></dcx-ng-button>
         </div>
 
+        <!-- ── Month selector ────────────────────────────────────────────── -->
         @if (isMonthMode()) {
-          <div class="dp-select-list dp-select-list--months">
+          <div class="dp-select-list dp-select-list--months" role="listbox" aria-label="Seleccionar mes">
             @for (idx of monthsIndexes; track idx) {
               <dcx-ng-button
                 class="dp-select-list__item"
                 [label]="monthsList[idx]"
                 variant="terciary"
                 size="s"
+                [attr.aria-label]="monthsList[idx]"
                 (buttonClick)="selectMonth(idx)"
               ></dcx-ng-button>
             }
           </div>
+
+        <!-- ── Year selector ─────────────────────────────────────────────── -->
         } @else if (isYearMode()) {
-          <div class="dp-select-list dp-select-list--years">
+          <div class="dp-select-list dp-select-list--years" role="listbox" aria-label="Seleccionar año">
             @for (year of yearsList(); track year) {
               <dcx-ng-button
                 class="dp-select-list__item"
                 [label]="year.toString()"
                 variant="terciary"
                 size="s"
+                [attr.aria-label]="year.toString()"
                 (buttonClick)="selectYear(year)"
               ></dcx-ng-button>
             }
           </div>
+
+        <!-- ── Calendar grid ─────────────────────────────────────────────── -->
         } @else {
-          <div class="dp-weekdays">
-            @for (day of weekDays; track day) {
-              <div class="dp-wd">{{ day }}</div>
-            }
-          </div>
-          <div class="dp-days">
-            @for (day of calendarDays(); track day.date.getTime()) {
-              <div
-                class="dp-day"
-                [class.selected]="day.isSelected"
-                [class.in-range]="day.isInRange"
-                [class.today]="day.isToday"
-                [class.other-month]="!day.isCurrentMonth"
-                [class.disabled]="day.isDisabled"
-                (click)="!day.isDisabled && selectDate(day)"
-                tabindex="0"
-                role="button"
-              >
-                {{ day.date.getDate() }}
-              </div>
-            }
+          <div class="dp-grid-wrapper">
+          <table
+            class="dp-grid"
+            role="grid"
+            [attr.aria-label]="gridAriaLabel()"
+          >
+            <thead>
+              <tr role="row">
+                @for (wd of weekDays(); track wd) {
+                  <th scope="col" class="dp-wd" abbr="{{ wd }}">{{ wd }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (week of calendarWeeks(); track $index) {
+                <tr role="row">
+                  @for (day of week; track day.date.getTime()) {
+                    <td
+                      role="gridcell"
+                      [attr.aria-selected]="day.isSelected || null"
+                      [attr.aria-disabled]="day.isDisabled || null"
+                      [attr.aria-current]="day.isToday ? 'date' : null"
+                    >
+                      <button
+                        type="button"
+                        class="dp-day"
+                        [ngClass]="getDayClasses(day)"
+                        [disabled]="day.isDisabled || null"
+                        [attr.tabindex]="isFocusedDay(day) ? 0 : -1"
+                        [attr.aria-label]="day.date.getDate() + ' ' + monthName() + ' ' + yearNumber()"
+                        (click)="selectDate(day)"
+                        (keydown)="onGridKeydown($event, day)"
+                      >
+                        {{ day.date.getDate() }}
+                      </button>
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
           </div>
         }
 
+        <!-- ── Footer ────────────────────────────────────────────────────── -->
         <div class="dcx-datepicker__footer">
           @if (showClearButton()) {
             <dcx-ng-button
               class="dcx-datepicker__footer-btn dcx-datepicker__footer-btn--ghost dcx-datepicker__clear"
               variant="secondary"
               size="s"
-              [icon]="true"
-              iconName="x-lg"
               [ariaLabel]="labels.clearDate"
               [label]="labels.clearDate"
-              (buttonClick)="clearDate({clicked:true})"
-            >
-            </dcx-ng-button>
+              (buttonClick)="clearDate({ clicked: true })"
+            ></dcx-ng-button>
           }
           <dcx-ng-button
             class="dcx-datepicker__footer-btn dcx-datepicker__footer-btn--secondary"
@@ -139,6 +179,7 @@
             (buttonClick)="applyDate()"
           ></dcx-ng-button>
         </div>
+
       </div>
     </div>
   }
