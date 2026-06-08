@@ -1,8 +1,10 @@
 import { NgTemplateOutlet } from '@angular/common';
 
 import {
+  ChangeDetectionStrategy,
   Component,
   contentChild,
+  HostListener,
   input,
   output,
   TemplateRef,
@@ -19,6 +21,7 @@ import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
   imports: [NgTemplateOutlet, DcxNgButtonComponent],
   templateUrl: './dcx-ng-dialog.component.html',
   styleUrl: './dcx-ng-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgDialogComponent {
   dialogId = input<string | undefined>(undefined);
@@ -53,6 +56,11 @@ export class DcxNgDialogComponent {
   onBackdropClick(event: MouseEvent): void {
     event.stopPropagation();
     if (this.closeOnBackdrop()) this.close();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.isVisible()) this.close();
   }
 
   readonly dialogTitleId = computed(() => `dialog-title-${this.dialogId() ?? 'default'}`);
