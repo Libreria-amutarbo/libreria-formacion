@@ -172,7 +172,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Identificador único del diálogo. Se usa para abrirlo y cerrarlo desde `DialogService.open(id)` / `DialogService.close(id)`. ' +
         'Si no se proporciona, la visibilidad se controla directamente con el input `visible`.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'string | undefined' },
         defaultValue: { summary: 'undefined' },
       },
@@ -182,7 +182,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
       description:
         'Texto del título mostrado en el header del diálogo. Si está vacío, el elemento de título no se renderiza.',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
       },
@@ -193,7 +193,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Abre el diálogo directamente en la inicialización de la story (sin pasar por `DialogService`). ' +
         'En producción, usa siempre `DialogService` para controlar la visibilidad.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -204,7 +204,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Muestra u oculta el botón de cierre (✕) en el header. ' +
         'Cuando es `false`, el usuario solo puede cerrar el diálogo a través del backdrop o acciones del footer.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -214,7 +214,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
       description:
         'Parámetro de la story que alterna entre un footer con un solo botón "Aceptar" y un footer de confirmación con "Cancelar" + "Aceptar".',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -226,7 +226,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Posición del diálogo en pantalla. Aplica la clase CSS `dialog--pos-{value}`. ' +
         'Valores disponibles: `center`, `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right`.',
       table: {
-        category: 'Appearance',
+        category: 'Atributos',
         type: { summary: 'DcxDialogPosition' },
         defaultValue: { summary: 'center' },
       },
@@ -237,7 +237,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'HTML estático inyectado en el cuerpo del diálogo mediante `[innerHTML]`. ' +
         '⚠️ No soporta directivas ni eventos Angular. Para contenido interactivo, usa el `ng-template #dialogBody` directamente.',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
       },
@@ -248,7 +248,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Campo de referencia visual del footer (no funcional con `[innerHTML]`). ' +
         'El footer real de la demo está implementado con botones Angular funcionales en el `ng-template #dialogFooter`.',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
       },
@@ -259,7 +259,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Si es `true`, hacer clic en el backdrop semitransparente cierra el diálogo. ' +
         'Recomendado `false` en diálogos de confirmación para forzar una acción explícita del usuario.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -268,7 +268,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
       action: 'closeDialog',
       description:
         'Output emitido cuando el diálogo se cierra. Se dispara al pulsar el botón ✕, el backdrop, o los botones del footer.',
-      table: { category: 'Events' },
+      table: { category: 'Eventos' },
     },
   },
   args: DIALOG_DEFAULT_ARGS,
