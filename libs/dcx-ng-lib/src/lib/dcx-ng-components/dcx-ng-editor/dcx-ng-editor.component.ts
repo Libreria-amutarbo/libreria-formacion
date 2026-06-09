@@ -246,6 +246,9 @@ export class DcxNgEditorComponent
   onBeforeInput(event: InputEvent): void {
     if (this.isDisabled() || this.readonly()) return;
     if (event.inputType !== 'insertText' || !event.data) return;
+    // Spaces are handled natively by the browser, which uses &nbsp; where needed
+    // to prevent HTML whitespace collapsing (leading, trailing, consecutive spaces).
+    if (event.data === ' ') return;
 
     event.preventDefault();
     this.restoreSelection();
@@ -290,6 +293,15 @@ export class DcxNgEditorComponent
   private applyToolbarAction(action: DcxEditorToolbarAction): void {
     const range = this.getEditableRange();
     if (range?.collapsed) {
+      if (action === 'removeFormat') {
+        this.pendingToolbarActions.set(new Set());
+        (['italic', 'underline', 'bold'] as DcxEditorToolbarAction[]).forEach(
+          a => {
+            if (this.isInlineActionActive(a)) this.escapeInlineFormat(a);
+          },
+        );
+        return;
+      }
       this.togglePendingToolbarAction(action);
       return;
     }
@@ -697,7 +709,8 @@ export class DcxNgEditorComponent
   private isNodeEmpty(node: Node): boolean {
     if (node.nodeType === Node.TEXT_NODE) {
       const content = node.textContent || '';
-      return content.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
+      // Strip zero-width chars and newlines (browser artifacts) but preserve spaces
+      return content.replace(/[\u200B-\u200D\uFEFF\r\n]/g, '').length === 0;
     }
 
     if (node.nodeType === Node.ELEMENT_NODE) {
