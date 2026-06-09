@@ -44,18 +44,18 @@ describe('DcxNgDividerComponent', () => {
     ).toBeNull();
   });
 
-  // it('should render two __line spans with aria-hidden in the labeled branch', () => {
-  //   fixture.componentRef.setInput('label', 'OR');
-  //   fixture.detectChanges();
+  it('should render two __line spans with aria-hidden in the labeled branch', () => {
+    fixture.componentRef.setInput('label', 'OR');
+    fixture.detectChanges();
 
-  //   const lines = fixture.debugElement.queryAll(
-  //     By.css('.dcx-ng-divider__line'),
-  //   );
-  //   expect(lines.length).toBe(2);
-  //   lines.forEach(line =>
-  //     expect(line.nativeElement.getAttribute('aria-hidden')).toBe('true'),
-  //   );
-  // });
+    const lines = fixture.debugElement.queryAll(
+      By.css('.dcx-ng-divider__line'),
+    );
+    expect(lines.length).toBe(2);
+    lines.forEach(line =>
+      expect(line.nativeElement.getAttribute('aria-hidden')).toBe('true'),
+    );
+  });
 
   it('should render the __label span with the correct text', () => {
     fixture.componentRef.setInput('label', 'My Label');
@@ -130,12 +130,35 @@ describe('DcxNgDividerComponent', () => {
     expect(labeled.nativeElement.getAttribute('aria-label')).toBe('Section');
   });
 
-  it('should fall back aria-label to "dcx-divider" when both ariaLabel and label are empty', () => {
+  it('should NOT set aria-label when both ariaLabel and label are empty (decorative)', () => {
     fixture.componentRef.setInput('ariaLabel', '');
     fixture.detectChanges();
 
     const span = fixture.debugElement.query(By.css('span.dcx-ng-divider'));
-    expect(span.nativeElement.getAttribute('aria-label')).toBe('dcx-divider');
+    expect(span.nativeElement.getAttribute('aria-label')).toBeNull();
+  });
+
+  describe('WCAG AA — aria-hidden para divisores decorativos', () => {
+    it('should set aria-hidden="true" on host when label and ariaLabel are empty', () => {
+      fixture.componentRef.setInput('label', '');
+      fixture.componentRef.setInput('ariaLabel', '');
+      fixture.detectChanges();
+      expect((fixture.nativeElement as HTMLElement).getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('should NOT set aria-hidden when label is set', () => {
+      fixture.componentRef.setInput('label', 'Section');
+      fixture.componentRef.setInput('ariaLabel', '');
+      fixture.detectChanges();
+      expect((fixture.nativeElement as HTMLElement).getAttribute('aria-hidden')).toBeNull();
+    });
+
+    it('should NOT set aria-hidden when ariaLabel is set', () => {
+      fixture.componentRef.setInput('label', '');
+      fixture.componentRef.setInput('ariaLabel', 'Mi separador');
+      fixture.detectChanges();
+      expect((fixture.nativeElement as HTMLElement).getAttribute('aria-hidden')).toBeNull();
+    });
   });
 
   // ─── ariaLabelBinding computed ────────────────────────────────────────────────
@@ -154,11 +177,11 @@ describe('DcxNgDividerComponent', () => {
     expect(component.ariaLabelBinding()).toBe('Section');
   });
 
-  it('should fall back ariaLabelBinding to "dcx-divider" when both are empty', () => {
+  it('should return null from ariaLabelBinding when both ariaLabel and label are empty', () => {
     fixture.componentRef.setInput('ariaLabel', '');
     fixture.componentRef.setInput('label', '');
     fixture.detectChanges();
-    expect(component.ariaLabelBinding()).toBe('dcx-divider');
+    expect(component.ariaLabelBinding()).toBeNull();
   });
 
   // ─── Host class bindings ──────────────────────────────────────────────────────

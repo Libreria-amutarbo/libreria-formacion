@@ -5,9 +5,9 @@
     [attr.aria-orientation]="orientation()"
     [attr.aria-label]="ariaLabelBinding()"
   >
-    <span class="dcx-ng-divider__line"></span>
+    <span class="dcx-ng-divider__line" aria-hidden="true"></span>
     <span class="dcx-ng-divider__label">{{ label() }}</span>
-    <span class="dcx-ng-divider__line"></span>
+    <span class="dcx-ng-divider__line" aria-hidden="true"></span>
   </div>
 } @else {
   <span
