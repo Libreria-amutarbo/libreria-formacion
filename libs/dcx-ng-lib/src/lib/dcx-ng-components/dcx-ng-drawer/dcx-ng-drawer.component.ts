@@ -23,10 +23,11 @@ import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 })
 export class DcxNgDrawerComponent {
   private static globalZIndex = 0;
+  private static _instanceCount = 0;
   private readonly closeTransitionMs = 220;
 
   readonly visible = input<boolean>(false);
-  readonly position = input<DcxPosition>('left');
+  readonly position = input<DcxPosition>('right');
   readonly modal = input<boolean>(true);
   readonly dismissible = input<boolean>(true);
   readonly showCloseIcon = input<boolean>(true);
@@ -49,6 +50,10 @@ export class DcxNgDrawerComponent {
   private wasVisible = false;
   private hideAlreadyEmitted = false;
   private readonly currentZIndex = signal(1000);
+  private readonly _drawerId = signal(
+    `dcx-drawer-${++DcxNgDrawerComponent._instanceCount}`,
+  );
+  readonly drawerTitleId = computed(() => `${this._drawerId()}-title`);
   readonly rendered = signal(false);
 
   readonly drawerClasses = computed(() => {

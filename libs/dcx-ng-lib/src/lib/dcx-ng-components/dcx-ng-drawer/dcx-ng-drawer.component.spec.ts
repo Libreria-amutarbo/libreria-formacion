@@ -101,6 +101,10 @@ describe('DcxNgDrawerComponent', () => {
     expect(footer.nativeElement.textContent).toContain('Footer input text');
   });
 
+  it('should default position to "right"', () => {
+    expect(component.position()).toBe('right');
+  });
+
   it('should prioritize drawerFooter template over footer input text', () => {
     const hostFixture = TestBed.createComponent(
       DrawerWithFooterTemplateHostComponent,
@@ -113,5 +117,47 @@ describe('DcxNgDrawerComponent', () => {
     expect(footer).toBeTruthy();
     expect(footer.nativeElement.textContent).toContain('Projected footer');
     expect(footer.nativeElement.textContent).not.toContain('Footer text');
+  });
+
+  describe('WCAG AA — aria-labelledby y aria-hidden', () => {
+    it('should render aria-labelledby on aside pointing to drawerTitleId when header is set', () => {
+      fixture.componentRef.setInput('visible', true);
+      fixture.componentRef.setInput('header', 'Mi Drawer');
+      fixture.detectChanges();
+
+      const aside = fixture.debugElement.query(By.css('aside[role="dialog"]'));
+      expect(aside.nativeElement.getAttribute('aria-labelledby')).toBe(
+        component.drawerTitleId(),
+      );
+    });
+
+    it('should NOT render aria-labelledby when header is empty', () => {
+      fixture.componentRef.setInput('visible', true);
+      fixture.componentRef.setInput('header', '');
+      fixture.detectChanges();
+
+      const aside = fixture.debugElement.query(By.css('aside[role="dialog"]'));
+      expect(aside.nativeElement.getAttribute('aria-labelledby')).toBeNull();
+    });
+
+    it('should render [id] on h3 matching drawerTitleId when header is set', () => {
+      fixture.componentRef.setInput('visible', true);
+      fixture.componentRef.setInput('header', 'Mi Drawer');
+      fixture.detectChanges();
+
+      const title = fixture.debugElement.query(By.css('.dcx-drawer__title'));
+      expect(title.nativeElement.getAttribute('id')).toBe(
+        component.drawerTitleId(),
+      );
+    });
+
+    it('should render aria-hidden="true" on mask', () => {
+      fixture.componentRef.setInput('visible', true);
+      fixture.componentRef.setInput('modal', true);
+      fixture.detectChanges();
+
+      const mask = fixture.debugElement.query(By.css('.dcx-drawer-mask'));
+      expect(mask.nativeElement.getAttribute('aria-hidden')).toBe('true');
+    });
   });
 });
