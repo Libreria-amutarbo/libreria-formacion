@@ -4,7 +4,6 @@ import {
   DcxNgButtonComponent,
   DcxNgDividerComponent,
   DcxDialogPosition,
-  DIALOG_DEFAULT_ARGS,
   DialogService,
 } from '@dcx-ng-components/dcx-ng-lib';
 
@@ -18,14 +17,7 @@ import {
 export class DcxNgPageDialogComponent {
   private ds = inject(DialogService);
 
-  mockData = DIALOG_DEFAULT_ARGS;
-
   positionedDialogCurrentPosition = signal<DcxDialogPosition>('center');
-
-  openPositioned(position: DcxDialogPosition) {
-    this.positionedDialogCurrentPosition.set(position);
-    this.ds.open('positioned', { position });
-  }
 
   open(dialogId: string) {
     this.ds.open(dialogId);
@@ -33,5 +25,10 @@ export class DcxNgPageDialogComponent {
 
   close(dialogId: string) {
     this.ds.close(dialogId);
+  }
+
+  openPositioned(position: DcxDialogPosition) {
+    this.positionedDialogCurrentPosition.set(position);
+    this.ds.open('positioned');
   }
 }
