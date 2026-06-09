@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, HostBinding, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  HostBinding,
+  input,
+} from '@angular/core';
 
 import {
   DcxSize,
@@ -15,6 +21,7 @@ import { tokens } from '../../core/tokens';
   imports: [CommonModule],
   templateUrl: './dcx-ng-divider.component.html',
   styleUrl: './dcx-ng-divider.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgDividerComponent {
   color = input<string>(tokens.background.pressed);
@@ -25,9 +32,14 @@ export class DcxNgDividerComponent {
   type = input<DividerType>('default');
   label = input<string>('');
 
-  ariaLabelBinding = computed<string>(
-    () => this.ariaLabel() || this.label() || 'dcx-divider',
+  readonly ariaLabelBinding = computed(() =>
+    this.ariaLabel() || this.label() || null,
   );
+
+  @HostBinding('attr.aria-hidden')
+  get ariaHiddenBinding(): true | null {
+    return !this.label() && !this.ariaLabel() ? true : null;
+  }
 
   @HostBinding('class.has-label')
   get hasLabel() {
