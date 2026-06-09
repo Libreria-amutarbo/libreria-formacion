@@ -16,31 +16,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-type DcxInputOtpSize = 'small' | 'medium' | 'large';
-
-type DcxInputOtpTemplateContext = {
-  $implicit: string;
-  token: string;
-  index: number;
-  events: {
-    input: (event: Event) => void;
-    keydown: (event: KeyboardEvent) => void;
-    paste: (event: ClipboardEvent) => void;
-    focus: () => void;
-    blur: () => void;
-  };
-  attrs: {
-    type: 'text' | 'password' | 'tel';
-    inputmode: 'text' | 'numeric';
-    autocomplete: string;
-    maxlength: number;
-    placeholder: string;
-    ariaLabel: string;
-    disabled: boolean;
-    value: string;
-  };
-};
+import {
+  DcxInputOtpSize,
+  DcxInputOtpTemplateContext,
+} from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-input-otp',
