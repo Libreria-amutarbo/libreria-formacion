@@ -1,6 +1,7 @@
 export const APP_ROUTES = {
   TABLE: 'table',
   BUTTON: 'button',
+  CALENDAR: 'calendar',
   MESSAGE: 'message',
   TOAST: 'toast',
   ICON: 'icon',
