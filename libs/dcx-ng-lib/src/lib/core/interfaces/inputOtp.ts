@@ -1,5 +1,9 @@
 export type DcxInputOtpSize = 'small' | 'medium' | 'large';
 
+export type DcxInputOtpType = 'text' | 'password' | 'tel';
+
+export type DcxInputOtpInputMode = 'text' | 'numeric';
+
 export interface DcxInputOtpTemplateContext {
   $implicit: string;
   token: string;
@@ -8,12 +12,12 @@ export interface DcxInputOtpTemplateContext {
     input: (event: Event) => void;
     keydown: (event: KeyboardEvent) => void;
     paste: (event: ClipboardEvent) => void;
-    focus: () => void;
-    blur: () => void;
+    focus: (event: FocusEvent) => void;
+    blur: (event: FocusEvent) => void;
   };
   attrs: {
-    type: 'text' | 'password' | 'tel';
-    inputmode: 'text' | 'numeric';
+    type: DcxInputOtpType;
+    inputmode: DcxInputOtpInputMode;
     autocomplete: string;
     maxlength: number;
     placeholder: string;

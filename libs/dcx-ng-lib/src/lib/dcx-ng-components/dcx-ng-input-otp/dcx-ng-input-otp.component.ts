@@ -17,8 +17,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
+  DcxInputOtpInputMode,
   DcxInputOtpSize,
   DcxInputOtpTemplateContext,
+  DcxInputOtpType,
 } from '../../core/interfaces';
 
 @Component({
@@ -82,14 +84,14 @@ export class DcxNgInputOtpComponent implements ControlValueAccessor {
     return Math.floor(nextLength);
   });
 
-  readonly inputType = computed<'text' | 'password' | 'tel'>(() => {
+  readonly inputType = computed<DcxInputOtpType>(() => {
     if (this.mask()) return 'password';
     if (this.integerOnly()) return 'tel';
 
     return 'text';
   });
 
-  readonly inputMode = computed<'text' | 'numeric'>(() =>
+  readonly inputMode = computed<DcxInputOtpInputMode>(() =>
     this.integerOnly() ? 'numeric' : 'text',
   );
 
