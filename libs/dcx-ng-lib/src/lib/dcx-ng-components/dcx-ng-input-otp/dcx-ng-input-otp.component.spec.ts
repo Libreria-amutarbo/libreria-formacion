@@ -70,6 +70,27 @@ describe('DcxNgInputOtpComponent', () => {
     expect(getInputs()[0].value).toBe('1');
   });
 
+  it('should clear letters entered into a slot when integerOnly is true', () => {
+    fixture.componentRef.setInput('integerOnly', true);
+    fixture.detectChanges();
+
+    typeValue(0, 'a');
+
+    expect(getInputs()[0].value).toBe('');
+  });
+
+  it('should prevent non-digit key presses when integerOnly is true', () => {
+    fixture.componentRef.setInput('integerOnly', true);
+    fixture.detectChanges();
+
+    const event = new KeyboardEvent('keydown', { key: 'a', bubbles: true });
+    const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+
+    component.onKeydown(event, 0);
+
+    expect(preventDefaultSpy).toHaveBeenCalled();
+  });
+
   it('should sanitize written values when integerOnly is true', () => {
     fixture.componentRef.setInput('integerOnly', true);
     fixture.detectChanges();

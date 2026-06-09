@@ -9,7 +9,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { fn } from '@storybook/test';
-import { DcxNgInputOtpComponent } from '@dcx-ng-components/dcx-ng-lib';
+import {
+  DcxNgButtonComponent,
+  DcxNgInputOtpComponent,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 const ActionsData = {
   valueChange: fn(),
@@ -28,6 +31,7 @@ const meta: Meta<DcxNgInputOtpComponent> = {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        DcxNgButtonComponent,
         DcxNgInputOtpComponent,
       ],
     }),
@@ -341,9 +345,13 @@ export const Interactive: Story = {
           <span>Valor actual: {{ otpValue || 'Sin completar' }}</span>
           <span>Último código completo: {{ completedCode || 'Pendiente' }}</span>
         </div>
-        <button type="button" (click)="clearCode()" style="width:max-content; padding:6px 12px; cursor:pointer;">
-          Limpiar código
-        </button>
+        <dcx-ng-button
+          label="Limpiar código"
+          type="button"
+          variant="secondary"
+          size="s"
+          (buttonClick)="clearCode()"
+        ></dcx-ng-button>
       </div>
     `,
   }),
@@ -401,7 +409,12 @@ export const TemplateDrivenForm: Story = {
         <p style="margin:0; min-height:18px; color:#c81e1e; font-size:12px;">
           {{ otpModel.invalid && (otpModel.touched || submitted) ? 'Passcode is required.' : '' }}
         </p>
-        <button type="submit" style="width:max-content; padding:6px 12px; cursor:pointer;">Submit</button>
+        <dcx-ng-button
+          label="Submit"
+          type="submit"
+          variant="primary"
+          size="s"
+        ></dcx-ng-button>
       </form>
     `,
   }),
@@ -447,7 +460,12 @@ export const ReactiveForm: Story = {
         <p style="margin:0; min-height:18px; color:#c81e1e; font-size:12px;">
           {{ isInvalid('value') ? 'Passcode is required.' : '' }}
         </p>
-        <button type="submit" style="width:max-content; padding:6px 12px; cursor:pointer;">Submit</button>
+        <dcx-ng-button
+          label="Submit"
+          type="submit"
+          variant="primary"
+          size="s"
+        ></dcx-ng-button>
       </form>
     `,
   }),
@@ -470,7 +488,7 @@ export const SampleLayout: Story = {
               <div style="display:flex; align-items:center; gap:12px;">
                 <input
                   #otpInput
-                  type="text"
+                  [attr.type]="attrs.type"
                   [value]="token"
                   [disabled]="attrs.disabled"
                   [attr.maxlength]="attrs.maxlength"
@@ -492,8 +510,20 @@ export const SampleLayout: Story = {
             </ng-template>
           </dcx-ng-input-otp>
           <div style="display:flex; justify-content:space-between; gap:12px; width:100%; margin-top:12px;">
-            <button type="button" (click)="resendCode()" style="background:none; border:none; color:#0070ad; cursor:pointer; padding:0;">Resend Code</button>
-            <button type="button" (click)="submitCode(otpValue)" style="padding:8px 14px; cursor:pointer;">Submit Code</button>
+            <dcx-ng-button
+              label="Resend Code"
+              type="button"
+              variant="text"
+              size="s"
+              (buttonClick)="resendCode()"
+            ></dcx-ng-button>
+            <dcx-ng-button
+              label="Submit Code"
+              type="button"
+              variant="primary"
+              size="s"
+              (buttonClick)="submitCode(otpValue)"
+            ></dcx-ng-button>
           </div>
         </div>
       </div>

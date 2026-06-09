@@ -194,6 +194,10 @@ export class DcxNgInputOtpComponent implements ControlValueAccessor {
     const inputElement = event.target as HTMLInputElement | null;
     const nextValue = this.sanitizeCharacters(inputElement?.value ?? '');
 
+    if (inputElement) {
+      inputElement.value = nextValue;
+    }
+
     if (!nextValue) {
       this.updateToken(index, '');
       return;
@@ -220,6 +224,15 @@ export class DcxNgInputOtpComponent implements ControlValueAccessor {
 
   onKeydown(event: KeyboardEvent, index: number): void {
     if (this.isDisabled()) {
+      return;
+    }
+
+    if (
+      this.integerOnly() &&
+      event.key.length === 1 &&
+      !/^\d$/.test(event.key)
+    ) {
+      event.preventDefault();
       return;
     }
 
