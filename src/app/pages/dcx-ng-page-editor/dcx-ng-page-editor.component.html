@@ -1,42 +1,119 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Editor por defecto</h2>
-  <dcx-ng-editor
-    label="Contenido"
-    placeholder="Escribe el contenido..."
-  ></dcx-ng-editor>
-</section>
+<div class="demo-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Editor</h1>
+    <p class="demo-page-header__desc">
+      Editor de texto enriquecido con barra de herramientas de formato (negrita, cursiva, subrayado, listas y limpiar formato).
+      Implementa <code>ControlValueAccessor</code> para integración con Angular Forms.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<dcx-ng-divider class="divider" [thickness]="0.1"></dcx-ng-divider>
+  <!-- 01 — Default -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-editor
+        label="Contenido"
+        placeholder="Escribe el contenido..."
+      ></dcx-ng-editor>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Con valor inicial</h2>
-  <dcx-ng-editor
-    label="Descripción"
-    [value]="value"
-    (valueChange)="onValueChange($event)"
-  ></dcx-ng-editor>
-</section>
+  <!-- 02 — Con valor inicial -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Con valor inicial</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-editor
+        label="Descripción"
+        value="<p>Texto con <strong>negrita</strong>, <em>cursiva</em> y <u>subrayado</u>.</p>"
+      ></dcx-ng-editor>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.1"></dcx-ng-divider>
+  <!-- 03 — Solo lectura -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Solo lectura</span>
+    </div>
+    <p class="demo-section__desc">La toolbar y el área editable quedan desactivadas. El contenido es visible pero no editable.</p>
+    <div class="demo-section__body">
+      <dcx-ng-editor
+        label="Resumen"
+        value="<p>Contenido disponible en modo lectura.</p>"
+        readonly
+      ></dcx-ng-editor>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Solo lectura</h2>
-  <dcx-ng-editor
-    label="Resumen"
-    [value]="'<p>Contenido disponible en modo lectura.</p>'"
-    readonly
-  ></dcx-ng-editor>
-</section>
+  <!-- 04 — Disabled -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Disabled</span>
+    </div>
+    <p class="demo-section__desc">El editor y todos los botones de la toolbar quedan deshabilitados con opacidad reducida.</p>
+    <div class="demo-section__body">
+      <dcx-ng-editor
+        label="Contenido"
+        value="<p>Editor deshabilitado.</p>"
+        disabled
+      ></dcx-ng-editor>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.1"></dcx-ng-divider>
+  <!-- 05 — Inválido -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Inválido</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-editor
+        label="Observaciones"
+        placeholder="Añade observaciones"
+        required
+        isInvalid
+        errorMessage="El contenido es obligatorio"
+      ></dcx-ng-editor>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 4 - Inválido</h2>
-  <dcx-ng-editor
-    label="Observaciones"
-    placeholder="Añade observaciones"
-    required
-    isInvalid
-    errorMessage="El contenido es obligatorio"
-  ></dcx-ng-editor>
-</section>
+  <!-- 06 — Toolbar personalizada -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Toolbar personalizada</span>
+    </div>
+    <p class="demo-section__desc">El input <code>toolbarActions</code> limita las acciones visibles a solo formato básico de texto.</p>
+    <div class="demo-section__body">
+      <dcx-ng-editor
+        label="Comentario"
+        placeholder="Escribe tu comentario..."
+        [toolbarActions]="['bold', 'italic', 'underline']"
+      ></dcx-ng-editor>
+    </div>
+  </div>
+
+  <!-- 07 — Sin label visible (ariaLabel) -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Sin label visible</span>
+    </div>
+    <p class="demo-section__desc">Cuando el diseño no incluye una etiqueta visible, usa <code>ariaLabel</code> para proporcionar el nombre accesible a lectores de pantalla.</p>
+    <div class="demo-section__body">
+      <dcx-ng-editor
+        ariaLabel="Campo de notas del expediente"
+        placeholder="Añade notas..."
+      ></dcx-ng-editor>
+    </div>
+  </div>
+</div>
