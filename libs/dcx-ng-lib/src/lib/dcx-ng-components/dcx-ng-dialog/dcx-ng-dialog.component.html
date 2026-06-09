@@ -2,10 +2,10 @@
   <div class="dialog-root">
     <div class="dialog-backdrop" (pointerdown)="onBackdropClick($event)"></div>
 
-    <div [class]="dialogClasses" role="dialog" aria-modal="true">
+    <div [class]="dialogClasses()" role="dialog" aria-modal="true" [attr.aria-labelledby]="title() ? dialogTitleId() : null">
       <div class="dialog-header">
         @if (title()) {
-          <h3 class="dialog-title">{{ title() }}</h3>
+          <h3 [id]="dialogTitleId()" class="dialog-title">{{ title() }}</h3>
         }
 
         @if (showClose()) {

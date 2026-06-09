@@ -17,6 +17,9 @@ node_modules
 .settings/
 *.sublime-workspace
 
+# Claude Code — local settings (user-specific paths, not for git)
+.claude/settings.local.json
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

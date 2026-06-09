@@ -92,7 +92,7 @@ $dialog-pos-gap: 16px;
 
 .dialog-header {
   padding: var(--sp-4, 16px) var(--sp-5, 20px);
-  border-bottom: 1px solid var(--border-light, #d1d5db);
+  border-bottom: 1px solid var(--border-default, #e5e7eb);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -100,7 +100,7 @@ $dialog-pos-gap: 16px;
 }
 
 .dialog-title {
-  font-size: var(--fs-xl, 20px);
+  font-size: 16px;
   font-weight: var(--fw-semibold, 600);
   color: var(--text-dark, #2a2e33);
   margin: 0;
@@ -123,8 +123,8 @@ $dialog-pos-gap: 16px;
 }
 
 .dialog-footer {
-  padding: var(--sp-4, 16px) var(--sp-5, 20px);
-  border-top: 1px solid var(--border-light, #d1d5db);
+  padding: var(--sp-3, 12px) var(--sp-5, 20px);
+  border-top: 1px solid var(--border-default, #e5e7eb);
   background: var(--bg-surface, #f4f5f7);
   display: flex;
   justify-content: flex-end;

@@ -172,7 +172,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Identificador único del diálogo. Se usa para abrirlo y cerrarlo desde `DialogService.open(id)` / `DialogService.close(id)`. ' +
         'Si no se proporciona, la visibilidad se controla directamente con el input `visible`.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'string | undefined' },
         defaultValue: { summary: 'undefined' },
       },
@@ -182,7 +182,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
       description:
         'Texto del título mostrado en el header del diálogo. Si está vacío, el elemento de título no se renderiza.',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
       },
@@ -193,7 +193,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Abre el diálogo directamente en la inicialización de la story (sin pasar por `DialogService`). ' +
         'En producción, usa siempre `DialogService` para controlar la visibilidad.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -204,7 +204,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Muestra u oculta el botón de cierre (✕) en el header. ' +
         'Cuando es `false`, el usuario solo puede cerrar el diálogo a través del backdrop o acciones del footer.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -214,7 +214,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
       description:
         'Parámetro de la story que alterna entre un footer con un solo botón "Aceptar" y un footer de confirmación con "Cancelar" + "Aceptar".',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -226,7 +226,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Posición del diálogo en pantalla. Aplica la clase CSS `dialog--pos-{value}`. ' +
         'Valores disponibles: `center`, `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right`.',
       table: {
-        category: 'Appearance',
+        category: 'Atributos',
         type: { summary: 'DcxDialogPosition' },
         defaultValue: { summary: 'center' },
       },
@@ -237,7 +237,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'HTML estático inyectado en el cuerpo del diálogo mediante `[innerHTML]`. ' +
         '⚠️ No soporta directivas ni eventos Angular. Para contenido interactivo, usa el `ng-template #dialogBody` directamente.',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
       },
@@ -248,7 +248,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Campo de referencia visual del footer (no funcional con `[innerHTML]`). ' +
         'El footer real de la demo está implementado con botones Angular funcionales en el `ng-template #dialogFooter`.',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
       },
@@ -259,7 +259,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
         'Si es `true`, hacer clic en el backdrop semitransparente cierra el diálogo. ' +
         'Recomendado `false` en diálogos de confirmación para forzar una acción explícita del usuario.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -268,7 +268,7 @@ const meta: Meta<StoryHostDcxDialogComponent> = {
       action: 'closeDialog',
       description:
         'Output emitido cuando el diálogo se cierra. Se dispara al pulsar el botón ✕, el backdrop, o los botones del footer.',
-      table: { category: 'Events' },
+      table: { category: 'Eventos' },
     },
   },
   args: DIALOG_DEFAULT_ARGS,
@@ -404,6 +404,177 @@ export const NoTitle: Story = {
     visible: false,
   },
   render: args => renderDialogStory(args),
+};
+
+export const Destructive: Story = {
+  name: 'Confirmación destructiva',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Diálogo de confirmación para acciones irreversibles. ' +
+          'Incluye un icono de aviso con fondo rojo y un botón "Eliminar" con variante `danger`. ' +
+          '`closeOnBackdrop` está desactivado para forzar una decisión explícita.',
+      },
+    },
+  },
+  render: () => ({
+    moduleMetadata: {
+      imports: [DcxNgDialogComponent, DcxNgButtonComponent],
+      providers: [DialogService],
+    },
+    props: (() => {
+      const dialog = new DialogService();
+      return {
+        dialog,
+        open: () => dialog.open('destructive-story'),
+        close: () => dialog.close('destructive-story'),
+      };
+    })(),
+    template: `
+      <dcx-ng-button label="Eliminar proyecto" variant="primary" (buttonClick)="open()"></dcx-ng-button>
+      <dcx-ng-dialog
+        dialogId="destructive-story"
+        title="Eliminar proyecto"
+        [showClose]="true"
+        position="center"
+        [closeOnBackdrop]="false"
+      >
+        <ng-template #dialogBody>
+          <div style="width:44px;height:44px;border-radius:50%;background:#fef2f2;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M8 4h4M3 6h14M5 6l1 10h8l1-10" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p style="font-size:14px;color:#696e75;line-height:1.6">
+            ¿Estás seguro de que deseas eliminar el proyecto <strong style="color:#2a2e33">Cloud Migration</strong>?
+            Esta acción es irreversible y no se puede deshacer.
+          </p>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Cancelar" variant="secondary" (buttonClick)="close()"></dcx-ng-button>
+          <dcx-ng-button label="Eliminar" variant="danger" (buttonClick)="close()"></dcx-ng-button>
+        </ng-template>
+      </dcx-ng-dialog>
+    `,
+  }),
+};
+
+export const WithForm: Story = {
+  name: 'Con formulario',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Diálogo que contiene un formulario con campos de texto y un select. ' +
+          'Útil para crear o editar entidades sin navegar a una página nueva.',
+      },
+    },
+  },
+  render: () => ({
+    moduleMetadata: {
+      imports: [DcxNgDialogComponent, DcxNgButtonComponent],
+      providers: [DialogService],
+    },
+    props: (() => {
+      const dialog = new DialogService();
+      return {
+        dialog,
+        open: () => dialog.open('form-story'),
+        close: () => dialog.close('form-story'),
+      };
+    })(),
+    template: `
+      <dcx-ng-button label="Nuevo proyecto" variant="primary" (buttonClick)="open()"></dcx-ng-button>
+      <dcx-ng-dialog
+        dialogId="form-story"
+        title="Nuevo proyecto"
+        [showClose]="true"
+        position="center"
+        [closeOnBackdrop]="true"
+      >
+        <ng-template #dialogBody>
+          <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:16px">
+            <label for="sb-project-name" style="font-size:12px;font-weight:500;color:#2a2e33">Nombre del proyecto</label>
+            <input id="sb-project-name" type="text" placeholder="Ej: Cloud Migration v2"
+              style="font-size:14px;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;width:100%;outline:none">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:16px">
+            <label for="sb-client" style="font-size:12px;font-weight:500;color:#2a2e33">Cliente</label>
+            <input id="sb-client" type="text" placeholder="Ej: Airbus"
+              style="font-size:14px;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;width:100%;outline:none">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label for="sb-practice" style="font-size:12px;font-weight:500;color:#2a2e33">Práctica</label>
+            <select id="sb-practice"
+              style="font-size:14px;padding:8px 12px;border:1px solid #e5e7eb;border-radius:4px;width:100%;outline:none">
+              <option value="">Selecciona una práctica</option>
+              <option>Cloud Infrastructure</option>
+              <option>SAP</option>
+              <option>Data &amp; AI</option>
+            </select>
+          </div>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Cancelar" variant="secondary" (buttonClick)="close()"></dcx-ng-button>
+          <dcx-ng-button label="Crear proyecto" variant="primary" (buttonClick)="close()"></dcx-ng-button>
+        </ng-template>
+      </dcx-ng-dialog>
+    `,
+  }),
+};
+
+export const Informative: Story = {
+  name: 'Informativo',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Diálogo informativo con icono circular azul en el cuerpo y un único botón "Entendido" en el footer. ' +
+          'Ideal para comunicar avisos o novedades al usuario.',
+      },
+    },
+  },
+  render: () => ({
+    moduleMetadata: {
+      imports: [DcxNgDialogComponent, DcxNgButtonComponent],
+      providers: [DialogService],
+    },
+    props: (() => {
+      const dialog = new DialogService();
+      return {
+        dialog,
+        open: () => dialog.open('informative-story'),
+        close: () => dialog.close('informative-story'),
+      };
+    })(),
+    template: `
+      <dcx-ng-button label="Ver información" variant="primary" (buttonClick)="open()"></dcx-ng-button>
+      <dcx-ng-dialog
+        dialogId="informative-story"
+        title="Información importante"
+        [showClose]="true"
+        position="center"
+        [closeOnBackdrop]="true"
+      >
+        <ng-template #dialogBody>
+          <div style="width:44px;height:44px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="7" stroke="#1d4ed8" stroke-width="1.5"/>
+              <path d="M10 9v5M10 7v.5" stroke="#1d4ed8" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p style="font-size:14px;color:#696e75;line-height:1.6">
+            El proceso de migración comenzará el <strong style="color:#2a2e33">lunes 22 de abril</strong>.
+            Durante este periodo algunos servicios podrían no estar disponibles temporalmente.
+          </p>
+        </ng-template>
+        <ng-template #dialogFooter>
+          <dcx-ng-button label="Entendido" variant="primary" (buttonClick)="close()"></dcx-ng-button>
+        </ng-template>
+      </dcx-ng-dialog>
+    `,
+  }),
 };
 
 export const Positions: Story = {
