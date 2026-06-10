@@ -186,15 +186,6 @@ export class DcxNgPageCalendarComponent {
     return this.events().find(event => event.id === eventId) ?? null;
   });
 
-  readonly selectedDayEvents = computed(() => {
-    const day = this.selectedDay();
-    if (!day) {
-      return [];
-    }
-
-    return this.getEventsForDate(day);
-  });
-
   previousMonth = (): void => {
     this.monthDate.update(value => new Date(value.getFullYear(), value.getMonth() - 1, 1));
   };
@@ -405,19 +396,6 @@ export class DcxNgPageCalendarComponent {
         return 'purple';
       default:
         return 'blue';
-    }
-  };
-
-  getEventDotClass = (type: CalendarEventType): string => {
-    switch (type) {
-      case 'delivery':
-        return 'dot-green';
-      case 'reminder':
-        return 'dot-orange';
-      case 'urgent':
-        return 'dot-red';
-      default:
-        return 'dot-blue';
     }
   };
 
