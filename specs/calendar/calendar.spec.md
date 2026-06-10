@@ -1,6 +1,6 @@
 # Spec: Calendar
 
-**Status:** In Progress
+**Status:** Completed
 **Date:** 2026-06-09
 **Author:** GitHub Copilot
 
@@ -23,22 +23,22 @@ La implementación se divide en dos fases para controlar el alcance:
 
 ## 2. Acceptance Criteria
 
-- [ ] Existe el nuevo componente standalone `dcx-ng-calendar` en `libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-calendar/`.
-- [ ] El componente usa `ChangeDetectionStrategy.OnPush` y Signals API (`input`, `output`, `signal`, `computed`, `effect`).
-- [ ] El componente soporta vistas `month`, `week`, `year` y `mini`.
-- [ ] El componente soporta navegación temporal (`previous`, `next`, `goToToday`) según la vista activa.
-- [ ] El componente renderiza eventos en la vista mensual como pills por día con soporte de `+N más` cuando exceden el máximo visible.
-- [ ] El componente renderiza eventos en la vista semanal sobre una rejilla horaria.
-- [ ] El componente renderiza una vista anual con 12 mini meses navegables.
-- [ ] El componente soporta selección de fecha simple y selección de rango al menos en las vistas `month` y `mini`.
-- [ ] El componente permite abrir una vista rápida de evento desde un evento renderizado.
-- [ ] El componente permite abrir modal de creación de evento desde acciones del calendario o selección de día.
-- [ ] El componente permite editar y eliminar eventos existentes desde la vista rápida o modal de edición.
-- [ ] El componente expone outputs claros para navegación, selección de fecha y operaciones CRUD de eventos.
-- [ ] Existe soporte visual para tipos de evento con color (`meeting`, `delivery`, `reminder`, `urgent`, `personal`).
-- [ ] Existe página demo registrada en la app de showcase con ejemplos alineados al diseño.
-- [ ] Existen stories y documentación de Storybook para las variantes principales del componente.
-- [ ] Existen tests unitarios que cubren navegación, render básico de eventos, selección y operaciones CRUD base.
+- [x] Existe el nuevo componente standalone `dcx-ng-calendar` en `libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-calendar/`.
+- [x] El componente usa `ChangeDetectionStrategy.OnPush` y Signals API (`input`, `output`, `signal`, `computed`, `effect`).
+- [x] El componente soporta vistas `month`, `week`, `year` y `mini`.
+- [x] El componente soporta navegación temporal (`previous`, `next`, `goToToday`) según la vista activa.
+- [x] El componente renderiza eventos en la vista mensual como pills por día con soporte de `+N más` cuando exceden el máximo visible.
+- [x] El componente renderiza eventos en la vista semanal sobre una rejilla horaria.
+- [x] El componente renderiza una vista anual con 12 mini meses navegables.
+- [x] El componente soporta selección de fecha simple y selección de rango al menos en las vistas `month` y `mini`.
+- [x] El componente permite abrir una vista rápida de evento desde un evento renderizado.
+- [x] El componente permite abrir modal de creación de evento desde acciones del calendario o selección de día.
+- [x] El componente permite editar y eliminar eventos existentes desde la vista rápida o modal de edición.
+- [x] El componente expone outputs claros para navegación, selección de fecha y operaciones CRUD de eventos.
+- [x] Existe soporte visual para tipos de evento con color (`meeting`, `delivery`, `reminder`, `urgent`, `personal`).
+- [x] Existe página demo registrada en la app de showcase con ejemplos alineados al diseño.
+- [x] Existen stories y documentación de Storybook para las variantes principales del componente.
+- [x] Existen tests unitarios que cubren navegación, render básico de eventos, selección y operaciones CRUD base.
 
 ---
 

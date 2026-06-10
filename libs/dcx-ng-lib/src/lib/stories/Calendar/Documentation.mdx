@@ -1,0 +1,89 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as CalendarStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Calendar/Documentation" />
+
+# Calendar
+
+El componente `dcx-ng-calendar` cubre casos de agenda y planificación visual con vistas mensual, semanal, anual y mini, además de selección de fechas y CRUD básico de eventos.
+
+---
+
+## Características principales
+
+- Vistas `month`, `week`, `year` y `mini`
+- Navegación temporal con `previous`, `next` y `goToToday`
+- Selección simple y por rango
+- Render de eventos por día y por franja horaria
+- Vista rápida de evento
+- Modales de crear, editar y eliminar
+- Outputs para selección y operaciones CRUD
+
+---
+
+## Demo principal
+
+<Canvas of={CalendarStories.Month} />
+
+---
+
+## API
+
+### Inputs
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `view` | `'month' \| 'week' \| 'year' \| 'mini'` | `'month'` | Vista activa del calendario |
+| `activeDate` | `Date` | `new Date()` | Fecha base visible |
+| `events` | `DcxCalendarEvent[]` | `[]` | Eventos renderizados |
+| `selectionMode` | `'none' \| 'single' \| 'range'` | `'none'` | Modo de selección |
+| `selectedDate` | `Date \| null` | `null` | Fecha seleccionada |
+| `rangeStart` | `Date \| null` | `null` | Inicio de rango |
+| `rangeEnd` | `Date \| null` | `null` | Fin de rango |
+| `allowCreate` | `boolean` | `true` | Permite crear eventos |
+| `allowEdit` | `boolean` | `true` | Permite editar eventos |
+| `allowDelete` | `boolean` | `true` | Permite eliminar eventos |
+| `dayMaxVisibleEvents` | `number` | `3` | Máximo visible por celda mensual |
+| `weekStartHour` | `number` | `8` | Primera hora visible en semana |
+| `weekEndHour` | `number` | `18` | Última hora visible en semana |
+
+### Outputs
+
+| Evento | Tipo | Descripción |
+|--------|------|-------------|
+| `activeDateChange` | `Date` | Se emite al navegar |
+| `dateSelect` | `Date` | Se emite al seleccionar un día |
+| `rangeChange` | `{ start: Date \| null; end: Date \| null }` | Se emite al cambiar el rango |
+| `eventSelect` | `DcxCalendarEvent` | Se emite al abrir un evento |
+| `eventCreate` | `DcxCalendarEventDraft` | Se emite al guardar un nuevo evento |
+| `eventUpdate` | `DcxCalendarEvent` | Se emite al actualizar un evento |
+| `eventDelete` | `DcxCalendarDeleteRequest` | Se emite al confirmar eliminación |
+
+---
+
+## Variantes
+
+### Rango
+
+<Canvas of={CalendarStories.Range} />
+
+### Semana
+
+<Canvas of={CalendarStories.Week} />
+
+### Año
+
+<Canvas of={CalendarStories.Year} />
+
+### Mini
+
+<Canvas of={CalendarStories.Mini} />
+
+---
+
+## Accesibilidad
+
+- Navegación temporal con botones etiquetados.
+- Diálogos de crear, editar y eliminar con `role="dialog"`.
+- Estados visuales para hoy, selección simple y selección de rango.
+- Acciones CRUD accesibles desde la vista rápida del evento.

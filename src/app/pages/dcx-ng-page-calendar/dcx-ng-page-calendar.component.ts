@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { DcxNgCalendarComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-calendar/dcx-ng-calendar.component';
+import {
+  DcxCalendarDeleteRequest,
+  DcxCalendarEvent,
+  DcxCalendarEventDraft,
+} from '@dcx-ng-components/dcx-ng-lib';
 
 type CalendarEventType =
   | 'meeting'
@@ -58,7 +63,7 @@ interface EventFormModel {
 @Component({
   selector: 'dcx-ng-page-calendar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, DcxNgCalendarComponent],
   templateUrl: './dcx-ng-page-calendar.component.html',
   styleUrl: './dcx-ng-page-calendar.component.scss',
 })
@@ -278,6 +283,87 @@ export class DcxNgPageCalendarComponent {
   selectYearMonth = (monthIndex: number): void => {
     this.monthDate.set(new Date(this.yearDate().getFullYear(), monthIndex, 1));
     this.miniDate.set(new Date(this.yearDate().getFullYear(), monthIndex, 1));
+  };
+
+  handleMonthDateChange = (date: Date): void => {
+    this.monthDate.set(date);
+  };
+
+  handleRangeDateChange = (date: Date): void => {
+    this.rangeDate.set(date);
+  };
+
+  handleWeekDateChange = (date: Date): void => {
+    this.weekDate.set(date);
+  };
+
+  handleYearDateChange = (date: Date): void => {
+    this.yearDate.set(date);
+  };
+
+  handleMiniDateChange = (date: Date): void => {
+    this.miniDate.set(date);
+  };
+
+  handleMonthDateSelect = (date: Date): void => {
+    this.selectedDay.set(date);
+  };
+
+  handleMiniDateSelect = (date: Date): void => {
+    this.miniDate.set(date);
+  };
+
+  handleRangeChange = ({ start, end }: { start: Date | null; end: Date | null }): void => {
+    this.rangeStart.set(start);
+    this.rangeEnd.set(end);
+
+    if (!start && !end) {
+      this.appliedRangeLabel.set('Sin aplicar');
+      return;
+    }
+
+    if (!start || !end) {
+      this.appliedRangeLabel.set('Selecciona un rango completo');
+      return;
+    }
+
+    this.appliedRangeLabel.set(`${this.formatDate(start)} - ${this.formatDate(end)}`);
+  };
+
+  handleCalendarEventCreate = (draft: DcxCalendarEventDraft): void => {
+    this.events.update(items => [...items, this.mapDraftToEvent(draft)]);
+  };
+
+  handleCalendarEventUpdate = (event: DcxCalendarEvent): void => {
+    this.events.update(items =>
+      items.map(item => (item.id === event.id ? this.mapCalendarEvent(event) : item)),
+    );
+  };
+
+  handleCalendarEventDelete = (request: DcxCalendarDeleteRequest): void => {
+    this.events.update(items => {
+      const activeEvent = items.find(item => item.id === request.eventId);
+
+      if (!activeEvent) {
+        return items;
+      }
+
+      if (!activeEvent.seriesId || request.scope === 'single') {
+        return items.filter(item => item.id !== activeEvent.id);
+      }
+
+      if (request.scope === 'all') {
+        return items.filter(item => item.seriesId !== activeEvent.seriesId);
+      }
+
+      return items.filter(item => {
+        if (item.seriesId !== activeEvent.seriesId) {
+          return true;
+        }
+
+        return item.start.getTime() < activeEvent.start.getTime();
+      });
+    });
   };
 
   openEvent = (event: CalendarEventItem): void => {
@@ -614,6 +700,33 @@ export class DcxNgPageCalendarComponent {
       type: form.type,
       description: form.description.trim(),
       recurrence: form.recurrence,
+    };
+  }
+
+  private mapDraftToEvent(draft: DcxCalendarEventDraft): CalendarEventItem {
+    return {
+      id: `event-${Date.now()}`,
+      title: draft.title,
+      start: new Date(draft.start),
+      end: draft.end ? new Date(draft.end) : null,
+      allDay: draft.allDay,
+      type: draft.type,
+      description: draft.description ?? '',
+      recurrence: draft.recurrence,
+    };
+  }
+
+  private mapCalendarEvent(event: DcxCalendarEvent): CalendarEventItem {
+    return {
+      id: event.id,
+      seriesId: event.seriesId,
+      title: event.title,
+      start: new Date(event.start),
+      end: event.end ? new Date(event.end) : null,
+      allDay: event.allDay,
+      type: event.type,
+      description: event.description ?? '',
+      recurrence: event.recurrence ?? 'none',
     };
   }
 
