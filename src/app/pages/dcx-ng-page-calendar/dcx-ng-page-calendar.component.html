@@ -15,7 +15,7 @@
       <span class="demo-section__title">Vista mensual</span>
     </div>
     <p class="demo-section__desc">
-      Navegación por mes, eventos por día, resumen del día seleccionado y acceso a crear evento.
+      Navegación por mes, eventos por día, vista rápida del evento y acceso a crear evento.
     </p>
     <div class="demo-section__body">
       <div class="calendar-layout">
@@ -93,25 +93,6 @@
         </div>
 
         <div class="calendar-side-panel">
-          <div class="calendar-side-panel__block calendar-side-panel__block--selected-day">
-            <div class="calendar-side-panel__title">Día seleccionado</div>
-            <p class="calendar-side-panel__meta">
-              {{ selectedDay() ? formatDayLabel(selectedDay()!) : 'Sin selección' }}
-            </p>
-            @if (selectedDayEvents().length > 0) {
-              <div class="calendar-side-panel__list">
-                @for (event of selectedDayEvents(); track event.id) {
-                  <button type="button" class="calendar-side-panel__event" (click)="openEvent(event)">
-                    <span class="calendar-side-panel__dot" [class]="'calendar-side-panel__dot ' + getEventDotClass(event.type)"></span>
-                    <span class="calendar-side-panel__event-title">{{ event.title }}</span>
-                  </button>
-                }
-              </div>
-            } @else {
-              <p class="calendar-side-panel__empty">No hay eventos en este día.</p>
-            }
-          </div>
-
           @if (selectedEvent(); as activeEvent) {
             <div class="event-popover event-popover--embedded">
               <div class="ev-pop-top" [class]="'ev-pop-top ' + getEventClass(activeEvent.type)"></div>
@@ -184,64 +165,65 @@
     </p>
     <div class="demo-section__body">
       <div class="calendar-grid-two">
-        <div class="dcx-calendar">
-          <div class="cal-header">
-            <button class="cal-nav" type="button" aria-label="Anterior" (click)="previousRangeMonth()">
-              <span aria-hidden="true">&#10094;</span>
-            </button>
-            <span class="cal-month-year">{{ rangeLabel() }}</span>
-            <button class="cal-nav" type="button" aria-label="Siguiente" (click)="nextRangeMonth()">
-              <span aria-hidden="true">&#10095;</span>
-            </button>
+        <div class="calendar-range-stack">
+          <div class="calendar-info-card">
+            <div class="calendar-info-card__title">Rango aplicado</div>
+            <p class="calendar-info-card__value">{{ appliedRangeLabel() }}</p>
           </div>
-          <div class="cal-weekdays">
-            <table class="cal-weekdays-grid">
-              <thead>
-                <tr>
-                  @for (weekday of weekLabels; track weekday) {
-                    <th class="cal-wd">{{ weekday }}</th>
-                  }
-                </tr>
-              </thead>
-            </table>
-          </div>
-          <div class="cal-grid-wrap">
-            <table class="cal-grid">
-              <tbody>
-                @for (week of rangeWeeks(); track $index) {
+          <div class="dcx-calendar">
+            <div class="cal-header">
+              <button class="cal-nav" type="button" aria-label="Anterior" (click)="previousRangeMonth()">
+                <span aria-hidden="true">&#10094;</span>
+              </button>
+              <span class="cal-month-year">{{ rangeLabel() }}</span>
+              <button class="cal-nav" type="button" aria-label="Siguiente" (click)="nextRangeMonth()">
+                <span aria-hidden="true">&#10095;</span>
+              </button>
+            </div>
+            <div class="cal-weekdays">
+              <table class="cal-weekdays-grid">
+                <thead>
                   <tr>
-                    @for (day of week; track day.date.getTime()) {
-                      <td>
-                        <button
-                          type="button"
-                          class="cal-day-btn"
-                          [class.today]="day.isToday"
-                          [class.selected]="day.isRangeStart || day.isRangeEnd"
-                          [class.in-range]="day.isInRange"
-                          [class.other-month]="!day.isCurrentMonth"
-                          (click)="selectRangeDay(day)"
-                        >
-                          {{ day.date.getDate() }}
-                        </button>
-                      </td>
+                    @for (weekday of weekLabels; track weekday) {
+                      <th class="cal-wd">{{ weekday }}</th>
                     }
                   </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-          <div class="cal-footer">
-            <button class="cal-btn cal-btn-ghost" type="button" (click)="clearRange()">Limpiar</button>
-            <button class="cal-btn cal-btn-primary" type="button" (click)="applyRange()">Aplicar</button>
+                </thead>
+              </table>
+            </div>
+            <div class="cal-grid-wrap">
+              <table class="cal-grid">
+                <tbody>
+                  @for (week of rangeWeeks(); track $index) {
+                    <tr>
+                      @for (day of week; track day.date.getTime()) {
+                        <td>
+                          <button
+                            type="button"
+                            class="cal-day-btn"
+                            [class.today]="day.isToday"
+                            [class.selected]="day.isRangeStart || day.isRangeEnd"
+                            [class.in-range]="day.isInRange"
+                            [class.other-month]="!day.isCurrentMonth"
+                            (click)="selectRangeDay(day)"
+                          >
+                            {{ day.date.getDate() }}
+                          </button>
+                        </td>
+                      }
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+            <div class="cal-footer">
+              <button class="cal-btn cal-btn-ghost" type="button" (click)="clearRange()">Limpiar</button>
+              <button class="cal-btn cal-btn-primary" type="button" (click)="applyRange()">Aplicar</button>
+            </div>
           </div>
         </div>
 
         <div class="calendar-mini-stack">
-          <div class="calendar-side-panel__block">
-            <div class="calendar-side-panel__title">Rango aplicado</div>
-            <p class="calendar-side-panel__meta">{{ appliedRangeLabel() }}</p>
-          </div>
-
           <div class="dcx-calendar mini">
             <div class="cal-header">
               <button class="cal-nav" type="button" aria-label="Anterior" (click)="previousMiniMonth()">
@@ -410,6 +392,316 @@
     </div>
   </div>
 
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Estados del evento</span>
+    </div>
+    <p class="demo-section__desc">
+      Ejemplos propios de creación y edición para cubrir los estados del diseño: con hora,
+      todo el día y confirmación de eliminación.
+    </p>
+    <div class="demo-section__body">
+      <div class="calendar-dialog-showcase">
+        <div class="calendar-dialog-example">
+          <div class="calendar-dialog-example__label">Crear evento: con hora</div>
+          <div class="ev-overlay ev-overlay--inline">
+            <div class="dcx-dialog dcx-dialog--showcase">
+              <div class="dialog-header">
+                <div>
+                  <div class="dialog-title">Nuevo evento</div>
+                  <div class="dialog-date-badge">Miércoles, 10 jun 2026</div>
+                </div>
+                <button class="dialog-close" type="button" aria-label="Cerrar ejemplo">
+                  &#10005;
+                </button>
+              </div>
+              <div class="dialog-body">
+                <div class="ev-type-label">Tipo de evento</div>
+                <div class="ev-type-row">
+                  <button type="button" class="ev-type-opt ev-type-blue active" aria-label="Reunión">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-green" aria-label="Entrega">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-orange" aria-label="Recordatorio">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-red" aria-label="Urgente">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-purple" aria-label="Personal">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                </div>
+
+                <div class="dcx-field">
+                  <label class="dcx-label" for="calendar-showcase-create-title">
+                    Título <span class="dcx-label__required" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    id="calendar-showcase-create-title"
+                    class="dcx-input"
+                    type="text"
+                    value="Reunión con cliente"
+                  />
+                </div>
+
+                <div class="toggle-row">
+                  <span class="toggle-label">Todo el día</span>
+                  <span class="toggle-pill" aria-hidden="true">
+                    <span class="toggle-pill__thumb"></span>
+                  </span>
+                </div>
+
+                <div class="time-cols">
+                  <div class="dcx-field dcx-field--no-margin">
+                    <label class="dcx-label" for="calendar-showcase-create-start">Hora inicio</label>
+                    <input id="calendar-showcase-create-start" class="dcx-input" type="time" value="10:00" />
+                  </div>
+                  <div class="dcx-field dcx-field--no-margin">
+                    <label class="dcx-label" for="calendar-showcase-create-end">Hora fin</label>
+                    <input id="calendar-showcase-create-end" class="dcx-input" type="time" value="11:00" />
+                  </div>
+                </div>
+
+                <hr class="form-divider" />
+
+                <div class="dcx-field">
+                  <label class="dcx-label" for="calendar-showcase-create-description">Descripción</label>
+                  <textarea
+                    id="calendar-showcase-create-description"
+                    class="dcx-textarea"
+                  >Revisión del roadmap con el cliente.</textarea>
+                </div>
+
+                <div class="dcx-field dcx-field--no-margin">
+                  <label class="dcx-label" for="calendar-showcase-create-repeat">Repetir</label>
+                  <select id="calendar-showcase-create-repeat" class="dcx-select">
+                    <option selected>No repetir</option>
+                    <option>Cada día</option>
+                    <option>Cada semana</option>
+                    <option>Cada mes</option>
+                  </select>
+                </div>
+              </div>
+              <div class="dialog-footer">
+                <button class="dialog-btn dialog-btn-secondary" type="button">Cancelar</button>
+                <button class="dialog-btn dialog-btn-primary" type="button">Guardar evento</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-dialog-example">
+          <div class="calendar-dialog-example__label">Crear evento: todo el día</div>
+          <div class="ev-overlay ev-overlay--inline">
+            <div class="dcx-dialog dcx-dialog--showcase">
+              <div class="dialog-header">
+                <div>
+                  <div class="dialog-title">Nuevo evento</div>
+                  <div class="dialog-date-badge">Miércoles, 10 jun 2026</div>
+                </div>
+                <button class="dialog-close" type="button" aria-label="Cerrar ejemplo">
+                  &#10005;
+                </button>
+              </div>
+              <div class="dialog-body">
+                <div class="ev-type-label">Tipo de evento</div>
+                <div class="ev-type-row">
+                  <button type="button" class="ev-type-opt ev-type-blue" aria-label="Reunión">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-green active" aria-label="Entrega">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-orange" aria-label="Recordatorio">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-red" aria-label="Urgente">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-purple" aria-label="Personal">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                </div>
+
+                <div class="dcx-field">
+                  <label class="dcx-label" for="calendar-showcase-all-day-title">
+                    Título <span class="dcx-label__required" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    id="calendar-showcase-all-day-title"
+                    class="dcx-input"
+                    type="text"
+                    value="Demo sprint 23"
+                  />
+                </div>
+
+                <div class="toggle-row">
+                  <span class="toggle-label">Todo el día</span>
+                  <span class="toggle-pill on" aria-hidden="true">
+                    <span class="toggle-pill__thumb"></span>
+                  </span>
+                </div>
+
+                <hr class="form-divider" />
+
+                <div class="dcx-field">
+                  <label class="dcx-label" for="calendar-showcase-all-day-description">Descripción</label>
+                  <textarea
+                    id="calendar-showcase-all-day-description"
+                    class="dcx-textarea"
+                  >Presentación de resultados del sprint al cliente.</textarea>
+                </div>
+
+                <div class="dcx-field dcx-field--no-margin">
+                  <label class="dcx-label" for="calendar-showcase-all-day-repeat">Repetir</label>
+                  <select id="calendar-showcase-all-day-repeat" class="dcx-select">
+                    <option selected>No repetir</option>
+                    <option>Cada día</option>
+                    <option>Cada semana</option>
+                    <option>Cada mes</option>
+                  </select>
+                </div>
+              </div>
+              <div class="dialog-footer">
+                <button class="dialog-btn dialog-btn-secondary" type="button">Cancelar</button>
+                <button class="dialog-btn dialog-btn-primary" type="button">Guardar evento</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-dialog-example">
+          <div class="calendar-dialog-example__label">Editar evento: editar</div>
+          <div class="ev-overlay ev-overlay--inline">
+            <div class="dcx-dialog dcx-dialog--showcase">
+              <div class="dialog-header">
+                <div class="dialog-title">Editar evento</div>
+                <button class="dialog-close" type="button" aria-label="Cerrar ejemplo">
+                  &#10005;
+                </button>
+              </div>
+              <div class="dialog-body">
+                <div class="ev-type-label">Tipo de evento</div>
+                <div class="ev-type-row">
+                  <button type="button" class="ev-type-opt ev-type-blue active" aria-label="Reunión">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-green" aria-label="Entrega">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-orange" aria-label="Recordatorio">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-red" aria-label="Urgente">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                  <button type="button" class="ev-type-opt ev-type-purple" aria-label="Personal">
+                    <span class="ev-type-inner"></span>
+                  </button>
+                </div>
+
+                <div class="dcx-field">
+                  <label class="dcx-label" for="calendar-showcase-edit-title">
+                    Título <span class="dcx-label__required" aria-hidden="true">*</span>
+                  </label>
+                  <input id="calendar-showcase-edit-title" class="dcx-input" type="text" value="Standup equipo" />
+                </div>
+
+                <div class="toggle-row">
+                  <span class="toggle-label">Todo el día</span>
+                  <span class="toggle-pill" aria-hidden="true">
+                    <span class="toggle-pill__thumb"></span>
+                  </span>
+                </div>
+
+                <div class="time-cols">
+                  <div class="dcx-field dcx-field--no-margin">
+                    <label class="dcx-label" for="calendar-showcase-edit-start">Hora inicio</label>
+                    <input id="calendar-showcase-edit-start" class="dcx-input" type="time" value="09:00" />
+                  </div>
+                  <div class="dcx-field dcx-field--no-margin">
+                    <label class="dcx-label" for="calendar-showcase-edit-end">Hora fin</label>
+                    <input id="calendar-showcase-edit-end" class="dcx-input" type="time" value="09:30" />
+                  </div>
+                </div>
+
+                <hr class="form-divider" />
+
+                <div class="dcx-field">
+                  <label class="dcx-label" for="calendar-showcase-edit-description">Descripción</label>
+                  <textarea id="calendar-showcase-edit-description" class="dcx-textarea">Revisión diaria del equipo. 15 minutos.</textarea>
+                </div>
+
+                <div class="dcx-field dcx-field--no-margin">
+                  <label class="dcx-label" for="calendar-showcase-edit-repeat">Repetir</label>
+                  <select id="calendar-showcase-edit-repeat" class="dcx-select">
+                    <option>No repetir</option>
+                    <option selected>Cada día</option>
+                    <option>Cada semana</option>
+                    <option>Cada mes</option>
+                  </select>
+                </div>
+              </div>
+              <div class="dialog-footer">
+                <div class="dialog-footer-left">
+                  <button class="dialog-btn dialog-btn-ghost-red" type="button">Eliminar</button>
+                </div>
+                <button class="dialog-btn dialog-btn-secondary" type="button">Cancelar</button>
+                <button class="dialog-btn dialog-btn-primary" type="button">Actualizar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-dialog-example">
+          <div class="calendar-dialog-example__label">Editar evento: confirmar eliminación</div>
+          <div class="ev-overlay ev-overlay--inline">
+            <div class="dcx-dialog dcx-dialog--delete dcx-dialog--showcase">
+              <div class="dialog-header">
+                <div class="dialog-title">Eliminar evento</div>
+                <button class="dialog-close" type="button" aria-label="Cerrar ejemplo">
+                  &#10005;
+                </button>
+              </div>
+              <div class="dialog-body">
+                <div class="delete-confirm-hero" aria-hidden="true">
+                  <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                    <path d="M8 4h4M3 6h14M5 6l1 10h8l1-10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <p class="dialog-copy">
+                  ¿Eliminar <strong>Standup equipo</strong>? Este es un evento recurrente. ¿Qué quieres eliminar?
+                </p>
+                <div class="delete-options delete-options--showcase">
+                  <label class="delete-option">
+                    <input type="radio" name="delete-scope-showcase" checked />
+                    Solo este evento
+                  </label>
+                  <label class="delete-option">
+                    <input type="radio" name="delete-scope-showcase" />
+                    Este y los siguientes
+                  </label>
+                  <label class="delete-option">
+                    <input type="radio" name="delete-scope-showcase" />
+                    Todos los eventos
+                  </label>
+                </div>
+              </div>
+              <div class="dialog-footer">
+                <button class="dialog-btn dialog-btn-secondary" type="button">Cancelar</button>
+                <button class="dialog-btn dialog-btn-danger" type="button">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   @if (modalMode(); as activeModal) {
     <div class="ev-overlay">
       @if (activeModal === 'delete') {
@@ -472,7 +764,9 @@
             </div>
 
             <div class="dcx-field">
-              <label class="dcx-label" for="calendar-event-title">Título</label>
+              <label class="dcx-label" for="calendar-event-title">
+                Título <span class="dcx-label__required" aria-hidden="true">*</span>
+              </label>
               <input id="calendar-event-title" class="dcx-input" name="title" [(ngModel)]="eventForm.title" />
             </div>
 
