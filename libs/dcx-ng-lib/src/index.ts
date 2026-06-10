@@ -48,5 +48,6 @@ export * from './lib/dcx-ng-components/dcx-ng-textarea/dcx-ng-textarea.component
 export * from './lib/dcx-ng-components/dcx-ng-stepper/dcx-ng-stepper.component';
 export * from './lib/dcx-ng-components/dcx-ng-badge/dcx-ng-badge.component';
 export * from './lib/dcx-ng-components/dcx-ng-carousel/dcx-ng-carousel.component';
+export * from './lib/dcx-ng-components/dcx-ng-input-otp/dcx-ng-input-otp.component';
 
 export * from './lib/dcx-ng-components/dcx-ng-skeleton/dcx-ng-skeleton.component';

@@ -42,6 +42,7 @@ import { DcxNgPageEditorComponent } from './pages/dcx-ng-page-editor/dcx-ng-page
 import { DcxNgPageBadgeComponent } from './pages/dcx-ng-page-badge/dcx-ng-page-badge.component';
 import { DcxNgPageCarouselComponent } from './pages/dcx-ng-page-carousel/dcx-ng-page-carousel.component';
 import { DcxNgPageSkeletonComponent } from './pages/dcx-ng-page-skeleton/dcx-ng-page-skeleton.component';
+import { DcxNgPageInputOtpComponent } from './pages/dcx-ng-page-input-otp/dcx-ng-page-input-otp.component';
 
 export const appRoutes: Route[] = [
   {
@@ -211,5 +212,9 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.CAROUSEL,
     component: DcxNgPageCarouselComponent,
+  },
+  {
+    path: APP_ROUTES.INPUT_OTP,
+    component: DcxNgPageInputOtpComponent,
   },
 ];

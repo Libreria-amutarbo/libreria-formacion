@@ -40,4 +40,5 @@ export const APP_ROUTES = {
   TEXTAREA: 'textarea',
   BADGE: 'badge',
   CAROUSEL: 'carousel',
+  INPUT_OTP: 'input-otp',
 };
