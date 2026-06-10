@@ -1,0 +1,329 @@
+<div class="dcx-calendar-shell" [class.dcx-calendar-shell--with-sidepanel]="!!selectedEvent() && !isYearView()">
+  <div
+    class="dcx-calendar"
+    [class.month-view]="isMonthView()"
+    [class.week-view]="isWeekView()"
+    [class.year-view]="isYearView()"
+    [class.mini]="isMiniView()"
+    [class.disabled]="disabled()"
+    [attr.aria-label]="ariaLabel()"
+  >
+    @if (isYearView()) {
+      <div class="cal-year-header">
+        <button class="cal-nav" type="button" aria-label="Anterior" (click)="previous()">
+          <span aria-hidden="true">&#10094;</span>
+        </button>
+        <span class="cal-year-title">{{ yearLabel() }}</span>
+        <button class="cal-nav" type="button" aria-label="Siguiente" (click)="next()">
+          <span aria-hidden="true">&#10095;</span>
+        </button>
+      </div>
+
+      <div class="cal-year-grid">
+        @for (month of yearMonths(); track month.index) {
+          <button type="button" class="cal-mini-month" [class.active-month]="month.isActive" (click)="selectYearMonth(month.index)">
+            <div class="cal-mini-month-name">{{ month.label }}</div>
+            <div class="cal-mini-grid">
+              @for (weekday of weekLabels; track weekday) {
+                <div class="cal-mini-wd">{{ weekday }}</div>
+              }
+              @for (week of month.weeks; track $index) {
+                @for (day of week; track day.date.getTime()) {
+                  <div class="cal-mini-day" [class.today]="day.isToday" [class.selected]="day.isSelected" [class.other-m]="!day.isCurrentMonth">
+                    {{ day.isCurrentMonth ? day.date.getDate() : '' }}
+                  </div>
+                }
+              }
+            </div>
+          </button>
+        }
+      </div>
+    } @else {
+      <div class="cal-header">
+        <button class="cal-nav" type="button" aria-label="Anterior" (click)="previous()">
+          <span aria-hidden="true">&#10094;</span>
+        </button>
+        <span class="cal-month-year">
+          {{ isWeekView() ? weekLabel() : monthLabel() }}
+        </span>
+        <button class="cal-nav" type="button" aria-label="Siguiente" (click)="next()">
+          <span aria-hidden="true">&#10095;</span>
+        </button>
+      </div>
+
+      @if (isWeekView()) {
+        <div class="week-table-wrap">
+          <table class="cal-week-table">
+            <thead>
+              <tr>
+                <th class="cal-week-corner"></th>
+                @for (day of weekDays(); track day.date.getTime()) {
+                  <th class="cal-week-th" [class.today-col]="day.isToday" [class.weekend]="day.isWeekend">
+                    <span class="cal-week-num" [class.is-today]="day.isToday">{{ day.date.getDate() }}</span>
+                    <br />
+                    <span class="cal-week-sub">{{ day.label }}</span>
+                  </th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (hour of weekHours(); track hour) {
+                <tr>
+                  <td class="cal-time-col">{{ hour < 10 ? '0' + hour : hour }}:00</td>
+                  @for (day of weekDays(); track day.date.getTime()) {
+                    <td class="cal-week-slot">
+                      @for (event of getWeekSlotEvents(day.date, hour); track event.id) {
+                        <button type="button" class="cal-event" [class.green]="getEventClass(event.type) === 'green'" [class.orange]="getEventClass(event.type) === 'orange'" [class.red]="getEventClass(event.type) === 'red'" (click)="openEvent(event)">
+                          {{ event.title }}
+                        </button>
+                      }
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <div class="cal-weekdays">
+          <table class="cal-weekdays-grid">
+            <thead>
+              <tr>
+                @for (weekday of weekLabels; track weekday) {
+                  <th class="cal-wd">{{ weekday }}</th>
+                }
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <div class="cal-grid-wrap">
+          <table class="cal-grid">
+            <tbody>
+              @for (week of monthWeeks(); track $index) {
+                <tr>
+                  @for (day of week; track day.date.getTime()) {
+                    <td>
+                      <button
+                        type="button"
+                        class="cal-day-btn"
+                        [class.today]="day.isToday"
+                        [class.selected]="day.isSelected || day.isRangeStart || day.isRangeEnd"
+                        [class.in-range]="day.isInRange"
+                        [class.other-month]="!day.isCurrentMonth"
+                        [disabled]="disabled()"
+                        (click)="selectDay(day)"
+                      >
+                        {{ day.date.getDate() }}
+                      </button>
+
+                      @if (isMonthView()) {
+                        @for (event of getVisibleEvents(day); track event.id) {
+                          <button type="button" class="cal-month-pill" [class.blue]="getEventClass(event.type) === 'blue'" [class.green]="getEventClass(event.type) === 'green'" [class.orange]="getEventClass(event.type) === 'orange'" [class.red]="getEventClass(event.type) === 'red'" [class.purple]="getEventClass(event.type) === 'purple'" (click)="openEvent(event)">
+                            {{ event.title }}
+                          </button>
+                        }
+
+                        @if (getOverflowCount(day) > 0) {
+                          <button type="button" class="cal-month-more" (click)="openDayOverflow(day)">
+                            +{{ getOverflowCount(day) }} más
+                          </button>
+                        }
+                      }
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      @if (showFooter()) {
+        <div class="cal-footer">
+          @if (footerMode() === 'range') {
+            <button class="cal-btn cal-btn-ghost" type="button" (click)="clearRange()">Limpiar</button>
+            <button class="cal-btn cal-btn-primary" type="button" (click)="applyRange()">Aplicar</button>
+          } @else {
+            <button class="cal-btn cal-btn-ghost" type="button" (click)="goToToday()">Hoy</button>
+            @if (allowCreate() && isMonthView()) {
+              <button class="cal-btn cal-btn-primary" type="button" (click)="openCreateModal(localSelectedDate() ?? localActiveDate())">Nuevo evento</button>
+            }
+          }
+        </div>
+      }
+    }
+  </div>
+
+  @if (selectedEvent(); as activeEvent) {
+    <div class="event-popover event-popover--embedded">
+      <div class="ev-pop-top" [class]="'ev-pop-top ' + getEventClass(activeEvent.type)"></div>
+      <div class="ev-pop-header">
+        <span class="ev-pop-title">{{ activeEvent.title }}</span>
+        <div class="ev-pop-actions">
+          @if (allowEdit()) {
+            <button class="ev-icon-btn" type="button" aria-label="Editar evento" (click)="openEditModal(activeEvent)">
+              <svg width="14" height="14" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M11 2l3 3L5 14H2v-3L11 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          }
+          @if (allowDelete()) {
+            <button class="ev-icon-btn" type="button" aria-label="Eliminar evento" (click)="openDeleteModal()">
+              <svg width="14" height="14" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M6 2h4M2 4h12M5 4l1 9h4l1-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          }
+          <button class="ev-icon-btn" type="button" aria-label="Cerrar vista rápida" (click)="closeSelectedEvent()">
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="ev-pop-body">
+        <div class="ev-detail">
+          <svg width="14" height="14" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+            <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4" />
+            <path d="M8 5v3.5l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+          </svg>
+          <span>{{ formatDayLabel(activeEvent.start) }} · {{ formatTimeRange(activeEvent) }}</span>
+        </div>
+        <div class="ev-detail" [class.ev-detail--priority]="activeEvent.type === 'urgent'">
+          <svg width="14" height="14" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M2 5h12M2 9h8M2 13h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+          </svg>
+          <span>{{ activeEvent.description || formatRecurrenceLabel(activeEvent.recurrence) }}</span>
+        </div>
+      </div>
+      @if (allowEdit()) {
+        <div class="ev-pop-footer">
+          <button class="dialog-btn dialog-btn-secondary dialog-btn-sm" type="button" (click)="openEditModal(activeEvent)">Editar</button>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@if (modalMode(); as activeModal) {
+  <div class="ev-overlay" role="dialog" aria-modal="true">
+    @if (activeModal === 'delete') {
+      <div class="dcx-dialog dcx-dialog--delete">
+        <div class="dialog-header">
+          <div class="dialog-title">Eliminar evento</div>
+          <button class="dialog-close" type="button" (click)="closeOverlay()">&#10005;</button>
+        </div>
+        <div class="dialog-body">
+          <p class="dialog-copy">
+            ¿Eliminar <strong>{{ selectedEvent()?.title || 'este evento' }}</strong>? Este evento es recurrente.
+          </p>
+          <div class="delete-options">
+            <label class="delete-option">
+              <input type="radio" name="deleteScope" [checked]="deleteScope() === 'single'" (change)="deleteScope.set('single')" />
+              Solo este evento
+            </label>
+            <label class="delete-option">
+              <input type="radio" name="deleteScope" [checked]="deleteScope() === 'following'" (change)="deleteScope.set('following')" />
+              Este y los siguientes
+            </label>
+            <label class="delete-option">
+              <input type="radio" name="deleteScope" [checked]="deleteScope() === 'all'" (change)="deleteScope.set('all')" />
+              Todos los eventos
+            </label>
+          </div>
+        </div>
+        <div class="dialog-footer">
+          <button class="dialog-btn dialog-btn-secondary" type="button" (click)="closeOverlay()">Cancelar</button>
+          <button class="dialog-btn dialog-btn-danger" type="button" (click)="confirmDelete()">Eliminar</button>
+        </div>
+      </div>
+    } @else {
+      <div class="dcx-dialog">
+        <div class="dialog-header">
+          <div>
+            <div class="dialog-title">{{ activeModal === 'create' ? 'Nuevo evento' : 'Editar evento' }}</div>
+            <div class="dialog-date-badge">{{ eventForm.date }}</div>
+          </div>
+          <button class="dialog-close" type="button" (click)="closeOverlay()">&#10005;</button>
+        </div>
+        <div class="dialog-body">
+          <div class="ev-type-label">Tipo de evento</div>
+          <div class="ev-type-row">
+            @for (option of eventTypeOptions; track option.value) {
+              <button type="button" class="ev-type-opt" [class.active]="eventForm.type === option.value" [class.ev-type-blue]="option.value === 'meeting'" [class.ev-type-green]="option.value === 'delivery'" [class.ev-type-orange]="option.value === 'reminder'" [class.ev-type-red]="option.value === 'urgent'" [class.ev-type-purple]="option.value === 'personal'" (click)="eventForm.type = option.value">
+                <span class="ev-type-inner"></span>
+              </button>
+            }
+          </div>
+
+          <div class="dcx-field">
+            <label class="dcx-label" for="calendar-event-title">
+              Título <span class="dcx-label__required" aria-hidden="true">*</span>
+            </label>
+            <input id="calendar-event-title" class="dcx-input" name="title" [(ngModel)]="eventForm.title" />
+          </div>
+
+          <div class="dcx-field">
+            <label class="dcx-label" for="calendar-event-date">Fecha</label>
+            <input id="calendar-event-date" class="dcx-input" type="date" name="date" [(ngModel)]="eventForm.date" />
+          </div>
+
+          <div class="toggle-row">
+            <span class="toggle-label">Todo el día</span>
+            <span class="toggle-switch">
+              <input id="calendar-event-all-day" class="toggle-switch__input" type="checkbox" [checked]="eventForm.allDay" (change)="eventForm.allDay = !eventForm.allDay" />
+              <label class="toggle-pill" [class.on]="eventForm.allDay" for="calendar-event-all-day">
+                <span class="toggle-pill__thumb" aria-hidden="true"></span>
+              </label>
+            </span>
+          </div>
+
+          @if (!eventForm.allDay) {
+            <div class="time-cols">
+              <div class="dcx-field">
+                <label class="dcx-label" for="calendar-start-time">Hora inicio</label>
+                <input id="calendar-start-time" class="dcx-input" type="time" name="startTime" [(ngModel)]="eventForm.startTime" />
+              </div>
+              <div class="dcx-field">
+                <label class="dcx-label" for="calendar-end-time">Hora fin</label>
+                <input id="calendar-end-time" class="dcx-input" type="time" name="endTime" [(ngModel)]="eventForm.endTime" />
+              </div>
+            </div>
+          }
+
+          <hr class="form-divider" />
+
+          <div class="dcx-field">
+            <label class="dcx-label" for="calendar-description">Descripción</label>
+            <textarea id="calendar-description" class="dcx-textarea" name="description" [(ngModel)]="eventForm.description"></textarea>
+          </div>
+
+          <div class="dcx-field dcx-field--no-margin">
+            <label class="dcx-label" for="calendar-recurrence">Repetir</label>
+            <select id="calendar-recurrence" class="dcx-select" name="recurrence" [(ngModel)]="eventForm.recurrence">
+              @for (option of recurrenceOptions; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+          </div>
+
+          @if (formError()) {
+            <p class="form-error">{{ formError() }}</p>
+          }
+        </div>
+        <div class="dialog-footer">
+          @if (activeModal === 'edit' && allowDelete()) {
+            <div class="dialog-footer-left">
+              <button class="dialog-btn dialog-btn-ghost-red" type="button" (click)="openDeleteModal()">Eliminar</button>
+            </div>
+          }
+          <button class="dialog-btn dialog-btn-secondary" type="button" (click)="closeOverlay()">Cancelar</button>
+          <button class="dialog-btn dialog-btn-primary" type="button" (click)="saveEvent()">
+            {{ activeModal === 'create' ? 'Guardar evento' : 'Actualizar' }}
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+}

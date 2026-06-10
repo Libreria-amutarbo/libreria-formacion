@@ -1,6 +1,7 @@
 export * from './accordion';
 export * from './breadcrumb';
 export * from './button';
+export * from './calendar';
 export * from './checkbox';
 export * from './chip';
 export * from './contextMenu';
