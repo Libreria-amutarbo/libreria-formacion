@@ -5,9 +5,9 @@ export const argTypesDivider: ArgTypes = {
   orientation: {
     control: 'select',
     options: ['horizontal', 'vertical'],
-    description: 'Sets the direction of the divider line.',
+    description: 'Dirección del divisor.',
     table: {
-      category: 'Appearance',
+      category: 'Atributos',
       type: { summary: 'horizontal | vertical' },
       defaultValue: { summary: 'horizontal' },
     },
@@ -15,55 +15,55 @@ export const argTypesDivider: ArgTypes = {
   size: {
     control: 'select',
     options: ['s', 'm', 'l', 'xl', 'auto'],
-    description: 'Controls the length of the divider. `auto` fills the parent container.',
+    description: 'Longitud del divisor. `auto` rellena el contenedor padre.',
     table: {
-      category: 'Appearance',
+      category: 'Atributos',
       type: { summary: 's | m | l | xl | auto' },
       defaultValue: { summary: 'auto' },
     },
   },
   color: {
     control: 'color',
-    description: 'Color of the divider line. Accepts any valid CSS color value.',
+    description: 'Color de la línea. Acepta cualquier valor CSS válido.',
     table: {
-      category: 'Appearance',
+      category: 'Atributos',
       type: { summary: 'string' },
       defaultValue: { summary: tokens.background.primary },
     },
   },
   thickness: {
     control: { type: 'number', min: 0, max: 20, step: 0.2 },
-    description: 'Thickness of the divider line in rem units.',
+    description: 'Grosor de la línea en unidades `rem`.',
     table: {
-      category: 'Appearance',
+      category: 'Atributos',
       type: { summary: 'number' },
       defaultValue: { summary: '0.25' },
-    },
-  },
-  ariaLabel: {
-    control: 'text',
-    description: 'Accessible label for screen readers.',
-    table: {
-      category: 'Accessibility',
-      type: { summary: 'string' },
-      defaultValue: { summary: 'Divider' },
     },
   },
   type: {
     control: 'select',
     options: ['default', 'dot', 'dash'],
-    description: 'Visual style of the divider line.',
+    description: 'Estilo visual de la línea: sólida, punteada o discontinua.',
     table: {
-      category: 'Appearance',
+      category: 'Atributos',
       type: { summary: 'default | dot | dash' },
       defaultValue: { summary: 'default' },
     },
   },
   label: {
     control: 'text',
-    description: 'Optional text label rendered centered between two lines. When set, the divider switches to a labeled layout.',
+    description: 'Texto visible centrado entre dos líneas. Cuando se establece, el divisor cambia a la variante con etiqueta.',
     table: {
-      category: 'Content',
+      category: 'Atributos',
+      type: { summary: 'string' },
+      defaultValue: { summary: '' },
+    },
+  },
+  ariaLabel: {
+    control: 'text',
+    description: 'Etiqueta accesible para lectores de pantalla. Si está vacío y no hay `label`, el divisor se oculta a los lectores de pantalla (`aria-hidden="true"`).',
+    table: {
+      category: 'Accesibilidad',
       type: { summary: 'string' },
       defaultValue: { summary: '' },
     },

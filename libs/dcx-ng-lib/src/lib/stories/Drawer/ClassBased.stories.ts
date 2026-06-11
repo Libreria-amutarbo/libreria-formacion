@@ -39,7 +39,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Controla si el drawer está abierto (`true`) o cerrado (`false`).',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -50,9 +50,9 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Define desde qué lado aparece el drawer: `left`, `right`, `top` o `bottom`.',
       table: {
-        category: 'Appearance',
+        category: 'Atributos',
         type: { summary: "'left' | 'right' | 'top' | 'bottom'" },
-        defaultValue: { summary: 'left' },
+        defaultValue: { summary: 'right' },
       },
     },
     modal: {
@@ -60,7 +60,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Cuando está activo, muestra máscara de fondo y comporta el drawer como modal.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -70,7 +70,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Permite cerrar el drawer al hacer click en la máscara (solo aplica en modo modal).',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -80,7 +80,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Muestra u oculta el botón de cierre en el header del drawer.',
       table: {
-        category: 'Appearance',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -89,7 +89,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       control: 'boolean',
       description: 'Permite cerrar el drawer al pulsar la tecla `Escape`.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -99,7 +99,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Bloquea el scroll del `body` mientras el drawer modal está abierto.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -108,7 +108,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       control: 'boolean',
       description: 'Hace que el drawer ocupe toda la pantalla.',
       table: {
-        category: 'Appearance',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -118,7 +118,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Texto del título en el header. Si se proyecta `#drawerHeader`, este valor se reemplaza.',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
       },
@@ -128,7 +128,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Texto del footer. Si se proyecta `#drawerFooter`, el template reemplaza este valor.',
       table: {
-        category: 'Content',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
       },
@@ -138,7 +138,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Tamaño del drawer (`width` en `left/right` y `height` en `top/bottom`). Ejemplo: `22rem`, `320px`, `40%`.',
       table: {
-        category: 'Appearance',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: '22rem' },
       },
@@ -148,7 +148,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Z-index base para máscara y panel. Si `autoZIndex=false`, se usa exactamente este valor.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'number' },
         defaultValue: { summary: '1000' },
       },
@@ -158,7 +158,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Si está activo, el componente incrementa el z-index al abrir para quedar sobre overlays previos con la misma base.',
       table: {
-        category: 'Behavior',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
       },
@@ -168,7 +168,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       description:
         'Evento emitido cuando el drawer solicita cambio de visibilidad (ideal para two-way binding).',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: { summary: '(visible: boolean) => void' },
       },
     },
@@ -176,7 +176,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       action: 'show',
       description: 'Evento emitido cuando el drawer termina de abrirse.',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: { summary: '() => void' },
       },
     },
@@ -184,7 +184,7 @@ const meta: Meta<DcxNgDrawerComponent> = {
       action: 'hide',
       description: 'Evento emitido cuando el drawer se cierra.',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: { summary: '() => void' },
       },
     },
@@ -774,6 +774,118 @@ export const ZIndexExample: Story = {
           (visibleChange)="onTopChange($event)"
         >
           <p>Con <strong>baseZIndex=2600</strong> y <strong>autoZIndex=false</strong>, este siempre debe quedar arriba.</p>
+        </dcx-ng-drawer>
+      </div>
+    `,
+  }),
+};
+
+export const WithCustomHeader: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Proyecta `#drawerHeader` para reemplazar el `header` de texto plano por un template personalizado con HTML arbitrario.',
+      },
+    },
+  },
+  render: () => ({
+    props: {
+      localVisible: false,
+      openDrawer() {
+        this['localVisible'] = true;
+      },
+      onVisibleChange(next: boolean) {
+        this['localVisible'] = next;
+      },
+    },
+    template: `
+      <div style="padding: 1rem; min-height: 280px; background: var(--bg-surface, #f4f5f7);">
+        <dcx-ng-button label="Abrir (header custom)" variant="primary" (buttonClick)="openDrawer()" />
+
+        <dcx-ng-drawer
+          [visible]="localVisible"
+          position="right"
+          [modal]="true"
+          [dismissible]="true"
+          [showCloseIcon]="true"
+          [closeOnEscape]="true"
+          [blockScroll]="false"
+          [fullScreen]="false"
+          size="24rem"
+          (visibleChange)="onVisibleChange($event)"
+        >
+          <ng-template #drawerHeader>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:20px;">🗂️</span>
+              <div>
+                <p style="margin:0;font-weight:600;font-size:14px;">Header personalizado</p>
+                <p style="margin:0;font-size:12px;color:var(--text-muted,#696e75)">Subtítulo opcional</p>
+              </div>
+            </div>
+          </ng-template>
+
+          <p>El header fue reemplazado por un template con icono y subtítulo.</p>
+        </dcx-ng-drawer>
+      </div>
+    `,
+  }),
+};
+
+export const WithCustomFooter: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Proyecta `#drawerFooter` para reemplazar el `footer` de texto plano por un template con acciones personalizadas.',
+      },
+    },
+  },
+  render: () => ({
+    props: {
+      localVisible: false,
+      openDrawer() {
+        this['localVisible'] = true;
+      },
+      onVisibleChange(next: boolean) {
+        this['localVisible'] = next;
+      },
+    },
+    template: `
+      <div style="padding: 1rem; min-height: 280px; background: var(--bg-surface, #f4f5f7);">
+        <dcx-ng-button label="Abrir (footer custom)" variant="primary" (buttonClick)="openDrawer()" />
+
+        <dcx-ng-drawer
+          [visible]="localVisible"
+          position="right"
+          [modal]="true"
+          [dismissible]="true"
+          [showCloseIcon]="true"
+          [closeOnEscape]="true"
+          [blockScroll]="false"
+          [fullScreen]="false"
+          size="24rem"
+          header="Footer personalizado"
+          (visibleChange)="onVisibleChange($event)"
+        >
+          <ng-template #drawerFooter>
+            <div style="display:flex;gap:8px;width:100%;">
+              <dcx-ng-button
+                label="Guardar"
+                variant="primary"
+                style="flex:1"
+                (buttonClick)="onVisibleChange(false)"
+              />
+              <dcx-ng-button
+                label="Cancelar"
+                variant="secondary"
+                style="flex:1"
+                (buttonClick)="onVisibleChange(false)"
+              />
+            </div>
+          </ng-template>
+
+          <p>El footer fue reemplazado por un template con botones de acción.</p>
         </dcx-ng-drawer>
       </div>
     `,

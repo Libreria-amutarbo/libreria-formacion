@@ -2,84 +2,77 @@ import { Component, signal } from '@angular/core';
 import {
   DcxPosition,
   DcxNgButtonComponent,
-  DcxNgDividerComponent,
   DcxNgDrawerComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-page-drawer',
   standalone: true,
-  imports: [DcxNgDrawerComponent, DcxNgButtonComponent, DcxNgDividerComponent],
+  imports: [DcxNgDrawerComponent, DcxNgButtonComponent],
   templateUrl: './dcx-ng-page-drawer.component.html',
   styleUrl: './dcx-ng-page-drawer.component.scss',
 })
 export class DcxNgPageDrawerComponent {
-  readonly visible = signal(false);
-  readonly position = signal<DcxPosition>('right');
-  readonly visibleStyled = signal(false);
-  readonly visibleMask = signal(false);
-  readonly visibleZA = signal(false);
-  readonly visibleZB = signal(false);
-  readonly visibleZC = signal(false);
+  // 01 Default
+  readonly visDefault = signal(false);
 
-  readonly modal = signal(true);
-  readonly dismissible = signal(true);
-  readonly closeOnEscape = signal(true);
-  readonly blockScroll = signal(true);
-  readonly showCloseIcon = signal(true);
-  readonly fullScreen = signal(false);
+  // 02 Posiciones
+  readonly visPositions = signal(false);
+  readonly posPositions = signal<DcxPosition>('right');
+  readonly sizePositions = signal('22rem');
 
-  readonly size = signal('22rem');
-
-  open = () => this.visible.set(true);
-
-  close = () => this.visible.set(false);
-
-  openAt = (next: DcxPosition) => {
-    this.position.set(next);
-    this.fullScreen.set(false);
-    this.size.set(next === 'left' || next === 'right' ? '22rem' : '18rem');
-    this.visible.set(true);
+  openAt = (pos: DcxPosition) => {
+    this.posPositions.set(pos);
+    this.sizePositions.set(pos === 'top' || pos === 'bottom' ? '14rem' : '22rem');
+    this.visPositions.set(true);
   };
 
-  openFullscreen = () => {
-    this.fullScreen.set(true);
-    this.visible.set(true);
+  // 03 ESC deshabilitado
+  readonly visNoEsc = signal(false);
+
+  // 04 Sin modal
+  readonly visNoModal = signal(false);
+
+  // 05 No dismissible
+  readonly visNoDismiss = signal(false);
+
+  // 06 Solo ESC
+  readonly visEsc = signal(false);
+
+  // 07 Solo icono
+  readonly visIconOnly = signal(false);
+
+  // 08 Tamaños top / bottom
+  readonly visSizes = signal(false);
+  readonly posSizes = signal<DcxPosition>('top');
+  readonly sizeSizes = signal('12rem');
+
+  openSize = (pos: DcxPosition, size: string) => {
+    this.posSizes.set(pos);
+    this.sizeSizes.set(size);
+    this.visSizes.set(true);
   };
 
-  openStyled = () => this.visibleStyled.set(true);
+  // 09 Fullscreen
+  readonly visFullscreen = signal(false);
 
-  closeStyled = () => this.visibleStyled.set(false);
+  // 10 Block scroll
+  readonly visBlockScroll = signal(false);
 
-  openMask = () => this.visibleMask.set(true);
-
-  closeMask = () => this.visibleMask.set(false);
-
-  openZAuto = () => this.visibleZA.set(true);
-
-  openZManual = () => this.visibleZB.set(true);
-
-  openZManualTop = () => this.visibleZC.set(true);
-
-  closeZA = () => this.visibleZA.set(false);
-
-  closeZB = () => this.visibleZB.set(false);
-
-  closeZC = () => this.visibleZC.set(false);
+  // 11 Z-index
+  readonly visZA = signal(false);
+  readonly visZB = signal(false);
+  readonly visZC = signal(false);
 
   openZStacked = () => {
-    this.visibleZB.set(true);
-    setTimeout(() => {
-      this.visibleZA.set(true);
-    }, 60);
-    setTimeout(() => {
-      this.visibleZC.set(true);
-    }, 120);
+    this.visZB.set(true);
+    setTimeout(() => this.visZA.set(true), 60);
+    setTimeout(() => this.visZC.set(true), 120);
   };
 
-  closeZExamples = () => {
-    this.visibleZA.set(false);
-    this.visibleZB.set(false);
-    this.visibleZC.set(false);
-  };
+  // 12 Header custom
+  readonly visCustomHeader = signal(false);
+
+  // 13 Footer custom
+  readonly visCustomFooter = signal(false);
 }

@@ -1,195 +1,201 @@
-<section>
-  <h2>Orientación</h2>
+<div class="demo-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Divider</h1>
+    <p class="demo-page-header__desc">
+      Separador visual flexible para estructurar contenido. Soporta orientación horizontal y vertical,
+      tamaños predefinidos, estilos de línea y etiqueta de texto.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-  <div class="container-group">
-    <div class="container">
+  <!-- 01 — Default -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
       <p>Horizontal</p>
-
-      <dcx-ng-divider
-        color="#0056b3"
-        ariaLabel="Horizontal Divider Auto"
-      ></dcx-ng-divider>
-
-      <p>Este es un divider horizontal</p>
-    </div>
-
-    <div class="container horizontal">
-      <p>Vertical</p>
-
-      <dcx-ng-divider
-        color="#0056b3"
-        orientation="vertical"
-        ariaLabel="Vertical Divider Auto"
-      ></dcx-ng-divider>
-
-      <p>Este es un divider vertical</p>
+      <dcx-ng-divider ariaLabel="Divisor horizontal"></dcx-ng-divider>
+      <p style="margin-top: 16px">Vertical</p>
+      <div class="vertical-container">
+        <p>Izquierda</p>
+        <dcx-ng-divider orientation="vertical" ariaLabel="Divisor vertical"></dcx-ng-divider>
+        <p>Derecha</p>
+      </div>
     </div>
   </div>
-</section>
 
-<section>
-  <h2>Tipos</h2>
-
-  <div class="container-group">
-    <div class="container">
-      <p>Default</p>
-      <dcx-ng-divider color="#0056b3" type="default"></dcx-ng-divider>
-      <p>Este es un divider tipo default</p>
+  <!-- 02 — Horizontal — Todos los tamaños -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Horizontal — Todos los tamaños</span>
     </div>
-
-    <div class="container">
-      <p>Dot</p>
-      <dcx-ng-divider color="#0056b3" type="dot"></dcx-ng-divider>
-      <p>Este es un divider tipo dot</p>
-    </div>
-
-    <div class="container">
-      <p>Dash</p>
-      <dcx-ng-divider color="#0056b3" type="dash"></dcx-ng-divider>
-      <p>Este es un divider tipo dash</p>
+    <div class="demo-section__body">
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <p class="demo-label">size="s"</p>
+        <dcx-ng-divider size="s" ariaLabel="Pequeño"></dcx-ng-divider>
+        <p class="demo-label">size="m"</p>
+        <dcx-ng-divider size="m" ariaLabel="Mediano"></dcx-ng-divider>
+        <p class="demo-label">size="l"</p>
+        <dcx-ng-divider size="l" ariaLabel="Grande"></dcx-ng-divider>
+        <p class="demo-label">size="xl"</p>
+        <dcx-ng-divider size="xl" ariaLabel="Extra grande"></dcx-ng-divider>
+        <p class="demo-label">size="auto"</p>
+        <dcx-ng-divider size="auto" ariaLabel="Auto"></dcx-ng-divider>
+      </div>
     </div>
   </div>
-</section>
 
-<section>
-  <h2>Tamaños</h2>
-
-  <div class="container-group vertical">
-    <div class="container">
-      <p>Small</p>
-      <dcx-ng-divider color="#0056b3" size="s"></dcx-ng-divider>
-      <p>Este es un divider tamaño s</p>
+  <!-- 03 — Vertical — Todos los tamaños -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Vertical — Todos los tamaños</span>
     </div>
-
-    <div class="container">
-      <p>Medium</p>
-      <dcx-ng-divider color="#0056b3" size="m"></dcx-ng-divider>
-      <p>Este es un divider tamaño m</p>
-    </div>
-
-    <div class="container">
-      <p>Large</p>
-      <dcx-ng-divider color="#0056b3" size="l"></dcx-ng-divider>
-      <p>Este es un divider tamaño l</p>
-    </div>
-
-    <div class="container">
-      <p>Extra Large</p>
-      <dcx-ng-divider color="#0056b3" size="xl"></dcx-ng-divider>
-      <p>Este es un divider tamaño xl</p>
-    </div>
-
-    <div class="container">
-      <p>Auto</p>
-      <dcx-ng-divider color="#0056b3" size="auto"></dcx-ng-divider>
-      <p>Este es un divider tamaño auto</p>
+    <p class="demo-section__desc">El contenedor padre necesita altura definida para que el divisor vertical sea visible.</p>
+    <div class="demo-section__body">
+      <div class="vertical-sizes-grid">
+        <div class="vertical-size-col">
+          <p class="demo-label">s</p>
+          <dcx-ng-divider size="s" orientation="vertical" ariaLabel="Pequeño"></dcx-ng-divider>
+        </div>
+        <div class="vertical-size-col">
+          <p class="demo-label">m</p>
+          <dcx-ng-divider size="m" orientation="vertical" ariaLabel="Mediano"></dcx-ng-divider>
+        </div>
+        <div class="vertical-size-col">
+          <p class="demo-label">l</p>
+          <dcx-ng-divider size="l" orientation="vertical" ariaLabel="Grande"></dcx-ng-divider>
+        </div>
+        <div class="vertical-size-col">
+          <p class="demo-label">xl</p>
+          <dcx-ng-divider size="xl" orientation="vertical" ariaLabel="Extra grande"></dcx-ng-divider>
+        </div>
+        <div class="vertical-size-col">
+          <p class="demo-label">auto</p>
+          <dcx-ng-divider size="auto" orientation="vertical" ariaLabel="Auto"></dcx-ng-divider>
+        </div>
+      </div>
     </div>
   </div>
-</section>
 
-<section>
-  <h2>Grosor</h2>
-
-  <div class="container-group h200px">
-    <div class="container self">
-      <p>0.1</p>
-      <dcx-ng-divider color="#0056b3" [thickness]="0.1"></dcx-ng-divider>
-
-      <p>0.2</p>
-      <dcx-ng-divider color="#0056b3" [thickness]="0.2"></dcx-ng-divider>
-
-      <p>0.4</p>
-      <dcx-ng-divider color="#0056b3" [thickness]="0.4"></dcx-ng-divider>
-
-      <p>0.8</p>
-      <dcx-ng-divider color="#0056b3" [thickness]="0.8"></dcx-ng-divider>
+  <!-- 04 — Todos los tipos -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Todos los tipos</span>
     </div>
-
-    <div id="vertical-thickness" class="container horizontal h100">
-      <p>0.1</p>
-      <dcx-ng-divider
-        color="#0056b3"
-        orientation="vertical"
-        [thickness]="0.1"
-      ></dcx-ng-divider>
-
-      <p>0.2</p>
-      <dcx-ng-divider
-        color="#0056b3"
-        orientation="vertical"
-        [thickness]="0.2"
-      ></dcx-ng-divider>
-
-      <p>0.4</p>
-      <dcx-ng-divider
-        color="#0056b3"
-        orientation="vertical"
-        [thickness]="0.4"
-      ></dcx-ng-divider>
-
-      <p>0.8</p>
-      <dcx-ng-divider
-        color="#0056b3"
-        orientation="vertical"
-        [thickness]="0.8"
-      ></dcx-ng-divider>
+    <div class="demo-section__body">
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <p class="demo-label">type="default" — sólida</p>
+        <dcx-ng-divider type="default" ariaLabel="Sólida"></dcx-ng-divider>
+        <p class="demo-label">type="dot" — punteada</p>
+        <dcx-ng-divider type="dot" ariaLabel="Punteada"></dcx-ng-divider>
+        <p class="demo-label">type="dash" — discontinua</p>
+        <dcx-ng-divider type="dash" ariaLabel="Discontinua"></dcx-ng-divider>
+      </div>
     </div>
   </div>
-</section>
 
-<section>
-  <h2>Color</h2>
-
-  <div class="container-group h200px">
-    <div class="container self">
-      <dcx-ng-divider color="#e6f0ff"></dcx-ng-divider>
-      <dcx-ng-divider color="#cfe0ff"></dcx-ng-divider>
-      <dcx-ng-divider color="#b8d1ff"></dcx-ng-divider>
-      <dcx-ng-divider color="#a1c1ff"></dcx-ng-divider>
-      <dcx-ng-divider color="#8ab1ff"></dcx-ng-divider>
-      <dcx-ng-divider color="#739fff"></dcx-ng-divider>
-      <dcx-ng-divider color="#5c8fff"></dcx-ng-divider>
-      <dcx-ng-divider color="#457fff"></dcx-ng-divider>
-      <dcx-ng-divider color="#2e6fff"></dcx-ng-divider>
-      <dcx-ng-divider color="#155fff"></dcx-ng-divider>
+  <!-- 05 — Variantes de grosor -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Variantes de grosor</span>
     </div>
-
-    <div class="container horizontal h100">
-      <dcx-ng-divider orientation="vertical" color="#e6f0ff"></dcx-ng-divider>
-      <dcx-ng-divider orientation="vertical" color="#cfe0ff"></dcx-ng-divider>
-      <dcx-ng-divider orientation="vertical" color="#b8d1ff"></dcx-ng-divider>
-      <dcx-ng-divider orientation="vertical" color="#a1c1ff"></dcx-ng-divider>
-      <dcx-ng-divider orientation="vertical" color="#8ab1ff"></dcx-ng-divider>
-      <dcx-ng-divider orientation="vertical" color="#739fff"></dcx-ng-divider>
-      <dcx-ng-divider orientation="vertical" color="#5c8fff"></dcx-ng-divider>
-      <dcx-ng-divider orientation="vertical" color="#457fff"></dcx-ng-divider>
-      <dcx-ng-divider orientation="vertical" color="#2e6fff"></dcx-ng-divider>
-      <dcx-ng-divider orientation="vertical" color="#155fff"></dcx-ng-divider>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>Label</h2>
-
-  <div class="container-group h200px">
-    <div class="container h100">
-      <p>Horizontal</p>
-      <dcx-ng-divider
-        color="#0056b3"
-        label="Divider con label"
-      ></dcx-ng-divider>
-      <p>Este es un divider horizontal con label</p>
-    </div>
-
-    <div class="container horizontal h100">
-      <p>Vertical</p>
-      <dcx-ng-divider
-        color="#0056b3"
-        label="Divider con label"
-        orientation="vertical"
-      ></dcx-ng-divider>
-      <p>Este es un divider vertical con label</p>
+    <div class="demo-section__body">
+      <div style="display:flex;gap:48px;">
+        <div style="display:flex;flex-direction:column;gap:16px;flex:1;">
+          <p class="demo-label">Horizontal</p>
+          <p class="demo-label">0.1 rem</p>
+          <dcx-ng-divider [thickness]="0.1" ariaLabel="Grosor 0.1"></dcx-ng-divider>
+          <p class="demo-label">0.2 rem</p>
+          <dcx-ng-divider [thickness]="0.2" ariaLabel="Grosor 0.2"></dcx-ng-divider>
+          <p class="demo-label">0.4 rem</p>
+          <dcx-ng-divider [thickness]="0.4" ariaLabel="Grosor 0.4"></dcx-ng-divider>
+          <p class="demo-label">0.8 rem</p>
+          <dcx-ng-divider [thickness]="0.8" ariaLabel="Grosor 0.8"></dcx-ng-divider>
+        </div>
+        <div class="vertical-thickness-grid">
+          <p class="demo-label" style="grid-column:1/-1">Vertical</p>
+          <div class="vertical-size-col">
+            <p class="demo-label">0.1</p>
+            <dcx-ng-divider [thickness]="0.1" orientation="vertical" ariaLabel="Vertical 0.1"></dcx-ng-divider>
+          </div>
+          <div class="vertical-size-col">
+            <p class="demo-label">0.2</p>
+            <dcx-ng-divider [thickness]="0.2" orientation="vertical" ariaLabel="Vertical 0.2"></dcx-ng-divider>
+          </div>
+          <div class="vertical-size-col">
+            <p class="demo-label">0.4</p>
+            <dcx-ng-divider [thickness]="0.4" orientation="vertical" ariaLabel="Vertical 0.4"></dcx-ng-divider>
+          </div>
+          <div class="vertical-size-col">
+            <p class="demo-label">0.8</p>
+            <dcx-ng-divider [thickness]="0.8" orientation="vertical" ariaLabel="Vertical 0.8"></dcx-ng-divider>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+
+  <!-- 06 — Variantes de color -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Variantes de color</span>
+    </div>
+    <p class="demo-section__desc">Sin <code>ariaLabel</code> ni <code>label</code>, los divisores son decorativos y tienen <code>aria-hidden="true"</code> automáticamente.</p>
+    <div class="demo-section__body">
+      <div style="display:flex;gap:32px;">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
+          <p class="demo-label">Horizontal</p>
+          <dcx-ng-divider color="#e6f0ff"></dcx-ng-divider>
+          <dcx-ng-divider color="#cfe0ff"></dcx-ng-divider>
+          <dcx-ng-divider color="#b8d1ff"></dcx-ng-divider>
+          <dcx-ng-divider color="#8ab1ff"></dcx-ng-divider>
+          <dcx-ng-divider color="#5c8fff"></dcx-ng-divider>
+          <dcx-ng-divider color="#2e6fff"></dcx-ng-divider>
+          <dcx-ng-divider color="#155fff"></dcx-ng-divider>
+        </div>
+        <div class="color-vertical-grid">
+          <p class="demo-label" style="grid-column:1/-1">Vertical</p>
+          <dcx-ng-divider orientation="vertical" color="#e6f0ff"></dcx-ng-divider>
+          <dcx-ng-divider orientation="vertical" color="#cfe0ff"></dcx-ng-divider>
+          <dcx-ng-divider orientation="vertical" color="#b8d1ff"></dcx-ng-divider>
+          <dcx-ng-divider orientation="vertical" color="#8ab1ff"></dcx-ng-divider>
+          <dcx-ng-divider orientation="vertical" color="#5c8fff"></dcx-ng-divider>
+          <dcx-ng-divider orientation="vertical" color="#2e6fff"></dcx-ng-divider>
+          <dcx-ng-divider orientation="vertical" color="#155fff"></dcx-ng-divider>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 — Con etiqueta -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Con etiqueta — Horizontal y Vertical</span>
+    </div>
+    <div class="demo-section__body">
+      <div style="display:flex;flex-direction:column;gap:32px;">
+        <div>
+          <p class="demo-label">Horizontal</p>
+          <dcx-ng-divider label="Título de sección"></dcx-ng-divider>
+        </div>
+        <div>
+          <p class="demo-label">Vertical</p>
+          <div class="vertical-container">
+            <p>Contenido izquierdo</p>
+            <dcx-ng-divider label="o" orientation="vertical"></dcx-ng-divider>
+            <p>Contenido derecho</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

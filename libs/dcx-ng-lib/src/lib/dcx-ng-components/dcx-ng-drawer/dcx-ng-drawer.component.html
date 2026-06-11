@@ -8,6 +8,7 @@
       <div
         [class]="maskClasses()"
         [style.z-index]="resolvedBaseZIndex()"
+        aria-hidden="true"
         (pointerdown)="onMaskPointerDown($event)"
       ></div>
     }
@@ -16,6 +17,7 @@
       [class]="drawerClasses()"
       role="dialog"
       [attr.aria-modal]="ariaModalValue"
+      [attr.aria-labelledby]="header() ? drawerTitleId() : null"
       [style.z-index]="resolvedBaseZIndex() + 1"
       [style.width]="panelWidth()"
       [style.height]="panelHeight()"
@@ -25,7 +27,7 @@
           @if (headerTemplate()) {
             <ng-container *ngTemplateOutlet="headerTemplate()"></ng-container>
           } @else {
-            <h3 class="dcx-drawer__title">{{ header() }}</h3>
+            <h3 class="dcx-drawer__title" [id]="drawerTitleId()">{{ header() }}</h3>
           }
 
           @if (showCloseIcon()) {

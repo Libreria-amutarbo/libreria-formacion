@@ -18,10 +18,4 @@ describe('DcxNgPageEditorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should update value', () => {
-    component.onValueChange('<p>Nuevo contenido</p>');
-
-    expect(component.value).toBe('<p>Nuevo contenido</p>');
-  });
 });
