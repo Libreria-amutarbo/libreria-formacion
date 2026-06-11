@@ -9,116 +9,142 @@
     />
   }
 
-  <div [class]="contentClasses()">
-    <dcx-ng-button
-      [label]="label()"
-      [disabled]="disabled()"
-      type="button"
-      (buttonClick)="openFilePicker()"
-    />
-
+  <div class="dcx-file-upload__content">
     <dcx-ng-input
       #fileInput
       class="dcx-file-upload__input"
       [type]="DcxInputType.FILE"
       [attr.accept]="accept() || null"
+      [ariaLabel]="label()"
       [multiple]="multiple()"
-      [disabled]="disabled()"
+      [disabled]="isDisabled()"
       (change)="onFileChange($event)"
     ></dcx-ng-input>
 
     @if (dragAndDrop()) {
       <div
         [class]="dropzoneClasses()"
+        role="region"
+        aria-label="Zona de arrastre de archivos"
         (dragover)="onDragOver($event)"
         (dragleave)="onDragLeave($event)"
         (drop)="onDrop($event)"
       >
-        @if (isLargeDropzone()) {
-          <span class="dcx-file-upload__dropzone-icon" aria-hidden="true">
-            <dcx-ng-icon name="upload" size="xl"></dcx-ng-icon>
-          </span>
-        }
-        @if (hasSelectedFileItems()) {
-          <div class="dcx-file-upload__file-list">
-            @for (
-              fileItem of selectedFileItems();
-              track fileItem.name + fileItem.size + fileItem.lastModified
-            ) {
-              <div class="dcx-file-upload__file-item">
-                <span
-                  class="dcx-file-upload__file-name"
-                  >{{ fileItem.name }}</span
-                >
-                <dcx-ng-button
-                  class="dcx-file-upload__remove-button"
-                  type="button"
-                  [attr.aria-label]="'Remove ' + fileItem.name"
-                  [disabled]="disabled()"
-                  (buttonClick)="removeFile(fileItem.file)"
-                >
-                  <dcx-ng-icon name="x" size="m"></dcx-ng-icon>
-                </dcx-ng-button>
-              </div>
-            }
-          </div>
-        } @else {
-          <span class="dcx-file-upload__placeholder">{{ placeholder() }}</span>
-          <span class="dcx-file-upload__drop-hint"
-            >Drag and drop a file here</span
+        <button
+          class="dcx-file-upload__zone-btn"
+          type="button"
+          [disabled]="isDisabled() || null"
+          (click)="openFilePicker()"
+        >
+          <dcx-ng-icon name="upload" size="m" aria-hidden="true"></dcx-ng-icon>
+          <span>{{ label() }}</span>
+        </button>
+
+        @if (!multiple() && hasSelectedFileItems() && !isLargeDropzone()) {
+          <span class="dcx-file-upload__file-name">{{ selectedFileItems()[0].name }}</span>
+          <button
+            class="dcx-file-upload__remove-btn"
+            type="button"
+            [attr.aria-label]="'Remove ' + selectedFileItems()[0].name"
+            [disabled]="isDisabled() || null"
+            (click)="removeFile(selectedFileItems()[0].file)"
           >
+            <dcx-ng-icon name="x" size="m" aria-hidden="true"></dcx-ng-icon>
+          </button>
+        } @else if (!hasSelectedFileItems()) {
+          <span class="dcx-file-upload__placeholder">{{ placeholder() }}</span>
+          @if (!isLargeDropzone()) {
+            <span class="dcx-file-upload__drop-hint">Drag and drop a file here</span>
+          }
         }
       </div>
     } @else {
-      @if (hasSelectedFileItems()) {
-        <div class="dcx-file-upload__file-list">
-          @for (
-            fileItem of selectedFileItems();
-            track fileItem.name + fileItem.size + fileItem.lastModified
-          ) {
-            <div class="dcx-file-upload__file-item">
-              <span
-                class="dcx-file-upload__file-name"
-                >{{ fileItem.name }}</span
-              >
-              <dcx-ng-button
-                class="dcx-file-upload__remove-button"
-                type="button"
-                [attr.aria-label]="'Remove ' + fileItem.name"
-                [disabled]="disabled()"
-                (buttonClick)="removeFile(fileItem.file)"
-              >
-                <dcx-ng-icon name="x" size="m"></dcx-ng-icon>
-              </dcx-ng-button>
-            </div>
-          }
-        </div>
-      } @else {
-        <span class="dcx-file-upload__placeholder">{{ placeholder() }}</span>
-      }
+      <div
+        class="dcx-file-upload__zone"
+        [class.dcx-file-upload__zone--disabled]="isDisabled()"
+        [class.dcx-file-upload__zone--error]="!!validationError()"
+      >
+        <button
+          class="dcx-file-upload__zone-btn"
+          type="button"
+          [disabled]="isDisabled() || null"
+          (click)="openFilePicker()"
+        >
+          <dcx-ng-icon name="upload" size="m" aria-hidden="true"></dcx-ng-icon>
+          <span>{{ label() }}</span>
+        </button>
+
+        @if (!multiple() && hasSelectedFileItems()) {
+          <span class="dcx-file-upload__file-name">{{ selectedFileItems()[0].name }}</span>
+          <button
+            class="dcx-file-upload__remove-btn"
+            type="button"
+            [attr.aria-label]="'Remove ' + selectedFileItems()[0].name"
+            [disabled]="isDisabled() || null"
+            (click)="removeFile(selectedFileItems()[0].file)"
+          >
+            <dcx-ng-icon name="x" size="m" aria-hidden="true"></dcx-ng-icon>
+          </button>
+        } @else if (!hasSelectedFileItems()) {
+          <span class="dcx-file-upload__placeholder">{{ placeholder() }}</span>
+        }
+      </div>
     }
 
-    @if (!autoUpload() || multiple()) {
-      <div class="dcx-file-upload__actions">
-        @if (!autoUpload()) {
-          <dcx-ng-button
-            label="Upload"
-            variant="secondary"
-            type="button"
-            [disabled]="disabled() || !hasSelectedFileItems() || !!validationError()"
-            (buttonClick)="onUploadClick()"
-            class="dcx-file-upload__upload-button"
-          />
+    @if (hasSelectedFileItems() && (multiple() || isLargeDropzone())) {
+      <ul role="list" class="dcx-file-upload__file-list">
+        @for (
+          fileItem of selectedFileItems();
+          track fileItem.name + fileItem.size + fileItem.lastModified
+        ) {
+          <li class="dcx-file-upload__file-item">
+            <dcx-ng-icon
+              name="file-earmark"
+              size="m"
+              aria-hidden="true"
+              class="dcx-file-upload__file-icon"
+            ></dcx-ng-icon>
+            <span class="dcx-file-upload__file-name">{{ fileItem.name }}</span>
+            <span class="dcx-file-upload__file-size">{{ formatFileSize(fileItem.size) }}</span>
+            <button
+              class="dcx-file-upload__remove-btn"
+              type="button"
+              [attr.aria-label]="'Remove ' + fileItem.name"
+              [disabled]="isDisabled() || null"
+              (click)="removeFile(fileItem.file)"
+            >
+              <dcx-ng-icon name="x" size="m" aria-hidden="true"></dcx-ng-icon>
+            </button>
+          </li>
         }
-        @if (multiple()) {
-          <dcx-ng-button
-            label="Cancel"
-            variant="danger"
-            type="button"
-            [disabled]="disabled() || !hasSelectedFileItems()"
-            (buttonClick)="onCancelClick()"
-            class="dcx-file-upload__cancel-button"
-          />
+      </ul>
+    }
+
+    @if (!autoUpload() || multiple() || loading()) {
+      <div class="dcx-file-upload__actions">
+        @if (loading()) {
+          <dcx-ng-spinner size="s" title="Subiendo archivo..." [delay]="0" />
+        } @else {
+          @if (!autoUpload()) {
+            <dcx-ng-button
+              label="Upload"
+              variant="secondary"
+              type="button"
+              [disabled]="isDisabled() || !hasSelectedFileItems() || !!validationError()"
+              (buttonClick)="onUploadClick()"
+              class="dcx-file-upload__upload-button"
+            />
+          }
+          @if (multiple()) {
+            <dcx-ng-button
+              label="Cancel"
+              variant="danger"
+              type="button"
+              [disabled]="isDisabled() || !hasSelectedFileItems()"
+              (buttonClick)="onCancelClick()"
+              class="dcx-file-upload__cancel-button"
+            />
+          }
         }
       </div>
     }

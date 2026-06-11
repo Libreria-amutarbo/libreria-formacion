@@ -26,54 +26,46 @@ const meta: Meta<DcxNgFileUploadComponent> = {
   argTypes: {
     label: {
       control: { type: 'text' },
-      description: 'Texto del botón para abrir el selector de archivos',
+      description: 'Texto del botón para abrir el selector de archivos.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: 'Choose file' },
       },
     },
     accept: {
       control: { type: 'text' },
-      description: 'Tipos de archivo permitidos (ejemplo: .pdf,.doc,image/*).',
+      description:
+        'Tipos de archivo permitidos (ejemplo: .pdf,.doc,image/*). Vacío significa que se aceptan todos.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
       },
     },
     disabled: {
       control: 'boolean',
-      description: 'Deshabilita la selección de archivos',
+      description: 'Deshabilita la selección de archivos y la subida.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
     placeholder: {
       control: { type: 'text' },
-      description: 'Texto mostrado cuando todavía no hay archivo seleccionado',
+      description: 'Texto mostrado cuando no hay archivo seleccionado.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: 'No file selected' },
       },
     },
-    fileSelected: {
-      action: 'fileSelected',
-      description: 'Evento emitido al seleccionar (o limpiar) un archivo',
-      table: {
-        category: 'Events',
-        type: { summary: '(file: File | File[] | null) => void' },
-        defaultValue: { summary: '-' },
-      },
-    },
     dragAndDrop: {
       control: 'boolean',
-      description: 'Activa/desactiva la zona de drag and drop',
+      description: 'Activa la zona de arrastre de archivos.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -81,18 +73,18 @@ const meta: Meta<DcxNgFileUploadComponent> = {
     dropzoneSize: {
       control: { type: 'select' },
       options: ['small', 'large'],
-      description: 'Define el tamaño visual del área de drag and drop',
+      description: 'Tamaño visual de la zona de arrastre.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: "'small' | 'large'" },
         defaultValue: { summary: 'small' },
       },
     },
     multiple: {
       control: 'boolean',
-      description: 'Permite seleccionar y subir múltiples archivos a la vez',
+      description: 'Permite seleccionar y subir múltiples archivos a la vez.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
@@ -100,26 +92,39 @@ const meta: Meta<DcxNgFileUploadComponent> = {
     autoUpload: {
       control: 'boolean',
       description:
-        'Si está activo, sube automáticamente al seleccionar/soltar archivo (oculta botón Upload manual)',
+        'Emite `uploadClicked` automáticamente al seleccionar el archivo, sin botón manual.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
+      },
+    },
+    fileSelected: {
+      action: 'fileSelected',
+      description: 'Se emite al seleccionar o limpiar un archivo.',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(file: File | File[] | null) => void' },
       },
     },
     uploadClicked: {
       action: 'uploadClicked',
       description:
-        'Evento emitido al pulsar el botón Upload (emite un archivo o lista de archivos según `multiple`)',
+        'Se emite al pulsar el botón Upload o al seleccionar con `autoUpload` activo.',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: { summary: '(file: File | File[] | null) => void' },
-        defaultValue: { summary: '-' },
       },
     },
   },
   parameters: {
     controls: { expanded: true },
+    docs: {
+      description: {
+        component:
+          'Campo de selección de archivos con soporte de botón clásico y zona de arrastre. Admite filtrado por tipo, selección múltiple y subida automática. Implementa validación de tipo MIME/extensión con mensaje de error.',
+      },
+    },
   },
 };
 
@@ -133,6 +138,14 @@ export const AcceptImagesOnly: Story = {
     label: 'Select image',
     accept: 'image/*',
     placeholder: 'No image selected',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Filtra la selección para aceptar únicamente imágenes. Si se elige un archivo no permitido, se muestra un mensaje de error.',
+      },
+    },
   },
 };
 
@@ -148,7 +161,7 @@ export const AutoUpload: Story = {
     docs: {
       description: {
         story:
-          'Modo auto upload: al seleccionar archivo, se emite `uploadClicked` automáticamente sin usar el botón manual.',
+          'Al seleccionar archivo, se emite `uploadClicked` automáticamente sin usar el botón manual.',
       },
     },
   },
@@ -164,7 +177,7 @@ export const DragAndDrop: Story = {
     docs: {
       description: {
         story:
-          'Puedes arrastrar y soltar un archivo sobre la zona punteada o usar el botón para seleccionarlo. El componente detecta el estado drag-over y muestra el nombre del archivo seleccionado. Esta opción se activa con el input `dragAndDrop`.',
+          'Activa la zona de arrastre compacta. El componente detecta el estado drag-over y muestra el nombre del archivo seleccionado.',
       },
     },
   },
@@ -181,7 +194,7 @@ export const LargeDropzone: Story = {
     docs: {
       description: {
         story:
-          'Muestra una zona de drag and drop grande con icono y layout centrado para casos de uso más visuales.',
+          'Zona de arrastre grande con icono y layout centrado para casos de uso más visuales.',
       },
     },
   },
@@ -199,7 +212,40 @@ export const MultipleFiles: Story = {
     docs: {
       description: {
         story:
-          'Permite seleccionar o arrastrar varios archivos a la vez y muestra todos los nombres en el componente.',
+          'Permite seleccionar o arrastrar varios archivos y muestra todos los nombres en el componente.',
+      },
+    },
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    placeholder: 'No file selected',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Estado deshabilitado: el botón y la zona de arrastre no responden a la interacción.',
+      },
+    },
+  },
+};
+
+export const WithValidationError: Story = {
+  args: {
+    label: 'Select image',
+    accept: 'image/*',
+    dragAndDrop: true,
+    dropzoneSize: 'large',
+    placeholder: 'No image selected',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Para ver el error de validación, arrastra o selecciona un archivo con formato no permitido (por ejemplo un PDF). El componente rechaza el archivo y muestra el mensaje de error.',
       },
     },
   },

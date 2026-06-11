@@ -1,9 +1,10 @@
 .dcx-file-upload {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: var(--sp-2, 8px);
   font-family: var(--ff-base, 'Inter', sans-serif);
+  width: 100%;
 }
 
 .dcx-file-upload__validation-message {
@@ -12,16 +13,10 @@
 
 .dcx-file-upload__content {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--sp-3, 12px);
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.dcx-file-upload__content--stacked {
   flex-direction: column;
   align-items: flex-start;
+  gap: var(--sp-2, 8px);
+  width: 100%;
 }
 
 .dcx-file-upload__actions {
@@ -31,19 +26,82 @@
   flex-wrap: wrap;
 }
 
-.dcx-file-upload__dropzone {
+/* ── Zone (non-drag mode) ──────────────────────────────────── */
+
+.dcx-file-upload__zone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border-default, #d1d5db);
+  border-radius: 6px;
+  background: var(--bg-default, #ffffff);
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+  width: 100%;
+}
+
+.dcx-file-upload__zone:not(.dcx-file-upload__zone--disabled):hover {
+  border-color: var(--border-hover, #9ca3af);
+  background: #fafafa;
+}
+
+.dcx-file-upload__zone--disabled {
+  background: var(--bg-disabled, #f3f4f6);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.dcx-file-upload__zone--error {
+  border-color: var(--color-danger, #dc2626);
+}
+
+/* ── Zone button (compact, outlined) ──────────────────────── */
+
+.dcx-file-upload__zone-btn {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-2, 8px);
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border-default, #d1d5db);
+  background: var(--bg-default, #ffffff);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dark, #111827);
+  cursor: pointer;
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  dcx-ng-icon {
+    display: inline-flex;
+    line-height: 0;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* ── Drag-and-drop dropzone ────────────────────────────────── */
+
+.dcx-file-upload__dropzone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   min-height: var(--sp-8, 32px);
-  padding: var(--sp-2, 8px) var(--sp-4, 16px);
+  padding: 8px 10px;
   border: 1px dashed var(--border-light, #d1d5db);
   border-radius: var(--r-md, 6px);
   background: var(--bg-default, #ffffff);
+  width: 100%;
+  transition: border-color 0.12s, background 0.12s;
 }
 
 .dcx-file-upload__dropzone--small {
-  display: inline-flex;
+  display: flex;
   align-items: center;
 }
 
@@ -61,6 +119,7 @@
 
 .dcx-file-upload__dropzone--drag-over {
   border-color: var(--bg-primary, #0058ab);
+  border-style: dashed;
   background: color-mix(
     in srgb,
     var(--bg-primary, #0058ab) 10%,
@@ -71,6 +130,8 @@
 .dcx-file-upload__dropzone--disabled {
   opacity: 0.6;
 }
+
+/* ── Hidden file input ─────────────────────────────────────── */
 
 .dcx-file-upload__input {
   position: absolute;
@@ -84,60 +145,98 @@
   border: 0;
 }
 
+/* ── Placeholder / filename text ───────────────────────────── */
+
+.dcx-file-upload__placeholder {
+  font-size: 12px;
+  color: var(--text-disabled, #696e75);
+  flex: 1;
+}
+
 .dcx-file-upload__file-name {
-  color: var(--bg-primary-pressed, #121a38);
-  max-width: 16rem;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dark, #111827);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex: 1;
 }
 
+/* In card items, flex: 1 is already default — constrain inline zone to avoid overflow */
+.dcx-file-upload__file-item .dcx-file-upload__file-name {
+  flex: 1;
+}
+
+/* ── File list ─────────────────────────────────────────────── */
+
 .dcx-file-upload__file-list {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: var(--sp-1, 4px);
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .dcx-file-upload__file-item {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: var(--sp-2, 8px);
+  width: 100%;
+  background: #f9fafb;
+  border: 1px solid #f3f4f6;
+  border-radius: var(--r-sm, 4px);
+  padding: 6px 10px;
 }
 
-.dcx-file-upload__remove-button {
+.dcx-file-upload__file-icon {
+  flex-shrink: 0;
+  color: var(--text-muted, #6b7280);
+  line-height: 0;
+}
+
+.dcx-file-upload__file-size {
+  font-size: 12px;
+  color: var(--text-disabled, #696e75);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.dcx-file-upload__remove-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--sp-6, 24px);
-  height: var(--sp-6, 24px);
-  padding: var(--sp-5, 20px);
-  border: 0;
-  border-radius: var(--r-pill, 999px);
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: var(--r-sm, 4px);
   background: transparent;
-  color: var(--text-disabled, #696e75);
+  color: var(--text-muted, #6b7280);
   cursor: pointer;
+  flex-shrink: 0;
+
+  dcx-ng-icon {
+    display: inline-flex;
+    line-height: 0;
+  }
+
+  &:hover:not(:disabled) {
+    background: var(--bg-hover, #f3f4f6);
+    color: var(--text-dark, #111827);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
-.dcx-file-upload__remove-button:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-
-.dcx-file-upload__dropzone--large .dcx-file-upload__file-list {
-  align-items: center;
-}
-
-.dcx-file-upload__placeholder {
-  color: var(--text-disabled, #696e75);
-}
+/* ── Drop hint & icons ─────────────────────────────────────── */
 
 .dcx-file-upload__drop-hint {
   color: var(--text-disabled, #696e75);
   font-size: var(--fs-base, 14px);
-}
-
-.dcx-file-upload__dropzone-icon {
-  color: var(--bg-primary, #0058ab);
-  line-height: 0;
 }
