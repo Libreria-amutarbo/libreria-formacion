@@ -20,8 +20,9 @@ describe('DcxNgPageFileUpload', () => {
   });
 
   it('should render showcase sections', () => {
-    const headings = fixture.nativeElement.querySelectorAll('h2');
+    const sections =
+      fixture.nativeElement.querySelectorAll('.demo-section');
 
-    expect(headings.length).toBe(5);
+    expect(sections.length).toBe(8);
   });
 });
