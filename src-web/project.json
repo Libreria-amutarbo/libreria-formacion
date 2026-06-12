@@ -11,10 +11,11 @@
       }
     },
     "build": {
-      "executor": "@nx/vite:build",
-      "outputs": ["{options.outputPath}"],
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/dist/dcx-web-app"],
       "options": {
-        "outputPath": "dist/dcx-web-app"
+        "command": "npx vite build",
+        "cwd": "src-web"
       }
     },
     "lint": {

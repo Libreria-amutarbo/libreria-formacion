@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/angular';
-import { addons } from 'storybook/preview-api';
+import { addons } from '@storybook/preview-api';
 import { dcxLightTheme } from './theme';
 
 const preview: Preview = {
