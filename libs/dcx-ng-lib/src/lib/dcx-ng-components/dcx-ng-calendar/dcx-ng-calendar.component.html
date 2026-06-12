@@ -174,12 +174,36 @@
       @if (showFooter()) {
         <div class="dcx-calendar__footer">
           @if (footerMode() === 'range') {
-            <button class="dcx-calendar__button dcx-calendar__button--ghost" type="button" (click)="clearRange()">Limpiar</button>
-            <button class="dcx-calendar__button dcx-calendar__button--primary" type="button" (click)="applyRange()">Aplicar</button>
+            <dcx-ng-button
+              label="Limpiar"
+              variant="secondary"
+              size="m"
+              ariaLabel="Limpiar rango"
+              (buttonClick)="clearRange()"
+            ></dcx-ng-button>
+            <dcx-ng-button
+              label="Aplicar"
+              variant="primary"
+              size="m"
+              ariaLabel="Aplicar rango"
+              (buttonClick)="applyRange()"
+            ></dcx-ng-button>
           } @else {
-            <button class="dcx-calendar__button dcx-calendar__button--ghost" type="button" (click)="goToToday()">Hoy</button>
+            <dcx-ng-button
+              label="Hoy"
+              variant="secondary"
+              size="m"
+              ariaLabel="Ir a hoy"
+              (buttonClick)="goToToday()"
+            ></dcx-ng-button>
             @if (allowCreate() && isMonthView()) {
-              <button class="dcx-calendar__button dcx-calendar__button--primary" type="button" (click)="openCreateModal(localSelectedDate() ?? localActiveDate())">Nuevo evento</button>
+              <dcx-ng-button
+                label="Nuevo evento"
+                variant="primary"
+                size="m"
+                ariaLabel="Crear nuevo evento"
+                (buttonClick)="openCreateModal(localSelectedDate() ?? localActiveDate())"
+              ></dcx-ng-button>
             }
           }
         </div>
@@ -201,22 +225,16 @@
         <div class="dcx-calendar-popover__actions">
           @if (allowEdit()) {
             <button class="dcx-calendar-popover__icon-button" type="button" aria-label="Editar evento" (click)="openEditModal(activeEvent)">
-              <svg width="14" height="14" fill="none" viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M11 2l3 3L5 14H2v-3L11 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
+              <dcx-ng-icon name="pencil" size="m" aria-hidden="true"></dcx-ng-icon>
             </button>
           }
           @if (allowDelete()) {
             <button class="dcx-calendar-popover__icon-button" type="button" aria-label="Eliminar evento" (click)="openDeleteModal()">
-              <svg width="14" height="14" fill="none" viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M6 2h4M2 4h12M5 4l1 9h4l1-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
+              <dcx-ng-icon name="trash" size="m" aria-hidden="true"></dcx-ng-icon>
             </button>
           }
           <button class="dcx-calendar-popover__icon-button" type="button" aria-label="Cerrar vista rápida" (click)="closeSelectedEvent()">
-            <svg width="14" height="14" fill="none" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
+            <dcx-ng-icon name="x-lg" size="m" aria-hidden="true"></dcx-ng-icon>
           </button>
         </div>
       </div>
@@ -250,30 +268,56 @@
       <div class="dcx-calendar-dialog dcx-calendar-dialog--delete">
         <div class="dcx-calendar-dialog__header">
           <div class="dcx-calendar-dialog__title">Eliminar evento</div>
-          <button class="dcx-calendar-dialog__close" type="button" (click)="closeOverlay()">&#10005;</button>
+          <button class="dcx-calendar-dialog__close" type="button" (click)="closeOverlay()">
+            <dcx-ng-icon name="x-lg" size="m" aria-hidden="true"></dcx-ng-icon>
+          </button>
         </div>
         <div class="dcx-calendar-dialog__body">
           <p class="dcx-calendar-dialog__copy">
             ¿Eliminar <strong>{{ selectedEvent()?.title || 'este evento' }}</strong>? Este evento es recurrente.
           </p>
           <div class="dcx-calendar-delete-options">
-            <label class="dcx-calendar-delete-options__option">
-              <input type="radio" name="deleteScope" [checked]="deleteScope() === 'single'" (change)="deleteScope.set('single')" />
-              Solo este evento
-            </label>
-            <label class="dcx-calendar-delete-options__option">
-              <input type="radio" name="deleteScope" [checked]="deleteScope() === 'following'" (change)="deleteScope.set('following')" />
-              Este y los siguientes
-            </label>
-            <label class="dcx-calendar-delete-options__option">
-              <input type="radio" name="deleteScope" [checked]="deleteScope() === 'all'" (change)="deleteScope.set('all')" />
-              Todos los eventos
-            </label>
+            <dcx-ng-radio
+              name="deleteScope"
+              value="single"
+              label="Solo este evento"
+              size="m"
+              [ngModel]="deleteScope()"
+              (ngModelChange)="setDeleteScope($event)"
+            ></dcx-ng-radio>
+            <dcx-ng-radio
+              name="deleteScope"
+              value="following"
+              label="Este y los siguientes"
+              size="m"
+              [ngModel]="deleteScope()"
+              (ngModelChange)="setDeleteScope($event)"
+            ></dcx-ng-radio>
+            <dcx-ng-radio
+              name="deleteScope"
+              value="all"
+              label="Todos los eventos"
+              size="m"
+              [ngModel]="deleteScope()"
+              (ngModelChange)="setDeleteScope($event)"
+            ></dcx-ng-radio>
           </div>
         </div>
         <div class="dcx-calendar-dialog__footer">
-          <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--secondary" type="button" (click)="closeOverlay()">Cancelar</button>
-          <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--danger" type="button" (click)="confirmDelete()">Eliminar</button>
+          <dcx-ng-button
+            label="Cancelar"
+            variant="secondary"
+            size="m"
+            ariaLabel="Cancelar eliminación"
+            (buttonClick)="closeOverlay()"
+          ></dcx-ng-button>
+          <dcx-ng-button
+            label="Eliminar"
+            variant="danger"
+            size="m"
+            ariaLabel="Confirmar eliminación"
+            (buttonClick)="confirmDelete()"
+          ></dcx-ng-button>
         </div>
       </div>
     } @else {
@@ -283,7 +327,9 @@
             <div class="dcx-calendar-dialog__title">{{ activeModal === 'create' ? 'Nuevo evento' : 'Editar evento' }}</div>
             <div class="dcx-calendar-dialog__date-badge">{{ eventForm.date }}</div>
           </div>
-          <button class="dcx-calendar-dialog__close" type="button" (click)="closeOverlay()">&#10005;</button>
+          <button class="dcx-calendar-dialog__close" type="button" (click)="closeOverlay()">
+            <dcx-ng-icon name="x-lg" size="m" aria-hidden="true"></dcx-ng-icon>
+          </button>
         </div>
         <div class="dcx-calendar-dialog__body">
           <div class="dcx-calendar-form__section-label">Tipo de evento</div>
@@ -366,10 +412,20 @@
               <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--ghost-red" type="button" (click)="openDeleteModal()">Eliminar</button>
             </div>
           }
-          <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--secondary" type="button" (click)="closeOverlay()">Cancelar</button>
-          <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--primary" type="button" (click)="saveEvent()">
-            {{ activeModal === 'create' ? 'Guardar evento' : 'Actualizar' }}
-          </button>
+          <dcx-ng-button
+            label="Cancelar"
+            variant="secondary"
+            size="m"
+            ariaLabel="Cancelar edición"
+            (buttonClick)="closeOverlay()"
+          ></dcx-ng-button>
+          <dcx-ng-button
+            [label]="activeModal === 'create' ? 'Guardar evento' : 'Actualizar'"
+            variant="primary"
+            size="m"
+            [ariaLabel]="activeModal === 'create' ? 'Guardar evento' : 'Actualizar evento'"
+            (buttonClick)="saveEvent()"
+          ></dcx-ng-button>
         </div>
       </div>
     }

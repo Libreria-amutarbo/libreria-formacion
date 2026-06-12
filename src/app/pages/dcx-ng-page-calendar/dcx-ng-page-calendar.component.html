@@ -148,7 +148,7 @@
                   <div class="dcx-calendar-dialog__date-badge">Miércoles, 10 jun 2026</div>
                 </div>
                 <button class="dcx-calendar-dialog__close" type="button" aria-label="Cerrar ejemplo">
-                  &#10005;
+                  <dcx-ng-icon name="x-lg" size="m" aria-hidden="true"></dcx-ng-icon>
                 </button>
               </div>
               <div class="dcx-calendar-dialog__body">
@@ -222,8 +222,8 @@
                 </div>
               </div>
               <div class="dcx-calendar-dialog__footer">
-                <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--secondary" type="button">Cancelar</button>
-                <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--primary" type="button">Guardar evento</button>
+                <dcx-ng-button label="Cancelar" variant="secondary" size="m" ariaLabel="Cancelar ejemplo"></dcx-ng-button>
+                <dcx-ng-button label="Guardar evento" variant="primary" size="m" ariaLabel="Guardar evento de ejemplo"></dcx-ng-button>
               </div>
             </div>
           </div>
@@ -239,7 +239,7 @@
                   <div class="dcx-calendar-dialog__date-badge">Miércoles, 10 jun 2026</div>
                 </div>
                 <button class="dcx-calendar-dialog__close" type="button" aria-label="Cerrar ejemplo">
-                  &#10005;
+                  <dcx-ng-icon name="x-lg" size="m" aria-hidden="true"></dcx-ng-icon>
                 </button>
               </div>
               <div class="dcx-calendar-dialog__body">
@@ -302,8 +302,8 @@
                 </div>
               </div>
               <div class="dcx-calendar-dialog__footer">
-                <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--secondary" type="button">Cancelar</button>
-                <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--primary" type="button">Guardar evento</button>
+                <dcx-ng-button label="Cancelar" variant="secondary" size="m" ariaLabel="Cancelar ejemplo"></dcx-ng-button>
+                <dcx-ng-button label="Guardar evento" variant="primary" size="m" ariaLabel="Guardar evento de ejemplo"></dcx-ng-button>
               </div>
             </div>
           </div>
@@ -316,7 +316,7 @@
               <div class="dcx-calendar-dialog__header">
                 <div class="dcx-calendar-dialog__title">Editar evento</div>
                 <button class="dcx-calendar-dialog__close" type="button" aria-label="Cerrar ejemplo">
-                  &#10005;
+                  <dcx-ng-icon name="x-lg" size="m" aria-hidden="true"></dcx-ng-icon>
                 </button>
               </div>
               <div class="dcx-calendar-dialog__body">
@@ -385,8 +385,8 @@
                 <div class="dcx-calendar-dialog__footer-left">
                   <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--ghost-red" type="button">Eliminar</button>
                 </div>
-                <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--secondary" type="button">Cancelar</button>
-                <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--primary" type="button">Actualizar</button>
+                <dcx-ng-button label="Cancelar" variant="secondary" size="m" ariaLabel="Cancelar ejemplo"></dcx-ng-button>
+                <dcx-ng-button label="Actualizar" variant="primary" size="m" ariaLabel="Actualizar ejemplo"></dcx-ng-button>
               </div>
             </div>
           </div>
@@ -399,36 +399,25 @@
               <div class="dcx-calendar-dialog__header">
                 <div class="dcx-calendar-dialog__title">Eliminar evento</div>
                 <button class="dcx-calendar-dialog__close" type="button" aria-label="Cerrar ejemplo">
-                  &#10005;
+                  <dcx-ng-icon name="x-lg" size="m" aria-hidden="true"></dcx-ng-icon>
                 </button>
               </div>
               <div class="dcx-calendar-dialog__body">
                 <div class="dcx-calendar-page__delete-confirm-hero" aria-hidden="true">
-                  <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
-                    <path d="M8 4h4M3 6h14M5 6l1 10h8l1-10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
+                  <dcx-ng-icon name="trash" size="l" aria-hidden="true"></dcx-ng-icon>
                 </div>
                 <p class="dcx-calendar-dialog__copy">
                   ¿Eliminar <strong>Standup equipo</strong>? Este es un evento recurrente. ¿Qué quieres eliminar?
                 </p>
                 <div class="dcx-calendar-delete-options dcx-calendar-delete-options--showcase">
-                  <label class="dcx-calendar-delete-options__option">
-                    <input type="radio" name="delete-scope-showcase" checked />
-                    Solo este evento
-                  </label>
-                  <label class="dcx-calendar-delete-options__option">
-                    <input type="radio" name="delete-scope-showcase" />
-                    Este y los siguientes
-                  </label>
-                  <label class="dcx-calendar-delete-options__option">
-                    <input type="radio" name="delete-scope-showcase" />
-                    Todos los eventos
-                  </label>
+                  <dcx-ng-radio name="delete-scope-showcase" value="single" label="Solo este evento" size="m" [checked]="true"></dcx-ng-radio>
+                  <dcx-ng-radio name="delete-scope-showcase" value="following" label="Este y los siguientes" size="m"></dcx-ng-radio>
+                  <dcx-ng-radio name="delete-scope-showcase" value="all" label="Todos los eventos" size="m"></dcx-ng-radio>
                 </div>
               </div>
               <div class="dcx-calendar-dialog__footer">
-                <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--secondary" type="button">Cancelar</button>
-                <button class="dcx-calendar-dialog__button dcx-calendar-dialog__button--danger" type="button">Eliminar</button>
+                <dcx-ng-button label="Cancelar" variant="secondary" size="m" ariaLabel="Cancelar ejemplo"></dcx-ng-button>
+                <dcx-ng-button label="Eliminar" variant="danger" size="m" ariaLabel="Eliminar ejemplo"></dcx-ng-button>
               </div>
             </div>
           </div>

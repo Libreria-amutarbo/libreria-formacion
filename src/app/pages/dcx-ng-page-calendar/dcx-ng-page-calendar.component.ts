@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { DcxNgCalendarComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-calendar/dcx-ng-calendar.component';
+import { DcxNgButtonComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-icon/dcx-ng-icon.component';
+import { DcxNgRadioComponent } from '../../../../libs/dcx-ng-lib/src/lib/dcx-ng-components/dcx-ng-radio/dcx-ng-radio.component';
 import {
   DcxCalendarDeleteRequest,
   DcxCalendarEvent,
@@ -63,7 +66,13 @@ interface EventFormModel {
 @Component({
   selector: 'dcx-ng-page-calendar',
   standalone: true,
-  imports: [CommonModule, DcxNgCalendarComponent],
+  imports: [
+    CommonModule,
+    DcxNgCalendarComponent,
+    DcxNgButtonComponent,
+    DcxNgIconComponent,
+    DcxNgRadioComponent,
+  ],
   templateUrl: './dcx-ng-page-calendar.component.html',
   styleUrl: './dcx-ng-page-calendar.component.scss',
 })

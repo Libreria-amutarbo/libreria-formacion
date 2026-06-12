@@ -23,6 +23,9 @@ import {
   DcxCalendarView,
   DcxCalendarWeekDay,
 } from '../../core/interfaces';
+import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
+import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
+import { DcxNgRadioComponent } from '../dcx-ng-radio/dcx-ng-radio.component';
 
 type CalendarModalMode = 'create' | 'edit' | 'delete' | null;
 
@@ -40,7 +43,13 @@ interface CalendarFormModel {
 @Component({
   selector: 'dcx-ng-calendar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    DcxNgButtonComponent,
+    DcxNgIconComponent,
+    DcxNgRadioComponent,
+  ],
   templateUrl: './dcx-ng-calendar.component.html',
   styleUrl: './dcx-ng-calendar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -183,6 +192,12 @@ export class DcxNgCalendarComponent {
   readonly footerMode = computed<'range' | 'default'>(() =>
     this.isRangeMode() ? 'range' : 'default',
   );
+
+  setDeleteScope(value: string | null): void {
+    if (value === 'single' || value === 'following' || value === 'all') {
+      this.deleteScope.set(value);
+    }
+  }
 
   constructor() {
     effect(() => {
