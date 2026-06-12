@@ -1,4 +1,4 @@
-import { create } from '@storybook/theming';
+import { create } from '@storybook/theming/create';
 
 export const dcxLightTheme = create({
   base: 'light',
