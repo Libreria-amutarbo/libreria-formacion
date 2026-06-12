@@ -28,7 +28,7 @@ describe('DcxNgCalendarComponent', () => {
   });
 
   it('should render month view by default', () => {
-    expect(fixture.nativeElement.querySelector('.cal-grid')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.dcx-calendar__grid')).toBeTruthy();
   });
 
   it('should emit activeDateChange when navigating month view', () => {
@@ -68,7 +68,7 @@ describe('DcxNgCalendarComponent', () => {
     fixture.componentRef.setInput('view', 'week');
     fixture.detectChanges();
 
-    const events = fixture.nativeElement.querySelectorAll('.cal-event');
+    const events = fixture.nativeElement.querySelectorAll('.dcx-calendar__event');
     expect(events.length).toBeGreaterThan(0);
   });
 
@@ -76,7 +76,7 @@ describe('DcxNgCalendarComponent', () => {
     fixture.componentRef.setInput('view', 'year');
     fixture.detectChanges();
 
-    const months = fixture.nativeElement.querySelectorAll('.cal-mini-month');
+    const months = fixture.nativeElement.querySelectorAll('.dcx-calendar__mini-month');
     expect(months.length).toBe(12);
   });
 
@@ -189,7 +189,7 @@ describe('DcxNgCalendarComponent', () => {
     fixture.detectChanges();
 
     const moreButton = Array.from<Element>(
-      fixture.nativeElement.querySelectorAll('.cal-month-more'),
+      fixture.nativeElement.querySelectorAll('.dcx-calendar__month-more'),
     ).find(element => element.textContent?.includes('+2 más'));
 
     expect(moreButton).toBeTruthy();
