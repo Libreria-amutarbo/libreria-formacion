@@ -12,6 +12,7 @@ import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgMessageComponent } from '../dcx-ng-message/dcx-ng-message.component';
 import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
+import { DcxNgSpinnerComponent } from '../dcx-ng-spinner/dcx-ng-spinner.component';
 import { DcxInputType } from '../../core/interfaces/input';
 import {
   DcxFileUploadValue,
@@ -27,6 +28,7 @@ import {
     DcxNgIconComponent,
     DcxNgMessageComponent,
     DcxNgInputComponent,
+    DcxNgSpinnerComponent,
   ],
   templateUrl: './dcx-ng-file-upload.component.html',
   styleUrl: './dcx-ng-file-upload.component.scss',
@@ -38,6 +40,7 @@ export class DcxNgFileUploadComponent {
   label = input<string>('Choose file');
   accept = input<string>('');
   disabled = input<boolean>(false);
+  loading = input<boolean>(false);
   placeholder = input<string>('No file selected');
   dragAndDrop = input<boolean>(false);
   dropzoneSize = input<DcxFileUploadDropzoneSize>('small');
@@ -65,17 +68,16 @@ export class DcxNgFileUploadComponent {
   validationError = signal<string | null>(null);
   validationErrorMessage = computed(() => this.validationError() || '');
 
+  readonly isDisabled = computed(() => this.disabled() || this.loading());
+
   isDragOver = signal<boolean>(false);
 
-  contentClasses = computed<string>(() => {
-    const base = 'dcx-file-upload__content';
-    const stackedClass =
-      this.dragAndDrop() && this.isLargeDropzone()
-        ? 'dcx-file-upload__content--stacked'
-        : '';
-
-    return [base, stackedClass].filter(Boolean).join(' ');
-  });
+  formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return '0 B';
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
 
   dropzoneClasses = computed<string>(() => {
     const base = 'dcx-file-upload__dropzone';
@@ -89,7 +91,7 @@ export class DcxNgFileUploadComponent {
     const dragOverClass = this.isDragOver()
       ? 'dcx-file-upload__dropzone--drag-over'
       : '';
-    const disabledClass = this.disabled()
+    const disabledClass = this.isDisabled()
       ? 'dcx-file-upload__dropzone--disabled'
       : '';
     return [base, sizeClass, dragOverClass, disabledClass]
@@ -98,7 +100,7 @@ export class DcxNgFileUploadComponent {
   });
 
   openFilePicker = (): void => {
-    if (this.disabled()) return;
+    if (this.isDisabled()) return;
     const inputId = this.fileInput?.id?.();
     if (inputId) {
       const nativeInput = document.getElementById(inputId);
@@ -121,7 +123,7 @@ export class DcxNgFileUploadComponent {
   };
 
   onDragOver = (event: DragEvent): void => {
-    if (this.disabled() || !this.dragAndDrop()) {
+    if (this.isDisabled() || !this.dragAndDrop()) {
       return;
     }
     event.preventDefault();
@@ -129,7 +131,7 @@ export class DcxNgFileUploadComponent {
   };
 
   onDragLeave = (event: DragEvent): void => {
-    if (this.disabled() || !this.dragAndDrop()) {
+    if (this.isDisabled() || !this.dragAndDrop()) {
       return;
     }
     event.preventDefault();
@@ -137,7 +139,7 @@ export class DcxNgFileUploadComponent {
   };
 
   onDrop = (event: DragEvent): void => {
-    if (this.disabled() || !this.dragAndDrop()) {
+    if (this.isDisabled() || !this.dragAndDrop()) {
       return;
     }
     event.preventDefault();
@@ -234,7 +236,7 @@ export class DcxNgFileUploadComponent {
     if (
       this.autoUpload() &&
       files.length > 0 &&
-      !this.disabled() &&
+      !this.isDisabled() &&
       !this.validationError()
     ) {
       this.uploadClicked.emit(payload);
@@ -243,7 +245,7 @@ export class DcxNgFileUploadComponent {
   };
 
   onUploadClick = (): void => {
-    if (this.disabled() || this.selectedFiles().length === 0) {
+    if (this.isDisabled() || this.selectedFiles().length === 0) {
       return;
     }
 
@@ -256,14 +258,14 @@ export class DcxNgFileUploadComponent {
   };
 
   onCancelClick = (): void => {
-    if (this.disabled()) {
+    if (this.isDisabled()) {
       return;
     }
     this.setSelectedFiles([]);
   };
 
   removeFile = (fileToRemove: File): void => {
-    if (this.disabled()) {
+    if (this.isDisabled()) {
       return;
     }
 

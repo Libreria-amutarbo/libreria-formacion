@@ -34,7 +34,7 @@ describe('DcxNgFileUploadComponent', () => {
     ) as HTMLInputElement;
     const clickSpy = jest.spyOn(input, 'click');
     const button = fixture.nativeElement.querySelector(
-      'dcx-ng-button button',
+      '.dcx-file-upload__zone-btn',
     ) as HTMLButtonElement;
 
     button.click();
@@ -51,7 +51,7 @@ describe('DcxNgFileUploadComponent', () => {
     ) as HTMLInputElement;
     const clickSpy = jest.spyOn(input, 'click');
     const button = fixture.nativeElement.querySelector(
-      'dcx-ng-button button',
+      '.dcx-file-upload__zone-btn',
     ) as HTMLButtonElement;
 
     button.click();
@@ -205,9 +205,9 @@ describe('DcxNgFileUploadComponent', () => {
     fixture.componentRef.setInput('autoUpload', true);
     fixture.detectChanges();
 
-    const buttons = fixture.nativeElement.querySelectorAll('dcx-ng-button');
+    const uploadButton = fixture.nativeElement.querySelector('.dcx-file-upload__upload-button');
 
-    expect(buttons.length).toBe(1);
+    expect(uploadButton).toBeNull();
   });
 
   it('should render small dropzone variant by default when drag and drop is enabled', () => {
@@ -223,7 +223,7 @@ describe('DcxNgFileUploadComponent', () => {
     ).toBe(true);
   });
 
-  it('should render large dropzone variant with icon when configured', () => {
+  it('should render large dropzone variant when configured', () => {
     fixture.componentRef.setInput('dragAndDrop', true);
     fixture.componentRef.setInput('dropzoneSize', 'large');
     fixture.detectChanges();
@@ -231,14 +231,10 @@ describe('DcxNgFileUploadComponent', () => {
     const dropzone = fixture.nativeElement.querySelector(
       '.dcx-file-upload__dropzone',
     ) as HTMLElement;
-    const icon = fixture.nativeElement.querySelector(
-      '.dcx-file-upload__dropzone-icon',
-    ) as HTMLElement;
 
     expect(
       dropzone.classList.contains('dcx-file-upload__dropzone--large'),
     ).toBe(true);
-    expect(icon).toBeTruthy();
   });
 
   it('should allow selecting multiple files when multiple is true', () => {
@@ -311,6 +307,94 @@ describe('DcxNgFileUploadComponent', () => {
       '.message__container__paragraph',
     ) as HTMLElement;
     expect(messageBody.textContent?.trim()).toContain('Allowed types: image/*');
+  });
+
+  describe('loading', () => {
+    it('should show spinner and hide action buttons when loading is true', () => {
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      const spinner = fixture.nativeElement.querySelector(
+        'dcx-ng-spinner',
+      ) as HTMLElement;
+      const uploadButton = fixture.nativeElement.querySelector(
+        '.dcx-file-upload__upload-button',
+      ) as HTMLElement;
+
+      expect(spinner).toBeTruthy();
+      expect(uploadButton).toBeNull();
+    });
+
+    it('should disable the choose-file button when loading is true', () => {
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      const button = fixture.nativeElement.querySelector(
+        '.dcx-file-upload__zone-btn',
+      ) as HTMLButtonElement;
+
+      expect(button.disabled).toBe(true);
+    });
+
+    it('should not open file picker when loading', () => {
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      const input = fixture.nativeElement.querySelector(
+        'input[type="file"]',
+      ) as HTMLInputElement;
+      const clickSpy = jest.spyOn(input, 'click');
+
+      const button = fixture.nativeElement.querySelector(
+        '.dcx-file-upload__zone-btn',
+      ) as HTMLButtonElement;
+      button.click();
+
+      expect(clickSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('WCAG AA', () => {
+    it('should render file list as <ul> with <li> items when multiple files are selected', () => {
+      fixture.componentRef.setInput('multiple', true);
+      const file = new File(['x'], 'file.txt', { type: 'text/plain' });
+      component.selectedFiles.set([file]);
+      fixture.detectChanges();
+
+      const list = fixture.nativeElement.querySelector(
+        'ul.dcx-file-upload__file-list',
+      ) as HTMLElement;
+      const item = list?.querySelector('li.dcx-file-upload__file-item');
+
+      expect(list).toBeTruthy();
+      expect(list.getAttribute('role')).toBe('list');
+      expect(item).toBeTruthy();
+    });
+
+    it('should render aria-label on the file input matching the label input', () => {
+      fixture.componentRef.setInput('label', 'Subir documento');
+      fixture.detectChanges();
+
+      const input = fixture.nativeElement.querySelector(
+        'input[type="file"]',
+      ) as HTMLInputElement;
+
+      expect(input.getAttribute('aria-label')).toBe('Subir documento');
+    });
+
+    it('should render role="region" and aria-label on the dropzone when dragAndDrop is true', () => {
+      fixture.componentRef.setInput('dragAndDrop', true);
+      fixture.detectChanges();
+
+      const dropzone = fixture.nativeElement.querySelector(
+        '.dcx-file-upload__dropzone',
+      ) as HTMLElement;
+
+      expect(dropzone.getAttribute('role')).toBe('region');
+      expect(dropzone.getAttribute('aria-label')).toBe(
+        'Zona de arrastre de archivos',
+      );
+    });
   });
 
   it('should keep previous valid files in multiple mode when dropped file is invalid', () => {
