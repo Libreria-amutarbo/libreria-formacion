@@ -1,41 +1,120 @@
-<section class="file-upload-page">
-  <header class="file-upload-page__header">
-    <h1>File Upload</h1>
+<div class="demo-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">File Upload</h1>
+    <p class="demo-page-header__desc">
+      Campo de selección de archivos con soporte de botón clásico y zona de arrastre.
+      Admite filtrado por tipo MIME/extensión, selección múltiple y subida automática.
+    </p>
+    <hr class="demo-page-header__divider" />
   </header>
 
-  <div class="file-upload-page__grid">
-    <section class="file-upload-page__card">
-      <h2>Default</h2>
-      <p>Selector simple con botón manual de subida.</p>
+  <!-- 01 — Default -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
       <dcx-ng-file-upload />
-    </section>
-    <section class="file-upload-page__card">
-      <h2>Drag and drop pequeño</h2>
-      <p>Zona compacta para arrastrar un único archivo.</p>
-      <dcx-ng-file-upload [dragAndDrop]="true" />
-    </section>
-    <section class="file-upload-page__card">
-      <h2>Auto upload</h2>
-      <p>Subida automática al seleccionar archivo.</p>
-      <dcx-ng-file-upload [autoUpload]="true" placeholder="" />
-    </section>
+    </div>
+  </div>
 
-    <section class="file-upload-page__card">
-      <h2>Drag and drop grande</h2>
-      <p>Área visual más grande con icono y contenido centrado.</p>
-      <dcx-ng-file-upload [dragAndDrop]="true" dropzoneSize="large" />
-    </section>
-
-    <section class="file-upload-page__card">
-      <h2>Multiple files</h2>
-      <p>Permite elegir varios archivos y ver todos los nombres.</p>
+  <!-- 02 — Solo imágenes -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Solo imágenes</span>
+    </div>
+    <p class="demo-section__desc">El input <code>accept</code> filtra la selección a imágenes. Si se elige un archivo no permitido, se muestra un mensaje de error.</p>
+    <div class="demo-section__body">
       <dcx-ng-file-upload
+        label="Select image"
+        accept="image/*"
+        placeholder="No image selected"
+      />
+    </div>
+  </div>
+
+  <!-- 03 — Auto upload -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Auto upload</span>
+    </div>
+    <p class="demo-section__desc">Con <code>autoUpload</code> activo, se emite <code>uploadClicked</code> automáticamente al seleccionar el archivo sin necesidad de pulsar el botón manual.</p>
+    <div class="demo-section__body">
+      <dcx-ng-file-upload label="Browse" [autoUpload]="true" placeholder="" />
+    </div>
+  </div>
+
+  <!-- 04 — Drag and drop (small) -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Drag and drop</span>
+    </div>
+    <p class="demo-section__desc">Zona de arrastre compacta. Se puede arrastrar un archivo sobre el área punteada o usar el botón.</p>
+    <div class="demo-section__body">
+      <dcx-ng-file-upload [dragAndDrop]="true" />
+    </div>
+  </div>
+
+  <!-- 05 — Dropzone grande -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Dropzone grande</span>
+    </div>
+    <p class="demo-section__desc">Zona de arrastre grande con icono y layout centrado.</p>
+    <div class="demo-section__body">
+      <dcx-ng-file-upload [dragAndDrop]="true" dropzoneSize="large" />
+    </div>
+  </div>
+
+  <!-- 06 — Múltiples archivos -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Múltiples archivos</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-file-upload
+        label="Choose files"
         [dragAndDrop]="true"
         dropzoneSize="large"
         [multiple]="true"
-        label="Choose files"
         placeholder="No files selected"
       />
-    </section>
+    </div>
   </div>
-</section>
+
+  <!-- 07 — Disabled -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Disabled</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-file-upload [disabled]="true" />
+    </div>
+  </div>
+
+  <!-- 08 — Error de validación -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Error de validación</span>
+    </div>
+    <p class="demo-section__desc">Arrastra o selecciona un archivo no permitido (ej. un PDF) para ver el mensaje de error.</p>
+    <div class="demo-section__body">
+      <dcx-ng-file-upload
+        label="Select image"
+        accept="image/*"
+        [dragAndDrop]="true"
+        dropzoneSize="large"
+        placeholder="No image selected"
+      />
+    </div>
+  </div>
+</div>

@@ -6,7 +6,6 @@ export interface DcxFileUploadItem {
   size: number;
   type: string;
   lastModified: number;
-  dropzoneSize?: DcxFileUploadDropzoneSize;
 }
 
 export type DcxFileUploadValue = File | File[] | null;
