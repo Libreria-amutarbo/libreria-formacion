@@ -59,3 +59,5 @@ entities.json
 
 # MemPalace metrics artifacts
 metrics/mempalace/
+
+vite.config.*.timestamp*
