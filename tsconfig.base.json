@@ -16,9 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@dcx-ng-components/dcx-ng-lib": ["libs/dcx-ng-lib/src/index.ts"],
-      "@styles/*": ["libs/dcx-ng-lib/src/scss/*"]
+      "@styles/*": ["libs/dcx-ng-lib/src/scss/*"],
+      "@dcx-ng-components/dcx-web-lib": ["./libs/dcx-web-lib/src/index.ts"]
     },
-
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "types": ["node", "jest"]
