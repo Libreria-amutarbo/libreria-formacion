@@ -247,7 +247,7 @@ export const Variants: Story = {
       <dcx-web-button label="Terciary"  size="m" variant="terciary"></dcx-web-button>
       <dcx-web-button label="Danger"    size="m" variant="danger"></dcx-web-button>
       <dcx-web-button label="Text"      size="m" variant="text"></dcx-web-button>
-      <dcx-web-button aria-label="Icon only" size="m" variant="icon-only" .icon=${true} icon-name="search"></dcx-web-button>
+      <dcx-web-button aria-label="Icon only" size="m" variant="icon-only" .icon=${true} icon-name="star-fill"></dcx-web-button>
     </div>
   `,
 };
