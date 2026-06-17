@@ -1,11 +1,12 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { DcxWebButton } from '../../dcx-web-components/dcx-web-button/dcx-web-button.component';
 
 // Import the component registration
 import '../../../index';
 
-const meta: Meta = {
+const meta: Meta<DcxWebButton & { onButtonClick: () => void }> = {
   title: 'DCXLibrary/WebComponents/Button',
   component: 'dcx-web-button',
   tags: ['autodocs'],
@@ -63,7 +64,14 @@ const meta: Meta = {
     },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'terciary', 'danger', 'text', 'icon-only'],
+      options: [
+        'primary',
+        'secondary',
+        'terciary',
+        'danger',
+        'text',
+        'icon-only',
+      ],
       description: 'Estilo visual del botón',
       table: {
         category: 'Atributos',
@@ -132,6 +140,12 @@ const meta: Meta = {
         defaultValue: { summary: 'false' },
       },
     },
+    ariaChecked: {
+      control: 'select',
+      options: ['true', 'false', 'mixed'],
+      description: 'Estado del checkbox (ARIA)',
+      table: { category: 'Atributos' },
+    },
     onButtonClick: {
       action: 'buttonClick',
       table: { category: 'Eventos' },
@@ -139,34 +153,67 @@ const meta: Meta = {
   },
   args: {
     label: 'Click me',
+    ariaLabel: '',
+    type: 'button',
     variant: 'primary',
     size: 'm',
     disabled: false,
+    pressed: false,
+    hover: false,
+    focused: false,
     icon: false,
+    iconName: '',
+    iconRightName: '',
     iconPosition: 'left',
+    iconSize: 'm',
     iconSpacing: 'none',
+    iconColor: '',
+    isCheckbox: false,
+    checkboxError: false,
   },
-  render: (args) => html`
+  render: ({
+    label,
+    ariaLabel,
+    type,
+    disabled,
+    pressed,
+    hover,
+    focused,
+    variant,
+    size,
+    icon,
+    iconName,
+    iconRightName,
+    iconPosition,
+    iconSize,
+    iconSpacing,
+    iconColor,
+    isCheckbox,
+    checkboxError,
+    ariaChecked,
+    onButtonClick,
+  }) => html`
     <dcx-web-button
-      label=${args.label}
-      aria-label=${ifDefined(args.ariaLabel)}
-      type=${args.type || 'button'}
-      ?disabled=${args.disabled}
-      ?pressed=${args.pressed}
-      ?hover=${args.hover}
-      ?focused=${args.focused}
-      variant=${args.variant}
-      size=${args.size}
-      ?icon=${args.icon}
-      icon-name=${ifDefined(args.iconName)}
-      icon-right-name=${ifDefined(args.iconRightName)}
-      icon-position=${ifDefined(args.iconPosition)}
-      icon-size=${ifDefined(args.iconSize)}
-      icon-spacing=${ifDefined(args.iconSpacing)}
-      icon-color=${ifDefined(args.iconColor)}
-      ?is-checkbox=${args.isCheckbox}
-      ?checkbox-error=${args.checkboxError}
-      @buttonClick=${args.onButtonClick}
+      .label=${label}
+      .ariaLabel=${ariaLabel}
+      .type=${type}
+      .disabled=${disabled}
+      .pressed=${pressed}
+      .hover=${hover}
+      .focused=${focused}
+      .variant=${variant}
+      .size=${size}
+      .icon=${icon}
+      .iconName=${iconName}
+      .iconRightName=${iconRightName}
+      .iconPosition=${iconPosition}
+      .iconSize=${iconSize}
+      .iconSpacing=${iconSpacing}
+      .iconColor=${iconColor}
+      .isCheckbox=${isCheckbox}
+      .checkboxError=${checkboxError}
+      .ariaChecked=${ariaChecked}
+      @buttonClick=${onButtonClick}
     ></dcx-web-button>
   `,
 };
@@ -200,7 +247,7 @@ export const Variants: Story = {
       <dcx-web-button label="Terciary"  size="m" variant="terciary"></dcx-web-button>
       <dcx-web-button label="Danger"    size="m" variant="danger"></dcx-web-button>
       <dcx-web-button label="Text"      size="m" variant="text"></dcx-web-button>
-      <dcx-web-button aria-label="Icon only" size="m" variant="icon-only" ?icon=${true} icon-name="search"></dcx-web-button>
+      <dcx-web-button aria-label="Icon only" size="m" variant="icon-only" .icon=${true} icon-name="search"></dcx-web-button>
     </div>
   `,
 };
@@ -208,8 +255,10 @@ export const Variants: Story = {
 export const WithIcons: Story = {
   render: () => html`
     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-      <dcx-web-button label="Guardar"   size="m" variant="primary" ?icon=${true} icon-name="save"        icon-position="left" icon-size="m"></dcx-web-button>
-      <dcx-web-button label="Siguiente" size="m" variant="primary" ?icon=${true} icon-name="arrow-right" icon-position="left" icon-size="m"></dcx-web-button>
+      <dcx-web-button label="Guardar"   size="m" variant="primary" .icon=${true} icon-name="save"        icon-position="left" icon-size="m"></dcx-web-button>
+      <dcx-web-button label="Siguiente" size="m" variant="primary" .icon=${true} icon-name="arrow-right" icon-position="right" icon-size="m"></dcx-web-button>
+      <dcx-web-button label="Eliminar"  size="m" variant="danger"  .icon=${true} icon-name="trash"       icon-position="left" icon-size="m"></dcx-web-button>
+      <dcx-web-button aria-label="Buscar" size="m" variant="icon-only" .icon=${true} icon-name="search" icon-size="m"></dcx-web-button>
     </div>
   `,
 };
@@ -219,10 +268,10 @@ export const StatesPrimary: Story = {
   render: () => html`
     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
       <dcx-web-button label="Default"  size="m" variant="primary"></dcx-web-button>
-      <dcx-web-button label="Hover"    size="m" variant="primary" ?hover=${true}></dcx-web-button>
-      <dcx-web-button label="Pressed"  size="m" variant="primary" ?pressed=${true}></dcx-web-button>
-      <dcx-web-button label="Focus"    size="m" variant="primary" ?focused=${true}></dcx-web-button>
-      <dcx-web-button label="Disabled" size="m" variant="primary" ?disabled=${true}></dcx-web-button>
+      <dcx-web-button label="Hover"    size="m" variant="primary" .hover=${true}></dcx-web-button>
+      <dcx-web-button label="Pressed"  size="m" variant="primary" .pressed=${true}></dcx-web-button>
+      <dcx-web-button label="Focus"    size="m" variant="primary" .focused=${true}></dcx-web-button>
+      <dcx-web-button label="Disabled" size="m" variant="primary" .disabled=${true}></dcx-web-button>
     </div>
   `,
 };
@@ -232,10 +281,10 @@ export const StatesSecondary: Story = {
   render: () => html`
     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
       <dcx-web-button label="Default"  size="m" variant="secondary"></dcx-web-button>
-      <dcx-web-button label="Hover"    size="m" variant="secondary" ?hover=${true}></dcx-web-button>
-      <dcx-web-button label="Pressed"  size="m" variant="secondary" ?pressed=${true}></dcx-web-button>
-      <dcx-web-button label="Focus"    size="m" variant="secondary" ?focused=${true}></dcx-web-button>
-      <dcx-web-button label="Disabled" size="m" variant="secondary" ?disabled=${true}></dcx-web-button>
+      <dcx-web-button label="Hover"    size="m" variant="secondary" .hover=${true}></dcx-web-button>
+      <dcx-web-button label="Pressed"  size="m" variant="secondary" .pressed=${true}></dcx-web-button>
+      <dcx-web-button label="Focus"    size="m" variant="secondary" .focused=${true}></dcx-web-button>
+      <dcx-web-button label="Disabled" size="m" variant="secondary" .disabled=${true}></dcx-web-button>
     </div>
   `,
 };
@@ -245,10 +294,10 @@ export const StatesTerciary: Story = {
   render: () => html`
     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
       <dcx-web-button label="Default"  size="m" variant="terciary"></dcx-web-button>
-      <dcx-web-button label="Hover"    size="m" variant="terciary" ?hover=${true}></dcx-web-button>
-      <dcx-web-button label="Pressed"  size="m" variant="terciary" ?pressed=${true}></dcx-web-button>
-      <dcx-web-button label="Focus"    size="m" variant="terciary" ?focused=${true}></dcx-web-button>
-      <dcx-web-button label="Disabled" size="m" variant="terciary" ?disabled=${true}></dcx-web-button>
+      <dcx-web-button label="Hover"    size="m" variant="terciary" .hover=${true}></dcx-web-button>
+      <dcx-web-button label="Pressed"  size="m" variant="terciary" .pressed=${true}></dcx-web-button>
+      <dcx-web-button label="Focus"    size="m" variant="terciary" .focused=${true}></dcx-web-button>
+      <dcx-web-button label="Disabled" size="m" variant="terciary" .disabled=${true}></dcx-web-button>
     </div>
   `,
 };
@@ -258,10 +307,10 @@ export const StatesDanger: Story = {
   render: () => html`
     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
       <dcx-web-button label="Default"  size="m" variant="danger"></dcx-web-button>
-      <dcx-web-button label="Hover"    size="m" variant="danger" ?hover=${true}></dcx-web-button>
-      <dcx-web-button label="Pressed"  size="m" variant="danger" ?pressed=${true}></dcx-web-button>
-      <dcx-web-button label="Focus"    size="m" variant="danger" ?focused=${true}></dcx-web-button>
-      <dcx-web-button label="Disabled" size="m" variant="danger" ?disabled=${true}></dcx-web-button>
+      <dcx-web-button label="Hover"    size="m" variant="danger" .hover=${true}></dcx-web-button>
+      <dcx-web-button label="Pressed"  size="m" variant="danger" .pressed=${true}></dcx-web-button>
+      <dcx-web-button label="Focus"    size="m" variant="danger" .focused=${true}></dcx-web-button>
+      <dcx-web-button label="Disabled" size="m" variant="danger" .disabled=${true}></dcx-web-button>
     </div>
   `,
 };
@@ -271,10 +320,10 @@ export const StatesText: Story = {
   render: () => html`
     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
       <dcx-web-button label="Default"  size="m" variant="text"></dcx-web-button>
-      <dcx-web-button label="Hover"    size="m" variant="text" ?hover=${true}></dcx-web-button>
-      <dcx-web-button label="Pressed"  size="m" variant="text" ?pressed=${true}></dcx-web-button>
-      <dcx-web-button label="Focus"    size="m" variant="text" ?focused=${true}></dcx-web-button>
-      <dcx-web-button label="Disabled" size="m" variant="text" ?disabled=${true}></dcx-web-button>
+      <dcx-web-button label="Hover"    size="m" variant="text" .hover=${true}></dcx-web-button>
+      <dcx-web-button label="Pressed"  size="m" variant="text" .pressed=${true}></dcx-web-button>
+      <dcx-web-button label="Focus"    size="m" variant="text" .focused=${true}></dcx-web-button>
+      <dcx-web-button label="Disabled" size="m" variant="text" .disabled=${true}></dcx-web-button>
     </div>
   `,
 };
@@ -283,10 +332,10 @@ export const VariantsLarge: Story = {
   name: 'Variantes — Large',
   render: () => html`
     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-      <dcx-web-button label="Button" size="l" variant="primary"   ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
-      <dcx-web-button label="Button" size="l" variant="secondary" ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
-      <dcx-web-button label="Button" size="l" variant="terciary"  ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
-      <dcx-web-button label="Button" size="l" variant="danger"    ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="l" variant="primary"   .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="l" variant="secondary" .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="l" variant="terciary"  .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="l" variant="danger"    .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
     </div>
   `,
 };
@@ -295,10 +344,10 @@ export const VariantsMedium: Story = {
   name: 'Variantes — Medium',
   render: () => html`
     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-      <dcx-web-button label="Button" size="m" variant="primary"   ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
-      <dcx-web-button label="Button" size="m" variant="secondary" ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
-      <dcx-web-button label="Button" size="m" variant="terciary"  ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
-      <dcx-web-button label="Button" size="m" variant="danger"    ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="m" variant="primary"   .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="m" variant="secondary" .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="m" variant="terciary"  .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="m" variant="danger"    .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
     </div>
   `,
 };
@@ -307,10 +356,10 @@ export const VariantsSmall: Story = {
   name: 'Variantes — Small',
   render: () => html`
     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-      <dcx-web-button label="Button" size="s" variant="primary"   ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
-      <dcx-web-button label="Button" size="s" variant="secondary" ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
-      <dcx-web-button label="Button" size="s" variant="terciary"  ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
-      <dcx-web-button label="Button" size="s" variant="danger"    ?icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="s" variant="primary"   .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="s" variant="secondary" .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="s" variant="terciary"  .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
+      <dcx-web-button label="Button" size="s" variant="danger"    .icon=${true} icon-name="chevron-left" icon-position="left" icon-size="s" icon-right-name="chevron-right"></dcx-web-button>
     </div>
   `,
 };
