@@ -4,6 +4,14 @@
       "type": "stdio",
       "command": "mempalace-mcp",
       "disabled": false
+    },
+    "sdd-memory": {
+      "type": "stdio",
+      "command": "sdd-memory",
+      "args": [
+        "--project",
+        "${workspaceFolder}"
+      ]
     }
   }
 }
