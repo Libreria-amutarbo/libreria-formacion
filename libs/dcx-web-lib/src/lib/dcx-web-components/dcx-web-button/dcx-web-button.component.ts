@@ -8,8 +8,7 @@ import type {
   DcxIconPosition,
 } from '../../core/interfaces/button';
 import type { DcxSize } from '../../core/interfaces/generic';
-
-export type DcxIconSpacing = 'none' | 'compact' | 'spacious';
+import type { DcxIconSpacing } from '../../core/interfaces/icon';
 
 @customElement('dcx-web-button')
 export class DcxWebButton extends LitElement {
