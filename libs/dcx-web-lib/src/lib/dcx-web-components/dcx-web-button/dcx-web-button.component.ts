@@ -222,15 +222,26 @@ export class DcxWebButton extends LitElement {
       mask-position: center;
     }
 
-    .icon--left, .icon--top { order: -1; }
-    .icon--right, .icon--bottom { order: 1; }
+    .icon--left, .icon--top, ::slotted([slot="dcx-icon"]) { order: -1; }
+    .icon--right, .icon--bottom, ::slotted([slot="button-trailing"]) { order: 1; }
     .icon--right { order: 2; }
     .label { order: 0; }
 
-    .dcx-icon--size-s { width: 14px; height: 14px; }
-    .dcx-icon--size-m { width: 16px; height: 16px; }
-    .dcx-icon--size-l { width: 20px; height: 20px; }
-    .dcx-icon--size-xl { width: 24px; height: 24px; }
+    ::slotted(svg) {
+      display: inline-flex;
+      flex-shrink: 0;
+      color: currentColor;
+    }
+
+    .dcx-button--icon-right ::slotted([slot="dcx-icon"]),
+    .dcx-button--icon-bottom ::slotted([slot="dcx-icon"]) {
+      order: 1;
+    }
+
+    .dcx-icon--size-s, .dcx-button--s ::slotted(svg) { width: 14px; height: 14px; }
+    .dcx-icon--size-m, .dcx-button--m ::slotted(svg) { width: 16px; height: 16px; }
+    .dcx-icon--size-l, .dcx-button--l ::slotted(svg) { width: 20px; height: 20px; }
+    .dcx-icon--size-xl, .dcx-button--xl ::slotted(svg) { width: 24px; height: 24px; }
 
     .dcx-icon--spacing-compact { margin: 0 4px; }
     .dcx-icon--spacing-spacious { margin: 0 12px; }
