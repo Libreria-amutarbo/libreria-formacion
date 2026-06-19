@@ -225,25 +225,13 @@ export class DcxWebPageCard extends LitElement {
       color: var(--text-muted, #696e75);
     }
 
-    .card-demo__progress {
-      margin: 0.75rem 0 0.25rem;
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-muted, #696e75);
-      width: 100%;
-    }
-
-    .card-demo__progress-val {
-      color: var(--bg-primary, #0058ab);
-      font-weight: 600;
-    }
-
-    .card-demo__slider {
+    /* Mock slider styles for the demo since dcx-ng-slider is not in web yet */
+    
+    .mock-slider {
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 6px;
+      height: 4px;
       background: linear-gradient(
         to right,
         var(--bg-primary, #0058ab) 0%,
@@ -257,9 +245,19 @@ export class DcxWebPageCard extends LitElement {
       cursor: pointer;
     }
 
-    .card-demo__slider::-webkit-slider-thumb {
+    .mock-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
+      width: 18px;
+      height: 18px;
+      background: var(--bg-primary, #0058ab);
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .mock-slider::-moz-range-thumb {
       width: 16px;
       height: 16px;
       background: var(--bg-primary, #0058ab);
@@ -269,14 +267,18 @@ export class DcxWebPageCard extends LitElement {
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
 
-    .card-demo__slider::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      background: var(--bg-primary, #0058ab);
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid white;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    .mock-slider__progress {
+      margin: 0.75rem 0 0.25rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted, #696e75);
+      width: 100%;
+    }
+
+    .mock-slider__progress-val {
+      color: var(--bg-primary, #0058ab);
+      font-weight: 600;
     }
 
     .card-demo__chip {
@@ -345,57 +347,24 @@ export class DcxWebPageCard extends LitElement {
       margin-top: 1rem;
     }
 
-    .card-demo__btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 16px;
-      height: 32px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: 1px solid transparent;
-      font-family: inherit;
-    }
-
-    .card-demo__btn--primary {
-      background: var(--bg-primary, #0058ab);
-      color: white;
-    }
-
-    .card-demo__btn--primary:hover {
-      background: #004482;
-    }
-
-    .card-demo__btn--secondary {
-      background: white;
-      border-color: #e5e7eb;
-      color: #2a2e33;
-    }
-
-    .card-demo__btn--secondary:hover {
-      background: #f9fafb;
-      border-color: #d1d5db;
-    }
-
     /* Mock button styles for the demo since dcx-ng-button is not in web yet */
     .mock-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 4px 12px;
       border-radius: 4px;
       font-family: inherit;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 12px;
       border: none;
       cursor: pointer;
     }
     .mock-btn-primary { background: #0058ab; color: #fff; }
-    .mock-btn-secondary { background: #696e75; color: #fff; }
-  `;
+    .mock-btn-secondary { background: #ffffff; color: #2a2e33; border: 1px solid #d1d5db }
+  
+    .mock-btn-primary:hover { background: #004080; }
+    .mock-btn-secondary:hover { background: #f7f8fa; }
+    `;
 
   override render() {
     return html`
@@ -404,7 +373,7 @@ export class DcxWebPageCard extends LitElement {
           <p class="demo-page-header__kicker">Components</p>
           <h1 class="demo-page-header__title">Card</h1>
           <p class="demo-page-header__desc">
-            Tarjeta flexible con soporte de layouts, tamaños, bordes, sombras, acento y proyección de contenido mediante slots para header, content y footer.
+            Tarjeta flexible con soporte de layouts, tamaños, bordes, sombras, acento y proyección de contenido mediante TemplateRef para header, content y footer.
           </p>
           <hr class="demo-page-header__divider" />
         </header>
@@ -457,10 +426,12 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="content">
                   <p style="margin-top:0.5rem;color:#696e75;">Migración de infraestructura on-premise a Azure para BNP Paribas.</p>
-                  <div class="card-demo__progress"><span>Progreso</span><span class="card-demo__progress-val">${this._sliderVal}%</span></div>
+                  <div class="mock-slider__progress">
+                    <span>Progreso</span>
+                    <span class="mock-slider__progress-val">${this._sliderVal}%</span></div>
                   <input 
                     type="range" 
-                    class="card-demo__slider" 
+                    class="mock-slider" 
                     min="0" max="100" 
                     .value=${String(this._sliderVal)}
                     style="--slider-fill: ${this._sliderVal}%"
@@ -469,7 +440,7 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="footer">
                   <div class="card-demo__actions">
-                    <button class="card-demo__btn card-demo__btn--primary">Ver detalle</button>
+                    <button class="mock-btn mock-btn-primary">Ver detalle</button>
                   </div>
                 </div>
               </dcx-web-card>
@@ -519,8 +490,8 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="footer">
                   <div class="card-demo__actions">
-                    <button class="card-demo__btn card-demo__btn--primary">Abrir</button>
-                    <button class="card-demo__btn card-demo__btn--secondary">Archivar</button>
+                    <button class="mock-btn mock-btn-primary">Abrir</button>
+                    <button class="mock-btn mock-btn-secondary">Archivar</button>
                   </div>
                 </div>
               </dcx-web-card>
@@ -543,8 +514,8 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="footer">
                   <div class="card-demo__actions">
-                    <button class="card-demo__btn card-demo__btn--primary">Abrir</button>
-                    <button class="card-demo__btn card-demo__btn--secondary">Archivar</button>
+                    <button class="mock-btn mock-btn-primary">Abrir</button>
+                    <button class="mock-btn mock-btn-secondary">Archivar</button>
                   </div>
                 </div>
               </dcx-web-card>
