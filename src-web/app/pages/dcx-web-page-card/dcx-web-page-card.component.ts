@@ -226,7 +226,6 @@ export class DcxWebPageCard extends LitElement {
     }
 
     /* Mock slider styles for the demo since dcx-ng-slider is not in web yet */
-    
     .mock-slider {
       -webkit-appearance: none;
       appearance: none;
@@ -281,36 +280,56 @@ export class DcxWebPageCard extends LitElement {
       font-weight: 600;
     }
 
-    .card-demo__chip {
+    /* Mock chip styles for the demo since dcx-ng-chip is not in web yet */
+    .mock-chip {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding: 2px 8px;
-      font-size: 11px;
-      font-weight: 700;
+
+      height: 2rem;
+      padding: 0 12px;
+
       border-radius: 999px;
-      line-height: 1.2;
+      border: 1px solid transparent;
+
+      font-family: var(
+        --font-family-base,
+        system-ui,
+        -apple-system,
+        'Segoe UI',
+        Roboto,
+        'Helvetica Neue',
+        Arial
+      );
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+
       white-space: nowrap;
+
+      cursor: default;
     }
 
-    .card-demo__chip--primary {
-      background-color: var(--bg-primary, #0058ab);
+    .mock-chip:hover { text-decoration: underline; }
+
+    .mock-chip--primary {
+      background-color: #0058ab;
       color: #ffffff;
     }
 
-    .card-demo__chip--secondary {
-      background-color: var(--text-muted, #696e75);
+    .mock-chip--secondary {
+      background-color: #ffffff;
+      color: #2a2e33;
+      border-color: #2a2e33;
+    }
+
+    .mock-chip--success {
+      background-color: #00a76f;
       color: #ffffff;
     }
 
-    .card-demo__chip--success {
-      background-color: var(--color-success, #16a34a);
-      color: #ffffff;
-    }
-
-    .card-demo__chip--warning {
-      background-color: var(--color-warn, #b45309);
-      color: #ffffff;
+    .mock-chip--warning {
+      background-color: #ff9100;
+      color: #2a2e33;
     }
 
     .card-demo__kpi-val {
@@ -422,7 +441,7 @@ export class DcxWebPageCard extends LitElement {
               >
                 <div slot="header" class="card-demo__header card-demo__header--space-between">
                   <div class="card-demo__title">Cloud Migration</div>
-                  <span class="card-demo__chip card-demo__chip--success">Activo</span>
+                  <span class="mock-chip mock-chip--success">Activo</span>
                 </div>
                 <div slot="content">
                   <p style="margin-top:0.5rem;color:#696e75;">Migración de infraestructura on-premise a Azure para BNP Paribas.</p>
@@ -483,9 +502,9 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="content">
                   <div class="card-demo__tags">
-                    <span class="card-demo__chip card-demo__chip--primary">SAP</span>
-                    <span class="card-demo__chip card-demo__chip--secondary">Finanzas</span>
-                    <span class="card-demo__chip card-demo__chip--warning">En revisión</span>
+                    <span class="mock-chip mock-chip--primary">SAP</span>
+                    <span class="mock-chip mock-chip--secondary">Finanzas</span>
+                    <span class="mock-chip mock-chip--warning">En revisión</span>
                   </div>
                 </div>
                 <div slot="footer">
@@ -507,9 +526,9 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="content">
                   <div class="card-demo__tags">
-                    <span class="card-demo__chip card-demo__chip--primary">Data & AI</span>
-                    <span class="card-demo__chip card-demo__chip--secondary">Azure</span>
-                    <span class="card-demo__chip card-demo__chip--success">Planificado</span>
+                    <span class="mock-chip mock-chip--primary">Data & AI</span>
+                    <span class="mock-chip mock-chip--secondary">Azure</span>
+                    <span class="mock-chip mock-chip--success">Planificado</span>
                   </div>
                 </div>
                 <div slot="footer">
