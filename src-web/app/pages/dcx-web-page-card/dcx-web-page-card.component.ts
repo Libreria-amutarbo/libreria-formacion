@@ -332,7 +332,7 @@ export class DcxWebPageCard extends LitElement {
       color: #2a2e33;
     }
 
-    .card-demo__kpi-val {
+    .card-demo__kpi-value {
       margin: 0.5rem 0 0.25rem;
       font-size: 36px;
       line-height: 1;
@@ -347,7 +347,7 @@ export class DcxWebPageCard extends LitElement {
       color: var(--color-success, #16a34a);
     }
 
-    .card-demo__kpi-lbl {
+    .card-demo__kpi-label {
       margin: 0;
       font-size: 12px;
       color: var(--text-muted, #696e75);
@@ -392,7 +392,7 @@ export class DcxWebPageCard extends LitElement {
           <p class="demo-page-header__kicker">Components</p>
           <h1 class="demo-page-header__title">Card</h1>
           <p class="demo-page-header__desc">
-            Tarjeta flexible con soporte de layouts, tamaños, bordes, sombras, acento y proyección de contenido mediante TemplateRef para header, content y footer.
+            Tarjeta flexible con soporte de layouts, tamaños, bordes, sombras, acento y proyección de contenido mediante slots para header, content y footer.
           </p>
           <hr class="demo-page-header__divider" />
         </header>
@@ -473,9 +473,9 @@ export class DcxWebPageCard extends LitElement {
               >
                 <div slot="header" class="card-demo__title">Satisfacción cliente</div>
                 <div slot="content">
-                  <div class="card-demo__kpi-val">98%</div>
+                  <div class="card-demo__kpi-value">98%</div>
                   <div class="card-demo__kpi-trend">↑ +1.2% este mes</div>
-                  <div class="card-demo__kpi-lbl">Media de 24 proyectos activos</div>
+                  <div class="card-demo__kpi-label">Media de 24 proyectos activos</div>
                 </div>
               </dcx-web-card>
 

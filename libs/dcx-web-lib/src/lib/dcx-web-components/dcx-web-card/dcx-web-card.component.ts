@@ -312,6 +312,11 @@ export class DcxWebCard extends LitElement {
   }
 
   override render() {
+    
+    const hasHeaderSlot = this.querySelector('[slot="header"]') !== null;
+    const hasContentSlot = this.querySelector('[slot="content"]') !== null;
+    const hasFooterSlot = this.querySelector('[slot="footer"]') !== null;
+
     const cardClasses = {
       'dcx-card': true,
       'dcx-card--interactive': this.interactive,
@@ -339,8 +344,13 @@ export class DcxWebCard extends LitElement {
       : this.interactive
       ? 'button'
       : 'region';
+    
     const tabIndex = this.disabled ? -1 : role === 'button' ? 0 : null;
-    const ariaLabel = role === 'region' && this.title ? this.title : null;
+    
+    const ariaLabel =
+      role === 'region' && !hasHeaderSlot && this.title
+        ? this.title
+        : null;
 
     return html`
       <div
@@ -366,25 +376,50 @@ export class DcxWebCard extends LitElement {
             : nothing}
 
           <div class="dcx-card__body">
-            <div class="dcx-card__header">
-              <slot name="header">
-                ${this.title
-                  ? html`<h3 class="dcx-card__title">${this.title}</h3>`
-                  : nothing}
-                ${this.subtitle
-                  ? html`<p class="dcx-card__subtitle">${this.subtitle}</p>`
-                  : nothing}
-              </slot>
-            </div>
+            ${hasHeaderSlot || this.title || this.subtitle
+              ? html `
+                <div class="dcx-card__header">
+                  ${hasHeaderSlot
+                    ? html`<slot name="header"></slot>`
+                    : html`
+                        ${this.title
+                          ? html`
+                              <h3 class="dcx-card__title">
+                                ${this.title}
+                              </h3>
+                            `
+                          : nothing}
 
-            <div class="dcx-card__content">
-              <slot name="content"></slot>
-              <slot></slot>
-            </div>
+                        ${this.subtitle
+                          ? html`
+                              <p class="dcx-card__subtitle">
+                                ${this.subtitle}
+                              </p>
+                            `
+                          : nothing}
+                      `}
+                </div>
+              `
+            : nothing}
+            
+            ${hasContentSlot
+              ? html`
+                  <div class="dcx-card__content">
+                    ${hasContentSlot
+                      ? html`<slot name="content"></slot>`
+                      : html`<slot></slot>`}
+                  </div>
+                `
+              : nothing}
 
-            <div class="dcx-card__footer">
-              <slot name="footer"></slot>
-            </div>
+            ${hasFooterSlot
+            ? html `
+                <div class="dcx-card__footer">
+                  <slot name="footer"></slot>
+                </div>
+              `
+            : nothing}
+
           </div>
         </div>
       </div>
