@@ -1,8 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import type { DividerOrientation, DividerType } from '../../core/interfaces/divider';
+import type { DividerOrientation, DividerType, DividerSize } from '../../core/interfaces/divider';
 
-type DividerSize = 's' | 'm' | 'l' | 'xl' | 'auto';
 
 @customElement('dcx-web-divider')
 export class DcxWebDivider extends LitElement {
@@ -19,9 +18,6 @@ export class DcxWebDivider extends LitElement {
   @property({ type: String, attribute: 'aria-label' }) accessor ariaLabelAttr: string | null = null;
   @property({ type: Boolean, attribute: 'aria-hidden' }) accessor ariaHiddenAttr = false;
   
-
-  /* ================== STYLES ================== */
-
   static override styles = css`
     :host {
       display: block;
@@ -29,55 +25,54 @@ export class DcxWebDivider extends LitElement {
 
     :host(.horizontal) {
       width: var(--dcx-divider-size, 100%);
+      height: auto;
     }
 
     :host(.vertical) {
       height: var(--dcx-divider-size, 100%);
+      width: auto;
     }
 
     .dcx-divider {
-      display: block;
       margin: 0;
+      display: block;
     }
     
-    :host(.horizontal) .dcx-divider {
-      width: 100%;
+    :host(.horizontal) .dcx-divider:not(.dcx-divider--labeled) {      width: 100%;
       height: 0;
-      border-top: var(--dcx-divider-thickness)
-        var(--dcx-divider-style)
-        var(--dcx-divider-color);
+      border-top: var(--dcx-divider-thickness, 1px)
+        var(--dcx-divider-style, solid)
+        var(--dcx-divider-color, #d1d5db);
     }
 
-    :host(.vertical) .dcx-divider {
+    :host(.vertical) .dcx-divider:not(.dcx-divider--labeled) {
       height: 100%;
       width: 0;
-      border-left: var(--dcx-divider-thickness)
-        var(--dcx-divider-style)
-        var(--dcx-divider-color);
+      border-left: var(--dcx-divider-thickness, 1px)
+        var(--dcx-divider-style, solid)
+        var(--dcx-divider-color, #d1d5db);
     }
 
-    .dcx-divider--labeled {
+    :host(.horizontal) .dcx-divider--labeled {
       display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
       gap: 0.5rem;
       border: none;
     }
 
-    :host(.horizontal) .dcx-divider--labeled {
-      flex-direction: row;
-      align-items: center;
-    }
-
     :host(.vertical) .dcx-divider--labeled {
+      display: flex;
       flex-direction: column;
       align-items: center;
       height: 100%;
-    }
-
-    .dcx-divider__line {
-      flex: 1;
+      gap: 0.5rem;
+      border: none;
     }
 
     :host(.horizontal) .dcx-divider__line {
+      flex: 1;
       height: 0;
       border-top: var(--dcx-divider-thickness)
         var(--dcx-divider-style)
@@ -85,6 +80,7 @@ export class DcxWebDivider extends LitElement {
     }
 
     :host(.vertical) .dcx-divider__line {
+      flex: 1;
       width: 0;
       border-left: var(--dcx-divider-thickness)
         var(--dcx-divider-style)

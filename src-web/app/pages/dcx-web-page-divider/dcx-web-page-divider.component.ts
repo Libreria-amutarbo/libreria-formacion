@@ -155,8 +155,8 @@ export class DcxWebPageDivider extends LitElement {
     }
 
     .color-vertical-grid {
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: repeat(7, auto);
       gap: 12px;
       height: 180px;
       align-items: stretch;
@@ -171,8 +171,7 @@ export class DcxWebPageDivider extends LitElement {
           <p class="demo-page-header__kicker">Components</p>
           <h1 class="demo-page-header__title">Divider (Web Component)</h1>
           <p class="demo-page-header__desc">
-            Separador visual flexible para estructurar contenido.
-            Soporta orientación horizontal y vertical, tamaños, estilos y etiqueta.
+            Separador visual flexible para estructurar contenido. Soporta orientación horizontal y vertical, tamaños predefinidos, estilos de línea y etiqueta de texto.
           </p>
           <hr class="demo-page-header__divider" />
         </header>
@@ -366,25 +365,25 @@ export class DcxWebPageDivider extends LitElement {
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">07</span>
-            <span class="demo-section__title">With label</span>
+            <span class="demo-section__title">Con etiqueta — Horizontal y Vertical</span>
           </div>
 
           <div class="demo-section__body" style="display:flex; flex-direction:column; gap:24px;">
-            
-            <div>
-              <p class="demo-label">Horizontal</p>
-              <dcx-web-divider label="Título sección"></dcx-web-divider>
-            </div>
+            <div style="display:flex;flex-direction:column;gap:32px;">
+              <div>
+                <p class="demo-label">Horizontal</p>
+                <dcx-web-divider label="Título de sección"></dcx-web-divider>
+              </div>
 
-            <div>
-              <p class="demo-label">Vertical</p>
-              <div class="vertical-container">
-                <p>Left</p>
-                <dcx-web-divider orientation="vertical" label="OR"></dcx-web-divider>
-                <p>Right</p>
+              <div>
+                <p class="demo-label">Vertical</p>
+                <div class="vertical-container">
+                  <p>Contenido izquierdo</p>
+                  <dcx-web-divider label="o" orientation="vertical"></dcx-web-divider>
+                  <p>Contenido derecho</p>
+                </div>
               </div>
             </div>
-
           </div>
         </div>
 

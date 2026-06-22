@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/WebComponents/Divider/Documentation" />
+
+# Divider
+
+El componente `dcx-web-divider` es un separador visual flexible para estructurar contenido.
+
+Soporta orientación horizontal y vertical, tamaños, estilos de línea y etiquetas.
+
+---
+
+## Cuándo usarlo
+
+- Separar secciones de contenido
+- Dividir layouts complejos
+- Crear jerarquía visual en formularios o listas
+- Separar bloques en dashboards
+
+---
+
+## API
+
+| Atributo | Tipo | Default | Descripción |
+|----------|------|---------|------------|
+| `orientation` | `horizontal \| vertical` | `horizontal` | Dirección del divisor |
+| `size` | `s \| m \| l \| xl \| auto` | `auto` | Longitud |
+| `type` | `default \| dot \| dash` | `default` | Estilo |
+| `thickness` | `number` | `0.25` | Grosor en rem |
+| `color` | `string` | `#d1d5db` | Color |
+| `label` | `string` | `''` | Texto centrado |
+
+---
+
+## Uso básico
+
+```html
+<dcx-web-divider></dcx-web-divider>
+
+<dcx-web-divider type="dot"></dcx-web-divider>
+
+<dcx-web-divider label="Sección"></dcx-web-divider>
+``
