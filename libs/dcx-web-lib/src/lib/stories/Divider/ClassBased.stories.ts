@@ -277,7 +277,9 @@ export const ColorVariants: Story = {
       
       <!-- HORIZONTAL -->
       <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
-        <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.08em">Horizontal</span>
+        <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.08em">
+          Horizontal
+        </span>
 
         <dcx-web-divider color="#e6f0ff"></dcx-web-divider>
         <dcx-web-divider color="#cfe0ff"></dcx-web-divider>
@@ -290,7 +292,9 @@ export const ColorVariants: Story = {
 
       <!-- VERTICAL -->
       <div style="display:flex;flex-direction:row;gap:12px;height:180px;align-items:stretch;">
-        <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.08em;writing-mode:vertical-rl;align-self:center;">Vertical</span>
+        <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.08em;writing-mode:vertical-rl;align-self:center;">
+          Vertical
+        </span>
 
         <dcx-web-divider orientation="vertical" color="#e6f0ff"></dcx-web-divider>
         <dcx-web-divider orientation="vertical" color="#cfe0ff"></dcx-web-divider>
