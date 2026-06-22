@@ -2,7 +2,6 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import type { DividerOrientation, DividerType, DividerSize } from '../../core/interfaces/divider';
 
-
 @customElement('dcx-web-divider')
 export class DcxWebDivider extends LitElement {
 
@@ -16,8 +15,9 @@ export class DcxWebDivider extends LitElement {
   @property({ type: String }) accessor label = '';
 
   @property({ type: String, attribute: 'aria-label' }) accessor ariaLabelAttr: string | null = null;
-  @property({ type: Boolean, attribute: 'aria-hidden' }) accessor ariaHiddenAttr = false;
-  
+
+  /* ================== STYLES ================== */
+
   static override styles = css`
     :host {
       display: block;
@@ -38,7 +38,8 @@ export class DcxWebDivider extends LitElement {
       display: block;
     }
     
-    :host(.horizontal) .dcx-divider:not(.dcx-divider--labeled) {      width: 100%;
+    :host(.horizontal) .dcx-divider:not(.dcx-divider--labeled) {
+      width: 100%;
       height: 0;
       border-top: var(--dcx-divider-thickness, 1px)
         var(--dcx-divider-style, solid)
@@ -122,10 +123,21 @@ export class DcxWebDivider extends LitElement {
     }
   }
 
-  private _getComputedAriaLabel(): string | null {
-    if (this.ariaHiddenAttr) return null;
-    if (this.ariaLabelAttr !== null) return this.ariaLabelAttr;
-    return this.label || null;
+  private _getComputedAriaLabel(): string {
+    // PRIORIDAD: ariaLabelAttr > label > ''
+    if (this.ariaLabelAttr && this.ariaLabelAttr.trim().length > 0) {
+      return this.ariaLabelAttr;
+    }
+
+    if (this.label && this.label.trim().length > 0) {
+      return this.label;
+    }
+
+    return '';
+  }
+
+  private _isHidden(): boolean {
+    return !this.label && !this.ariaLabelAttr;
   }
 
   /* ================== LIFECYCLE ================== */
@@ -135,13 +147,6 @@ export class DcxWebDivider extends LitElement {
     this.classList.toggle('horizontal', this.orientation === 'horizontal');
     this.classList.toggle('vertical', this.orientation === 'vertical');
     this.classList.toggle('has-label', !!this.label);
-
-    /* aria-hidden */
-    if (!this.label && !this.ariaLabelAttr) {
-      this.setAttribute('aria-hidden', 'true');
-    } else {
-      this.removeAttribute('aria-hidden');
-    }
 
     /* css vars */
     this.style.setProperty('--dcx-divider-size', this._getDividerSize());
@@ -154,16 +159,17 @@ export class DcxWebDivider extends LitElement {
 
   override render() {
     const ariaLabel = this._getComputedAriaLabel();
-
-    const commonAttrs = html`
-      role="separator"
-      aria-orientation="${this.orientation}"
-      aria-label="${ariaLabel || ''}"
-    `;
+    const isHidden = this._isHidden();
 
     if (this.label) {
       return html`
-        <div class="dcx-divider dcx-divider--labeled" ${commonAttrs}>
+        <div
+          class="dcx-divider dcx-divider--labeled"
+          role="separator"
+          aria-orientation="${this.orientation}"
+          aria-label="${ariaLabel}"
+          aria-hidden="${isHidden ? 'true' : 'false'}"
+        >
           <span class="dcx-divider__line" aria-hidden="true"></span>
           <span class="dcx-divider__label">${this.label}</span>
           <span class="dcx-divider__line" aria-hidden="true"></span>
@@ -172,7 +178,13 @@ export class DcxWebDivider extends LitElement {
     }
 
     return html`
-      <span class="dcx-divider" ${commonAttrs}></span>
+      <span
+        class="dcx-divider"
+        role="separator"
+        aria-orientation="${this.orientation}"
+        aria-label="${ariaLabel}"
+        aria-hidden="${isHidden ? 'true' : 'false'}"
+      ></span>
     `;
   }
 }

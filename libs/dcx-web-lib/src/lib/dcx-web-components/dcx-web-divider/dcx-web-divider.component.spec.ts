@@ -75,7 +75,6 @@ describe('DcxWebDivider', () => {
   });
 
   it('should not expose aria-label when aria-hidden', async () => {
-    element.ariaHiddenAttr = true;
     await element.updateComplete;
 
     const span = element.shadowRoot?.querySelector('span');
