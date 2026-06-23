@@ -225,13 +225,13 @@ export class DcxWebCard extends LitElement {
 
     .dcx-card__title {
       margin: 0 0 0.5rem 0;
-      font-size: var(--card-title-font-size, var(--fs-lg, 18px));
+      font-size: var(--fs-lg, 18px);
       font-weight: var(--fw-semibold, 600);
     }
 
     .dcx-card__subtitle {
       margin: 0;
-      font-size: var(--card-subtitle-font-size, var(--fs-base, 14px));
+      font-size: var(--fs-base, 14px);
       color: var(--text-muted, #696e75);
       font-weight: var(--fw-regular, 400);
     }
@@ -239,7 +239,7 @@ export class DcxWebCard extends LitElement {
     .dcx-card__header ::slotted(h3),
     .dcx-card__header ::slotted(.dcx-card__title) {
       margin: 0 0 0.5rem 0;
-      font-size: var(--card-title-font-size, var(--fs-lg, 18px));
+      font-size: var(--fs-lg, 18px);
       font-weight: var(--fw-semibold, 600);
     }
 
@@ -247,7 +247,7 @@ export class DcxWebCard extends LitElement {
     .dcx-card__header ::slotted(.dcx-card__subtitle) {
       margin: 0;
       font-family: var(--ff-base, 'Inter', sans-serif);
-      font-size: var(--card-subtitle-font-size, var(--fs-base, 14px));
+      font-size: var(--fs-base, 14px);
       color: var(--text-muted, #696e75);
       font-weight: var(--fw-regular, 400);
     }

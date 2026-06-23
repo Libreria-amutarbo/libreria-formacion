@@ -420,7 +420,7 @@ export class DcxWebPageCard extends LitElement {
                 .image=${DEFAULT_ARGS.image}
                 .imageAlt=${DEFAULT_ARGS.imageAlt}
                 .shadow=${DEFAULT_ARGS.shadow}
-                ?interactive=${DEFAULT_ARGS.interactive}
+                .interactive=${DEFAULT_ARGS.interactive}
                 layout="vertical" align="start" maxContentWidth="100%"
                 ?accent=${true}
               >
@@ -447,7 +447,7 @@ export class DcxWebPageCard extends LitElement {
                 .imageAlt=${DEFAULT_ARGS.imageAlt}
                 .shadow=${DEFAULT_ARGS.shadow}
                 layout="vertical" align="start" maxContentWidth="100%"
-                ?interactive=${true}
+                .interactive=${true}
               >
                 <div slot="header" class="card-demo__header card-demo__header--space-between">
                   <div class="card-demo__title">Cloud Migration</div>
@@ -504,7 +504,7 @@ export class DcxWebPageCard extends LitElement {
               <dcx-web-card
                 .size=${DEFAULT_ARGS.size} .shadow=${DEFAULT_ARGS.shadow}
                 layout="vertical" align="start" maxContentWidth="100%"
-                ?interactive=${true}
+                .interactive=${true}
               >
                 <div slot="header">
                   <div class="card-demo__title">SAP S/4HANA · Airbus</div>
@@ -528,7 +528,7 @@ export class DcxWebPageCard extends LitElement {
               <dcx-web-card
                 .size=${DEFAULT_ARGS.size} .shadow=${DEFAULT_ARGS.shadow}
                 layout="vertical" align="start" maxContentWidth="100%"
-                ?interactive=${true}
+                .interactive=${true}
               >
                 <div slot="header">
                   <div class="card-demo__title">Data Platform · Renault</div>
@@ -560,9 +560,9 @@ export class DcxWebPageCard extends LitElement {
           </div>
           <div class="demo-section__body">
             <div class="card-demo-grid">
-              <dcx-web-card title="Small (s)"       subtitle="size = 's'" .image=${null} size="s"  layout="vertical" align="start" maxContentWidth="100%" .shadow=${1} ?interactive=${false}></dcx-web-card>
-              <dcx-web-card title="Medium (m)"      subtitle="size = 'm'" .image=${null} size="m"  layout="vertical" align="start" maxContentWidth="100%" .shadow=${1} ?interactive=${false}></dcx-web-card>
-              <dcx-web-card title="Large (l)"       subtitle="size = 'l'" .image=${null} size="l"  layout="vertical" align="start" maxContentWidth="100%" .shadow=${1} ?interactive=${false}></dcx-web-card>
+              <dcx-web-card title="Small (s)"       subtitle="size = 's'" .image=${null} size="s"  layout="vertical" align="start" maxContentWidth="100%" .shadow=${1} .interactive=${false}></dcx-web-card>
+              <dcx-web-card title="Medium (m)"      subtitle="size = 'm'" .image=${null} size="m"  layout="vertical" align="start" maxContentWidth="100%" .shadow=${1} .interactive=${false}></dcx-web-card>
+              <dcx-web-card title="Large (l)"       subtitle="size = 'l'" .image=${null} size="l"  layout="vertical" align="start" maxContentWidth="100%" .shadow=${1} .interactive=${false}></dcx-web-card>
             </div>
           </div>
         </div>
@@ -574,8 +574,8 @@ export class DcxWebPageCard extends LitElement {
           </div>
           <div class="demo-section__body">
             <div class="card-demo-grid card-demo-grid--2">
-              <dcx-web-card title="Sin acento"  subtitle="accent = false" .image=${null} size="m" maxContentWidth="100%" .shadow=${1} ?accent=${false} ?interactive=${false}></dcx-web-card>
-              <dcx-web-card title="Con acento"  subtitle="accent = true"  .image=${null} size="m" maxContentWidth="100%" .shadow=${1} ?accent=${true}  ?interactive=${false}></dcx-web-card>
+              <dcx-web-card title="Sin acento"  subtitle="accent = false" .image=${null} size="m" maxContentWidth="100%" .shadow=${1} ?accent=${false} .interactive=${false}></dcx-web-card>
+              <dcx-web-card title="Con acento"  subtitle="accent = true"  .image=${null} size="m" maxContentWidth="100%" .shadow=${1} ?accent=${true}  .interactive=${false}></dcx-web-card>
             </div>
           </div>
         </div>
@@ -587,9 +587,9 @@ export class DcxWebPageCard extends LitElement {
           </div>
           <div class="demo-section__body">
             <div class="card-demo-grid">
-              <dcx-web-card title="shadow 0" subtitle="Sin sombra"    .image=${null} size="s" maxContentWidth="100%" .shadow=${0} ?interactive=${false}></dcx-web-card>
-              <dcx-web-card title="shadow 1" subtitle="Sombra suave"  .image=${null} size="s" maxContentWidth="100%" .shadow=${1} ?interactive=${false}></dcx-web-card>
-              <dcx-web-card title="shadow 2" subtitle="Sombra media"  .image=${null} size="s" maxContentWidth="100%" .shadow=${2} ?interactive=${false}></dcx-web-card>
+              <dcx-web-card title="shadow 0" subtitle="Sin sombra"    .image=${null} size="s" maxContentWidth="100%" .shadow=${0} .interactive=${false}></dcx-web-card>
+              <dcx-web-card title="shadow 1" subtitle="Sombra suave"  .image=${null} size="s" maxContentWidth="100%" .shadow=${1} .interactive=${false}></dcx-web-card>
+              <dcx-web-card title="shadow 2" subtitle="Sombra media"  .image=${null} size="s" maxContentWidth="100%" .shadow=${2} .interactive=${false}></dcx-web-card>
             </div>
           </div>
         </div>
