@@ -18,8 +18,8 @@ export class DcxWebCard extends LitElement {
   @property({ type: String }) accessor subtitle = 'Subtítulo de la carta';
 
   @property({ type: String }) accessor layout: DcxLayout = 'vertical';
-  @property({ type: String }) accessor align: DcxAlign = 'start';
-  @property({ type: String }) accessor size: DcxSize = 'm';
+  @property({ type: String }) accessor align: DcxAlign = 'center';
+  @property({ type: String }) accessor size: DcxSize = 's';
 
   @property({ type: String }) accessor maxContentWidth = '560px';
   @property({ type: String }) accessor maxImageWidth = '100%';
@@ -64,6 +64,10 @@ export class DcxWebCard extends LitElement {
       transform: translateY(-2px);
     }
 
+    .dcx-card--interactive:not(.dcx-card--disabled):hover .dcx-card__inner {
+      box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
+    }
+
     .dcx-card:focus-visible {
       outline: 2px solid var(--border-focus, #1db8f2);
       outline-offset: 3px;
@@ -73,7 +77,7 @@ export class DcxWebCard extends LitElement {
     .dcx-card__inner {
       display: flex;
       flex-direction: column;
-      gap: var(--sp-4, 16px);
+      gap: var(--card-gap, var(--sp-4, 16px));
       background: var(--background-default, #ffffff);
       border-style: var(--card-border-style);
       border-color: var(--border-primary);
@@ -81,7 +85,7 @@ export class DcxWebCard extends LitElement {
       border-radius: var(--card-radius);
       padding: var(--card-padding);
       position: relative;
-      box-shadow: var(--card-shadow);
+      box-shadow: var(--card-shadow, var(--shadow-md, 0 4px 12px rgba(0,0,0,0.08)));
       width: 100%;
       max-width: var(--card-max-content-width, 420px);
       box-sizing: border-box;
@@ -200,6 +204,22 @@ export class DcxWebCard extends LitElement {
 
     .dcx-card__header {
       margin-bottom: var(--spacing-inline-m, 1rem);
+    }
+
+    .dcx-card__header ::slotted(h3),
+    .dcx-card__header ::slotted(.dcx-card__title) {
+      margin: 0 0 0.5rem 0;
+      font-size: var(--card-title-font-size, var(--fs-lg, 18px));
+      font-weight: var(--fw-semibold, 600);
+    }
+
+    .dcx-card__header ::slotted(p),
+    .dcx-card__header ::slotted(.dcx-card__subtitle) {
+      margin: 0;
+      font-family: var(--ff-base, 'Inter', sans-serif);
+      font-size: var(--card-subtitle-font-size, var(--fs-base, 14px));
+      color: var(--text-muted, #696e75);
+      font-weight: var(--fw-regular, 400);
     }
 
     .dcx-card__content {

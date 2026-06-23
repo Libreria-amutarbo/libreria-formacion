@@ -37,13 +37,11 @@ export class DcxWebPageCard extends LitElement {
       padding: 2rem;
       font-family: var(--ff-base, 'Inter', sans-serif);
       color: var(--text-dark, #2a2e33);
-      --color-info: #12abdb;
     }
 
     .demo-page {
       width: 100%;
       max-width: 860px;
-      margin: 0;
       padding-bottom: 3rem;
     }
 
@@ -120,10 +118,20 @@ export class DcxWebPageCard extends LitElement {
       color: var(--text-dark, #2a2e33);
     }
 
+    .demo-section__desc {
+      padding: 10px 16px 0;
+      font-size: 12px;
+      line-height: 1.55;
+      color: $text-muted;
+      margin: 0;
+    }
+
+    .demo-section__body--narrow {
+      max-width: 480px;
+    }
+      
     .demo-section__body {
       padding: 20px 16px;
-      width: 100%;
-      box-sizing: border-box;
     }
 
     .card-demo-grid {
@@ -184,12 +192,14 @@ export class DcxWebPageCard extends LitElement {
       font-size: 15px;
       font-weight: 600;
       color: var(--text-dark, #2a2e33);
+      font-size: var(--card-title-font-size, 15px);
     }
 
     .card-demo__subtitle {
       font-size: 13px;
       color: var(--text-muted, #696e75);
       margin-top: 0.25rem;
+      font-size: var(--card-subtitle-font-size, 13px);
     }
 
     .card-demo__hr {

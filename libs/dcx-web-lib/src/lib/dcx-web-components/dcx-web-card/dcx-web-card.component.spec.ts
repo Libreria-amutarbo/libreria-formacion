@@ -25,7 +25,8 @@ describe('DcxWebCard', () => {
     
     expect(card).toBeTruthy();
     expect(inner?.classList.contains('dcx-card__inner--layout-vertical')).toBeTruthy();
-    expect(inner?.classList.contains('dcx-card__inner--size-m')).toBeTruthy();
+    expect(inner?.classList.contains('dcx-card__inner--size-s')).toBeTruthy();
+    expect(inner?.classList.contains('dcx-card__inner--align-center')).toBeTruthy();
     expect(title?.textContent?.trim()).toBe('Título de la carta');
   });
 
