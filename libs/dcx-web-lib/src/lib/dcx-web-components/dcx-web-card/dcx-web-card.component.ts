@@ -85,7 +85,7 @@ export class DcxWebCard extends LitElement {
       border-radius: var(--card-radius);
       padding: var(--card-padding);
       position: relative;
-      box-shadow: var(--card-shadow, var(--shadow-md, 0 4px 12px rgba(0,0,0,0.08)));
+      box-shadow: var(--card-shadow, var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08)));
       width: 100%;
       max-width: var(--card-max-content-width, 420px);
       box-sizing: border-box;
@@ -206,22 +206,6 @@ export class DcxWebCard extends LitElement {
       margin-bottom: var(--spacing-inline-m, 1rem);
     }
 
-    .dcx-card__header ::slotted(h3),
-    .dcx-card__header ::slotted(.dcx-card__title) {
-      margin: 0 0 0.5rem 0;
-      font-size: var(--card-title-font-size, var(--fs-lg, 18px));
-      font-weight: var(--fw-semibold, 600);
-    }
-
-    .dcx-card__header ::slotted(p),
-    .dcx-card__header ::slotted(.dcx-card__subtitle) {
-      margin: 0;
-      font-family: var(--ff-base, 'Inter', sans-serif);
-      font-size: var(--card-subtitle-font-size, var(--fs-base, 14px));
-      color: var(--text-muted, #696e75);
-      font-weight: var(--fw-regular, 400);
-    }
-
     .dcx-card__content {
       display: flex;
       flex-direction: column;
@@ -247,6 +231,22 @@ export class DcxWebCard extends LitElement {
 
     .dcx-card__subtitle {
       margin: 0;
+      font-size: var(--card-subtitle-font-size, var(--fs-base, 14px));
+      color: var(--text-muted, #696e75);
+      font-weight: var(--fw-regular, 400);
+    }
+
+    .dcx-card__header ::slotted(h3),
+    .dcx-card__header ::slotted(.dcx-card__title) {
+      margin: 0 0 0.5rem 0;
+      font-size: var(--card-title-font-size, var(--fs-lg, 18px));
+      font-weight: var(--fw-semibold, 600);
+    }
+
+    .dcx-card__header ::slotted(p),
+    .dcx-card__header ::slotted(.dcx-card__subtitle) {
+      margin: 0;
+      font-family: var(--ff-base, 'Inter', sans-serif);
       font-size: var(--card-subtitle-font-size, var(--fs-base, 14px));
       color: var(--text-muted, #696e75);
       font-weight: var(--fw-regular, 400);
@@ -332,11 +332,6 @@ export class DcxWebCard extends LitElement {
   }
 
   override render() {
-    
-    const hasHeaderSlot = this.querySelector('[slot="header"]') !== null;
-    const hasContentSlot = this.querySelector('[slot="content"]') !== null;
-    const hasFooterSlot = this.querySelector('[slot="footer"]') !== null;
-
     const cardClasses = {
       'dcx-card': true,
       'dcx-card--interactive': this.interactive,
@@ -367,8 +362,20 @@ export class DcxWebCard extends LitElement {
     
     const tabIndex = this.disabled ? -1 : role === 'button' ? 0 : null;
     
+    const hasHeader = this.querySelector('[slot="header"]') !== null;
+    
+    const hasContent = 
+      this.querySelector('[slot="content"]') !== null || 
+      Array.from(this.childNodes).some(
+        (node) =>
+          (node.nodeType === Node.ELEMENT_NODE && !(node as HTMLElement).hasAttribute('slot')) ||
+          (node.nodeType === Node.TEXT_NODE && (node.textContent ?? '').trim().length > 0)
+      );
+
+    const hasFooter = this.querySelector('[slot="footer"]') !== null;
+
     const ariaLabel =
-      role === 'region' && !hasHeaderSlot && this.title
+      role === 'region' && !hasHeader && this.title
         ? this.title
         : null;
 
@@ -396,49 +403,38 @@ export class DcxWebCard extends LitElement {
             : nothing}
 
           <div class="dcx-card__body">
-            ${hasHeaderSlot || this.title || this.subtitle
-              ? html `
-                <div class="dcx-card__header">
-                  ${hasHeaderSlot
-                    ? html`<slot name="header"></slot>`
-                    : html`
-                        ${this.title
-                          ? html`
-                              <h3 class="dcx-card__title">
-                                ${this.title}
-                              </h3>
-                            `
-                          : nothing}
-
-                        ${this.subtitle
-                          ? html`
-                              <p class="dcx-card__subtitle">
-                                ${this.subtitle}
-                              </p>
-                            `
-                          : nothing}
-                      `}
-                </div>
-              `
-            : nothing}
             
-            ${hasContentSlot
+            ${hasHeader
+              ? html`
+                  <div class="dcx-card__header">
+                    <slot name="header"></slot>
+                  </div>
+                `
+              : (this.title || this.subtitle)
+              ? html`
+                  <div class="dcx-card__header">
+                    ${this.title ? html`<h3 class="dcx-card__title">${this.title}</h3>` : nothing}
+                    ${this.subtitle ? html`<p class="dcx-card__subtitle">${this.subtitle}</p>` : nothing}
+                  </div>
+                `
+              : nothing}
+            
+            ${hasContent
               ? html`
                   <div class="dcx-card__content">
-                    ${hasContentSlot
-                      ? html`<slot name="content"></slot>`
-                      : html`<slot></slot>`}
+                    <slot name="content"></slot>
+                    <slot></slot>
                   </div>
                 `
               : nothing}
 
-            ${hasFooterSlot
-            ? html `
-                <div class="dcx-card__footer">
-                  <slot name="footer"></slot>
-                </div>
-              `
-            : nothing}
+            ${hasFooter
+              ? html`
+                  <div class="dcx-card__footer">
+                    <slot name="footer"></slot>
+                  </div>
+                `
+              : nothing}
 
           </div>
         </div>

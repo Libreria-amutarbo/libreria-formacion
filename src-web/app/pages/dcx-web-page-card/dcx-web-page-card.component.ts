@@ -4,7 +4,7 @@ import { customElement, state } from 'lit/decorators.js';
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-card/dcx-web-card.component';
 
 const DEFAULT_ARGS = {
-  align: 'start',
+  align: 'center',
   bordered: false,
   borderStyle: 'solid',
   borderWidth: 1,
@@ -16,7 +16,7 @@ const DEFAULT_ARGS = {
   maxContentWidth: '560px',
   maxImageWidth: '100%',
   shadow: 1,
-  size: 'm',
+  size: 's',
   subtitle: 'Subtítulo de la carta',
   title: 'Título de la carta',
   accent: false,
@@ -122,7 +122,7 @@ export class DcxWebPageCard extends LitElement {
       padding: 10px 16px 0;
       font-size: 12px;
       line-height: 1.55;
-      color: $text-muted;
+      color: var(--text-muted, #696e75);
       margin: 0;
     }
 

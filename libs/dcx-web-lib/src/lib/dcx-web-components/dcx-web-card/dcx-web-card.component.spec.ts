@@ -85,4 +85,17 @@ describe('DcxWebCard', () => {
     // Note: styleMap updates the element's style attribute
     expect(inner.style.getPropertyValue('--card-shadow')).toContain('var(--shadow-2');
   });
+
+  it('should correctly project default and named content slot nodes', async () => {
+    // Inicializamos con un hijo genérico para el slot por defecto
+    const p = document.createElement('p');
+    p.textContent = 'Contenido por defecto';
+    element.appendChild(p);
+    
+    await element.updateComplete;
+    
+    const contentContainer = element.shadowRoot?.querySelector('.dcx-card__content') as HTMLElement;
+    expect(contentContainer).toBeTruthy();
+    expect(contentContainer.hasAttribute('hidden')).toBeFalsy();
+  });
 });
