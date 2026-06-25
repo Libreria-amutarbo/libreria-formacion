@@ -551,8 +551,7 @@ export const SizeXL: Story = {
   },
 };
 
-export const WithSlotsHorizontal: Story = {
-  render: (args) => html`
+export const WithSlotsHorizontal: Story = {  render: (args) => html`
     <dcx-web-card
       layout=${args.layout}
       align=${args.align}

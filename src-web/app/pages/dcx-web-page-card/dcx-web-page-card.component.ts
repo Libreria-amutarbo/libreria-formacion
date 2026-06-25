@@ -400,7 +400,7 @@ export class DcxWebPageCard extends LitElement {
       <div class="demo-page">
         <header class="demo-page-header">
           <p class="demo-page-header__kicker">Components</p>
-          <h1 class="demo-page-header__title">Card</h1>
+          <h1 class="demo-page-header__title">Card (Web Component)</h1>
           <p class="demo-page-header__desc">
             Tarjeta flexible con soporte de layouts, tamaños, bordes, sombras, acento y proyección de contenido mediante slots para header, content y footer.
           </p>
