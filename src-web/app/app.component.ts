@@ -3,6 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 
 import './pages/dcx-web-page-badge/dcx-web-page-badge.component';
 import './pages/dcx-web-page-home/dcx-web-page-home.component';
+import './pages/dcx-web-page-checkbox/dcx-web-page-checkbox.component';
 
 @customElement('dcx-web-root')
 export class DcxWebRoot extends LitElement {
@@ -37,6 +38,9 @@ export class DcxWebRoot extends LitElement {
     switch (this._currentPath) {
       case '#badge':
         content = html`<dcx-web-page-badge></dcx-web-page-badge>`;
+        break;
+      case '#checkbox':
+        content = html`<dcx-web-page-checkbox></dcx-web-page-checkbox>`;
         break;
       default:
         content = html`<dcx-web-page-home></dcx-web-page-home>`;
