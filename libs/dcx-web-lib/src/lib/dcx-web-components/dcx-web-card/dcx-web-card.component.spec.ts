@@ -92,6 +92,8 @@ describe('DcxWebCard', () => {
     p.textContent = 'Contenido por defecto';
     element.appendChild(p);
     
+    // Trigger re-render to detect child node changes
+    element.requestUpdate();
     await element.updateComplete;
     
     const contentContainer = element.shadowRoot?.querySelector('.dcx-card__content') as HTMLElement;
