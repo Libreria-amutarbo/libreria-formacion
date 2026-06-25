@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { DcxCheckbox } from '../../../../libs/dcx-ng-lib/src';
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-checkbox/dcx-web-checkbox.component';
+import type { CheckboxOption } from '../../../../libs/dcx-web-lib/src';
 
 @customElement('dcx-web-page-checkbox')
 export class DcxWebPageCheckbox extends LitElement {
@@ -10,11 +10,11 @@ export class DcxWebPageCheckbox extends LitElement {
   // STATE (equivalente a signals)
   // =========================
 
-  @state() private singleCheck: DcxCheckbox[] = [
+  @state() private singleCheck: CheckboxOption[] = [
     { id: 'cb1', label: 'Checkbox', value: null }
   ];
 
-  @state() private errorCheck: DcxCheckbox[] = [
+  @state() private errorCheck: CheckboxOption[] = [
     {
       id: 'cb1',
       label: 'Checkbox con error',
@@ -24,7 +24,7 @@ export class DcxWebPageCheckbox extends LitElement {
     }
   ];
 
-  @state() private disabledCheck: DcxCheckbox[] = [
+  @state() private disabledCheck: CheckboxOption[] = [
     {
       id: 'cb1',
       label: 'Checkbox deshabilitado',
@@ -33,16 +33,16 @@ export class DcxWebPageCheckbox extends LitElement {
     }
   ];
 
-  @state() private diferentsLabelPositionsCheck: DcxCheckbox[] = [
+  @state() private diferentsLabelPositionsCheck: CheckboxOption[] = [
     { id: 'cb1', label: 'Left label', value: null, labelPosition: 'left' },
     { id: 'cb2', label: 'Right label', value: null, labelPosition: 'right' },
   ];
 
-  @state() private requiredCheck: DcxCheckbox[] = [
+  @state() private requiredCheck: CheckboxOption[] = [
     { id: 'cb1', label: 'Required checkbox', value: null, required: true }
   ];
 
-  @state() private checkboxGroup: DcxCheckbox[] = [
+  @state() private checkboxGroup: CheckboxOption[] = [
     { id: 'cb1', label: 'Option 1', value: null },
     { id: 'cb2', label: 'Option 2', value: true },
     { id: 'cb3', label: 'Option 3', value: false },
@@ -52,15 +52,15 @@ export class DcxWebPageCheckbox extends LitElement {
   // EVENTS
   // =========================
 
-  private changeLabel(e: CustomEvent<DcxCheckbox[]>) {
+  private changeLabel(e: CustomEvent<CheckboxOption[]>) {
     const updated = e.detail.map(cb => ({
       ...cb,
       label:
         cb.value === true
           ? 'Válido'
           : cb.value === false
-          ? 'Indeterminado'
-          : 'Sin valor'
+            ? 'Indeterminado'
+            : 'Sin valor'
     }));
 
     this.checkboxGroup = updated;
@@ -117,39 +117,39 @@ export class DcxWebPageCheckbox extends LitElement {
         </header>
 
         ${this._renderSection('01', 'Default',
-          html`<dcx-web-checkbox .options=${this.singleCheck}></dcx-web-checkbox>`
-        )}
+      html`<dcx-web-checkbox .options=${this.singleCheck}></dcx-web-checkbox>`
+    )}
 
         ${this._renderSection('02', 'Error',
-          html`<dcx-web-checkbox .options=${this.errorCheck}></dcx-web-checkbox>`
-        )}
+      html`<dcx-web-checkbox .options=${this.errorCheck}></dcx-web-checkbox>`
+    )}
 
         ${this._renderSection('03', 'Deshabilitado',
-          html`<dcx-web-checkbox .options=${this.disabledCheck}></dcx-web-checkbox>`
-        )}
+      html`<dcx-web-checkbox .options=${this.disabledCheck}></dcx-web-checkbox>`
+    )}
 
         ${this._renderSection('04', 'Posición del label',
-          html`<dcx-web-checkbox .options=${this.diferentsLabelPositionsCheck}></dcx-web-checkbox>`
-        )}
+      html`<dcx-web-checkbox .options=${this.diferentsLabelPositionsCheck}></dcx-web-checkbox>`
+    )}
 
         ${this._renderSection('05', 'Requerido',
-          html`<dcx-web-checkbox .options=${this.requiredCheck}></dcx-web-checkbox>`
-        )}
+      html`<dcx-web-checkbox .options=${this.requiredCheck}></dcx-web-checkbox>`
+    )}
 
         ${this._renderSection('06', 'Grupo (tres estados)',
-          html`<dcx-web-checkbox .options=${this.checkboxGroup}></dcx-web-checkbox>`,
-          html`<p>Ciclo: vacío → marcado → indeterminado → vacío</p>`
-        )}
+      html`<dcx-web-checkbox .options=${this.checkboxGroup}></dcx-web-checkbox>`,
+      html`<p>Ciclo: vacío → marcado → indeterminado → vacío</p>`
+    )}
 
         ${this._renderSection('07', 'Grupo con label dinámico',
-          html`
+      html`
             <dcx-web-checkbox
               .options=${this.checkboxGroup}
               @changeOptions=${this.changeLabel}
             ></dcx-web-checkbox>
           `,
-          html`<p>El label cambia en función del estado</p>`
-        )}
+      html`<p>El label cambia en función del estado</p>`
+    )}
 
       </div>
     `;
