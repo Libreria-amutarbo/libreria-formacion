@@ -1,0 +1,96 @@
+schema: swarm-v1
+agent: copilot
+team:
+  - level: 1
+    role: strategy
+    agents:
+      - id: product-strategy-analyst
+        name: Product Strategy Analyst
+        file: product-strategy-analyst.agent.md
+        skills:
+          - sdd-propose
+          - sdd-enrich
+  - level: 2
+    role: ux-accessibility
+    agents:
+      - id: accesibilidad
+        name: Accesibilidad
+        file: accesibilidad.agent.md
+        skills:
+          - accessibility-a11y
+      - id: ux-ui-designer
+        name: Ux Ui Designer
+        file: ux-ui-designer.agent.md
+        skills:
+          - ui-ux-pro-max
+          - sdd-propose
+          - sdd-enrich
+  - level: 3
+    role: architects
+    agents:
+      - id: backend-architect
+        name: Backend Architect
+        file: backend-architect.agent.md
+        skills:
+          - nodejs-best-practices
+          - typescript-expert
+          - openspec-propose
+          - sdd-enrich
+      - id: devops-architect
+        name: Devops Architect
+        file: devops-architect.agent.md
+        skills:
+          - typescript-expert
+          - sdd-enrich
+      - id: frontend-architect
+        name: Frontend Architect
+        file: frontend-architect.agent.md
+        skills:
+          - vercel-react-best-practices
+          - typescript-expert
+          - sdd-enrich
+  - level: 4
+    role: engineers
+    agents:
+      - id: backend-engineer
+        name: Backend Engineer
+        file: backend-engineer.agent.md
+        skills:
+          - nodejs-best-practices
+          - typescript-expert
+          - openspec-apply-change
+          - sdd-run
+      - id: devops-engineer
+        name: Devops Engineer
+        file: devops-engineer.agent.md
+        skills:
+          - typescript-expert
+          - sdd-run
+      - id: frontend-engineer
+        name: Frontend Engineer
+        file: frontend-engineer.agent.md
+        skills:
+          - vercel-react-best-practices
+          - vue-best-practices
+          - angular-developer
+          - typescript-expert
+          - ui-ux-pro-max
+          - sdd-run
+  - level: 5
+    role: qa
+    agents:
+      - id: qa-developer
+        name: Qa Developer
+        file: qa-developer.agent.md
+        skills:
+          - qa-test-planner
+          - typescript-expert
+          - sdd-done
+      - id: qa-ux
+        name: Qa Ux
+        file: qa-ux.agent.md
+        skills:
+          - qa-test-planner
+          - accessibility-a11y
+          - ui-ux-pro-max
+          - sdd-done
