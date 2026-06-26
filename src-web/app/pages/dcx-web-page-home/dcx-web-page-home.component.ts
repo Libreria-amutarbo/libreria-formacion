@@ -9,6 +9,7 @@ interface HomeCard {
 
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
+  'context-menu': 'menu-button-wide',
 };
 
 @customElement('dcx-web-page-home')
@@ -20,6 +21,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'badge',
       name: 'Badge',
       icon: ROUTE_ICONS['badge'],
+    },
+    {
+      route: 'context-menu',
+      name: 'Context Menu',
+      icon: ROUTE_ICONS['context-menu'],
     },
   ];
 
