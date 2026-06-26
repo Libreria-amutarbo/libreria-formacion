@@ -51,12 +51,6 @@ export class DcxWebContextMenu extends LitElement {
     }
 
     .dcx-context-menu__list {
-      --background-hover: var(--bg-hover, #f7f8fa);
-      --text-disabled: var(--text-muted, #696e75);
-      --background-primary: var(--bg-primary, #0058ab);
-      --color-danger: var(--color-error, #dc2626);
-      --bg-danger-hover: #fef2f2;
-
       margin: 0;
       padding: 0;
       list-style: none;
@@ -69,7 +63,7 @@ export class DcxWebContextMenu extends LitElement {
     }
 
     .dcx-context-menu__list .dcx-context-menu__divider {
-      margin: 6px 8px;
+      margin: 6px var(--sp-2, 8px);
       background-color: var(--bg-pressed, #e1e3e6);
       height: 1px;
       border: none;
@@ -87,44 +81,44 @@ export class DcxWebContextMenu extends LitElement {
     }
 
     .dcx-context-menu__list .dcx-context-menu__item .dcx-context-menu__item-content {
-      padding: 8px 12px;
+      padding: var(--sp-2, 8px) var(--sp-3, 12px);
       border-radius: var(--r-md, 6px);
       font-size: var(--fs-base, 14px);
       font-weight: var(--fw-medium, 500);
-      gap: 12px;
+      gap: var(--sp-3, 12px);
       display: flex;
       align-items: center;
     }
 
     .dcx-context-menu__list .dcx-context-menu__item.dcx-context-menu__item--selectable:hover {
-      background-color: var(--background-hover);
+      background-color: var(--bg-hover, #f7f8fa);
     }
 
     .dcx-context-menu__list .dcx-context-menu__item.dcx-context-menu__item--selectable:hover .dcx-context-menu__icon {
-      color: var(--background-primary);
+      color: var(--bg-primary, #0058ab);
     }
 
     .dcx-context-menu__list .dcx-context-menu__item.dcx-context-menu__item--selectable:focus-visible {
       outline: 2px solid var(--border-focus, #1db8f2);
       outline-offset: -2px;
       border-radius: var(--r-md, 6px);
-      background-color: var(--background-hover);
+      background-color: var(--bg-hover, #f7f8fa);
     }
 
     .dcx-context-menu__list .dcx-context-menu__item.dcx-context-menu__item--danger {
-      color: var(--color-danger);
+      color: var(--color-error, #dc2626);
     }
 
     .dcx-context-menu__list .dcx-context-menu__item.dcx-context-menu__item--danger .dcx-context-menu__icon {
-      color: var(--color-danger);
+      color: var(--color-error, #dc2626);
     }
 
     .dcx-context-menu__list .dcx-context-menu__item.dcx-context-menu__item--danger.dcx-context-menu__item--selectable:hover {
-      background-color: var(--bg-danger-hover);
+      background-color: var(--color-error-bg, #fef2f2);
     }
 
     .dcx-context-menu__list .dcx-context-menu__item.dcx-context-menu__item--danger.dcx-context-menu__item--selectable:hover .dcx-context-menu__icon {
-      color: var(--color-danger);
+      color: var(--color-error, #dc2626);
     }
 
     .dcx-context-menu__list .dcx-context-menu__item.dcx-context-menu__item--selectable:active {
@@ -151,7 +145,7 @@ export class DcxWebContextMenu extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 20px;
+      width: var(--sp-5, 20px);
     }
 
     .dcx-context-menu__list .dcx-context-menu__item .dcx-context-menu__text {
@@ -181,7 +175,7 @@ export class DcxWebContextMenu extends LitElement {
       box-shadow: var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12));
       animation: dcxSubmenuEnter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       min-width: 200px;
-      left: calc(100% + 4px);
+      left: calc(100% + var(--sp-1, 4px));
       top: -6px;
       position: absolute;
       z-index: 10000;
