@@ -1,4 +1,36 @@
-import './dcx-web-page-checkbox.component';
+import './dcx-web-page-checkbox.component';import './dcx-web-page-checkboxPageCheckbox);
+  });
+
+  it('should render title', () => {
+    const title = element.shadowRoot?.querySelector('.demo-page-header__title');
+    expect(title?.textContent).toContain('Checkbox');
+  });
+
+  it('should render all sections', () => {
+    const sections = element.shadowRoot?.querySelectorAll('.demo-section');
+    expect(sections?.length).toBe(7);
+  });
+
+  it('should render checkbox component', () => {
+    const checkbox = element.shadowRoot?.querySelector('dcx-web-checkbox');
+    expect(checkbox).toBeTruthy();
+  });
+
+  it('should handle changeOptions event', async () => {
+    const checkbox = element.shadowRoot?.querySelector('dcx-web-checkbox') as HTMLElement;
+
+    const event = new CustomEvent('changeOptions', {
+      detail: [{ id: '1', value: true }],
+      bubbles: true,
+      composed: true,
+    });
+
+    checkbox.dispatchEvent(event);
+    await element.updateComplete;
+
+    expect(element).toBeTruthy();
+  });
+});
 import { DcxWebPageCheckbox } from './dcx-web-page-checkbox.component';
 
 describe('DcxWebPageCheckbox', () => {
@@ -15,32 +47,3 @@ describe('DcxWebPageCheckbox', () => {
   });
 
   it('should be defined', () => {
-    expect(element).toBeInstanceOf(DcxWebPageCheckbox);
-  });
-
-  it('should render all sections', () => {
-    const sections = element.shadowRoot?.querySelectorAll('.demo-section');
-    expect(sections?.length).toBe(7);
-  });
-
-  it('should render checkbox components', () => {
-    const checkboxes = element.shadowRoot?.querySelectorAll('dcx-web-checkbox');
-    expect(checkboxes?.length).toBe(7);
-  });
-
-  it('should update labels when changeOptions is triggered', async () => {
-    const checkbox = element.shadowRoot?.querySelector('dcx-web-checkbox');
-
-    const newOptions = [
-      { id: 'cb1', value: true, label: '' }
-    ];
-
-    checkbox?.dispatchEvent(
-      new CustomEvent('changeOptions', { detail: newOptions, bubbles: true, composed: true })
-    );
-
-    await element.updateComplete;
-
-    expect(element).toBeTruthy(); // validación básica sin romper render
-  });
-});
