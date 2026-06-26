@@ -1,9 +1,9 @@
 import { DcxContextMenuItem } from '../interfaces';
 
 export const CONTEXT_MENU_TEST_ITEMS: DcxContextMenuItem[] = [
-  { text: 'Edit', action: () => {} },
-  { text: 'Delete', action: () => {} },
-  { text: 'Copy', action: () => {} },
+  { text: 'Edit', action: () => { void 0; } },
+  { text: 'Delete', action: () => { void 0; } },
+  { text: 'Copy', action: () => { void 0; } },
 ];
 
 export const SIMPLE_CONTEXT_MENU_ITEMS: DcxContextMenuItem[] = [

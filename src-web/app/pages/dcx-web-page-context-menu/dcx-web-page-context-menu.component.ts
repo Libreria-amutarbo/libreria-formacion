@@ -234,7 +234,7 @@ export class DcxWebPageContextMenu extends LitElement {
 
   onItemSelected(item: DcxContextMenuItem): void {
     if (!item.text && !item.label) return;
-    console.log('Item seleccionado:', item.label || item.text);
+    void item;
   }
 
   override render() {

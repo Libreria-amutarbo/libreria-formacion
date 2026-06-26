@@ -95,7 +95,7 @@ const rightClickTemplate = (
   };
 
   const handleItemSelected = (event: CustomEvent) => {
-    console.log('Item seleccionado:', event.detail);
+    void event;
   };
 
   return html`
@@ -185,7 +185,7 @@ export const ButtonTrigger: Story = {
     };
 
     const handleItemSelected = (event: CustomEvent) => {
-      console.log('Item seleccionado:', event.detail);
+      void event;
     };
 
     return html`
