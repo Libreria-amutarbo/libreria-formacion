@@ -78,9 +78,9 @@ export class DcxWebCard extends LitElement {
       display: flex;
       flex-direction: column;
       gap: var(--card-gap, var(--sp-4, 16px));
-      background: var(--background-default, #ffffff);
+      background: var(--bg-default, #ffffff);
       border-style: var(--card-border-style);
-      border-color: var(--border-primary);
+      border-color: var(--bg-primary);
       border-width: var(--card-border-width);
       border-radius: var(--card-radius);
       padding: var(--card-padding);
@@ -102,38 +102,38 @@ export class DcxWebCard extends LitElement {
     }
 
     .dcx-card__inner--size-s {
-      --card-padding: 0.9rem;
-      --card-gap: 0.55rem;
-      --card-title-font-size: 1rem;
-      --card-subtitle-font-size: 0.85rem;
-      --card-radius: 12px;
+      --card-padding: var(--sp-2, 8px);
+      --card-gap: var(--sp-2, 8px);
+      --card-title-font-size: var(--fs-md, 16px);
+      --card-subtitle-font-size: var(--fs-sm, 12px);
+      --card-radius: var(--r-sm, 4px);
       --card-max-image-width: 92%;
     }
 
     .dcx-card__inner--size-m {
-      --card-padding: 1rem;
-      --card-gap: 0.75rem;
-      --card-title-font-size: 1.15rem;
-      --card-subtitle-font-size: 0.95rem;
-      --card-radius: 8px;
+      --card-padding: var(--sp-4, 16px);
+      --card-gap: var(--sp-3, 12px);
+      --card-title-font-size: var(--fs-lg, 18px);
+      --card-subtitle-font-size: var(--fs-base, 14px);
+      --card-radius: var(--r-md, 8px);
       --card-max-image-width: 100%;
     }
 
     .dcx-card__inner--size-l {
-      --card-padding: 1.7rem;
-      --card-gap: 1rem;
-      --card-title-font-size: 1.4rem;
-      --card-subtitle-font-size: 1.05rem;
-      --card-radius: 10px;
+      --card-padding: var(--sp-6, 24px);
+      --card-gap: var(--sp-4, 16px);
+      --card-title-font-size: var(--fs-xl, 20px);
+      --card-subtitle-font-size: var(--fs-md, 16px);
+      --card-radius: var(--r-lg, 10px);
       --card-max-image-width: 100%;
     }
 
     .dcx-card__inner--size-xl {
-      --card-padding: 2.25rem;
-      --card-gap: 1.25rem;
-      --card-title-font-size: 1.6rem;
-      --card-subtitle-font-size: 1.1rem;
-      --card-radius: var(--r-lg, 12px);
+      --card-padding: var(--sp-8, 32px);
+      --card-gap: var(--sp-5, 20px);
+      --card-title-font-size: var(--fs-2xl, 24px);
+      --card-subtitle-font-size: var(--fs-lg, 18px);
+      --card-radius: var(--r-xl, 12px);
       --card-max-image-width: 100%;
     }
 
@@ -203,7 +203,7 @@ export class DcxWebCard extends LitElement {
     }
 
     .dcx-card__header {
-      margin-bottom: var(--spacing-inline-m, 1rem);
+      margin-bottom: var(--sp-4, 16px);
     }
 
     .dcx-card__content {
@@ -215,11 +215,11 @@ export class DcxWebCard extends LitElement {
     }
 
     .dcx-card__footer {
-      margin-top: var(--spacing-inline-m, 1rem);
+      margin-top: var(--sp-4, 16px);
       display: flex;
       align-items: center;
       width: 100%;
-      gap: var(--spacing-inline-s, 0.5rem);
+      gap: var(--sp-2, 8px);
       justify-content: flex-start;
     }
 
