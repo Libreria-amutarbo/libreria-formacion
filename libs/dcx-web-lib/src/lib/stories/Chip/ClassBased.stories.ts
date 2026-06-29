@@ -317,7 +317,7 @@ export const TechnologyTags: Story = {
     docs: {
       description: {
         story:
-          'Ejemplo temático con tecnologías. Perfecto para filtros o tags de selección.',
+          'Ejemplo de uso como etiquetas de tecnología con iconos y funcionalidad de eliminación.',
       },
     },
   },

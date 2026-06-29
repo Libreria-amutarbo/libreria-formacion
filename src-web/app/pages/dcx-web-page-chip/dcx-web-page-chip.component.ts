@@ -15,7 +15,7 @@ export class DcxWebPageChip extends LitElement {
   static override styles = css`
     :host {
       display: block;
-      padding: 2rem;
+      padding: var(--sp-8, 32px);
       font-family: var(--ff-base, 'Inter', sans-serif);
       color: var(--text-dark, #2a2e33);
     }
@@ -27,11 +27,11 @@ export class DcxWebPageChip extends LitElement {
     }
 
     .demo-page-header {
-      margin-bottom: 2rem;
+      margin-bottom: var(--sp-12, 48px);
     }
 
     .demo-page-header__kicker {
-      font-size: 11px;
+      font-size: var(--fs-xs, 11px);
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -49,11 +49,11 @@ export class DcxWebPageChip extends LitElement {
     }
 
     .demo-page-header__desc {
-      font-size: 14px;
+      font-size: var(--fs-base, 14px);
       line-height: 1.65;
       color: var(--text-muted, #696e75);
       max-width: 560px;
-      margin: 0 0 1.25rem;
+      margin: 0 0 var(--sp-5, 20px);
     }
 
     .demo-page-header__divider {
@@ -65,19 +65,19 @@ export class DcxWebPageChip extends LitElement {
     .demo-section {
       background: var(--bg-default, #ffffff);
       border: 1px solid var(--border-light, #e5e7eb);
-      border-radius: 8px;
+      border-radius: var(--r-lg, 8px);
       overflow: visible;
-      margin-bottom: 1.25rem;
+      margin-bottom: var(--sp-5, 20px);
     }
 
     .demo-section__header {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 16px;
+      padding: 10px var(--sp-4, 16px);
       background: var(--bg-surface, #f4f5f7);
       border-bottom: 1px solid var(--border-light, #e5e7eb);
-      border-radius: 8px 8px 0 0;
+      border-radius: var(--r-lg, 8px) var(--r-lg, 8px) 0 0;
     }
 
     .demo-section__num {
@@ -88,7 +88,7 @@ export class DcxWebPageChip extends LitElement {
       color: var(--text-muted, #696e75);
       background: #edf0f3;
       border-radius: 4px;
-      padding: 2px 8px;
+      padding: 2px var(--sp-2, 8px);
       flex-shrink: 0;
       line-height: 1.6;
     }
@@ -100,21 +100,21 @@ export class DcxWebPageChip extends LitElement {
     }
 
     .demo-section__desc {
-      padding: 10px 16px 0;
-      font-size: 12px;
+      padding: 10px var(--sp-4, 16px) 0;
+      font-size: var(--fs--sm, 12px);
       line-height: 1.55;
       color: var(--text-muted, #696e75);
       margin: 0;
     }
 
     .demo-section__body {
-      padding: 20px 16px;
+      padding: var(--sp-5, 20px) var(--sp-4, 16px);
     }
 
     .chip-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: var(--sp-2, 8px);
       align-items: center;
     }
 
@@ -123,9 +123,9 @@ export class DcxWebPageChip extends LitElement {
     }
 
     .demo-page__log {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      border-radius: 8px;
+      margin-top: var(--sp-6, 24px);
+      padding: var(--sp-4, 16px);
+      border-radius: var(--r-lg, 8px);
       background: var(--bg-surface, #f4f5f7);
       border: 1px solid var(--border-light, #e5e7eb);
       color: var(--text-muted, #696e75);
@@ -135,7 +135,7 @@ export class DcxWebPageChip extends LitElement {
 
     .demo-page__log-item {
       margin: 0;
-      padding: 0.25rem 0;
+      padding: var(--sp-1, 4px) 0;
     }
   `;
 

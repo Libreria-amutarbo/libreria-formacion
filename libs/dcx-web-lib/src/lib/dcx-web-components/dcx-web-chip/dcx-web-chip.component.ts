@@ -19,9 +19,9 @@ export class DcxWebChip extends LitElement {
     .dcx-chip {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: var(--sp-2, 8px);
       height: 2rem;
-      padding: 0.5rem 0.75rem;
+      padding: var(--sp-2, 8px) var(--sp-3, 12px);
       border-radius: 1rem;
       border: 1px solid transparent;
       font-family: var(--font-family-primary, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
