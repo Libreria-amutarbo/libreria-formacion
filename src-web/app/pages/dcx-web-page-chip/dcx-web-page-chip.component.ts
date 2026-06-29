@@ -8,6 +8,7 @@ export class DcxWebPageChip extends LitElement {
   @state() private accessor _logs: string[] = [];
 
   private _handleRemove(label: string) {
+    console.log(`Chip removido: ${label}`);
     this._logs = [...this._logs, `Chip removido: ${label}`];
   }
 

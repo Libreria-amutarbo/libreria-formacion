@@ -2,15 +2,16 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import { fn } from '@storybook/test';
 import '../../../index';
-
 import { DcxWebChip } from '../../../index';
+import { BOOTSTRAP_ICONS } from '../../../../.storybook/bootstrap-icons'
+import { ChipVariantType, ThemeColorsType } from '../../../index';
 
 type DcxWebChipArgs = {
-  variant: string;
-  color: string;
+  variant: ChipVariantType;
+  color: ThemeColorsType;
   label: string;
-  icon: string;
-  image: string;
+  icon?: string;
+  image?: string;
   removable: boolean;
 };
 
@@ -25,10 +26,6 @@ const meta: Meta<DcxWebChip> = {
   args: {
     variant: 'choice',
     color: 'primary',
-    label: 'Chip por defecto',
-    icon: '',
-    image: '',
-    removable: false,
   },
   argTypes: {
     label: {
@@ -45,7 +42,7 @@ const meta: Meta<DcxWebChip> = {
       options: ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'gray'],
       description: 'Color del chip según el sistema de diseño',
       table: {
-        type: { summary: 'string' },
+        type: { summary: 'ThemeColors' },
         category: 'Atributos',
         defaultValue: { summary: 'primary' },
       },
@@ -63,8 +60,8 @@ const meta: Meta<DcxWebChip> = {
     },
     icon: {
       control: { type: 'select' },
-      options: ['', 'house', 'person', 'gear', 'star'],
-      description: 'Icono de Bootstrap (opcional)',
+      options: BOOTSTRAP_ICONS,
+      description: 'Icono de bootstrap (opcional)',
       table: {
         type: { summary: 'string' },
         category: 'Atributos',
@@ -90,6 +87,14 @@ const meta: Meta<DcxWebChip> = {
         defaultValue: { summary: 'false' },
       },
     },
+    'dcx-chip-remove': {
+      action: 'dcx-chip-remove',
+      description: 'Evento emitido cuando se hace clic en el botón de eliminar (variant="filter" o removable=true)',
+      table: {
+        type: { summary: 'EventEmitter<void>' },
+        category: 'Eventos',
+      },
+    },
   },
   render: (args) => html`
     <dcx-web-chip
@@ -99,7 +104,7 @@ const meta: Meta<DcxWebChip> = {
       ?removable=${args.removable}
       icon=${args.icon}
       image=${args.image}
-      @dcx-chip-remove=${fn()}
+      @dcx-chip-remove=${(...args: unknown[]) => { console.log('Chip removido:', args[0]); fn()(...args); }}
     ></dcx-web-chip>
   `,
 };
@@ -111,7 +116,6 @@ export const Default: Story = {
   args: {
     label: 'Chip por defecto',
     color: 'primary',
-    variant: 'choice',
   },
 };
 
