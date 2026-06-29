@@ -1,4 +1,21 @@
-import './dcx-web-page-checkbox.component';import './dcx-web-page-checkboxPageCheckbox);
+import './dcx-web-page-checkbox.component';
+import { DcxWebPageCheckbox } from './dcx-web-page-checkbox.component';
+
+describe('DcxWebPageCheckbox', () => {
+  let element: DcxWebPageCheckbox;
+
+  beforeEach(async () => {
+    element = document.createElement('dcx-web-page-checkbox') as DcxWebPageCheckbox;
+    document.body.appendChild(element);
+    await element.updateComplete;
+  });
+
+  afterEach(() => {
+    document.body.removeChild(element);
+  });
+
+  it('should be defined', () => {
+    expect(element).toBeInstanceOf(DcxWebPageCheckbox);
   });
 
   it('should render title', () => {
@@ -31,19 +48,3 @@ import './dcx-web-page-checkbox.component';import './dcx-web-page-checkboxPageCh
     expect(element).toBeTruthy();
   });
 });
-import { DcxWebPageCheckbox } from './dcx-web-page-checkbox.component';
-
-describe('DcxWebPageCheckbox', () => {
-  let element: DcxWebPageCheckbox;
-
-  beforeEach(async () => {
-    element = document.createElement('dcx-web-page-checkbox') as DcxWebPageCheckbox;
-    document.body.appendChild(element);
-    await element.updateComplete;
-  });
-
-  afterEach(() => {
-    document.body.removeChild(element);
-  });
-
-  it('should be defined', () => {

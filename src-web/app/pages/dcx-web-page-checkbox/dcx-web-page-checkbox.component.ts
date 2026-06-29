@@ -10,36 +10,44 @@ export class DcxWebPageCheckbox extends LitElement {
   /* ================== DATA ================== */
 
   @state() private accessor singleCheck: DcxCheckbox[] = [
-    { id: '1', label: 'Checkbox único', value: null }
+    { id: '1', value: true, label: 'Checkbox único' }
   ];
 
   @state() private accessor errorCheck: DcxCheckbox[] = [
-    { id: '1', label: 'Error', value: null, error: true, errorMessage: 'Error message' }
+    { id: '1', value: true, label: 'Checkbox erróneo', error: true, errorMessage: 'Checkbox con error' }
   ];
 
   @state() private accessor disabledCheck: DcxCheckbox[] = [
-    { id: '1', label: 'Checkbox deshabilitado', value: null, disabled: true }
+    { id: '1', value: true, label: 'Checkbox deshabilitado', disabled: true }
   ];
 
   @state() private accessor labelPositionsCheck: DcxCheckbox[] = [
-    { id: '1', label: 'Izquierda', value: null, labelPosition: 'left' },
-    { id: '2', label: 'Derecha', value: null, labelPosition: 'right' }
+    { id: '1', value: true, label: 'Izquierda', labelPosition: 'left' },
+    { id: '2', value: true, label: 'Derecha', labelPosition: 'right' }
   ];
 
   @state() private accessor requiredCheck: DcxCheckbox[] = [
-    { id: '1', label: 'Requerido', value: null, required: true }
+    { id: '1', value: true, label: 'Requerido', labelPosition: 'right', required: true }
   ];
 
   @state() private accessor groupCheck: DcxCheckbox[] = [
-    { id: '1', label: 'Opción 1', value: null },
-    { id: '2', label: 'Opción 2', value: null },
-    { id: '3', label: 'Opción 3', value: null }
+    { id: '1', value: true, label: 'Válido', labelPosition: 'right' },
+    { id: '2', value: false, label: 'Indeterminado', labelPosition: 'right' },
+    { id: '3', value: null, label: 'Sin valor', labelPosition: 'right' }
   ];
+
+  @state() private accessor groupCheckDynamic: DcxCheckbox[] = [
+    { id: '1', value: true, label: 'Válido', labelPosition: 'right' },
+    { id: '2', value: false, label: 'Indeterminado', labelPosition: 'right' },
+    { id: '3', value: null, label: 'Sin valor', labelPosition: 'right' }
+  ];
+
 
   /* ================== EVENTS ================== */
 
+  
   private _changeLabel(e: CustomEvent<DcxCheckbox[]>) {
-    this.groupCheck = e.detail.map(cb => ({
+    this.groupCheckDynamic = e.detail.map(cb => ({
       ...cb,
       label:
         cb.value === true
@@ -49,6 +57,7 @@ export class DcxWebPageCheckbox extends LitElement {
           : 'Sin valor',
     }));
   }
+
 
   /* ================== STYLES ================== */
 
@@ -60,7 +69,13 @@ export class DcxWebPageCheckbox extends LitElement {
     }
 
     .demo-page {
-      max-width: 900px;
+      width: 100%;
+      max-width: 860px;
+      padding-bottom: 3rem;
+    }
+    
+    .demo-page-header {
+      margin-bottom: 2rem;
     }
 
     .demo-page-header__kicker {
@@ -143,18 +158,15 @@ export class DcxWebPageCheckbox extends LitElement {
   override render() {
     return html`
       <div class="demo-page">
-
         <header class="demo-page-header">
           <p class="demo-page-header__kicker">Components</p>
-          <h1 class="demo-page-header__title">Checkbox (Web Component)</h1>
+          <h1 class="demo-page-header__title">Checkbox</h1>
           <p class="demo-page-header__desc">
-            Control de selección con tres estados (marcado, indeterminado, vacío),
-            soporte de grupos, posición de label, estado de error y requerido.
+            Control de selección con tres estados (marcado, indeterminado, vacío), soporte de grupos, posición de label, estado de error y requerido.
           </p>
-          <hr />
+          <hr class="demo-page-header__divider" />
         </header>
 
-        <!-- 01 Default -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">01</span>
@@ -165,7 +177,6 @@ export class DcxWebPageCheckbox extends LitElement {
           </div>
         </div>
 
-        <!-- 02 Error -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">02</span>
@@ -176,7 +187,6 @@ export class DcxWebPageCheckbox extends LitElement {
           </div>
         </div>
 
-        <!-- 03 Disabled -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">03</span>
@@ -187,7 +197,6 @@ export class DcxWebPageCheckbox extends LitElement {
           </div>
         </div>
 
-        <!-- 04 Label -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">04</span>
@@ -198,7 +207,6 @@ export class DcxWebPageCheckbox extends LitElement {
           </div>
         </div>
 
-        <!-- 05 Required -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">05</span>
@@ -209,32 +217,26 @@ export class DcxWebPageCheckbox extends LitElement {
           </div>
         </div>
 
-        <!-- 06 Group -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">06</span>
             <span class="demo-section__title">Grupo (tres estados)</span>
           </div>
-          <p class="demo-section__desc">
-            Ciclo de estados: vacío → marcado → indeterminado → vacío.
-          </p>
+          <p class="demo-section__desc">Ciclo de estados: vacío → marcado → indeterminado → vacío.</p>
           <div class="demo-section__body">
             <dcx-web-checkbox .options=${this.groupCheck ?? []}></dcx-web-checkbox>
           </div>
         </div>
 
-        <!-- 07 Dynamic -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">07</span>
-            <span class="demo-section__title">Grupo con cambio dinámico</span>
+            <span class="demo-section__title">Grupo con cambio de label dinámico</span>
           </div>
-          <p class="demo-section__desc">
-            El label se actualiza al cambiar el estado via (changeOptions).          
-          </p>
+          <p class="demo-section__desc">El label se actualiza al cambiar el estado via <code>(changeOptions)</code>.</p>
           <div class="demo-section__body">
             <dcx-web-checkbox
-              .options=${this.groupCheck ?? []}
+              .options=${this.groupCheckDynamic ?? []}
               @changeOptions=${this._changeLabel}
             ></dcx-web-checkbox>
           </div>
