@@ -77,8 +77,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-/* ================= STORIES ================= */
-
 export const Default: Story = {
   name: 'Default',
   parameters: {
@@ -91,7 +89,6 @@ export const Default: Story = {
   },
 };
 
-/* ───────────────────────────────────────── */
 
 export const HorizontalSizes: Story = {
   name: 'Horizontal — Todos los tamaños',
@@ -122,8 +119,6 @@ export const HorizontalSizes: Story = {
     </div>
   `,
 };
-
-/* ───────────────────────────────────────── */
 
 export const VerticalSizes: Story = {
   name: 'Vertical — Todos los tamaños',
@@ -168,8 +163,6 @@ export const VerticalSizes: Story = {
   `,
 };
 
-/* ───────────────────────────────────────── */
-
 export const AllTypes: Story = {
   name: 'Todos los tipos',
   parameters: {
@@ -194,8 +187,6 @@ export const AllTypes: Story = {
   `,
 };
 
-/* ───────────────────────────────────────── */
-
 export const ThicknessVariants: Story = {
   name: 'Variantes de grosor',
   parameters: {
@@ -209,7 +200,6 @@ export const ThicknessVariants: Story = {
   render: () => html`
     <div style="display:flex;gap:48px;padding:16px;">
       
-      <!-- HORIZONTAL -->
       <div style="display:flex;flex-direction:column;gap:20px;flex:1;">
         <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.08em">
           Horizontal
@@ -228,7 +218,6 @@ export const ThicknessVariants: Story = {
         <dcx-web-divider thickness="0.8" color="#0058ab"></dcx-web-divider>
       </div>
 
-      <!-- VERTICAL -->
       <div style="display:flex;flex-direction:row;gap:32px;height:200px;align-items:stretch;">
         <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.08em;writing-mode:vertical-rl;align-self:center;">
           Vertical
@@ -260,8 +249,6 @@ export const ThicknessVariants: Story = {
   `,
 };
 
-/* ───────────────────────────────────────── */
-
 export const ColorVariants: Story = {
   name: 'Variantes de color',
   parameters: {
@@ -275,7 +262,6 @@ export const ColorVariants: Story = {
   render: () => html`
     <div style="display:flex;gap:32px;padding:16px;">
       
-      <!-- HORIZONTAL -->
       <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
         <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.08em">
           Horizontal
@@ -290,7 +276,6 @@ export const ColorVariants: Story = {
         <dcx-web-divider color="#155fff"></dcx-web-divider>
       </div>
 
-      <!-- VERTICAL -->
       <div style="display:flex;flex-direction:row;gap:12px;height:180px;align-items:stretch;">
         <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.08em;writing-mode:vertical-rl;align-self:center;">
           Vertical
@@ -307,9 +292,6 @@ export const ColorVariants: Story = {
     </div>
   `,
 };
-
-
-/* ───────────────────────────────────────── */
 
 export const LabeledDividers: Story = {
   name: 'Con etiqueta — Horizontal y Vertical',

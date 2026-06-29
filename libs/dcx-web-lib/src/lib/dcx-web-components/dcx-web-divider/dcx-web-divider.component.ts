@@ -5,8 +5,6 @@ import type { DividerOrientation, DividerType, DividerSize } from '../../core/in
 @customElement('dcx-web-divider')
 export class DcxWebDivider extends LitElement {
 
-  /* ================== INPUTS ================== */
-
   @property({ type: String }) accessor orientation: DividerOrientation = 'horizontal';
   @property({ type: String }) accessor type: DividerType = 'default';
   @property({ type: String }) accessor size: DividerSize = 'auto';
@@ -15,8 +13,6 @@ export class DcxWebDivider extends LitElement {
   @property({ type: String }) accessor label = '';
 
   @property({ type: String, attribute: 'aria-label' }) accessor ariaLabelAttr: string | null = null;
-
-  /* ================== STYLES ================== */
 
   static override styles = css`
     :host {
@@ -103,8 +99,6 @@ export class DcxWebDivider extends LitElement {
     }
   `;
 
-  /* ================== COMPUTED ================== */
-
   private _getDividerStyle(): string {
     switch (this.type) {
       case 'dot': return 'dotted';
@@ -140,8 +134,6 @@ export class DcxWebDivider extends LitElement {
     return !this.label && !this.ariaLabelAttr;
   }
 
-  /* ================== LIFECYCLE ================== */
-
   override updated() {
     /* host classes */
     this.classList.toggle('horizontal', this.orientation === 'horizontal');
@@ -154,8 +146,6 @@ export class DcxWebDivider extends LitElement {
     this.style.setProperty('--dcx-divider-thickness', `${this.thickness}rem`);
     this.style.setProperty('--dcx-divider-color', this.color);
   }
-
-  /* ================== RENDER ================== */
 
   override render() {
     const ariaLabel = this._getComputedAriaLabel();

@@ -25,7 +25,7 @@ export class DcxWebPageDivider extends LitElement {
     }
 
     .demo-page-header__kicker {
-      font-size: 11px;
+      font-size: var(--fs-xs, 11px);
       font-weight: 600;
       letter-spacing: .12em;
       text-transform: uppercase;
@@ -34,14 +34,14 @@ export class DcxWebPageDivider extends LitElement {
     }
 
     .demo-page-header__title {
-      font-size: 28px;
+      font-size: var(--fs-lg, 28px);
       font-weight: 700;
       color: #2a2e33;
       margin: 0 0 .6rem 0;
     }
 
     .demo-page-header__desc {
-      font-size: 14px;
+      font-size: var(--fs-sm, 14px);
       line-height: 1.65;
       color: #696e75;
       max-width: 560px;
@@ -87,7 +87,7 @@ export class DcxWebPageDivider extends LitElement {
 
     .demo-section__desc {
       padding: 10px 16px 0;
-      font-size: 12px;
+      font-size: var(--fs-xs, 12px);
       color: #696e75;
       margin: 0;
     }
@@ -97,7 +97,7 @@ export class DcxWebPageDivider extends LitElement {
     }
 
     .demo-label {
-      font-size: 12px;
+      font-size: var(--fs-xs, 12px);
       color: #696e75;
       margin: 0;
     }
@@ -112,7 +112,7 @@ export class DcxWebPageDivider extends LitElement {
     .vertical-container p {
       margin: 0;
       align-self: center;
-      font-size: 14px;
+      font-size: var(--fs-sm, 14px);
     }
 
     .vertical-size-col {
@@ -176,7 +176,6 @@ export class DcxWebPageDivider extends LitElement {
           <hr class="demo-page-header__divider" />
         </header>
 
-        <!-- 01 DEFAULT -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">01</span>
@@ -196,7 +195,6 @@ export class DcxWebPageDivider extends LitElement {
           </div>
         </div>
 
-        <!-- 02 — Horizontal — Todos los tamaños -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">02</span>
@@ -222,8 +220,6 @@ export class DcxWebPageDivider extends LitElement {
           </div>
         </div>
         
-        <!-- 03 — Vertical — Todos los tamaños -->
-
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">03</span>
@@ -260,8 +256,6 @@ export class DcxWebPageDivider extends LitElement {
           </div>
         </div>
 
-        <!-- 04 — Todos los tipos -->
-
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">04</span>
@@ -281,7 +275,6 @@ export class DcxWebPageDivider extends LitElement {
           </div>
         </div>
 
-        <!-- 05 — Variantes de grosor -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">05</span>
@@ -326,7 +319,6 @@ export class DcxWebPageDivider extends LitElement {
           </div>
         </div>
 
-        <!-- 06 — Variantes de color -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">06</span>
@@ -361,7 +353,6 @@ export class DcxWebPageDivider extends LitElement {
           </div>
         </div>
 
-        <!-- 07 — Con etiqueta -->
         <div class="demo-section">
           <div class="demo-section__header">
             <span class="demo-section__num">07</span>
