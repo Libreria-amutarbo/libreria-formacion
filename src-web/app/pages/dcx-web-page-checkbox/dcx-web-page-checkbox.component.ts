@@ -3,7 +3,6 @@ import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { dcxWebPageCheckboxStyles } from './dcx-web-page-checkbox.component.styles';
 
-
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-checkbox/dcx-web-checkbox.component';
 import type { DcxCheckbox } from '../../../../libs/dcx-web-lib/src/lib/core/interfaces/checkbox';
 
@@ -188,5 +187,3 @@ declare global {
     'dcx-web-page-checkbox': DcxWebPageCheckbox;
   }
 }
-
-
