@@ -1,0 +1,66 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as CheckboxStories from './ClassBased.stories';
+
+<Meta
+  of={CheckboxStories}
+  title="DCXLibrary/WebComponents/Checkbox/Documentation"
+/>
+
+# Checkbox
+
+El componente `dcx-web-checkbox` permite seleccionar valores en tres estados:
+
+- ✅ Marcado (`true`)
+- ➖ Indeterminado (`false`)
+- ⬜ Sin valor (`null`)
+
+Equivalente funcional al componente Angular, pero implementado como Web Component.
+
+---
+
+## Versión Web Component
+
+### Checkbox individual
+
+<Canvas of={CheckboxStories.Default} />
+<Canvas of={CheckboxStories.ErrorCheckBox} />
+
+---
+
+### Estados
+
+<Canvas of={CheckboxStories.DisabledCheckBox} />
+<Canvas of={CheckboxStories.RequiredCheckbox} />
+
+---
+
+### Posición de label
+
+<Canvas of={CheckboxStories.DiferentsLabelPositions} />
+
+---
+
+### Grupo
+
+<Canvas of={CheckboxStories.CheckboxGroup} />
+
+---
+
+### Grupo dinámico (changeOptions)
+
+<Canvas of={CheckboxStories.CheckboxGroupWithChangeLabel} />
+
+---
+
+## API
+
+| Propiedad | Tipo | Descripción |
+|----------|------|------------|
+| `options` | `DcxCheckbox[]` | Lista de checkbox |
+
+---
+
+## Evento
+
+```ts
+changeOptions: CustomEvent<DcxCheckbox[]>

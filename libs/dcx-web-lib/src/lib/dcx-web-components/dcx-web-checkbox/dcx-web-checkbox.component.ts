@@ -5,8 +5,6 @@ import type {
   DcxCheckboxValue
 } from '../../core/interfaces/checkbox';
 
-// ── SVG icons (Bootstrap Icons equivalents) ──────────────────────────────────
-
 const ICON_CHECK = svg`
   <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
     <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -31,9 +29,6 @@ export class DcxWebCheckbox extends LitElement {
 
   @property({ attribute: false }) accessor options: DcxCheckbox[] = [];
 
-  // =========================
-  // LOGIC
-  // =========================
 
   private _getValue(value: DcxCheckboxValue): DcxCheckboxValue {
     if (value === true) return false;
@@ -47,10 +42,6 @@ export class DcxWebCheckbox extends LitElement {
     return '';
   }
 
-  /** Mirrors Angular's getButtonVariant:
-   *  null  → 'secondary' (white bg, grey border)
-   *  true/false → 'primary' (blue bg, white icon)
-   */
   private _getVariant(option: DcxCheckbox): 'primary' | 'secondary' {
     return option.value === null ? 'secondary' : 'primary';
   }
@@ -68,8 +59,6 @@ export class DcxWebCheckbox extends LitElement {
         : opt
     );
 
-    this.options = updated;
-
     this.dispatchEvent(
       new CustomEvent('changeOptions', {
         detail: updated,
@@ -79,17 +68,11 @@ export class DcxWebCheckbox extends LitElement {
     );
   }
 
-  // =========================
-  // STYLES — mirrors Angular dcx-ng-button + dcx-ng-checkbox
-  // =========================
-
   static override styles = css`
     :host {
       display: block;
       font-family: var(--ff-base, 'Inter', sans-serif);
     }
-
-    /* ── Layout ───────────────────────── */
 
     .dcx-checkbox-group {
       display: flex;
@@ -121,13 +104,11 @@ export class DcxWebCheckbox extends LitElement {
       flex-direction: row;
     }
 
-    /* ── BUTTON (CLAVADO ANGULAR) ───────────────────────── */
-
     .dcx-checkbox__btn {
       margin: 0;
-      padding: 0.25rem;               /* ✅ FIX real */
+      padding: 0.3rem;               
       background: none;
-      border: 1px solid transparent;  /* ✅ consistente */
+      border: 1px solid transparent; 
       border-radius: var(--r-sm, 4px);
       font-family: inherit;
 
@@ -135,8 +116,8 @@ export class DcxWebCheckbox extends LitElement {
       align-items: center;
       justify-content: center;
 
-      width: 1.25rem;
-      height: 1.25rem;
+      width: 1.4rem;
+      height: 1.4rem;
       box-sizing: border-box;
 
       cursor: pointer;
@@ -148,8 +129,6 @@ export class DcxWebCheckbox extends LitElement {
         box-shadow 0.12s ease,
         color 0.12s ease;
     }
-
-    /* ── SECONDARY ───────────────────────── */
 
     .dcx-checkbox__btn--secondary {
       background-color: var(--bg-default, #ffffff);
@@ -171,8 +150,6 @@ export class DcxWebCheckbox extends LitElement {
       box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
     }
 
-    /* ── PRIMARY ───────────────────────── */
-
     .dcx-checkbox__btn--primary {
       background-color: var(--bg-primary, #0058ab);
       color: var(--text-white, #ffffff);
@@ -193,8 +170,6 @@ export class DcxWebCheckbox extends LitElement {
       box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.22);
     }
 
-    /* ── ERROR (FIJO, SIN BORDE DE 2PX) ───────────────────────── */
-
     .dcx-checkbox__btn--error-primary,
     .dcx-checkbox__btn--error-secondary {
       border-color: var(--border-error, #dc2626);
@@ -205,8 +180,15 @@ export class DcxWebCheckbox extends LitElement {
       color: var(--text-error, #fff);
     }
 
-    .dcx-checkbox__btn--error-primary:hover:not(:disabled) {
-      background-color: var(--background-error-hover, #fecaca);
+    
+    .dcx-checkbox__btn--error-primary:hover:not(:disabled),
+    .dcx-checkbox__btn--error-secondary:hover:not(:disabled) {
+      background-color: var(--background-error-hover, #ffffff);
+      border: 2px solid var(--border-error-hover, #dc2626);
+      color: var(--border-error-hover, #dc2626);
+
+      border-color: var(--border-error-hover, #dc2626);
+      transform: scale(1.2); 
     }
 
     .dcx-checkbox__btn:disabled {
@@ -217,18 +199,14 @@ export class DcxWebCheckbox extends LitElement {
       pointer-events: none;
     }
 
-    /* ── ICON PERFECT ALIGN ───────────────────────── */
-
     .dcx-checkbox__icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 12px;     /* ✅ FIX CLAVE */
-      height: 12px;
+      width: 14px;     
+      height: 14px;
       line-height: 0;
     }
-
-    /* ── TEXT ───────────────────────── */
 
     .dcx-checkbox-text {
       font-size: var(--fs-base, 14px);
@@ -242,8 +220,6 @@ export class DcxWebCheckbox extends LitElement {
     .dcx-checkbox__required {
       color: var(--color-error, #dc2626);
     }
-
-    /* ── ERROR MESSAGE ───────────────────────── */
 
     .dcx-checkbox__error {
       display: flex;
@@ -261,10 +237,6 @@ export class DcxWebCheckbox extends LitElement {
       line-height: 0;
     }
   `;
-
-  // =========================
-  // RENDER
-  // =========================
 
   override render() {
     return html`
@@ -329,8 +301,6 @@ export class DcxWebCheckbox extends LitElement {
       </div>
     `;
   }
-
-  // ── Helpers ──────────────────────────────────────────────────────────────
 
   private _buildBtnClass(option: DcxCheckbox): string {
     const base = 'dcx-checkbox__btn';

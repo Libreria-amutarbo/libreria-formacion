@@ -4,10 +4,17 @@ import { customElement, state } from 'lit/decorators.js';
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-checkbox/dcx-web-checkbox.component';
 import type { DcxCheckbox } from '../../../../libs/dcx-web-lib/src/lib/core/interfaces/checkbox';
 
+type CheckboxStateKeys =
+  | 'singleCheck'
+  | 'errorCheck'
+  | 'disabledCheck'
+  | 'labelPositionsCheck'
+  | 'requiredCheck'
+  | 'groupCheck'
+  | 'groupCheckDynamic';
+
 @customElement('dcx-web-page-checkbox')
 export class DcxWebPageCheckbox extends LitElement {
-
-  /* ================== DATA ================== */
 
   @state() private accessor singleCheck: DcxCheckbox[] = [
     { id: '1', value: true, label: 'Checkbox único' }
@@ -42,10 +49,13 @@ export class DcxWebPageCheckbox extends LitElement {
     { id: '3', value: null, label: 'Sin valor', labelPosition: 'right' }
   ];
 
+  private _updateState<K extends CheckboxStateKeys>(
+    key: K,
+    e: CustomEvent<DcxCheckbox[]>
+  ) {
+    this[key] = e.detail;
+  }
 
-  /* ================== EVENTS ================== */
-
-  
   private _changeLabel(e: CustomEvent<DcxCheckbox[]>) {
     this.groupCheckDynamic = e.detail.map(cb => ({
       ...cb,
@@ -53,13 +63,10 @@ export class DcxWebPageCheckbox extends LitElement {
         cb.value === true
           ? 'Válido'
           : cb.value === false
-          ? 'Indeterminado'
-          : 'Sin valor',
+            ? 'Indeterminado'
+            : 'Sin valor',
     }));
   }
-
-
-  /* ================== STYLES ================== */
 
   static override styles = css`
     :host {
@@ -153,8 +160,6 @@ export class DcxWebPageCheckbox extends LitElement {
     }
   `;
 
-  /* ================== RENDER ================== */
-
   override render() {
     return html`
       <div class="demo-page">
@@ -173,7 +178,10 @@ export class DcxWebPageCheckbox extends LitElement {
             <span class="demo-section__title">Default</span>
           </div>
           <div class="demo-section__body">
-            <dcx-web-checkbox .options=${this.singleCheck ?? []}></dcx-web-checkbox>
+            <dcx-web-checkbox
+              .options=${this.singleCheck}
+              @changeOptions=${(e: any) => this._updateState('singleCheck', e)}
+            ></dcx-web-checkbox>
           </div>
         </div>
 
@@ -183,7 +191,10 @@ export class DcxWebPageCheckbox extends LitElement {
             <span class="demo-section__title">Error</span>
           </div>
           <div class="demo-section__body">
-            <dcx-web-checkbox .options=${this.errorCheck ?? []}></dcx-web-checkbox>
+            <dcx-web-checkbox
+              .options=${this.errorCheck}
+              @changeOptions=${(e: any) => this._updateState('errorCheck', e)}
+            ></dcx-web-checkbox>
           </div>
         </div>
 
@@ -193,7 +204,10 @@ export class DcxWebPageCheckbox extends LitElement {
             <span class="demo-section__title">Deshabilitado</span>
           </div>
           <div class="demo-section__body">
-            <dcx-web-checkbox .options=${this.disabledCheck ?? []}></dcx-web-checkbox>
+            <dcx-web-checkbox
+              .options=${this.disabledCheck}
+              @changeOptions=${(e: any) => this._updateState('disabledCheck', e)}
+            ></dcx-web-checkbox>
           </div>
         </div>
 
@@ -203,7 +217,10 @@ export class DcxWebPageCheckbox extends LitElement {
             <span class="demo-section__title">Posición del label</span>
           </div>
           <div class="demo-section__body">
-            <dcx-web-checkbox .options=${this.labelPositionsCheck ?? []}></dcx-web-checkbox>
+            <dcx-web-checkbox
+              .options=${this.labelPositionsCheck}
+              @changeOptions=${(e: any) => this._updateState('labelPositionsCheck', e)}
+            ></dcx-web-checkbox>
           </div>
         </div>
 
@@ -213,7 +230,10 @@ export class DcxWebPageCheckbox extends LitElement {
             <span class="demo-section__title">Requerido</span>
           </div>
           <div class="demo-section__body">
-            <dcx-web-checkbox .options=${this.requiredCheck ?? []}></dcx-web-checkbox>
+            <dcx-web-checkbox
+              .options=${this.requiredCheck}
+              @changeOptions=${(e: any) => this._updateState('requiredCheck', e)}
+            ></dcx-web-checkbox>
           </div>
         </div>
 
@@ -224,7 +244,10 @@ export class DcxWebPageCheckbox extends LitElement {
           </div>
           <p class="demo-section__desc">Ciclo de estados: vacío → marcado → indeterminado → vacío.</p>
           <div class="demo-section__body">
-            <dcx-web-checkbox .options=${this.groupCheck ?? []}></dcx-web-checkbox>
+            <dcx-web-checkbox
+              .options=${this.groupCheck}
+              @changeOptions=${(e: any) => this._updateState('groupCheck', e)}
+            ></dcx-web-checkbox>
           </div>
         </div>
 
@@ -236,7 +259,7 @@ export class DcxWebPageCheckbox extends LitElement {
           <p class="demo-section__desc">El label se actualiza al cambiar el estado via <code>(changeOptions)</code>.</p>
           <div class="demo-section__body">
             <dcx-web-checkbox
-              .options=${this.groupCheckDynamic ?? []}
+              .options=${this.groupCheckDynamic}
               @changeOptions=${this._changeLabel}
             ></dcx-web-checkbox>
           </div>
@@ -252,3 +275,5 @@ declare global {
     'dcx-web-page-checkbox': DcxWebPageCheckbox;
   }
 }
+
+
