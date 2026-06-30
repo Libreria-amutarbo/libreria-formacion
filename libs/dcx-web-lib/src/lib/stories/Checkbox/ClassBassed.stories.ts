@@ -1,9 +1,6 @@
-import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../../index';
 import type { DcxCheckbox } from '../../../lib/core/interfaces/checkbox';
-
-/* ───────── DATA ───────── */
 
 const DcxSingleCheck: DcxCheckbox[] = [
   { id: '1', value: true, label: 'Checkbox único' },
@@ -38,8 +35,6 @@ const DcxCheckboxGroup: DcxCheckbox[] = [
   { id: '3', value: null, label: 'Sin valor' },
 ];
 
-/* ───────── HELPER SHOW CODE ───────── */
-
 const withCode = (options: DcxCheckbox[]) => ({
   parameters: {
     docs: {
@@ -52,74 +47,126 @@ const withCode = (options: DcxCheckbox[]) => ({
   },
 });
 
-/* ───────── META ───────── */
+const createInteractive = (initialOptions: DcxCheckbox[]) => {
+  return () => {
+    const el = document.createElement('dcx-web-checkbox');
+
+    let options = initialOptions.map(o => ({ ...o }));
+
+    el.options = options;
+
+    el.addEventListener('changeOptions', (e: Event) => {
+      const customEvent = e as CustomEvent<DcxCheckbox[]>;
+
+      options = customEvent.detail.map((o: DcxCheckbox) => ({ ...o }));
+
+      el.options = options; 
+    });
+
+    return el;
+  };
+};
 
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/Checkbox',
   component: 'dcx-web-checkbox',
   tags: ['autodocs'],
+  parameters: {
+    controls: { expanded: true },
+  },
 
-  render: (args, { updateArgs }) => {
-    const handleChange = (e: CustomEvent<DcxCheckbox[]>) => {
-      // ✅ CLAVE 1: clon profundo
-      const updated = e.detail.map(o => ({ ...o }));
+  argTypes: {
+    options: {
+      name: 'options',
+      control: { type: 'object' },
+      description:
+        'Array de opciones para el grupo de checkboxes. Cada opción define id, value (true/false/null), label, labelPosition, disabled, required y error.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxCheckbox[]' },
+        defaultValue: { summary: '[]' },
+      },
+    },
 
-      // ✅ CLAVE 2: updateArgs (no mutar args)
-      updateArgs({ options: updated });
-    };
+    errorIcon: {
+      name: 'errorIcon',
+      control: { type: 'text' },
+      description:
+        'Nombre del icono (Bootstrap Icons) que se muestra junto al mensaje de error.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'exclamation-circle' },
+      },
+    },
 
-    return html`
-      <dcx-web-checkbox
-        .options=${args.options.map((o: DcxCheckbox) => ({ ...o }))}   <!-- ✅ CLAVE -->
-        @changeOptions=${handleChange}
-      ></dcx-web-checkbox>
-    `;
+    changeOptions: {
+      name: 'changeOptions',
+      description:
+        'Se emite cada vez que el usuario cambia el estado de algún checkbox. Devuelve el array completo de opciones actualizado.',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(options: DcxCheckbox[]) => void' },
+      },
+    },
+  },
+
+  args: {
+    options: [
+      { id: '1', value: true, label: 'Checkbox único' },
+    ],
   },
 };
 
 export default meta;
+
 type Story = StoryObj;
 
-/* ───────── STORIES ───────── */
-
 export const Default: Story = {
-  args: { options: DcxSingleCheck },
+  render: createInteractive(DcxSingleCheck),
   ...withCode(DcxSingleCheck),
 };
 
 export const ErrorCheckBox: Story = {
-  args: { options: DcxErrorCheck },
+  render: createInteractive(DcxErrorCheck),
   ...withCode(DcxErrorCheck),
 };
 
 export const DisabledCheckBox: Story = {
-  args: { options: DcxDisabledCheck },
+  render: createInteractive(DcxDisabledCheck),
   ...withCode(DcxDisabledCheck),
 };
 
 export const DiferentsLabelPositions: Story = {
-  args: { options: DcxDiferentsLabelPositionsCheck },
+  render: createInteractive(DcxDiferentsLabelPositionsCheck),
   ...withCode(DcxDiferentsLabelPositionsCheck),
 };
 
 export const RequiredCheckbox: Story = {
-  args: { options: DcxRequiredCheck },
+  render: createInteractive(DcxRequiredCheck),
   ...withCode(DcxRequiredCheck),
 };
 
 export const CheckboxGroup: Story = {
-  args: { options: DcxCheckboxGroup },
+  render: createInteractive(DcxCheckboxGroup),
   ...withCode(DcxCheckboxGroup),
 };
 
-/* ───────── DINÁMICO (IGUAL ANGULAR) ───────── */
-
 export const CheckboxGroupWithChangeLabel: Story = {
-  args: { options: DcxCheckboxGroup },
+  render: () => {
+    const el = document.createElement('dcx-web-checkbox');
 
-  render: (args, { updateArgs }) => {
-    const handleChange = (e: CustomEvent<DcxCheckbox[]>) => {
-      const updated = e.detail.map(cb => ({
+    let options = DcxCheckboxGroup.map(o => ({
+      ...o,
+      labelPosition: 'right' as const,
+    }));
+
+    el.options = options;
+
+    el.addEventListener('changeOptions', (e: Event) => {
+      const customEvent = e as CustomEvent<DcxCheckbox[]>;
+
+      options = customEvent.detail.map((cb: DcxCheckbox) => ({
         ...cb,
         label:
           cb.value === true
@@ -127,17 +174,13 @@ export const CheckboxGroupWithChangeLabel: Story = {
             : cb.value === false
             ? 'Indeterminado'
             : 'Sin valor',
+        labelPosition: 'right' as const,
       }));
 
-      updateArgs({ options: updated });
-    };
+      el.options = options;
+    });
 
-    return html`
-      <dcx-web-checkbox
-        .options=${args.options.map((o: DcxCheckbox) => ({ ...o }))}
-        @changeOptions=${handleChange}
-      ></dcx-web-checkbox>
-    `;
+    return el;
   },
 
   ...withCode(DcxCheckboxGroup),

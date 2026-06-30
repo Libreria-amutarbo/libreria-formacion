@@ -1,10 +1,11 @@
 import './dcx-web-checkbox.component';
 import { DcxWebCheckbox } from './dcx-web-checkbox.component';
+import type { DcxCheckbox } from '../../core/interfaces/checkbox';
 
 describe('DcxWebCheckbox', () => {
   let element: DcxWebCheckbox;
 
-  const mockOptions = [
+  const mockOptions: DcxCheckbox[] = [
     { id: 'cb1', label: 'Option 1', value: true },
     { id: 'cb2', label: 'Option 2', value: false },
     { id: 'cb3', label: 'Option 3', value: null },
@@ -68,14 +69,24 @@ describe('DcxWebCheckbox', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should update value when clicked', async () => {
+  it('should update value when clicked (emitted event)', async () => {
     element.options = mockOptions;
     await element.updateComplete;
 
     const checkbox = element.shadowRoot?.querySelector('[role="checkbox"]') as HTMLElement;
-    checkbox.click();
 
-    expect(element.options[0].value).toBe(false);
+    let emitted: DcxCheckbox[] | undefined;
+
+    element.addEventListener('changeOptions', (e: Event) => {
+      const customEvent = e as CustomEvent<DcxCheckbox[]>;
+      emitted = customEvent.detail;
+    });
+
+    checkbox.click();
+    await element.updateComplete;
+
+    expect(emitted).toBeDefined();
+    expect(emitted![0].value).toBe(false);
   });
 
   it('should render error message', async () => {
