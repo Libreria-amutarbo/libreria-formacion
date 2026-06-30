@@ -9,6 +9,7 @@ interface HomeCard {
 
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
+  breadcrumb: 'signpost-split',
 };
 
 @customElement('dcx-web-page-home')
@@ -20,6 +21,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'badge',
       name: 'Badge',
       icon: ROUTE_ICONS['badge'],
+    },
+    {
+      route: 'breadcrumb',
+      name: 'Breadcrumb',
+      icon: ROUTE_ICONS['breadcrumb'],
     },
   ];
 
