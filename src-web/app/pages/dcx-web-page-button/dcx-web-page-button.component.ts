@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { styles } from './dcx-web-page-button.styles';
+import { styles } from './dcx-web-page-button.component.styles';
 
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-button/dcx-web-button.component';
 

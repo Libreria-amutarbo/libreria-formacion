@@ -9,7 +9,7 @@ import type {
 } from '../../core/interfaces/button';
 import type { DcxSize } from '../../core/interfaces/generic';
 import type { DcxIconSpacing } from '../../core/interfaces/icon';
-import { styles } from './dcx-web-button.styles';
+import { styles } from './dcx-web-button.component.styles';
 
 @customElement('dcx-web-button')
 export class DcxWebButton extends LitElement {
