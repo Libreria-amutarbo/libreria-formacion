@@ -29,7 +29,7 @@ describe('DcxWebButton', () => {
   it('should render the label when provided', async () => {
     element.label = 'Click me';
     await element.updateComplete;
-    const labelSpan = element.shadowRoot?.querySelector('.label');
+    const labelSpan = element.shadowRoot?.querySelector('.dcx-button__label');
     expect(labelSpan?.textContent).toBe('Click me');
   });
 
@@ -68,7 +68,7 @@ describe('DcxWebButton', () => {
     element.icon = true;
     element.iconName = 'check';
     await element.updateComplete;
-    const iconSpan = element.shadowRoot?.querySelector('.icon') as HTMLElement;
+    const iconSpan = element.shadowRoot?.querySelector('.dcx-button__icon') as HTMLElement;
     expect(iconSpan).toBeTruthy();
     expect(iconSpan.style.maskImage || iconSpan.style.webkitMaskImage).toContain(
       'check.svg'
