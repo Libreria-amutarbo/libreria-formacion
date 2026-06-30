@@ -83,4 +83,44 @@ describe('DcxNgIconComponent', () => {
     fixture.detectChanges();
     expect(component.color()).toBe('#ff0000');
   });
+
+  it('should include size class "dcx-icon--size-auto" when size is "auto"', () => {
+    fixture.componentRef.setInput('size', 'auto');
+    fixture.detectChanges();
+    expect(component.iconClass()).toContain('dcx-icon--size-auto');
+  });
+
+  describe('WCAG AA — accesibilidad', () => {
+    const getIcon = (): HTMLElement =>
+      fixture.nativeElement.querySelector('i');
+
+    it('should be decorative by default (no ariaLabel)', () => {
+      expect(component.decorative()).toBe(true);
+    });
+
+    it('should mark icon as aria-hidden and have no role/aria-label when decorative', () => {
+      fixture.detectChanges();
+      const icon = getIcon();
+      expect(icon.getAttribute('aria-hidden')).toBe('true');
+      expect(icon.getAttribute('role')).toBeNull();
+      expect(icon.getAttribute('aria-label')).toBeNull();
+    });
+
+    it('should become meaningful (role="img" + aria-label) when ariaLabel is set', () => {
+      fixture.componentRef.setInput('ariaLabel', 'Configuración');
+      fixture.detectChanges();
+      const icon = getIcon();
+      expect(component.decorative()).toBe(false);
+      expect(icon.getAttribute('role')).toBe('img');
+      expect(icon.getAttribute('aria-label')).toBe('Configuración');
+      expect(icon.getAttribute('aria-hidden')).toBeNull();
+    });
+
+    it('should treat a blank ariaLabel as decorative', () => {
+      fixture.componentRef.setInput('ariaLabel', '   ');
+      fixture.detectChanges();
+      expect(component.decorative()).toBe(true);
+      expect(getIcon().getAttribute('aria-hidden')).toBe('true');
+    });
+  });
 });

@@ -22,6 +22,9 @@ export class DcxNgIconComponent {
   readonly spacing = input<DcxIconSpacing>('none');
   readonly color = input<string>('');
   readonly extraClass = input<string>('');
+  readonly ariaLabel = input<string>('');
+
+  readonly decorative = computed(() => this.ariaLabel().trim() === '');
 
   readonly iconClass = computed(() => {
     const classes: string[] = [
