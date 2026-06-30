@@ -83,7 +83,7 @@ describe('DcxWebCard', () => {
     await element.updateComplete;
     const inner = element.shadowRoot?.querySelector('.dcx-card__inner') as HTMLElement;
     // Note: styleMap updates the element's style attribute
-    expect(inner.style.getPropertyValue('--card-shadow')).toContain('var(--shadow-2');
+    expect(inner.style.getPropertyValue('--card-shadow')).toContain('var(--shadow-md');
   });
 
   it('should correctly project default and named content slot nodes', async () => {
