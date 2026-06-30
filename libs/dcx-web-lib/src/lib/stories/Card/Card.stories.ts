@@ -17,6 +17,50 @@ import {
   DEFAULTARGS,
 } from '../../core/defaults/card';
 
+const DEMO_STYLES = html`
+  <style>
+    .card-demo__avatar { width: 40px; height: 40px; border-radius: var(--r-pill, 999px); background: var(--color-info-light, #dbeafe); display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: var(--fw-semibold, 600); color: var(--color-info, #0058ab); flex-shrink: 0; }
+    .card-demo__name { font-size: 15px; font-weight: var(--fw-semibold, 600); color: var(--text-dark, #2a2e33); }
+    .card-demo__role { margin-top: 1px; font-size: var(--fs-sm, 12px); color: var(--text-muted, #696e75); }
+    .card-demo__header { display: flex; align-items: center; gap: var(--sp-3, 12px); }
+    .card-demo__header--space-between { justify-content: space-between; align-items: flex-start; width: 100%; }
+    .card-demo__title { font-size: 15px; font-weight: var(--fw-semibold, 600); color: var(--text-dark, #2a2e33); }
+    .card-demo__subtitle { font-size: 13px; color: var(--text-muted, #696e75); margin-top: var(--sp-1, 4px); }
+    .card-demo__title-lg { font-size: var(--fs-lg, 18px); font-weight: var(--fw-semibold, 600); color: var(--text-dark, #2a2e33); margin: 0; }
+    .card-demo__subtitle-lg { font-size: var(--fs-base, 14px); color: var(--text-muted, #696e75); margin: 0; margin-top: var(--sp-1, 4px); }
+    .card-demo__hr { border: 0; border-top: 1px solid var(--border-default, #2a2e33); margin: var(--sp-3, 12px) 0; }
+    .card-demo__stats { display: flex; gap: var(--sp-4, 16px); }
+    .card-demo__stat { flex: 1; background: var(--bg-surface, #f4f5f7); border-radius: var(--r-md, 6px); padding: var(--sp-2, 8px); text-align: center; }
+    .card-demo__stat-val { font-size: var(--fs-lg, 18px); font-weight: var(--fw-bold, 700); color: var(--bg-primary, #0058ab); }
+    .card-demo__stat-lbl { margin-top: 1px; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted, #696e75); }
+    .card-demo__kpi-value { margin: var(--sp-2, 8px) 0 var(--sp-1, 4px); font-size: 36px; line-height: 1; font-weight: var(--fw-bold, 700); color: var(--text-dark, #2a2e33); }
+    .card-demo__kpi-trend { margin: 0 0 var(--sp-1, 4px); font-size: var(--fs-sm, 12px); font-weight: var(--fw-semibold, 600); color: var(--color-success, #16a34a); }
+    .card-demo__kpi-label { margin: 0; font-size: var(--fs-sm, 12px); color: var(--text-muted, #696e75); }
+    .card-demo__tags { display: flex; flex-wrap: wrap; gap: var(--sp-2, 8px); margin-top: 0; }
+    .card-demo__actions { display: flex; gap: var(--sp-2, 8px); margin-top: 0; }
+  </style>
+`;
+
+const MOCK_STYLES = html`
+  <style>
+    .mock-slider { -webkit-appearance: none; appearance: none; width: 100%; height: var(--sp-1, 4px); background: linear-gradient(to right, var(--bg-primary, #0058ab) 0%, var(--bg-primary, #0058ab) var(--slider-fill, 0%), var(--border-light, #d1d5db) var(--slider-fill, 0%), var(--border-light, #d1d5db) 100%); border-radius: var(--r-sm, 4px); outline: none; margin: var(--sp-2, 8px) 0; cursor: pointer; }
+    .mock-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; background: var(--bg-primary, #0058ab); border-radius: var(--r-pill, 50%); border: 2px solid var(--text-white, #ffffff); box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06)); cursor: pointer; }
+    .mock-slider::-moz-range-thumb { width: 16px; height: 16px; background: var(--bg-primary, #0058ab); border-radius: var(--r-pill, 50%); cursor: pointer; border: 2px solid var(--text-white, #ffffff); box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06)); }
+    .mock-slider__progress { margin: var(--sp-3, 12px) 0 var(--sp-1, 4px); display: flex; justify-content: space-between; font-size: var(--fs-sm, 12px); color: var(--text-muted, #696e75); width: 100%; }
+    .mock-slider__progress-val { color: var(--bg-primary, #0058ab); font-weight: var(--fw-semibold, 600); }
+    .mock-chip { display: inline-flex; align-items: center; height: 2rem; padding: 0 var(--sp-3, 12px); border-radius: var(--r-pill, 999px); border: 1px solid transparent; font-family: var(--ff-base, 'Inter', sans-serif); font-size: var(--fs-base, 14px); font-weight: var(--fw-medium, 500); line-height: 1; white-space: nowrap; cursor: default; }
+    .mock-chip--primary { background-color: var(--bg-primary, #0058ab); color: var(--text-white, #ffffff); }
+    .mock-chip--secondary { background-color: var(--bg-default, #ffffff); color: var(--text-dark, #2a2e33); border-color: var(--border-default, #2a2e33); }
+    .mock-chip--success { background-color: var(--status-success, #00a76f); color: var(--text-white, #ffffff); }
+    .mock-chip--warning { background-color: var(--status-warning, #ffa726); color: var(--text-dark, #2a2e33); }
+    .mock-btn { display: inline-flex; align-items: center; justify-content: center; height: 24px; gap: var(--sp-2, 8px); padding: 0 var(--sp-3, 12px); border-radius: var(--r-sm, 4px); font-family: inherit; font-size: var(--fs-sm, 12px); border: none; cursor: pointer; }
+    .mock-btn-primary { background: var(--bg-primary, #0058ab); color: var(--text-white, #ffffff); }
+    .mock-btn-secondary { background: var(--bg-default, #ffffff); color: var(--text-dark, #2a2e33); border: 1px solid var(--border-light, #d1d5db); }
+    .mock-btn-primary:hover { background: var(--bg-primary-hover, #004080); }
+    .mock-btn-secondary:hover { background: var(--bg-hover, #f7f8fa); }
+  </style>
+`;
+
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/Card',
   component: 'dcx-web-card',
@@ -25,6 +69,13 @@ const meta: Meta = {
     controls: { expanded: true },
     layout: 'centered',
   },
+  decorators: [
+    (story) => html`
+      ${DEMO_STYLES}
+      ${MOCK_STYLES}
+      ${story()}
+    `,
+  ],
 
   argTypes: {
     align: {
@@ -205,43 +256,28 @@ export const ProfileCard: Story = {
         maxImageWidth=${args.maxImageWidth}
         ?accent=${true}
       >
-        <div slot="header" style="display:flex;align-items:center;gap:12px;">
-          <div style="width:40px;height:40px;border-radius:999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--background-primary,#0058ab);flex-shrink:0;">
-            MG
-          </div>
+        <div slot="header" class="card-demo__header">
+          <div class="card-demo__avatar">MG</div>
           <div>
-            <div style="font-size:15px;font-weight:600;color:var(--content-default,#2a2e33);">
-              María García
-            </div>
-            <div style="margin-top:1px;font-size:12px;color:var(--content-subtle,#696e75);">
-              Cloud Architect · Madrid
-            </div>
+            <div class="card-demo__name">María García</div>
+            <div class="card-demo__role">Cloud Architect · Madrid</div>
           </div>
         </div>
 
         <div slot="content">
-          <hr style="border:0;border-top:1px solid var(--border-default,#e5e7eb);margin:12px 0;" />
-
-          <div style="display:flex;gap:16px;">
-            <div style="flex:1;background:var(--color-surface,#f4f5f7);border-radius:6px;padding:8px;text-align:center;">
-              <div style="font-size:18px;font-weight:700;color:var(--background-primary,#0058ab);">12</div>
-              <div style="margin-top:1px;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--content-subtle,#696e75);">
-                Proyectos
-              </div>
+          <hr class="card-demo__hr" />
+          <div class="card-demo__stats">
+            <div class="card-demo__stat">
+              <div class="card-demo__stat-val">12</div>
+              <div class="card-demo__stat-lbl">Proyectos</div>
             </div>
-
-            <div style="flex:1;background:var(--color-surface,#f4f5f7);border-radius:6px;padding:8px;text-align:center;">
-              <div style="font-size:18px;font-weight:700;color:var(--background-primary,#0058ab);">98%</div>
-              <div style="margin-top:1px;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--content-subtle,#696e75);">
-                Satisf.
-              </div>
+            <div class="card-demo__stat">
+              <div class="card-demo__stat-val">98%</div>
+              <div class="card-demo__stat-lbl">Satisf.</div>
             </div>
-
-            <div style="flex:1;background:var(--color-surface,#f4f5f7);border-radius:6px;padding:8px;text-align:center;">
-              <div style="font-size:18px;font-weight:700;color:var(--background-primary,#0058ab);">7</div>
-              <div style="margin-top:1px;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--content-subtle,#696e75);">
-                Certif.
-              </div>
+            <div class="card-demo__stat">
+              <div class="card-demo__stat-val">7</div>
+              <div class="card-demo__stat-lbl">Certif.</div>
             </div>
           </div>
         </div>
@@ -282,32 +318,32 @@ export const ProjectCard: Story = {
       maxImageWidth=${args.maxImageWidth}
       ?accent=${true}
     >
-      <div slot="header" style="display:flex;align-items:center;gap:0.75rem;justify-content:space-between;align-items:flex-start;">
-        <div style="font-size:15px;font-weight:600;color:var(--content-default,#2a2e33);">Cloud Migration</div>
-        <span style="display:inline-flex;align-items:center;height:1.5rem;padding:0 8px;border-radius:999px;font-size:12px;font-weight:500;background:#00a76f;color:#fff;white-space:nowrap;">Activo</span>
+      <div slot="header" class="card-demo__header card-demo__header--space-between">
+        <div class="card-demo__title">Cloud Migration</div>
+        <span class="mock-chip mock-chip--success">Activo</span>
       </div>
       <div slot="content">
         <p style="margin:0 0 1rem;font-size:15px;color:#9ca3af;">
           Descripción del proyecto de migración a la nube.
         </p>
-        <div style="margin:0.75rem 0 0.25rem;display:flex;justify-content:space-between;font-size:12px;color:var(--content-subtle,#696e75);width:100%;">
+        <div class="mock-slider__progress">
           <span>Progreso</span>
-          <span style="color:var(--background-primary,#0058ab);font-weight:600;">82%</span>
+          <span class="mock-slider__progress-val">82%</span>
         </div>
-        <input style="width:100%;height:4px;margin-bottom:0.25rem;accent-color:var(--background-primary,#0058ab);"
+        <input 
+          class="mock-slider"
+          style="--slider-fill: 82%"
           min="0"
           max="100"
           value="82"
           type="range"
           step="1"
-          aria-invalid="false"
+          oninput="this.style.setProperty('--slider-fill', this.value + '%'); this.previousElementSibling.querySelector('.mock-slider__progress-val').textContent = this.value + '%';"
         />
-        </div>
+      </div>
       <div slot="footer">
-        <div style="display:flex;gap:0.5rem;margin-top:1rem;">
-        <button style="display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:4px;font-family:inherit;font-size:12px;border:none;cursor:pointer;background:#0058ab;color:#fff;">
-            Ver detalle
-          </button>
+        <div class="card-demo__actions" style="margin-top: var(--sp-4, 16px);">
+          <button class="mock-btn mock-btn-primary">Ver detalle</button>
         </div>
       </div>
     </dcx-web-card>
@@ -345,13 +381,13 @@ export const KpiCard: Story = {
       maxImageWidth=${args.maxImageWidth}
       ?accent=${true}
     >
-      <div slot="header" style="display:flex;align-items:center;gap:0.75rem;">
-        <div style="font-size:15px;font-weight:600;color:var(--content-default,#2a2e33);">Satisfacción cliente</div>
+      <div slot="header" class="card-demo__header">
+        <div class="card-demo__title">Satisfacción cliente</div>
       </div>
       <div slot="content">
-        <div style="margin:0.5rem 0 0.25rem;font-size:36px;line-height:1;font-weight:700;color:var(--content-default,#2a2e33);">98%</div>
-        <div style="margin:0 0 0.25rem;font-size:12px;font-weight:600;color:#16a34a;">↑ +1.2% este mes</div>
-        <div style="margin:0;font-size:12px;color:var(--content-subtle,#696e75);">Media de 24 proyectos activos</div>
+        <div class="card-demo__kpi-value">98%</div>
+        <div class="card-demo__kpi-trend">↑ +1.2% este mes</div>
+        <div class="card-demo__kpi-label">Media de 24 proyectos activos</div>
       </div>
     </dcx-web-card>
   `,
@@ -388,22 +424,22 @@ export const LabelCard: Story = {
       maxImageWidth=${args.maxImageWidth}
     >
       <div slot="header">
-         <div style="font-size:15px;font-weight:600;color:var(--content-default,#2a2e33);">SAP S/4HANA · Airbus</div>
-        <div style="font-size:13px;color:var(--content-subtle,#696e75);margin-top:0.25rem;">
+         <div class="card-demo__title-lg">SAP S/4HANA · Airbus</div>
+        <div class="card-demo__subtitle-lg">
           Implementación de módulos FI/CO y MM en Airbus, incluyendo migración de datos históricos.
         </div>
       </div>
       <div slot="content">
-        <div style="display:flex;gap:0.5rem;">
-        <span style="display:inline-flex;align-items:center;height:2rem;padding:0 12px;border-radius:999px;border:1px solid transparent;font-size:14px;font-weight:500;white-space:nowrap;background:#0058ab;color:#fff;">SAP</span>
-          <span style="display:inline-flex;align-items:center;height:2rem;padding:0 12px;border-radius:999px;font-size:14px;font-weight:500;white-space:nowrap;background:#fff;color:#2a2e33;border:1px solid #2a2e33;">Finanzas</span>
-          <span style="display:inline-flex;align-items:center;height:2rem;padding:0 12px;border-radius:999px;border:1px solid transparent;font-size:14px;font-weight:500;white-space:nowrap;background:#ff9100;color:#2a2e33;">En revisión</span>
+        <div class="card-demo__tags">
+          <span class="mock-chip mock-chip--primary">SAP</span>
+          <span class="mock-chip mock-chip--secondary">Finanzas</span>
+          <span class="mock-chip mock-chip--warning">En revisión</span>
         </div>
       </div>
       <div slot="footer">
-        <div style="display:flex;gap:0.5rem;">
-        <button style="display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:4px;font-family:inherit;font-size:12px;border:none;cursor:pointer;background:#0058ab;color:#fff;">Abrir</button>
-          <button style="display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:4px;font-family:inherit;font-size:12px;cursor:pointer;background:#fff;color:#2a2e33;border:1px solid #d1d5db;">Archivar</button>
+        <div class="card-demo__actions">
+          <button class="mock-btn mock-btn-primary">Abrir</button>
+          <button class="mock-btn mock-btn-secondary">Archivar</button>
         </div>
       </div>
     </dcx-web-card>
@@ -449,16 +485,16 @@ export const WithSlotsVertical: Story = {
       .interactive=${args.interactive}
       ?disabled=${args.disabled}
     >
-      <div slot="header" style="display:flex;flex-direction:column;gap:0.5rem;">
-        <h3 style="margin:0;font-size:18px;font-weight:600;color:var(--content-default,#2a2e33);">Encabezado personalizado</h3>
-        <p style="margin:0;font-size:14px;color:var(--content-subtle,#696e75);">Este header sobrescribe el título/subtítulo por defecto</p>
+      <div slot="header" class="card-demo__header-custom">
+        <h3 class="card-demo__title-lg">Encabezado personalizado</h3>
+        <p class="card-demo__subtitle-lg">Este header sobrescribe el título/subtítulo por defecto</p>
       </div>
       <div slot="content">
-        <p style="margin:0;font-size:14px;color:var(--content-default,#2a2e33);">Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
+        <p class="card-demo__content">Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
       </div>
-      <div slot="footer" style="display:flex;gap:0.5rem;">
-        <button style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:6px;border:1px solid #d1d5db;background:#fff;color:#2a2e33;font-size:12px;font-weight:600;cursor:pointer;">Cancelar</button>
-        <button style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:6px;border:none;background:var(--background-primary,#0058ab);color:#fff;font-size:12px;font-weight:600;cursor:pointer;">Aceptar</button>
+      <div slot="footer" class="card-demo__actions">
+        <button class="mock-btn mock-btn-secondary">Cancelar</button>
+        <button class="mock-btn mock-btn-primary">Aceptar</button>
       </div>
     </dcx-web-card>
   `,
@@ -564,17 +600,17 @@ export const WithSlotsHorizontal: Story = {  render: (args) => html`
       .interactive=${args.interactive}
       ?disabled=${args.disabled}
     >
-    <div slot="header">
-    <h3 style="margin:0 0 0.5rem;font-size:18px;font-weight:600;">Encabezado personalizado</h3>
-        <p style="margin:0;font-size:14px;color:var(--content-subtle,#696e75);">Este header sobrescribe el título/subtítulo por defecto</p>
+      <div slot="header">
+        <h3 class="card-demo__title-lg" style="margin:0 0 0.5rem;">Encabezado personalizado</h3>
+        <p class="card-demo__subtitle-lg" style="margin:0;">Este header sobrescribe el título/subtítulo por defecto</p>
       </div>
       <div slot="content">
-      <p>Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
+        <p>Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
       </div>
       <div slot="footer">
-        <div style="display:flex;gap:0.5rem;">
-        <button style="display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:4px;font-family:inherit;font-size:12px;cursor:pointer;background:#fff;color:#2a2e33;border:1px solid #d1d5db;margin-right:0.5rem;">Cancelar</button>
-          <button style="display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:4px;font-family:inherit;font-size:12px;border:none;cursor:pointer;background:#0058ab;color:#fff;">Aceptar</button>
+        <div class="card-demo__actions">
+          <button class="mock-btn mock-btn-secondary">Cancelar</button>
+          <button class="mock-btn mock-btn-primary">Aceptar</button>
         </div>
       </div>
     </dcx-web-card>

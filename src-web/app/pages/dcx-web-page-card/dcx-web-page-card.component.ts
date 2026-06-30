@@ -51,7 +51,7 @@ export class DcxWebPageCard extends LitElement {
 
     .demo-page-header__kicker {
       font-size: var(--fs-xs, 11px);
-      font-weight: 600;
+      font-weight: var( --fw-semibold, 600);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-muted, #696e75);
@@ -60,7 +60,7 @@ export class DcxWebPageCard extends LitElement {
 
     .demo-page-header__title {
       font-size: 28px;
-      font-weight: 700;
+      font-weight: var(--fw-bold, 700);
       letter-spacing: -0.3px;
       color: var(--text-dark, #2a2e33);
       margin-bottom: var(--sp-2, 8px);
@@ -101,7 +101,7 @@ export class DcxWebPageCard extends LitElement {
 
     .demo-section__num {
       font-size: 10px;
-      font-weight: 700;
+      font-weight: var(--fw-bold, 700);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-muted, #696e75);
@@ -114,7 +114,7 @@ export class DcxWebPageCard extends LitElement {
 
     .demo-section__title {
       font-size: 13px;
-      font-weight: 600;
+      font-weight: var( --fw-semibold, 600);
       color: var(--text-dark, #2a2e33);
     }
 
@@ -165,20 +165,20 @@ export class DcxWebPageCard extends LitElement {
     .card-demo__avatar {
       width: 40px;
       height: 40px;
-      border-radius: 999px;
-      background: #dbeafe;
+      border-radius: var(--r-pill, 999px);
+      background: var(--info-light, #dbeafe);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: var(--fw-semibold, 600);
       color: var(--color-info, #12abdb);
       flex-shrink: 0;
     }
 
     .card-demo__name {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: var(--fw-semibold, 600);
       color: var(--text-dark, #2a2e33);
     }
 
@@ -190,21 +190,19 @@ export class DcxWebPageCard extends LitElement {
 
     .card-demo__title {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: var(--fw-semibold, 600);
       color: var(--text-dark, #2a2e33);
-      font-size: var(--card-title-font-size, 15px);
     }
 
     .card-demo__subtitle {
-      font-size: 13px;
+      font-size: var(--fs-base, 14px);
       color: var(--text-muted, #696e75);
       margin-top: var(--sp-1, 4px);
-      font-size: var(--card-subtitle-font-size, 13px);
     }
 
     .card-demo__hr {
       border: 0;
-      border-top: 1px solid var(--border-light, #e5e7eb);
+      border-top: 1px solid var(--border-light, #d1d5db);
       margin: var(--sp-3, 12px) 0;
     }
 
@@ -223,7 +221,7 @@ export class DcxWebPageCard extends LitElement {
 
     .card-demo__stat-val {
       font-size: var(--fs-lg, 18px);
-      font-weight: 700;
+      font-weight: var(--fw-bold, 700);
       color: var(--bg-primary, #0058ab);
     }
 
@@ -244,10 +242,10 @@ export class DcxWebPageCard extends LitElement {
         to right,
         var(--bg-primary, #0058ab) 0%,
         var(--bg-primary, #0058ab) var(--slider-fill, 0%),
-        #e5e7eb var(--slider-fill, 0%),
-        #e5e7eb 100%
+        var(--border-light, #d1d5db) var(--slider-fill, 0%),
+        var(--border-light, #d1d5db) 100%
       );
-      border-radius: 3px;
+      border-radius: var(--r-sm, 4px);
       outline: none;
       margin: var(--sp-2, 8px) 0;
       cursor: pointer;
@@ -259,9 +257,9 @@ export class DcxWebPageCard extends LitElement {
       width: 18px;
       height: 18px;
       background: var(--bg-primary, #0058ab);
-      border-radius: 50%;
-      border: 2px solid #fff;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      border-radius: var(--r-pill, 50%);
+      border: 2px solid var(--text-white, #ffffff);
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06));
       cursor: pointer;
     }
 
@@ -269,10 +267,10 @@ export class DcxWebPageCard extends LitElement {
       width: 16px;
       height: 16px;
       background: var(--bg-primary, #0058ab);
-      border-radius: 50%;
+      border-radius: var(--r-pill, 50%);
       cursor: pointer;
-      border: 2px solid white;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      border: 2px solid var(--text-white, #ffffff);
+      box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06));
     }
 
     .mock-slider__progress {
@@ -286,7 +284,7 @@ export class DcxWebPageCard extends LitElement {
 
     .mock-slider__progress-val {
       color: var(--bg-primary, #0058ab);
-      font-weight: 600;
+      font-weight: var(--fw-semibold, 600);
     }
 
     .mock-chip {
@@ -296,20 +294,12 @@ export class DcxWebPageCard extends LitElement {
       height: 2rem;
       padding: 0 var(--sp-3, 12px);
 
-      border-radius: 999px;
+      border-radius: var(--r-pill, 999px);
       border: 1px solid transparent;
 
-      font-family: var(
-        --font-family-base,
-        system-ui,
-        -apple-system,
-        'Segoe UI',
-        Roboto,
-        'Helvetica Neue',
-        Arial
-      );
+      font-family: var(--ff-base, 'Inter', sans-serif);
       font-size: var(--fs-base, 14px);
-      font-weight: 500;
+      font-weight: var(--fw-medium, 500);
       line-height: 1;
 
       white-space: nowrap;
@@ -321,7 +311,7 @@ export class DcxWebPageCard extends LitElement {
 
     .mock-chip--primary {
       background-color: var(--bg-primary, #0058ab);
-      color: #ffffff;
+      color: var(--text-white, #ffffff);
     }
 
     .mock-chip--secondary {
@@ -332,27 +322,27 @@ export class DcxWebPageCard extends LitElement {
 
     .mock-chip--success {
       background-color: var(--status-success, #00a76f);
-      color: #ffffff;
+      color: var(--text-white, #ffffff);
     }
 
     .mock-chip--warning {
       background-color: var(--status-warning, #ffa726);
-      color: #2a2e33;
+      color: var(--text-dark, #2a2e33);
     }
 
     .card-demo__kpi-value {
       margin: var(--sp-2, 8px) 0 var(--sp-1, 4px);
       font-size: 36px;
       line-height: 1;
-      font-weight: 700;
+      font-weight: var(--fw-bold, 700);
       color: var(--text-dark, #2a2e33);
     }
 
     .card-demo__kpi-trend {
       margin: 0 0 var(--sp-1, 4px);
       font-size: var(--fs-sm, 12px);
-      font-weight: 600;
-      color: var(--color-success, #00a76f);
+      font-weight: var(--fw-semibold, 600);
+      color: var(--color-success, #16a34a);
     }
 
     .card-demo__kpi-label {
@@ -365,31 +355,47 @@ export class DcxWebPageCard extends LitElement {
       display: flex;
       flex-wrap: wrap;
       gap: var(--sp-2, 8px);
-      margin-top: var(--sp-3, 12px);
+      margin-top: 0;
     }
 
     .card-demo__actions {
       display: flex;
       gap: var(--sp-2, 8px);
-      margin-top: var(--sp-3, 12px);
+      margin-top: 0;
     }
 
     .mock-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      height: 24px;
       gap: var(--sp-2, 8px);
-      padding: var(--sp-1, 4px) var(--sp-3, 12px);
+      padding: 0 var(--sp-3, 12px);
       border-radius: var(--r-sm, 4px);
       font-family: inherit;
       font-size: var(--fs-sm, 12px);
       border: none;
       cursor: pointer;
     }
-    .mock-btn-primary { background: #0058ab; color: #fff; }
-    .mock-btn-secondary { background: #ffffff; color: #2a2e33; border: 1px solid #d1d5db }
+
+    .mock-btn-primary { 
+      background: var(--bg-primary, #0058ab);
+      color: var(--text-white, #ffffff);
+    }
+
+    .mock-btn-secondary {
+      background: var(--bg-default, #ffffff);
+      color: var(--text-dark, #2a2e33);
+      border: 1px solid var(--border-light, #d1d5db);
+    }
   
-    .mock-btn-primary:hover { background: #004080; }
-    .mock-btn-secondary:hover { background: #f7f8fa; }
+    .mock-btn-primary:hover {
+      background: var(--bg-primary-hover, #004080); 
+    }
+
+    .mock-btn-secondary:hover {
+      background: var(--bg-hover, #f7f8fa); 
+    }
     `;
 
   override render() {
@@ -451,7 +457,7 @@ export class DcxWebPageCard extends LitElement {
                   <span class="mock-chip mock-chip--success">Activo</span>
                 </div>
                 <div slot="content">
-                  <p style="margin-top:var(--sp-2, 8px);color: var(--text-muted, #696e75;">Migración de infraestructura on-premise a Azure para BNP Paribas.</p>
+                  <p style="margin-top:var(--sp-2, 8px);color: var(--text-muted, #696e75);">Migración de infraestructura on-premise a Azure para BNP Paribas.</p>
                   <div class="mock-slider__progress">
                     <span>Progreso</span>
                     <span class="mock-slider__progress-val">${this._sliderVal}%</span></div>
@@ -465,7 +471,7 @@ export class DcxWebPageCard extends LitElement {
                   >
                 </div>
                 <div slot="footer">
-                  <div class="card-demo__actions">
+                  <div class="card-demo__actions" style="margin-top: var(--sp-4, 16px);">
                     <button class="mock-btn mock-btn-primary">Ver detalle</button>
                   </div>
                 </div>

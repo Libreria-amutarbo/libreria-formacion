@@ -80,7 +80,7 @@ export class DcxWebCard extends LitElement {
       gap: var(--card-gap, var(--sp-4, 16px));
       background: var(--bg-default, #ffffff);
       border-style: var(--card-border-style);
-      border-color: var(--bg-primary);
+      border-color: var(--bg-primary, #0058ab);
       border-width: var(--card-border-width);
       border-radius: var(--card-radius);
       padding: var(--card-padding);
@@ -102,37 +102,37 @@ export class DcxWebCard extends LitElement {
     }
 
     .dcx-card__inner--size-s {
-      --card-padding: var(--sp-2, 8px);
-      --card-gap: var(--sp-2, 8px);
+      --card-padding: 0.9rem;
+      --card-gap: 0.55rem;
       --card-title-font-size: var(--fs-md, 16px);
-      --card-subtitle-font-size: var(--fs-sm, 12px);
-      --card-radius: var(--r-sm, 4px);
+      --card-subtitle-font-size: 0.85rem;
+      --card-radius: var(--r-xl, 12px);
       --card-max-image-width: 92%;
     }
 
     .dcx-card__inner--size-m {
-      --card-padding: var(--sp-4, 16px);
+      --card-padding: 1rem;
       --card-gap: var(--sp-3, 12px);
       --card-title-font-size: var(--fs-lg, 18px);
-      --card-subtitle-font-size: var(--fs-base, 14px);
-      --card-radius: var(--r-md, 8px);
+      --card-subtitle-font-size: 0.95rem;
+      --card-radius: var(--r-lg, 8px);
       --card-max-image-width: 100%;
     }
 
     .dcx-card__inner--size-l {
-      --card-padding: var(--sp-6, 24px);
+      --card-padding: 1.7rem;
       --card-gap: var(--sp-4, 16px);
-      --card-title-font-size: var(--fs-xl, 20px);
-      --card-subtitle-font-size: var(--fs-md, 16px);
-      --card-radius: var(--r-lg, 10px);
+      --card-title-font-size: 1.4rem;
+      --card-subtitle-font-size: 1.05rem;
+      --card-radius: 10px;
       --card-max-image-width: 100%;
     }
 
     .dcx-card__inner--size-xl {
-      --card-padding: var(--sp-8, 32px);
+      --card-padding: 2.25rem;
       --card-gap: var(--sp-5, 20px);
-      --card-title-font-size: var(--fs-2xl, 24px);
-      --card-subtitle-font-size: var(--fs-lg, 18px);
+      --card-title-font-size: 1.6rem;
+      --card-subtitle-font-size: 1.1rem;
       --card-radius: var(--r-xl, 12px);
       --card-max-image-width: 100%;
     }
@@ -160,7 +160,7 @@ export class DcxWebCard extends LitElement {
       display: block;
       width: 100%;
       max-width: var(--card-max-image-width, 180px);
-      border-radius: 6px;
+      border-radius: var( --r-md, 6px);
       object-fit: cover;
     }
 
@@ -321,11 +321,11 @@ export class DcxWebCard extends LitElement {
   private _shadowToCSS(preset: ShadowPresetCard): string {
     switch (preset) {
       case 1:
-        return 'var(--shadow-1, 0 2px 4px rgba(0,0,0,0.1))';
+        return 'var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.6))';
       case 2:
-        return 'var(--shadow-2, 0 4px 8px rgba(0,0,0,0.12))';
+        return 'var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08))';
       case 3:
-        return 'var(--shadow-3, 0 8px 16px rgba(0,0,0,0.14))';
+        return 'var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12))';
       default:
         return 'var(--shadow-0, none)';
     }
