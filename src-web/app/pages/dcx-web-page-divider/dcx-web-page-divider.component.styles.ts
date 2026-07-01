@@ -29,7 +29,7 @@ export const dcxWebPageDividerStyles = css`
 
   .demo-page-header__title {
     font-size: var(--fs-lg, 28px);
-    font-weight: 700;
+    font-weight: var(--fw-bold, 700);
     color: var(--text-dark, #2a2e33);
     margin: 0 0 .6rem 0;
   }
@@ -66,10 +66,10 @@ export const dcxWebPageDividerStyles = css`
 
   .demo-section__num {
     font-size: 10px;
-    font-weight: 700;
+    font-weight: var(--fw-bold, 700);;
     color: var(--text-muted, #696e75);
     background: #edf0f3;
-    border-radius: 4px;
+    border-radius: var(--sp-1, 4px);
     padding: 2px 8px;
   }
 
@@ -98,7 +98,7 @@ export const dcxWebPageDividerStyles = css`
 
   .vertical-container {
     display: flex;
-    gap: 16px;
+    gap: var(--sp-4, 16px);
     height: 120px;
     align-items: stretch;
   }
@@ -113,14 +113,14 @@ export const dcxWebPageDividerStyles = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: var(--sp-2, 8px);
     height: 100%;
   }
 
   .vertical-thickness-grid {
     display: grid;
     grid-template-columns: repeat(4, auto);
-    gap: 32px;
+    gap: var(--sp-8, 32px);
     height: 200px;
     align-items: flex-end;
   }
@@ -128,14 +128,14 @@ export const dcxWebPageDividerStyles = css`
   .vertical-sizes-grid {
     display: flex;
     flex-direction: row;
-    gap: 48px;
+    gap: var(--sp-12, 48px);
     height: 300px;
     align-items: flex-end;
   }
 
   .vertical-grid {
     display: flex;
-    gap: 48px;
+    gap: var(--sp-12, 48px);
     height: 220px;
     align-items: flex-end;
   }
@@ -144,14 +144,14 @@ export const dcxWebPageDividerStyles = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: var(--sp-2, 8px);
     height: 100%;
   }
 
   .color-vertical-grid {
     display: grid;
     grid-template-columns: repeat(7, auto);
-    gap: 12px;
+    gap: var(--sp-3, 12px);
     height: 180px;
     align-items: stretch;
   }
