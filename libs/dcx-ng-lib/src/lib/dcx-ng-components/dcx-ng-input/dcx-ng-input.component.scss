@@ -26,6 +26,13 @@
   width: 100%;
 }
 
+// Fila del campo: ancla el botón de acción (ojo/buscar) al recuadro del input,
+// no al wrapper (que además contiene hint y errores).
+.dcx-ng-input__field {
+  position: relative;
+  width: 100%;
+}
+
 .dcx-ng-input__control {
   width: 100%;
 
