@@ -72,7 +72,7 @@ export const dcxWebDividerStyles = css`
 
   .dcx-divider__label {
     color: var(--dcx-divider-color);
-    font-family: var(--ff-base);
+    font-family: var(--ff-base, 'Inter', sans-serif);
     font-size: var(--fs-sm);
     line-height: 1;
     white-space: nowrap;
