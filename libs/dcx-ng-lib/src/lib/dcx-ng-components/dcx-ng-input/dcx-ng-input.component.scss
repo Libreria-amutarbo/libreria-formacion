@@ -77,13 +77,21 @@
   &.has-action {
     padding-right: var(--sp-10, 40px);
   }
+
+  &::placeholder {
+    color: var(--text-muted, #696e75);
+    opacity: 1;
+  }
 }
 
-.input-value {
-  flex: 1;
-}
 .dcx-ng-input__required {
   color: var(--color-error, #dc2626);
+}
+
+.dcx-ng-input__hint {
+  margin-top: var(--sp-1, 4px);
+  color: var(--text-muted, #696e75);
+  font-size: var(--fs-sm, 12px);
 }
 
 .dcx-ng-input__error {
@@ -102,12 +110,6 @@
   margin-bottom: var(--sp-1, 4px);
 }
 
-.dcx-ng-input__buttons {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-1, 4px);
-}
-
 .dcx-ng-input__control:hover:not(.is-disabled) {
   box-shadow: 0 0 0 2px var(--border-hover, #9ca3af);
 }
@@ -119,17 +121,4 @@
   transform: translateY(-50%);
   z-index: 10;
   padding: var(--sp-1, 4px) !important;
-}
-
-.dcx-ng-input__clear-btn {
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: var(--fs-base, 14px);
-  opacity: 0.7;
-
-  &:hover {
-    opacity: 1;
-  }
 }
