@@ -73,7 +73,7 @@ Sin cambios de ruptura. Solo una adición de input.
 | `name`       | `string`         | —       | ✅ sí    | Nombre del icono de Bootstrap Icons (sin el prefijo `bi-`).                                               |
 | `size`       | `DcxSize`        | `'m'`   | no       | Tamaño del icono. `auto` hereda el `font-size` del contenedor.                                            |
 | `spacing`    | `DcxIconSpacing` | `'none'`| no       | Margen horizontal externo (`none` / `compact` / `spacious`).                                              |
-| `color`      | `string`         | `''`    | no       | Color del icono (hex o nombre CSS). Si se deja vacío, usa el azul corporativo (`--color-primary`, vía `:host`). Debe cumplir contraste ≥3:1 frente al fondo. |
+| `color`      | `string`         | `''`    | no       | Color del icono (hex o nombre CSS). Si se deja vacío, hereda el color del contexto (`currentColor`) — imprescindible para que los iconos embebidos en otros componentes (botón, stepper, message…) tomen su color. El azul corporativo se aplica solo en el showcase (página/Storybook), no en el `:host`. Debe cumplir contraste ≥3:1 frente al fondo. |
 | `extraClass` | `string`         | `''`    | no       | Clases CSS adicionales.                                                                                   |
 | `ariaLabel`  | `string`         | `''`    | no       | **NUEVO.** Nombre accesible. Si se indica → icono significativo (`role="img"`). Si no → decorativo (`aria-hidden="true"`). |
 

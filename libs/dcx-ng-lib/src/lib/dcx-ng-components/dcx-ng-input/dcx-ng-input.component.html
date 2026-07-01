@@ -13,8 +13,9 @@
 }
 
 <div class="dcx-ng-input__wrapper" [class.is-disabled]="disabled()">
-  <input
-    #input
+  <div class="dcx-ng-input__field">
+    <input
+      #input
     [multiple]="isFileType() ? multiple() : null"
     [checked]="isRadioType() ? checked() : null"
     [value]="!isFileType() && !isRadioType() ? value() : null"
@@ -42,19 +43,20 @@
     (keydown.enter)="enterPressed.emit()"
   />
 
-  @if (showActionIcon() && !isRangeType()) {
-    <dcx-ng-button
-      class="dcx-ng-input__action-button"
-      variant="icon-only"
-      size="s"
-      icon
-      iconSize="l"
-      [iconName]="getActionButtonIcon()"
-      [ariaLabel]="getActionButtonAriaLabel()"
-      [disabled]="disabled()"
-      (buttonClick)="onActionButtonClick()"
-    ></dcx-ng-button>
-  }
+    @if (showActionIcon() && !isRangeType()) {
+      <dcx-ng-button
+        class="dcx-ng-input__action-button"
+        variant="icon-only"
+        size="s"
+        icon
+        iconSize="l"
+        [iconName]="getActionButtonIcon()"
+        [ariaLabel]="getActionButtonAriaLabel()"
+        [disabled]="disabled()"
+        (buttonClick)="onActionButtonClick()"
+      ></dcx-ng-button>
+    }
+  </div>
 
   @if (hint() && !isInvalid()) {
     <div class="dcx-ng-input__hint" [id]="hintId()">{{ hint() }}</div>

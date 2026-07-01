@@ -21,7 +21,9 @@ const meta: Meta<DcxNgIconComponent> = {
     name: 'gear',
     size: 'm',
     spacing: 'none',
-    color: '',
+    // Azul corporativo en el showcase (a nivel de story, no del componente:
+    // el componente por defecto hereda el color del contexto).
+    color: '#0058ab',
     extraClass: '',
     ariaLabel: '',
   },
@@ -63,11 +65,11 @@ const meta: Meta<DcxNgIconComponent> = {
       name: 'color',
       control: { type: 'color' },
       description:
-        'Color del icono (hexadecimal o nombre CSS). Si se deja vacío, usa el azul corporativo (`--color-primary`). Debe cumplir un contraste de al menos 3:1 frente al fondo.',
+        'Color del icono (hexadecimal o nombre CSS). Si se deja vacío, hereda el color del contexto (`currentColor`). Debe cumplir un contraste de al menos 3:1 frente al fondo.',
       table: {
         category: 'Atributos',
         type: { summary: 'string' },
-        defaultValue: { summary: 'var(--color-primary)' },
+        defaultValue: { summary: '"" (hereda currentColor)' },
       },
     },
     ariaLabel: {
