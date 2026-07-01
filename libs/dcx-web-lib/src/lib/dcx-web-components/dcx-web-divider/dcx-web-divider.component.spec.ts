@@ -18,8 +18,6 @@ describe('DcxWebDivider', () => {
     expect(element).toBeInstanceOf(DcxWebDivider);
   });
 
-  /* TEMPLATE */
-
   it('should render plain span by default', () => {
     const span = element.shadowRoot?.querySelector('span.dcx-divider');
     expect(span).toBeTruthy();
@@ -41,8 +39,6 @@ describe('DcxWebDivider', () => {
     const lines = element.shadowRoot?.querySelectorAll('.dcx-divider__line');
     expect(lines?.length).toBe(2);
   });
-
-  /* ARIA */
 
   it('should default aria-orientation to horizontal', () => {
     const span = element.shadowRoot?.querySelector('span');
@@ -82,8 +78,6 @@ describe('DcxWebDivider', () => {
     expect(span?.getAttribute('aria-hidden')).toBe('true');
   });
 
-  /* HOST */
-
   it('should have horizontal class by default', () => {
     expect(element.classList.contains('horizontal')).toBeTruthy();
   });
@@ -101,8 +95,6 @@ describe('DcxWebDivider', () => {
 
     expect(element.classList.contains('has-label')).toBeTruthy();
   });
-
-  /* CSS VARS */
 
   it('should set thickness variable', async () => {
     element.thickness = 0.5;
