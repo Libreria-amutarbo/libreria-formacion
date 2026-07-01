@@ -108,17 +108,17 @@ export const dcxWebCheckboxStyles = css`
   }
 
   .dcx-checkbox__btn--error-primary {
-    background-color: var(--background-error, #dc2626);
+    background-color: var(--color-error, #dc2626);
     color: var(--text-error, #fff);
   }
 
   .dcx-checkbox__btn--error-primary:hover:not(:disabled),
   .dcx-checkbox__btn--error-secondary:hover:not(:disabled) {
-    background-color: var(--background-error-hover, #ffffff);
-    border: 2px solid var(--border-error-hover, #dc2626);
-    color: var(--border-error-hover, #dc2626);
+    background-color: var(--bg-default, #ffffff);
+    border: 2px solid var(--border-error, #dc2626);
+    color: var(--color-error, #dc2626);
 
-    border-color: var(--border-error-hover, #dc2626);
+    border-color: var(--border-error, #dc2626);
     transform: scale(1.2);
   }
 
@@ -145,7 +145,7 @@ export const dcxWebCheckboxStyles = css`
   }
 
   .dcx-checkbox-text--error {
-    color: var(--text-error, #dc2626);
+    color: var(--color-error, #dc2626);
   }
 
   .dcx-checkbox__required {
@@ -157,7 +157,7 @@ export const dcxWebCheckboxStyles = css`
     align-items: center;
     gap: var(--sp-1, 4px);
     margin-top: var(--sp-1, 4px);
-    color: var(--text-error, #dc2626);
+    color: var(--color-error, #dc2626);
     font-size: var(--fs-sm, 12px);
   }
 

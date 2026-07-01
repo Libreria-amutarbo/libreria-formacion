@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../../index';
-import type { DcxCheckbox } from '../../../lib/core/interfaces/checkbox';
+import type { DcxCheckbox } from '../../core/interfaces/checkbox';
 
 const DcxSingleCheck: DcxCheckbox[] = [
   { id: '1', value: true, label: 'Checkbox único' },
