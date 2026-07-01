@@ -57,23 +57,23 @@ export const dcxWebDividerStyles = css`
   :host(.horizontal) .dcx-divider__line {
     flex: 1;
     height: 0;
-    border-top: var(--dcx-divider-thickness)
-      var(--dcx-divider-style)
-      var(--dcx-divider-color);
+    border-top: var(--dcx-divider-thickness, 1px)
+      var(--dcx-divider-style, solid)
+      var(--dcx-divider-color, var(--border-light, #d1d5db));
   }
 
   :host(.vertical) .dcx-divider__line {
     flex: 1;
     width: 0;
-    border-left: var(--dcx-divider-thickness)
-      var(--dcx-divider-style)
-      var(--dcx-divider-color);
+    border-left: var(--dcx-divider-thickness, 1px)
+      var(--dcx-divider-style, solid)
+      var(--dcx-divider-color, var(--border-light, #d1d5db));
   }
 
   .dcx-divider__label {
     color: var(--dcx-divider-color);
     font-family: var(--ff-base, 'Inter', sans-serif);
-    font-size: var(--fs-sm);
+    font-size: var(--fs-sm, 14px);
     line-height: 1;
     white-space: nowrap;
     user-select: none;
