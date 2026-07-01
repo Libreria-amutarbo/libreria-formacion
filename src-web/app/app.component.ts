@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import './pages/dcx-web-page-badge/dcx-web-page-badge.component';
+import './pages/dcx-web-page-dialog/dcx-web-page-dialog.component';
 import './pages/dcx-web-page-home/dcx-web-page-home.component';
 
 @customElement('dcx-web-root')
@@ -37,6 +38,9 @@ export class DcxWebRoot extends LitElement {
     switch (this._currentPath) {
       case '#badge':
         content = html`<dcx-web-page-badge></dcx-web-page-badge>`;
+        break;
+      case '#dialog':
+        content = html`<dcx-web-page-dialog></dcx-web-page-dialog>`;
         break;
       default:
         content = html`<dcx-web-page-home></dcx-web-page-home>`;
