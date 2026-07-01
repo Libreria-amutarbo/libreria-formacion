@@ -10,6 +10,7 @@ interface HomeCard {
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
   accordion: 'list',
+  button: 'hand-index-thumb',
 };
 
 @customElement('dcx-web-page-home')
@@ -26,6 +27,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'accordion',
       name: 'Accordion',
       icon: ROUTE_ICONS['accordion'],
+    },
+    {
+      route: 'button',
+      name: 'Button',
+      icon: ROUTE_ICONS['button'],
     },
   ];
 
