@@ -1,0 +1,97 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ChipStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Chip/Documentation" />
+
+# Chip Component
+
+El Chip es un componente compacto para mostrar información, etiquetas o elementos seleccionables con soporte nativo para tematización e interactividad.
+
+## Características
+
+- **Colores de tema** - Soporta 7 colores predefinidos del sistema de diseño
+- **Iconos** - Iconos Bootstrap opcionales (almacenados como SVG inline)
+- **Removible** - Funcionalidad de eliminar con manejo de eventos
+- **Accesible** - Etiquetas ARIA y soporte de navegación por teclado
+
+## Uso Básico
+
+```html
+<dcx-web-chip label="Chip básico"></dcx-web-chip>
+```
+
+## Con Icono
+
+```html
+<dcx-web-chip 
+  label="Configuración" 
+  icon="gear" 
+  color="primary">
+</dcx-web-chip>
+```
+
+## Chip Removible
+
+```html
+<dcx-web-chip 
+  label="Etiqueta removible" 
+  color="warning" 
+  variant="filter"
+  @dcx-chip-remove="handleChipRemove()">
+</dcx-web-chip>
+```
+
+### Colores de Tema
+
+Colores disponibles: `primary`, `secondary`, `success`, `warning`, `error`, `info`, `gray`
+
+## Estructura del Componente
+
+El componente determina automáticamente su tipo basado en los inputs:
+- **Solo texto** - Chip básico con etiqueta
+- **Con icono** - Combinación icono + etiqueta
+- **Removible** - Incluye botón de eliminar (×)
+- **Icono + Removible** - Chip completo con todas las características
+
+## Accesibilidad
+
+- Utiliza atributos `aria-label` apropiados
+- El botón de eliminar incluye texto descriptivo para lectores de pantalla
+- Estructura HTML semántica correcta
+- Soporte de navegación por teclado
+
+## Ejemplos
+
+### Etiquetas de Tecnología
+```html
+<dcx-web-chip label="Web Components" icon="code-slash" color="error" variant="filter"></dcx-web-chip>
+<dcx-web-chip label="TypeScript" icon="terminal" color="primary" variant="filter"></dcx-web-chip>
+<dcx-web-chip label="Lit" icon="palette" color="secondary" variant="filter"></dcx-web-chip>
+```
+
+### Indicadores de Estado
+```html
+<dcx-web-chip label="Activo" color="success"></dcx-web-chip>
+<dcx-web-chip label="Pendiente" color="warning"></dcx-web-chip>
+<dcx-web-chip label="Error" color="error"></dcx-web-chip>
+```
+
+## Eventos
+
+El componente dispara el evento `dcx-chip-remove` cuando se hace clic en el botón de eliminar:
+
+```html
+<dcx-web-chip 
+  label="Removible" 
+  variant="filter"
+  @dcx-chip-remove="${(e) => console.log('Chip removido')}">
+</dcx-web-chip>
+```
+
+## Variantes
+
+### Choice (Por defecto)
+Sin botón de eliminar, típico para filtros de solo lectura.
+
+### Filter
+Muestra botón de eliminar, típico para tags seleccionables o filtros activos.
