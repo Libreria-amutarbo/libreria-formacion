@@ -1,97 +1,20 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-export type DialogPosition = 'center' | 'top' | 'bottom';
+import type { DialogPosition } from '../../core/interfaces/dialog';
+import { dcxWebDialogStyles } from './dcx-web-dialog.component.styles'; 
 
 @customElement('dcx-web-dialog')
 export class DcxWebDialog extends LitElement {
-  // Inputs (equivalentes Angular)
-  @property({ type: String }) accessor dialogId: string | undefined = undefined;
-  @property({ type: String }) accessor title = '';
-  @property({ type: Boolean }) accessor visible = false;
-  @property({ type: Boolean }) accessor showClose = true;
+
   @property({ type: String }) accessor position: DialogPosition = 'center';
-  @property({ type: Boolean }) accessor closeOnBackdrop = true;
+  @property({ type: String }) override accessor title: string = '';
+  @property({ type: String }) accessor dialogId: string = ''
+  @property({ type: Boolean }) accessor showClose: boolean = true;
+  @property({ type: Boolean }) accessor closeOnBackdrop: boolean = true;
+  @property({ type: Boolean }) accessor visible: boolean = false;
 
-  // Slots equivalentes a templates
-  // body -> <slot name="body"></slot>
-  // footer -> <slot name="footer"></slot>
-
-  static override styles = css`
-    :host {
-      display: block;
-    }
-
-    .dcx-dialog-root {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .dcx-dialog__backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-    }
-
-    .dcx-dialog {
-      position: relative;
-      background: white;
-      border-radius: 8px;
-      min-width: 300px;
-      max-width: 600px;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .dcx-dialog--pos-center {
-      align-self: center;
-    }
-
-    .dcx-dialog--pos-top {
-      align-self: flex-start;
-      margin-top: 40px;
-    }
-
-    .dcx-dialog--pos-bottom {
-      align-self: flex-end;
-      margin-bottom: 40px;
-    }
-
-    .dcx-dialog__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .dcx-dialog__title {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .dcx-dialog__close {
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 20px;
-    }
-
-    .dcx-dialog__body {
-      padding: 16px;
-    }
-
-    .dcx-dialog__footer {
-      padding: 16px;
-      border-top: 1px solid #eee;
-    }
-  `;
+  static override styles = dcxWebDialogStyles;
 
   private get _dialogTitleId(): string {
     return `dialog-title-${this.dialogId ?? 'default'}`;
