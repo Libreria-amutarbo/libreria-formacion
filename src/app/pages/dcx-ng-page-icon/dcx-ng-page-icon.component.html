@@ -23,7 +23,7 @@
       pantalla con <code>aria-hidden="true"</code>.
     </p>
     <div class="demo-section__body">
-      <dcx-ng-icon name="gear"></dcx-ng-icon>
+      <dcx-ng-icon name="gear" color="var(--color-primary, #0058ab)"></dcx-ng-icon>
     </div>
   </div>
 
@@ -36,7 +36,7 @@
     <div class="demo-section__body" style="display:flex;align-items:flex-end;gap:1.5rem;">
       @for (s of sizes; track s) {
         <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;">
-          <dcx-ng-icon name="heart" [size]="s"></dcx-ng-icon>
+          <dcx-ng-icon name="heart" [size]="s" color="var(--color-primary, #0058ab)"></dcx-ng-icon>
           <small>{{ s }}</small>
         </div>
       }
@@ -52,7 +52,7 @@
     <div class="demo-section__body" style="display:flex;flex-direction:column;gap:.75rem;align-items:flex-start;">
       @for (sp of spacings; track sp) {
         <div style="background:#f4f5f7;border-radius:6px;">
-          <span style="background:#fff;">texto</span><dcx-ng-icon name="star" [spacing]="sp"></dcx-ng-icon><span style="background:#fff;">{{ sp }}</span>
+          <span style="background:#fff;">texto</span><dcx-ng-icon name="star" [spacing]="sp" color="var(--color-primary, #0058ab)"></dcx-ng-icon><span style="background:#fff;">{{ sp }}</span>
         </div>
       }
     </div>
@@ -86,7 +86,7 @@
       (<code>role="img"</code> + <code>aria-label</code>).
     </p>
     <div class="demo-section__body">
-      <dcx-ng-icon name="gear" size="l" ariaLabel="Configuración"></dcx-ng-icon>
+      <dcx-ng-icon name="gear" size="l" ariaLabel="Configuración" color="var(--color-primary, #0058ab)"></dcx-ng-icon>
     </div>
   </div>
 

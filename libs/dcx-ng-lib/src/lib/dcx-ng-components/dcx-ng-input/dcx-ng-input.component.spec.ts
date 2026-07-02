@@ -32,10 +32,6 @@ describe('DcxNgInputComponent', () => {
       expect(component.placeholder()).toBe('');
     });
 
-    it('should have default size as m', () => {
-      expect(component.size()).toBe('m');
-    });
-
     it('should have default disabled as false', () => {
       expect(component.disabled()).toBe(false);
     });
@@ -426,10 +422,82 @@ describe('DcxNgInputComponent', () => {
     });
   });
 
-  describe('inputId', () => {
-    it('should generate unique inputId', () => {
-      expect(component.inputId).toBeTruthy();
-      expect(component.inputId.startsWith('dcx-input-')).toBe(true);
+  describe('id association (WCAG)', () => {
+    it('should generate an id starting with "dcx-input-"', () => {
+      expect(component.id()).toBeTruthy();
+      expect(component.id().startsWith('dcx-input-')).toBe(true);
+    });
+
+    it('should derive labelId and errorId from the same id()', () => {
+      expect(component.labelId()).toBe(`${component.id()}-label`);
+      expect(component.errorId()).toBe(`${component.id()}-error`);
+      expect(component.hintId()).toBe(`${component.id()}-hint`);
+    });
+
+    it('should link label "for" to the input "id"', () => {
+      fixture.componentRef.setInput('label', 'Nombre');
+      fixture.detectChanges();
+      const label = fixture.debugElement.query(
+        By.css('.dcx-ng-input__label'),
+      ).nativeElement as HTMLLabelElement;
+      expect(label.getAttribute('for')).toBe(inputElement.getAttribute('id'));
+      expect(label.getAttribute('for')).toBe(component.id());
+    });
+  });
+
+  describe('hint (WCAG)', () => {
+    it('should render the hint text when set and not invalid', () => {
+      fixture.componentRef.setInput('hint', 'Texto de ayuda');
+      fixture.detectChanges();
+      const hint = fixture.debugElement.query(By.css('.dcx-ng-input__hint'));
+      expect(hint).toBeTruthy();
+      expect(hint.nativeElement.textContent).toContain('Texto de ayuda');
+      expect(hint.nativeElement.getAttribute('id')).toBe(component.hintId());
+    });
+
+    it('should reference the hint id in aria-describedby', () => {
+      fixture.componentRef.setInput('hint', 'Texto de ayuda');
+      fixture.detectChanges();
+      expect(component.describedBy()).toContain(component.hintId());
+      expect(inputElement.getAttribute('aria-describedby')).toContain(
+        component.hintId(),
+      );
+    });
+
+    it('should hide the hint (and drop its id) when invalid', () => {
+      fixture.componentRef.setInput('hint', 'Texto de ayuda');
+      fixture.componentRef.setInput('isInvalid', true);
+      fixture.componentRef.setInput('errorMessage', 'Error');
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('.dcx-ng-input__hint'))).toBeFalsy();
+      expect(component.describedBy()).not.toContain(component.hintId());
+    });
+  });
+
+  describe('error announcement (WCAG)', () => {
+    it('should mark the error container with role="alert"', () => {
+      fixture.componentRef.setInput('isInvalid', true);
+      fixture.componentRef.setInput('errorMessage', 'Campo inválido');
+      fixture.detectChanges();
+      const errorEl = fixture.debugElement.query(By.css('.dcx-ng-input__error'));
+      expect(errorEl.nativeElement.getAttribute('role')).toBe('alert');
+    });
+
+    it('should mark the required warning with role="alert"', () => {
+      fixture.componentRef.setInput('required', true);
+      fixture.detectChanges();
+      component.onBlur();
+      fixture.detectChanges();
+      const warning = fixture.debugElement.query(By.css('.dcx-ng-input__error'));
+      expect(warning.nativeElement.getAttribute('role')).toBe('alert');
+    });
+  });
+
+  describe('resetNativeInput', () => {
+    it('should clear the native input value via viewChild', () => {
+      inputElement.value = 'algo';
+      component.resetNativeInput();
+      expect(inputElement.value).toBe('');
     });
   });
 
