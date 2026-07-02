@@ -6,7 +6,6 @@ interface BootstrapIcon {
   [key: string]: any;
 }
 
-// A simple replica of Angular's signal for the Web environment
 function signal<T>(initialValue: T) {
   let value = initialValue;
   const getter = () => value;
@@ -29,12 +28,12 @@ export class IconService {
   private readonly http = {
     get: <T>(url: string): Observable<T> => {
       return from(
-        fetch(url).then((res) => {
+        fetch(url).then(res => {
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
           }
           return res.json() as Promise<T>;
-        })
+        }),
       );
     },
   };
@@ -45,12 +44,12 @@ export class IconService {
     }
 
     return this.http.get<BootstrapIcon[]>(this.BOOTSTRAP_ICONS_URL).pipe(
-      map((icons) => icons.map((icon) => icon.name)),
-      tap((icons) => this._icons.set(icons)),
-      catchError((_error) => {
+      map(icons => icons.map(icon => icon.name)),
+      tap(icons => this._icons.set(icons)),
+      catchError(_error => {
         this._icons.set([]);
         return of([]);
-      })
+      }),
     );
   }
 
