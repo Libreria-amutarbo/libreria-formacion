@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/web-components';
 import { addons } from '@storybook/preview-api';
 import { dcxLightTheme } from './theme';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const preview: Preview = {
   globalTypes: {
