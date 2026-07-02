@@ -1,16 +1,16 @@
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import type { ThemeColorsType, ChipVariantType } from '../../core/interfaces/chip';
+import type { DcxChipColorType, DcxChipVariantType } from '../../core/interfaces/chip';
 import { chipStyles } from './dcx-web-chip.component.styles';
 
 @customElement('dcx-web-chip')
 export class DcxWebChip extends LitElement {
   @property({ type: String, reflect: true }) accessor label = '';
-  @property({ type: String, reflect: true }) accessor color: ThemeColorsType = 'primary';
+  @property({ type: String, reflect: true }) accessor color: DcxChipColorType = 'primary';
   @property({ type: Boolean, reflect: true }) accessor removable = false;
   @property({ type: String, reflect: true }) accessor icon = '';
   @property({ type: String, reflect: true }) accessor image = '';
-  @property({ type: String, reflect: true }) accessor variant: ChipVariantType = 'choice';
+  @property({ type: String, reflect: true }) accessor variant: DcxChipVariantType = 'choice';
 
   static override styles = chipStyles;
 
