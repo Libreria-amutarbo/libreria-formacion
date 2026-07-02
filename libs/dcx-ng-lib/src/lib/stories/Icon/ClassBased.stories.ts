@@ -1,7 +1,10 @@
-
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { SIZE_LIST, SIZE_DEFAULT, ICON_SPACING_LIST, ICON_SPACING_DEFAULT } from '../../core/defaults';
+import {
+  ICON_SIZE_LIST,
+  ICON_SPACING_LIST,
+} from '../../core/defaults';
 import { BOOTSTRAP_ICONS } from 'libs/dcx-ng-lib/.storybook/bootstrap-icons';
 import { DcxNgIconComponent } from '@dcx-ng-components/dcx-ng-lib';
 
@@ -9,75 +12,152 @@ const meta: Meta<DcxNgIconComponent> = {
   title: 'DCXLibrary/Components/Icon',
   component: DcxNgIconComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
   decorators: [
     moduleMetadata({
       imports: [CommonModule, DcxNgIconComponent],
     }),
   ],
+  args: {
+    name: 'gear',
+    size: 'm',
+    spacing: 'none',
+    // Azul corporativo en el showcase (a nivel de story, no del componente:
+    // el componente por defecto hereda el color del contexto).
+    color: '#0058ab',
+    extraClass: '',
+    ariaLabel: '',
+  },
   argTypes: {
+    name: {
+      name: 'name',
+      control: { type: 'text' },
+      description:
+        'Nombre del icono de Bootstrap Icons, sin el prefijo `bi-` (p.ej. `gear`, `search`, `heart`).',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: '(requerido)' },
+      },
+    },
     size: {
-      control: 'select',
-      options: SIZE_LIST,
-      description: 'Tamaño del icono (s, m, l, xl)',
+      name: 'size',
+      control: { type: 'select' },
+      options: ICON_SIZE_LIST,
+      description: 'Tamaño del icono. `auto` hereda el tamaño del contenedor.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'DcxSize' },
-        defaultValue: { summary: 'l' },
-      },
-    },
-    color: {
-      control: 'color',
-      description: 'Color del icono (hexadecimal o nombre CSS)',
-      table: {
-        category: 'Attributes',
-        type: { summary: 'string' },
-        defaultValue: { summary: '#0058ab' },
-      },
-    },
-    extraClass: {
-      control: 'text',
-      description: 'Clases CSS personalizadas para estilos adicionales',
-      table: {
-        category: 'Attributes',
-        type: { summary: 'string' },
-        defaultValue: { summary: '' },
+        defaultValue: { summary: 'm' },
       },
     },
     spacing: {
-      control: 'select',
+      name: 'spacing',
+      control: { type: 'select' },
       options: ICON_SPACING_LIST,
-      description: 'Espaciado externo del icono',
+      description: 'Margen horizontal externo del icono.',
       table: {
-        category: 'Attributes',
-        type: { summary: 'IconSpacing' },
+        category: 'Atributos',
+        type: { summary: 'DcxIconSpacing' },
         defaultValue: { summary: 'none' },
       },
     },
-  },
-  args: {
-    size: 'l',
-    spacing: 'none',
-    color: '#0058ab',
-    extraClass: '',
+    color: {
+      name: 'color',
+      control: { type: 'color' },
+      description:
+        'Color del icono (hexadecimal o nombre CSS). Si se deja vacío, hereda el color del contexto (`currentColor`). Debe cumplir un contraste de al menos 3:1 frente al fondo.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: '"" (hereda currentColor)' },
+      },
+    },
+    ariaLabel: {
+      name: 'ariaLabel',
+      control: { type: 'text' },
+      description:
+        'Nombre accesible. Si se indica, el icono es significativo (`role="img"` + `aria-label`). Si se deja vacío, el icono es decorativo (`aria-hidden="true"`).',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: '""' },
+      },
+    },
+    extraClass: {
+      name: 'extraClass',
+      control: { type: 'text' },
+      description: 'Clases CSS personalizadas para estilos adicionales.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: '""' },
+      },
+    },
   },
 };
 export default meta;
 
-type Story = StoryObj<any>;
+type Story = StoryObj<DcxNgIconComponent>;
+
+export const Default: Story = {};
+
+export const Sizes: Story = {
+  render: (args) => ({
+    props: { ...args, sizes: ICON_SIZE_LIST },
+    template: `
+      <div style="display:flex;align-items:flex-end;gap:1.5rem;">
+        <div *ngFor="let s of sizes" style="display:flex;flex-direction:column;align-items:center;gap:.5rem;">
+          <dcx-ng-icon [name]="name" [size]="s" [color]="color"></dcx-ng-icon>
+          <small style="color:#666;">{{ s }}</small>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const Spacing: Story = {
+  render: (args) => ({
+    props: { ...args, spacings: ICON_SPACING_LIST },
+    template: `
+      <div style="display:flex;flex-direction:column;gap:.75rem;">
+        <div *ngFor="let sp of spacings" style="background:#f4f5f7;border-radius:6px;">
+          <span style="background:#fff;">texto</span><dcx-ng-icon [name]="name" [size]="size" [spacing]="sp"></dcx-ng-icon><span style="background:#fff;">{{ sp }}</span>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const Color: Story = {
+  render: (args) => ({
+    props: { ...args, colors: ['#0058ab', '#16a34a', '#dc2626', '#d97706'] },
+    template: `
+      <div style="display:flex;gap:1.5rem;">
+        <dcx-ng-icon *ngFor="let c of colors" [name]="name" [size]="size" [color]="c"></dcx-ng-icon>
+      </div>
+    `,
+  }),
+};
+
+export const Accessible: Story = {
+  args: {
+    name: 'gear',
+    ariaLabel: 'Configuración',
+  },
+};
 
 export const AllIcons: Story = {
   render: (args) => {
     const props = {
-      size: args['size'],
-      spacing: args['spacing'],
-      color: args['color'],
-      extraClass: args['extraClass'],
-      icons: BOOTSTRAP_ICONS,
+      size: args.size,
+      spacing: args.spacing,
+      color: args.color,
+      extraClass: args.extraClass,
+      icons: [...BOOTSTRAP_ICONS].sort((a, b) => a.localeCompare(b)),
       onCopy: async (name: string) => {
         try {
           await navigator.clipboard.writeText(name);
-          alert('Copiado al portapapeles')
+          alert('Copiado al portapapeles');
         } catch {
           const ta = document.createElement('textarea');
           ta.value = name;
@@ -93,11 +173,7 @@ export const AllIcons: Story = {
 
     return {
       template: `
-        <div style="
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 16px;
-        ">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 16px;">
           <div style="
             display: grid;
             gap: 20px;
@@ -106,19 +182,12 @@ export const AllIcons: Story = {
             justify-items: center;
             align-items: start;
           ">
-            <div 
+            <div
               *ngFor="let icon of icons"
               [class]="extraClass"
               (click)="onCopy(icon)"
               [title]="'Click para copiar: ' + icon"
-              style="
-                cursor: pointer;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 8px;
-                padding: 8px;
-              "
+              style="cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px;"
             >
               <dcx-ng-icon
                 [name]="icon"
@@ -127,12 +196,7 @@ export const AllIcons: Story = {
                 [color]="color"
               ></dcx-ng-icon>
 
-              <div style="
-                font-size: 14px;
-                color: #666;
-                text-align: center;
-                word-break: break-word;
-              ">
+              <div style="font-size: 14px; color: #666; text-align: center; word-break: break-word;">
                 {{ icon }}
               </div>
             </div>
@@ -142,4 +206,4 @@ export const AllIcons: Story = {
       props,
     };
   },
-}
+};
