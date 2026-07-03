@@ -77,10 +77,6 @@ const dangerButtonStyles = `
   color:var(--text-white, #ffffff);
 `;
 
-/* ─────────────────────────────────────────────
- * HOST STORY — equivalente web a DialogService
- * ───────────────────────────────────────────── */
-
 class DcxWebDialogStoryHost extends LitElement {
   static properties  = {
     dialogId: { type: String },
@@ -209,10 +205,6 @@ if (!customElements.get('dcx-web-dialog-story-host')) {
   customElements.define('dcx-web-dialog-story-host', DcxWebDialogStoryHost);
 }
 
-/* ─────────────────────────────────────────────
- * HOST POSITIONS
- * ───────────────────────────────────────────── */
-
 class DcxWebDialogPositionStoryHost extends LitElement {
   static properties = {
     dialogId: { type: String },
@@ -273,10 +265,6 @@ if (!customElements.get('dcx-web-dialog-position-story-host')) {
     DcxWebDialogPositionStoryHost,
   );
 }
-
-/* ─────────────────────────────────────────────
- * RENDER BASE
- * ───────────────────────────────────────────── */
 
 const renderDialogStory = (
   args: DialogStoryArgs,
