@@ -53,11 +53,6 @@ const MOCK_STYLES = html`
     .mock-chip--secondary { background-color: var(--bg-default, #ffffff); color: var(--text-dark, #2a2e33); border-color: var(--border-default, #2a2e33); }
     .mock-chip--success { background-color: var(--status-success, #00a76f); color: var(--text-white, #ffffff); }
     .mock-chip--warning { background-color: var(--status-warning, #ffa726); color: var(--text-dark, #2a2e33); }
-    .mock-btn { display: inline-flex; align-items: center; justify-content: center; height: 24px; gap: var(--sp-2, 8px); padding: 0 var(--sp-3, 12px); border-radius: var(--r-sm, 4px); font-family: inherit; font-size: var(--fs-sm, 12px); border: none; cursor: pointer; }
-    .mock-btn-primary { background: var(--bg-primary, #0058ab); color: var(--text-white, #ffffff); }
-    .mock-btn-secondary { background: var(--bg-default, #ffffff); color: var(--text-dark, #2a2e33); border: 1px solid var(--border-light, #d1d5db); }
-    .mock-btn-primary:hover { background: var(--bg-primary-hover, #004080); }
-    .mock-btn-secondary:hover { background: var(--bg-hover, #f7f8fa); }
   </style>
 `;
 
@@ -322,7 +317,7 @@ export const ProjectCard: Story = {
       </div>
       <div slot="footer">
         <div class="card-demo__actions" style="margin-top: var(--sp-4, 16px);">
-          <button class="mock-btn mock-btn-primary">Ver detalle</button>
+          <dcx-web-button label="Ver detalle" variant="primary"></dcx-web-button>
         </div>
       </div>
     `
@@ -390,8 +385,8 @@ export const LabelCard: Story = {
       </div>
       <div slot="footer">
         <div class="card-demo__actions">
-          <button class="mock-btn mock-btn-primary">Abrir</button>
-          <button class="mock-btn mock-btn-secondary">Archivar</button>
+          <dcx-web-button label="Abrir" variant="primary"></dcx-web-button>
+          <dcx-web-button label="Archivar" variant="secondary"></dcx-web-button>
         </div>
       </div>
     `
@@ -432,8 +427,8 @@ export const WithSlotsVertical: Story = {
         <p class="card-demo__content">Contenido principal de la card. Aquí puedes insertar cualquier HTML, componentes, etc.</p>
       </div>
       <div slot="footer" class="card-demo__actions">
-        <button class="mock-btn mock-btn-secondary">Cancelar</button>
-        <button class="mock-btn mock-btn-primary">Aceptar</button>
+        <dcx-web-button label="Cancelar" variant="secondary"></dcx-web-button>
+        <dcx-web-button label="Aceptar" variant="primary"></dcx-web-button>
       </div>
     `
   ),
@@ -539,8 +534,8 @@ export const WithSlotsHorizontal: Story = {
       </div>
       <div slot="footer">
         <div class="card-demo__actions">
-          <button class="mock-btn mock-btn-secondary">Cancelar</button>
-          <button class="mock-btn mock-btn-primary">Aceptar</button>
+          <dcx-web-button label="Cancelar" variant="secondary"></dcx-web-button>
+          <dcx-web-button label="Aceptar" variant="primary"></dcx-web-button>
         </div>
       </div>
     `

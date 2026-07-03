@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-card/dcx-web-card.component';
+import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-button/dcx-web-button.component';
 import { pageCardStyles } from './dcx-web-page-card.component.styles';
 
 const DEFAULT_ARGS = {
@@ -108,7 +109,7 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="footer">
                   <div class="card-demo__actions" style="margin-top: var(--sp-4, 16px);">
-                    <button class="mock-btn mock-btn-primary">Ver detalle</button>
+                    <dcx-web-button label="Ver detalle" variant="primary"></dcx-web-button>
                   </div>
                 </div>
               </dcx-web-card>
@@ -158,8 +159,8 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="footer">
                   <div class="card-demo__actions">
-                    <button class="mock-btn mock-btn-primary">Abrir</button>
-                    <button class="mock-btn mock-btn-secondary">Archivar</button>
+                    <dcx-web-button label="Abrir" variant="primary"></dcx-web-button>
+                    <dcx-web-button label="Archivar" variant="secondary"></dcx-web-button>
                   </div>
                 </div>
               </dcx-web-card>
@@ -182,8 +183,8 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="footer">
                   <div class="card-demo__actions">
-                    <button class="mock-btn mock-btn-primary">Abrir</button>
-                    <button class="mock-btn mock-btn-secondary">Archivar</button>
+                    <dcx-web-button label="Abrir" variant="primary"></dcx-web-button>
+                    <dcx-web-button label="Archivar" variant="secondary"></dcx-web-button>
                   </div>
                 </div>
               </dcx-web-card>

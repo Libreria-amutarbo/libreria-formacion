@@ -332,37 +332,4 @@ export const pageCardStyles = css`
         gap: var(--sp-2, 8px);
         margin-top: 0;
     }
-
-    .mock-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        height: 24px;
-        gap: var(--sp-2, 8px);
-        padding: 0 var(--sp-3, 12px);
-        border-radius: var(--r-sm, 4px);
-        font-family: inherit;
-        font-size: var(--fs-sm, 12px);
-        border: none;
-        cursor: pointer;
-    }
-
-    .mock-btn-primary { 
-        background: var(--bg-primary, #0058ab);
-        color: var(--text-white, #ffffff);
-    }
-
-    .mock-btn-secondary {
-        background: var(--bg-default, #ffffff);
-        color: var(--text-dark, #2a2e33);
-        border: 1px solid var(--border-light, #d1d5db);
-    }
-
-    .mock-btn-primary:hover {
-        background: var(--bg-primary-hover, #004080); 
-    }
-
-    .mock-btn-secondary:hover {
-        background: var(--bg-hover, #f7f8fa); 
-    }
 `;
