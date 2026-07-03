@@ -53,8 +53,7 @@ export const chipStyles = css`
       color: var(--content-default-white, #ffffff);
     }
 
-    .dcx-chip--gray,
-    .dcx-chip--grey {
+    .dcx-chip--gray {
       background-color: var(--background-secondary, #c8cdcd);
       color: var(--content-default-dark, #212121);
     }

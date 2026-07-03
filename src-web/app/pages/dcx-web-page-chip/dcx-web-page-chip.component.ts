@@ -49,7 +49,7 @@ export class DcxWebPageChip extends LitElement {
             <dcx-web-chip label="Warning" color="warning"></dcx-web-chip>
             <dcx-web-chip label="Error" color="error"></dcx-web-chip>
             <dcx-web-chip label="Info" color="info"></dcx-web-chip>
-            <dcx-web-chip label="Gray" color="grey"></dcx-web-chip>
+            <dcx-web-chip label="Gray" color="gray"></dcx-web-chip>
           </div>
         </section>
 
@@ -140,10 +140,10 @@ export class DcxWebPageChip extends LitElement {
               variant="filter"
               @dcx-chip-remove=${() => this._handleRemove('Info')}
             ></dcx-web-chip>
-            <dcx-web-chip label="Gray choice" color="grey" variant="choice"></dcx-web-chip>
+            <dcx-web-chip label="Gray choice" color="gray" variant="choice"></dcx-web-chip>
             <dcx-web-chip
               label="Gray filter"
-              color="grey"
+              color="gray"
               variant="filter"
               @dcx-chip-remove=${() => this._handleRemove('Gray')}
             ></dcx-web-chip>

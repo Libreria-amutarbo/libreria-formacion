@@ -5,7 +5,6 @@ export type DcxChipColorType =
   | 'warning'
   | 'error'
   | 'info'
-  | 'gray'
-  | 'grey';
+  | 'gray';
 
 export type DcxChipVariantType = 'choice' | 'filter';
