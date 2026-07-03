@@ -1,10 +1,18 @@
 :host {
   display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2, 8px);
 }
 
 .dcx-input-otp__group {
   display: inline-flex;
   gap: var(--sp-3, 12px);
+}
+
+.dcx-input-otp__error {
+  color: var(--color-error, #dc2626);
+  font-size: var(--fs-sm, 12px);
 }
 
 .dcx-input-otp__input {
@@ -50,7 +58,7 @@
 }
 
 .dcx-input-otp__input--filled {
-  border-color: var(--bg-primary, #0058ab);
+  border-color: var(--color-primary, #0058ab);
 }
 
 :host(.dcx-input-otp--invalid) .dcx-input-otp__input {
