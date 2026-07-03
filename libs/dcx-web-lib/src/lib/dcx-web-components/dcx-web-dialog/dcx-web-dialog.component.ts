@@ -25,7 +25,12 @@ export class DcxWebDialog extends LitElement {
   }
 
   private _close() {
-    this.dispatchEvent(new CustomEvent('closeDialog'));
+    this.dispatchEvent(
+      new CustomEvent('closeDialog', {
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 
   private _onBackdropClick(e: MouseEvent) {
