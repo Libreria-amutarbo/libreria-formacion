@@ -1,105 +1,211 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Lista simple</h2>
-  <dcx-ng-list [items]="simpleItems"></dcx-ng-list>
-</section>
+<div class="demo-page">
 
-<dcx-ng-divider
-  class="divider"
-  [thickness]="0.1"
-  color="#0058ab"
-></dcx-ng-divider>
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">List</h1>
+    <p class="demo-page-header__desc">
+      Lista genérica y recursiva con soporte para iconos, descripción, sublistas
+      anidadas, selección (simple y múltiple), variante de peligro y roles ARIA
+      configurables.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Lista con iconos</h2>
-  <dcx-ng-list [items]="itemsWithIcons"></dcx-ng-list>
-</section>
+  <!-- ── 01 Default ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-list [items]="simpleItems"></dcx-ng-list>
+    </div>
+  </div>
 
-<dcx-ng-divider
-  class="divider"
-  [thickness]="0.1"
-  color="#0058ab"
-></dcx-ng-divider>
+  <!-- ── 02 With Icons ────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">With Icons</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-list [items]="itemsWithIcons"></dcx-ng-list>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Lista con iconos y descripción</h2>
-  <dcx-ng-list [items]="elementosConIcono"></dcx-ng-list>
-</section>
+  <!-- ── 03 With Description ──────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">With Description</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-list [items]="elementosConIcono"></dcx-ng-list>
+    </div>
+  </div>
 
-<dcx-ng-divider
-  class="divider"
-  [thickness]="0.1"
-  color="#0058ab"
-></dcx-ng-divider>
+  <!-- ── 04 With Sub Lists ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">With Sub Lists</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-list [items]="itemsWithSublists" [showChildrenIndicator]="true"></dcx-ng-list>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 4 - Lista con sublistas</h2>
-  <dcx-ng-list [items]="itemsWithSublists"></dcx-ng-list>
-</section>
-
-<dcx-ng-divider
-  class="divider"
-  [thickness]="0.1"
-  color="#0058ab"
-></dcx-ng-divider>
-
-<section>
-  <h2 class="example-title">Ejemplo 5 - Lista seleccionable</h2>
-  <dcx-ng-list
-    [items]="selectableItems"
-    [selectable]="true"
-    (selectionChanged)="onSelectionChanged($event)"
-  ></dcx-ng-list>
-  @if (selectedItem()) {
-    <div><strong>Seleccionado:</strong> {{ selectedItem()?.text }}</div>
-  }
-</section>
-
-<dcx-ng-divider
-  class="divider"
-  [thickness]="0.1"
-  color="#0058ab"
-></dcx-ng-divider>
-
-<section>
-  <h2 class="example-title">Ejemplo 6 - Lista con multiselección</h2>
-  <dcx-ng-list
-    [items]="multiSelectItems"
-    [selectable]="true"
-    [multiSelect]="true"
-    (selectionChanged)="onMultiSelectionChanged($event)"
-  ></dcx-ng-list>
-  @if (selectedMultiItems().length > 0) {
-    <div>
-      <strong>Seleccionados ({{ selectedMultiItems().length }}):</strong>
-      @for (selected of selectedMultiItems(); track selected.index) {
-        <dcx-ng-chip label="{{ selected.item.text }}"></dcx-ng-chip
-        ><span>{{ $last ? '' : ', ' }}</span>
+  <!-- ── 05 Selectable ────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Selectable</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-list
+        [items]="selectableItems"
+        [selectable]="true"
+        listRole="listbox"
+        itemRole="option"
+        (itemSelected)="onItemSelected($event)"
+        (itemDeselected)="onItemDeselected()"
+      ></dcx-ng-list>
+      @if (selectedItem()) {
+        <p class="value-preview">
+          <strong>Seleccionado:</strong> {{ selectedItem()?.text }}
+        </p>
       }
     </div>
-  }
-</section>
+  </div>
 
-<dcx-ng-divider
-  class="divider"
-  [thickness]="0.1"
-  color="#0058ab"
-></dcx-ng-divider>
+  <!-- ── 06 Multi Select ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Multi Select</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-list
+        [items]="multiSelectItems"
+        [selectable]="true"
+        [multiSelect]="true"
+        listRole="listbox"
+        itemRole="option"
+        (itemSelected)="onMultiSelected($event)"
+        (itemDeselected)="onMultiDeselected($event)"
+      ></dcx-ng-list>
+      @if (selectedMultiItems().length > 0) {
+        <div class="value-preview">
+          <strong>Seleccionados ({{ selectedMultiItems().length }}):</strong>
+          @for (selected of selectedMultiItems(); track selected.index) {
+            <dcx-ng-chip [label]="selected.item.text || ''"></dcx-ng-chip>
+          }
+        </div>
+      }
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 7 - Lista con dividers</h2>
-  <dcx-ng-list [items]="itemsWithDivider"></dcx-ng-list>
-</section>
+  <!-- ── 07 Dividers ──────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Dividers</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-list [items]="itemsWithDivider"></dcx-ng-list>
+    </div>
+  </div>
 
-<dcx-ng-divider
-  class="divider"
-  [thickness]="0.1"
-  color="#0058ab"
-></dcx-ng-divider>
+  <!-- ── 08 Disabled Items ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Disabled Items</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-list
+        [items]="enabledDisabledItems"
+        [selectable]="true"
+        listRole="listbox"
+        itemRole="option"
+      ></dcx-ng-list>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 8 - Lista con elementos deshabilitados</h2>
-  <dcx-ng-list
-    [items]="enabledDisabledItems"
-    [selectable]="true"
-  ></dcx-ng-list>
-</section>
+  <!-- ── 09 Danger ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">09</span>
+      <span class="demo-section__title">Danger</span>
+    </div>
+    <p class="demo-section__desc">
+      Variante de peligro para acciones destructivas (`variant: 'danger'`).
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-list
+        [items]="dangerItems"
+        [selectable]="true"
+        listRole="listbox"
+        itemRole="option"
+      ></dcx-ng-list>
+    </div>
+  </div>
+
+  <!-- ── 10 External Control ──────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">10</span>
+      <span class="demo-section__title">External Control</span>
+    </div>
+    <p class="demo-section__desc">
+      Con `externalSelection`, la lista solo emite el evento; el estado lo
+      gestiona el consumidor.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-list
+        [items]="selectableItems"
+        [selectable]="true"
+        [externalSelection]="true"
+        listRole="listbox"
+        itemRole="option"
+        (itemSelected)="onExternalSelected($event)"
+      ></dcx-ng-list>
+      @if (externalSelectedIndex() !== null) {
+        <p class="value-preview">
+          <strong>Índice emitido:</strong> {{ externalSelectedIndex() }}
+        </p>
+      }
+    </div>
+  </div>
+
+  <!-- ── 11 Custom Template ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">11</span>
+      <span class="demo-section__title">Custom Template</span>
+    </div>
+    <p class="demo-section__desc">
+      Renderizado a medida de cada item mediante `itemTemplate`.
+    </p>
+    <div class="demo-section__body">
+      <ng-template #customItem let-item let-selected="selected">
+        <div class="custom-item">
+          <span class="custom-item__title">{{ item.text }}</span>
+          <span class="custom-item__desc">{{ item.description }}</span>
+          @if (selected) {
+            <span class="custom-item__check" aria-hidden="true">✓</span>
+          }
+        </div>
+      </ng-template>
+      <dcx-ng-list
+        [items]="elementosConIcono"
+        [itemTemplate]="customItem"
+        [selectable]="true"
+        listRole="listbox"
+        itemRole="option"
+      ></dcx-ng-list>
+    </div>
+  </div>
+
+</div>

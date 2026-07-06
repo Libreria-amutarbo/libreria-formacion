@@ -298,32 +298,6 @@
   justify-content: center;
 }
 
-.dcx-list-text {
-  flex: 1;
-}
-
-.dcx-list-children-indicator {
-  flex-shrink: 0;
-  margin-left: auto;
-  font-size: 0.75rem;
-  color: var(--text-disabled);
-}
-
-.dcx-list-divider {
-  height: 1px;
-  background-color: var(--border-default);
-  margin: 0.25rem 0;
-}
-
-.dcx-list-nested {
-  margin-top: 0.25rem;
-  margin-left: 1.5rem;
-
-  ul {
-    padding-left: 0;
-  }
-}
-
 :host-context(.dcx-context-menu) {
   ul {
     padding-left: 0;
