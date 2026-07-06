@@ -1,6 +1,8 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
 import { BOOTSTRAP_ICONS } from '../../../../.storybook/bootstrap-icons';
+import { DCX_SIZES } from '../../core/interfaces/generic';
+import { DCX_ICON_SPACINGS } from '../../core/interfaces/icon';
 
 import '../../../index';
 
@@ -21,7 +23,7 @@ const meta: Meta = {
     },
     size: {
       control: 'select',
-      options: ['s', 'm', 'l', 'xl', 'auto'],
+      options: DCX_SIZES,
       description: 'Tamaño del icono. `auto` hereda el tamaño del contenedor.',
       table: {
         category: 'Atributos',
@@ -29,7 +31,7 @@ const meta: Meta = {
     },
     spacing: {
       control: 'select',
-      options: ['none', 'compact', 'spacious'],
+      options: DCX_ICON_SPACINGS,
       description: 'Margen horizontal externo del icono.',
       table: {
         category: 'Atributos',
