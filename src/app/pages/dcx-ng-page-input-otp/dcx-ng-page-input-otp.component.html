@@ -220,4 +220,35 @@
       </div>
     </div>
   </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">09</span>
+      <span class="demo-section__title">Disabled</span>
+    </div>
+    <p class="demo-section__desc">
+      Casillas deshabilitadas mediante el atributo nativo `disabled`.
+    </p>
+    <div class="demo-section__body demo-section__body--narrow">
+      <dcx-ng-input-otp [disabled]="true" ariaLabel="Código deshabilitado"></dcx-ng-input-otp>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">10</span>
+      <span class="demo-section__title">Invalid</span>
+    </div>
+    <p class="demo-section__desc">
+      Estado de error con mensaje anunciado (`role="alert"`) y enlazado por
+      `aria-describedby`.
+    </p>
+    <div class="demo-section__body demo-section__body--narrow">
+      <dcx-ng-input-otp
+        [invalid]="true"
+        errorMessage="El código introducido no es correcto."
+        ariaLabel="Código con error"
+      ></dcx-ng-input-otp>
+    </div>
+  </div>
 </div>
