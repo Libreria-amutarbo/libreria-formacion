@@ -4,6 +4,7 @@ import {
   SIMPLE_CONTEXT_MENU_ITEMS,
   SUBLIST_CONTEXT_MENU_ITEMS,
   DcxContextMenuItem,
+  DcxWebButton,
 } from '../../../index';
 
 const DISABLED_ITEMS: DcxContextMenuItem[] = [
@@ -191,22 +192,11 @@ export const ButtonTrigger: Story = {
     return html`
       <div style="padding: 2rem;">
         <div style="display: inline-block;">
-          <button
-            style="
-              background: #0058ab;
-              color: white;
-              border: none;
-              padding: 8px 16px;
-              border-radius: 4px;
-              cursor: pointer;
-              font-family: inherit;
-              font-size: 14px;
-              font-weight: 600;
-            "
+          <dcx-web-button
+            label="Abrir menú"
+            variant="primary"
             @click="${handleButtonClick}"
-          >
-            Abrir menú
-          </button>
+          ></dcx-web-button>
         </div>
         <dcx-web-context-menu
           .items="${args.items}"

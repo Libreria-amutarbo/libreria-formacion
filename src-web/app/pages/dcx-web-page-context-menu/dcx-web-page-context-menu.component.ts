@@ -2,79 +2,26 @@ import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { styles } from './dcx-web-page-context-menu.component.styles';
 import type { DcxContextMenuItem } from '../../../../libs/dcx-web-lib/src/lib/core/interfaces';
+import {
+  DEMO_MENU_ITEMS,
+  DEMO_ADVANCED_MENU_ITEMS,
+  DEMO_NESTED_MENU_ITEMS,
+  DEMO_DISABLED_MENU_ITEMS,
+  DEMO_DANGER_MENU_ITEMS,
+} from '../../../../libs/dcx-web-lib/src/lib/core/defaults/contextMenu';
+
 
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-context-menu/dcx-web-context-menu.component';
+import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-button/dcx-web-button.component';
+
 
 @customElement('dcx-web-page-context-menu')
 export class DcxWebPageContextMenu extends LitElement {
-  menuItems: DcxContextMenuItem[] = [
-    { text: 'Nuevo archivo', icon: 'file-earmark-plus' },
-    { text: 'Abrir', icon: 'folder-open' },
-    { divider: true },
-    { text: 'Guardar', icon: 'save' },
-    { text: 'Guardar como...', icon: 'save-fill' },
-    { divider: true },
-    { text: 'Eliminar', icon: 'trash', variant: 'danger' },
-  ];
-
-  advancedMenuItems: DcxContextMenuItem[] = [
-    { text: 'Ver perfil', icon: 'person' },
-    { text: 'Configuración', icon: 'gear' },
-    { divider: true },
-    {
-      text: 'Más opciones',
-      icon: 'three-dots',
-      children: [
-        { text: 'Opción 1', icon: 'check' },
-        { text: 'Opción 2', icon: 'check' },
-      ],
-    },
-    { divider: true },
-    { text: 'Cerrar sesión', icon: 'box-arrow-right', variant: 'danger' },
-  ];
-
-  nestedMenuItems: DcxContextMenuItem[] = [
-    { text: 'Nuevo', icon: 'file-earmark-plus' },
-    { text: 'Abrir', icon: 'folder-open' },
-    { divider: true },
-    {
-      text: 'Editar',
-      icon: 'pencil',
-      children: [
-        { text: 'Deshacer', icon: 'arrow-counterclockwise' },
-        { text: 'Rehacer', icon: 'arrow-clockwise' },
-        { divider: true },
-        {
-          text: 'Transformar',
-          icon: 'magic',
-          children: [
-            { text: 'Mayúsculas', icon: 'type' },
-            { text: 'Minúsculas', icon: 'type' },
-          ],
-        },
-      ],
-    },
-    { divider: true },
-    { text: 'Eliminar', icon: 'trash', variant: 'danger' },
-  ];
-
-  disabledMenuItems: DcxContextMenuItem[] = [
-    { text: 'Nuevo archivo', icon: 'file-earmark-plus' },
-    { text: 'Abrir', icon: 'folder-open' },
-    { divider: true },
-    { text: 'Guardar', icon: 'save', disabled: true },
-    { text: 'Guardar como...', icon: 'save-fill', disabled: true },
-    { divider: true },
-    { text: 'Cerrar', icon: 'x-lg', disabled: true },
-  ];
-
-  dangerMenuItems: DcxContextMenuItem[] = [
-    { text: 'Editar', icon: 'pencil' },
-    { text: 'Duplicar', icon: 'copy' },
-    { divider: true },
-    { text: 'Archivar', icon: 'archive', variant: 'danger' },
-    { text: 'Eliminar permanentemente', icon: 'trash', variant: 'danger' },
-  ];
+  menuItems: DcxContextMenuItem[] = DEMO_MENU_ITEMS;
+  advancedMenuItems: DcxContextMenuItem[] = DEMO_ADVANCED_MENU_ITEMS;
+  nestedMenuItems: DcxContextMenuItem[] = DEMO_NESTED_MENU_ITEMS;
+  disabledMenuItems: DcxContextMenuItem[] = DEMO_DISABLED_MENU_ITEMS;
+  dangerMenuItems: DcxContextMenuItem[] = DEMO_DANGER_MENU_ITEMS;
 
   private get _contextMenu1() { return this.shadowRoot?.querySelector('#contextMenu1') as any; }
   private get _contextMenu2() { return this.shadowRoot?.querySelector('#contextMenu2') as any; }
@@ -155,12 +102,11 @@ export class DcxWebPageContextMenu extends LitElement {
           </p>
           <div class="demo-section__body">
             <div id="buttonTrigger">
-              <button
-                class="mock-btn mock-btn-primary"
+              <dcx-web-button
+                label="Abrir menú contextual"
+                variant="primary"
                 @click="${(e: Event) => this.openContextMenuFromButton(e.currentTarget as HTMLElement)}"
-              >
-                Abrir menú contextual
-              </button>
+              ></dcx-web-button>
             </div>
             <dcx-web-context-menu
               id="contextMenu2"

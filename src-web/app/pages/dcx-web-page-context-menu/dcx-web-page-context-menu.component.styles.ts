@@ -109,18 +109,5 @@ export const styles = css`
     color: var(--text-muted, #696e75);
   }
 
-  .mock-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--sp-2, 8px);
-    padding: var(--sp-2, 8px) var(--sp-4, 16px);
-    border-radius: var(--r-sm, 4px);
-    font-family: inherit;
-    font-size: var(--fs-base, 14px);
-    font-weight: var(--fw-semibold, 600);
-    border: none;
-    cursor: pointer;
-  }
-  .mock-btn-primary { background: var(--bg-primary, #0058ab); color: var(--text-white, #ffffff); }
-  .mock-btn-secondary { background: var(--text-muted, #696e75); color: var(--text-white, #ffffff); }
+
 `;

@@ -122,7 +122,7 @@ export const styles = css`
   }
 
   .dcx-context-menu__list .dcx-context-menu__item .dcx-context-menu__icon {
-    font-size: 1.1rem;
+    font-size: var(--fs-lg, 18px);
     color: var(--text-muted, #696e75);
     transition:
       color 0.2s ease,
@@ -138,7 +138,7 @@ export const styles = css`
   }
 
   .dcx-context-menu__list .dcx-context-menu__item .dcx-context-menu__description {
-    font-size: 0.9em;
+    font-size: var(--fs-sm, 12px);
     color: var(--text-muted, #696e75);
     font-weight: var(--fw-regular, 400);
     margin-top: 2px;
@@ -146,7 +146,7 @@ export const styles = css`
 
   .dcx-context-menu__list .dcx-context-menu__item .dcx-context-menu__children-indicator {
     color: var(--text-muted, #696e75);
-    font-size: 0.8rem;
+    font-size: var(--fs-sm, 12px);
     margin-left: auto;
   }
 
