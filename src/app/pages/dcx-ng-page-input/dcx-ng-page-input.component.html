@@ -1,77 +1,177 @@
-<section>
-  <h2 class="example-title">Ejemplo 1</h2>
-  <dcx-ng-input label="Input por defecto"></dcx-ng-input>
-</section>
+<div class="demo-page">
 
-<hr />
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Input</h1>
+    <p class="demo-page-header__desc">
+      Campo de formulario con soporte para Reactive Forms y ngModel, múltiples
+      tipos (texto, número, email, contraseña, búsqueda, teléfono, URL, archivo),
+      texto de ayuda, estados de error accesibles y etiqueta asociada.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Con placeholder</h2>
-  <dcx-ng-input placeholder="Placeholder..."></dcx-ng-input>
-</section>
+  <!-- ── 01 Default ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-input label="Nombre completo" placeholder="Ej: Jean Dupont"></dcx-ng-input>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 02 With Hint ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">With Hint</span>
+    </div>
+    <p class="demo-section__desc">
+      Texto de ayuda enlazado por <code>aria-describedby</code>.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-input
+        label="Nombre completo"
+        placeholder="Ej: Jean Dupont"
+        hint="Tal como aparece en el documento oficial."
+      ></dcx-ng-input>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Con valor</h2>
-  <dcx-ng-input value="Value"></dcx-ng-input>
-</section>
+  <!-- ── 03 Required ──────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Required</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-input
+        label="Email corporativo"
+        placeholder="nombre@empresa.com"
+        required
+      ></dcx-ng-input>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 04 Invalid ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Invalid</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-input
+        label="Email corporativo"
+        placeholder="nombre@empresa.com"
+        isInvalid
+        errorMessage="Introduce un email válido."
+      ></dcx-ng-input>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 4 - Deshabilitado</h2>
-  <dcx-ng-input placeholder="Disabled" disabled></dcx-ng-input>
-</section>
+  <!-- ── 05 Invalid (lista de errores) ────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Invalid List</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-input
+        label="Contraseña"
+        [type]="DcxInputType.PASSWORD"
+        [isInvalid]="true"
+        [errorMessages]="passwordErrors"
+      ></dcx-ng-input>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 06 Disabled ──────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Disabled</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-input label="Campo deshabilitado" placeholder="No editable" disabled></dcx-ng-input>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 4 - Solo lectura</h2>
-  <dcx-ng-input placeholder="Solo lectura" readonly></dcx-ng-input>
-</section>
+  <!-- ── 07 Read Only ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Read Only</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-input label="Solo lectura" value="Generado automáticamente" readonly></dcx-ng-input>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 08 Password ──────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Password</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-input label="Contraseña" [type]="DcxInputType.PASSWORD" placeholder="••••••••"></dcx-ng-input>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 5 - Diferentes tipos</h2>
-  <article style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-    <dcx-ng-input label="Texto" [type]="DcxInputType.TEXT"></dcx-ng-input>
-    <dcx-ng-input label="Numero" [type]="DcxInputType.NUMBER"></dcx-ng-input>
-    <dcx-ng-input
-      label="Contraseña"
-      [type]="DcxInputType.PASSWORD"
-    ></dcx-ng-input>
-    <dcx-ng-input label="Búsqueda" [type]="DcxInputType.SEARCH"></dcx-ng-input>
-  </article>
-</section>
+  <!-- ── 09 Search ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">09</span>
+      <span class="demo-section__title">Search</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-input label="Búsqueda" [type]="DcxInputType.SEARCH" placeholder="Buscar..."></dcx-ng-input>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 10 Types ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">10</span>
+      <span class="demo-section__title">Types</span>
+    </div>
+    <div class="demo-section__body" style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+      <dcx-ng-input label="Texto" [type]="DcxInputType.TEXT"></dcx-ng-input>
+      <dcx-ng-input label="Número" [type]="DcxInputType.NUMBER"></dcx-ng-input>
+      <dcx-ng-input label="Email" [type]="DcxInputType.EMAIL"></dcx-ng-input>
+      <dcx-ng-input label="Teléfono" [type]="DcxInputType.TEL"></dcx-ng-input>
+      <dcx-ng-input label="URL" [type]="DcxInputType.URL"></dcx-ng-input>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 6 - Requerido</h2>
-  <dcx-ng-input
-    label="Requerido"
-    placeholder="Solo lectura"
-    required
-  ></dcx-ng-input>
-</section>
+  <!-- ── 11 Sizes ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">11</span>
+      <span class="demo-section__title">Sizes</span>
+    </div>
+    <p class="demo-section__desc">Padding controlado por <code>spacing</code> (xs…xl).</p>
+    <div class="demo-section__body" style="display:flex; flex-direction:column; gap:16px;">
+      <dcx-ng-input label="xs" spacing="xs" placeholder="xs"></dcx-ng-input>
+      <dcx-ng-input label="s" spacing="s" placeholder="s"></dcx-ng-input>
+      <dcx-ng-input label="m" spacing="m" placeholder="m"></dcx-ng-input>
+      <dcx-ng-input label="l" spacing="l" placeholder="l"></dcx-ng-input>
+      <dcx-ng-input label="xl" spacing="xl" placeholder="xl"></dcx-ng-input>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 12 Files ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">12</span>
+      <span class="demo-section__title">Files</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-input label="Adjuntar archivo" [type]="DcxInputType.FILE"></dcx-ng-input>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 7 - Inválido</h2>
-  <dcx-ng-input
-    label="Inválido"
-    placeholder="Solo lectura"
-    isInvalid
-    errorMessage="Error"
-  ></dcx-ng-input>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 8 - Subir archivos</h2>
-  <dcx-ng-input [type]="DcxInputType.FILE"></dcx-ng-input>
-</section>
+</div>

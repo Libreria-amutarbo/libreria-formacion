@@ -1,1 +1,6 @@
-<i [class]="iconClass()"></i>
+<i
+  [class]="iconClass()"
+  [attr.aria-hidden]="decorative() ? 'true' : null"
+  [attr.role]="decorative() ? null : 'img'"
+  [attr.aria-label]="decorative() ? null : ariaLabel()"
+></i>
