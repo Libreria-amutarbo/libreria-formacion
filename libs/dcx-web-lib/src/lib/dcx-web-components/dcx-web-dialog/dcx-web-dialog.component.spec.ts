@@ -38,7 +38,8 @@ describe('DcxWebDialog', () => {
     await element.updateComplete;
 
     const title = element.shadowRoot?.querySelector('.dcx-dialog__title');
-    expect(title?.textContent).toBe('My Dialog');
+
+    expect(title?.textContent?.trim()).toBe('My Dialog');
   });
 
   it('should emit closeDialog on close button click', async () => {
