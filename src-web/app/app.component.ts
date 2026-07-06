@@ -42,6 +42,7 @@ export class DcxWebRoot extends LitElement {
         break;
       case '#dialog':
         content = html`<dcx-web-page-dialog></dcx-web-page-dialog>`;
+        break;
       case '#button':
         content = html`<dcx-web-page-button></dcx-web-page-button>`;
         break;

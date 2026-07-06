@@ -80,26 +80,6 @@ export const dcxWebPageDialogStyles = css`
     .demo-section__body {
     padding: 20px 16px;
     }
-    .mock-btn {
-    padding:8px 16px;
-    border:none;
-    cursor:pointer;
-    background:#0058ab;
-    color:white;
-    border-radius:4px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    }
-
-    .btn-primary { background:#0058ab; color:white; border:none;}
-    .btn-primary:hover { background:#004080;}
-    
-    .btn-secondary { background:white; color:#2a2e33; border:1px solid #d1d5db;}
-    .btn-secondary:hover { background:#f4f5f7;}
-
-    .btn-danger { background:#dc2626; color:white; border:none;}
-    .btn-danger:hover { background:#a21e1e;}
 
     #positioned-dialogs {
     display: grid;

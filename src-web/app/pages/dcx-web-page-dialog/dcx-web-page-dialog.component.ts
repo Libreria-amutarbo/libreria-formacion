@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { dcxWebPageDialogStyles } from './dcx-web-page-dialog.component.styles';
+import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-button/dcx-web-button.component';
 
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-dialog/dcx-web-dialog.component';
 
@@ -29,7 +30,6 @@ export class DcxWebPageDialog extends LitElement {
   return html`
     <div class="demo-page">
 
-      <!-- HEADER -->
       <header class="demo-page-header">
         <p class="demo-page-header__kicker">Components</p>
         <h1 class="demo-page-header__title">Dialog</h1>
@@ -40,7 +40,6 @@ export class DcxWebPageDialog extends LitElement {
         <hr class="demo-page-header__divider" />
       </header>
 
-      <!-- 01 -->
       <div class="demo-section">
         <div class="demo-section__header">
           <span class="demo-section__num">01</span>
@@ -48,9 +47,8 @@ export class DcxWebPageDialog extends LitElement {
         </div>
 
         <div class="demo-section__body">
-          <button class="mock-btn btn-primary" @click=${() => this.open('basic')}>
-            Abrir diálogo
-          </button>
+          <dcx-web-button label="Abrir diálogo" variant="primary" @click=${() => this.open('basic')}>
+          </dcx-web-button>
 
           <dcx-web-dialog
             .visible=${this.openDialogs['basic']}
@@ -65,15 +63,13 @@ export class DcxWebPageDialog extends LitElement {
             </div>
 
             <div slot="footer">
-              <button class="mock-btn btn-primary" @click=${() => this.close('basic')}>
-                Aceptar
-              </button>
+              <dcx-web-button label="Aceptar" variant="primary" @click=${() => this.close('basic')}>
+              </dcx-web-button>
             </div>
           </dcx-web-dialog>
         </div>
       </div>
 
-      <!-- 02 -->
       <div class="demo-section">
         <div class="demo-section__header">
           <span class="demo-section__num">02</span>
@@ -85,9 +81,8 @@ export class DcxWebPageDialog extends LitElement {
         </p>
 
         <div class="demo-section__body">
-          <button class="mock-btn" @click=${() => this.open('confirm')}>
-            Abrir confirmación
-          </button>
+          <dcx-web-button label="Abrir confirmación" variant="primary" @click=${() => this.open('confirm')}>
+          </dcx-web-button>
 
           <dcx-web-dialog
             .visible=${this.openDialogs['confirm']}
@@ -102,18 +97,15 @@ export class DcxWebPageDialog extends LitElement {
             </div>
 
             <div slot="footer">
-              <button class="mock-btn btn-secondary" @click=${() => this.close('confirm')}>
-                Cancelar
-              </button>
-              <button class="mock-btn btn-primary" @click=${() => this.close('confirm')}>
-                Aceptar
-              </button>
+              <dcx-web-button label="Cancelar" variant="secondary" @click=${() => this.close('confirm')}>
+              </dcx-web-button>
+              <dcx-web-button label="Aceptar" variant="primary" @click=${() => this.close('confirm')}>
+              </dcx-web-button>
             </div>
           </dcx-web-dialog>
         </div>
       </div>
 
-      <!-- 03 -->
       <div class="demo-section">
         <div class="demo-section__header">
           <span class="demo-section__num">03</span>
@@ -125,9 +117,8 @@ export class DcxWebPageDialog extends LitElement {
         </p>
 
         <div class="demo-section__body">
-          <button class="mock-btn btn-primary" @click=${() => this.open('no-close')}>
-            Abrir diálogo
-          </button>
+          <dcx-web-button label="Abrir diálogo" variant="primary" @click=${() => this.open('no-close')}>
+          </dcx-web-button>
 
           <dcx-web-dialog
             .visible=${this.openDialogs['no-close']}
@@ -142,18 +133,15 @@ export class DcxWebPageDialog extends LitElement {
             </div>
 
             <div slot="footer">
-              <button class="mock-btn btn-secondary" @click=${() => this.close('no-close')}>
-                Cancelar
-              </button>
-              <button class="mock-btn btn-primary" @click=${() => this.close('no-close')}>
-                Aceptar
-              </button>
+              <dcx-web-button label="Cancelar" variant="secondary" @click=${() => this.close('no-close')}>
+              </dcx-web-button>
+              <dcx-web-button label="Aceptar" variant="primary" @click=${() => this.close('no-close')}>
+              </dcx-web-button>
             </div>
           </dcx-web-dialog>
         </div>
       </div>
 
-      <!-- 04 -->
       <div class="demo-section">
         <div class="demo-section__header">
           <span class="demo-section__num">04</span>
@@ -165,9 +153,8 @@ export class DcxWebPageDialog extends LitElement {
         </p>
 
         <div class="demo-section__body">
-          <button class="mock-btn btn-primary" @click=${() => this.open('no-title')}>
-            Abrir diálogo
-          </button>
+          <dcx-web-button label="Abrir diálogo" variant="primary" @click=${() => this.open('no-title')}>
+          </dcx-web-button>
 
           <dcx-web-dialog
             .visible=${this.openDialogs['no-title']}
@@ -182,15 +169,13 @@ export class DcxWebPageDialog extends LitElement {
             </div>
 
             <div slot="footer">
-              <button class="mock-btn btn-primary" @click=${() => this.close('no-title')}>
-                Cerrar
-              </button>
+              <dcx-web-button label="Cerrar" variant="primary" @click=${() => this.close('no-title')}>
+              </dcx-web-button>
             </div>
           </dcx-web-dialog>
         </div>
       </div>
 
-      <!-- 05 -->
       <div class="demo-section">
         <div class="demo-section__header">
           <span class="demo-section__num">05</span>
@@ -198,9 +183,8 @@ export class DcxWebPageDialog extends LitElement {
         </div>
 
         <div class="demo-section__body">
-          <button class="mock-btn" @click=${() => this.open('destructive')}>
-            Eliminar proyecto
-          </button>
+          <dcx-web-button label="Eliminar proyecto" variant="primary" @click=${() => this.open('destructive')}>
+          </dcx-web-button>
 
           <dcx-web-dialog
             .visible=${this.openDialogs['destructive']}
@@ -227,18 +211,15 @@ export class DcxWebPageDialog extends LitElement {
             </div>
 
             <div slot="footer">
-              <button class="mock-btn btn-secondary" @click=${() => this.close('destructive')}>
-                Cancelar
-              </button>
-              <button class="mock-btn btn-danger">
-                Eliminar
-              </button>
+              <dcx-web-button label="Cancelar" variant="secondary" @click=${() => this.close('destructive')}>
+              </dcx-web-button>
+              <dcx-web-button label="Eliminar" variant="danger" @click=${() => this.close('destructive')}>
+              </dcx-web-button>
             </div>
           </dcx-web-dialog>
         </div>
       </div>
 
-      <!-- 06 -->
       <div class="demo-section">
         <div class="demo-section__header">
           <span class="demo-section__num">06</span>
@@ -246,9 +227,8 @@ export class DcxWebPageDialog extends LitElement {
         </div>
 
         <div class="demo-section__body">
-          <button class="mock-btn" @click=${() => this.open('form')}>
-            Nuevo proyecto
-          </button>
+          <dcx-web-button label="Nuevo proyecto" variant="primary" @click=${() => this.open('form')}>
+          </dcx-web-button>
 
           <dcx-web-dialog
             .visible=${this.openDialogs['form']}
@@ -282,18 +262,15 @@ export class DcxWebPageDialog extends LitElement {
             </div>
 
             <div slot="footer">
-              <button class="mock-btn btn-secondary" @click=${() => this.close('form')}>
-                Cancelar
-              </button>
-              <button class="mock-btn btn-primary">
-                Crear proyecto
-              </button>
+              <dcx-web-button label="Cancelar" variant="secondary" @click=${() => this.close('form')}>
+              </dcx-web-button>
+              <dcx-web-button label="Crear proyecto" variant="primary">
+              </dcx-web-button>
             </div>
           </dcx-web-dialog>
         </div>
       </div>
 
-      <!-- 07 -->
       <div class="demo-section">
         <div class="demo-section__header">
           <span class="demo-section__num">07</span>
@@ -301,9 +278,8 @@ export class DcxWebPageDialog extends LitElement {
         </div>
 
         <div class="demo-section__body">
-          <button class="mock-btn btn-primary" @click=${() => this.open('info')}>
-            Ver información
-          </button>
+          <dcx-web-button label="Ver información" variant="primary" @click=${() => this.open('info')}>
+          </dcx-web-button>
 
           <dcx-web-dialog
             .visible=${this.openDialogs['info']}
@@ -330,15 +306,13 @@ export class DcxWebPageDialog extends LitElement {
             </div>
 
             <div slot="footer">
-              <button class="mock-btn btn-primary" @click=${() => this.close('info')}>
-                Entendido
-              </button>
+              <dcx-web-button label="Entendido" variant="primary" @click=${() => this.close('info')}>
+              </dcx-web-button>
             </div>
           </dcx-web-dialog>
         </div>
       </div>
 
-      <!-- 08 — Posiciones -->
       <div class="demo-section">
         <div class="demo-section__header">
           <span class="demo-section__num">08</span>
@@ -353,17 +327,92 @@ export class DcxWebPageDialog extends LitElement {
 
           <div id="positioned-dialogs">
 
-            <button class="mock-btn" @click=${() => this.openPositioned('top-left')}>↖</button>
-            <button class="mock-btn" @click=${() => this.openPositioned('top')}>↑</button>
-            <button class="mock-btn" @click=${() => this.openPositioned('top-right')}>↗</button>
+            <dcx-web-button variant="primary" size="l" @click=${() => this.openPositioned('top-left')}>
+              <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16"
+                style="transform: rotate(-45deg);">
+                <path fill-rule="evenodd"
+                  d="M8 12a.5.5 0 0 1-.5-.5V3.707L4.354 6.854a.5.5 0 1 1-.708-.708l4-4a.5.5 0 0 1 .708 0l4 4a.5.5 0 1 1-.708.708L8.5 3.707V11.5A.5.5 0 0 1 8 12"/>
+              </svg>
+            </dcx-web-button>
 
-            <button class="mock-btn" @click=${() => this.openPositioned('left')}>←</button>
-            <button class="mock-btn" @click=${() => this.openPositioned('center')}>·</button>
-            <button class="mock-btn" @click=${() => this.openPositioned('right')}>→</button>
+            <dcx-web-button variant="primary" size="l" @click=${() => this.openPositioned('top')}>
+              <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M8 12a.5.5 0 0 1-.5-.5V3.707L4.354 6.854a.5.5 0 1 1-.708-.708l4-4a.5.5 0 0 1 .708 0l4 4a.5.5 0 1 1-.708.708L8.5 3.707V11.5A.5.5 0 0 1 8 12"/>
+              </svg>
+            </dcx-web-button>
 
-            <button class="mock-btn" @click=${() => this.openPositioned('bottom-left')}>↙</button>
-            <button class="mock-btn" @click=${() => this.openPositioned('bottom')}>↓</button>
-            <button class="mock-btn" @click=${() => this.openPositioned('bottom-right')}>↘</button>
+            <dcx-web-button variant="primary" size="l" @click=${() => this.openPositioned('top-right')}>
+              <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16"
+                style="transform: rotate(45deg);">
+                <path fill-rule="evenodd"
+                  d="M8 12a.5.5 0 0 1-.5-.5V3.707L4.354 6.854a.5.5 0 1 1-.708-.708l4-4a.5.5 0 0 1 .708 0l4 4a.5.5 0 1 1-.708.708L8.5 3.707V11.5A.5.5 0 0 1 8 12"/>
+              </svg>
+            </dcx-web-button>
+
+            <dcx-web-button variant="primary" size="l" @click=${() => this.openPositioned('left')}>
+              <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16"
+                style="transform: rotate(-90deg);">
+                <path fill-rule="evenodd"
+                  d="M8 12a.5.5 0 0 1-.5-.5V3.707L4.354 6.854a.5.5 0 1 1-.708-.708l4-4a.5.5 0 0 1 .708 0l4 4a.5.5 0 1 1-.708.708L8.5 3.707V11.5A.5.5 0 0 1 8 12"/>
+              </svg>
+            </dcx-web-button>
+
+            <dcx-web-button variant="primary" size="l" @click=${() => this.openPositioned('center')}>
+              <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16">
+                <circle cx="8" cy="8" r="3"/>
+              </svg>
+            </dcx-web-button>
+
+            <dcx-web-button variant="primary" size="l" @click=${() => this.openPositioned('right')}>
+              <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16"
+                style="transform: rotate(90deg);">
+                <path fill-rule="evenodd"
+                  d="M8 12a.5.5 0 0 1-.5-.5V3.707L4.354 6.854a.5.5 0 1 1-.708-.708l4-4a.5.5 0 0 1 .708 0l4 4a.5.5 0 1 1-.708.708L8.5 3.707V11.5A.5.5 0 0 1 8 12"/>
+              </svg>
+            </dcx-web-button>
+
+            <dcx-web-button variant="primary" size="l" @click=${() => this.openPositioned('bottom-left')}>
+              <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16"
+                style="transform: rotate(-135deg);">
+                <path fill-rule="evenodd"
+                  d="M8 12a.5.5 0 0 1-.5-.5V3.707L4.354 6.854a.5.5 0 1 1-.708-.708l4-4a.5.5 0 0 1 .708 0l4 4a.5.5 0 1 1-.708.708L8.5 3.707V11.5A.5.5 0 0 1 8 12"/>
+              </svg>
+            </dcx-web-button>
+
+            <dcx-web-button variant="primary" size="l" @click=${() => this.openPositioned('bottom')}>
+              <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16"
+                style="transform: rotate(180deg);">
+                <path fill-rule="evenodd"
+                  d="M8 12a.5.5 0 0 1-.5-.5V3.707L4.354 6.854a.5.5 0 1 1-.708-.708l4-4a.5.5 0 0 1 .708 0l4 4a.5.5 0 1 1-.708.708L8.5 3.707V11.5A.5.5 0 0 1 8 12"/>
+              </svg>
+            </dcx-web-button>
+
+            <dcx-web-button variant="primary" size="l" @click=${() => this.openPositioned('bottom-right')}>
+              <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16"
+                style="transform: rotate(135deg);">
+                <path fill-rule="evenodd"
+                  d="M8 12a.5.5 0 0 1-.5-.5V3.707L4.354 6.854a.5.5 0 1 1-.708-.708l4-4a.5.5 0 0 1 .708 0l4 4a.5.5 0 1 1-.708.708L8.5 3.707V11.5A.5.5 0 0 1 8 12"/>
+              </svg>
+            </dcx-web-button>
 
           </div>
 
@@ -383,10 +432,8 @@ export class DcxWebPageDialog extends LitElement {
             </div>
 
             <div slot="footer">
-              <button class="mock-btn"
-                @click=${() => this.close('positioned')}>
-                Cerrar
-              </button>
+              <dcx-web-button label="Cerrar" variant="primary" @click=${() => this.close('positioned')}>
+              </dcx-web-button>
             </div>
           </dcx-web-dialog>
 

@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { LitElement, html, css } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from '@storybook/test';
 
@@ -44,228 +44,6 @@ const DIALOG_DEFAULT_ARGS: DialogStoryArgs = {
   footerMode: 'simple',
 };
 
-const buttonStyles = `
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:8px 16px;
-  border-radius:4px;
-  font-family:var(--ff-base, 'Inter', sans-serif);
-  font-size:14px;
-  font-weight:600;
-  border:none;
-  cursor:pointer;
-`;
-
-const primaryButtonStyles = `
-  ${buttonStyles}
-  background:var(--bg-primary, #0058ab);
-  color:var(--text-white, #ffffff);
-`;
-
-const secondaryButtonStyles = `
-  ${buttonStyles}
-  background:var(--bg-default, #ffffff);
-  color:var(--text-dark, #2a2e33);
-  border:1px solid var(--border-default, #2a2e33);
-`;
-
-const dangerButtonStyles = `
-  ${buttonStyles}
-  background:var(--color-error, #dc2626);
-  color:var(--text-white, #ffffff);
-`;
-
-class DcxWebDialogStoryHost extends LitElement {
-  static properties  = {
-    dialogId: { type: String },
-    dialogTitle: { type: String },
-    visible: { type: Boolean },
-    showClose: { type: Boolean },
-    showConfirmationFooter: { type: Boolean },
-    position: { type: String },
-    closeOnBackdrop: { type: Boolean },
-    bodyHtml: { type: String },
-    openButtonLabel: { type: String },
-    primaryLabel: { type: String },
-    secondaryLabel: { type: String },
-    footerMode: { type: String },
-    internalVisible: { state: true },
-  };
-
-  dialogId = '';
-  dialogTitle = '';
-  visible = false;
-  showClose = true;
-  showConfirmationFooter = false;
-  position: DialogPosition = 'center';
-  closeOnBackdrop = true;
-  bodyHtml = '';
-
-  openButtonLabel = 'Abrir dialog';
-  primaryLabel = 'Aceptar';
-  secondaryLabel = 'Cancelar';
-  footerMode: 'simple' | 'confirmation' | 'danger' = 'simple';
-
-  private internalVisible = false;
-
-  override updated(changed: Map<string, unknown>) {
-    if (changed.has('visible')) {
-      this.internalVisible = this.visible;
-    }
-  }
-
-  private openDialog = () => {
-    this.internalVisible = true;
-
-    this.dispatchEvent(
-      new CustomEvent('openDialog', {
-        bubbles: true,
-        composed: true,
-      }),
-    );
-  };
-
-  private closeDialog = () => {
-    this.internalVisible = false;
-
-    this.dispatchEvent(
-      new CustomEvent('closeDialog', {
-        bubbles: true,
-        composed: true,
-      }),
-    );
-  };
-
-  private renderFooter() {
-    if (this.footerMode === 'danger') {
-      return html`
-        <button style=${secondaryButtonStyles} @click=${this.closeDialog}>
-          ${this.secondaryLabel || 'Cancelar'}
-        </button>
-
-        <button style=${dangerButtonStyles} @click=${this.closeDialog}>
-          ${this.primaryLabel || 'Eliminar'}
-        </button>
-      `;
-    }
-
-    if (this.showConfirmationFooter || this.footerMode === 'confirmation') {
-      return html`
-        <div style="display:flex; gap:1rem; justify-content:flex-end;">
-          <button style=${secondaryButtonStyles} @click=${this.closeDialog}>
-            ${this.secondaryLabel || 'Cancelar'}
-          </button>
-
-          <button style=${primaryButtonStyles} @click=${this.closeDialog}>
-            ${this.primaryLabel || 'Aceptar'}
-          </button>
-        </div>
-      `;
-    }
-
-    return html`
-      <button style=${primaryButtonStyles} @click=${this.closeDialog}>
-        ${this.primaryLabel || 'Aceptar'}
-      </button>
-    `;
-  }
-
-  override render() {
-    return html`
-      <button style=${primaryButtonStyles} @click=${this.openDialog}>
-        ${this.openButtonLabel}
-      </button>
-
-      <div style="min-height:50vh; display:grid; place-items:center;">
-        <dcx-web-dialog
-          .dialogId=${this.dialogId}
-          .title=${this.dialogTitle}
-          .visible=${this.internalVisible}
-          .showClose=${this.showClose}
-          .position=${this.position}
-          .closeOnBackdrop=${this.closeOnBackdrop}
-          @closeDialog=${this.closeDialog}
-        >
-          <div slot="body">
-            ${unsafeHTML(this.bodyHtml)}
-          </div>
-
-          <div slot="footer">
-            ${this.renderFooter()}
-          </div>
-        </dcx-web-dialog>
-      </div>
-    `;
-  }
-}
-
-if (!customElements.get('dcx-web-dialog-story-host')) {
-  customElements.define('dcx-web-dialog-story-host', DcxWebDialogStoryHost);
-}
-
-class DcxWebDialogPositionStoryHost extends LitElement {
-  static properties = {
-    dialogId: { type: String },
-    position: { type: String },
-    label: { type: String },
-    internalVisible: { state: true },
-  };
-
-  dialogId = '';
-  position: DialogPosition = 'center';
-  label = '';
-
-  private internalVisible = false;
-
-  private openDialog = () => {
-    this.internalVisible = true;
-  };
-
-  private closeDialog = () => {
-    this.internalVisible = false;
-  };
-
-  override render() {
-    return html`
-      <button style=${secondaryButtonStyles} @click=${this.openDialog}>
-        ${this.label}
-      </button>
-
-      <dcx-web-dialog
-        .dialogId=${this.dialogId}
-        .title=${'Posición: ' + this.position}
-        .visible=${this.internalVisible}
-        .showClose=${true}
-        .position=${this.position}
-        .closeOnBackdrop=${true}
-        @closeDialog=${this.closeDialog}
-      >
-        <div slot="body">
-          <p>
-            Este diálogo está posicionado en
-            <strong>${this.position}</strong>.
-          </p>
-        </div>
-
-        <div slot="footer">
-          <button style=${primaryButtonStyles} @click=${this.closeDialog}>
-            Cerrar
-          </button>
-        </div>
-      </dcx-web-dialog>
-    `;
-  }
-}
-
-if (!customElements.get('dcx-web-dialog-position-story-host')) {
-  customElements.define(
-    'dcx-web-dialog-position-story-host',
-    DcxWebDialogPositionStoryHost,
-  );
-}
-
 const renderDialogStory = (
   args: DialogStoryArgs,
   { updateArgs }: { updateArgs: (args: Partial<DialogStoryArgs>) => void },
@@ -277,9 +55,9 @@ const renderDialogStory = (
   wrapper.style.placeItems = 'center';
   wrapper.style.gap = '24px';
 
-  const openButton = document.createElement('button');
-  openButton.textContent = args.openButtonLabel ?? 'Abrir dialog';
-  openButton.setAttribute('style', primaryButtonStyles);
+  const openButton = document.createElement('dcx-web-button');
+  openButton.setAttribute('variant', 'primary');
+  openButton.label = args.openButtonLabel ?? 'Abrir dialog';
 
   const dialog = document.createElement('dcx-web-dialog') as any;
 
@@ -313,17 +91,26 @@ const renderDialogStory = (
   dialog.addEventListener('closeDialog', close);
 
   if (args.footerMode === 'danger') {
-    const cancelButton = document.createElement('button');
-    cancelButton.textContent = args.secondaryLabel ?? 'Cancelar';
-    cancelButton.setAttribute('style', secondaryButtonStyles);
-    cancelButton.addEventListener('click', close);
+    const footerActions = document.createElement('div');
 
-    const dangerButton = document.createElement('button');
-    dangerButton.textContent = args.primaryLabel ?? 'Eliminar';
-    dangerButton.setAttribute('style', dangerButtonStyles);
+    footerActions.setAttribute(
+      'style',
+      'display:flex; gap:1rem; justify-content:flex-end;',
+    );
+
+    const cancelButton = document.createElement('dcx-web-button');
+    cancelButton.label = args.secondaryLabel ?? 'Cancelar';
+    cancelButton.setAttribute('variant', 'secondary');
+
+    const dangerButton = document.createElement('dcx-web-button');
+    dangerButton.label = args.primaryLabel ?? 'Eliminar';
+    dangerButton.setAttribute('variant', 'danger');
+
+    cancelButton.addEventListener('click', close);
     dangerButton.addEventListener('click', close);
 
-    footer.append(cancelButton, dangerButton);
+    footerActions.append(cancelButton, dangerButton);
+    footer.appendChild(footerActions);
   } else if (args.showConfirmationFooter || args.footerMode === 'confirmation') {
     const footerActions = document.createElement('div');
     footerActions.setAttribute(
@@ -331,22 +118,22 @@ const renderDialogStory = (
       'display:flex; gap:1rem; justify-content:flex-end;',
     );
 
-    const cancelButton = document.createElement('button');
-    cancelButton.textContent = args.secondaryLabel ?? 'Cancelar';
-    cancelButton.setAttribute('style', secondaryButtonStyles);
+    const cancelButton = document.createElement('dcx-web-button');
+    cancelButton.label = args.secondaryLabel ?? 'Cancelar';
+    cancelButton.setAttribute('variant', 'secondary');
     cancelButton.addEventListener('click', close);
 
-    const acceptButton = document.createElement('button');
-    acceptButton.textContent = args.primaryLabel ?? 'Aceptar';
-    acceptButton.setAttribute('style', primaryButtonStyles);
+    const acceptButton = document.createElement('dcx-web-button');
+    acceptButton.label = args.primaryLabel ?? 'Aceptar';
+    acceptButton.setAttribute('variant', 'primary');
     acceptButton.addEventListener('click', close);
 
     footerActions.append(cancelButton, acceptButton);
     footer.appendChild(footerActions);
   } else {
-    const acceptButton = document.createElement('button');
-    acceptButton.textContent = args.primaryLabel ?? 'Aceptar';
-    acceptButton.setAttribute('style', primaryButtonStyles);
+    const acceptButton = document.createElement('dcx-web-button');
+    acceptButton.label = args.primaryLabel ?? 'Aceptar';
+    acceptButton.setAttribute('variant', 'primary');
     acceptButton.addEventListener('click', close);
 
     footer.appendChild(acceptButton);
@@ -358,10 +145,6 @@ const renderDialogStory = (
 
   return wrapper;
 };
-
-/* ─────────────────────────────────────────────
- * META
- * ───────────────────────────────────────────── */
 
 const meta: Meta<DialogStoryArgs> = {
   title: 'DCXLibrary/WebComponents/Dialog',
@@ -770,15 +553,75 @@ export const Positions: Story = {
     return html`
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:48px;min-height:100vh;box-sizing:border-box;">
         ${positions.map(
-          (position, index) => html`
+      (position, index) => html`
             <dcx-web-dialog-position-story-host
               .dialogId=${`pos-${position}`}
               .position=${position}
               .label=${labels[index]}
             ></dcx-web-dialog-position-story-host>
           `,
-        )}
+    )}
       </div>
     `;
   },
 };
+
+@customElement('dcx-web-dialog-position-story-host')
+export class DcxWebDialogPositionStoryHost extends LitElement {
+  @property({ type: String }) accessor dialogId = '';
+  @property({ type: String }) accessor position: DialogPosition = 'center';
+  @property({ type: String }) accessor label = '';
+
+  @state() private accessor _visible = false;
+
+  static override styles = css`
+    :host {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  `;
+
+  override render() {
+    return html`
+      <dcx-web-button
+        variant="primary"
+        size="l"
+        .label=${this.label}
+        @click=${() => {
+        this._visible = true;
+      }}
+      ></dcx-web-button>
+
+      <dcx-web-dialog
+        .dialogId=${this.dialogId}
+        .position=${this.position}
+        .visible=${this._visible}
+        title="Posición: ${this.position}"
+        .closeOnBackdrop=${true}
+        @closeDialog=${() => {
+        this._visible = false;
+      }}
+      >
+        <div slot="body">
+          <p>Este diálogo está posicionado en <strong>${this.position}</strong>.</p>
+        </div>
+        <div slot="footer">
+          <dcx-web-button
+            label="Cerrar"
+            variant="primary"
+            @click=${() => {
+        this._visible = false;
+      }}
+          ></dcx-web-button>
+        </div>
+      </dcx-web-dialog>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'dcx-web-dialog-position-story-host': DcxWebDialogPositionStoryHost;
+  }
+}
