@@ -70,38 +70,39 @@ export class DcxWebPageAccordion extends LitElement {
 
   private _buttonTemplate() {
     return html`
-      <div style="display:flex; gap:8px; flex-wrap:wrap; padding:8px 0;">
-        <button class="api-btn">Primary Action</button>
-        <button class="api-btn" style="background:#696e75;">Secondary Action</button>
+      <div style="display:flex; gap:var(--sp-2, 8px); flex-wrap:wrap; padding:var(--sp-2, 8px) 0;">
+        <dcx-web-button label="Primary Action" variant="primary"></dcx-web-button>
+        <dcx-web-button label="Secondary Action" variant="secondary"></dcx-web-button>
+        <dcx-web-button label="Outline Action" variant="terciary"></dcx-web-button>
       </div>
     `;
   }
 
   private _formTemplate() {
     return html`
-      <div style="display:flex; flex-direction:column; gap:12px; padding:8px 0; max-width:320px;">
-        <div style="display:flex; flex-direction:column; gap:4px;">
-          <label style="font-size:12px; font-weight:600;">Nombre</label>
-          <input type="text" placeholder="Escribe tu nombre..." style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 4px;" />
+      <div style="display:flex; flex-direction:column; gap:var(--sp-3, 12px); padding:var(--sp-2, 8px) 0; max-width:320px;">
+        <div style="display:flex; flex-direction:column; gap:var(--sp-1, 4px);">
+          <label style="font-size:var(--fs-sm, 12px); font-weight:var(--fw-semibold, 600);">Nombre</label>
+          <input type="text" placeholder="Escribe tu nombre..." style="padding: 6px 10px; border: 1px solid var(--border-light, #d1d5db); border-radius: var(--r-sm, 4px);" />
         </div>
-        <div style="display:flex; flex-direction:column; gap:4px;">
-          <label style="font-size:12px; font-weight:600;">Email</label>
-          <input type="email" placeholder="tu@email.com" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 4px;" />
+        <div style="display:flex; flex-direction:column; gap:var(--sp-1, 4px);">
+          <label style="font-size:var(--fs-sm, 12px); font-weight:var(--fw-semibold, 600);">Email</label>
+          <input type="email" placeholder="tu@email.com" style="padding: 6px 10px; border: 1px solid var(--border-light, #d1d5db); border-radius: var(--r-sm, 4px);" />
         </div>
-        <button class="api-btn">Enviar</button>
+        <dcx-web-button label="Enviar" variant="primary"></dcx-web-button>
       </div>
     `;
   }
 
   private _listTemplate() {
     return html`
-      <div style="padding:8px 0;">
-        <ul style="margin: 0 0 12px 0; padding-left: 20px;">
+      <div style="padding:var(--sp-2, 8px) 0;">
+        <ul style="margin: 0 0 var(--sp-3, 12px) 0; padding-left: var(--sp-5, 20px);">
           ${this._listItems.map(item => html`<li>${item}</li>`)}
         </ul>
-        <div style="margin-top:12px; display:flex; gap:8px;">
-          <button class="api-btn" @click=${this._addListItem}>Añadir</button>
-          <button class="api-btn" style="background:#696e75;" @click=${this._removeListItem}>Eliminar último</button>
+        <div style="margin-top:var(--sp-3, 12px); display:flex; gap:var(--sp-2, 8px);">
+          <dcx-web-button label="Añadir" variant="primary" @click=${this._addListItem}></dcx-web-button>
+          <dcx-web-button label="Eliminar último" variant="secondary" @click=${this._removeListItem}></dcx-web-button>
         </div>
       </div>
     `;
@@ -230,7 +231,7 @@ export class DcxWebPageAccordion extends LitElement {
             simultáneamente.
           </p>
           <div class="demo-section__body">
-            <dcx-web-accordion .items=${this.multipleOpenItems} ?closeOthers=${false}></dcx-web-accordion>
+            <dcx-web-accordion .items=${this.multipleOpenItems} .closeOthers=${false}></dcx-web-accordion>
           </div>
         </div>
 
@@ -293,13 +294,11 @@ export class DcxWebPageAccordion extends LitElement {
               ${this.defaultItems.map(item => {
                 if (item.disabled) return nothing;
                 return html`
-                    <button
-                      class="api-btn"
-                      style="background: ${this._externalExpandedMap[item.id] ? '#0058ab' : '#696e75'};"
+                    <dcx-web-button
+                      label=${this._getExternalButtonLabel(item)}
+                      variant=${this._externalExpandedMap[item.id] ? 'primary' : 'secondary'}
                       @click=${() => this._toggleExternalItem(item.id)}
-                    >
-                      ${this._getExternalButtonLabel(item)}
-                    </button>
+                    ></dcx-web-button>
                   `;
               })}
             </div>
@@ -323,8 +322,8 @@ export class DcxWebPageAccordion extends LitElement {
           </p>
           <div class="demo-section__body">
             <div style="display:flex; gap:8px; margin-bottom:16px;">
-              <button class="api-btn" @click=${this._expandAll}>Expandir todo</button>
-              <button class="api-btn" style="background:#696e75;" @click=${this._collapseAll}>Colapsar todo</button>
+              <dcx-web-button label="Expandir todo" variant="primary" @click=${this._expandAll}></dcx-web-button>
+              <dcx-web-button label="Colapsar todo" variant="secondary" @click=${this._collapseAll}></dcx-web-button>
             </div>
             <dcx-web-accordion
               id="expand-all-accordion"

@@ -25,7 +25,9 @@ export const styles = css`
   }
 
   .dcx-accordion--transition-fast .dcx-accordion__content-wrapper {
-    transition: max-height 0.15s ease-in-out, opacity 0.15s ease-in-out,
+    transition:
+      max-height 0.15s ease-in-out,
+      opacity 0.15s ease-in-out,
       padding 0.15s ease-in-out;
   }
   .dcx-accordion--transition-fast .dcx-accordion__chevron {
@@ -33,7 +35,9 @@ export const styles = css`
   }
 
   .dcx-accordion--transition-slow .dcx-accordion__content-wrapper {
-    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out,
+    transition:
+      max-height 0.5s ease-in-out,
+      opacity 0.5s ease-in-out,
       padding 0.5s ease-in-out;
   }
   .dcx-accordion--transition-slow .dcx-accordion__chevron {
@@ -145,13 +149,13 @@ export const styles = css`
   }
 
   .dcx-accordion__title {
-    font-weight: 600;
+    font-weight: var(--fw-semibold, 600);
     line-height: 1.4;
   }
 
   .dcx-accordion__description {
-    font-size: 12px;
-    font-weight: 400;
+    font-size: var(--fs-sm, 12px);
+    font-weight: var(--fw-regular, 400);
     color: var(--text-muted, #696e75);
     line-height: 1.4;
   }
@@ -166,8 +170,9 @@ export const styles = css`
     align-items: center;
     justify-content: center;
     margin-left: auto;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.2s ease;
+    transition:
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.2s ease;
   }
 
   .dcx-accordion__chevron svg {
@@ -210,13 +215,13 @@ export const styles = css`
   }
 
   .dcx-accordion__content--scrollable::-webkit-scrollbar {
-    width: 4px;
+    width: var(--sp-1, 4px);
   }
   .dcx-accordion__content--scrollable::-webkit-scrollbar-track {
     background: transparent;
   }
   .dcx-accordion__content--scrollable::-webkit-scrollbar-thumb {
     background: var(--border-light, #d1d5db);
-    border-radius: 999px;
+    border-radius: var(--r-pill, 999px);
   }
 `;

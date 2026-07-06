@@ -4,8 +4,8 @@ import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type {
-  DcxAccordionTransition,
-  DcxAccordionVariant,
+  DcxWebAccordionTransition,
+  DcxWebAccordionVariant,
   DcxWebAccordionItem,
 } from '../../core/interfaces';
 import { styles } from './dcx-web-accordion.component.styles';
@@ -13,11 +13,14 @@ import { styles } from './dcx-web-accordion.component.styles';
 @customElement('dcx-web-accordion')
 export class DcxWebAccordion extends LitElement {
   @property({ type: Array }) accessor items: DcxWebAccordionItem[] = [];
-  @property({ type: String }) accessor transition: DcxAccordionTransition =
+  @property({ type: String }) accessor transition: DcxWebAccordionTransition =
     'smooth';
-  @property({ type: Boolean }) accessor closeOthers = true;
-  @property({ type: Array }) accessor expandedIds: string[] = [];
-  @property({ type: String }) accessor variant: DcxAccordionVariant = 'default';
+  @property({ type: Boolean, attribute: 'close-others' }) accessor closeOthers =
+    true;
+  @property({ type: Array, attribute: 'expanded-ids' })
+  accessor expandedIds: string[] = [];
+  @property({ type: String }) accessor variant: DcxWebAccordionVariant =
+    'default';
   @property({ type: String, attribute: 'aria-label' })
   override accessor ariaLabel: string | null = null;
 

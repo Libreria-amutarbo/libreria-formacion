@@ -3,6 +3,7 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 import '../../dcx-web-components/dcx-web-accordion/dcx-web-accordion.component';
+import '../../dcx-web-components/dcx-web-button/dcx-web-button.component';
 import {
   DcxAccordionDefault,
   DcxAccordionItemsWithIcon,
@@ -60,7 +61,7 @@ const meta: Meta = {
     <dcx-web-accordion
       .items=${args.items}
       transition=${args.transition}
-      ?closeOthers=${args.closeOthers}
+      .closeOthers=${args.closeOthers}
       variant=${args.variant}
       aria-label=${args.ariaLabel || ''}
     ></dcx-web-accordion>
@@ -134,77 +135,29 @@ export const WithDescription: Story = {
   },
 };
 
-const styles = html`
-  <style>
-    .api-btn {
-      padding: 8px 12px;
-      background: #0058ab;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      font-family: sans-serif;
-    }
-    .api-btn:hover {
-      background: #003d7a;
-    }
-  </style>
-`;
-
 export const WithComponents: Story = {
   render: () => {
     const listItems = [...LIST_ITEMS_MOCK];
 
     const buttonTemplate = () => html`
-      <div style="display: flex; gap: 8px; flex-wrap: wrap; padding: 8px 0;">
-        <button class="api-btn">Primary Action</button>
-        <button class="api-btn" style="background:#696e75;">Secondary Action</button>
+      <div style="display: flex; gap: var(--sp-2, 8px); flex-wrap: wrap; padding: var(--sp-2, 8px) 0;">
+        <dcx-web-button label="Primary Action" variant="primary"></dcx-web-button>
+        <dcx-web-button label="Secondary Action" variant="secondary"></dcx-web-button>
+        <dcx-web-button label="Outline Action" variant="terciary"></dcx-web-button>
       </div>
     `;
 
     const formTemplate = () => html`
-      <div style="display: flex; flex-direction: column; gap: 12px; padding: 8px 0; max-width: 320px;">
-        <div style="display: flex; flex-direction: column; gap: 4px;">
-          <label style="font-size:12px; font-weight:600;">Nombre</label>
-          <input type="text" placeholder="Escribe tu nombre..." style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 4px;" />
+      <div style="display: flex; flex-direction: column; gap: var(--sp-3, 12px); padding: var(--sp-2, 8px) 0; max-width: 320px;">
+        <div style="display: flex; flex-direction: column; gap: var(--sp-1, 4px);">
+          <label style="font-size: var(--fs-sm, 12px); font-weight: var(--fw-semibold, 600);">Nombre</label>
+          <input type="text" placeholder="Escribe tu nombre..." style="padding: 6px 10px; border: 1px solid var(--border-light, #d1d5db); border-radius: var(--r-sm, 4px);" />
         </div>
-        <div style="display: flex; flex-direction: column; gap: 4px;">
-          <label style="font-size:12px; font-weight:600;">Email</label>
-          <input type="email" placeholder="tu@email.com" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 4px;" />
+        <div style="display: flex; flex-direction: column; gap: var(--sp-1, 4px);">
+          <label style="font-size: var(--fs-sm, 12px); font-weight: var(--fw-semibold, 600);">Email</label>
+          <input type="email" placeholder="tu@email.com" style="padding: 6px 10px; border: 1px solid var(--border-light, #d1d5db); border-radius: var(--r-sm, 4px);" />
         </div>
-        <button class="api-btn">Enviar</button>
-      </div>
-    `;
-
-    const listTemplate = () => html`
-      <div style="padding: 8px 0;">
-        <ul style="margin: 0 0 12px 0; padding-left: 20px;">
-          ${listItems.map(item => html`<li>${item}</li>`)}
-        </ul>
-        <div style="display: flex; gap: 8px;">
-          <button class="api-btn" @click=${() => {
-            listItems.push(`Item ${listItems.length + 1}`);
-            const listEl = document.querySelector('#story-list-container');
-            if (listEl) {
-              listEl.innerHTML = listItems
-                .map(item => `<li>${item}</li>`)
-                .join('');
-            }
-          }}>Añadir</button>
-          <button class="api-btn" style="background:#696e75;" @click=${() => {
-            if (listItems.length > 0) {
-              listItems.pop();
-              const listEl = document.querySelector('#story-list-container');
-              if (listEl) {
-                listEl.innerHTML = listItems
-                  .map(item => `<li>${item}</li>`)
-                  .join('');
-              }
-            }
-          }}>Eliminar último</button>
-        </div>
+        <dcx-web-button label="Enviar" variant="primary"></dcx-web-button>
       </div>
     `;
 
@@ -226,33 +179,45 @@ export const WithComponents: Story = {
         title: 'Dynamic List',
         icon: 'list',
         contentTemplate: () => html`
-          <div style="padding: 8px 0;">
-            <ul id="story-list-container" style="margin: 0 0 12px 0; padding-left: 20px;">
+          <div style="padding: var(--sp-2, 8px) 0;">
+            <ul id="story-list-container" style="margin: 0 0 var(--sp-3, 12px) 0; padding-left: var(--sp-5, 20px);">
               ${listItems.map(item => html`<li>${item}</li>`)}
             </ul>
-            <div style="display: flex; gap: 8px;">
-              <button class="api-btn" @click=${() => {
-                listItems.push(`Item ${listItems.length + 1}`);
-                const listEl = document.querySelector('#story-list-container');
-                if (listEl) {
-                  listEl.innerHTML = listItems
-                    .map(item => `<li>${item}</li>`)
-                    .join('');
-                }
-              }}>Añadir</button>
-              <button class="api-btn" style="background:#696e75;" @click=${() => {
-                if (listItems.length > 0) {
-                  listItems.pop();
-                  const listEl = document.querySelector(
-                    '#story-list-container',
-                  );
+            <div style="display: flex; gap: var(--sp-2, 8px);">
+              <dcx-web-button
+                label="Añadir"
+                variant="primary"
+                @click=${(evt: Event) => {
+                  listItems.push(`Item ${listItems.length + 1}`);
+                  const root = (
+                    evt.target as HTMLElement
+                  ).getRootNode() as DocumentFragment;
+                  const listEl = root.querySelector('#story-list-container');
                   if (listEl) {
                     listEl.innerHTML = listItems
                       .map(item => `<li>${item}</li>`)
                       .join('');
                   }
-                }
-              }}>Eliminar último</button>
+                }}
+              ></dcx-web-button>
+              <dcx-web-button
+                label="Eliminar último"
+                variant="secondary"
+                @click=${(evt: Event) => {
+                  if (listItems.length > 0) {
+                    listItems.pop();
+                    const root = (
+                      evt.target as HTMLElement
+                    ).getRootNode() as DocumentFragment;
+                    const listEl = root.querySelector('#story-list-container');
+                    if (listEl) {
+                      listEl.innerHTML = listItems
+                        .map(item => `<li>${item}</li>`)
+                        .join('');
+                    }
+                  }
+                }}
+              ></dcx-web-button>
             </div>
           </div>
         `,
@@ -260,7 +225,6 @@ export const WithComponents: Story = {
     ];
 
     return html`
-      ${styles}
       <dcx-web-accordion .items=${items}></dcx-web-accordion>
     `;
   },
@@ -281,15 +245,12 @@ export const ExternalControl: Story = {
       expandedMap = next;
 
       args.items.forEach((it: any) => {
-        const btn = document.querySelector(
-          `#btn-ext-${it.id}`,
-        ) as HTMLButtonElement;
+        const btn = document.querySelector(`#btn-ext-${it.id}`) as any;
         if (btn) {
-          btn.textContent = expandedMap[it.id]
+          btn.label = expandedMap[it.id]
             ? `Cerrar: ${it.title}`
             : `Abrir: ${it.title}`;
-          btn.className = expandedMap[it.id] ? 'api-btn' : 'api-btn secondary';
-          btn.style.background = expandedMap[it.id] ? '#0058ab' : '#696e75';
+          btn.variant = expandedMap[it.id] ? 'primary' : 'secondary';
         }
       });
     };
@@ -307,24 +268,21 @@ export const ExternalControl: Story = {
     };
 
     return html`
-      ${styles}
-      <p style="font-size:13px;color:#696e75;margin-bottom:12px">
+      <p style="font-size:13px;color:var(--text-muted, #696e75);margin-bottom:var(--sp-3, 12px)">
         Los botones controlan el acordeón desde fuera mediante referencias de plantilla.
         Abre un panel haciendo clic en el botón <strong>o</strong> directamente en la cabecera.
       </p>
 
-      <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+      <div style="display:flex; gap:var(--sp-2, 8px); margin-bottom:var(--sp-4, 16px); flex-wrap:wrap;">
         ${args.items.map((item: any) => {
           if (item.disabled) return nothing;
           return html`
-              <button
+              <dcx-web-button
                 id="btn-ext-${item.id}"
-                class="api-btn"
-                style="background: #696e75;"
+                label="Abrir: ${item.title}"
+                variant="secondary"
                 @click=${() => toggle(item.id)}
-              >
-                Abrir: ${item.title}
-              </button>
+              ></dcx-web-button>
             `;
         })}
       </div>
@@ -344,42 +302,38 @@ export const ExternalControl: Story = {
 
 export const ExpandCollapseAll: Story = {
   render: args => html`
-    ${styles}
-    <p style="font-size:13px;color:#696e75;margin-bottom:12px">
+    <p style="font-size:13px;color:var(--text-muted, #696e75);margin-bottom:var(--sp-3, 12px)">
       Usa los botones para expandir o colapsar todos los paneles de golpe.
       Funciona independientemente de <code>closeOthers</code>.
     </p>
 
-    <div style="display:flex; gap:8px; margin-bottom:16px;">
-      <button
-        class="api-btn"
+    <div style="display:flex; gap:var(--sp-2, 8px); margin-bottom:var(--sp-4, 16px);">
+      <dcx-web-button
+        label="Expandir todo"
+        variant="primary"
         @click=${() => {
           const acc = document.querySelector(
             'dcx-web-accordion#all-acc',
           ) as any;
           acc?.expandAll();
         }}
-      >
-        Expandir todo
-      </button>
-      <button
-        class="api-btn"
-        style="background: #696e75;"
+      ></dcx-web-button>
+      <dcx-web-button
+        label="Colapsar todo"
+        variant="secondary"
         @click=${() => {
           const acc = document.querySelector(
             'dcx-web-accordion#all-acc',
           ) as any;
           acc?.collapseAll();
         }}
-      >
-        Colapsar todo
-      </button>
+      ></dcx-web-button>
     </div>
 
     <dcx-web-accordion
       id="all-acc"
       .items=${args.items}
-      ?closeOthers=${false}
+      .closeOthers=${false}
     ></dcx-web-accordion>
   `,
   args: {

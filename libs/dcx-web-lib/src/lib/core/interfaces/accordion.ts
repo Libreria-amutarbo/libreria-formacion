@@ -1,5 +1,5 @@
-export type DcxAccordionTransition = 'smooth' | 'fast' | 'slow' | 'none';
-export type DcxAccordionVariant = 'default' | 'flush';
+export type DcxWebAccordionTransition = 'smooth' | 'fast' | 'slow' | 'none';
+export type DcxWebAccordionVariant = 'default' | 'flush';
 
 export interface DcxWebAccordionItem {
   id: string;
