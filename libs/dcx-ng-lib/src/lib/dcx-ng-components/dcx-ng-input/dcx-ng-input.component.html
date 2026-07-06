@@ -2,8 +2,8 @@
   <label
     class="dcx-ng-input__label"
     [class.is-invalid]="isInvalid()"
-    [attr.for]="inputId"
-    [attr.id]="labelId"
+    [attr.for]="id()"
+    [attr.id]="labelId()"
   >
     {{ label() }}
     @if (required()) {
@@ -13,8 +13,9 @@
 }
 
 <div class="dcx-ng-input__wrapper" [class.is-disabled]="disabled()">
-  <input
-    #input
+  <div class="dcx-ng-input__field">
+    <input
+      #input
     [multiple]="isFileType() ? multiple() : null"
     [checked]="isRadioType() ? checked() : null"
     [value]="!isFileType() && !isRadioType() ? value() : null"
@@ -42,28 +43,33 @@
     (keydown.enter)="enterPressed.emit()"
   />
 
-  @if (showActionIcon() && !isRangeType()) {
-    <dcx-ng-button
-      class="dcx-ng-input__action-button"
-      variant="icon-only"
-      size="s"
-      icon
-      iconSize="l"
-      [iconName]="getActionButtonIcon()"
-      [ariaLabel]="getActionButtonAriaLabel()"
-      [disabled]="disabled()"
-      (buttonClick)="onActionButtonClick()"
-    ></dcx-ng-button>
+    @if (showActionIcon() && !isRangeType()) {
+      <dcx-ng-button
+        class="dcx-ng-input__action-button"
+        variant="icon-only"
+        size="s"
+        icon
+        iconSize="l"
+        [iconName]="getActionButtonIcon()"
+        [ariaLabel]="getActionButtonAriaLabel()"
+        [disabled]="disabled()"
+        (buttonClick)="onActionButtonClick()"
+      ></dcx-ng-button>
+    }
+  </div>
+
+  @if (hint() && !isInvalid()) {
+    <div class="dcx-ng-input__hint" [id]="hintId()">{{ hint() }}</div>
   }
 
   @if (showRequiredWarning()) {
-    <div class="dcx-ng-input__error" [id]="errorId()">
+    <div class="dcx-ng-input__error" role="alert" [id]="errorId()">
       <span>{{ requiredMessage() || 'Este campo es requerido' }}</span>
     </div>
   }
 
   @if (isInvalid() && (errorMessage() || errorMessages().length > 0)) {
-    <div class="dcx-ng-input__error" [id]="errorId()">
+    <div class="dcx-ng-input__error" role="alert" [id]="errorId()">
       <dcx-ng-icon [name]="errorIcon()"></dcx-ng-icon>
 
       @if (errorMessage()) {

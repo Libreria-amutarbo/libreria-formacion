@@ -1,5 +1,93 @@
-<dcx-ng-icon name="gear" size="xl" spacing="none" color="blue"></dcx-ng-icon>
-<dcx-ng-icon name="search" size="s" spacing="spacious" color="red"></dcx-ng-icon>
-<dcx-ng-icon name="heart" size="m" spacing="none" color="blue"></dcx-ng-icon>
-<dcx-ng-icon name="gear" size="xl" spacing="none" color="blue"></dcx-ng-icon>
+<div class="demo-page">
 
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Icon</h1>
+    <p class="demo-page-header__desc">
+      Wrapper sobre Bootstrap Icons. Renderiza un glifo con clases utilitarias
+      para tamaño, espaciado y color, y gestiona la accesibilidad: decorativo
+      por defecto, o significativo cuando se le asigna un nombre accesible.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
+
+  <!-- ── 01 Default ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <p class="demo-section__desc">
+      Icono decorativo (sin <code>ariaLabel</code>): se oculta a los lectores de
+      pantalla con <code>aria-hidden="true"</code>.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-icon name="gear" color="var(--color-primary, #0058ab)"></dcx-ng-icon>
+    </div>
+  </div>
+
+  <!-- ── 02 Sizes ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Sizes</span>
+    </div>
+    <div class="demo-section__body" style="display:flex;align-items:flex-end;gap:1.5rem;">
+      @for (s of sizes; track s) {
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;">
+          <dcx-ng-icon name="heart" [size]="s" color="var(--color-primary, #0058ab)"></dcx-ng-icon>
+          <small>{{ s }}</small>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- ── 03 Spacing ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Spacing</span>
+    </div>
+    <div class="demo-section__body" style="display:flex;flex-direction:column;gap:.75rem;align-items:flex-start;">
+      @for (sp of spacings; track sp) {
+        <div style="background:#f4f5f7;border-radius:6px;">
+          <span style="background:#fff;">texto</span><dcx-ng-icon name="star" [spacing]="sp" color="var(--color-primary, #0058ab)"></dcx-ng-icon><span style="background:#fff;">{{ sp }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- ── 04 Color ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Color</span>
+    </div>
+    <p class="demo-section__desc">
+      El color lo aporta el consumidor y debe cumplir un contraste ≥ 3:1 frente
+      al fondo.
+    </p>
+    <div class="demo-section__body" style="display:flex;gap:1.5rem;">
+      @for (c of colors; track c) {
+        <dcx-ng-icon name="circle-fill" size="l" [color]="c"></dcx-ng-icon>
+      }
+    </div>
+  </div>
+
+  <!-- ── 05 Accessible ────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Accessible</span>
+    </div>
+    <p class="demo-section__desc">
+      Con <code>ariaLabel</code>, el icono pasa a ser significativo
+      (<code>role="img"</code> + <code>aria-label</code>).
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-icon name="gear" size="l" ariaLabel="Configuración" color="var(--color-primary, #0058ab)"></dcx-ng-icon>
+    </div>
+  </div>
+
+</div>

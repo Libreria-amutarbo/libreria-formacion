@@ -10,6 +10,7 @@ interface HomeCard {
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
   'context-menu': 'menu-button-wide',
+  button: 'hand-index-thumb',
 };
 
 @customElement('dcx-web-page-home')
@@ -26,6 +27,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'context-menu',
       name: 'Context Menu',
       icon: ROUTE_ICONS['context-menu'],
+    },
+    {
+      route: 'button',
+      name: 'Button',
+      icon: ROUTE_ICONS['button'],
     },
   ];
 
@@ -123,7 +129,7 @@ export class DcxWebPageHome extends LitElement {
   private _filteredCards() {
     if (!this._searchTerm) return this._cards;
     return this._cards.filter(card =>
-      `${card.name} ${card.route}`.toLowerCase().includes(this._searchTerm)
+      `${card.name} ${card.route}`.toLowerCase().includes(this._searchTerm),
     );
   }
 
@@ -148,11 +154,13 @@ export class DcxWebPageHome extends LitElement {
               <div class="card-name">${card.name}</div>
               <div class="card-file">dcx-web-page-${card.route}.html</div>
             </a>
-          `
+          `,
         )}
-        ${filtered.length === 0
-          ? html`<div class="no-results">No hay componentes que coincidan.</div>`
-          : ''}
+        ${
+          filtered.length === 0
+            ? html`<div class="no-results">No hay componentes que coincidan.</div>`
+            : ''
+        }
       </div>
     `;
   }
