@@ -3,9 +3,9 @@
 
 :host {
   display: inline-block;
-  // Azul corporativo por defecto. El input `color` lo sobreescribe vía
-  // estilo inline en el host. La fuente de iconos usa `currentColor`.
-  color: var(--color-primary, #0058ab);
+  // Sin color forzado: el icono hereda el `currentColor` del contexto
+  // (la fuente de iconos usa currentColor). El input `color` lo sobreescribe
+  // vía estilo inline en el host.
 }
 
 .dcx-icon {

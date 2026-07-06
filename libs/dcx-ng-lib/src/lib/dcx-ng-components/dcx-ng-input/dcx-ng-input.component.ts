@@ -1,5 +1,6 @@
 import {
   booleanAttribute,
+  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -10,7 +11,7 @@ import {
   model,
   output,
   signal,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -18,7 +19,6 @@ import {
   DcxInputErrorMessage,
   DcxInputType,
   DcxSpacing,
-  DcxSize,
 } from '../../core/interfaces';
 import {
   INPUT_DEFAULT_VALUE,
@@ -38,7 +38,6 @@ import {
   INPUT_DEFAULT_REQUIRED_MESSAGE,
   ERRORICON,
   SPACING_DEFAULT,
-  INPUT_DEFAULT_SIZE,
   SLIDER_DEFAULT_VALUES,
 } from '../../core/defaults';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
@@ -55,6 +54,7 @@ import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
   ],
   templateUrl: './dcx-ng-input.component.html',
   styleUrls: ['./dcx-ng-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       /**Con ControlValueAccessor podemos usar input en:
@@ -72,11 +72,13 @@ import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
   ],
 })
 export class DcxNgInputComponent {
-  @ViewChild('input', { static: true }) inputRef!: ElementRef<HTMLInputElement>;
+  private readonly inputRef =
+    viewChild.required<ElementRef<HTMLInputElement>>('input');
 
   public resetNativeInput() {
-    if (this.inputRef?.nativeElement) {
-      this.inputRef.nativeElement.value = '';
+    const el = this.inputRef()?.nativeElement;
+    if (el) {
+      el.value = '';
     }
   }
   id = input<string>(`dcx-input-${Math.random().toString(36).substring(2, 9)}`);
@@ -90,7 +92,6 @@ export class DcxNgInputComponent {
   placeholder = input<string>(INPUT_DEFAULT_PLACEHOLDER);
   type = input<DcxInputType>(INPUT_DEFAULT_TYPE);
   name = input<string>(INPUT_DEFAULT_NAME);
-  inputId = `dcx-input-${Math.random().toString(36).substring(2, 9)}`;
   required = input(INPUT_DEFAULT_REQUIRED, {
     transform: booleanAttribute,
   });
@@ -105,7 +106,8 @@ export class DcxNgInputComponent {
   });
 
   label = input(INPUT_DEFAULT_LABEL);
-  labelId = `${this.inputId}-label`;
+  hint = input<string>('');
+  labelId = computed(() => `${this.id()}-label`);
   ariaLabel = input<string | null>(INPUT_DEFAULT_ARIA_LABEL);
   ariaDescribedBy = input<string | null>(INPUT_DEFAULT_ARIA_DESCRIBEDBY);
   errorMessage = input<string>(INPUT_DEFAULT_ERROR_MESSAGE);
@@ -115,8 +117,6 @@ export class DcxNgInputComponent {
   spacing = input<DcxSpacing>(SPACING_DEFAULT);
   orientation = input<'horizontal' | 'vertical'>('horizontal');
   multiple = input<boolean>(false);
-
-  size = input<DcxSize>(INPUT_DEFAULT_SIZE);
 
   valueChange = output<string | number | null>();
 
@@ -133,9 +133,13 @@ export class DcxNgInputComponent {
   step = input(SLIDER_DEFAULT_VALUES.step);
   stepInput = computed<number>(() => this.step());
 
-  private onChange: (val: any) => void = () => null;
+  private onChange: (val: string | number | null) => void = () => null;
   private onTouched: () => void = () => null;
+  private readonly syncValueEffect = effect(() => {
+    this.onChange(this.value());
+  });
   errorId = computed(() => `${this.id()}-error`);
+  hintId = computed(() => `${this.id()}-hint`);
 
   arrayValues: (string | number | null | undefined)[] = ['', null, undefined];
 
@@ -195,6 +199,7 @@ export class DcxNgInputComponent {
   describedBy = computed(() => {
     const ids = [
       this.ariaDescribedBy(),
+      this.hint() && !this.isInvalid() ? this.hintId() : null,
       this.isInvalid() ? this.errorId() : null,
     ]
       .filter(Boolean)
@@ -214,22 +219,15 @@ export class DcxNgInputComponent {
     return classes.filter(Boolean).join(' ');
   });
 
-  constructor() {
-    effect(() => {
-      const v = this.value();
-      this.onChange(v);
-    });
+  writeValue(val: string | number | null): void {
+    this.value.set(val ?? '');
   }
 
-  writeValue(val: any): void {
-    this.value.set(val);
-  }
-
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (val: string | number | null) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
