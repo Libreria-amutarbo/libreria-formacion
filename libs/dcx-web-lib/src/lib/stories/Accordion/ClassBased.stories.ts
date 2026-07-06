@@ -13,6 +13,8 @@ import {
   DcxAccordionLargeContent,
   DcxAccordionItemsWithDescription,
   LIST_ITEMS_MOCK,
+  DcxAccordionTransitionList,
+  DcxAccordionVariantList,
 } from '../../core/defaults';
 
 const meta: Meta = {
@@ -30,7 +32,7 @@ const meta: Meta = {
     },
     transition: {
       control: 'select',
-      options: ['smooth', 'fast', 'slow', 'none'],
+      options: DcxAccordionTransitionList,
       description: 'Velocidad de la animación al expandir o colapsar.',
       table: { category: 'Atributos' },
     },
@@ -41,7 +43,7 @@ const meta: Meta = {
     },
     variant: {
       control: 'select',
-      options: ['default', 'flush'],
+      options: DcxAccordionVariantList,
       description: 'Variante visual del acordeón.',
       table: { category: 'Atributos' },
     },
