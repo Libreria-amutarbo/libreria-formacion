@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import type { DcxBreadcrumbItem, DcxBreadCrumbSeparatorIcons } from '../../core/interfaces/breadcrumb';
 import { breadcrumbStyles } from './dcx-web-breadcrumb.component.styles';
+import '../dcx-web-button/dcx-web-button.component';
 
 @customElement('dcx-web-breadcrumb')
 export class DcxWebBreadcrumb extends LitElement {
@@ -59,15 +60,6 @@ export class DcxWebBreadcrumb extends LitElement {
         composed: true,
       })
     );
-  }
-
-  private _onItemKeydown(item: DcxBreadcrumbItem, event: KeyboardEvent) {
-    if (event.key !== 'Enter' && event.key !== ' ') {
-      return;
-    }
-
-    event.preventDefault();
-    this._onItemClick(item, event);
   }
 
   private _onHiddenItemClick(item: DcxBreadcrumbItem, event: Event) {
@@ -164,29 +156,29 @@ export class DcxWebBreadcrumb extends LitElement {
           ${showEllipsis
             ? html`
                 <li class="dcx-bc__item dcx-bc__item--ellipsis">
-                  <button
+                  <dcx-web-button
                     class="dcx-bc__ellipsis-btn"
-                    type="button"
+                    variant="terciary"
+                    size="s"
+                    label="..."
                     aria-label="Mostrar rutas anteriores"
                     aria-expanded="${this._isEllipsisMenuOpen ? 'true' : 'false'}"
                     aria-haspopup="true"
                     @click="${this._toggleEllipsisMenu}"
-                  >
-                    ...
-                  </button>
+                  ></dcx-web-button>
 
                   <div class="dcx-context-menu dcx-context-menu--absolute ${this._isEllipsisMenuOpen ? 'open' : ''}" role="menu" aria-label="Menú contextual">
-                    <ul class="dcx-context-menu-list">
+                    <ul class="dcx-context-menu__list">
                       ${hiddenItems.map(
                         (item) => html`
                           <li
-                            class="dcx-list-item selectable ${item.disabled ? 'disabled' : ''}"
+                            class="dcx-context-menu__item selectable ${item.disabled ? 'disabled' : ''}"
                             role="menuitem"
                             @click="${(e: Event) => this._onHiddenItemClick(item, e)}"
                           >
-                            <span class="dcx-list-item-content">
-                              ${item.icon ? html`<span class="dcx-list-icon">${this._renderItemIcon(item.icon)}</span>` : ''}
-                              <span class="dcx-list-text">${item.label}</span>
+                            <span class="dcx-context-menu__item-content">
+                              ${item.icon ? html`<span class="dcx-context-menu__icon">${this._renderItemIcon(item.icon)}</span>` : ''}
+                              <span class="dcx-context-menu__text">${item.label}</span>
                             </span>
                           </li>
                         `
@@ -213,21 +205,23 @@ export class DcxWebBreadcrumb extends LitElement {
                           aria-disabled="${item.disabled ? 'true' : 'false'}"
                           aria-label="${item.icon ? item.label : undefined}"
                           @click="${(e: Event) => this._onItemClick(item, e)}"
-                          @keydown="${(e: KeyboardEvent) => this._onItemKeydown(item, e)}"
                         >
                           ${item.icon ? this._renderItemIcon(item.icon) : item.label}
                         </a>
                       `
                     : html`
-                        <button
+                        <dcx-web-button
                           class="dcx-bc__action-btn ${item.icon ? 'dcx-bc__action-btn--icon' : ''}"
+                          variant="terciary"
+                          size="s"
+                          .label="${item.icon ? '' : item.label}"
                           ?disabled="${item.disabled}"
                           aria-disabled="${item.disabled ? 'true' : 'false'}"
                           aria-label="${item.icon ? item.label : undefined}"
                           @click="${(e: Event) => this._onItemClick(item, e)}"
                         >
-                          ${item.icon ? this._renderItemIcon(item.icon) : item.label}
-                        </button>
+                          ${item.icon ? html`<span slot="dcx-icon">${this._renderItemIcon(item.icon)}</span>` : ''}
+                        </dcx-web-button>
                       `
                   : html`
                       <span

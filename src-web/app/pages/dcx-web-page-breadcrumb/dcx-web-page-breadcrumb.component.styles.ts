@@ -28,7 +28,7 @@ export const pageBreadcrumbStyles = css`
   }
 
   .demo-page-header__title {
-    font-size: var(--fs-2xl, 28px);
+    font-size: var(--fs-2xl, 24px);
     font-weight: var(--fw-bold, 700);
     color: var(--text-dark, #2a2e33);
     margin: 0 0 var(--sp-2, 8px) 0;
@@ -44,13 +44,13 @@ export const pageBreadcrumbStyles = css`
 
   .demo-page-header__divider {
     border: none;
-    border-top: 1px solid var(--border-light, #e5e7eb);
+    border-top: 1px solid var(--border-light, #d1d5db);
     margin: 0;
   }
 
   .demo-section {
     background: var(--bg-default, #ffffff);
-    border: 1px solid var(--border-light, #e5e7eb);
+    border: 1px solid var(--border-light, #d1d5db);
     border-radius: var(--r-lg, 8px);
     margin-bottom: var(--sp-5, 20px);
     overflow: hidden;
@@ -59,29 +59,29 @@ export const pageBreadcrumbStyles = css`
   .demo-section__header {
     display: flex;
     align-items: center;
-    gap: var(--sp-2, 10px);
-    padding: var(--sp-2, 10px) var(--sp-4, 16px);
+    gap: var(--sp-2, 8px);
+    padding: var(--sp-2, 8px) var(--sp-4, 16px);
     background: var(--bg-surface, #f4f5f7);
-    border-bottom: 1px solid var(--border-light, #e5e7eb);
+    border-bottom: 1px solid var(--border-light, #d1d5db);
   }
 
   .demo-section__num {
-    font-size: var(--fs-xs, 10px);
+    font-size: var(--fs-xs, 11px);
     font-weight: var(--fw-bold, 700);
     color: var(--text-muted, #696e75);
-    background: var(--bg-surface, #edf0f3);
+    background: var(--bg-surface, #f4f5f7);
     border-radius: var(--r-sm, 4px);
     padding: var(--r-xs, 2px) var(--sp-2, 8px);
   }
 
   .demo-section__title {
-    font-size: var(--fs-sm, 13px);
+    font-size: var(--fs-sm, 12px);
     font-weight: var(--fw-semibold, 600);
     color: var(--text-dark, #2a2e33);
   }
 
   .demo-section__desc {
-    padding: var(--sp-2, 10px) var(--sp-4, 16px) 0;
+    padding: var(--sp-2, 8px) var(--sp-4, 16px) 0;
     font-size: var(--fs-sm, 12px);
     line-height: 1.55;
     color: var(--text-muted, #696e75);

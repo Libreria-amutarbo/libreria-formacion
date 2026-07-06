@@ -161,7 +161,7 @@ describe('DcxWebBreadcrumb', () => {
 
     it('should toggle ellipsis dropdown menu open and closed', async () => {
       const dropdown = element.shadowRoot?.querySelector('.dcx-context-menu');
-      const ellipsisBtn = element.shadowRoot?.querySelector('.dcx-bc__ellipsis-btn') as HTMLButtonElement;
+      const ellipsisBtn = element.shadowRoot?.querySelector('.dcx-bc__ellipsis-btn') as any;
 
       expect(dropdown?.classList.contains('open')).toBe(false);
       expect(ellipsisBtn.getAttribute('aria-expanded')).toBe('false');
@@ -180,7 +180,7 @@ describe('DcxWebBreadcrumb', () => {
     });
 
     it('should render hidden items in the dropdown menu', () => {
-      const hiddenItems = element.shadowRoot?.querySelectorAll('.dcx-list-item');
+      const hiddenItems = element.shadowRoot?.querySelectorAll('.dcx-context-menu__item');
       expect(hiddenItems?.length).toBe(2);
       expect(hiddenItems?.[0]?.textContent?.trim()).toBe('Inicio');
       expect(hiddenItems?.[1]?.textContent?.trim()).toBe('Electrónica');
@@ -190,7 +190,7 @@ describe('DcxWebBreadcrumb', () => {
       const selectedSpy = jest.fn();
       element.addEventListener('itemSelected', selectedSpy);
 
-      const ellipsisBtn = element.shadowRoot?.querySelector('.dcx-bc__ellipsis-btn') as HTMLButtonElement;
+      const ellipsisBtn = element.shadowRoot?.querySelector('.dcx-bc__ellipsis-btn') as any;
       ellipsisBtn.click();
       await element.updateComplete;
 
@@ -202,7 +202,7 @@ describe('DcxWebBreadcrumb', () => {
         assign: mockAssign,
       } as any;
 
-      const firstHidden = element.shadowRoot?.querySelector('.dcx-list-item') as HTMLElement;
+      const firstHidden = element.shadowRoot?.querySelector('.dcx-context-menu__item') as HTMLElement;
       firstHidden.click();
       await element.updateComplete;
 
@@ -218,7 +218,7 @@ describe('DcxWebBreadcrumb', () => {
     });
 
     it('should close dropdown menu on Escape key press', async () => {
-      const ellipsisBtn = element.shadowRoot?.querySelector('.dcx-bc__ellipsis-btn') as HTMLButtonElement;
+      const ellipsisBtn = element.shadowRoot?.querySelector('.dcx-bc__ellipsis-btn') as any;
       ellipsisBtn.click();
       await element.updateComplete;
 
@@ -233,7 +233,7 @@ describe('DcxWebBreadcrumb', () => {
     });
 
     it('should close dropdown menu on outside click', async () => {
-      const ellipsisBtn = element.shadowRoot?.querySelector('.dcx-bc__ellipsis-btn') as HTMLButtonElement;
+      const ellipsisBtn = element.shadowRoot?.querySelector('.dcx-bc__ellipsis-btn') as any;
       ellipsisBtn.click();
       await element.updateComplete;
 

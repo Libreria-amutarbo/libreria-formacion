@@ -49,7 +49,7 @@ export const breadcrumbStyles = css`
   }
 
   .dcx-bc__link[aria-disabled='true'] {
-    color: var(--text-disabled, #9ca3af);
+    color: var(--text-disabled, #696e75);
     cursor: not-allowed;
     text-decoration: none;
     pointer-events: none;
@@ -64,77 +64,14 @@ export const breadcrumbStyles = css`
     border-bottom-color: currentColor;
   }
 
-  .dcx-bc__action-btn {
-    appearance: none;
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: var(--r-sm, 4px);
-    padding: 0;
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    display: inline-flex;
-    align-items: center;
-    color: var(--bg-primary, #0058ab);
-    font-weight: var(--fw-medium, 500);
-    cursor: pointer;
-    transition:
-      color 0.2s ease,
-      border-color 0.2s ease;
-  }
-
-  .dcx-bc__action-btn:hover {
-    color: var(--bg-primary-hover, #004080);
-    text-decoration: underline;
-  }
-
-  .dcx-bc__action-btn:focus-visible {
-    border-color: var(--border-focus, #1db8f2);
-    outline: none;
-  }
-
-  .dcx-bc__action-btn:disabled,
-  .dcx-bc__action-btn[disabled] {
-    color: var(--text-disabled, #9ca3af);
-    cursor: not-allowed;
-    text-decoration: none;
-  }
-
-  .dcx-bc__action-btn--icon svg {
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease;
-  }
-
-  .dcx-bc__action-btn--icon:hover svg {
-    border-bottom-color: currentColor;
-  }
-
+  .dcx-bc__action-btn,
   .dcx-bc__ellipsis-btn {
-    color: var(--bg-primary, #0058ab);
-    background: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: var(--fw-medium, 500);
-    line-height: 1;
-    border: 1px solid transparent;
-    border-radius: var(--r-sm, 4px);
-    padding: 0 var(--sp-1, 4px);
-    cursor: pointer;
-    transition:
-      color 0.2s ease,
-      border-color 0.2s ease;
-    display: inline-flex;
-    align-items: center;
+    --text-dark: var(--bg-primary, #0058ab);
   }
 
+  .dcx-bc__action-btn:hover,
   .dcx-bc__ellipsis-btn:hover {
-    color: var(--bg-primary-hover, #004080);
-  }
-
-  .dcx-bc__ellipsis-btn:focus-visible {
-    border-color: var(--border-focus, #1db8f2);
-    outline: none;
+    --text-dark: var(--bg-primary-hover, #004080);
   }
 
   .dcx-bc__current {
@@ -155,12 +92,12 @@ export const breadcrumbStyles = css`
   }
 
   .dcx-bc__current.disabled {
-    color: var(--text-disabled, #9ca3af);
+    color: var(--text-disabled, #696e75);
     cursor: not-allowed;
   }
 
   .dcx-bc__current.disabled svg {
-    color: var(--text-disabled, #9ca3af);
+    color: var(--text-disabled, #696e75);
   }
 
   .dcx-bc__item--ellipsis {
@@ -186,7 +123,7 @@ export const breadcrumbStyles = css`
     box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
     color: var(--text-dark, #2a2e33);
     padding: var(--sp-1, 4px);
-    top: calc(100% + 4px);
+    top: calc(100% + var(--sp-1, 4px));
     left: 0;
     outline: none;
   }
@@ -196,13 +133,13 @@ export const breadcrumbStyles = css`
     animation: dcxContextMenuEnter 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .dcx-context-menu-list {
+  .dcx-context-menu__list {
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .dcx-list-item {
+  .dcx-context-menu__item {
     margin: 2px 0;
     border-radius: var(--r-md, 6px);
     transition:
@@ -212,26 +149,26 @@ export const breadcrumbStyles = css`
     cursor: pointer;
   }
 
-  .dcx-list-item.selectable:hover {
+  .dcx-context-menu__item.selectable:hover {
     background-color: var(--bg-hover, #f7f8fa);
   }
 
-  .dcx-list-item.selectable:active {
+  .dcx-context-menu__item.selectable:active {
     transform: scale(0.98);
   }
 
-  .dcx-list-item.disabled {
+  .dcx-context-menu__item.disabled {
     opacity: 0.4;
     cursor: not-allowed;
   }
 
-  .dcx-list-item.disabled:hover {
+  .dcx-context-menu__item.disabled:hover {
     background-color: transparent;
     transform: none;
   }
 
-  .dcx-list-item-content {
-    padding: 8px 12px;
+  .dcx-context-menu__item-content {
+    padding: var(--sp-2, 8px) var(--sp-3, 12px);
     font-size: var(--fs-base, 14px);
     font-weight: var(--fw-medium, 500);
     gap: var(--sp-3, 12px);
@@ -239,19 +176,19 @@ export const breadcrumbStyles = css`
     align-items: center;
   }
 
-  .dcx-list-icon {
+  .dcx-context-menu__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
+    width: var(--sp-5, 20px);
     color: var(--text-muted, #696e75);
   }
 
-  .dcx-list-item.selectable:hover .dcx-list-icon {
+  .dcx-context-menu__item.selectable:hover .dcx-context-menu__icon {
     color: var(--bg-primary, #0058ab);
   }
 
-  .dcx-list-text {
+  .dcx-context-menu__text {
     flex: 1;
   }
 

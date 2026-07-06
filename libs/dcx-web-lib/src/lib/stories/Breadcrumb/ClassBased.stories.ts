@@ -18,7 +18,7 @@ import '../../../index';
 const keepSamePage = <T extends { href?: string }>(items: T[]): T[] =>
   items.map(item => ({
     ...item,
-    href: undefined,
+    href: item.href ? '#' : undefined,
   }));
 
 const onItemSelected = fn((item: DcxBreadcrumbItem) => {
