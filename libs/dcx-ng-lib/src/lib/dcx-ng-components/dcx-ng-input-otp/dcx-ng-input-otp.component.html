@@ -3,6 +3,7 @@
   role="group"
   [attr.aria-label]="ariaLabel()"
   [attr.aria-invalid]="invalid()"
+  [attr.aria-describedby]="describedBy()"
 >
   @for (token of displayTokens(); track $index) {
     @if (inputTemplate) {
@@ -33,3 +34,9 @@
     }
   }
 </div>
+
+@if (showError()) {
+  <div class="dcx-input-otp__error" role="alert" [id]="errorId">
+    {{ errorMessage() }}
+  </div>
+}

@@ -64,7 +64,8 @@ export class DcxNgInputOtpComponent implements ControlValueAccessor {
     transform: booleanAttribute,
   });
   readonly placeholder = input('');
-  readonly ariaLabel = input('One-time password input');
+  readonly ariaLabel = input('Código de un solo uso');
+  readonly errorMessage = input('');
 
   readonly valueChange = output<string>();
   readonly completed = output<string>();
@@ -97,6 +98,17 @@ export class DcxNgInputOtpComponent implements ControlValueAccessor {
 
   readonly isDisabled = computed<boolean>(
     () => this.disabled() || this.formDisabled(),
+  );
+
+  private readonly uid = `dcx-otp-${Math.random().toString(36).slice(2, 9)}`;
+  readonly errorId = `${this.uid}-error`;
+
+  readonly showError = computed<boolean>(
+    () => this.invalid() && this.errorMessage().trim().length > 0,
+  );
+
+  readonly describedBy = computed<string | null>(() =>
+    this.showError() ? this.errorId : null,
   );
 
   readonly displayTokens = computed<string[]>(() => this.tokens());
@@ -291,7 +303,7 @@ export class DcxNgInputOtpComponent implements ControlValueAccessor {
   }
 
   getAriaLabel(index: number): string {
-    return `${this.ariaLabel()} ${index + 1} of ${this.normalizedLength()}`;
+    return `Dígito ${index + 1} de ${this.normalizedLength()}`;
   }
 
   getInputClass(token: string): string {
