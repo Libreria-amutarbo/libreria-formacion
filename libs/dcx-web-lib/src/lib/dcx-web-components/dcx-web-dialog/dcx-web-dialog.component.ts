@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { DialogPosition } from '../../core/interfaces/dialog';
@@ -9,11 +9,11 @@ import '../dcx-web-button/dcx-web-button.component';
 export class DcxWebDialog extends LitElement {
 
   @property({ type: String }) accessor position: DialogPosition = 'center';
-  @property({ type: String }) override accessor title: string = '';
-  @property({ type: String }) accessor dialogId: string = ''
-  @property({ type: Boolean }) accessor showClose: boolean = true;
-  @property({ type: Boolean }) accessor closeOnBackdrop: boolean = true;
-  @property({ type: Boolean }) accessor visible: boolean = false;
+  @property({ type: String }) override accessor title = '';
+  @property({ type: String }) accessor dialogId = '';
+  @property({ type: Boolean }) accessor showClose = true;
+  @property({ type: Boolean }) accessor closeOnBackdrop = true;
+  @property({ type: Boolean }) accessor visible = false;
 
   static override styles = dcxWebDialogStyles;
 

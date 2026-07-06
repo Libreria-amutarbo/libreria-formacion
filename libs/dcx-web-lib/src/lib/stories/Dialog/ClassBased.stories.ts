@@ -293,10 +293,6 @@ export default meta;
 
 type Story = StoryObj<DialogStoryArgs>;
 
-/* ─────────────────────────────────────────────
- * STORIES
- * ───────────────────────────────────────────── */
-
 export const BasicDialog: Story = {
   name: 'Básico — Informativo',
   parameters: {
@@ -567,12 +563,18 @@ export const Positions: Story = {
 };
 
 @customElement('dcx-web-dialog-position-story-host')
-export class DcxWebDialogPositionStoryHost extends LitElement {
-  @property({ type: String }) accessor dialogId = '';
-  @property({ type: String }) accessor position: DialogPosition = 'center';
-  @property({ type: String }) accessor label = '';
+  export class DcxWebDialogPositionStoryHost extends LitElement {
+    @property({ type: String })
+  dialogId = '';
 
-  @state() private accessor _visible = false;
+  @property({ type: String })
+  position: DialogPosition = 'center';
+
+  @property({ type: String })
+  label = '';
+
+  @state()
+  private _visible = false;
 
   static override styles = css`
     :host {
