@@ -9,6 +9,7 @@ import type {
   DcxWebAccordionItem,
 } from '../../core/interfaces';
 import { styles } from './dcx-web-accordion.component.styles';
+import '../dcx-web-icon/dcx-web-icon.component';
 
 @customElement('dcx-web-accordion')
 export class DcxWebAccordion extends LitElement {
@@ -235,108 +236,32 @@ export class DcxWebAccordion extends LitElement {
     buttons[nextIndex]?.focus();
   }
 
+  private _getIconName(iconName: string): string {
+    const lower = iconName.toLowerCase();
+    if (lower === 'chevron-down') return 'chevron-down';
+    if (lower.includes('speedometer')) return 'speedometer2';
+    if (lower.includes('gear')) return 'gear-fill';
+    if (lower === 'user' || lower === 'user-fill') return 'person-fill';
+    if (lower.includes('person')) return 'person-fill';
+    if (lower.includes('info')) return 'info-circle-fill';
+    if (lower.includes('star')) return 'star-fill';
+    if (lower === 'help' || lower === 'help-fill') return 'question-circle-fill';
+    if (lower.includes('question')) return 'question-circle-fill';
+    if (lower.includes('clock') || lower.includes('history')) return 'clock-history';
+    if (lower === 'hand-pointer') return 'hand-index-thumb-fill';
+    if (lower.includes('hand') || lower.includes('pointer')) return 'hand-index-thumb-fill';
+    if (lower === 'file-text') return 'file-earmark-text';
+    if (lower.includes('file') || lower.includes('text')) return 'file-earmark-text';
+    if (lower === 'list') return 'list';
+    return iconName;
+  }
+
   private _renderIcon(iconName: string) {
-    const lowerName = iconName.toLowerCase();
-
-    if (lowerName === 'chevron-down') {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      `;
+    const mappedName = this._getIconName(iconName);
+    if (iconName.toLowerCase() === 'chevron-down') {
+      return html`<dcx-web-icon name="${mappedName}" size="auto"></dcx-web-icon>`;
     }
-    if (lowerName.includes('speedometer')) {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2a10 10 0 0 0-7.35 16.76L12 14l7.35 4.76A10 10 0 0 0 12 2z"></path>
-          <path d="M12 6v6"></path>
-        </svg>
-      `;
-    }
-    if (lowerName.includes('gear')) {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-        </svg>
-      `;
-    }
-    if (lowerName.includes('person') || lowerName.includes('user')) {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      `;
-    }
-    if (lowerName.includes('info')) {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="16" x2="12" y2="12"></line>
-          <line x1="12" y1="8" x2="12.01" y2="8"></line>
-        </svg>
-      `;
-    }
-    if (lowerName.includes('star')) {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-        </svg>
-      `;
-    }
-    if (lowerName.includes('question') || lowerName.includes('help')) {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-        </svg>
-      `;
-    }
-    if (lowerName.includes('clock') || lowerName.includes('history')) {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 16 14"></polyline>
-        </svg>
-      `;
-    }
-    if (lowerName.includes('hand') || lowerName.includes('pointer')) {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v5"></path>
-          <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
-          <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
-          <path d="M6 14a4 4 0 0 0 8 0v-3h2v1a5 5 0 0 0 5 5h1"></path>
-        </svg>
-      `;
-    }
-    if (lowerName.includes('file') || lowerName.includes('text')) {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-          <polyline points="10 9 9 9 8 9"></polyline>
-        </svg>
-      `;
-    }
-    if (lowerName === 'list') {
-      return html`
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="8" y1="6" x2="21" y2="6"></line>
-          <line x1="8" y1="12" x2="21" y2="12"></line>
-          <line x1="8" y1="18" x2="21" y2="18"></line>
-          <line x1="3" y1="6" x2="3.01" y2="6"></line>
-          <line x1="3" y1="12" x2="3.01" y2="12"></line>
-          <line x1="3" y1="18" x2="3.01" y2="18"></line>
-        </svg>
-      `;
-    }
-
-    return html`<i class="bi bi-${iconName}"></i>`;
+    return html`<dcx-web-icon name="${mappedName}"></dcx-web-icon>`;
   }
 
   static override styles = styles;
@@ -349,6 +274,10 @@ export class DcxWebAccordion extends LitElement {
     };
 
     return html`
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      />
       <div
         class="${classMap(accordionClasses)}"
         aria-label="${this.ariaLabel || nothing}"

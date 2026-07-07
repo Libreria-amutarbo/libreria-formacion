@@ -140,6 +140,10 @@ export const styles = css`
     justify-content: center;
   }
 
+  .dcx-accordion__icon dcx-web-icon {
+    color: inherit;
+  }
+
   .dcx-accordion__title-group {
     flex: 1;
     display: flex;
@@ -175,9 +179,9 @@ export const styles = css`
       color 0.2s ease;
   }
 
-  .dcx-accordion__chevron svg {
-    width: 14px;
-    height: 14px;
+  .dcx-accordion__chevron dcx-web-icon {
+    font-size: 14px;
+    color: inherit;
   }
 
   .dcx-accordion__content-wrapper {
