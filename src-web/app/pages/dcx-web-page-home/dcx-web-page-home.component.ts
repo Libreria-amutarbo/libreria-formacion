@@ -10,7 +10,9 @@ interface HomeCard {
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
   breadcrumb: 'signpost-split',
+  accordion: 'list',
   button: 'hand-index-thumb',
+  icon: 'star',
 };
 
 @customElement('dcx-web-page-home')
@@ -29,9 +31,19 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['breadcrumb'],
     },
     {
+      route: 'accordion',
+      name: 'Accordion',
+      icon: ROUTE_ICONS['accordion'],
+    },
+    {
       route: 'button',
       name: 'Button',
       icon: ROUTE_ICONS['button'],
+    },
+    {
+      route: 'icon',
+      name: 'Icon',
+      icon: ROUTE_ICONS['icon'],
     },
   ];
 
