@@ -1,5 +1,6 @@
 export * from './lib/dcx-web-components/dcx-web-badge/dcx-web-badge.component';
 export * from './lib/dcx-web-components/dcx-web-breadcrumb/dcx-web-breadcrumb.component';
+export * from './lib/dcx-web-components/dcx-web-context-menu/dcx-web-context-menu.component';
 export * from './lib/dcx-web-components/dcx-web-accordion/dcx-web-accordion.component';
 export * from './lib/dcx-web-components/dcx-web-button/dcx-web-button.component';
 export * from './lib/dcx-web-components/dcx-web-icon/dcx-web-icon.component';
