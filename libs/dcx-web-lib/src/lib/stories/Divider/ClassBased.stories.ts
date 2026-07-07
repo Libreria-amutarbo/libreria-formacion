@@ -1,6 +1,14 @@
+import { DcxWebDivider } from './../../dcx-web-components/dcx-web-divider/dcx-web-divider.component';
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../../index';
+import {
+  DIVIDER_ORIENTATIONS,
+  DIVIDER_TYPES,
+  DIVIDER_SIZES,
+} from '../../core/interfaces/divider';
+import { tokens } from '../../core/tokens/colors';
+
 
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/Divider',
@@ -21,19 +29,19 @@ const meta: Meta = {
   argTypes: {
     orientation: {
       control: 'select',
-      options: ['horizontal', 'vertical'],
+      options: DIVIDER_ORIENTATIONS,
       description: 'Dirección del divisor.',
       table: { category: 'Atributos' },
     },
     size: {
       control: 'select',
-      options: ['s', 'm', 'l', 'xl', 'auto'],
+      options: DIVIDER_SIZES,
       description: 'Longitud del divisor. `auto` rellena el contenedor padre.',
       table: { category: 'Atributos' },
     },
     type: {
       control: 'select',
-      options: ['default', 'dot', 'dash'],
+      options: DIVIDER_TYPES,
       description: 'Estilo visual de la línea: sólida, punteada o discontinua.',
       table: { category: 'Atributos' },
     },
@@ -113,19 +121,19 @@ export const HorizontalSizes: Story = {
   render: () => html`
     <div style="display:flex;flex-direction:column;gap:16px;padding:16px;">
       <span style="font-size:12px;color:#888">size="s"</span>
-      <dcx-web-divider size="s" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="s" color="${tokens.background.primary}"></dcx-web-divider>
 
       <span style="font-size:12px;color:#888">size="m"</span>
-      <dcx-web-divider size="m" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="m" color="${tokens.background.primary}"></dcx-web-divider>
 
       <span style="font-size:12px;color:#888">size="l"</span>
-      <dcx-web-divider size="l" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="l" color="${tokens.background.primary}"></dcx-web-divider>
 
       <span style="font-size:12px;color:#888">size="xl"</span>
-      <dcx-web-divider size="xl" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="xl" color="${tokens.background.primary}"></dcx-web-divider>
 
       <span style="font-size:12px;color:#888">size="auto"</span>
-      <dcx-web-divider size="auto" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="auto" color="${tokens.background.primary}"></dcx-web-divider>
     </div>
   `,
 };
@@ -145,27 +153,27 @@ export const VerticalSizes: Story = {
   
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;">
       <span style="font-size:12px;color:#888">s (5rem)</span>
-      <dcx-web-divider size="s" orientation="vertical" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="s" orientation="vertical" color="${tokens.background.primary}"></dcx-web-divider>
     </div>
 
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;">
       <span style="font-size:12px;color:#888">m (15rem)</span>
-      <dcx-web-divider size="m" orientation="vertical" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="m" orientation="vertical" color="${tokens.background.primary}"></dcx-web-divider>
     </div>
 
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;">
       <span style="font-size:12px;color:#888">l (30rem)</span>
-      <dcx-web-divider size="l" orientation="vertical" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="l" orientation="vertical" color="${tokens.background.primary}"></dcx-web-divider>
     </div>
 
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;">
       <span style="font-size:12px;color:#888">xl (35rem)</span>
-      <dcx-web-divider size="xl" orientation="vertical" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="xl" orientation="vertical" color="${tokens.background.primary}"></dcx-web-divider>
     </div>
 
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;">
       <span style="font-size:12px;color:#888">auto</span>
-      <dcx-web-divider size="auto" orientation="vertical" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider size="auto" orientation="vertical" color="${tokens.background.primary}"></dcx-web-divider>
     </div>
 
   </div>
@@ -186,13 +194,13 @@ export const AllTypes: Story = {
   render: () => html`
     <div style="display:flex;flex-direction:column;gap:24px;padding:16px;">
       <span style="font-size:12px;color:#888">type="default" — sólida</span>
-      <dcx-web-divider type="default" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider type="default" color="${tokens.background.primary}"></dcx-web-divider>
 
       <span style="font-size:12px;color:#888">type="dot" — punteada</span>
-      <dcx-web-divider type="dot" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider type="dot" color="${tokens.background.primary}"></dcx-web-divider>
 
       <span style="font-size:12px;color:#888">type="dash" — discontinua</span>
-      <dcx-web-divider type="dash" color="#0058ab"></dcx-web-divider>
+      <dcx-web-divider type="dash" color="${tokens.background.primary}"></dcx-web-divider>
     </div>
   `,
 };
@@ -216,16 +224,16 @@ export const ThicknessVariants: Story = {
         </span>
 
         <span style="font-size:12px;color:#888">thickness=0.1</span>
-        <dcx-web-divider thickness="0.1" color="#0058ab"></dcx-web-divider>
+        <dcx-web-divider thickness="0.1" color="${tokens.background.primary}"></dcx-web-divider>
 
         <span style="font-size:12px;color:#888">thickness=0.25</span>
-        <dcx-web-divider thickness="0.25" color="#0058ab"></dcx-web-divider>
+        <dcx-web-divider thickness="0.25" color="${tokens.background.primary}"></dcx-web-divider>
 
         <span style="font-size:12px;color:#888">thickness=0.4</span>
-        <dcx-web-divider thickness="0.4" color="#0058ab"></dcx-web-divider>
+        <dcx-web-divider thickness="0.4" color="${tokens.background.primary}"></dcx-web-divider>
 
         <span style="font-size:12px;color:#888">thickness=0.8</span>
-        <dcx-web-divider thickness="0.8" color="#0058ab"></dcx-web-divider>
+        <dcx-web-divider thickness="0.8" color="${tokens.background.primary}"></dcx-web-divider>
       </div>
 
       <div style="display:flex;flex-direction:row;gap:32px;height:200px;align-items:stretch;">
@@ -235,22 +243,22 @@ export const ThicknessVariants: Story = {
 
         <div style="display:flex;flex-direction:column;align-items:center;">
           <span style="font-size:12px;color:#888">0.1</span>
-          <dcx-web-divider thickness="0.1" orientation="vertical" color="#0058ab"></dcx-web-divider>
+          <dcx-web-divider thickness="0.1" orientation="vertical" color="${tokens.background.primary}"></dcx-web-divider>
         </div>
 
         <div style="display:flex;flex-direction:column;align-items:center;">
           <span style="font-size:12px;color:#888">0.25</span>
-          <dcx-web-divider thickness="0.25" orientation="vertical" color="#0058ab"></dcx-web-divider>
+          <dcx-web-divider thickness="0.25" orientation="vertical" color="${tokens.background.primary}"></dcx-web-divider>
         </div>
 
         <div style="display:flex;flex-direction:column;align-items:center;">
           <span style="font-size:12px;color:#888">0.4</span>
-          <dcx-web-divider thickness="0.4" orientation="vertical" color="#0058ab"></dcx-web-divider>
+          <dcx-web-divider thickness="0.4" orientation="vertical" color="${tokens.background.primary}"></dcx-web-divider>
         </div>
 
         <div style="display:flex;flex-direction:column;align-items:center;">
           <span style="font-size:12px;color:#888">0.8</span>
-          <dcx-web-divider thickness="0.8" orientation="vertical" color="#0058ab"></dcx-web-divider>
+          <dcx-web-divider thickness="0.8" orientation="vertical" color="${tokens.background.primary}"></dcx-web-divider>
         </div>
 
       </div>
@@ -320,7 +328,7 @@ export const LabeledDividers: Story = {
         <span style="font-size:12px;color:#888">
           orientation="horizontal"
         </span>
-        <dcx-web-divider label="Título de sección" color="#0058ab"></dcx-web-divider>
+        <dcx-web-divider label="Título de sección" color="${tokens.background.primary}"></dcx-web-divider>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:8px;">
@@ -330,7 +338,7 @@ export const LabeledDividers: Story = {
 
         <div style="display:flex;height:200px;gap:16px;">
           <p style="margin:0;align-self:center;">Contenido izquierdo</p>
-          <dcx-web-divider orientation="vertical" label="o" color="#0058ab"></dcx-web-divider>
+          <dcx-web-divider orientation="vertical" label="o" color="${tokens.background.primary}"></dcx-web-divider>
           <p style="margin:0;align-self:center;">Contenido derecho</p>
         </div>
       </div>
