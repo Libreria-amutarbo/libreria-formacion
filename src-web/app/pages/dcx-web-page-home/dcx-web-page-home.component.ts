@@ -10,6 +10,7 @@ interface HomeCard {
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
   divider: 'dash',
+  accordion: 'list',
   button: 'hand-index-thumb',
   icon: 'star',
 };
@@ -28,6 +29,9 @@ export class DcxWebPageHome extends LitElement {
       route: 'divider',
       name: 'Divider',
       icon: ROUTE_ICONS['divider'],
+      route: 'accordion',
+      name: 'Accordion',
+      icon: ROUTE_ICONS['accordion'],
     },
     {
       route: 'button',
@@ -162,9 +166,10 @@ export class DcxWebPageHome extends LitElement {
             </a>
           `,
         )}
-        ${filtered.length === 0
-          ? html`<div class="no-results">No hay componentes que coincidan.</div>`
-          : ''
+        ${
+          filtered.length === 0
+            ? html`<div class="no-results">No hay componentes que coincidan.</div>`
+            : ''
         }
       </div>
     `;
