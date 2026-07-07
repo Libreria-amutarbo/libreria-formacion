@@ -100,20 +100,20 @@ describe('DcxWebDivider', () => {
     element.thickness = 0.5;
     await element.updateComplete;
 
-    expect(element.style.getPropertyValue('--dcx-divider-thickness')).toBe('0.5rem');
+    expect(element.style.getPropertyValue('--_dcx-divider-thickness')).toBe('0.5rem');
   });
 
   it('should map size correctly', async () => {
     element.size = 's';
     await element.updateComplete;
 
-    expect(element.style.getPropertyValue('--dcx-divider-size')).toBe('5rem');
+    expect(element.style.getPropertyValue('--_dcx-divider-size')).toBe('5rem');
   });
 
   it('should map type to border style', async () => {
     element.type = 'dot';
     await element.updateComplete;
 
-    expect(element.style.getPropertyValue('--dcx-divider-style')).toBe('dotted');
+    expect(element.style.getPropertyValue('--_dcx-divider-style')).toBe('dotted');
   });
 });

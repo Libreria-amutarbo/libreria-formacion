@@ -29,6 +29,8 @@ export class DcxWebPageHome extends LitElement {
       route: 'divider',
       name: 'Divider',
       icon: ROUTE_ICONS['divider'],
+    },
+    {
       route: 'accordion',
       name: 'Accordion',
       icon: ROUTE_ICONS['accordion'],
