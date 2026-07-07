@@ -10,6 +10,7 @@ interface HomeCard {
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
   divider: 'dash',
+  'context-menu': 'menu-button-wide',
   accordion: 'list',
   button: 'hand-index-thumb',
   icon: 'star',
@@ -29,6 +30,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'divider',
       name: 'Divider',
       icon: ROUTE_ICONS['divider'],
+    },
+    {
+      route: 'context-menu',
+      name: 'Context Menu',
+      icon: ROUTE_ICONS['context-menu'],
     },
     {
       route: 'accordion',
