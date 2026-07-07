@@ -9,6 +9,7 @@ interface HomeCard {
 
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
+  breadcrumb: 'signpost-split',
   'context-menu': 'menu-button-wide',
   accordion: 'list',
   button: 'hand-index-thumb',
@@ -24,6 +25,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'badge',
       name: 'Badge',
       icon: ROUTE_ICONS['badge'],
+    },
+    {
+      route: 'breadcrumb',
+      name: 'Breadcrumb',
+      icon: ROUTE_ICONS['breadcrumb'],
     },
     {
       route: 'context-menu',
