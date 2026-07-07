@@ -1,0 +1,110 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ButtonClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Button/Documentation" />
+
+# Button
+
+`dcx-web-button` es el componente de botón base de la librería de Web Components. Soporta múltiples variantes, tamaños, estados, iconos y el tipo nativo de formulario HTML.
+
+---
+
+## Uso básico
+
+```html
+<dcx-web-button label="Guardar" variant="primary" size="m"></dcx-web-button>
+```
+
+<Canvas of={ButtonClassBasedStories.Default} />
+
+---
+
+## Variantes
+
+| Variante    | Uso recomendado                          |
+|-------------|------------------------------------------|
+| `primary`   | Acción principal de la pantalla          |
+| `secondary` | Acción secundaria o alternativa          |
+| `terciary`  | Acción de bajo énfasis (ghost)           |
+| `danger`    | Acciones destructivas o de alerta        |
+| `text`      | Acción inline sin fondo ni borde         |
+| `icon-only` | Botón solo con icono; requiere `aria-label` |
+
+<Canvas of={ButtonClassBasedStories.Variants} />
+
+---
+
+## Tamaños
+
+`size`: `'s'` | `'m'` | `'l'` | `'xl'`
+
+<Canvas of={ButtonClassBasedStories.VariantsMedium} />
+
+---
+
+## Estados (primary)
+
+`hover`, `pressed`, `focused` son propiedades booleanas para forzar un estado visual estático (útil en Storybook y tests visuales). El estado `disabled` usa el atributo nativo `disabled`.
+
+<Canvas of={ButtonClassBasedStories.StatesPrimary} />
+
+---
+
+## Con iconos
+
+Usa `icon`, `icon-name` (Bootstrap Icons), `icon-position` (`left` | `right` | `top` | `bottom`) e `icon-size`.
+
+Para añadir un icono adicional a la derecha usa `icon-right-name`.
+
+```html
+<dcx-web-button
+  label="Guardar"
+  variant="primary"
+  icon="true"
+  icon-name="save"
+  icon-position="left"
+  icon-size="m">
+</dcx-web-button>
+```
+
+<Canvas of={ButtonClassBasedStories.WithIcons} />
+
+---
+
+## Solo icono (accesible)
+
+Cuando no hay `label`, es obligatorio usar `aria-label` para proporcionar un nombre accesible al botón.
+
+```html
+<dcx-web-button
+  aria-label="Guardar"
+  variant="icon-only"
+  icon="true"
+  icon-name="save"
+  size="m">
+</dcx-web-button>
+```
+
+---
+
+## Tipos de formulario
+
+`type`: `'button'` (por defecto) | `'submit'` | `'reset'`
+
+<Canvas of={ButtonClassBasedStories.Types} />
+
+---
+
+## Eventos
+
+El componente emite un evento custom `buttonClick` o `dcx-click` (con la estructura `{ detail: { clicked: true } }`) en lugar del evento nativo `click` directamente. Esto permite su uso fluido en aplicaciones Vanilla JS, React, Vue o Angular.
+
+```html
+<dcx-web-button label="Acción" id="myBtn"></dcx-web-button>
+
+<script>
+  document.getElementById('myBtn').addEventListener('buttonClick', (e) => {
+    console.log('Botón clickeado', e.detail);
+  });
+</script>
+```

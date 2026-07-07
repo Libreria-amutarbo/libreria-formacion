@@ -1,7 +1,11 @@
 @use '../../../scss/utils' as utils;
+@use '../../../scss/base/sizes' as sizes;
 
 :host {
   display: inline-block;
+  // Sin color forzado: el icono hereda el `currentColor` del contexto
+  // (la fuente de iconos usa currentColor). El input `color` lo sobreescribe
+  // vía estilo inline en el host.
 }
 
 .dcx-icon {
@@ -10,20 +14,16 @@
   line-height: 1;
 }
 
-.dcx-icon--size-s {
-  font-size: var(--size-s);
+// Tamaños — generados desde el mapa global $size con fallback en rem.
+@each $name, $value in sizes.$size {
+  .dcx-icon--size-#{$name} {
+    font-size: var(--size-#{$name}, #{$value});
+  }
 }
 
-.dcx-icon--size-m {
-  font-size: var(--size-m);
-}
-
-.dcx-icon--size-l {
-  font-size: var(--size-l);
-}
-
-.dcx-icon--size-xl {
-  font-size: var(--size-xl);
+// `auto`: no existe token --size-auto; hereda el font-size del contenedor.
+.dcx-icon--size-auto {
+  font-size: inherit;
 }
 
 .dcx-icon--spacing-compact {
