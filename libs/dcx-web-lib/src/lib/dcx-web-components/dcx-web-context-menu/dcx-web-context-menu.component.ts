@@ -2,6 +2,7 @@ import { LitElement, html, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { styles } from './dcx-web-context-menu.component.styles';
 import type { DcxContextMenuItem } from '../../core/interfaces';
+import '../dcx-web-icon/dcx-web-icon.component';
 
 @customElement('dcx-web-context-menu')
 export class DcxWebContextMenu extends LitElement {
@@ -195,7 +196,12 @@ export class DcxWebContextMenu extends LitElement {
           ${item.icon
             ? html`
                 <div class="dcx-context-menu__icon-container">
-                  <i class="bi bi-${item.icon} dcx-icon dcx-icon--size-m dcx-context-menu__icon" aria-hidden="true"></i>
+                  <dcx-web-icon
+                    name="${item.icon}"
+                    size="auto"
+                    class="dcx-context-menu__icon"
+                    aria-hidden="true"
+                  ></dcx-web-icon>
                 </div>
               `
             : ''}
@@ -208,7 +214,14 @@ export class DcxWebContextMenu extends LitElement {
               : ''}
           </div>
           ${hasChildren
-            ? html`<i class="bi bi-chevron-right dcx-icon dcx-icon--size-m dcx-context-menu__children-indicator" aria-hidden="true"></i>`
+            ? html`
+                <dcx-web-icon
+                  name="chevron-right"
+                  size="auto"
+                  class="dcx-context-menu__children-indicator"
+                  aria-hidden="true"
+                ></dcx-web-icon>
+              `
             : ''}
         </div>
         ${hasChildren
@@ -233,6 +246,7 @@ export class DcxWebContextMenu extends LitElement {
     };`;
 
     return html`
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
       <div
         class="${classes}"
         style="${style}"

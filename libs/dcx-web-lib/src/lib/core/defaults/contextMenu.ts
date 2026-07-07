@@ -8,7 +8,7 @@ export const CONTEXT_MENU_TEST_ITEMS: DcxContextMenuItem[] = [
 
 export const SIMPLE_CONTEXT_MENU_ITEMS: DcxContextMenuItem[] = [
   { text: 'Nuevo archivo', icon: 'file-earmark-plus' },
-  { text: 'Abrir', icon: 'folder-open' },
+  { text: 'Abrir', icon: 'folder2-open' },
   { divider: true },
   { text: 'Guardar', icon: 'save' },
   { text: 'Guardar como...', icon: 'save-fill' },
@@ -19,7 +19,7 @@ export const SIMPLE_CONTEXT_MENU_ITEMS: DcxContextMenuItem[] = [
 
 export const SUBLIST_CONTEXT_MENU_ITEMS: DcxContextMenuItem[] = [
   { text: 'Nuevo', icon: 'file-earmark-plus' },
-  { text: 'Abrir', icon: 'folder-open' },
+  { text: 'Abrir', icon: 'folder2-open' },
   { divider: true },
   {
     text: 'Editar',
@@ -44,7 +44,7 @@ export const SUBLIST_CONTEXT_MENU_ITEMS: DcxContextMenuItem[] = [
 
 export const DEMO_MENU_ITEMS: DcxContextMenuItem[] = [
   { text: 'Nuevo archivo', icon: 'file-earmark-plus' },
-  { text: 'Abrir', icon: 'folder-open' },
+  { text: 'Abrir', icon: 'folder2-open' },
   { divider: true },
   { text: 'Guardar', icon: 'save' },
   { text: 'Guardar como...', icon: 'save-fill' },
@@ -72,7 +72,7 @@ export const DEMO_NESTED_MENU_ITEMS: DcxContextMenuItem[] = SUBLIST_CONTEXT_MENU
 
 export const DEMO_DISABLED_MENU_ITEMS: DcxContextMenuItem[] = [
   { text: 'Nuevo archivo', icon: 'file-earmark-plus' },
-  { text: 'Abrir', icon: 'folder-open' },
+  { text: 'Abrir', icon: 'folder2-open' },
   { divider: true },
   { text: 'Guardar', icon: 'save', disabled: true },
   { text: 'Guardar como...', icon: 'save-fill', disabled: true },

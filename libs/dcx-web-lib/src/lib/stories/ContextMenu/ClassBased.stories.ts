@@ -3,34 +3,12 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import {
   SIMPLE_CONTEXT_MENU_ITEMS,
   SUBLIST_CONTEXT_MENU_ITEMS,
+  DEMO_DISABLED_MENU_ITEMS,
+  DEMO_DANGER_MENU_ITEMS,
+  DEMO_ADVANCED_MENU_ITEMS,
   DcxContextMenuItem,
   DcxWebButton,
 } from '../../../index';
-
-const DISABLED_ITEMS: DcxContextMenuItem[] = [
-  { text: 'Nuevo archivo', icon: 'file-earmark-plus' },
-  { text: 'Abrir', icon: 'folder-open' },
-  { divider: true },
-  { text: 'Guardar', icon: 'save', disabled: true },
-  { text: 'Guardar como...', icon: 'save-fill', disabled: true },
-  { divider: true },
-  { text: 'Eliminar', icon: 'trash', variant: 'danger' },
-];
-
-const DANGER_ITEMS: DcxContextMenuItem[] = [
-  { text: 'Editar', icon: 'pencil' },
-  { text: 'Duplicar', icon: 'copy' },
-  { divider: true },
-  { text: 'Archivar', icon: 'archive', variant: 'danger' },
-  { text: 'Eliminar permanentemente', icon: 'trash', variant: 'danger' },
-];
-
-const BUTTON_TRIGGER_ITEMS: DcxContextMenuItem[] = [
-  { text: 'Ver perfil', icon: 'person' },
-  { text: 'Configuración', icon: 'gear' },
-  { divider: true },
-  { text: 'Cerrar sesión', icon: 'box-arrow-right', variant: 'danger' },
-];
 
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/ContextMenu',
@@ -154,7 +132,7 @@ export const WithDisabledItems: Story = {
     args.position
   ),
   args: {
-    items: DISABLED_ITEMS,
+    items: DEMO_DISABLED_MENU_ITEMS,
   },
 };
 
@@ -166,7 +144,7 @@ export const WithDangerItems: Story = {
     args.position
   ),
   args: {
-    items: DANGER_ITEMS,
+    items: DEMO_DANGER_MENU_ITEMS,
   },
 };
 
@@ -208,7 +186,7 @@ export const ButtonTrigger: Story = {
     `;
   },
   args: {
-    items: BUTTON_TRIGGER_ITEMS,
+    items: DEMO_ADVANCED_MENU_ITEMS,
   },
 };
 
