@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import './pages/dcx-web-page-badge/dcx-web-page-badge.component';
+import './pages/dcx-web-page-breadcrumb/dcx-web-page-breadcrumb.component';
 import './pages/dcx-web-page-accordion/dcx-web-page-accordion.component';
 import './pages/dcx-web-page-button/dcx-web-page-button.component';
 import './pages/dcx-web-page-icon/dcx-web-page-icon.component';
@@ -49,6 +50,9 @@ export class DcxWebRoot extends LitElement {
         break;
       case '#divider':
         content = html`<dcx-web-page-divider></dcx-web-page-divider>`;
+        break;
+      case '#breadcrumb':
+        content = html`<dcx-web-page-breadcrumb></dcx-web-page-breadcrumb>`;
         break;
       case '#context-menu':
         content = html`<dcx-web-page-context-menu></dcx-web-page-context-menu>`;
