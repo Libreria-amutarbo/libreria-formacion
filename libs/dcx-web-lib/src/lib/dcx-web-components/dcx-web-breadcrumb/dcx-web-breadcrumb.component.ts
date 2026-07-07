@@ -1,6 +1,9 @@
 import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import type { DcxBreadcrumbItem, DcxBreadCrumbSeparatorIcons } from '../../core/interfaces/breadcrumb';
+import type {
+  DcxBreadcrumbItem,
+  DcxBreadCrumbSeparatorIcons,
+} from '../../core/interfaces/breadcrumb';
 import { breadcrumbStyles } from './dcx-web-breadcrumb.component.styles';
 import '../dcx-web-button/dcx-web-button.component';
 import '../dcx-web-icon/dcx-web-icon.component';
@@ -10,7 +13,8 @@ export class DcxWebBreadcrumb extends LitElement {
   private readonly _maxVisibleItems = 3;
 
   @property({ type: Array }) accessor items: DcxBreadcrumbItem[] = [];
-  @property({ type: String, attribute: 'icon-separator' }) accessor iconSeparator: DcxBreadCrumbSeparatorIcons = 'chevron-right';
+  @property({ type: String, attribute: 'icon-separator' })
+  accessor iconSeparator: DcxBreadCrumbSeparatorIcons = 'chevron-right';
 
   @state() private accessor _isEllipsisMenuOpen = false;
 
@@ -38,7 +42,9 @@ export class DcxWebBreadcrumb extends LitElement {
   private _handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && this._isEllipsisMenuOpen) {
       this._isEllipsisMenuOpen = false;
-      this.shadowRoot?.querySelector<HTMLElement>('.dcx-bc__ellipsis-btn')?.focus();
+      this.shadowRoot
+        ?.querySelector<HTMLElement>('.dcx-bc__ellipsis-btn')
+        ?.focus();
     }
   };
 
@@ -59,7 +65,7 @@ export class DcxWebBreadcrumb extends LitElement {
         detail: item,
         bubbles: true,
         composed: true,
-      })
+      }),
     );
   }
 
@@ -76,7 +82,7 @@ export class DcxWebBreadcrumb extends LitElement {
         detail: item,
         bubbles: true,
         composed: true,
-      })
+      }),
     );
 
     if (item.href) {
@@ -117,14 +123,11 @@ export class DcxWebBreadcrumb extends LitElement {
     const currentItem = visibleItems[visibleItems.length - 1] || null;
 
     return html`
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-      />
       <nav aria-label="Breadcrumb">
         <ol class="dcx-bc" role="list">
-          ${showEllipsis
-            ? html`
+          ${
+            showEllipsis
+              ? html`
                 <li class="dcx-bc__item dcx-bc__item--ellipsis">
                   <dcx-web-button
                     class="dcx-bc__ellipsis-btn"
@@ -140,7 +143,7 @@ export class DcxWebBreadcrumb extends LitElement {
                   <div class="dcx-context-menu dcx-context-menu--absolute ${this._isEllipsisMenuOpen ? 'open' : ''}" role="menu" aria-label="Menú contextual">
                     <ul class="dcx-context-menu__list">
                       ${hiddenItems.map(
-                        (item) => html`
+                        item => html`
                           <li
                             class="dcx-context-menu__item selectable ${item.disabled ? 'disabled' : ''}"
                             role="menuitem"
@@ -151,7 +154,7 @@ export class DcxWebBreadcrumb extends LitElement {
                               <span class="dcx-context-menu__text">${item.label}</span>
                             </span>
                           </li>
-                        `
+                        `,
                       )}
                     </ul>
                   </div>
@@ -161,14 +164,16 @@ export class DcxWebBreadcrumb extends LitElement {
                   </span>
                 </li>
               `
-            : ''}
-          ${visibleItems.map((item) => {
+              : ''
+          }
+          ${visibleItems.map(item => {
             const isCurrent = item === currentItem;
             return html`
               <li class="dcx-bc__item">
-                ${!isCurrent
-                  ? item.href
-                    ? html`
+                ${
+                  !isCurrent
+                    ? item.href
+                      ? html`
                         <a
                           class="dcx-bc__link ${item.icon ? 'dcx-bc__link--icon' : ''}"
                           href="${item.href}"
@@ -179,7 +184,7 @@ export class DcxWebBreadcrumb extends LitElement {
                           ${item.icon ? this._renderItemIcon(item.icon) : item.label}
                         </a>
                       `
-                    : html`
+                      : html`
                         <dcx-web-button
                           class="dcx-bc__action-btn ${item.icon ? 'dcx-bc__action-btn--icon' : ''}"
                           variant="terciary"
@@ -193,7 +198,7 @@ export class DcxWebBreadcrumb extends LitElement {
                           ${item.icon ? html`<span slot="dcx-icon">${this._renderItemIcon(item.icon)}</span>` : ''}
                         </dcx-web-button>
                       `
-                  : html`
+                    : html`
                       <span
                         class="dcx-bc__current ${item.disabled ? 'disabled' : ''}"
                         aria-current="page"
@@ -201,14 +206,17 @@ export class DcxWebBreadcrumb extends LitElement {
                       >
                         ${item.icon ? this._renderItemIcon(item.icon) : item.label}
                       </span>
-                    `}
-                ${!isCurrent
-                  ? html`
+                    `
+                }
+                ${
+                  !isCurrent
+                    ? html`
                       <span class="dcx-bc__sep" aria-hidden="true">
                         ${this._renderSeparatorIcon()}
                       </span>
                     `
-                  : ''}
+                    : ''
+                }
               </li>
             `;
           })}
