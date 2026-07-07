@@ -33,7 +33,7 @@ export class DcxWebPageDivider extends LitElement {
             <p>Horizontal</p>
             <dcx-web-divider aria-label="Divisor horizontal"></dcx-web-divider>
 
-            <p style="margin-top:16px;">Vertical</p>
+            <p style="margin-top:var(--sp-4, 16px);">Vertical</p>
             <div class="vertical-container">
               <p>Izquierda</p>
               <dcx-web-divider orientation="vertical" aria-label="Divisor vertical"></dcx-web-divider>
@@ -48,7 +48,7 @@ export class DcxWebPageDivider extends LitElement {
             <span class="demo-section__title">Horizontal — Todos los tamaños</span>
           </div>
 
-          <div class="demo-section__body" style="display:flex; flex-direction:column; gap:16px;">
+          <div class="demo-section__body" style="display:flex; flex-direction:column; gap:var(--sp-4, 16px);">
             
             <p class="demo-label">size="s"</p>
             <dcx-web-divider size="s" aria-label="Pequeño"></dcx-web-divider>
@@ -109,7 +109,7 @@ export class DcxWebPageDivider extends LitElement {
             <span class="demo-section__title">Todos los tipos</span>
           </div>
 
-          <div class="demo-section__body" style="display:flex; flex-direction:column; gap:16px;">
+          <div class="demo-section__body" style="display:flex; flex-direction:column; gap:var(--sp-4, 16px);">
             
             <p class="demo-label">type="default" — sólida</p>
             <dcx-web-divider type="default" aria-label="Sólida"></dcx-web-divider>
@@ -129,9 +129,9 @@ export class DcxWebPageDivider extends LitElement {
           </div>
 
           <div class="demo-section__body">
-            <div style="display:flex;gap:48px;">
+            <div style="display:flex;gap:var(--sp-12, 48px);">
 
-              <div style="display:flex; flex-direction:column; gap:16px;flex:1;">
+              <div style="display:flex; flex-direction:column; gap:var(--sp-4, 16px);flex:1;">
                 <p class="demo-label">Horizontal</p>
                 <p class="demo-label">0.1 rem</p>
                 <dcx-web-divider thickness="0.1"></dcx-web-divider>
@@ -174,8 +174,8 @@ export class DcxWebPageDivider extends LitElement {
           <p class="demo-section__desc">Sin <code>aria-label</code> ni <code>label</code>, los divisores son decorativos y tienen <code>aria-hidden="true"</code> automáticamente.</p>
           
           <div class="demo-section__body">
-            <div style="display:flex; gap:32px;">
-              <div style="display:flex; flex-direction:column; gap:12px; flex:1;">
+            <div style="display:flex; gap:var(--sp-8, 32px);">
+              <div style="display:flex; flex-direction:column; gap:var(--sp-3, 12px); flex:1;">
                 <p class="demo-label">Horizontal</p>
                 <dcx-web-divider color="#e6f0ff"></dcx-web-divider>
                 <dcx-web-divider color="#cfe0ff"></dcx-web-divider>
@@ -206,7 +206,7 @@ export class DcxWebPageDivider extends LitElement {
             <span class="demo-section__title">Con etiqueta — Horizontal y Vertical</span>
           </div>
 
-          <div class="demo-section__body" style="display:flex; flex-direction:column; gap:24px;">
+          <div class="demo-section__body" style="display:flex; flex-direction:column; gap:var(--sp-6, 24px);">
             <div style="display:flex;flex-direction:column;gap:32px;">
               <div>
                 <p class="demo-label">Horizontal</p>

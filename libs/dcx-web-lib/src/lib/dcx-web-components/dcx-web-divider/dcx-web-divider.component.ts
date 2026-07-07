@@ -28,9 +28,9 @@ export class DcxWebDivider extends LitElement {
   private _getDividerSize(): string {
     switch (this.size) {
       case 's': return '5rem';
-      case 'm': return '10rem';
-      case 'l': return '20rem';
-      case 'xl': return '30rem';
+      case 'm': return '15rem';
+      case 'l': return '30rem';
+      case 'xl': return '35rem';
       default: return '100%';
     }
   }
@@ -50,10 +50,10 @@ export class DcxWebDivider extends LitElement {
     this.classList.toggle('vertical', this.orientation === 'vertical');
     this.classList.toggle('has-label', !!this.label);
 
-    this.style.setProperty('--dcx-divider-size', this._getDividerSize());
-    this.style.setProperty('--dcx-divider-style', this._getDividerStyle());
-    this.style.setProperty('--dcx-divider-thickness', `${this.thickness}rem`);
-    this.style.setProperty('--dcx-divider-color', this.color);
+    this.style.setProperty('--_dcx-divider-size', this._getDividerSize());
+    this.style.setProperty('--_dcx-divider-style', this._getDividerStyle());
+    this.style.setProperty('--_dcx-divider-thickness', `${this.thickness}rem`);
+    this.style.setProperty('--_dcx-divider-color', this.color);
   }
 
   override render() {

@@ -38,7 +38,7 @@ const meta: Meta = {
       table: { category: 'Atributos' },
     },
     thickness: {
-      control: { type: 'number', min: 0, max: 2, step: 0.1 },
+      control: { type: 'number', min: 0, max: 2, step: 0.2 },
       description: 'Grosor de la línea en unidades `rem`.',
       table: { category: 'Atributos' },
     },
@@ -53,6 +53,14 @@ const meta: Meta = {
         'Texto visible centrado entre dos líneas. Cuando se establece, el divisor cambia a la variante con etiqueta.',
       table: { category: 'Atributos' },
     },
+    'aria-label': {
+      control: 'text',
+      description:
+        'Etiqueta accesible utilizada por lectores de pantalla cuando el divisor no tiene label visible.',
+      table: {
+        category: 'Accesibilidad',
+      },
+    },
   },
   args: {
     size: 'auto',
@@ -61,6 +69,7 @@ const meta: Meta = {
     color: '#d1d5db',
     thickness: 0.25,
     label: '',
+    'aria-label': '',
   },
   render: (args) => html`
     <dcx-web-divider
@@ -70,6 +79,7 @@ const meta: Meta = {
       thickness=${args.thickness}
       color=${args.color}
       label=${args.label || ''}
+      aria-label=${args['aria-label'] || ''}
     ></dcx-web-divider>
   `,
 };

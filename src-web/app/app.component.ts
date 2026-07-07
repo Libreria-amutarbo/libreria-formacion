@@ -47,6 +47,7 @@ export class DcxWebRoot extends LitElement {
         break;
       case '#divider':
         content = html`<dcx-web-page-divider></dcx-web-page-divider>`;
+        break;
       case '#button':
         content = html`<dcx-web-page-button></dcx-web-page-button>`;
         break;

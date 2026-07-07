@@ -9,6 +9,7 @@ interface HomeCard {
 
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
+  divider: 'dash',
   button: 'hand-index-thumb',
   icon: 'star',
 };
@@ -22,6 +23,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'badge',
       name: 'Badge',
       icon: ROUTE_ICONS['badge'],
+    },
+    {
+      route: 'divider',
+      name: 'Divider',
+      icon: ROUTE_ICONS['divider'],
     },
     {
       route: 'button',
@@ -129,7 +135,7 @@ export class DcxWebPageHome extends LitElement {
   private _filteredCards() {
     if (!this._searchTerm) return this._cards;
     return this._cards.filter(card =>
-      `${card.name} ${card.route}`.toLowerCase().includes(this._searchTerm)
+      `${card.name} ${card.route}`.toLowerCase().includes(this._searchTerm),
     );
   }
 
@@ -154,11 +160,12 @@ export class DcxWebPageHome extends LitElement {
               <div class="card-name">${card.name}</div>
               <div class="card-file">dcx-web-page-${card.route}.html</div>
             </a>
-          `
+          `,
         )}
         ${filtered.length === 0
           ? html`<div class="no-results">No hay componentes que coincidan.</div>`
-          : ''}
+          : ''
+        }
       </div>
     `;
   }
