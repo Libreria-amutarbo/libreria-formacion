@@ -1,23 +1,22 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   DcxNgInputComponent,
   DcxInputType,
+  DcxInputErrorMessage,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
-  selector: 'dcx-ng-dcx-ng-input',
+  selector: 'dcx-ng-page-input',
   standalone: true,
-  imports: [CommonModule, DcxNgInputComponent],
+  imports: [DcxNgInputComponent],
   templateUrl: './dcx-ng-page-input.component.html',
   styleUrls: ['./dcx-ng-page-input.component.scss'],
 })
 export class DcxNgPageInputComponent {
-  valor = '';
-
   readonly DcxInputType = DcxInputType;
 
-  showValue(value: string | null) {
-    this.valor = value || '';
-  }
+  readonly passwordErrors: DcxInputErrorMessage[] = [
+    { type: 'minLength', message: 'Mínimo 8 caracteres.' },
+    { type: 'uppercase', message: 'Debe contener una mayúscula.' },
+  ];
 }

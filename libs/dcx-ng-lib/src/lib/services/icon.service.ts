@@ -9,7 +9,7 @@ interface BootstrapIcon {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IconService {
   private readonly http = inject(HttpClient);
@@ -19,7 +19,7 @@ export class IconService {
   private readonly _icons = signal<string[] | null>(null);
   readonly icons = this._icons.asReadonly();
 
-  constructor() { }
+  constructor() {}
 
   loadIcons(): Observable<string[]> {
     if (this._icons() !== null) {
@@ -32,7 +32,7 @@ export class IconService {
       catchError(_error => {
         this._icons.set([]);
         return of([]);
-      })
+      }),
     );
   }
 

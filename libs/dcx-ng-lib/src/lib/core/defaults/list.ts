@@ -27,8 +27,10 @@ export const DEFAULT_LIST_ITEMS: DcxListItem[] = [
 ];
 
 export const SIMPLE_LIST_ITEMS: DcxListItem[] = [
-  { text: 'Three' },
-  { text: 'Four' },
+  { text: 'Perfil' },
+  { text: 'Notificaciones' },
+  { text: 'Privacidad y seguridad' },
+  { text: 'Facturación' },
 ];
 
 export const LIST_ITEMS_WITH_ICONS = [

@@ -9,6 +9,8 @@ interface HomeCard {
 
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
+  button: 'hand-index-thumb',
+  icon: 'star',
 };
 
 @customElement('dcx-web-page-home')
@@ -20,6 +22,16 @@ export class DcxWebPageHome extends LitElement {
       route: 'badge',
       name: 'Badge',
       icon: ROUTE_ICONS['badge'],
+    },
+    {
+      route: 'button',
+      name: 'Button',
+      icon: ROUTE_ICONS['button'],
+    },
+    {
+      route: 'icon',
+      name: 'Icon',
+      icon: ROUTE_ICONS['icon'],
     },
   ];
 

@@ -107,11 +107,21 @@ const meta: Meta<DcxNgInputOtpComponent> = {
     },
     ariaLabel: {
       control: { type: 'text' },
-      description: 'Etiqueta accesible base del grupo OTP.',
+      description: 'Etiqueta accesible del grupo OTP.',
       table: {
         category: 'Atributos',
         type: { summary: 'string' },
-        defaultValue: { summary: 'One-time password input' },
+        defaultValue: { summary: 'Código de un solo uso' },
+      },
+    },
+    errorMessage: {
+      control: { type: 'text' },
+      description:
+        'Mensaje de error. Si `invalid` es true y hay texto, se muestra bajo el grupo con `role="alert"` y se enlaza por `aria-describedby`.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
       },
     },
     valueChange: {
@@ -155,7 +165,8 @@ const meta: Meta<DcxNgInputOtpComponent> = {
     invalid: false,
     disabled: false,
     placeholder: '',
-    ariaLabel: 'One-time password input',
+    ariaLabel: 'Código de un solo uso',
+    errorMessage: '',
   },
 };
 
@@ -529,4 +540,19 @@ export const SampleLayout: Story = {
       </div>
     `,
   }),
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    length: 4,
+  },
+};
+
+export const Invalid: Story = {
+  args: {
+    invalid: true,
+    length: 4,
+    errorMessage: 'El código introducido no es correcto.',
+  },
 };
