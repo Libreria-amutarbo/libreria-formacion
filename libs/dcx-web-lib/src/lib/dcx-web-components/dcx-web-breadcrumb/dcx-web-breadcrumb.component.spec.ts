@@ -94,8 +94,8 @@ describe('DcxWebBreadcrumb', () => {
     ];
     await element.updateComplete;
 
-    const iconSvg = element.shadowRoot?.querySelector('.dcx-bc__link svg.bi-house');
-    expect(iconSvg).not.toBeNull();
+    const icon = element.shadowRoot?.querySelector('.dcx-bc__link dcx-web-icon[name="house"]');
+    expect(icon).not.toBeNull();
   });
 
   it('should emit itemSelected event when a non-disabled item is clicked', async () => {

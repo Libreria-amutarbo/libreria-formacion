@@ -6,6 +6,10 @@ export const breadcrumbStyles = css`
     font-family: var(--ff-base, 'Inter', sans-serif);
   }
 
+  dcx-web-icon {
+    color: inherit;
+  }
+
   .dcx-bc {
     margin: 0;
     padding: 0;
@@ -55,15 +59,6 @@ export const breadcrumbStyles = css`
     pointer-events: none;
   }
 
-  .dcx-bc__link--icon svg {
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease;
-  }
-
-  .dcx-bc__link--icon:hover svg {
-    border-bottom-color: currentColor;
-  }
-
   .dcx-bc__action-btn,
   .dcx-bc__ellipsis-btn {
     --text-dark: var(--bg-primary, #0058ab);
@@ -87,17 +82,9 @@ export const breadcrumbStyles = css`
     border-radius: var(--r-sm, 4px);
   }
 
-  .dcx-bc__current svg {
-    color: var(--text-dark, #2a2e33);
-  }
-
   .dcx-bc__current.disabled {
     color: var(--text-disabled, #696e75);
     cursor: not-allowed;
-  }
-
-  .dcx-bc__current.disabled svg {
-    color: var(--text-disabled, #696e75);
   }
 
   .dcx-bc__item--ellipsis {
