@@ -1,5 +1,6 @@
 export * from './lib/dcx-web-components/dcx-web-badge/dcx-web-badge.component';
 export * from './lib/dcx-web-components/dcx-web-checkbox/dcx-web-checkbox.component';
+export * from './lib/dcx-web-components/dcx-web-divider/dcx-web-divider.component';
 export * from './lib/dcx-web-components/dcx-web-breadcrumb/dcx-web-breadcrumb.component';
 export * from './lib/dcx-web-components/dcx-web-context-menu/dcx-web-context-menu.component';
 export * from './lib/dcx-web-components/dcx-web-accordion/dcx-web-accordion.component';
