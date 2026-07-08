@@ -4,6 +4,7 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from '@storybook/test';
 
 import '../../../index';
+import '../../../lib/dcx-web-components/dcx-web-icon/dcx-web-icon.component';
 import type { DialogPosition } from '../../../lib/core/interfaces/dialog';
 import { DIALOG_POSITION_LIST } from '../../../lib/core/interfaces/dialog';
 
@@ -43,6 +44,18 @@ const DIALOG_DEFAULT_ARGS: DialogStoryArgs = {
   secondaryLabel: 'Cancelar',
   footerMode: 'simple',
 };
+
+const icons = [
+  'arrow-up-left',
+  'arrow-up',
+  'arrow-up-right',
+  'arrow-left',
+  'circle-fill',
+  'arrow-right',
+  'arrow-down-left',
+  'arrow-down',
+  'arrow-down-right',
+];
 
 const renderDialogStory = (
   args: DialogStoryArgs,
@@ -420,12 +433,17 @@ export const Destructive: Story = {
     footerMode: 'danger',
     bodyHtml: `
       <div style="width:44px;height:44px;border-radius:50%;background:#fef2f2;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M8 4h4M3 6h14M5 6l1 10h8l1-10" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <dcx-web-icon
+          name="trash"
+          size="m"
+          color="#dc2626"
+          aria-label="Eliminar"
+        ></dcx-web-icon>
       </div>
+
       <p style="font-size:14px;color:#696e75;line-height:1.6">
-        ¿Estás seguro de que deseas eliminar el proyecto <strong style="color:#2a2e33">Cloud Migration</strong>?
+        ¿Estás seguro de que deseas eliminar el proyecto
+        <strong style="color:#2a2e33">Cloud Migration</strong>?
         Esta acción es irreversible y no se puede deshacer.
       </p>
     `,
@@ -506,13 +524,17 @@ export const Informative: Story = {
     footerMode: 'simple',
     bodyHtml: `
       <div style="width:44px;height:44px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="10" r="7" stroke="#1d4ed8" stroke-width="1.5"/>
-          <path d="M10 9v5M10 7v.5" stroke="#1d4ed8" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
+        <dcx-web-icon
+          name="info-circle"
+          size="m"
+          color="#1d4ed8"
+          aria-label="Información"
+        ></dcx-web-icon>
       </div>
+
       <p style="font-size:14px;color:#696e75;line-height:1.6">
-        El proceso de migración comenzará el <strong style="color:#2a2e33">lunes 22 de abril</strong>.
+        El proceso de migración comenzará el
+        <strong style="color:#2a2e33">lunes 22 de abril</strong>.
         Durante este periodo algunos servicios podrían no estar disponibles temporalmente.
       </p>
     `,
@@ -544,17 +566,18 @@ export const Positions: Story = {
       'bottom-right',
     ];
 
-    const labels = ['↖', '↑', '↗', '←', '·', '→', '↙', '↓', '↘'];
-
     return html`
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:48px;min-height:100vh;box-sizing:border-box;">
         ${positions.map(
       (position, index) => html`
-            <dcx-web-dialog-position-story-host
-              .dialogId=${`pos-${position}`}
-              .position=${position}
-              .label=${labels[index]}
-            ></dcx-web-dialog-position-story-host>
+            
+        <dcx-web-dialog-position-story-host
+          .dialogId=${`pos-${position}`}
+          .position=${position}
+          .iconName=${icons[index]}
+        >
+        </dcx-web-dialog-position-story-host>
+
           `,
     )}
       </div>
@@ -571,7 +594,7 @@ export const Positions: Story = {
   position: DialogPosition = 'center';
 
   @property({ type: String })
-  label = '';
+  iconName = '';
 
   @state()
   private _visible = false;
@@ -586,14 +609,19 @@ export const Positions: Story = {
 
   override render() {
     return html`
+      
       <dcx-web-button
         variant="primary"
         size="l"
-        .label=${this.label}
-        @click=${() => {
-        this._visible = true;
-      }}
-      ></dcx-web-button>
+        icon-name=${this.iconName}
+        label="Abrir diálogo"
+        aria-label=${this.position}
+        @buttonClick=${() => {
+          this._visible = true;
+        }}
+      >
+      </dcx-web-button>
+
 
       <dcx-web-dialog
         .dialogId=${this.dialogId}
