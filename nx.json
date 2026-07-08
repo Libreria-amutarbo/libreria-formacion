@@ -89,7 +89,8 @@
         "typecheckTargetName": "typecheck",
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
-      }
+      },
+      "exclude": ["libs/dcx-web-lib/**", "src-web/**"]
     },
     {
       "plugin": "@nx/eslint/plugin",

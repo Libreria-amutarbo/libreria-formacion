@@ -4,6 +4,7 @@ import {
   DcxNavbarBrand,
   DcxNgButtonComponent,
   DcxNgNavbarComponent,
+  navbarItemsWithDisabled,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -28,12 +29,7 @@ export class DcxNgPageNavbarComponent {
     { label: 'Recursos', value: 'resources', icon: 'box' },
   ];
 
-  navItemsWithDisabled: DcxNavItem[] = [
-    { label: 'Inicio', value: 'home', icon: 'house' },
-    { label: 'Componentes', value: 'components', icon: 'grid' },
-    { label: 'Deshabilitado', value: 'disabled', disabled: true },
-    { label: 'Recursos', value: 'resources', icon: 'box' },
-  ];
+  navItemsWithDisabled = navbarItemsWithDisabled;
 
   activeValue = signal('components');
 
