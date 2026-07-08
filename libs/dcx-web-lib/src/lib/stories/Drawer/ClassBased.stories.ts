@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { DcxWebDrawer } from '../../dcx-web-components/dcx-web-drawer/dcx-web-drawer.component';
-import { DRAWER_DEFAULT_ARGS } from '../../core/defaults/drawer';
+import { DRAWER_DEFAULT_ARGS, DRAWER_POSITIONS } from '../../core/defaults/drawer';
 
 import '../../../index';
 
@@ -38,7 +38,7 @@ const meta: Meta<DcxWebDrawer & {
     },
     position: {
       control: 'select',
-      options: ['left', 'right', 'top', 'bottom'],
+      options: DRAWER_POSITIONS,
       description: 'Define desde qué lado aparece el drawer: `left`, `right`, `top` o `bottom`.',
       table: {
         category: 'Atributos',
@@ -191,17 +191,17 @@ export const Default: Story = {
         <dcx-web-button label="Abrir drawer" variant="primary" @buttonClick=${handleOpen}></dcx-web-button>
 
         <dcx-web-drawer
-          ?open=${args.open}
+          .open=${args.open}
           .position=${args.position}
-          ?modal=${args.modal}
-          ?dismissible=${args.dismissible}
-          ?showCloseIcon=${args.showCloseIcon}
-          ?closeOnEscape=${args.closeOnEscape}
-          ?blockScroll=${args.blockScroll}
-          ?fullScreen=${args.fullScreen}
+          .modal=${args.modal}
+          .dismissible=${args.dismissible}
+          .showCloseIcon=${args.showCloseIcon}
+          .closeOnEscape=${args.closeOnEscape}
+          .blockScroll=${args.blockScroll}
+          .fullScreen=${args.fullScreen}
           .size=${args.size}
           .baseZIndex=${args.baseZIndex}
-          ?autoZIndex=${args.autoZIndex}
+          .autoZIndex=${args.autoZIndex}
           .header=${args.header}
           .footer=${args.footer}
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
@@ -260,14 +260,14 @@ export const Positions: Story = {
         </div>
         <p style="margin: 0; color: var(--text-muted, #6c757d);">Posición actual: <strong>left</strong> · Size: <strong>22rem</strong></p>
         <dcx-web-drawer
-          ?open=${args.open}
+          .open=${args.open}
           .position=${args.position}
-          ?modal=${true}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
+          .modal=${true}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
           header="Drawer por posición"
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
           @dcx-drawer-hide=${(e: Event) => args['dcx-drawer-hide']?.(e)}
@@ -311,14 +311,14 @@ export const CloseOnEscapeDisabled: Story = {
         <dcx-web-button label="Abrir (ESC deshabilitado)" variant="secondary" @buttonClick=${handleOpen}></dcx-web-button>
 
         <dcx-web-drawer
-          ?open=${args.open}
-          position="right"
-          ?modal=${true}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${false}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
+          .open=${args.open}
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${false}
+          .blockScroll=${false}
+          .fullScreen=${false}
           size="22rem"
           .header=${args.header}
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
@@ -351,14 +351,14 @@ export const NonModal: Story = {
         <dcx-web-button label="Abrir no modal" variant="secondary" @buttonClick=${handleOpen}></dcx-web-button>
 
         <dcx-web-drawer
-          ?open=${args.open}
-          position="left"
-          ?modal=${false}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
+          .open=${args.open}
+          .position=${'left'}
+          .modal=${false}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
           size="22rem"
           .header=${args.header}
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
@@ -390,14 +390,14 @@ export const NonDismissible: Story = {
         <dcx-web-button label="Abrir drawer" variant="primary" @buttonClick=${handleOpen}></dcx-web-button>
 
         <dcx-web-drawer
-          ?open=${args.open}
-          position="right"
-          ?modal=${true}
-          ?dismissible=${false}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
+          .open=${args.open}
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${false}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
           size="22rem"
           .header=${args.header}
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
@@ -431,14 +431,14 @@ export const CloseOnEscapeEnabled: Story = {
         <dcx-web-button label="Abrir (ESC habilitado)" variant="primary" @buttonClick=${handleOpen}></dcx-web-button>
 
         <dcx-web-drawer
-          ?open=${args.open}
-          position="right"
-          ?modal=${true}
-          ?dismissible=${false}
-          ?showCloseIcon=${false}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
+          .open=${args.open}
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${false}
+          .showCloseIcon=${false}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
           size="22rem"
           .header=${args.header}
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
@@ -472,14 +472,14 @@ export const CloseOnlyWithIcon: Story = {
         <dcx-web-button label="Abrir (solo ícono)" variant="secondary" @buttonClick=${handleOpen}></dcx-web-button>
 
         <dcx-web-drawer
-          ?open=${args.open}
-          position="right"
-          ?modal=${true}
-          ?dismissible=${false}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${false}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
+          .open=${args.open}
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${false}
+          .showCloseIcon=${true}
+          .closeOnEscape=${false}
+          .blockScroll=${false}
+          .fullScreen=${false}
           size="22rem"
           .header=${args.header}
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
@@ -526,14 +526,14 @@ export const TopAndBottomSizes: Story = {
         <dcx-web-button label="Bottom 30vh" variant="secondary" @buttonClick=${openBottom}></dcx-web-button>
 
         <dcx-web-drawer
-          ?open=${args.open}
-          position="top"
-          ?modal=${true}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
+          .open=${args.open}
+          .position=${'top'}
+          .modal=${true}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
           size="12rem"
           header="Drawer top"
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
@@ -566,14 +566,14 @@ export const FullScreenOpen: Story = {
         <p>El drawer fullscreen se abre por botón y mantiene scroll de página porque <strong>blockScroll=false</strong> y se cierra mediante el botón 'Esc'.</p>
 
         <dcx-web-drawer
-          ?open=${args.open}
-          position="right"
-          ?modal=${true}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${true}
+          .open=${args.open}
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${true}
           size="22rem"
           .header=${args.header}
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
@@ -616,14 +616,14 @@ export const BlockScrollTrue: Story = {
         </p>
 
         <dcx-web-drawer
-          ?open=${args.open}
+          .open=${args.open}
           .position=${args.position}
-          ?modal=${args.modal}
-          ?dismissible=${args.dismissible}
-          ?showCloseIcon=${args.showCloseIcon}
-          ?closeOnEscape=${args.closeOnEscape}
-          ?blockScroll=${args.blockScroll}
-          ?fullScreen=${args.fullScreen}
+          .modal=${args.modal}
+          .dismissible=${args.dismissible}
+          .showCloseIcon=${args.showCloseIcon}
+          .closeOnEscape=${args.closeOnEscape}
+          .blockScroll=${args.blockScroll}
+          .fullScreen=${args.fullScreen}
           .size=${args.size}
           .header=${args.header}
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
@@ -704,16 +704,16 @@ export const ZIndexExample: Story = {
 
         <dcx-web-drawer
           id="drawer-manual-2000"
-          position="right"
-          ?modal=${true}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
-          size="24rem"
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
+          .size=${'24rem'}
           .baseZIndex=${2000}
-          ?autoZIndex=${false}
+          .autoZIndex=${false}
           header="Manual 2000"
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
           @dcx-drawer-hide=${(e: Event) => args['dcx-drawer-hide']?.(e)}
@@ -724,16 +724,16 @@ export const ZIndexExample: Story = {
 
         <dcx-web-drawer
           id="drawer-auto-2000"
-          position="right"
-          ?modal=${true}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
-          size="22rem"
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
+          .size=${'22rem'}
           .baseZIndex=${2000}
-          ?autoZIndex=${true}
+          .autoZIndex=${true}
           header="Auto 2000"
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
           @dcx-drawer-hide=${(e: Event) => args['dcx-drawer-hide']?.(e)}
@@ -744,16 +744,16 @@ export const ZIndexExample: Story = {
 
         <dcx-web-drawer
           id="drawer-manual-2600"
-          position="right"
-          ?modal=${true}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
-          size="20rem"
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
+          .size=${'20rem'}
           .baseZIndex=${2600}
-          ?autoZIndex=${false}
+          .autoZIndex=${false}
           header="Manual 2600"
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
           @dcx-drawer-hide=${(e: Event) => args['dcx-drawer-hide']?.(e)}
@@ -791,14 +791,14 @@ export const WithCustomHeader: Story = {
         <dcx-web-button label="Abrir (header custom)" variant="primary" @buttonClick=${handleOpen}></dcx-web-button>
 
         <dcx-web-drawer
-          ?open=${args.open}
-          position="right"
-          ?modal=${true}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
+          .open=${args.open}
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
           size="24rem"
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}
           @dcx-drawer-hide=${(e: Event) => args['dcx-drawer-hide']?.(e)}
@@ -844,14 +844,14 @@ export const WithCustomFooter: Story = {
         <dcx-web-button label="Abrir (footer custom)" variant="primary" @buttonClick=${handleOpen}></dcx-web-button>
 
         <dcx-web-drawer
-          ?open=${args.open}
-          position="right"
-          ?modal=${true}
-          ?dismissible=${true}
-          ?showCloseIcon=${true}
-          ?closeOnEscape=${true}
-          ?blockScroll=${false}
-          ?fullScreen=${false}
+          .open=${args.open}
+          .position=${'right'}
+          .modal=${true}
+          .dismissible=${true}
+          .showCloseIcon=${true}
+          .closeOnEscape=${true}
+          .blockScroll=${false}
+          .fullScreen=${false}
           size="24rem"
           header="Footer personalizado"
           @dcx-drawer-show=${(e: Event) => args['dcx-drawer-show']?.(e)}

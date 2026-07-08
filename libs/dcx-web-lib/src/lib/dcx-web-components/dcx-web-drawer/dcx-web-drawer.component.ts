@@ -2,6 +2,7 @@ import { LitElement, html, nothing, type PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { drawerStyles } from './dcx-web-drawer.component.styles';
 import '../dcx-web-button/dcx-web-button.component';
+import '../dcx-web-icon/dcx-web-icon.component';
 import type { DcxPosition } from '../../core/interfaces/generic';
 import {
   DRAWER_OPEN_DEFAULT,
@@ -233,9 +234,7 @@ export class DcxWebDrawer extends LitElement {
                         aria-label="Cerrar drawer"
                         @buttonClick=${this._closeDrawer}
                       >
-                        <svg slot="dcx-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                        </svg>
+                        <dcx-web-icon slot="dcx-icon" name="x"></dcx-web-icon>
                       </dcx-web-button>`
                     : nothing}
                 </header>

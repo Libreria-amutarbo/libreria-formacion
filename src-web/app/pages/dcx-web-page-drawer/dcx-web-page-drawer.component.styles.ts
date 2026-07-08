@@ -46,13 +46,13 @@ export const pageDrawerStyles = css`
 
   .demo-page-header__divider {
     border: none;
-    border-top: 1px solid var(--border-light, #e5e7eb);
+    border-top: 1px solid var(--border-light, #d1d5db);
     margin: 0;
   }
 
   .demo-section {
     background: var(--bg-default, #ffffff);
-    border: 1px solid var(--border-light, #e5e7eb);
+    border: 1px solid var(--border-light, #d1d5db);
     border-radius: var(--r-lg, 8px);
     overflow: visible;
     margin-bottom: var(--sp-5, 20px);
@@ -64,7 +64,7 @@ export const pageDrawerStyles = css`
     gap: var(--sp-2, 8px);
     padding: var(--sp-2, 8px) var(--sp-4, 16px);
     background: var(--bg-surface, #f4f5f7);
-    border-bottom: 1px solid var(--border-light, #e5e7eb);
+    border-bottom: 1px solid var(--border-light, #d1d5db);
     border-radius: var(--r-lg, 8px) var(--r-lg, 8px) 0 0;
   }
 

@@ -1,8 +1,9 @@
 import { DcxDrawerMockData } from '../interfaces/drawer';
-import { DcxPosition } from '../interfaces/generic';
+import { DcxPosition, DCX_POSITIONS } from '../interfaces/generic';
 
 export const DRAWER_OPEN_DEFAULT = false;
 export const DRAWER_POSITION_DEFAULT: DcxPosition = 'right';
+export const DRAWER_POSITIONS = DCX_POSITIONS;
 export const DRAWER_MODAL_DEFAULT = true;
 export const DRAWER_DISMISSIBLE_DEFAULT = true;
 export const DRAWER_SHOW_CLOSE_ICON_DEFAULT = true;
