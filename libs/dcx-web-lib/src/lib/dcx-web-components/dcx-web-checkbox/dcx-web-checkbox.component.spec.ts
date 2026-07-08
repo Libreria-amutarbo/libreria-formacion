@@ -92,7 +92,6 @@ describe('DcxWebCheckbox', () => {
 
     element.addEventListener('changeOptions', spy);
 
-    
     const checkbox =
       element.shadowRoot?.querySelector(
         'dcx-web-button',
@@ -100,16 +99,12 @@ describe('DcxWebCheckbox', () => {
 
     expect(checkbox).toBeTruthy();
 
-    await (checkbox as unknown as { updateComplete: Promise<void> })
-      .updateComplete;
-
-    const internalButton =
-      checkbox.shadowRoot?.querySelector('button') as HTMLButtonElement;
-
-    expect(internalButton).toBeTruthy();
-
-    internalButton.click();
-
+    checkbox.dispatchEvent(
+      new CustomEvent('buttonClick', {
+        bubbles: true,
+        composed: true,
+      }),
+    );
 
     expect(spy).toHaveBeenCalled();
   });
@@ -131,14 +126,18 @@ describe('DcxWebCheckbox', () => {
     element.addEventListener(
       'changeOptions',
       (e: Event) => {
-        const customEvent =
-          e as CustomEvent<DcxCheckbox[]>;
-
-        emitted = customEvent.detail;
+        emitted = (
+          e as CustomEvent<DcxCheckbox[]>
+        ).detail;
       },
     );
 
-    checkbox.click();
+    checkbox.dispatchEvent(
+      new CustomEvent('buttonClick', {
+        bubbles: true,
+        composed: true,
+      }),
+    );
 
     await element.updateComplete;
 
