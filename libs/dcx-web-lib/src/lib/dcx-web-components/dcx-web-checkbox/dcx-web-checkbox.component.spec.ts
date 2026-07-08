@@ -92,6 +92,7 @@ describe('DcxWebCheckbox', () => {
 
     element.addEventListener('changeOptions', spy);
 
+    
     const checkbox =
       element.shadowRoot?.querySelector(
         'dcx-web-button',
@@ -99,7 +100,16 @@ describe('DcxWebCheckbox', () => {
 
     expect(checkbox).toBeTruthy();
 
-    checkbox.click();
+    await (checkbox as unknown as { updateComplete: Promise<void> })
+      .updateComplete;
+
+    const internalButton =
+      checkbox.shadowRoot?.querySelector('button') as HTMLButtonElement;
+
+    expect(internalButton).toBeTruthy();
+
+    internalButton.click();
+
 
     expect(spy).toHaveBeenCalled();
   });
