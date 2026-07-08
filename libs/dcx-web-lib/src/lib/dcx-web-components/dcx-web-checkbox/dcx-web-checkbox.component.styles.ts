@@ -54,7 +54,7 @@ export const dcxWebCheckboxStyles = css`
     align-items: center;
     gap: var(--sp-1, 4px);
     margin-top: var(--sp-1, 4px);
-    color: var(--color-error, #dc2626);
+    color: var(--text-error, var(--color-error, #dc2626));
     font-size: var(--fs-sm, 12px);
   }
 

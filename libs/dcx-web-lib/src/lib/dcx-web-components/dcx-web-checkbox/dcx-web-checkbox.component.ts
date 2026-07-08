@@ -154,6 +154,8 @@ export class DcxWebCheckbox extends LitElement {
                       <dcx-web-icon
                         name="${this._errorIcon}"
                         aria-label="Error"
+                        color="var(--color-error, #dc2626)";
+
                       >
                       </dcx-web-icon>
 

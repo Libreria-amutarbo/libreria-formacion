@@ -19,8 +19,12 @@ describe('DcxWebCheckbox', () => {
   ];
 
   beforeEach(async () => {
-    element = document.createElement('dcx-web-checkbox') as DcxWebCheckbox;
+    element = document.createElement(
+      'dcx-web-checkbox',
+    ) as DcxWebCheckbox;
+
     document.body.appendChild(element);
+
     await element.updateComplete;
   });
 
@@ -33,37 +37,68 @@ describe('DcxWebCheckbox', () => {
   });
 
   it('should render empty by default', () => {
-    const labels = element.shadowRoot?.querySelectorAll('.dcx-checkbox-label');
+    const labels =
+      element.shadowRoot?.querySelectorAll(
+        '.dcx-checkbox-label',
+      );
+
     expect(labels?.length).toBe(0);
   });
 
   it('should render options correctly', async () => {
     element.options = mockOptions;
+
     await element.updateComplete;
 
-    const labels = element.shadowRoot?.querySelectorAll('.dcx-checkbox-label');
+    const labels =
+      element.shadowRoot?.querySelectorAll(
+        '.dcx-checkbox-label',
+      );
+
     expect(labels?.length).toBe(4);
   });
 
   it('should compute aria-checked correctly', async () => {
     element.options = mockOptions;
+
     await element.updateComplete;
 
-    const checkboxes = element.shadowRoot?.querySelectorAll('[role="checkbox"]');
+    const checkboxes =
+      element.shadowRoot?.querySelectorAll(
+        'dcx-web-button',
+      );
 
-    expect(checkboxes?.[0].getAttribute('aria-checked')).toBe('true');
-    expect(checkboxes?.[1].getAttribute('aria-checked')).toBe('mixed');
-    expect(checkboxes?.[2].getAttribute('aria-checked')).toBe('false');
+    expect(checkboxes?.length).toBe(4);
+
+    expect(
+      checkboxes?.[0].getAttribute('aria-checked'),
+    ).toBe('true');
+
+    expect(
+      checkboxes?.[1].getAttribute('aria-checked'),
+    ).toBe('mixed');
+
+    expect(
+      checkboxes?.[2].getAttribute('aria-checked'),
+    ).toBe('false');
   });
 
   it('should emit changeOptions event', async () => {
     element.options = mockOptions;
+
     await element.updateComplete;
 
     const spy = jest.fn();
+
     element.addEventListener('changeOptions', spy);
 
-    const checkbox = element.shadowRoot?.querySelector('[role="checkbox"]') as HTMLElement;
+    const checkbox =
+      element.shadowRoot?.querySelector(
+        'dcx-web-button',
+      ) as HTMLElement;
+
+    expect(checkbox).toBeTruthy();
+
     checkbox.click();
 
     expect(spy).toHaveBeenCalled();
@@ -71,18 +106,30 @@ describe('DcxWebCheckbox', () => {
 
   it('should update value when clicked (emitted event)', async () => {
     element.options = mockOptions;
+
     await element.updateComplete;
 
-    const checkbox = element.shadowRoot?.querySelector('[role="checkbox"]') as HTMLElement;
+    const checkbox =
+      element.shadowRoot?.querySelector(
+        'dcx-web-button',
+      ) as HTMLElement;
+
+    expect(checkbox).toBeTruthy();
 
     let emitted: DcxCheckbox[] | undefined;
 
-    element.addEventListener('changeOptions', (e: Event) => {
-      const customEvent = e as CustomEvent<DcxCheckbox[]>;
-      emitted = customEvent.detail;
-    });
+    element.addEventListener(
+      'changeOptions',
+      (e: Event) => {
+        const customEvent =
+          e as CustomEvent<DcxCheckbox[]>;
+
+        emitted = customEvent.detail;
+      },
+    );
 
     checkbox.click();
+
     await element.updateComplete;
 
     expect(emitted).toBeDefined();
@@ -91,11 +138,17 @@ describe('DcxWebCheckbox', () => {
 
   it('should render error message', async () => {
     element.options = mockOptions;
+
     await element.updateComplete;
 
-    const error = element.shadowRoot?.querySelector('#checkbox-error-cb4');
+    const error =
+      element.shadowRoot?.querySelector(
+        '#checkbox-error-cb4',
+      );
 
     expect(error).toBeTruthy();
-    expect(error?.textContent).toContain('Error message');
+    expect(error?.textContent).toContain(
+      'Error message',
+    );
   });
 });
