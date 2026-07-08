@@ -1,0 +1,52 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/blocks';
+import * as Stories from './ClassBased.stories';
+
+<Meta of={Stories} title="DCXLibrary/WebComponents/Breadcrumb/Documentation" />
+
+# Breadcrumb
+
+Componente para mostrar la jerarquía de navegación y la página actual.
+
+## Cuándo usar
+
+- Cuando el usuario necesita entender dónde está dentro de una jerarquía.
+- Cuando debe poder volver a niveles superiores de navegación.
+- Evitarlo si la jerarquía es plana o hay solo un nivel.
+
+## Accesibilidad
+
+- Usa `<nav aria-label="Breadcrumb">` para anunciar la región.
+- El último elemento del breadcrumb se marca con `aria-current="page"`.
+
+## Ejemplo básico
+
+<Canvas>
+  <Story of={Stories.ClassBased} />
+</Canvas>
+
+## Variantes
+
+- Con iconos en los items: <Story of={Stories.WithIconInText} />
+- Items deshabilitados: <Story of={Stories.Disabled} />
+- Separador con flecha: <Story of={Stories.ArrowIcon} />
+- Separador con chevron: <Story of={Stories.ChevronIcon} />
+- Página actual resaltada: <Story of={Stories.CurrentPage} />
+
+## API
+
+<ArgsTable of={Stories.default} />
+
+---
+
+## Uso
+
+```html
+<dcx-web-breadcrumb
+  .items="${[
+    { label: 'Home', href: '/', disabled: false },
+    { label: 'Library', href: '/library', disabled: false },
+    { label: 'Data', disabled: false }
+  ]}"
+  icon-separator="chevron-right">
+</dcx-web-breadcrumb>
+```
