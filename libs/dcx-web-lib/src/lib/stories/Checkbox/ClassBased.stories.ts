@@ -17,16 +17,36 @@ const DcxErrorCheck: DcxCheckbox[] = [
 ];
 
 const DcxDisabledCheck: DcxCheckbox[] = [
-  { id: '1', value: true, label: 'Checkbox deshabilitado', disabled: true },
+  {
+    id: '1',
+    value: true,
+    label: 'Checkbox deshabilitado',
+    disabled: true,
+  },
 ];
 
 const DcxDiferentsLabelPositionsCheck: DcxCheckbox[] = [
-  { id: '1', value: true, label: 'Izquierda', labelPosition: 'left' },
-  { id: '2', value: true, label: 'Derecha', labelPosition: 'right' },
+  {
+    id: '1',
+    value: true,
+    label: 'Izquierda',
+    labelPosition: 'left',
+  },
+  {
+    id: '2',
+    value: true,
+    label: 'Derecha',
+    labelPosition: 'right',
+  },
 ];
 
 const DcxRequiredCheck: DcxCheckbox[] = [
-  { id: '1', value: true, label: 'Requerido', required: true },
+  {
+    id: '1',
+    value: true,
+    label: 'Requerido',
+    required: true,
+  },
 ];
 
 const DcxCheckboxGroup: DcxCheckbox[] = [
@@ -47,32 +67,39 @@ const withCode = (options: DcxCheckbox[]) => ({
   },
 });
 
-const createInteractive = (initialOptions: DcxCheckbox[]) => {
-  return () => {
-    const el = document.createElement('dcx-web-checkbox');
+const renderCheckbox = (args: {
+  options: DcxCheckbox[];
+}) => {
+  const el = document.createElement('dcx-web-checkbox');
 
-    let options = initialOptions.map(o => ({ ...o }));
+  let options = args.options.map(option => ({
+    ...option,
+  }));
+
+  el.options = options;
+
+  el.addEventListener('changeOptions', (event: Event) => {
+    const customEvent = event as CustomEvent<DcxCheckbox[]>;
+
+    options = customEvent.detail.map(option => ({
+      ...option,
+    }));
 
     el.options = options;
+  });
 
-    el.addEventListener('changeOptions', (e: Event) => {
-      const customEvent = e as CustomEvent<DcxCheckbox[]>;
-
-      options = customEvent.detail.map((o: DcxCheckbox) => ({ ...o }));
-
-      el.options = options; 
-    });
-
-    return el;
-  };
+  return el;
 };
 
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/Checkbox',
   component: 'dcx-web-checkbox',
   tags: ['autodocs'],
+
   parameters: {
-    controls: { expanded: true },
+    controls: {
+      expanded: true,
+    },
   },
 
   argTypes: {
@@ -80,41 +107,33 @@ const meta: Meta = {
       name: 'options',
       control: { type: 'object' },
       description:
-        'Array de opciones para el grupo de checkboxes. Cada opción define id, value (true/false/null), label, labelPosition, disabled, required y error.',
+        'Array de opciones del checkbox. Cada opción admite id, value, label, labelPosition, disabled, required, error y errorMessage.',
       table: {
         category: 'Atributos',
-        type: { summary: 'DcxCheckbox[]' },
-        defaultValue: { summary: '[]' },
-      },
-    },
-
-    errorIcon: {
-      name: 'errorIcon',
-      control: { type: 'text' },
-      description:
-        'Nombre del icono (Bootstrap Icons) que se muestra junto al mensaje de error.',
-      table: {
-        category: 'Atributos',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'exclamation-circle' },
+        type: {
+          summary: 'DcxCheckbox[]',
+        },
+        defaultValue: {
+          summary: '[]',
+        },
       },
     },
 
     changeOptions: {
       name: 'changeOptions',
       description:
-        'Se emite cada vez que el usuario cambia el estado de algún checkbox. Devuelve el array completo de opciones actualizado.',
+        'Evento emitido cuando cambia el estado de uno o varios checkboxes.',
       table: {
         category: 'Eventos',
-        type: { summary: '(options: DcxCheckbox[]) => void' },
+        type: {
+          summary: '(options: DcxCheckbox[]) => void',
+        },
       },
     },
   },
 
   args: {
-    options: [
-      { id: '1', value: true, label: 'Checkbox único' },
-    ],
+    options: DcxSingleCheck,
   },
 };
 
@@ -123,57 +142,82 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
-  render: createInteractive(DcxSingleCheck),
+  args: {
+    options: DcxSingleCheck,
+  },
+  render: renderCheckbox,
   ...withCode(DcxSingleCheck),
 };
 
 export const ErrorCheckBox: Story = {
-  render: createInteractive(DcxErrorCheck),
+  args: {
+    options: DcxErrorCheck,
+  },
+  render: renderCheckbox,
   ...withCode(DcxErrorCheck),
 };
 
 export const DisabledCheckBox: Story = {
-  render: createInteractive(DcxDisabledCheck),
+  args: {
+    options: DcxDisabledCheck,
+  },
+  render: renderCheckbox,
   ...withCode(DcxDisabledCheck),
 };
 
 export const DiferentsLabelPositions: Story = {
-  render: createInteractive(DcxDiferentsLabelPositionsCheck),
+  args: {
+    options: DcxDiferentsLabelPositionsCheck,
+  },
+  render: renderCheckbox,
   ...withCode(DcxDiferentsLabelPositionsCheck),
 };
 
 export const RequiredCheckbox: Story = {
-  render: createInteractive(DcxRequiredCheck),
+  args: {
+    options: DcxRequiredCheck,
+  },
+  render: renderCheckbox,
   ...withCode(DcxRequiredCheck),
 };
 
 export const CheckboxGroup: Story = {
-  render: createInteractive(DcxCheckboxGroup),
+  args: {
+    options: DcxCheckboxGroup,
+  },
+  render: renderCheckbox,
   ...withCode(DcxCheckboxGroup),
 };
 
 export const CheckboxGroupWithChangeLabel: Story = {
+  args: {
+    options: DcxCheckboxGroup.map(option => ({
+      ...option,
+      labelPosition: 'right' as const,
+    })),
+  },
+
   render: () => {
     const el = document.createElement('dcx-web-checkbox');
 
-    let options = DcxCheckboxGroup.map(o => ({
-      ...o,
+    let options = DcxCheckboxGroup.map(option => ({
+      ...option,
       labelPosition: 'right' as const,
     }));
 
     el.options = options;
 
-    el.addEventListener('changeOptions', (e: Event) => {
-      const customEvent = e as CustomEvent<DcxCheckbox[]>;
+    el.addEventListener('changeOptions', (event: Event) => {
+      const customEvent = event as CustomEvent<DcxCheckbox[]>;
 
-      options = customEvent.detail.map((cb: DcxCheckbox) => ({
-        ...cb,
+      options = customEvent.detail.map(option => ({
+        ...option,
         label:
-          cb.value === true
+          option.value === true
             ? 'Válido'
-            : cb.value === false
-            ? 'Indeterminado'
-            : 'Sin valor',
+            : option.value === false
+              ? 'Indeterminado'
+              : 'Sin valor',
         labelPosition: 'right' as const,
       }));
 
