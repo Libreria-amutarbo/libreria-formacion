@@ -63,6 +63,12 @@ Incluye comportamiento responsive: en pantallas `< 768px` los items se ocultan y
 
 ---
 
+## Menú móvil abierto
+
+<Canvas of={NavbarStories.MenuMovilAbierto} />
+
+---
+
 ## Props
 
 | Prop | Tipo | Default | Descripción |
@@ -70,6 +76,7 @@ Incluye comportamiento responsive: en pantallas `< 768px` los items se ocultan y
 | `brand` | `DcxNavbarBrand` | `{ title: 'App' }` | Título y logo opcional del brand |
 | `items` | `DcxNavItem[]` | `[]` | Lista de items de navegación |
 | `activeValue` | `string \| null` | `null` | Value del item marcado como activo |
+| `ariaLabel` | `string \| null` | `null` | Etiqueta accesible del landmark `<nav>`; útil cuando hay varias navbars en la misma página |
 | `vertical` | `boolean` | `false` | Activa el modo sidebar vertical |
 
 ## Eventos
@@ -77,6 +84,19 @@ Incluye comportamiento responsive: en pantallas `< 768px` los items se ocultan y
 | Evento | Tipo | Descripción |
 |--------|------|-------------|
 | `itemClick` | `string` | Emite el `value` del item clickado |
+| `brandClick` | `void` | Se emite al activar el brand (click, Enter o Space); el componente no navega por sí mismo |
+
+## Métodos
+
+| Método | Firma | Descripción |
+|--------|-------|-------------|
+| `toggleMenu` | `(): void` | Alterna la visibilidad del menú móvil |
+
+## Accesibilidad
+
+- El `<nav>` acepta `ariaLabel` para nombrar el landmark cuando hay varias navbars en la misma página.
+- El item activo recibe `aria-current="page"` automáticamente según `activeValue`.
+- El botón de menú móvil expone `aria-expanded` y `aria-controls`, y cierra con `Escape` devolviendo el foco al propio botón.
 
 ## Interfaces
 
