@@ -1,25 +1,42 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
 
 interface BootstrapIcon {
   name: string;
   [key: string]: any;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+function signal<T>(initialValue: T) {
+  let value = initialValue;
+  const getter = () => value;
+  getter.set = (newValue: T) => {
+    value = newValue;
+  };
+  getter.asReadonly = () => {
+    return () => value;
+  };
+  return getter;
+}
+
 export class IconService {
-  private readonly http = inject(HttpClient);
   private readonly BOOTSTRAP_ICONS_URL =
     'https://raw.githubusercontent.com/twbs/icons/main/bootstrap-icons.json';
 
   private readonly _icons = signal<string[] | null>(null);
   readonly icons = this._icons.asReadonly();
 
-  constructor() {}
+  private readonly http = {
+    get: <T>(url: string): Observable<T> => {
+      return from(
+        fetch(url).then(res => {
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          return res.json() as Promise<T>;
+        }),
+      );
+    },
+  };
 
   loadIcons(): Observable<string[]> {
     if (this._icons() !== null) {
