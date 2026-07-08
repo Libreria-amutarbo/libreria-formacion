@@ -89,7 +89,7 @@ export const pageChipStyles = css`
 
     .demo-section__desc {
       padding: 10px var(--sp-4, 16px) 0;
-      font-size: var(--fs--sm, 12px);
+      font-size: var(--fs-sm, 12px);
       line-height: 1.55;
       color: var(--text-muted, #696e75);
       margin: 0;

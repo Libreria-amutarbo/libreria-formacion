@@ -36,7 +36,8 @@ describe('DcxWebChip', () => {
 
     const icon = element.shadowRoot?.querySelector('.dcx-chip__icon');
     expect(icon).toBeTruthy();
-    expect(icon?.querySelector('svg')).toBeTruthy();
+    expect(icon?.querySelector('dcx-web-icon')).toBeTruthy();
+    expect(icon?.querySelector('dcx-web-icon')?.getAttribute('name')).toBe('star');
   });
 
   it('should render image when image property is provided', async () => {
@@ -78,7 +79,7 @@ describe('DcxWebChip', () => {
     const removeSpy = jest.fn();
     element.addEventListener('dcx-chip-remove', removeSpy);
 
-    const button = element.shadowRoot?.querySelector('.dcx-chip__remove-button') as HTMLButtonElement;
+    const button = element.shadowRoot?.querySelector('.dcx-chip__remove-button') as HTMLElement;
     button.click();
 
     expect(removeSpy).toHaveBeenCalledTimes(1);

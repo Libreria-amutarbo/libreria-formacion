@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { fn } from '@storybook/test';
 import '../../../index';
 
-import { DcxWebChip } from '../../../index';
+import { DcxWebChip, DCX_CHIP_COLORS, DCX_CHIP_VARIANTS, DCX_CHIP_ICONS } from '../../../index';
 
 type DcxWebChipArgs = {
   variant: string;
@@ -42,7 +42,7 @@ const meta: Meta<DcxWebChip> = {
     },
     color: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'gray'],
+      options: DCX_CHIP_COLORS,
       description: 'Color del chip según el sistema de diseño',
       table: {
         type: { summary: 'string' },
@@ -52,7 +52,7 @@ const meta: Meta<DcxWebChip> = {
     },
     variant: {
       control: { type: 'select' },
-      options: ['choice', 'filter'],
+      options: DCX_CHIP_VARIANTS,
       description:
         'Variante del chip: `choice` (no removible) o `filter` (muestra botón de eliminar)',
       table: {
@@ -63,7 +63,7 @@ const meta: Meta<DcxWebChip> = {
     },
     icon: {
       control: { type: 'select' },
-      options: ['', 'house', 'person', 'gear', 'star'],
+      options: ['', ...DCX_CHIP_ICONS],
       description: 'Icono de Bootstrap (opcional)',
       table: {
         type: { summary: 'string' },
