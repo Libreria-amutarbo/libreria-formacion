@@ -68,6 +68,7 @@ export class DcxNgButtonComponent {
   iconRightName = input<string>('');
 
   ariaChecked = input<boolean | 'mixed' | null>(null);
+  ariaCurrent = input<'page' | 'true' | null>(null);
 
   buttonClick = output<{ clicked: boolean }>();
 

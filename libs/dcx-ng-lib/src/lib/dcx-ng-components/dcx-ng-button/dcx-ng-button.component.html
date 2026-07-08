@@ -7,6 +7,7 @@
   [attr.aria-label]="computedAriaLabel()"
   [attr.aria-pressed]="pressed() || null"
   [attr.role]="isCheckbox() ? 'checkbox' : null"
+  [attr.aria-current]="ariaCurrent()"
   [attr.aria-checked]="isCheckbox() && ariaChecked() !== null ? ariaChecked() : null">
   @if (icon() && (iconPosition() === 'left' || iconPosition() === 'top')) {
   <ng-container *ngTemplateOutlet="iconTpl" />
