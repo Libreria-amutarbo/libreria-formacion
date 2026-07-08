@@ -27,3 +27,7 @@ export const DCX_CHIP_ICONS = [
 ] as const;
 
 export type DcxChipIconType = typeof DCX_CHIP_ICONS[number];
+
+export const DCX_CHIP_TYPES = ['with-image', 'with-icon', 'label-only'] as const;
+
+export type DcxChipType = typeof DCX_CHIP_TYPES[number];

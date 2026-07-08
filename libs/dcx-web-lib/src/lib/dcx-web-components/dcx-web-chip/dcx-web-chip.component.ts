@@ -1,6 +1,6 @@
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import type { DcxChipColorType, DcxChipVariantType } from '../../core/interfaces/chip';
+import type { DcxChipColorType, DcxChipVariantType, DcxChipType } from '../../core/interfaces/chip';
 import { chipStyles } from './dcx-web-chip.component.styles';
 import '../dcx-web-icon/dcx-web-icon.component';
 import '../dcx-web-button/dcx-web-button.component';
@@ -16,7 +16,7 @@ export class DcxWebChip extends LitElement {
 
   static override styles = chipStyles;
 
-  private get _chipType(): 'with-image' | 'with-icon' | 'label-only' {
+  private get _chipType(): DcxChipType {
     if (this.image.trim()) return 'with-image';
     if (this.icon.trim()) return 'with-icon';
     return 'label-only';

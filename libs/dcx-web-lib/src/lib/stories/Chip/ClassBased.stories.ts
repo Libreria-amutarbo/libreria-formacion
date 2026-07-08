@@ -241,21 +241,21 @@ export const RemovableChips: Story = {
         label="Removible"
         color="primary"
         variant="filter"
-        @dcx-chip-remove=${() => console.log('Removible removed')}
+        @dcx-chip-remove=${() => {}}
       ></dcx-web-chip>
       <dcx-web-chip
         label="Con icono"
         icon="star"
         color="warning"
         variant="filter"
-        @dcx-chip-remove=${() => console.log('Con icono removed')}
+        @dcx-chip-remove=${() => {}}
       ></dcx-web-chip>
       <dcx-web-chip
         label="Con imagen"
         image="https://picsum.photos/seed/rm/360/240"
         color="error"
         variant="filter"
-        @dcx-chip-remove=${() => console.log('Con imagen removed')}
+        @dcx-chip-remove=${() => {}}
       ></dcx-web-chip>
     </div>
   `,
@@ -263,7 +263,7 @@ export const RemovableChips: Story = {
     docs: {
       description: {
         story:
-          'Chips removibles con diferentes configuraciones. Abre la consola para ver los eventos.',
+          'Chips removibles con diferentes configuraciones.',
       },
     },
   },
@@ -277,35 +277,35 @@ export const TechnologyTags: Story = {
         icon="code-slash"
         color="error"
         variant="filter"
-        @dcx-chip-remove=${() => console.log('Web Components removed')}
+        @dcx-chip-remove=${() => {}}
       ></dcx-web-chip>
       <dcx-web-chip
         label="TypeScript"
         icon="terminal"
         color="primary"
         variant="filter"
-        @dcx-chip-remove=${() => console.log('TypeScript removed')}
+        @dcx-chip-remove=${() => {}}
       ></dcx-web-chip>
       <dcx-web-chip
         label="SCSS"
         icon="palette"
         color="secondary"
         variant="filter"
-        @dcx-chip-remove=${() => console.log('Lit removed')}
+        @dcx-chip-remove=${() => {}}
       ></dcx-web-chip>
       <dcx-web-chip
         label="Storybook"
         icon="book"
         color="success"
         variant="filter"
-        @dcx-chip-remove=${() => console.log('Storybook removed')}
+        @dcx-chip-remove=${() => {}}
       ></dcx-web-chip>
       <dcx-web-chip
         label="Jest"
         icon="bug"
         color="warning"
         variant="filter"
-        @dcx-chip-remove=${() => console.log('Jest removed')}
+        @dcx-chip-remove=${() => {}}
       ></dcx-web-chip>
     </div>
   `,
