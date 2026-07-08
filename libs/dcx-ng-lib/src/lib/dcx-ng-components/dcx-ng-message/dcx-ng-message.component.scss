@@ -17,7 +17,6 @@
 
 .message__container {
   display: flex;
-  display: flex;
   align-items: flex-start;
   gap: var(--sp-3, 0.75rem);
   padding: var(--sp-3, 0.75rem) var(--sp-4, 1rem);
@@ -27,7 +26,6 @@
   font-family: var(--ff-base, var(--font-family-primary, 'Inter', sans-serif));
   font-size: var(--fs-base, 0.875rem);
   line-height: 1.5;
-  gap: 0.5rem;
 
   &__title {
     display: block;

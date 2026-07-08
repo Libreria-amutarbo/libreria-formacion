@@ -1,54 +1,130 @@
-<div class="message-page">
-  <div class="message-test-container">
-    <h4>Simple message</h4>
-    <dcx-ng-message body="Lorem Test Ipsum" [icon]="true"></dcx-ng-message>
+<div class="demo-page">
+
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Message</h1>
+    <p class="demo-page-header__desc">
+      Mensaje en línea con cuatro severidades (notification, success, warning,
+      error), icono por severidad, título, enlace y botón de cierre. Anuncia su
+      contenido a lectores de pantalla mediante `role`/`aria-live`.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
+
+  <!-- ── 01 Default ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-message
+        body="Tu sesión se cerrará automáticamente en 5 minutos por inactividad."
+      ></dcx-ng-message>
+    </div>
   </div>
 
-  <div class="message-test-container">
-    <h4>Message with title</h4>
-    <dcx-ng-message
-      body="Lorem Test Ipsum"
-      title="Titulo prueba"
-      [icon]="true"
-    ></dcx-ng-message>
+  <!-- ── 02 Notification ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Notification</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-message
+        type="notification"
+        title="Información"
+        body="La sincronización con el servidor se realiza cada 15 minutos."
+        [icon]="true"
+      ></dcx-ng-message>
+    </div>
   </div>
 
-  <div class="message-test-container">
-    <h4>Message success</h4>
-    <dcx-ng-message
-      body="Lorem Test Ipsum"
-      type="success"
-      [icon]="true"
-      iconName="check-circle"
-    ></dcx-ng-message>
+  <!-- ── 03 Success ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Success</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-message
+        type="success"
+        title="Cambios guardados"
+        body="Tu perfil se ha actualizado correctamente."
+        [icon]="true"
+      ></dcx-ng-message>
+    </div>
   </div>
 
-  <div class="message-test-container">
-    <h4>Message warning</h4>
-    <dcx-ng-message
-      body="Lorem Test Ipsum"
-      type="warning"
-      [icon]="true"
-      iconName="exclamation-diamond"
-    ></dcx-ng-message>
+  <!-- ── 04 Warning ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Warning</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-message
+        type="warning"
+        title="Advertencia"
+        body="Esta acción no se puede deshacer una vez confirmada."
+        [icon]="true"
+      ></dcx-ng-message>
+    </div>
   </div>
 
-  <div class="message-test-container">
-    <h4>Message error</h4>
-    <dcx-ng-message
-      body="Lorem Test Ipsum"
-      type="error"
-      [icon]="true"
-      iconName="x-circle"
-    ></dcx-ng-message>
+  <!-- ── 05 Error ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Error</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-message
+        type="error"
+        title="Error"
+        body="No se pudo procesar tu solicitud. Inténtalo de nuevo más tarde."
+        [icon]="true"
+        [showClose]="true"
+      ></dcx-ng-message>
+    </div>
   </div>
 
-  <div class="message-test-container">
-    <h4>Message with link</h4>
-    <dcx-ng-message
-      body="Lorem Test Ipsum"
-      link="https://www.google.com/"
-      [icon]="true"
-    ></dcx-ng-message>
+  <!-- ── 06 With Link ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">With Link</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-message
+        type="notification"
+        title="Información adicional"
+        body="Consulta la documentación para conocer todos los detalles."
+        link="https://ejemplo.com/docs"
+        [icon]="true"
+      ></dcx-ng-message>
+    </div>
   </div>
+
+  <!-- ── 07 Closable ──────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Closable</span>
+    </div>
+    <p class="demo-section__desc">
+      El botón de cerrar oculta el mensaje y emite el evento `closed`.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-message
+        type="success"
+        title="Guardado"
+        body="Pulsa la X para cerrar este mensaje."
+        [icon]="true"
+        [showClose]="true"
+      ></dcx-ng-message>
+    </div>
+  </div>
+
 </div>
