@@ -21,34 +21,62 @@ const meta: Meta<DcxNgPaginatorComponent> = {
   },
   argTypes: {
     paginator: {
+      name: 'paginator',
       control: { type: 'object' },
-      description: 'Configuración del paginador',
-      table: { category: 'Attributes', type: { summary: 'DcxPaginator' } },
+      description: 'Configuración del paginador (totalItems, itemsPerPage, currentPage).',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxPaginator' },
+        defaultValue: { summary: '{ totalItems: 100, itemsPerPage: 10, currentPage: 1 }' },
+      },
     },
     limitedButtons: {
+      name: 'limitedButtons',
       control: { type: 'boolean' },
-      description: 'Muestra los botones de ir al principio/fin',
-      table: { category: 'Attributes' },
+      description: 'Muestra los botones para ir a la primera y última página.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     showItemsPerPageInfo: {
+      name: 'showItemsPerPageInfo',
       control: { type: 'boolean' },
-      description: 'Muestra el resumen de items por página (derecha)',
-      table: { category: 'Attributes' },
+      description: 'Muestra el selector de items por página y el rango visible.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     showPageInfo: {
+      name: 'showPageInfo',
       control: { type: 'boolean' },
-      description: 'Muestra la información de página actual (derecha)',
-      table: { category: 'Attributes' },
+      description: 'Muestra la información de la página actual ("Página X de Y").',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     pageChange: {
+      name: 'pageChange',
       action: 'pageChange',
-      description: 'Emite el número de página seleccionada',
-      table: { category: 'Events', type: { summary: 'EventEmitter<number>' } },
+      description: 'Se emite cuando el usuario selecciona una página.',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(page: number) => void' },
+      },
     },
     totalPagesChange: {
+      name: 'totalPagesChange',
       action: 'totalPagesChange',
-      description: 'Emite el total de páginas calculado',
-      table: { category: 'Events', type: { summary: 'EventEmitter<number>' } },
+      description: 'Se emite cuando cambia el total de páginas calculado.',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(totalPages: number) => void' },
+      },
     },
   },
 };

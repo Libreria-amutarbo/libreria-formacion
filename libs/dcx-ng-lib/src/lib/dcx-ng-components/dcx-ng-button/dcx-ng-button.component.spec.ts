@@ -187,5 +187,17 @@ describe('DcxNgButtonComponent', () => {
       const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
       expect(btn.getAttribute('aria-label')).toBe('Guardar');
     });
+
+    it('should not set aria-current by default', () => {
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.hasAttribute('aria-current')).toBe(false);
+    });
+
+    it('should reflect ariaCurrent="page" on the inner button', () => {
+      fixture.componentRef.setInput('ariaCurrent', 'page');
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.getAttribute('aria-current')).toBe('page');
+    });
   });
 });
