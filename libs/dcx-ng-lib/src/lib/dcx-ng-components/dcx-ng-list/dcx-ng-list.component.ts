@@ -32,6 +32,7 @@ export class DcxNgListComponent<T extends DcxListItem = DcxListItem> {
   renderChildren = input<boolean>(true);
 
   id = input<string | null>(null);
+  ariaLabel = input<string>('Lista de elementos');
   listRole = input<string>('list');
   itemRole = input<string>('listitem');
   itemTemplate =

@@ -1,0 +1,115 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/WebComponents/ContextMenu/Documentation" />
+
+# Context Menu
+
+El componente `dcx-web-context-menu` es un menú contextual flotante diseñado para aparecer en la posición del puntero al hacer clic derecho (o de manera programática mediante un disparador). Soporta items con iconos, variantes semánticas, estados inactivos, divisores y sublistas anidadas de niveles ilimitados.
+
+---
+
+## Cuándo usarlo
+
+- Menús contextuales de clic derecho en áreas específicas de trabajo
+- Menús desplegables disparados mediante botones de opciones o tres puntos
+- Acciones secundarias agrupadas y jerárquicas
+
+---
+
+## API
+
+### Propiedades y Atributos
+
+| Propiedad | Atributo | Tipo | Default | Descripción |
+|-----------|----------|------|---------|-------------|
+| `items` | - | `DcxContextMenuItem[]` | `[]` | Lista de elementos del menú contextual |
+| `position` | - | `{ x: number; y: number }` | `{ x: 0, y: 0 }` | Posición del menú en píxeles |
+| `positionMode` | `position-mode` | `'fixed' \| 'absolute'` | `'fixed'` | Estrategia de posicionamiento |
+
+### Métodos Públicos
+
+| Método | Argumentos | Retorno | Descripción |
+|--------|------------|---------|-------------|
+| `open` | `position?: { x: number; y: number }` | `Promise<void>` | Abre el menú contextual en la posición indicada |
+| `close` | - | `void` | Cierra el menú contextual |
+
+### Eventos
+
+| Evento | Detalle | Descripción |
+|--------|---------|-------------|
+| `item-selected` | `DcxContextMenuItem` | Se emite al hacer clic sobre un elemento interactivo |
+| `menu-closed` | - | Se emite al cerrarse el menú |
+
+---
+
+## Interfaz DcxContextMenuItem
+
+```typescript
+export interface DcxContextMenuItem {
+  id?: string;
+  text?: string;
+  label?: string;
+  description?: string;
+  icon?: string;
+  disabled?: boolean;
+  divider?: boolean;
+  children?: DcxContextMenuItem[];
+  variant?: 'default' | 'danger';
+  action?: () => void;
+}
+```
+
+---
+
+## Ejemplos de Uso
+
+### Uso Básico con Clic Derecho
+
+```html
+<div id="area-trabajo">Haz clic derecho aquí</div>
+
+<dcx-web-context-menu id="menu-contextual"></dcx-web-context-menu>
+
+<script>
+  const menu = document.getElementById('menu-contextual');
+  menu.items = [
+    { label: 'Nuevo archivo', icon: 'file-earmark-plus' },
+    { label: 'Abrir', icon: 'folder-open' },
+    { divider: true },
+    { label: 'Eliminar', icon: 'trash', variant: 'danger' }
+  ];
+
+  document.getElementById('area-trabajo').addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+    const pos = { x: event.clientX, y: event.clientY };
+    menu.position = pos;
+    menu.open(pos);
+  });
+</script>
+```
+
+### Posicionamiento Absoluto
+
+Si deseas que el menú se posicione relativamente a un contenedor con `position: relative`, utiliza `positionMode="absolute"`.
+
+```html
+<div style="position: relative; width: 400px; height: 300px;" id="contenedor">
+  <dcx-web-context-menu id="menu-absoluto" position-mode="absolute"></dcx-web-context-menu>
+</div>
+
+<script>
+  const container = document.getElementById('contenedor');
+  const menu = document.getElementById('menu-absoluto');
+  
+  container.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+    const rect = container.getBoundingClientRect();
+    const pos = {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    };
+    menu.position = pos;
+    menu.open(pos);
+  });
+</script>
+```

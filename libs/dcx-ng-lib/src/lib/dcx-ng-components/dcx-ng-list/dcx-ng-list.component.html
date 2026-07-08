@@ -2,7 +2,7 @@
   [attr.id]="id()"
   class="dcx-list-container"
   [attr.role]="listRole()"
-  [attr.aria-label]="'Lista de elementos'"
+  [attr.aria-label]="ariaLabel()"
   cdkDropList
   [cdkDropListData]="cdkDropListData()"
   [cdkDropListConnectedTo]="cdkDropListConnectedTo() || []"
@@ -24,6 +24,9 @@
         (keydown)="onKeydown($event, item, $index)"
         [attr.tabindex]="selectable() && !item.disabled ? 0 : null"
         [attr.role]="itemRole()"
+        [attr.aria-selected]="
+          selectable() && !externalSelection() ? isSelected($index) : null
+        "
         [attr.aria-disabled]="item.disabled || null"
         [attr.aria-haspopup]="getChildren(item).length > 0 ? 'menu' : null"
         cdkDrag
@@ -70,6 +73,10 @@
             [multiSelect]="multiSelect()"
             [showChildrenIndicator]="showChildrenIndicator()"
             [renderChildren]="renderChildren()"
+            [externalSelection]="externalSelection()"
+            [listRole]="listRole()"
+            [itemRole]="itemRole()"
+            [ariaLabel]="ariaLabel()"
             (click)="$event.stopPropagation()"
             (itemSelected)="itemSelected.emit($event)"
             (itemDeselected)="itemDeselected.emit($event)"

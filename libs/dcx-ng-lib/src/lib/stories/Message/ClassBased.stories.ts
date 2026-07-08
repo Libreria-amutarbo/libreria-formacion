@@ -18,66 +18,105 @@ const meta: Meta<DcxNgMessageComponent> = {
     docs: {
       description: {
         component: `
-El componente Message proporciona una manera consistente de mostrar mensajes al usuario.
-Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opciones de personalización.
+El componente Message muestra mensajes al usuario con cuatro severidades
+(notification, success, warning, error). Anuncia el contenido a lectores de pantalla
+mediante \`role\`/\`aria-live\` (salvo cuando lo envuelve un contenedor que ya anuncia,
+como el toast).
         `,
       },
     },
   },
   argTypes: {
     body: {
+      name: 'body',
       control: { type: 'text' },
       description: 'El texto principal del mensaje. Es obligatorio.',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: '-' },
-        category: 'Attributes'
+        category: 'Atributos',
       },
     },
     type: {
+      name: 'type',
       control: { type: 'select' },
-      options: ['notification', 'error', 'warning', 'success'] as DcxMessageType[],
-      description: 'Define el tipo de mensaje que determina el estilo visual.',
+      options: ['notification', 'success', 'warning', 'error'] as DcxMessageType[],
+      description: 'Severidad del mensaje; determina color, icono por defecto y rol ARIA.',
       table: {
-        type: { summary: 'MessageType' },
+        type: { summary: 'DcxMessageType' },
         defaultValue: { summary: 'notification' },
-        category: 'Attributes'
+        category: 'Atributos',
       },
     },
     title: {
+      name: 'title',
       control: { type: 'text' },
       description: 'Título opcional que se muestra encima del cuerpo del mensaje.',
       table: {
         type: { summary: 'string | undefined' },
         defaultValue: { summary: 'undefined' },
-        category: 'Attributes'
+        category: 'Atributos',
       },
     },
     link: {
+      name: 'link',
       control: { type: 'text' },
       description: 'URL opcional que se muestra como enlace debajo del mensaje.',
       table: {
         type: { summary: 'string | undefined' },
         defaultValue: { summary: 'undefined' },
-        category: 'Attributes'
+        category: 'Atributos',
       },
     },
     icon: {
+      name: 'icon',
       control: { type: 'boolean' },
-      description: 'Controla si se muestra un icono junto al mensaje.',
+      description:
+        'Muestra un icono. Sin `iconName`, usa el icono por defecto de la severidad.',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'Attributes'
+        category: 'Atributos',
+      },
+    },
+    iconName: {
+      name: 'iconName',
+      control: { type: 'text' },
+      description: 'Sobrescribe el icono por defecto de la severidad (Bootstrap Icons).',
+      table: {
+        type: { summary: 'string | undefined' },
+        defaultValue: { summary: 'undefined' },
+        category: 'Atributos',
       },
     },
     showClose: {
+      name: 'showClose',
       control: { type: 'boolean' },
-      description: 'Controla si se muestra el botón de cerrar.',
+      description: 'Muestra el botón de cerrar.',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'Attributes'
+        category: 'Atributos',
+      },
+    },
+    announce: {
+      name: 'announce',
+      control: { type: 'boolean' },
+      description:
+        'Si es true, aplica `role`/`aria-live` para anunciar a lectores de pantalla. Poner a false cuando un contenedor padre ya anuncia (p.ej. toast).',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+        category: 'Atributos',
+      },
+    },
+    closed: {
+      name: 'closed',
+      action: 'closed',
+      description: 'Se emite al pulsar el botón de cerrar.',
+      table: {
+        type: { summary: '() => void' },
+        category: 'Eventos',
       },
     },
   },
@@ -88,6 +127,7 @@ Soporta diferentes tipos de mensaje con estilos visuales diferenciados y opcione
     link: undefined,
     icon: false,
     showClose: false,
+    announce: true,
   },
 };
 
@@ -110,34 +150,30 @@ export const Notification: Story = {
   },
 };
 
-export const Error: Story = {
-  args: {
-    body: 'Ha ocurrido un error al procesar tu solicitud',
-    type: 'error',
-    title: 'Error',
-    icon: true,
-    iconName: 'x-circle',
-    showClose: true,
-  },
-};
-
-export const Warning: Story = {
-  args: {
-    body: 'Atención: Esta acción no se puede deshacer',
-    type: 'warning',
-    title: 'Advertencia',
-    icon: true,
-    iconName: 'exclamation-triangle',
-  },
-};
-
 export const Success: Story = {
   args: {
     body: 'La operación se ha completado exitosamente',
     type: 'success',
     title: '¡Éxito!',
     icon: true,
-    iconName: 'check-circle',
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    body: 'Atención: esta acción no se puede deshacer',
+    type: 'warning',
+    title: 'Advertencia',
+    icon: true,
+  },
+};
+
+export const Error: Story = {
+  args: {
+    body: 'Ha ocurrido un error al procesar tu solicitud',
+    type: 'error',
+    title: 'Error',
+    icon: true,
     showClose: true,
   },
 };
@@ -152,28 +188,11 @@ export const WithLink: Story = {
   },
 };
 
-export const OnlyBody: Story = {
+export const Closable: Story = {
   args: {
-    body: 'Mensaje simple sin título, icono ni botón de cerrar',
-    type: 'notification',
-  },
-};
-
-export const Complete: Story = {
-  args: {
-    body: 'Este es un mensaje completo que muestra todas las características disponibles del componente',
-    type: 'warning',
-    title: 'Mensaje completo',
-    link: 'https://ejemplo.com/help',
-    icon: true,
-    showClose: true,
-  },
-};
-
-export const NoTitle: Story = {
-  args: {
-    body: 'Mensaje sin título pero con icono y botón de cerrar habilitados',
-    type: 'error',
+    body: 'Pulsa la X para cerrar este mensaje.',
+    type: 'success',
+    title: 'Guardado',
     icon: true,
     showClose: true,
   },
@@ -187,24 +206,5 @@ export const Playground: Story = {
     link: 'https://ejemplo.com',
     icon: true,
     showClose: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-Esta historia te permite experimentar con todas las propiedades del componente Message.
-Usa los controles del panel inferior para modificar las propiedades y ver cómo cambia
-el componente en tiempo real.
-
-**Propiedades disponibles:**
-- **body**: El contenido principal del mensaje (obligatorio)
-- **type**: Tipo de mensaje (notification, error, warning, success)
-- **title**: Título opcional
-- **link**: Enlace opcional
-- **icon**: Mostrar icono (booleano)
-- **showClose**: Mostrar botón de cerrar (booleano)
-        `,
-      },
-    },
   },
 };

@@ -7,6 +7,11 @@ export default defineConfig({
   server: {
     port: 4201,
     host: 'localhost',
+    fs: {
+      allow: [
+        path.resolve(__dirname, '..')
+      ]
+    }
   },
   preview: {
     port: 4301,
