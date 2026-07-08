@@ -2,9 +2,10 @@
   class="dcx-ng-navbar"
   [class.is-menu-open]="isMenuOpen()"
   [class.dcx-ng-navbar--vertical]="vertical()"
+  [attr.aria-label]="ariaLabel()"
 >
 
-  <div class="dcx-ng-navbar__brand">
+  <button type="button" class="dcx-ng-navbar__brand" (click)="onBrandClick()">
     @if (brand().logo) {
       <img
         class="dcx-ng-navbar__brand-logo"
@@ -13,9 +14,9 @@
       />
     }
     <span class="dcx-ng-navbar__brand-title">{{ brand().title }}</span>
-  </div>
+  </button>
 
-  <ul class="dcx-ng-navbar__items" role="list">
+  <ul class="dcx-ng-navbar__items" id="dcx-ng-navbar-items" role="list">
     @for (item of items(); track item.value) {
       <li class="dcx-ng-navbar__item">
         <dcx-ng-button
@@ -30,6 +31,7 @@
           variant="text"
           size="s"
           [disabled]="item.disabled ?? false"
+          [ariaCurrent]="activeValue() === item.value ? 'page' : null"
           (buttonClick)="onItemClick(item.value)"
         />
       </li>
@@ -46,8 +48,11 @@
     [icon]="true"
     [iconName]="isMenuOpen() ? 'x' : 'list'"
     iconSize="m"
-    ariaLabel="Toggle navigation"
+    [ariaLabel]="isMenuOpen() ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
+    [ariaExpanded]="isMenuOpen()"
+    ariaControls="dcx-ng-navbar-items"
     (buttonClick)="toggleMenu()"
+    (keydown.escape)="onToggleEscape()"
   />
 
 </nav>

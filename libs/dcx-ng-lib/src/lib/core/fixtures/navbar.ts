@@ -17,6 +17,6 @@ export const navbarItems: DcxNavItem[] = [
 export const navbarItemsWithDisabled: DcxNavItem[] = [
   { label: 'Inicio', value: 'home', icon: 'house' },
   { label: 'Componentes', value: 'components', icon: 'grid' },
-  { label: 'Bloqueado', value: 'blocked', disabled: true },
+  { label: 'Deshabilitado', value: 'disabled', disabled: true },
   { label: 'Recursos', value: 'resources', icon: 'box' },
 ];
