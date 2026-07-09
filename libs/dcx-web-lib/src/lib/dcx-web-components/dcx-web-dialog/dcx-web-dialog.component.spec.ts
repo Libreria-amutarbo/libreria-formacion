@@ -49,8 +49,16 @@ describe('DcxWebDialog', () => {
     const spy = jest.fn();
     element.addEventListener('closeDialog', spy);
 
-    const btn = element.shadowRoot?.querySelector('.dcx-dialog__close') as HTMLElement;
-    btn.click();
+    const btn = element.shadowRoot?.querySelector(
+      '.dcx-dialog__close'
+    ) as HTMLElement;
+
+    btn.dispatchEvent(
+      new CustomEvent('buttonClick', {
+        bubbles: true,
+        composed: true,
+      }),
+    );
 
     expect(spy).toHaveBeenCalled();
   });
