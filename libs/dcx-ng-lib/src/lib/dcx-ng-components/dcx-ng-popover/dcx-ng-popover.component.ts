@@ -14,6 +14,13 @@ import {
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+/**
+ * Evento aceptado por show()/toggle(): un Event nativo del DOM (del que se lee
+ * currentTarget) o el payload emitido por dcx-ng-button ({ clicked: boolean }),
+ * en cuyo caso el disparador debe pasarse como segundo argumento.
+ */
+export type DcxPopoverToggleEvent = Event | { clicked: boolean } | null;
+
 @Component({
   selector: 'dcx-ng-popover',
   exportAs: 'dcxNgPopover',
@@ -62,7 +69,7 @@ export class DcxNgPopoverComponent {
     }
   }
 
-  toggle(event: Event | null, targetElement?: HTMLElement): void {
+  toggle(event: DcxPopoverToggleEvent, targetElement?: HTMLElement): void {
     if (this.isOpen()) {
       this.hide();
     } else {
@@ -70,8 +77,12 @@ export class DcxNgPopoverComponent {
     }
   }
 
-  show(event?: Event | null, targetElement?: HTMLElement): void {
-    const newTarget = targetElement || (event?.currentTarget as HTMLElement);
+  show(event?: DcxPopoverToggleEvent, targetElement?: HTMLElement): void {
+    const eventTarget =
+      event && 'currentTarget' in event
+        ? (event.currentTarget as HTMLElement | null)
+        : null;
+    const newTarget = targetElement || eventTarget;
     if (!newTarget) return;
 
     this.target = newTarget;
