@@ -35,9 +35,11 @@ export class DcxNgListComponent<T extends DcxListItem = DcxListItem> {
   ariaLabel = input<string>('Lista de elementos');
   listRole = input<string>('list');
   itemRole = input<string>('listitem');
+  multiselectable = input<boolean | null>(null);
   itemTemplate =
     input<TemplateRef<{ $implicit: T; index: number; selected: boolean }>>();
   externalSelection = input<boolean>(false);
+  isItemSelected = input<((item: T, index: number) => boolean) | null>(null);
 
   cdkDropList = input<boolean>(false);
   cdkDropListData = input<T[]>([]);
@@ -86,6 +88,16 @@ export class DcxNgListComponent<T extends DcxListItem = DcxListItem> {
   isSelected(index: number): boolean {
     if (!this.selectable()) return false;
     return this.selectedIndices().includes(index);
+  }
+
+  resolveAriaSelected(item: T, index: number): boolean | null {
+    const predicate = this.isItemSelected();
+    if (predicate) {
+      return predicate(item, index);
+    }
+    return this.selectable() && !this.externalSelection()
+      ? this.isSelected(index)
+      : null;
   }
 
   onDropped(event: CdkDragDrop<T[]>): void {
