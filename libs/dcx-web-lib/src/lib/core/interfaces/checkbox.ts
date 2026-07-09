@@ -1,6 +1,7 @@
-export type DcxCheckBoxVariant = 'primary' | 'accent' | 'error';
+export type DcxCheckBoxVariant = 'primary' | 'secondary';
 export type DcxCheckboxValue = true | false | null;
 export type DcxCheckboxLabelPosition = 'left' | 'right';
+export type DcxCheckboxAriaChecked = 'true' | 'false' | 'mixed';
 
 export interface DcxCheckbox {
   id: string;

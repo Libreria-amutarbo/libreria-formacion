@@ -4,6 +4,8 @@ import { dcxWebCheckboxStyles } from './dcx-web-checkbox.component.styles';
 
 import type {
   DcxCheckbox,
+  DcxCheckboxAriaChecked,
+  DcxCheckBoxVariant,
   DcxCheckboxValue,
 } from '../../core/interfaces/checkbox';
 
@@ -32,7 +34,7 @@ export class DcxWebCheckbox extends LitElement {
 
   private _getVariant(
     option: DcxCheckbox,
-  ): 'primary' | 'secondary' {
+  ): DcxCheckBoxVariant {
     const value = this._normalizeValue(option.value);
 
     return value === null ? 'secondary' : 'primary';
@@ -49,7 +51,7 @@ export class DcxWebCheckbox extends LitElement {
 
   private _getAriaChecked(
     option: DcxCheckbox,
-  ): 'true' | 'false' | 'mixed' {
+  ): DcxCheckboxAriaChecked {
     const value = this._normalizeValue(option.value);
 
     if (value === true) return 'true';
