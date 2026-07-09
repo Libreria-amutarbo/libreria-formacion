@@ -6,8 +6,10 @@ import './pages/dcx-web-page-dialog/dcx-web-page-dialog.component';
 import './pages/dcx-web-page-breadcrumb/dcx-web-page-breadcrumb.component';
 import './pages/dcx-web-page-accordion/dcx-web-page-accordion.component';
 import './pages/dcx-web-page-button/dcx-web-page-button.component';
+import './pages/dcx-web-page-chip/dcx-web-page-chip.component';
 import './pages/dcx-web-page-icon/dcx-web-page-icon.component';
 import './pages/dcx-web-page-home/dcx-web-page-home.component';
+import './pages/dcx-web-page-checkbox/dcx-web-page-checkbox.component';
 import './pages/dcx-web-page-divider/dcx-web-page-divider.component';
 import './pages/dcx-web-page-context-menu/dcx-web-page-context-menu.component';
 
@@ -52,6 +54,9 @@ export class DcxWebRoot extends LitElement {
       case '#dialog':
         content = html`<dcx-web-page-dialog></dcx-web-page-dialog>`;
         break;
+      case '#checkbox':
+        content = html`<dcx-web-page-checkbox></dcx-web-page-checkbox>`;
+        break;
       case '#divider':
         content = html`<dcx-web-page-divider></dcx-web-page-divider>`;
         break;
@@ -66,6 +71,9 @@ export class DcxWebRoot extends LitElement {
         break;
       case '#button':
         content = html`<dcx-web-page-button></dcx-web-page-button>`;
+        break;
+      case '#chip':
+        content = html`<dcx-web-page-chip></dcx-web-page-chip>`;
         break;
       case '#icon':
         content = html`<dcx-web-page-icon></dcx-web-page-icon>`;

@@ -14,6 +14,7 @@ const ROUTE_ICONS: Record<string, string> = {
   'context-menu': 'menu-button-wide',
   accordion: 'list',
   button: 'hand-index-thumb',
+  chip: 'tag',
   icon: 'star',
 };
 
@@ -38,6 +39,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['divider'],
     },
     {
+      route: 'checkbox',
+      name: 'Checkbox',
+      icon: ROUTE_ICONS['checkbox'],
+    },
+    {
       route: 'breadcrumb',
       name: 'Breadcrumb',
       icon: ROUTE_ICONS['breadcrumb'],
@@ -56,6 +62,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'button',
       name: 'Button',
       icon: ROUTE_ICONS['button'],
+    },
+    {
+      route: 'chip',
+      name: 'Chip',
+      icon: ROUTE_ICONS['chip'],
     },
     {
       route: 'icon',

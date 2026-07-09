@@ -2,6 +2,8 @@ export * from './generic';
 export * from './button';
 export * from './icon';
 export * from './badge';
+export * from './checkbox';
+export * from './chip';
 export * from './divider';
 export * from './breadcrumb';
 export * from './contextMenu';

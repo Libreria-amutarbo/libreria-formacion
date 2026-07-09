@@ -1,40 +1,124 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Paginator por defecto</h2>
-  <dcx-ng-paginator [paginator]="defaultPaginator"> </dcx-ng-paginator>
-</section>
+<div class="demo-page">
 
-<hr />
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Paginator</h1>
+    <p class="demo-page-header__desc">
+      Controles de paginación accesibles: navegación anterior/siguiente,
+      primera/última página opcional, números con elipsis, selector de items por
+      página e información de rango y página actual.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">
-    Ejemplo 2 - Paginator con selector de elementos por página
-  </h2>
-  <article class="paginator-control">
-    <dcx-ng-paginator
-      [paginator]="selectPerPage"
-      [showItemsPerPageInfo]="true"
-    />
-  </article>
-</section>
-<hr />
-<section>
-  <h2 class="example-title">
-    Ejemplo 3 - Paginator con navegación a la primera y ultima posición
-  </h2>
-  <dcx-ng-paginator [paginator]="limitedPaginator" [limitedButtons]="true" />
-</section>
+  <!-- ── 01 Default ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-paginator [paginator]="defaultPaginator" />
+    </div>
+  </div>
 
-<hr />
-<section>
-  <h2 class="example-title">
-    Ejemplo 4 - Conociendo la página del total seleccionada
-  </h2>
-  <article class="paginator-control">
-    <dcx-ng-paginator
-      [showPageInfo]="true"
-      [paginator]="knowPageSelected"
-      (pageChange)="onPageChange($event)"
-      (totalPagesChange)="onTotalPagesChange($event)"
-    />
-  </article>
-</section>
+  <!-- ── 02 With Selector ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">With Selector</span>
+    </div>
+    <p class="demo-section__desc">
+      Con <code>[showItemsPerPageInfo]="true"</code> se muestra el selector de
+      items por página y el rango visible ("1 - 5 de 21").
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-paginator
+        [paginator]="selectPerPage"
+        [showItemsPerPageInfo]="true"
+      />
+    </div>
+  </div>
+
+  <!-- ── 03 Limited Buttons ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Limited Buttons</span>
+    </div>
+    <p class="demo-section__desc">
+      <code>[limitedButtons]="true"</code> añade los botones para saltar a la
+      primera y última página.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-paginator [paginator]="limitedPaginator" [limitedButtons]="true" />
+    </div>
+  </div>
+
+  <!-- ── 04 With Page Info ─────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">With Page Info</span>
+    </div>
+    <p class="demo-section__desc">
+      <code>[showPageInfo]="true"</code> muestra la página actual sobre el total
+      ("Página X de Y").
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-paginator
+        [showPageInfo]="true"
+        [paginator]="knowPageSelected"
+        (pageChange)="onPageChange($event)"
+        (totalPagesChange)="onTotalPagesChange($event)"
+      />
+    </div>
+  </div>
+
+  <!-- ── 05 First Page State ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">First Page State</span>
+    </div>
+    <p class="demo-section__desc">
+      En la primera página los botones "anterior" y "primera" quedan
+      deshabilitados de forma nativa.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-paginator [paginator]="firstPageState" [limitedButtons]="true" />
+    </div>
+  </div>
+
+  <!-- ── 06 Middle With Ellipsis ───────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Middle With Ellipsis</span>
+    </div>
+    <p class="demo-section__desc">
+      Con muchos resultados aparecen elipsis saltables a ambos lados del rango
+      central.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-paginator [paginator]="middleWithEllipsis" [limitedButtons]="true" />
+    </div>
+  </div>
+
+  <!-- ── 07 Last Page State ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Last Page State</span>
+    </div>
+    <p class="demo-section__desc">
+      En la última página los botones "siguiente" y "última" quedan
+      deshabilitados de forma nativa.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-paginator [paginator]="lastPageState" [limitedButtons]="true" />
+    </div>
+  </div>
+
+</div>
