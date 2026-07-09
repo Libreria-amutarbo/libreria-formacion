@@ -1,58 +1,15 @@
-.page-container {
-  padding: var(--sp-8, 32px);
-  max-width: 1200px;
-  margin: 0 auto;
-
-  h1 {
-    font-size: var(--fs-2xl, 24px);
-    font-weight: var(--fw-bold, 700);
-    margin-bottom: var(--sp-4, 16px);
-    color: var(--text-dark, #2a2e33);
-  }
-
-  p {
-    color: var(--text-muted, #696e75);
-    margin-bottom: var(--sp-8, 32px);
-  }
-}
-
-.demo-section {
-  margin-bottom: var(--sp-12, 48px);
-
-  h2 {
-    font-size: var(--fs-xl, 20px);
-    font-weight: var(--fw-semibold, 600);
-    margin-bottom: var(--sp-2, 8px);
-    color: var(--text-dark, #2a2e33);
-    border-bottom: 1px solid var(--border-light, #d1d5db);
-    padding-bottom: var(--sp-2, 8px);
-  }
-
-  .demo-description {
-    color: var(--text-muted, #696e75);
-    margin-bottom: var(--sp-4, 16px);
-    font-size: var(--fs-sm, 12px);
-  }
-}
-
-.demo-box {
-  padding: var(--sp-8, 32px);
-  border: 1px solid var(--border-light, #d1d5db);
-  border-radius: var(--r-lg, 8px);
-  background-color: var(--bg-surface, #f4f5f7);
-  min-height: 200px;
-  display: flex;
-  align-items: flex-start;
-
-  &--variants {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sp-4, 16px);
-  }
-}
+// page-demo styles are provided globally via src/styles.scss
+// Only content-specific styles for the popover examples remain here.
 
 .button-container {
   display: inline-block;
+}
+
+.demo-section__body--row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4, 16px);
+  align-items: flex-start;
 }
 
 // User info content
@@ -126,19 +83,4 @@
     font-size: var(--fs-base, 14px);
     color: var(--text-muted, #696e75);
   }
-}
-
-.popover-content {
-  padding: var(--sp-4, 1rem);
-  width: 250px;
-}
-
-.popover-title {
-  margin-top: 0;
-  margin-bottom: var(--sp-2, 0.5rem);
-}
-
-.popover-description {
-  margin: 0;
-  color: var(--text-muted, #666);
 }

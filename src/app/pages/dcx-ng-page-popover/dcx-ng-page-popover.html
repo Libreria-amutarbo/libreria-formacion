@@ -1,40 +1,58 @@
-<div class="page-container">
-  <h1>Popover Component</h1>
-  <p>El componente Popover muestra contenido contextual al hacer clic en un elemento trigger. Soporta posicionamiento automático y cierre al hacer clic fuera o pulsar Escape.</p>
-  
-  <!-- Default -->
+<div class="demo-page">
+
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Popover</h1>
+    <p class="demo-page-header__desc">
+      Overlay contextual que muestra contenido al activar un disparador. Se
+      posiciona automáticamente, gestiona el foco (entra al abrir, vuelve al
+      disparador al cerrar) y se cierra con Escape o clic fuera.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
+
+  <!-- ── 01 Default ────────────────────────────────────────────────── -->
   <div class="demo-section">
-    <h2>Default</h2>
-    <p class="demo-description">Popover básico con título y contenido de texto.</p>
-    <div class="demo-box">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
       <div #buttonContainer1 class="button-container">
         <dcx-ng-button
           label="Open Popover"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover1.isOpen()"
+          [ariaControls]="popover1.panelId"
           (buttonClick)="popover1.toggle($event, buttonContainer1)"
         ></dcx-ng-button>
       </div>
-
-      <dcx-ng-popover #popover1>
+      <dcx-ng-popover #popover1 ariaLabel="Información">
         <h3>Popover Title</h3>
         <p>This is the content inside the popover. It can be any HTML or Angular component.</p>
       </dcx-ng-popover>
     </div>
   </div>
 
-  <!-- Rich Content -->
+  <!-- ── 02 Rich Content ───────────────────────────────────────────── -->
   <div class="demo-section">
-    <h2>Rich Content</h2>
-    <p class="demo-description">Popover con contenido enriquecido: nombre, cargo y email.</p>
-    <div class="demo-box">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Rich Content</span>
+    </div>
+    <div class="demo-section__body">
       <div #buttonContainer2 class="button-container">
         <dcx-ng-button
           label="User Info"
           variant="secondary"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover2.isOpen()"
+          [ariaControls]="popover2.panelId"
           (buttonClick)="popover2.toggle($event, buttonContainer2)"
         ></dcx-ng-button>
       </div>
-
-      <dcx-ng-popover #popover2>
+      <dcx-ng-popover #popover2 ariaLabel="Información de usuario">
         <div class="user-info">
           <h4 class="user-info__name">John Doe</h4>
           <p class="user-info__role">Software Engineer</p>
@@ -44,39 +62,53 @@
     </div>
   </div>
 
-  <!-- With Actions -->
+  <!-- ── 03 With Actions ───────────────────────────────────────────── -->
   <div class="demo-section">
-    <h2>With Actions</h2>
-    <p class="demo-description">Popover con lista de acciones, puede usarse como menú contextual ligero.</p>
-    <div class="demo-box">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">With Actions</span>
+    </div>
+    <p class="demo-section__desc">
+      Lista de acciones dentro del popover; puede usarse como menú contextual ligero.
+    </p>
+    <div class="demo-section__body">
       <div #buttonContainer3 class="button-container">
         <dcx-ng-button
           label="Options"
           variant="terciary"
+          ariaHaspopup="menu"
+          [ariaExpanded]="popover3.isOpen()"
+          [ariaControls]="popover3.panelId"
           (buttonClick)="popover3.toggle($event, buttonContainer3)"
         ></dcx-ng-button>
       </div>
-
-      <dcx-ng-popover #popover3>
+      <dcx-ng-popover #popover3 role="menu" ariaLabel="Acciones">
         <dcx-ng-list [items]="actionItems" [selectable]="true"></dcx-ng-list>
       </dcx-ng-popover>
     </div>
   </div>
 
-  <!-- With Components -->
+  <!-- ── 04 With Components ─────────────────────────────────────────── -->
   <div class="demo-section">
-    <h2>With Components</h2>
-    <p class="demo-description">Popover con componentes de la librería: chips de filtro, divider y botones de acción.</p>
-    <div class="demo-box">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">With Components</span>
+    </div>
+    <p class="demo-section__desc">
+      Componentes de la librería: chips de filtro, divider y botones de acción.
+    </p>
+    <div class="demo-section__body">
       <div #buttonContainer4 class="button-container">
         <dcx-ng-button
           label="Filtrar"
           variant="secondary"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover4.isOpen()"
+          [ariaControls]="popover4.panelId"
           (buttonClick)="popover4.toggle($event, buttonContainer4)"
         ></dcx-ng-button>
       </div>
-
-      <dcx-ng-popover #popover4>
+      <dcx-ng-popover #popover4 ariaLabel="Filtrar por etiqueta">
         <div class="filter-container">
           <p class="filter-container__title">Filtrar por etiqueta</p>
           <div class="filter-container__chips">
@@ -95,20 +127,25 @@
     </div>
   </div>
 
-  <!-- Long Content -->
+  <!-- ── 05 Long Content ───────────────────────────────────────────── -->
   <div class="demo-section">
-    <h2>Long Content</h2>
-    <p class="demo-description">Popover con contenido largo y scroll vertical.</p>
-    <div class="demo-box">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Long Content</span>
+    </div>
+    <p class="demo-section__desc">Contenido largo con scroll vertical interno.</p>
+    <div class="demo-section__body">
       <div #buttonContainer5 class="button-container">
         <dcx-ng-button
           label="Ver detalles"
           variant="secondary"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover5.isOpen()"
+          [ariaControls]="popover5.panelId"
           (buttonClick)="popover5.toggle($event, buttonContainer5)"
         ></dcx-ng-button>
       </div>
-
-      <dcx-ng-popover #popover5>
+      <dcx-ng-popover #popover5 ariaLabel="Descripción completa">
         <div class="scrollable-content">
           <h3>Descripción completa</h3>
           <p>Este componente permite mostrar información contextual de forma no intrusiva. Es ideal para tooltips enriquecidos, menús de acciones, detalles de usuario o cualquier contenido que deba aparecer al interactuar con un elemento de la interfaz.</p>
@@ -120,20 +157,25 @@
     </div>
   </div>
 
-  <!-- With Image -->
+  <!-- ── 06 With Image ─────────────────────────────────────────────── -->
   <div class="demo-section">
-    <h2>With Image</h2>
-    <p class="demo-description">Popover con imagen y descripción. Ideal para vistas previas de contenido visual.</p>
-    <div class="demo-box">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">With Image</span>
+    </div>
+    <p class="demo-section__desc">Imagen y descripción; ideal para vistas previas.</p>
+    <div class="demo-section__body">
       <div #buttonContainer6 class="button-container">
         <dcx-ng-button
           label="Ver preview"
           variant="secondary"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover6.isOpen()"
+          [ariaControls]="popover6.panelId"
           (buttonClick)="popover6.toggle($event, buttonContainer6)"
         ></dcx-ng-button>
       </div>
-
-      <dcx-ng-popover #popover6>
+      <dcx-ng-popover #popover6 ariaLabel="Vista previa de imagen">
         <div class="image-preview">
           <img src="https://picsum.photos/280/180" alt="Preview" class="image-preview__img">
           <h4 class="image-preview__title">Imagen de ejemplo</h4>
@@ -143,77 +185,134 @@
     </div>
   </div>
 
-  <!-- Button Variants -->
+  <!-- ── 07 Interactive ────────────────────────────────────────────── -->
   <div class="demo-section">
-    <h2>Button Variants</h2>
-    <p class="demo-description">El popover puede abrirse desde botones con diferentes variantes.</p>
-    <div class="demo-box demo-box--variants">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Interactive</span>
+    </div>
+    <p class="demo-section__desc">
+      Al abrir, el foco entra al popover; con <code>Escape</code> vuelve al
+      disparador. También cierra al hacer clic fuera.
+    </p>
+    <div class="demo-section__body">
       <div #buttonContainer7 class="button-container">
+        <dcx-ng-button
+          label="Abrir menú"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover7.isOpen()"
+          [ariaControls]="popover7.panelId"
+          (buttonClick)="popover7.toggle($event, buttonContainer7)"
+        ></dcx-ng-button>
+      </div>
+      <dcx-ng-popover #popover7 ariaLabel="Acciones rápidas">
+        <div class="filter-container">
+          <p class="filter-container__title">Acciones rápidas</p>
+          <div class="filter-container__actions">
+            <dcx-ng-button label="Guardar" variant="primary" size="s"></dcx-ng-button>
+            <dcx-ng-button label="Cerrar" variant="terciary" size="s" (buttonClick)="popover7.hide()"></dcx-ng-button>
+          </div>
+        </div>
+      </dcx-ng-popover>
+    </div>
+  </div>
+
+  <!-- ── 08 Button Variants ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Button Variants</span>
+    </div>
+    <p class="demo-section__desc">
+      El popover puede abrirse desde botones con distintas variantes.
+    </p>
+    <div class="demo-section__body demo-section__body--row">
+      <div #buttonContainer8 class="button-container">
         <dcx-ng-button
           label="Primary"
           variant="primary"
-          (buttonClick)="popover7.toggle($event, buttonContainer7)"
-        ></dcx-ng-button>
-        <dcx-ng-popover #popover7>
-          <p>Popover desde botón Primary</p>
-        </dcx-ng-popover>
-      </div>
-
-      <div #buttonContainer8 class="button-container">
-        <dcx-ng-button
-          label="Secondary"
-          variant="secondary"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover8.isOpen()"
+          [ariaControls]="popover8.panelId"
           (buttonClick)="popover8.toggle($event, buttonContainer8)"
         ></dcx-ng-button>
-        <dcx-ng-popover #popover8>
-          <p>Popover desde botón Secondary</p>
+        <dcx-ng-popover #popover8 ariaLabel="Popover Primary">
+          <p>Popover desde botón Primary</p>
         </dcx-ng-popover>
       </div>
 
       <div #buttonContainer9 class="button-container">
         <dcx-ng-button
-          label="Terciary"
-          variant="terciary"
+          label="Secondary"
+          variant="secondary"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover9.isOpen()"
+          [ariaControls]="popover9.panelId"
           (buttonClick)="popover9.toggle($event, buttonContainer9)"
         ></dcx-ng-button>
-        <dcx-ng-popover #popover9>
-          <p>Popover desde botón Terciary</p>
+        <dcx-ng-popover #popover9 ariaLabel="Popover Secondary">
+          <p>Popover desde botón Secondary</p>
         </dcx-ng-popover>
       </div>
 
       <div #buttonContainer10 class="button-container">
         <dcx-ng-button
-          label="Danger"
-          variant="danger"
+          label="Terciary"
+          variant="terciary"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover10.isOpen()"
+          [ariaControls]="popover10.panelId"
           (buttonClick)="popover10.toggle($event, buttonContainer10)"
         ></dcx-ng-button>
-        <dcx-ng-popover #popover10>
-          <p>Popover desde botón Danger</p>
+        <dcx-ng-popover #popover10 ariaLabel="Popover Terciary">
+          <p>Popover desde botón Terciary</p>
         </dcx-ng-popover>
       </div>
 
       <div #buttonContainer11 class="button-container">
         <dcx-ng-button
-          [icon]="true"
-          [iconName]="'pi pi-ellipsis-v'"
-          variant="icon-only"
+          label="Danger"
+          variant="danger"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover11.isOpen()"
+          [ariaControls]="popover11.panelId"
           (buttonClick)="popover11.toggle($event, buttonContainer11)"
         ></dcx-ng-button>
-        <dcx-ng-popover #popover11>
-          <p>Popover desde botón icon-only</p>
+        <dcx-ng-popover #popover11 ariaLabel="Popover Danger">
+          <p>Popover desde botón Danger</p>
         </dcx-ng-popover>
       </div>
 
       <div #buttonContainer12 class="button-container">
         <dcx-ng-button
-          label="Text"
-          variant="text"
+          [icon]="true"
+          [iconName]="'three-dots-vertical'"
+          variant="icon-only"
+          ariaLabel="Más opciones"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover12.isOpen()"
+          [ariaControls]="popover12.panelId"
           (buttonClick)="popover12.toggle($event, buttonContainer12)"
         ></dcx-ng-button>
-        <dcx-ng-popover #popover12>
+        <dcx-ng-popover #popover12 ariaLabel="Popover icon-only">
+          <p>Popover desde botón icon-only</p>
+        </dcx-ng-popover>
+      </div>
+
+      <div #buttonContainer13 class="button-container">
+        <dcx-ng-button
+          label="Text"
+          variant="text"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover13.isOpen()"
+          [ariaControls]="popover13.panelId"
+          (buttonClick)="popover13.toggle($event, buttonContainer13)"
+        ></dcx-ng-button>
+        <dcx-ng-popover #popover13 ariaLabel="Popover Text">
           <p>Popover desde botón Text</p>
         </dcx-ng-popover>
       </div>
     </div>
   </div>
+
 </div>
