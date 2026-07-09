@@ -1,53 +1,9 @@
-.dcx-paginator__row-meta {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 8px;
-  gap: 16px;
-}
-
-.dcx-paginator__size {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-inset-s, 8px);
-}
-
-.dcx-paginator__pages {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.items-per-page-info {
-  font-size: 13px;
-  color: var(--content-subtle, #696e75);
-  white-space: nowrap;
-  text-align: right;
-}
-
-.dcx-paginator__size {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-inset-s, 8px);
-}
-
-.items-per-page-info {
-  font-size: 13px;
-  color: var(--content-subtle, #696e75);
-  white-space: nowrap;
-  text-align: right;
-}
 @import '../../../scss/main.scss';
 
 :host {
   display: block;
   font-family: var(--ff-base, 'Inter', sans-serif);
 }
-
-
 
 // Layout vertical, todo centrado
 .dcx-paginator {
@@ -92,7 +48,11 @@
   font-size: var(--fs-sm, 12px);
   font-weight: var(--fw-medium, 500);
   padding: 0 8px;
-  outline: none;
+}
+
+.dcx-paginator__size-select:focus-visible {
+  outline: 2px solid var(--border-focus, #0058ab);
+  outline-offset: 2px;
 }
 
 .page-info,
@@ -137,6 +97,14 @@
   font-size: var(--fs-sm, 12px);
   font-weight: var(--fw-semibold, 600);
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+// Foco visible sobre el botón nativo interno (WCAG 2.4.7)
+.dcx-paginator__button ::ng-deep .dcx-ng-button:focus-visible,
+.dcx-paginator__page ::ng-deep .dcx-ng-button:focus-visible,
+.dcx-paginator__ellipsis ::ng-deep .dcx-ng-button:focus-visible {
+  outline: 2px solid var(--border-focus, #0058ab);
+  outline-offset: 2px;
 }
 
 .dcx-paginator__button ::ng-deep .dcx-ng-button {
@@ -214,16 +182,5 @@
 
   .items-per-page-info {
     text-align: center;
-  }
-}
-
-@media (max-width: 900px) {
-  .dcx-paginator__meta {
-    min-width: auto;
-    flex-basis: 100%;
-  }
-
-  .dcx-paginator__meta--right {
-    text-align: left;
   }
 }

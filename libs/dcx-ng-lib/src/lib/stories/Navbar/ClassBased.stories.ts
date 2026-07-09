@@ -1,6 +1,6 @@
 import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 import { fn } from '@storybook/test';
-import { Component, signal } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, signal } from '@angular/core';
 import {
   DcxNgNavbarComponent,
   DcxNgButtonComponent,
@@ -14,6 +14,7 @@ import {
 
 const ActionsData = {
   itemClick: fn(),
+  brandClick: fn(),
 };
 
 // ─── Meta ────────────────────────────────────────────────────────────────────
@@ -33,47 +34,81 @@ const meta: Meta<DcxNgNavbarComponent> = {
   ],
   argTypes: {
     brand: {
+      name: 'brand',
       control: { type: 'object' },
-      description: 'Título y logo opcional del brand',
+      description: 'Título y logo opcional del brand.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'DcxNavbarBrand' },
         defaultValue: { summary: "{ title: 'App' }" },
       },
     },
     items: {
+      name: 'items',
       control: { type: 'object' },
-      description: 'Lista de items de navegación',
+      description: 'Lista de items de navegación.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'DcxNavItem[]' },
         defaultValue: { summary: '[]' },
       },
     },
     activeValue: {
+      name: 'activeValue',
       control: 'text',
-      description: 'Value del item activo (controlado desde fuera)',
+      description: 'Value del item activo (controlado desde fuera).',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
+        type: { summary: 'string | null' },
+        defaultValue: { summary: 'null' },
+      },
+    },
+    ariaLabel: {
+      name: 'ariaLabel',
+      control: { type: 'text' },
+      description:
+        'Etiqueta accesible para el landmark `<nav>`. Usar cuando haya varias navbars en la misma página para que los lectores de pantalla puedan distinguirlas.',
+      table: {
+        category: 'Atributos',
         type: { summary: 'string | null' },
         defaultValue: { summary: 'null' },
       },
     },
     vertical: {
+      name: 'vertical',
       control: 'boolean',
-      description: 'Activa el modo sidebar vertical',
+      description: 'Activa el modo sidebar vertical.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
     itemClick: {
+      name: 'itemClick',
       action: 'itemClick',
-      description: 'Emite el value del item clickado',
+      description: 'Emite el value del item clickado.',
       table: {
-        category: 'Events',
-        type: { summary: 'string' },
+        category: 'Eventos',
+        type: { summary: '(value: string) => void' },
+      },
+    },
+    brandClick: {
+      name: 'brandClick',
+      action: 'brandClick',
+      description: 'Se emite al activar el brand (click, Enter o Space).',
+      table: {
+        category: 'Eventos',
+        type: { summary: '() => void' },
+      },
+    },
+    toggleMenu: {
+      name: 'toggleMenu()',
+      description: 'Alterna la visibilidad del menú móvil.',
+      control: false,
+      table: {
+        category: 'Métodos',
+        type: { summary: '() => void' },
       },
     },
   },
@@ -162,12 +197,13 @@ export const ConAcciones: Story = {
         [items]="items"
         [activeValue]="activeValue()"
         [vertical]="true"
+        ariaLabel="Navegación principal"
         (itemClick)="activeValue.set($event)"
       >
         <dcx-ng-button label="Login" size="s" variant="secondary" />
       </dcx-ng-navbar>
-      <div style="padding: 1.5rem; flex: 1; font-family: var(--font-family-primary); color: var(--text-body);">
-        <p style="font-size: var(--font-size-h6); font-weight: 600;">Contenido principal</p>
+      <div style="padding: 1.5rem; flex: 1; font-family: var(--ff-base, 'Inter', sans-serif); color: var(--text-dark, #1e2226);">
+        <p style="font-size: var(--fs-base, 14px); font-weight: 600;">Contenido principal</p>
         <p>Item activo: <strong>{{ activeValue() }}</strong></p>
       </div>
     </div>
@@ -188,6 +224,68 @@ export const Vertical: Story = {
   decorators: [
     moduleMetadata({
       imports: [VerticalStoryComponent],
+    }),
+  ],
+  parameters: {
+    controls: { disable: true },
+  },
+};
+
+// ─── Menú móvil abierto (fuerza el layout responsive dentro de un marco fijo) ─
+
+@Component({
+  selector: 'dcx-ng-navbar-mobile-story',
+  standalone: true,
+  imports: [DcxNgNavbarComponent],
+  template: `
+    <div class="mobile-frame">
+      <dcx-ng-navbar
+        #nav
+        [brand]="brand"
+        [items]="items"
+        activeValue="home"
+        ariaLabel="Navegación móvil de ejemplo"
+      />
+    </div>
+  `,
+  styles: [
+    `
+      .mobile-frame {
+        max-width: 360px;
+        margin: 2rem auto;
+        border: 1px solid var(--border-light, #d1d5db);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      /* Fuerza el layout del breakpoint móvil: el iframe de Storybook suele ser más ancho que 767px */
+      .mobile-frame ::ng-deep .dcx-ng-navbar__items {
+        display: flex !important;
+      }
+      .mobile-frame ::ng-deep .dcx-ng-navbar__toggle {
+        display: inline-block !important;
+      }
+    `,
+  ],
+})
+class MobileMenuStoryComponent implements AfterViewInit {
+  @ViewChild('nav') nav!: DcxNgNavbarComponent;
+  brand = navbarDefaultBrand;
+  items = navbarItems;
+
+  ngAfterViewInit(): void {
+    this.nav.toggleMenu();
+  }
+}
+
+export const MenuMovilAbierto: Story = {
+  name: 'Menú móvil abierto',
+  render: () => ({
+    props: {},
+    template: `<dcx-ng-navbar-mobile-story />`,
+  }),
+  decorators: [
+    moduleMetadata({
+      imports: [MobileMenuStoryComponent],
     }),
   ],
   parameters: {

@@ -15,6 +15,7 @@ const ROUTE_ICONS: Record<string, string> = {
   accordion: 'list',
   button: 'hand-index-thumb',
   drawer: 'layout-sidebar-inset',
+  chip: 'tag',
   icon: 'star',
 };
 
@@ -57,6 +58,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'drawer',
       name: 'Drawer',
       icon: ROUTE_ICONS['drawer'],
+    },
+    {
+      route: 'chip',
+      name: 'Chip',
+      icon: ROUTE_ICONS['chip'],
     },
     {
       route: 'icon',

@@ -152,12 +152,52 @@ describe('DcxNgButtonComponent', () => {
       expect(btn.hasAttribute('aria-pressed')).toBe(false);
     });
 
+    it('should reflect ariaExpanded as aria-expanded on the inner button', () => {
+      fixture.componentRef.setInput('ariaExpanded', true);
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('should reflect ariaControls as aria-controls on the inner button', () => {
+      fixture.componentRef.setInput('ariaControls', 'menu-panel');
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.getAttribute('aria-controls')).toBe('menu-panel');
+    });
+
+    it('should reflect ariaCurrent as aria-current on the inner button', () => {
+      fixture.componentRef.setInput('ariaCurrent', 'page');
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.getAttribute('aria-current')).toBe('page');
+    });
+
+    it('should not render aria-expanded, aria-controls or aria-current when not set', () => {
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.hasAttribute('aria-expanded')).toBe(false);
+      expect(btn.hasAttribute('aria-controls')).toBe(false);
+      expect(btn.hasAttribute('aria-current')).toBe(false);
+    });
+
     it('should apply ariaLabel to the inner button when label is empty', () => {
       fixture.componentRef.setInput('label', '');
       fixture.componentRef.setInput('ariaLabel', 'Guardar');
       fixture.detectChanges();
       const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
       expect(btn.getAttribute('aria-label')).toBe('Guardar');
+    });
+
+    it('should not set aria-current by default', () => {
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.hasAttribute('aria-current')).toBe(false);
+    });
+
+    it('should reflect ariaCurrent="page" on the inner button', () => {
+      fixture.componentRef.setInput('ariaCurrent', 'page');
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.getAttribute('aria-current')).toBe('page');
     });
   });
 });

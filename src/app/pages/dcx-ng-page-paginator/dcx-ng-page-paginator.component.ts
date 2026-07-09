@@ -12,12 +12,6 @@ import {
   styleUrl: './dcx-ng-page-paginator.component.scss',
 })
 export class DcxNgPagePaginatorComponent {
-  itemsPerPage = 10;
-  currentPage = 1;
-  nextButtonDisabled = '';
-  prevButtonDisabled = false;
-  totalPages = 10;
-  disabled = false;
   totalPagesKnown = 0;
 
   defaultPaginator: DcxPaginator = {
@@ -39,19 +33,37 @@ export class DcxNgPagePaginatorComponent {
   };
 
   knowPageSelected: DcxPaginator = {
-    totalItems: 10,
-    itemsPerPage: 2,
+    totalItems: 100,
+    itemsPerPage: 10,
     currentPage: 2,
   };
 
-  onPageChange(page: number) {
+  firstPageState: DcxPaginator = {
+    totalItems: 120,
+    itemsPerPage: 10,
+    currentPage: 1,
+  };
+
+  middleWithEllipsis: DcxPaginator = {
+    totalItems: 300,
+    itemsPerPage: 10,
+    currentPage: 12,
+  };
+
+  lastPageState: DcxPaginator = {
+    totalItems: 120,
+    itemsPerPage: 10,
+    currentPage: 12,
+  };
+
+  onPageChange(page: number): void {
     this.knowPageSelected = {
       ...this.knowPageSelected,
       currentPage: page,
     };
   }
 
-  onTotalPagesChange(totalPages: number) {
+  onTotalPagesChange(totalPages: number): void {
     this.totalPagesKnown = totalPages;
   }
 }

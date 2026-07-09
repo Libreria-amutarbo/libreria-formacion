@@ -1,10 +1,14 @@
 <div class="dcx-paginator">
   <div class="dcx-paginator__row-meta">
-    <div class="dcx-paginator__size" aria-label="Items por página">
+    <div class="dcx-paginator__size">
       @if (showItemsPerPageInfo()) {
-        <span class="items-per-page-label">Items por página:</span>
+        <label class="items-per-page-label" for="dcx-paginator-size-select">
+          Items por página:
+        </label>
         <select
+          id="dcx-paginator-size-select"
           class="dcx-paginator__size-select"
+          aria-label="Items por página"
           [value]="selectedItemsPerPage()"
           (change)="onItemsPerPageChange($any($event.target).value)"
         >
@@ -14,8 +18,8 @@
         </select>
       }
     </div>
-    <div class="dcx-paginator__pages" aria-label="Paginación">
-      @let pages = visiblePagesForView();
+    <nav class="dcx-paginator__pages" aria-label="Paginación de resultados">
+      @let pages = visiblePages();
 
       @if (limitedButtons()) {
         <dcx-ng-button
@@ -24,6 +28,7 @@
           [icon]="true"
           iconName="chevron-double-left"
           iconSize="m"
+          [ariaLabel]="'Primera página'"
           [disabled]="!hasPrevious()"
           (buttonClick)="goToStart()"
         />
@@ -34,6 +39,7 @@
         [icon]="true"
         iconName="arrow-left"
         iconSize="m"
+        [ariaLabel]="'Página anterior'"
         [disabled]="!hasPrevious()"
         (buttonClick)="goToPrevious()"
       />
@@ -43,6 +49,11 @@
           <dcx-ng-button
             class="dcx-paginator__ellipsis"
             [label]="'...'"
+            [ariaLabel]="
+              getEllipsisDirection($index, pages) < 0
+                ? 'Saltar páginas hacia atrás'
+                : 'Saltar páginas hacia adelante'
+            "
             [size]="'m'"
             [variant]="'text'"
             (buttonClick)="goToPageRelative(getEllipsisDirection($index, pages))"
@@ -52,6 +63,8 @@
             [class]="getPageButtonClasses(page)"
             [size]="'m'"
             [variant]="getButtonVariant(getPageNumber(page))"
+            [ariaLabel]="getPageAriaLabel(getPageNumber(page))"
+            [ariaCurrent]="getPageAriaCurrent(getPageNumber(page))"
             (buttonClick)="goToPage(getPageNumber(page))"
             [label]="getButtonLabel(getPageNumber(page))"
           />
@@ -64,6 +77,7 @@
         [icon]="true"
         iconSize="m"
         iconName="arrow-right"
+        [ariaLabel]="'Página siguiente'"
         [disabled]="!hasNext()"
         (buttonClick)="goToNext()"
       />
@@ -74,11 +88,12 @@
           [icon]="true"
           iconSize="m"
           iconName="chevron-double-right"
+          [ariaLabel]="'Última página'"
           [disabled]="!hasNext()"
           (buttonClick)="goToEnd()"
         />
       }
-    </div>
+    </nav>
     <div class="items-per-page-info" aria-live="polite">
       @if (showItemsPerPageInfo()) {
         {{ firstItem() }} - {{ lastItem() }} de {{ paginator().totalItems }}
