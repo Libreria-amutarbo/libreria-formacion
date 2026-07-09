@@ -34,6 +34,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['divider'],
     },
     {
+      route: 'checkbox',
+      name: 'Checkbox',
+      icon: ROUTE_ICONS['checkbox'],
+    },
+    {
       route: 'breadcrumb',
       name: 'Breadcrumb',
       icon: ROUTE_ICONS['breadcrumb'],

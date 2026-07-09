@@ -8,6 +8,7 @@ import './pages/dcx-web-page-button/dcx-web-page-button.component';
 import './pages/dcx-web-page-chip/dcx-web-page-chip.component';
 import './pages/dcx-web-page-icon/dcx-web-page-icon.component';
 import './pages/dcx-web-page-home/dcx-web-page-home.component';
+import './pages/dcx-web-page-checkbox/dcx-web-page-checkbox.component';
 import './pages/dcx-web-page-divider/dcx-web-page-divider.component';
 import './pages/dcx-web-page-context-menu/dcx-web-page-context-menu.component';
 
@@ -48,6 +49,9 @@ export class DcxWebRoot extends LitElement {
     switch (this._currentPath) {
       case '#badge':
         content = html`<dcx-web-page-badge></dcx-web-page-badge>`;
+        break;
+      case '#checkbox':
+        content = html`<dcx-web-page-checkbox></dcx-web-page-checkbox>`;
         break;
       case '#divider':
         content = html`<dcx-web-page-divider></dcx-web-page-divider>`;

@@ -139,24 +139,42 @@ export const styles = css`
     color: var(--text-disabled, #696e75);
     border-color: #e5e7eb;
     cursor: not-allowed;
-    pointer-events: none;
   }
 
+  
   .dcx-button--checkbox.dcx-button--checkbox-error--primary {
+
+    background-color: var(--color-error, #dc2626);
+    color: var(--text-white, #ffffff);
     border-color: var(--border-error, #dc2626);
-    background-color: var(--color-error-bg, #fef2f2);
   }
-  .dcx-button--checkbox.dcx-button--checkbox-error--primary:hover:not(:disabled) {
-    color: var(--color-error, #dc2626);
+
+  .dcx-button--checkbox.dcx-button--checkbox-error--primary:hover:not(:disabled),
+  .dcx-button--checkbox.dcx-button--checkbox-error--primary.dcx-button--hover:not(:disabled) {
     border: 2px solid var(--border-error, #dc2626);
+
+    background-color: var(--bg-default, #ffffff);
+    color: var(--color-error, #dc2626);
+    border-color: var(--border-error, #dc2626);
   }
+
 
   .dcx-button--checkbox.dcx-button--checkbox-error--secondary {
+    
+    background-color: var(--bg-default, #ffffff);
+    color: var(--color-error, #dc2626);
+    border-color: var(--border-error, #dc2626);
+
+  }
+  
+  .dcx-button--checkbox.dcx-button--checkbox-error--secondary:hover:not(:disabled),
+  .dcx-button--checkbox.dcx-button--checkbox-error--secondary.dcx-button--hover:not(:disabled) {
+    border: 2px solid var(--border-error, #dc2626);
+    background-color: var(--bg-default, #ffffff);
+    color: var(--color-error, #dc2626);
     border-color: var(--border-error, #dc2626);
   }
-  .dcx-button--checkbox.dcx-button--checkbox-error--secondary:hover:not(:disabled) {
-    border: 2px solid var(--border-error, #dc2626);
-  }
+
 
   .dcx-button--icon-top, .dcx-button--icon-bottom {
     flex-direction: column;
