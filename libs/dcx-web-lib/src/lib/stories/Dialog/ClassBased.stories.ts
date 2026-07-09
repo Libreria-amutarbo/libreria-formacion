@@ -1,10 +1,8 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
 import { Meta, StoryObj } from '@storybook/web-components';
+
 import { fn } from '@storybook/test';
 
 import '../../../index';
-import '../../../lib/dcx-web-components/dcx-web-icon/dcx-web-icon.component';
 import type { DialogPosition } from '../../../lib/core/interfaces/dialog';
 import { DIALOG_POSITION_LIST } from '../../../lib/core/interfaces/dialog';
 
@@ -45,17 +43,6 @@ const DIALOG_DEFAULT_ARGS: DialogStoryArgs = {
   footerMode: 'simple',
 };
 
-const icons = [
-  'arrow-up-left',
-  'arrow-up',
-  'arrow-up-right',
-  'arrow-left',
-  'circle-fill',
-  'arrow-right',
-  'arrow-down-left',
-  'arrow-down',
-  'arrow-down-right',
-];
 
 const renderDialogStory = (
   args: DialogStoryArgs,
@@ -566,92 +553,59 @@ export const Positions: Story = {
       'bottom-right',
     ];
 
-    return html`
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:48px;min-height:100vh;box-sizing:border-box;">
-        ${positions.map(
-      (position, index) => html`
-            
-        <dcx-web-dialog-position-story-host
-          .dialogId=${`pos-${position}`}
-          .position=${position}
-          .iconName=${icons[index]}
-        >
-        </dcx-web-dialog-position-story-host>
+    const grid = document.createElement('div');
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+    grid.style.gap = '16px';
+    grid.style.padding = '48px';
+    grid.style.minHeight = '100vh';
+    grid.style.boxSizing = 'border-box';
 
-          `,
-    )}
-      </div>
-    `;
+    positions.forEach((position) => {
+      const cell = document.createElement('div');
+      cell.style.display = 'flex';
+      cell.style.justifyContent = 'center';
+      cell.style.alignItems = 'center';
+
+      const openButton = document.createElement('dcx-web-button') as any;
+      openButton.label = position;
+      openButton.setAttribute('variant', 'secondary');
+
+      const dialog = document.createElement('dcx-web-dialog') as any;
+      dialog.dialogId = `pos-${position}`;
+      dialog.position = position;
+      dialog.visible = false;
+      dialog.title = `Posición: ${position}`;
+      dialog.closeOnBackdrop = true;
+
+      const body = document.createElement('div');
+      body.slot = 'body';
+      body.innerHTML = `<p>Este diálogo está posicionado en <strong>${position}</strong>.</p>`;
+
+      const footer = document.createElement('div');
+      footer.slot = 'footer';
+
+      const closeButton = document.createElement('dcx-web-button') as any;
+      closeButton.label = 'Cerrar';
+      closeButton.setAttribute('variant', 'primary');
+
+      const closeDialog = () => {
+        dialog.visible = false;
+      };
+
+      openButton.addEventListener('buttonClick', () => {
+        dialog.visible = true;
+      });
+
+      closeButton.addEventListener('buttonClick', closeDialog);
+      dialog.addEventListener('closeDialog', closeDialog);
+
+      footer.appendChild(closeButton);
+      dialog.append(body, footer);
+      cell.append(openButton, dialog);
+      grid.appendChild(cell);
+    });
+
+    return grid;
   },
 };
-
-@customElement('dcx-web-dialog-position-story-host')
-  export class DcxWebDialogPositionStoryHost extends LitElement {
-    @property({ type: String })
-  dialogId = '';
-
-  @property({ type: String })
-  position: DialogPosition = 'center';
-
-  @property({ type: String })
-  iconName = '';
-
-  @state()
-  private _visible = false;
-
-  static override styles = css`
-    :host {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  `;
-
-  override render() {
-    return html`
-      
-      <dcx-web-button
-        variant="primary"
-        size="l"
-        icon-name=${this.iconName}
-        label="Abrir diálogo"
-        aria-label=${this.position}
-        @buttonClick=${() => {
-          this._visible = true;
-        }}
-      >
-      </dcx-web-button>
-
-
-      <dcx-web-dialog
-        .dialogId=${this.dialogId}
-        .position=${this.position}
-        .visible=${this._visible}
-        title="Posición: ${this.position}"
-        .closeOnBackdrop=${true}
-        @closeDialog=${() => {
-        this._visible = false;
-      }}
-      >
-        <div slot="body">
-          <p>Este diálogo está posicionado en <strong>${this.position}</strong>.</p>
-        </div>
-        <div slot="footer">
-          <dcx-web-button
-            label="Cerrar"
-            variant="primary"
-            @click=${() => {
-        this._visible = false;
-      }}
-          ></dcx-web-button>
-        </div>
-      </dcx-web-dialog>
-    `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'dcx-web-dialog-position-story-host': DcxWebDialogPositionStoryHost;
-  }
-}
