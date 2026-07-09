@@ -1,65 +1,146 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Navbar básica</h2>
-  <dcx-ng-navbar [brand]="brand" [items]="navItems" />
-</section>
+<div class="demo-page">
 
-<hr />
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Navbar</h1>
+    <p class="demo-page-header__desc">
+      Barra de navegación principal. Admite brand con logo, items con icono y
+      estado activo, un slot de acciones y un modo vertical para usarse como
+      sidebar lateral. En pantallas estrechas los items se ocultan tras un
+      botón hamburguesa.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Con logo y item activo</h2>
-  <dcx-ng-navbar
-    [brand]="brandWithLogo"
-    [items]="navItems"
-    [activeValue]="activeValue()"
-    (itemClick)="onItemClick($event)"
-  />
-  <p class="example-hint">Item activo: <strong>{{ activeValue() }}</strong></p>
-</section>
+  <!-- ── 01 Default ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-navbar [brand]="brand" [items]="navItems" />
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 02 Con logo ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Con logo</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-navbar [brand]="brandWithLogo" [items]="navItems" />
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Con item deshabilitado</h2>
-  <dcx-ng-navbar
-    [brand]="brand"
-    [items]="navItemsWithDisabled"
-    [activeValue]="activeValue()"
-    (itemClick)="onItemClick($event)"
-  />
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 4 - Con acciones en el slot</h2>
-  <dcx-ng-navbar
-    [brand]="brandWithLogo"
-    [items]="navItems"
-    [activeValue]="activeValue()"
-    (itemClick)="onItemClick($event)"
-  >
-    <dcx-ng-button label="Login" size="s" variant="secondary" />
-    <dcx-ng-button label="Registrarse" size="s" variant="primary" />
-  </dcx-ng-navbar>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 5 - Modo vertical (sidebar)</h2>
-  <div class="vertical-demo">
-    <dcx-ng-navbar
-      [brand]="brandWithLogo"
-      [items]="navItems"
-      [activeValue]="activeValue()"
-      [vertical]="true"
-      (itemClick)="onItemClick($event)"
-    >
-      <dcx-ng-button label="Login" size="s" variant="secondary" />
-    </dcx-ng-navbar>
-    <div class="vertical-demo__content">
-      <p>Contenido principal</p>
+  <!-- ── 03 Con item activo ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Con item activo</span>
+    </div>
+    <p class="demo-section__desc">
+      El item activo se controla desde fuera con <code>activeValue</code> y
+      recibe <code>aria-current="page"</code>.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-navbar
+        [brand]="brandWithLogo"
+        [items]="navItems"
+        [activeValue]="activeValue()"
+        (itemClick)="onItemClick($event)"
+      />
       <p class="example-hint">Item activo: <strong>{{ activeValue() }}</strong></p>
     </div>
   </div>
-</section>
+
+  <!-- ── 04 Con item deshabilitado ─────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Con item deshabilitado</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-navbar
+        [brand]="brand"
+        [items]="navItemsWithDisabled"
+        [activeValue]="activeValue()"
+        (itemClick)="onItemClick($event)"
+      />
+    </div>
+  </div>
+
+  <!-- ── 05 Con acciones en el slot ────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Con acciones en el slot</span>
+    </div>
+    <p class="demo-section__desc">
+      El componente expone un <code>&lt;ng-content /&gt;</code> en la zona
+      derecha para proyectar cualquier contenido (botones, avatares, etc.).
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-navbar
+        [brand]="brandWithLogo"
+        [items]="navItems"
+        [activeValue]="activeValue()"
+        (itemClick)="onItemClick($event)"
+      >
+        <dcx-ng-button label="Login" size="s" variant="secondary" />
+        <dcx-ng-button label="Registrarse" size="s" variant="primary" />
+      </dcx-ng-navbar>
+    </div>
+  </div>
+
+  <!-- ── 06 Modo vertical (sidebar) ────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Modo vertical (sidebar)</span>
+    </div>
+    <div class="demo-section__body">
+      <div class="vertical-demo">
+        <dcx-ng-navbar
+          [brand]="brandWithLogo"
+          [items]="navItems"
+          [activeValue]="activeValue()"
+          [vertical]="true"
+          ariaLabel="Navegación principal"
+          (itemClick)="onItemClick($event)"
+        >
+          <dcx-ng-button label="Login" size="s" variant="secondary" />
+        </dcx-ng-navbar>
+        <div class="vertical-demo__content">
+          <p>Contenido principal</p>
+          <p class="example-hint">Item activo: <strong>{{ activeValue() }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 07 Menú móvil abierto ─────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Menú móvil abierto</span>
+    </div>
+    <p class="demo-section__desc">
+      Simulado dentro de un marco de 360px. Pulsa el botón hamburguesa para
+      alternar el menú; se cierra con <code>Escape</code> devolviendo el foco
+      al botón.
+    </p>
+    <div class="demo-section__body">
+      <div class="mobile-frame">
+        <dcx-ng-navbar
+          [brand]="brand"
+          [items]="navItems"
+          activeValue="home"
+          ariaLabel="Navegación móvil de ejemplo"
+        />
+      </div>
+    </div>
+  </div>
+
+</div>

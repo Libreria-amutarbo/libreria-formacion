@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { DcxNgPaginatorComponent } from './dcx-ng-paginator.component';
 
 describe('DcxNgPaginatorComponent', () => {
@@ -343,5 +344,144 @@ describe('DcxNgPaginatorComponent', () => {
       .filter(page => typeof page === 'number').length;
 
     expect(leftNumericCount).toBe(rightNumericCount);
+  });
+
+  it('getPageAriaCurrent should return "page" only for current page', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
+    fixture.detectChanges();
+    expect(component.getPageAriaCurrent(2)).toBe('page');
+    expect(component.getPageAriaCurrent(1)).toBeNull();
+  });
+
+  it('getPageAriaLabel should describe current vs other pages', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 50,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
+    fixture.detectChanges();
+    expect(component.getPageAriaLabel(2)).toContain('página actual');
+    expect(component.getPageAriaLabel(3)).toContain('Ir a la página 3');
+  });
+
+  it('onItemsPerPageChange should recompute totalPages and clamp current page', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 100,
+      itemsPerPage: 10,
+      currentPage: 9,
+    });
+    fixture.detectChanges();
+    const spy = jest.spyOn(component.pageChange, 'emit');
+
+    component.onItemsPerPageChange('20');
+
+    expect(component.selectedItemsPerPage()).toBe(20);
+    expect(component.totalPages()).toBe(5);
+    expect(component.currentPage()).toBe(5);
+    expect(spy).toHaveBeenCalledWith(5);
+  });
+
+  it('onItemsPerPageChange should ignore invalid values', () => {
+    fixture.componentRef.setInput('paginator', {
+      totalItems: 100,
+      itemsPerPage: 10,
+      currentPage: 2,
+    });
+    fixture.detectChanges();
+    component.onItemsPerPageChange('0');
+    expect(component.selectedItemsPerPage()).toBe(10);
+  });
+
+  describe('WCAG AA', () => {
+    it('should wrap the pages in a <nav> landmark with an aria-label', () => {
+      const nav = fixture.debugElement.query(By.css('nav.dcx-paginator__pages'));
+      expect(nav).toBeTruthy();
+      expect(nav.nativeElement.getAttribute('aria-label')).toBe(
+        'Paginación de resultados',
+      );
+    });
+
+    it('should give the icon navigation buttons an accessible label', () => {
+      fixture.componentRef.setInput('paginator', {
+        totalItems: 50,
+        itemsPerPage: 10,
+        currentPage: 2,
+      });
+      fixture.componentRef.setInput('limitedButtons', true);
+      fixture.detectChanges();
+
+      const labels = fixture.debugElement
+        .queryAll(By.css('nav.dcx-paginator__pages button'))
+        .map(btn => btn.nativeElement.getAttribute('aria-label'));
+
+      expect(labels).toContain('Primera página');
+      expect(labels).toContain('Página anterior');
+      expect(labels).toContain('Página siguiente');
+      expect(labels).toContain('Última página');
+      expect(labels).not.toContain('Button');
+    });
+
+    it('should mark the current page button with aria-current="page"', () => {
+      fixture.componentRef.setInput('paginator', {
+        totalItems: 50,
+        itemsPerPage: 10,
+        currentPage: 2,
+      });
+      fixture.detectChanges();
+
+      const current = fixture.debugElement.query(
+        By.css('nav.dcx-paginator__pages button[aria-current="page"]'),
+      );
+      expect(current).toBeTruthy();
+      expect(current.nativeElement.textContent).toContain('2');
+    });
+
+    it('should render only one aria-current button at a time', () => {
+      fixture.componentRef.setInput('paginator', {
+        totalItems: 50,
+        itemsPerPage: 10,
+        currentPage: 3,
+      });
+      fixture.detectChanges();
+
+      const current = fixture.debugElement.queryAll(
+        By.css('button[aria-current="page"]'),
+      );
+      expect(current.length).toBe(1);
+    });
+
+    it('should disable the previous buttons natively on the first page', () => {
+      fixture.componentRef.setInput('paginator', {
+        totalItems: 50,
+        itemsPerPage: 10,
+        currentPage: 1,
+      });
+      fixture.componentRef.setInput('limitedButtons', true);
+      fixture.detectChanges();
+
+      const prev = fixture.debugElement.query(
+        By.css('button[aria-label="Página anterior"]'),
+      ).nativeElement as HTMLButtonElement;
+      const first = fixture.debugElement.query(
+        By.css('button[aria-label="Primera página"]'),
+      ).nativeElement as HTMLButtonElement;
+
+      expect(prev.disabled).toBe(true);
+      expect(first.disabled).toBe(true);
+    });
+
+    it('should expose an accessible label on the items-per-page select', () => {
+      fixture.componentRef.setInput('showItemsPerPageInfo', true);
+      fixture.detectChanges();
+
+      const select = fixture.debugElement.query(
+        By.css('.dcx-paginator__size-select'),
+      ).nativeElement as HTMLSelectElement;
+      expect(select.getAttribute('aria-label')).toBe('Items por página');
+    });
   });
 });
