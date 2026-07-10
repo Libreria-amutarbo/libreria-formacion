@@ -286,5 +286,33 @@ describe('DcxNgListComponent', () => {
       fixture.detectChanges();
       expect(items()[0].getAttribute('aria-selected')).toBeNull();
     });
+
+    it('should not set aria-multiselectable by default', () => {
+      fixture.componentRef.setInput('items', SIMPLE_LIST_ITEMS);
+      fixture.detectChanges();
+      expect(container().hasAttribute('aria-multiselectable')).toBe(false);
+    });
+
+    it('should reflect multiselectable as aria-multiselectable on the container', () => {
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
+      fixture.componentRef.setInput('listRole', 'listbox');
+      fixture.componentRef.setInput('multiselectable', true);
+      fixture.detectChanges();
+      expect(container().getAttribute('aria-multiselectable')).toBe('true');
+    });
+
+    it('should expose aria-selected via isItemSelected predicate in external mode', () => {
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
+      fixture.componentRef.setInput('selectable', true);
+      fixture.componentRef.setInput('externalSelection', true);
+      fixture.componentRef.setInput(
+        'isItemSelected',
+        (_item: unknown, index: number) => index === 1,
+      );
+      fixture.detectChanges();
+
+      expect(items()[0].getAttribute('aria-selected')).toBe('false');
+      expect(items()[1].getAttribute('aria-selected')).toBe('true');
+    });
   });
 });

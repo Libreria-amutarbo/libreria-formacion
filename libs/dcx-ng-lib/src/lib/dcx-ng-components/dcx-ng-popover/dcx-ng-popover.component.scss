@@ -2,16 +2,49 @@
   position: absolute;
   z-index: 1000;
   background: var(--bg-default, #ffffff);
-  border: 1px solid var(--border-light, #d1d5db);
-  border-radius: var(--r-md, 6px);
+  border: 1px solid var(--border-light, #e5e7eb);
+  border-radius: var(--r-lg, 8px);
   box-shadow: var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12));
-  min-width: 150px;
+  min-width: 160px;
   max-width: 350px;
+
+  // El panel recibe foco programático (tabindex="-1") al abrir; no debe
+  // mostrar anillo de foco. Los hijos interactivos conservan su :focus-visible.
+  &:focus {
+    outline: none;
+  }
+
+  // ── Caret (rombo rotado): la mitad inferior queda oculta tras el panel ──
+  &__arrow {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--bg-default, #ffffff);
+    border: 1px solid var(--border-light, #e5e7eb);
+    // Solo los dos lados que forman la punta llevan borde; el resto se oculta.
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    transform: translateX(-50%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  // Placement por defecto: panel debajo del disparador, caret arriba (apunta ↑).
+  &:not(.dcx-popover--flipped) &__arrow {
+    top: -6px;
+  }
+
+  // Placement volteado: panel encima del disparador, caret abajo (apunta ↓).
+  &.dcx-popover--flipped &__arrow {
+    bottom: -6px;
+    border-color: var(--border-light, #e5e7eb);
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
 
   &__content {
     display: block;
     width: 100%;
-    padding: var(--sp-4, 16px);
+    padding: var(--sp-3, 12px) 14px;
     color: var(--text-dark, #2a2e33);
     font-family: var(--ff-base, 'Inter', sans-serif);
     font-size: var(--fs-base, 14px);

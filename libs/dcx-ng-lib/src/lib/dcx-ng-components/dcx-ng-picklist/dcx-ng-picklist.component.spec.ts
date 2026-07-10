@@ -255,4 +255,46 @@ describe('DcxNgPickListComponent', () => {
 
     expect(document.activeElement).toBe(options[1]);
   });
+
+  describe('WCAG AA', () => {
+    it('declares both listboxes as multiselectable', () => {
+      const listboxes = host().querySelectorAll<HTMLElement>('[role="listbox"]');
+      expect(listboxes.length).toBe(2);
+      listboxes.forEach(listbox =>
+        expect(listbox.getAttribute('aria-multiselectable')).toBe('true'),
+      );
+    });
+
+    it('exposes aria-selected on the option element (role="option")', () => {
+      component.toggleItem(component.sourceItems()[0], 'source');
+      fixture.detectChanges();
+
+      const options = host().querySelectorAll<HTMLElement>(
+        '[role="listbox"]:first-of-type [role="option"]',
+      );
+      expect(options[0].getAttribute('aria-selected')).toBe('true');
+      expect(options[1].getAttribute('aria-selected')).toBe('false');
+    });
+
+    it('shows an empty-state message when a list has no items', () => {
+      fixture.componentRef.setInput('source', []);
+      fixture.detectChanges();
+
+      const empty = host().querySelector('.dcx-picklist__empty');
+      expect(empty).toBeTruthy();
+      expect(empty?.textContent).toContain('No hay elementos disponibles');
+    });
+
+    it('shows a no-results message when a filter matches nothing', () => {
+      fixture.componentRef.setInput('filterBy', 'label');
+      fixture.componentRef.setInput('showSourceFilter', true);
+      fixture.detectChanges();
+
+      component.onFilterChange('source', 'zzz-no-match');
+      fixture.detectChanges();
+
+      const empty = host().querySelector('.dcx-picklist__empty');
+      expect(empty?.textContent).toContain('Sin resultados');
+    });
+  });
 });

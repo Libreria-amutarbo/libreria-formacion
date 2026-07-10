@@ -199,5 +199,17 @@ describe('DcxNgButtonComponent', () => {
       const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
       expect(btn.getAttribute('aria-current')).toBe('page');
     });
+
+    it('should not set aria-haspopup by default', () => {
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.hasAttribute('aria-haspopup')).toBe(false);
+    });
+
+    it('should reflect ariaHaspopup on the inner button', () => {
+      fixture.componentRef.setInput('ariaHaspopup', 'dialog');
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+      expect(btn.getAttribute('aria-haspopup')).toBe('dialog');
+    });
   });
 });
