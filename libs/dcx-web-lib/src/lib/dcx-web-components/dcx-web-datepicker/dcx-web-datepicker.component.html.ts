@@ -168,18 +168,18 @@ export const template = (context: DcxWebDatePicker) => {
                                         aria-disabled="${day.isDisabled ? 'true' : nothing}"
                                         aria-current="${day.isToday ? 'date' : nothing}"
                                       >
-                                        <button
-                                          type="button"
+                                        <dcx-web-button
                                           class="${classMap(dayClasses)}"
+                                          variant="terciary"
+                                          size="s"
+                                          .label="${day.date.getDate().toString()}"
                                           ?disabled="${day.isDisabled}"
                                           tabindex="${context.isFocusedDay(day) ? 0 : -1}"
                                           aria-label="${day.date.getDate()} ${context.monthName} ${context.yearNumber}"
-                                          @click="${() => context.selectDate(day)}"
+                                          @buttonClick="${() => context.selectDate(day)}"
                                           @keydown="${(e: KeyboardEvent) =>
                                             context.onGridKeydown(e, day)}"
-                                        >
-                                          ${day.date.getDate()}
-                                        </button>
+                                        ></dcx-web-button>
                                       </td>
                                     `;
                                   })}

@@ -143,7 +143,7 @@ export const styles = css`
   }
 
   .dcx-datepicker__grid-wrapper {
-    padding: var(--sp-2, 8px) var(--sp-4, 16px) var(--sp-3, 12px);
+    padding: var(--sp-2, 8px) var(--sp-2, 8px) var(--sp-3, 12px);
     box-sizing: border-box;
   }
 
@@ -163,23 +163,10 @@ export const styles = css`
   }
 
   .dcx-datepicker__day {
+    display: grid;
     width: 100%;
-    font-size: var(--fs-sm, 12px);
-    text-align: center;
-    padding: 6px 2px;
-    border-radius: var(--r-sm, 4px);
-    cursor: pointer;
-    color: var(--text-dark, #2a2e33);
-    background: transparent;
-    border: none;
-    font-family: inherit;
-    transition: background 0.1s;
-    line-height: 1;
+    height: 36px;
     box-sizing: border-box;
-  }
-
-  .dcx-datepicker__day:hover:not(:disabled):not(.dcx-datepicker__day--selected):not(.dcx-datepicker__day--in-range) {
-    background: var(--bg-hover, #f7f8fa);
   }
 
   .dcx-datepicker__day:focus-visible {
@@ -188,39 +175,30 @@ export const styles = css`
     border-radius: var(--r-sm, 4px);
   }
 
-  .dcx-datepicker__day:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-  }
-
   .dcx-datepicker__day--today {
-    font-weight: 600;
-    color: var(--bg-primary, #0058ab);
+    --text-dark: var(--bg-primary, #0058ab);
+    --fw-medium: var(--fw-bold, 700);
   }
 
   .dcx-datepicker__day--selected {
     background: var(--bg-primary, #0058ab);
-    color: var(--content-default-white, #ffffff);
-    border-radius: var(--r-pill, 999px);
-  }
-
-  .dcx-datepicker__day--selected:hover:not(:disabled) {
-    background: var(--bg-primary-hover, #004080);
+    --text-dark: var(--content-default-white, #ffffff);
+    --bg-hover: var(--bg-primary-hover, #004080);
+    border-radius: var(--r-sm, 4px);
   }
 
   .dcx-datepicker__day--in-range {
     background: var(--color-info-bg, #eff6ff);
-    color: var(--color-info, #0058ab);
+    --text-dark: var(--color-info, #0058ab);
+    --bg-hover: #dbeafe;
     border-radius: 6px;
   }
 
-  .dcx-datepicker__day--in-range:hover:not(:disabled) {
-    background: #dbeafe;
+  .dcx-datepicker__day--other-month {
+    --text-dark: var(--text-placeholder, #9ca3af);
   }
 
-  .dcx-datepicker__day--other-month {
-    color: var(--text-placeholder, #9ca3af);
-  }
+
 
   .dcx-datepicker__footer {
     display: flex;
