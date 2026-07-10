@@ -20,7 +20,7 @@ describe('DcxWebPageDialog', () => {
 
   it('should render three dialog components', () => {
     const dialogs = element.shadowRoot?.querySelectorAll('dcx-web-dialog');
-    expect(dialogs?.length).toBe(3);
+    expect(dialogs?.length).toBe(8);
   });
 
   it('should hide dialog on close event', async () => {

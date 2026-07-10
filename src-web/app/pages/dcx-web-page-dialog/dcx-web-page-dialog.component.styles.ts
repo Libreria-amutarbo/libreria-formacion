@@ -18,7 +18,7 @@ export const dcxWebPageDialogStyles = css`
     }
     .demo-page-header__kicker {
     font-size: var(--fs-xs, 11px);
-    font-weight: 600;
+    font-weight: var(--fw-semibold, 600);
     letter-spacing: .12em;
     text-transform: uppercase;
     color: var(--text-muted, #696e75);
@@ -26,7 +26,7 @@ export const dcxWebPageDialogStyles = css`
     }
     .demo-page-header__title {
     font-size: var(--fs-2xl, 24px);
-    font-weight: 700;
+    font-weight: var(--fw-bold, 700);
     color: var(--text-dark, #2a2e33);
     margin: 0 0 var(--sp-4, 16px) 0;
     }
@@ -58,8 +58,8 @@ export const dcxWebPageDialogStyles = css`
     border-bottom: 1px solid var(--border-default, #e5e7eb);
     }
     .demo-section__num {
-    font-size: 10px;
-    font-weight: 700;
+    font-size: var(--fs-xs, 11px);
+    font-weight: var(--fw-bold, 700);
     color: var(--text-muted, #696e75);
     background: #edf0f3;
     border-radius: var(--r-sm, 4px);

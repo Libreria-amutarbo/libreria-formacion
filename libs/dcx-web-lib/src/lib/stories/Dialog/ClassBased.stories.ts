@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/web-components';
-
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { fn } from '@storybook/test';
 
 import '../../../index';

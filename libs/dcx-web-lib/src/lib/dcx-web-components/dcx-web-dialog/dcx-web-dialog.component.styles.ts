@@ -21,7 +21,7 @@ export const dcxWebDialogStyles = css`
 
   .dcx-dialog {
     font-family: var(--ff-base, 'Inter', sans-serif);
-    line-height: var(--line-height, 1.5);
+    line-height: 1.5;
     position: absolute;
     background: var(--bg-default, #ffffff);
     border-radius: var(--r-lg, 8px);
@@ -32,7 +32,7 @@ export const dcxWebDialogStyles = css`
     transition: opacity 200ms ease;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 var(--sp-5, 20px) var(--sp-16, 64px) rgba(0, 0, 0, 0.2);
     overflow: hidden;
   }
 
