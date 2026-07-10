@@ -1,14 +1,29 @@
 <div class="dcx-progressbar" [class.dcx-progressbar--segmented]="isSegmentedVariant()" [class.dcx-progressbar--stepper]="isStepperVariant()">
   @if (isDefaultVariant() || isSegmentedVariant()) {
+    @if (showLabel()) {
+      <div class="dcx-progressbar__header" [id]="labelId">
+        <span>{{ label() }}</span>
+        <span>{{ progressPercentage() }}%</span>
+      </div>
+    }
     <div class="dcx-progressbar__container">
-      <div class="dcx-progressbar__track">
-        <div 
+      <div
+        class="dcx-progressbar__track"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [attr.aria-valuenow]="progressPercentage()"
+        [attr.aria-valuetext]="progressPercentage() + '%'"
+        [attr.aria-labelledby]="showLabel() ? labelId : null"
+        [attr.aria-label]="showLabel() ? null : (ariaLabel() || 'Progreso')"
+      >
+        <div
           class="dcx-progressbar__fill"
           [style.--progress-width]="progressPercentage() + '%'"
           [attr.data-value]="progressPercentage()">
         </div>
         @if (isSegmentedVariant()) {
-          <div class="dcx-progressbar__segments">
+          <div class="dcx-progressbar__segments" aria-hidden="true">
             @for (segment of segmentArray(); track $index) {
               <div class="dcx-progressbar__segment"></div>
             }
@@ -16,35 +31,41 @@
         }
       </div>
       @if (showTooltip()) {
-        <div class="dcx-progressbar__tooltip" [style.--tooltip-position]="progressPercentage() + '%'">
+        <div class="dcx-progressbar__tooltip" aria-hidden="true" [style.--tooltip-position]="progressPercentage() + '%'">
           {{ progressPercentage() }}%
         </div>
-      }
-      @if (showLabel()) {
-        <span class="dcx-progressbar__label">{{ progressPercentage() }}%</span>
       }
     </div>
   }
 
   @if (isStepperVariant()) {
-    <div class="dcx-progressbar__stepper">
-      <div class="dcx-progressbar__stepper-track">
-        <div 
+    <div
+      class="dcx-progressbar__stepper"
+      role="progressbar"
+      aria-valuemin="1"
+      [attr.aria-valuemax]="steps().length"
+      [attr.aria-valuenow]="currentStep()"
+      [attr.aria-valuetext]="stepValueText()"
+      [attr.aria-label]="ariaLabel() || 'Progreso'"
+    >
+      <div class="dcx-progressbar__stepper-track" aria-hidden="true">
+        <div
           class="dcx-progressbar__stepper-progress"
           [style.--stepper-progress]="stepProgress() + '%'">
         </div>
       </div>
       <div class="dcx-progressbar__steps">
         @for (step of steps(); track $index) {
-          <div 
+          <div
             class="dcx-progressbar__step"
             [class.dcx-progressbar__step--completed]="isStepCompleted($index)"
-            [class.dcx-progressbar__step--active]="isStepActive($index)">
-            <div class="dcx-progressbar__step-circle">
+            [class.dcx-progressbar__step--active]="isStepActive($index)"
+            [attr.aria-current]="isStepActive($index) ? 'step' : null">
+            <div class="dcx-progressbar__step-circle" aria-hidden="true">
               @if (showCheckmarks() && isStepCompleted($index)) {
-                <dcx-ng-icon 
-                  class="dcx-progressbar__checkmark" 
-                  name="check" 
+                <dcx-ng-icon
+                  class="dcx-progressbar__checkmark"
+                  name="check"
                   size="m"
                   spacing="none"
                 />

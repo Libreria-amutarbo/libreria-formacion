@@ -16,59 +16,59 @@ const meta: Meta<DcxNgScrollTopDownComponent> = {
       control: 'object',
       description:
         'Contenedor HTML opcional para aplicar el scroll. Si no se provee, usa la ventana.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     smooth: {
       control: 'boolean',
       description: 'Activa o desactiva el comportamiento de scroll suave.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     size: {
       control: 'select',
-      options: ['s', 'm', 'l'],
+      options: ['s', 'm', 'l', 'xl'],
       description: 'Controla el tamaño visual del componente.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     iconSize: {
       control: 'select',
-      options: ['s', 'm', 'l'],
+      options: ['s', 'm', 'l', 'xl'],
       description: 'Tamaño de los iconos internos.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     showTop: {
       control: 'boolean',
       description: 'Muestra u oculta el botón para subir.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     showBottom: {
       control: 'boolean',
       description: 'Muestra u oculta el botón para bajar.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     topLabel: {
       control: 'text',
       description: 'Etiqueta accesible para el botón de subir.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     bottomLabel: {
       control: 'text',
       description: 'Etiqueta accesible para el botón de bajar.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     topIcon: {
       control: 'text',
       description: 'Nombre del icono para subir.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     bottomIcon: {
       control: 'text',
       description: 'Nombre del icono para bajar.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     groupLabel: {
       control: 'text',
       description: 'Etiqueta accesible para el grupo de controles.',
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
   },
   args: {
@@ -77,10 +77,11 @@ const meta: Meta<DcxNgScrollTopDownComponent> = {
     iconSize: 's',
     showTop: true,
     showBottom: true,
-    topLabel: 'Scroll to top',
-    bottomLabel: 'Scroll to bottom',
-    topIcon: 'arrow-up',
-    bottomIcon: 'arrow-down',
+    topLabel: 'Ir arriba',
+    bottomLabel: 'Ir abajo',
+    topIcon: 'chevron-up',
+    bottomIcon: 'chevron-down',
+    groupLabel: 'Controles de desplazamiento',
   },
 };
 
@@ -172,31 +173,57 @@ export const ScrollableContainer: Story = {
   }),
 };
 
+const windowTemplate = `
+  <div style="min-height: 1200px; padding: 2rem; background: #fff;">
+    <div style="max-width: 720px; margin: 0 auto; padding-right: 6rem;">
+      <h2 style="margin-top: 0;">Scroll demo</h2>
+      <br>
+      ${longContent.repeat(16)}
+    </div>
+    <dcx-ng-scroll-top-down
+      [smooth]="smooth"
+      [size]="size"
+      [iconSize]="iconSize"
+      [showTop]="showTop"
+      [showBottom]="showBottom"
+      [topLabel]="topLabel"
+      [bottomLabel]="bottomLabel"
+      [topIcon]="topIcon"
+      [bottomIcon]="bottomIcon"
+      [groupLabel]="groupLabel"
+    />
+  </div>
+`;
+
 export const TopOnly: Story = {
   name: 'Top only',
   args: {
     showBottom: false,
-    bottomLabel: 'Hidden',
   },
-  render: args => ({
-    props: args,
-    template: `
-      <div style="min-height: 800px; padding: 2rem; background: #fff;">
-        <p>Solo se muestra el botón para volver arriba.</p>
-        <br>
-        ${longContent.repeat(14)}
-        <dcx-ng-scroll-top-down
-          [smooth]="smooth"
-          [size]="size"
-          [iconSize]="iconSize"
-          [showTop]="showTop"
-          [showBottom]="showBottom"
-          [topLabel]="topLabel"
-          [bottomLabel]="bottomLabel"
-          [topIcon]="topIcon"
-          [bottomIcon]="bottomIcon"
-        />
-      </div>
-    `,
-  }),
+  render: args => ({ props: args, template: windowTemplate }),
+};
+
+export const BottomOnly: Story = {
+  name: 'Bottom only',
+  args: {
+    showTop: false,
+  },
+  render: args => ({ props: args, template: windowTemplate }),
+};
+
+export const ExtraLarge: Story = {
+  name: 'Extra large (XL)',
+  args: {
+    size: 'xl',
+    iconSize: 'm',
+  },
+  render: args => ({ props: args, template: windowTemplate }),
+};
+
+export const NoSmooth: Story = {
+  name: 'Sin scroll suave',
+  args: {
+    smooth: false,
+  },
+  render: args => ({ props: args, template: windowTemplate }),
 };
