@@ -29,6 +29,6 @@ describe('DcxWebPageDialog', () => {
     dialog.dispatchEvent(new CustomEvent('closeDialog'));
     await element.updateComplete;
 
-    expect(element['showDestructive']).toBe(false);
+    expect(element['openDialogs']['basic']).toBe(false);
   });
 });

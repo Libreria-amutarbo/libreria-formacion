@@ -43,47 +43,47 @@ export const dcxWebDialogStyles = css`
   }
 
   .dcx-dialog--pos-top {
-    top: 16px;
+    top: var(--sp-4, 16px);
     left: 50%;
     transform: translate(-50%, 0);
   }
 
   .dcx-dialog--pos-bottom {
-    bottom: 16px;
+    bottom: var(--sp-4, 16px);
     left: 50%;
     transform: translate(-50%, 0);
   }
 
   .dcx-dialog--pos-left {
-    left: 16px;
+    left: var(--sp-4, 16px);
     top: 50%;
     transform: translate(0, -50%);
   }
 
   .dcx-dialog--pos-right {
-    right: 16px;
+    right: var(--sp-4, 16px);
     top: 50%;
     transform: translate(0, -50%);
   }
 
   .dcx-dialog--pos-top-left {
-    top: 16px;
-    left: 16px;
+    top: var(--sp-4, 16px);
+    left: var(--sp-4, 16px);
   }
 
   .dcx-dialog--pos-top-right {
-    top: 16px;
-    right: 16px;
+    top: var(--sp-4, 16px);
+    right: var(--sp-4, 16px);
   }
 
   .dcx-dialog--pos-bottom-left {
-    bottom: 16px;
-    left: 16px;
+    bottom: var(--sp-4, 16px);
+    left: var(--sp-4, 16px);
   }
 
   .dcx-dialog--pos-bottom-right {
-    bottom: 16px;
-    right: 16px;
+    bottom: var(--sp-4, 16px);
+    right: var(--sp-4, 16px);
   }
 
   .dcx-dialog__header {
@@ -96,7 +96,7 @@ export const dcxWebDialogStyles = css`
   }
 
   .dcx-dialog__title {
-    font-size: 16px;
+    font-size: var(--fs-md, 16px);
     font-weight: var(--fw-semibold, 600);
     color: var(--text-dark, #2a2e33);
     margin: 0;
@@ -127,7 +127,7 @@ export const dcxWebDialogStyles = css`
     background: var(--bg-surface, #f4f5f7);
     display: flex;
     justify-content: flex-end;
-    gap: var(--sp-2, 8px);
+    gap: var(--sp-4, 16px);
     flex-shrink: 0;
   }
 `;

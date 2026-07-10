@@ -4,38 +4,38 @@ export const dcxWebPageDialogStyles = css`
 
     :host {
     display: block;
-    padding: 2rem;
+    padding: var(--sp-8, 32px);
     font-family: var(--ff-base, 'Inter', sans-serif);
     color: var(--text-dark, #2a2e33);
     }
     .demo-page {
     width: 100%;
     max-width: 860px;
-    padding-bottom: 3rem;
+    padding-bottom: var(--sp-12, 48px);
     }
     .demo-page-header {
-    margin-bottom: 2rem;
+    margin-bottom: var(--sp-8, 32px);
     }
     .demo-page-header__kicker {
-    font-size: 11px;
+    font-size: var(--fs-xs, 11px);
     font-weight: 600;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: #696e75;
-    margin-bottom: .3rem;
+    color: var(--text-muted, #696e75);
+    margin-bottom: var(--sp-2, 8px);
     }
     .demo-page-header__title {
-    font-size: 28px;
+    font-size: var(--fs-2xl, 24px);
     font-weight: 700;
-    color: #2a2e33;
-    margin: 0 0 .6rem 0;
+    color: var(--text-dark, #2a2e33);
+    margin: 0 0 var(--sp-4, 16px) 0;
     }
     .demo-page-header__desc {
-    font-size: 14px;
+    font-size: var(--fs-base, 14px);
     line-height: 1.65;
-    color: #696e75;
+    color: var(--text-muted, #696e75);
     max-width: 560px;
-    margin: 0 0 1.25rem;
+    margin: 0 0 var(--sp-6, 24px);
     }
     .demo-page-header__divider {
     border: none;
@@ -43,42 +43,42 @@ export const dcxWebPageDialogStyles = css`
     margin: 0;
     }
     .demo-section {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    margin-bottom: 1.25rem;
+    background: var(--bg-default, #ffffff);
+    border: 1px solid var(--border-default, #e5e7eb);
+    border-radius: var(--r-lg, 8px);
+    margin-bottom: var(--sp-6, 24px);
     overflow: hidden;
     }
     .demo-section__header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
-    background: #f4f5f7;
-    border-bottom: 1px solid #e5e7eb;
+    gap: var(--sp-2, 8px);
+    padding: var(--sp-3, 12px) var(--sp-4, 16px);
+    background: var(--bg-surface, #f4f5f7);
+    border-bottom: 1px solid var(--border-default, #e5e7eb);
     }
     .demo-section__num {
     font-size: 10px;
     font-weight: 700;
-    color: #696e75;
+    color: var(--text-muted, #696e75);
     background: #edf0f3;
-    border-radius: 4px;
-    padding: 2px 8px;
+    border-radius: var(--r-sm, 4px);
+    padding: var(--sp-1, 4px) var(--sp-3, 12px);
     }
     .demo-section__title {
-    font-size: 13px;
-    font-weight: 600;
-    color: #2a2e33;
+    font-size: var(--fs-sm, 12px);
+    font-weight: var(--fw-semibold, 600);
+    color: var(--text-dark, #2a2e33);
     }
     .demo-section__desc {
-    padding: 10px 16px 0;
-    font-size: 12px;
+    padding:  var(--sp-3, 12px) var(--sp-4, 16px);
+    font-size: var(--fs-sm, 12px);
     line-height: 1.55;
-    color: #696e75;
+    color: var(--text-muted, #696e75);
     margin: 0;
     }
     .demo-section__body {
-    padding: 20px 16px;
+    padding: var(--sp-3, 12px) var(--sp-4, 16px);
     }
 
     #positioned-dialogs {
@@ -91,7 +91,7 @@ export const dcxWebPageDialogStyles = css`
     font-family: var(--ff-base, 'Inter', sans-serif);
     width: 50px;
     height: 50px;
-    font-size: 2em;
+    font-size: var(--fs-2xl, 24px);
     border-radius: var(--r-lg, 8px);
     background-color: var(--bg-primary, #0058ab);
     color: var(--text-white, #ffffff);
@@ -102,8 +102,8 @@ export const dcxWebPageDialogStyles = css`
     background-color: var(--bg-primary-hover, #004080);
     }
     .dialog-icon {
-    width: 44px;
-    height: 44px;
+    width: var(--sp-12, 48px);
+    height: var(--sp-12, 44px);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -126,13 +126,13 @@ export const dcxWebPageDialogStyles = css`
     margin-bottom: 0;
     }
     .dcx-label {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: var(--fs-sm, 12px);
+    font-weight: var(--fw-medium, 500);
     color: var(--text-dark, #2a2e33);
     }
     .dcx-input {
     font-family: var(--ff-base, 'Inter', sans-serif);
-    font-size: 14px;
+    font-size: var(--fs-base, 14px);
     padding: var(--sp-2, 8px) var(--sp-3, 12px);
     border: 1px solid var(--border-default, #2a2e33);
     border-radius: var(--r-sm, 4px);
@@ -150,9 +150,9 @@ export const dcxWebPageDialogStyles = css`
     }
     .dcx-select {
     font-family: var(--ff-base, 'Inter', sans-serif);
-    font-size: 14px;
+    font-size: var(--fs-base, 14px);
     padding: var(--sp-2, 8px) var(--sp-3, 12px);
-    padding-right: 2rem;
+    padding-right: var(--sp-8, 32px);
     border: 1px solid var(--border-default, #2a2e33);
     border-radius: var(--r-sm, 4px);
     color: var(--text-dark, #2a2e33);

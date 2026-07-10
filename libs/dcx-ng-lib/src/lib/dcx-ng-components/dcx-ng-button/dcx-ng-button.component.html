@@ -21,6 +21,7 @@
   [attr.aria-expanded]="ariaExpanded()"
   [attr.aria-controls]="ariaControls()"
   [attr.aria-current]="ariaCurrent()"
+  [attr.aria-haspopup]="ariaHaspopup()"
 >
   @if (icon() && (iconPosition() === 'left' || iconPosition() === 'top')) {
     <ng-container *ngTemplateOutlet="iconTpl" />

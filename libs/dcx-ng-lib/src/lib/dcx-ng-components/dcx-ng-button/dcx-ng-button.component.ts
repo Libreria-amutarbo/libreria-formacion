@@ -71,6 +71,7 @@ export class DcxNgButtonComponent {
   ariaExpanded = input<boolean | null>(null);
   ariaControls = input<string | null>(null);
   ariaCurrent = input<string | boolean | null>(null);
+  ariaHaspopup = input<string | boolean | null>(null);
 
   buttonClick = output<{ clicked: boolean }>();
 

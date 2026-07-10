@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import {
-  DcxNgDividerComponent,
   DcxNgPickListComponent,
   DcxPickListItem,
   PICKLIST_AVAILABLE_COURSES,
@@ -10,7 +9,7 @@ import {
 @Component({
   selector: 'dcx-ng-page-picklist',
   standalone: true,
-  imports: [DcxNgPickListComponent, DcxNgDividerComponent],
+  imports: [DcxNgPickListComponent],
   templateUrl: './dcx-ng-page-picklist.component.html',
   styleUrl: './dcx-ng-page-picklist.component.scss',
 })
@@ -29,6 +28,23 @@ export class DcxNgPagePickListComponent {
   readonly templateTarget = signal<DcxPickListItem[]>(
     PICKLIST_SELECTED_COURSES,
   );
+  readonly disabledSource = signal<DcxPickListItem[]>(
+    PICKLIST_AVAILABLE_COURSES.slice(0, 4),
+  );
+  readonly disabledTarget = signal<DcxPickListItem[]>(
+    PICKLIST_SELECTED_COURSES.slice(0, 1),
+  );
+  readonly itemDisabledSource = signal<DcxPickListItem[]>(
+    PICKLIST_AVAILABLE_COURSES.map((item, index) => ({
+      ...item,
+      disabled: index === 1,
+    })),
+  );
+  readonly itemDisabledTarget = signal<DcxPickListItem[]>(
+    PICKLIST_SELECTED_COURSES,
+  );
+  readonly controlsSource = signal<DcxPickListItem[]>(PICKLIST_AVAILABLE_COURSES);
+  readonly controlsTarget = signal<DcxPickListItem[]>(PICKLIST_SELECTED_COURSES);
 
   updateBasicSource(items: DcxPickListItem[]): void {
     this.basicSource.set(items);
@@ -52,5 +68,21 @@ export class DcxNgPagePickListComponent {
 
   updateTemplateTarget(items: DcxPickListItem[]): void {
     this.templateTarget.set(items);
+  }
+
+  updateItemDisabledSource(items: DcxPickListItem[]): void {
+    this.itemDisabledSource.set(items);
+  }
+
+  updateItemDisabledTarget(items: DcxPickListItem[]): void {
+    this.itemDisabledTarget.set(items);
+  }
+
+  updateControlsSource(items: DcxPickListItem[]): void {
+    this.controlsSource.set(items);
+  }
+
+  updateControlsTarget(items: DcxPickListItem[]): void {
+    this.controlsTarget.set(items);
   }
 }

@@ -67,25 +67,35 @@
       </div>
     }
 
-    <dcx-ng-list
-      [id]="sourceListId"
-      class="dcx-picklist__list"
-      [items]="visibleSourceItems()"
-      [style.max-height]="scrollHeight()"
-      [selectable]="true"
-      [externalSelection]="true"
-      listRole="listbox"
-      itemRole="option"
-      [itemTemplate]="sourceItemWrapper"
-      [cdkDropList]="true"
-      [cdkDropListData]="visibleSourceItems()"
-      [cdkDropListConnectedTo]="targetListId"
-      [cdkDropListDisabled]="disabled() || !dragdrop()"
-      [dragEnabled]="dragdrop()"
-      (cdkDropListDropped)="onDrop($event, 'source')"
-      (itemSelected)="toggleItem($event.item, 'source')"
-    >
-    </dcx-ng-list>
+    <div class="dcx-picklist__list-wrap">
+      <dcx-ng-list
+        [id]="sourceListId"
+        class="dcx-picklist__list"
+        [items]="visibleSourceItems()"
+        [style.max-height]="scrollHeight()"
+        [selectable]="true"
+        [externalSelection]="true"
+        [isItemSelected]="isSourceItemSelected"
+        listRole="listbox"
+        itemRole="option"
+        [multiselectable]="true"
+        [itemTemplate]="sourceItemWrapper"
+        [cdkDropList]="true"
+        [cdkDropListData]="visibleSourceItems()"
+        [cdkDropListConnectedTo]="targetListId"
+        [cdkDropListDisabled]="disabled() || !dragdrop()"
+        [dragEnabled]="dragdrop()"
+        (cdkDropListDropped)="onDrop($event, 'source')"
+        (itemSelected)="toggleItem($event.item, 'source')"
+      >
+      </dcx-ng-list>
+
+      @if (visibleSourceItems().length === 0) {
+        <p class="dcx-picklist__empty">
+          {{ sourceQuery() ? 'Sin resultados' : 'No hay elementos disponibles' }}
+        </p>
+      }
+    </div>
   </section>
 
   <div
@@ -154,25 +164,35 @@
       </div>
     }
 
-    <dcx-ng-list
-      [id]="targetListId"
-      class="dcx-picklist__list"
-      [items]="visibleTargetItems()"
-      [style.max-height]="scrollHeight()"
-      [selectable]="true"
-      [externalSelection]="true"
-      listRole="listbox"
-      itemRole="option"
-      [itemTemplate]="targetItemWrapper"
-      [cdkDropList]="true"
-      [cdkDropListData]="visibleTargetItems()"
-      [cdkDropListConnectedTo]="sourceListId"
-      [cdkDropListDisabled]="disabled() || !dragdrop()"
-      [dragEnabled]="dragdrop()"
-      (cdkDropListDropped)="onDrop($event, 'target')"
-      (itemSelected)="toggleItem($event.item, 'target')"
-    >
-    </dcx-ng-list>
+    <div class="dcx-picklist__list-wrap">
+      <dcx-ng-list
+        [id]="targetListId"
+        class="dcx-picklist__list"
+        [items]="visibleTargetItems()"
+        [style.max-height]="scrollHeight()"
+        [selectable]="true"
+        [externalSelection]="true"
+        [isItemSelected]="isTargetItemSelected"
+        listRole="listbox"
+        itemRole="option"
+        [multiselectable]="true"
+        [itemTemplate]="targetItemWrapper"
+        [cdkDropList]="true"
+        [cdkDropListData]="visibleTargetItems()"
+        [cdkDropListConnectedTo]="sourceListId"
+        [cdkDropListDisabled]="disabled() || !dragdrop()"
+        [dragEnabled]="dragdrop()"
+        (cdkDropListDropped)="onDrop($event, 'target')"
+        (itemSelected)="toggleItem($event.item, 'target')"
+      >
+      </dcx-ng-list>
+
+      @if (visibleTargetItems().length === 0) {
+        <p class="dcx-picklist__empty">
+          {{ targetQuery() ? 'Sin resultados' : 'No hay elementos seleccionados' }}
+        </p>
+      }
+    </div>
   </section>
 
   @if (showTargetControls()) {
@@ -239,8 +259,6 @@
 <ng-template #itemWrapper let-item let-index="index" let-side="side">
   <div
     [class]="getItemClasses(item, side)"
-    [attr.aria-selected]="isSelected(item, side)"
-    [attr.aria-disabled]="isItemDisabled(item)"
     [attr.tabindex]="isFocused(index, side) && !isItemDisabled(item) ? 0 : -1"
     (keydown)="onItemKeydown($event, item, side, index)"
   >

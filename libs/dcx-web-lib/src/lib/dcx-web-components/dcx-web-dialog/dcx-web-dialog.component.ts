@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { DialogPosition } from '../../core/interfaces/dialog';
@@ -83,7 +84,7 @@ export class DcxWebDialog extends LitElement {
           class="${this._dialogClasses}"
           role="dialog"
           aria-modal="true"
-          aria-labelledby="${this.title ? this._dialogTitleId : ''}"
+          aria-labelledby="${ifDefined(this.title ? this._dialogTitleId : undefined)}"
         >
           <div class="dcx-dialog__header">
             ${
