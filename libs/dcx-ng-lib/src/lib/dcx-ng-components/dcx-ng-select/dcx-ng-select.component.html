@@ -9,31 +9,37 @@
 
 <div class="dcx-ng-select__wrapper" [class.is-disabled]="disabled()">
   <div
-    [class]="selectContolClasses()"
+    #controlEl
+    [class]="selectControlClasses()"
     [class.is-disabled]="disabled()"
     [class.is-invalid]="isInvalid()"
     [class.is-open]="isOpen()"
-    tabindex="0"
+    [attr.tabindex]="disabled() ? -1 : 0"
     (click)="toggle()"
     (keydown.enter)="toggle()"
     (keydown.space)="toggle(); $event.preventDefault()"
     role="combobox"
     [attr.id]="selectId"
     [attr.aria-expanded]="isOpen()"
-    [attr.aria-labelledby]="labelId"
+    [attr.aria-labelledby]="label() ? labelId : null"
+    [attr.aria-label]="!label() ? ariaLabel() : null"
     aria-haspopup="listbox"
     [attr.aria-controls]="selectId + '-panel'"
+    [attr.aria-activedescendant]="
+      isOpen() && activeIndex() >= 0 ? selectId + '-opt-' + activeIndex() : null
+    "
+    [attr.aria-disabled]="disabled() ? true : null"
   >
     <span class="selected-value">
       {{ selectedLabel() }}
     </span>
 
     <div class="dcx-ng-select__buttons">
-      @if (clearable() && value()) {
+      @if (clearable() && value() !== null) {
         <dcx-ng-button
           class="dcx-ng-select__clear-btn"
           (click)="clearValue($event)"
-          aria-label="Borrar selección"
+          ariaLabel="Borrar selección"
           icon
           variant="icon-only"
           iconName="x"
@@ -41,67 +47,71 @@
         ></dcx-ng-button>
       }
 
-      <dcx-ng-button
+      <dcx-ng-icon
         class="dcx-ng-select__chevron"
-        icon
-        variant="icon-only"
-        iconName="chevron-down"
-        iconSize="l"
+        name="chevron-down"
         aria-hidden="true"
-        tabindex="-1"
-      ></dcx-ng-button>
+      ></dcx-ng-icon>
     </div>
   </div>
 
   @if (isInvalid() && errorMessage()) {
     <div class="dcx-ng-select__error">
-      <dcx-ng-icon [name]="errorIcon()"></dcx-ng-icon>
+      <dcx-ng-icon [name]="errorIcon()" aria-hidden="true"></dcx-ng-icon>
 
       <span>
         {{ errorMessage() }}
       </span>
     </div>
   }
-
-  @if (isOpen()) {
-    <div
-      class="dcx-ng-select__panel"
-      role="listbox"
-      [attr.id]="selectId + '-panel'"
-      [attr.aria-labelledby]="labelId"
-    >
-      @if (searchable()) {
-        <dcx-ng-input
-          #searchInput
-          placeholder="Buscar..."
-          [value]="search()"
-          [type]="inputType.TEXT"
-          (valueChange)="onSearchChange($event)"
-          ariaLabel="Buscar opciones"
-        >
-        </dcx-ng-input>
-      }
-
-      <div class="dcx-ng-select__options">
-        @for (opt of filtered(); track $index) {
-          <div
-            #optionEl
-            class="dcx-ng-select__option"
-            [class.is-disabled]="opt.disabled"
-            [class.is-selected]="opt.value === value()"
-            (click)="!opt.disabled && selectOption(opt)"
-            (keydown.enter)="!opt.disabled && selectOption(opt)"
-            (keydown.space)="onOptionSpace($event, opt)"
-            role="option"
-            [attr.aria-selected]="opt.value === value()"
-            [attr.id]="selectId + '-opt-' + $index"
-            [attr.tabindex]="opt.disabled ? null : '0'"
-            [attr.aria-disabled]="opt.disabled ? 'true' : null"
-          >
-            {{ opt.label }}
-          </div>
-        }
-      </div>
-    </div>
-  }
 </div>
+
+<!--
+  El panel se renderiza vía CDK Overlay (portal a document.body), no aquí
+  inline — así no depende de que ningún ancestro (diálogos, tarjetas,
+  celdas de tabla…) tenga overflow visible. Ver open()/close() en el TS.
+-->
+<ng-template #panelTemplate>
+  <div
+    class="dcx-ng-select__panel"
+    role="listbox"
+    [attr.id]="selectId + '-panel'"
+    [attr.aria-labelledby]="labelId"
+  >
+    @if (searchable()) {
+      <dcx-ng-input
+        #searchInput
+        placeholder="Buscar..."
+        [value]="search()"
+        [type]="inputType.TEXT"
+        (valueChange)="onSearchChange($event)"
+        ariaLabel="Buscar opciones"
+      >
+      </dcx-ng-input>
+    }
+
+    <div class="dcx-ng-select__options">
+      @for (opt of filtered(); track $index) {
+        <!--
+          No es focoable a propósito: el patrón WAI-ARIA combobox mantiene el
+          foco siempre en el control (o en el buscador) y navega las opciones
+          vía aria-activedescendant; el (click) es solo para ratón/touch.
+        -->
+        <!-- eslint-disable-next-line @angular-eslint/template/interactive-supports-focus -->
+        <div
+          class="dcx-ng-select__option"
+          [class.is-disabled]="opt.disabled"
+          [class.is-selected]="opt.value === value()"
+          [class.is-active]="$index === activeIndex()"
+          (click)="!opt.disabled && selectOption(opt)"
+          role="option"
+          [attr.aria-selected]="opt.value === value()"
+          [attr.id]="selectId + '-opt-' + $index"
+          [attr.aria-disabled]="opt.disabled ? 'true' : null"
+        >
+          {{ opt.label }}
+        </div>
+      }
+    </div>
+  </div>
+</ng-template>
