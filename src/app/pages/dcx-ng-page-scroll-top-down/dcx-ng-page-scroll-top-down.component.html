@@ -1,127 +1,122 @@
-<div class="scroll-top-down-page">
-  <header class="page-hero">
-    <p class="eyebrow">Components</p>
-    <h1>Scroll Top Down</h1>
-    <p class="lead">
-      Acción flotante para volver al inicio o al final del contenido, con tamaños
-      escalables y soporte para contenedores específicos.
+<div class="demo-page">
+
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Scroll Top Down</h1>
+    <p class="demo-page-header__desc">
+      Control flotante para desplazar la página o un contenedor al inicio y/o al
+      final. Botones circulares accesibles que aparecen solo cuando hay scroll
+      disponible y respetan <code>prefers-reduced-motion</code>.
     </p>
+    <hr class="demo-page-header__divider" />
   </header>
 
-  <section class="demo-section">
-    <div class="section-head">
-      <p class="section-kicker">Sizes</p>
-      <h2>Variantes visuales</h2>
+  <!-- ── 01 Default ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
     </div>
-
-    <div class="size-grid">
-      <article class="size-card">
-        <header>
-          <span class="badge">Size S</span>
-          <span class="badge badge--muted">Icon s</span>
-        </header>
-        <p>Versión compacta del control flotante.</p>
-        <div class="preview preview--s">
-          <div class="preview-copy">
-            <p>Área de demostración para el tamaño pequeño.</p>
-            <p>El contenedor es corto para mantener el foco visual.</p>
-          </div>
-          <dcx-ng-scroll-top-down size="s" [smooth]="false"></dcx-ng-scroll-top-down>
-        </div>
-      </article>
-
-      <article class="size-card">
-        <header>
-          <span class="badge">Size M</span>
-          <span class="badge badge--muted">Icon m</span>
-        </header>
-        <p>Tamaño estándar equilibrado para uso general.</p>
-        <div class="preview preview--m">
-          <div class="preview-copy">
-            <p>Demostración del tamaño mediano (por defecto).</p>
-            <p>Ideal para la mayoría de aplicaciones web.</p>
-          </div>
-          <dcx-ng-scroll-top-down size="m" iconSize="m"></dcx-ng-scroll-top-down>
-        </div>
-      </article>
-
-      <article class="size-card">
-        <header>
-          <span class="badge">Size L</span>
-          <span class="badge badge--muted">Icon m</span>
-        </header>
-        <p>Más prominente para pantallas con más densidad.</p>
-        <div class="preview preview--l">
-          <div class="preview-copy">
-            <p>Demostración del tamaño grande.</p>
-            <p>La tarjeta simula contenido largo y scrollable.</p>
-          </div>
-          <dcx-ng-scroll-top-down size="l" iconSize="m"></dcx-ng-scroll-top-down>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <dcx-ng-divider [thickness]="0.1" color="var(--border-light, #d1d5db)"></dcx-ng-divider>
-
-  <section class="demo-section">
-    <div class="section-head">
-      <p class="section-kicker">Container</p>
-      <h2>Scroll dentro de un panel</h2>
-    </div>
-
-    <div class="scroll-container">
-      <div class="scroll-viewport" #scrollContainer>
-        <div class="scroll-content">
-          @for (paragraph of longContent; track paragraph) {
-            <p>
-              Este panel sirve para validar el uso de <strong>container</strong> con
-              el componente. El scroll se aplica sobre este bloque y no sobre la
-              ventana.
-            </p>
+    <p class="demo-section__desc">
+      Desplázate dentro del panel: aparecen los botones de subir y bajar.
+    </p>
+    <div class="demo-section__body">
+      <div class="scroll-shell">
+        <div class="scroll-shell__viewport" #d1>
+          @for (p of longContent; track p) {
+            <p>Contenido de ejemplo {{ p }}. El scroll se aplica sobre este panel, no sobre la ventana.</p>
           }
         </div>
+        <dcx-ng-scroll-top-down class="scroll-shell__fab" style="position:absolute; right:12px; bottom:12px; z-index:2;" [container]="d1"></dcx-ng-scroll-top-down>
       </div>
-
-      <dcx-ng-scroll-top-down
-        [container]="scrollContainer"
-        [smooth]="true"
-        size="m"
-        iconSize="s"
-      ></dcx-ng-scroll-top-down>
     </div>
-  </section>
+  </div>
 
-  <dcx-ng-divider [thickness]="0.1" color="var(--border-light, #d1d5db)"></dcx-ng-divider>
-
-  <section class="demo-section">
-    <div class="section-head">
-      <p class="section-kicker">Variants</p>
-      <h2>Solo top / solo bottom</h2>
+  <!-- ── 02 Sizes ──────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Sizes</span>
     </div>
-
-    <div class="split-grid">
-      <div class="split-card">
-        <p class="badge">Top only</p>
-        <div class="split-card__body">
-          <p>Se muestra solo la acción para subir.</p>
-          <dcx-ng-scroll-top-down [showBottom]="false"></dcx-ng-scroll-top-down>
+    <p class="demo-section__desc">Tamaños S, M, L y XL (28 / 36 / 44 / 52 px).</p>
+    <div class="demo-section__body demo-section__body--row">
+      <div class="scroll-shell scroll-shell--sm">
+        <div class="scroll-shell__viewport" #s1>
+          @for (p of longContent; track p) { <p>S · {{ p }}</p> }
         </div>
+        <dcx-ng-scroll-top-down class="scroll-shell__fab" style="position:absolute; right:12px; bottom:12px; z-index:2;" [container]="s1" size="s" iconSize="s"></dcx-ng-scroll-top-down>
       </div>
-
-      <div class="split-card">
-        <p class="badge">Bottom only</p>
-        <div class="split-card__body">
-          <p>Se muestra solo la acción para bajar.</p>
-          <dcx-ng-scroll-top-down [showTop]="false"></dcx-ng-scroll-top-down>
+      <div class="scroll-shell scroll-shell--sm">
+        <div class="scroll-shell__viewport" #s2>
+          @for (p of longContent; track p) { <p>M · {{ p }}</p> }
         </div>
+        <dcx-ng-scroll-top-down class="scroll-shell__fab" style="position:absolute; right:12px; bottom:12px; z-index:2;" [container]="s2" size="m" iconSize="s"></dcx-ng-scroll-top-down>
+      </div>
+      <div class="scroll-shell scroll-shell--sm">
+        <div class="scroll-shell__viewport" #s3>
+          @for (p of longContent; track p) { <p>L · {{ p }}</p> }
+        </div>
+        <dcx-ng-scroll-top-down class="scroll-shell__fab" style="position:absolute; right:12px; bottom:12px; z-index:2;" [container]="s3" size="l" iconSize="m"></dcx-ng-scroll-top-down>
+      </div>
+      <div class="scroll-shell scroll-shell--sm">
+        <div class="scroll-shell__viewport" #s4>
+          @for (p of longContent; track p) { <p>XL · {{ p }}</p> }
+        </div>
+        <dcx-ng-scroll-top-down class="scroll-shell__fab" style="position:absolute; right:12px; bottom:12px; z-index:2;" [container]="s4" size="xl" iconSize="m"></dcx-ng-scroll-top-down>
       </div>
     </div>
-  </section>
+  </div>
 
-  <dcx-ng-scroll-top-down
-    size="m"
-    topLabel="Ir al inicio de la página"
-    bottomLabel="Ir al final de la página"
-  ></dcx-ng-scroll-top-down>
+  <!-- ── 03 Top only ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Top only</span>
+    </div>
+    <div class="demo-section__body">
+      <div class="scroll-shell">
+        <div class="scroll-shell__viewport" #d3>
+          @for (p of longContent; track p) { <p>Solo botón "ir arriba" · {{ p }}</p> }
+        </div>
+        <dcx-ng-scroll-top-down class="scroll-shell__fab" style="position:absolute; right:12px; bottom:12px; z-index:2;" [container]="d3" [showBottom]="false"></dcx-ng-scroll-top-down>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 04 Bottom only ────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Bottom only</span>
+    </div>
+    <div class="demo-section__body">
+      <div class="scroll-shell">
+        <div class="scroll-shell__viewport" #d4>
+          @for (p of longContent; track p) { <p>Solo botón "ir abajo" · {{ p }}</p> }
+        </div>
+        <dcx-ng-scroll-top-down class="scroll-shell__fab" style="position:absolute; right:12px; bottom:12px; z-index:2;" [container]="d4" [showTop]="false"></dcx-ng-scroll-top-down>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 05 No smooth ──────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Sin scroll suave</span>
+    </div>
+    <p class="demo-section__desc">
+      Con <code>[smooth]="false"</code> el desplazamiento es instantáneo.
+    </p>
+    <div class="demo-section__body">
+      <div class="scroll-shell">
+        <div class="scroll-shell__viewport" #d5>
+          @for (p of longContent; track p) { <p>Scroll instantáneo · {{ p }}</p> }
+        </div>
+        <dcx-ng-scroll-top-down class="scroll-shell__fab" style="position:absolute; right:12px; bottom:12px; z-index:2;" [container]="d5" [smooth]="false"></dcx-ng-scroll-top-down>
+      </div>
+    </div>
+  </div>
+
 </div>
