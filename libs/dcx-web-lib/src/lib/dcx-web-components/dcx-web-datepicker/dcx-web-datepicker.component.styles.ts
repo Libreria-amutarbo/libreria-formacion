@@ -80,7 +80,7 @@ export const styles = css`
     background: transparent;
     border: none;
     cursor: pointer;
-    color: var(--content-default-white, #ffffff);
+    color: var(--text-white, #ffffff);
     padding: var(--sp-1, 4px);
     border-radius: var(--r-sm, 4px);
     display: flex;
@@ -91,8 +91,8 @@ export const styles = css`
   .dcx-datepicker__nav dcx-web-icon,
   .dcx-datepicker__nav .dcx-icon,
   .dcx-datepicker__nav .dcx-icon i {
-    color: var(--content-default-white, #ffffff);
-    fill: var(--content-default-white, #ffffff);
+    color: var(--text-white, #ffffff);
+    fill: var(--text-white, #ffffff);
   }
 
   .dcx-datepicker__nav:hover {
@@ -110,12 +110,12 @@ export const styles = css`
     gap: 0.25rem;
     font-size: 14px;
     font-weight: 600;
-    color: var(--content-default-white, #ffffff);
+    color: var(--text-white, #ffffff);
   }
 
   .dcx-datepicker__month,
   .dcx-datepicker__year {
-    --text-dark: var(--content-default-white, #ffffff);
+    --text-dark: var(--text-white, #ffffff);
     --bg-hover: rgba(255, 255, 255, 0.2);
     --fs-sm: 14px;
     font-weight: 600;
@@ -182,7 +182,7 @@ export const styles = css`
 
   .dcx-datepicker__day--selected {
     background: var(--bg-primary, #0058ab);
-    --text-dark: var(--content-default-white, #ffffff);
+    --text-dark: var(--text-white, #ffffff);
     --bg-hover: var(--bg-primary-hover, #004080);
     border-radius: var(--r-sm, 4px);
   }
@@ -204,8 +204,8 @@ export const styles = css`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: var(--spacing-xs, 8px);
-    padding: var(--spacing-xs, 8px) var(--sp-3, 12px);
+    gap: var(--sp-2, 8px);
+    padding: var(--sp-2, 8px) var(--sp-3, 12px);
     border-top: 1px solid var(--border-default, #e5e7eb);
     flex-wrap: nowrap;
     max-width: 100%;
