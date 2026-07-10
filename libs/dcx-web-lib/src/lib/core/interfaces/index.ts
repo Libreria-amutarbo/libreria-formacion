@@ -2,6 +2,7 @@ export * from './generic';
 export * from './button';
 export * from './icon';
 export * from './badge';
+export * from './drawer';
 export * from './checkbox';
 export * from './chip';
 export * from './divider';
