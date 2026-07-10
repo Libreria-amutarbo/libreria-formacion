@@ -1,6 +1,6 @@
 # Spec: Progressbar Refinement
 
-**Status:** Draft
+**Status:** Done
 **Date:** 2026-07-09
 **Author:** Claude Code
 

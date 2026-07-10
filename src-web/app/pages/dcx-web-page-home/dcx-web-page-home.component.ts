@@ -14,6 +14,7 @@ const ROUTE_ICONS: Record<string, string> = {
   'context-menu': 'menu-button-wide',
   accordion: 'list',
   button: 'hand-index-thumb',
+  drawer: 'layout-sidebar-inset',
   chip: 'tag',
   icon: 'star',
 };
@@ -62,6 +63,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'button',
       name: 'Button',
       icon: ROUTE_ICONS['button'],
+    },
+    {
+      route: 'drawer',
+      name: 'Drawer',
+      icon: ROUTE_ICONS['drawer'],
     },
     {
       route: 'chip',

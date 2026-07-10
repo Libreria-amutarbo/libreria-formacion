@@ -6,6 +6,7 @@ import './pages/dcx-web-page-dialog/dcx-web-page-dialog.component';
 import './pages/dcx-web-page-breadcrumb/dcx-web-page-breadcrumb.component';
 import './pages/dcx-web-page-accordion/dcx-web-page-accordion.component';
 import './pages/dcx-web-page-button/dcx-web-page-button.component';
+import './pages/dcx-web-page-drawer/dcx-web-page-drawer.component';
 import './pages/dcx-web-page-chip/dcx-web-page-chip.component';
 import './pages/dcx-web-page-icon/dcx-web-page-icon.component';
 import './pages/dcx-web-page-home/dcx-web-page-home.component';
@@ -71,6 +72,9 @@ export class DcxWebRoot extends LitElement {
         break;
       case '#button':
         content = html`<dcx-web-page-button></dcx-web-page-button>`;
+        break;
+      case '#drawer':
+        content = html`<dcx-web-page-drawer></dcx-web-page-drawer>`;
         break;
       case '#chip':
         content = html`<dcx-web-page-chip></dcx-web-page-chip>`;

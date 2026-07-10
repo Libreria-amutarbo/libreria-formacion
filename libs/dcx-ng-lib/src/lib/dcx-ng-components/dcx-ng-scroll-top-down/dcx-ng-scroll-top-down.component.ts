@@ -6,14 +6,13 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import { DcxSize } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-scroll-top-down',
   standalone: true,
-  imports: [DcxNgButtonComponent, DcxNgIconComponent],
+  imports: [DcxNgIconComponent],
   templateUrl: './dcx-ng-scroll-top-down.component.html',
   styleUrl: './dcx-ng-scroll-top-down.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,11 +27,11 @@ export class DcxNgScrollTopDownComponent {
   readonly iconSize = input<DcxSize>('s');
   readonly showTop = input<boolean>(true);
   readonly showBottom = input<boolean>(true);
-  readonly topLabel = input<string>('Scroll to top');
-  readonly bottomLabel = input<string>('Scroll to bottom');
-  readonly topIcon = input<string>('arrow-up');
-  readonly bottomIcon = input<string>('arrow-down');
-  readonly groupLabel = input<string>('Scroll controls');
+  readonly topLabel = input<string>('Ir arriba');
+  readonly bottomLabel = input<string>('Ir abajo');
+  readonly topIcon = input<string>('chevron-up');
+  readonly bottomIcon = input<string>('chevron-down');
+  readonly groupLabel = input<string>('Controles de desplazamiento');
 
   private readonly _isAtTop = signal(true);
   private readonly _isAtBottom = signal(false);
@@ -86,9 +85,17 @@ export class DcxNgScrollTopDownComponent {
       .join(' ');
   });
 
-  readonly scrollBehavior = computed<ScrollBehavior>(() =>
-    this.smooth() ? 'smooth' : 'auto',
-  );
+  // No es un computed: prefers-reduced-motion no es una señal, se lee en el momento.
+  readonly scrollBehavior = (): ScrollBehavior =>
+    this.smooth() && !this.prefersReducedMotion() ? 'smooth' : 'auto';
+
+  private prefersReducedMotion(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
+  }
 
   scrollToTop = (): void => {
     const target = this.scrollTarget();
