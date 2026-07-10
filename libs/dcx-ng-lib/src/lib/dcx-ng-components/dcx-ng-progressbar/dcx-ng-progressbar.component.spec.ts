@@ -212,15 +212,111 @@ describe('DcxNgProgressbarComponent', () => {
       expect(tooltip.nativeElement.textContent.trim()).toBe('75%');
     });
 
-    it('should render label when showLabel is true', () => {
+    it('should render the design header when showLabel is true', () => {
       fixture.componentRef.setInput('variant', 'default');
       fixture.componentRef.setInput('value', 85);
+      fixture.componentRef.setInput('label', 'Progreso');
       fixture.componentRef.setInput('showLabel', true);
       fixture.detectChanges();
 
-      const label = compiled.query(By.css('.dcx-progressbar__label'));
-      expect(label).toBeTruthy();
-      expect(label.nativeElement.textContent.trim()).toBe('85%');
+      const header = compiled.query(By.css('.dcx-progressbar__header'));
+      expect(header).toBeTruthy();
+      const spans = header.nativeElement.querySelectorAll('span');
+      expect(spans[0].textContent.trim()).toBe('Progreso');
+      expect(spans[1].textContent.trim()).toBe('85%');
+    });
+  });
+
+  describe('WCAG AA', () => {
+    const track = () => compiled.query(By.css('.dcx-progressbar__track'));
+
+    it('exposes role="progressbar" with min/max/now on the track', () => {
+      fixture.componentRef.setInput('variant', 'default');
+      fixture.componentRef.setInput('value', 60);
+      fixture.detectChanges();
+
+      const el = track().nativeElement as HTMLElement;
+      expect(el.getAttribute('role')).toBe('progressbar');
+      expect(el.getAttribute('aria-valuemin')).toBe('0');
+      expect(el.getAttribute('aria-valuemax')).toBe('100');
+      expect(el.getAttribute('aria-valuenow')).toBe('60');
+      expect(el.getAttribute('aria-valuetext')).toBe('60%');
+    });
+
+    it('clamps aria-valuenow to the 0-100 range', () => {
+      fixture.componentRef.setInput('value', 150);
+      fixture.detectChanges();
+      expect(track().nativeElement.getAttribute('aria-valuenow')).toBe('100');
+    });
+
+    it('uses ariaLabel when there is no visible header', () => {
+      fixture.componentRef.setInput('ariaLabel', 'Descarga de archivo');
+      fixture.detectChanges();
+      expect(track().nativeElement.getAttribute('aria-label')).toBe(
+        'Descarga de archivo',
+      );
+      expect(track().nativeElement.hasAttribute('aria-labelledby')).toBe(false);
+    });
+
+    it('associates the track with the header via aria-labelledby when showLabel', () => {
+      fixture.componentRef.setInput('showLabel', true);
+      fixture.componentRef.setInput('label', 'Progreso');
+      fixture.detectChanges();
+
+      const labelledby = track().nativeElement.getAttribute('aria-labelledby');
+      expect(labelledby).toBe(component.labelId);
+      expect(track().nativeElement.hasAttribute('aria-label')).toBe(false);
+      const header = compiled.query(By.css('.dcx-progressbar__header'));
+      expect(header.nativeElement.getAttribute('id')).toBe(component.labelId);
+    });
+
+    it('marks segments and tooltip as aria-hidden', () => {
+      fixture.componentRef.setInput('variant', 'segmented');
+      fixture.componentRef.setInput('showTooltip', true);
+      fixture.detectChanges();
+
+      expect(
+        compiled.query(By.css('.dcx-progressbar__segments')).nativeElement.getAttribute('aria-hidden'),
+      ).toBe('true');
+      expect(
+        compiled.query(By.css('.dcx-progressbar__tooltip')).nativeElement.getAttribute('aria-hidden'),
+      ).toBe('true');
+    });
+
+    describe('stepper', () => {
+      beforeEach(() => {
+        fixture.componentRef.setInput('variant', 'stepper');
+        fixture.componentRef.setInput('steps', [
+          { label: 'Carrito' },
+          { label: 'Envío' },
+          { label: 'Pago' },
+          { label: 'Confirmación' },
+        ]);
+        fixture.componentRef.setInput('currentStep', 3);
+        fixture.detectChanges();
+      });
+
+      it('exposes role="progressbar" with step value text', () => {
+        const stepper = compiled.query(By.css('.dcx-progressbar__stepper')).nativeElement as HTMLElement;
+        expect(stepper.getAttribute('role')).toBe('progressbar');
+        expect(stepper.getAttribute('aria-valuemin')).toBe('1');
+        expect(stepper.getAttribute('aria-valuemax')).toBe('4');
+        expect(stepper.getAttribute('aria-valuenow')).toBe('3');
+        expect(stepper.getAttribute('aria-valuetext')).toBe('Paso 3 de 4');
+      });
+
+      it('marks the active step with aria-current="step"', () => {
+        const current = compiled.queryAll(By.css('.dcx-progressbar__step[aria-current="step"]'));
+        expect(current.length).toBe(1);
+        expect(current[0].nativeElement.textContent).toContain('Pago');
+      });
+
+      it('hides the step circle (number/check) from assistive tech', () => {
+        const circles = compiled.queryAll(By.css('.dcx-progressbar__step-circle'));
+        circles.forEach(c =>
+          expect(c.nativeElement.getAttribute('aria-hidden')).toBe('true'),
+        );
+      });
     });
   });
 

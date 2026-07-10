@@ -17,8 +17,12 @@ export type DcxProgressVariant = 'default' | 'segmented' | 'stepper';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgProgressbarComponent {
+  private static nextId = 0;
+
   readonly variant = input<DcxProgressVariant>('default');
   readonly value = input<number>(0);
+  readonly label = input<string>('');
+  readonly ariaLabel = input<string>('');
   readonly showTooltip = input<boolean>(false);
   readonly showLabel = input<boolean>(false);
   readonly steps = input<DcxProgressStep[]>([]);
@@ -26,21 +30,33 @@ export class DcxNgProgressbarComponent {
   readonly showCheckmarks = input<boolean>(false);
   readonly segments = input<number>(5);
 
-  readonly progressPercentage = computed(() => Math.min(Math.max(this.value(), 0), 100));
+  readonly labelId = `dcx-progressbar-${DcxNgProgressbarComponent.nextId++}-label`;
 
-  readonly isStepperVariant = computed(() => this.variant() === 'stepper');
-  readonly isSegmentedVariant = computed(() => this.variant() === 'segmented');
-  readonly isDefaultVariant = computed(() => this.variant() === 'default');
-
-  readonly segmentArray = computed(() => 
-    Array(this.segments()).fill(0).map((_, i) => i)
+  readonly progressPercentage = computed<number>(() =>
+    Math.min(Math.max(this.value(), 0), 100),
   );
 
-  readonly stepProgress = computed(() => {
+  readonly isStepperVariant = computed<boolean>(() => this.variant() === 'stepper');
+  readonly isSegmentedVariant = computed<boolean>(
+    () => this.variant() === 'segmented',
+  );
+  readonly isDefaultVariant = computed<boolean>(() => this.variant() === 'default');
+
+  readonly segmentArray = computed<number[]>(() =>
+    Array(this.segments())
+      .fill(0)
+      .map((_, i) => i),
+  );
+
+  readonly stepProgress = computed<number>(() => {
     const total = this.steps().length;
     if (total === 0) return 0;
     return (this.currentStep() / total) * 100;
   });
+
+  readonly stepValueText = computed<string>(
+    () => `Paso ${this.currentStep()} de ${this.steps().length}`,
+  );
 
   isStepCompleted = (index: number): boolean => index < this.currentStep() - 1;
 

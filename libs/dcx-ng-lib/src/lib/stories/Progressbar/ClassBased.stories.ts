@@ -22,66 +22,102 @@ const meta: Meta<DcxNgProgressbarComponent> = {
   },
   argTypes: {
     variant: {
+      name: 'variant',
       control: 'select',
       options: ['default', 'segmented', 'stepper'],
-      description: 'Variante del progressbar: default (barra simple), segmented (barra con segmentos animados), o stepper (pasos)',
+      description: 'Variante del progressbar: default (barra simple), segmented (barra con segmentos animados) o stepper (pasos).',
       table: {
+        category: 'Atributos',
         type: { summary: "'default' | 'segmented' | 'stepper'" },
         defaultValue: { summary: 'default' },
       },
     },
     value: {
+      name: 'value',
       control: { type: 'range', min: 0, max: 100, step: 5 },
-      description: 'Porcentaje de progreso (0-100). Solo aplica para variantes default y segmented',
+      description: 'Porcentaje de progreso (0-100). Aplica a default y segmented.',
       table: {
+        category: 'Atributos',
         type: { summary: 'number' },
         defaultValue: { summary: '0' },
       },
     },
-    showTooltip: {
-      control: 'boolean',
-      description: 'Muestra un tooltip con el porcentaje sobre la barra de progreso',
+    label: {
+      name: 'label',
+      control: 'text',
+      description: 'Texto de la cabecera (izquierda) cuando showLabel está activo, p. ej. "Progreso".',
       table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
+      },
+    },
+    ariaLabel: {
+      name: 'ariaLabel',
+      control: 'text',
+      description: 'Nombre accesible de la barra cuando no hay cabecera visible.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
+      },
+    },
+    showLabel: {
+      name: 'showLabel',
+      control: 'boolean',
+      description: 'Muestra la cabecera (etiqueta + porcentaje) encima de la barra.',
+      table: {
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
-    showLabel: {
+    showTooltip: {
+      name: 'showTooltip',
       control: 'boolean',
-      description: 'Muestra el porcentaje como texto al lado de la barra',
+      description: 'Muestra un tooltip con el porcentaje sobre la barra.',
       table: {
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
     steps: {
+      name: 'steps',
       control: 'object',
-      description: 'Array de pasos para la variante stepper. Cada paso debe tener una propiedad label',
+      description: 'Array de pasos para la variante stepper. Cada paso tiene una propiedad label.',
       table: {
+        category: 'Atributos',
         type: { summary: 'DcxProgressStep[]' },
         defaultValue: { summary: '[]' },
       },
     },
     currentStep: {
+      name: 'currentStep',
       control: { type: 'number', min: 1, max: 5 },
-      description: 'Número del paso actual (1, 2, 3...). Solo aplica para variante stepper',
+      description: 'Número del paso actual (1, 2, 3...). Solo variante stepper.',
       table: {
+        category: 'Atributos',
         type: { summary: 'number' },
-        defaultValue: { summary: '1' },
+        defaultValue: { summary: '0' },
       },
     },
     showCheckmarks: {
+      name: 'showCheckmarks',
       control: 'boolean',
-      description: 'Muestra checkmarks en los pasos completados. Solo aplica para variante stepper',
+      description: 'Muestra checkmarks en los pasos completados. Solo variante stepper.',
       table: {
+        category: 'Atributos',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
     segments: {
+      name: 'segments',
       control: { type: 'number', min: 1, max: 20 },
-      description: 'Número de segmentos visibles. Solo aplica para variante segmented',
+      description: 'Número de segmentos visibles. Solo variante segmented.',
       table: {
+        category: 'Atributos',
         type: { summary: 'number' },
         defaultValue: { summary: '5' },
       },
@@ -137,13 +173,37 @@ export const WithTooltip: Story = {
 };
 
 /**
- * Barra de progreso con label mostrando el porcentaje
+ * Barra con cabecera del diseño: etiqueta a la izquierda y porcentaje a la derecha.
  */
-export const WithLabel: Story = {
+export const WithHeaderLabel: Story = {
   args: {
     variant: 'default',
-    value: 85,
-    showTooltip: false,
+    value: 82,
+    label: 'Progreso',
+    showLabel: true,
+  },
+};
+
+/**
+ * Estado inicial (0%).
+ */
+export const Zero: Story = {
+  args: {
+    variant: 'default',
+    value: 0,
+    label: 'Progreso',
+    showLabel: true,
+  },
+};
+
+/**
+ * Estado completado (100%).
+ */
+export const Complete: Story = {
+  args: {
+    variant: 'default',
+    value: 100,
+    label: 'Progreso',
     showLabel: true,
   },
 };
