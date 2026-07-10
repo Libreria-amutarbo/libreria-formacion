@@ -27,6 +27,14 @@ describe('DcxNgScrollTopDownComponent', () => {
     expect(component.showBottom()).toBe(true);
   });
 
+  it('should default to Spanish labels and chevron icons (design)', () => {
+    expect(component.topLabel()).toBe('Ir arriba');
+    expect(component.bottomLabel()).toBe('Ir abajo');
+    expect(component.topIcon()).toBe('chevron-up');
+    expect(component.bottomIcon()).toBe('chevron-down');
+    expect(component.groupLabel()).toBe('Controles de desplazamiento');
+  });
+
   it('should include base and size classes', () => {
     expect(component.scrollClasses()).toContain('dcx-ng-scroll-top-down');
     expect(component.scrollClasses()).toContain('dcx-ng-scroll-top-down--m');
@@ -176,6 +184,51 @@ describe('DcxNgScrollTopDownComponent', () => {
     expect(scrollToSpy).toHaveBeenCalledWith({
       top: 0,
       behavior: 'auto',
+    });
+  });
+
+  describe('WCAG AA', () => {
+    const showButtons = () => {
+      Object.defineProperty(document.documentElement, 'scrollHeight', { value: 1000, configurable: true });
+      Object.defineProperty(document.documentElement, 'clientHeight', { value: 400, configurable: true });
+      Object.defineProperty(window, 'scrollY', { value: 300, configurable: true });
+      window.dispatchEvent(new Event('scroll'));
+      fixture.detectChanges();
+    };
+
+    it('renders native <button> controls with an aria-label and a hidden icon', fakeAsync(() => {
+      showButtons();
+      tick();
+      fixture.detectChanges();
+
+      const buttons = fixture.nativeElement.querySelectorAll('button.dcx-ng-scroll-top-down__button');
+      expect(buttons.length).toBe(2);
+      expect(buttons[0].getAttribute('aria-label')).toBe('Ir arriba');
+      expect(buttons[1].getAttribute('aria-label')).toBe('Ir abajo');
+      expect(buttons[0].getAttribute('type')).toBe('button');
+
+      const icon = buttons[0].querySelector('dcx-ng-icon');
+      expect(icon?.getAttribute('aria-hidden')).toBe('true');
+    }));
+
+    it('exposes the group with role="group" and aria-label', () => {
+      const group = fixture.nativeElement.querySelector('.dcx-ng-scroll-top-down__group');
+      expect(group.getAttribute('role')).toBe('group');
+      expect(group.getAttribute('aria-label')).toBe('Controles de desplazamiento');
+    });
+
+    it('forces instant scroll when prefers-reduced-motion is active', () => {
+      const original = window.matchMedia;
+      (window as unknown as { matchMedia: unknown }).matchMedia = (query: string) =>
+        ({ matches: query.includes('reduce'), media: query, addEventListener() {}, removeEventListener() {} }) as unknown as MediaQueryList;
+
+      try {
+        fixture.componentRef.setInput('smooth', true);
+        fixture.detectChanges();
+        expect(component.scrollBehavior()).toBe('auto');
+      } finally {
+        (window as unknown as { matchMedia: unknown }).matchMedia = original;
+      }
     });
   });
 });

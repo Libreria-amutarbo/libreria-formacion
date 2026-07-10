@@ -4,28 +4,24 @@
   [attr.aria-label]="groupLabel()"
 >
   @if (isTopVisible()) {
-    <dcx-ng-button
+    <button
       [class]="buttonClasses('top')"
       type="button"
-      variant="secondary"
-      [size]="size()"
-      [ariaLabel]="topLabel()"
-      (buttonClick)="scrollToTop()"
+      [attr.aria-label]="topLabel()"
+      (click)="scrollToTop()"
     >
-      <dcx-ng-icon [name]="topIcon()" [size]="iconSize()" />
-    </dcx-ng-button>
+      <dcx-ng-icon [name]="topIcon()" [size]="iconSize()" aria-hidden="true" />
+    </button>
   }
 
   @if (isBottomVisible()) {
-    <dcx-ng-button
+    <button
       [class]="buttonClasses('bottom')"
       type="button"
-      variant="secondary"
-      [size]="size()"
-      [ariaLabel]="bottomLabel()"
-      (buttonClick)="scrollToBottom()"
+      [attr.aria-label]="bottomLabel()"
+      (click)="scrollToBottom()"
     >
-      <dcx-ng-icon [name]="bottomIcon()" [size]="iconSize()" />
-    </dcx-ng-button>
+      <dcx-ng-icon [name]="bottomIcon()" [size]="iconSize()" aria-hidden="true" />
+    </button>
   }
 </div>
