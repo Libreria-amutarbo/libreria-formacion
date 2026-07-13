@@ -190,46 +190,54 @@ export class DcxWebDatePicker extends LitElement {
   }
 
   onGridKeydown(event: KeyboardEvent, day: CalendarDay): void {
+    const keysToPrevent = [
+      'ArrowRight',
+      'ArrowLeft',
+      'ArrowDown',
+      'ArrowUp',
+      'Enter',
+      ' ',
+      'Escape',
+      'PageUp',
+      'PageDown',
+      'Home',
+      'End',
+    ];
+
+    if (keysToPrevent.includes(event.key)) {
+      event.preventDefault();
+    }
+
     switch (event.key) {
       case 'ArrowRight':
-        event.preventDefault();
         this._moveFocus(1);
         break;
       case 'ArrowLeft':
-        event.preventDefault();
         this._moveFocus(-1);
         break;
       case 'ArrowDown':
-        event.preventDefault();
         this._moveFocus(7);
         break;
       case 'ArrowUp':
-        event.preventDefault();
         this._moveFocus(-7);
         break;
       case 'Enter':
       case ' ':
-        event.preventDefault();
         if (!day.isDisabled) this.selectDate(day);
         break;
       case 'Escape':
-        event.preventDefault();
         this.closeCalendar();
         break;
       case 'PageUp':
-        event.preventDefault();
         this.previousMonth();
         break;
       case 'PageDown':
-        event.preventDefault();
         this.nextMonth();
         break;
       case 'Home':
-        event.preventDefault();
         this._moveFocusToStartOfWeek(day);
         break;
       case 'End':
-        event.preventDefault();
         this._moveFocusToEndOfWeek(day);
         break;
     }
