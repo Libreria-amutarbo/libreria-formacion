@@ -11,7 +11,7 @@
       }
     </div>
   }
-  <div class="dcx-tabs__header-container" [class]="tabHeaderClasses()">
+  <div class="dcx-tabs__header-container">
     @if (hasOverflow() && canScrollLeft()) {
       <dcx-ng-button
         class="dcx-tabs__scroll-button dcx-tabs__scroll-button--left"
@@ -21,31 +21,42 @@
         [iconName]="'chevron-left'"
         [iconSize]="'l'"
         (buttonClick)="scrollLeft()"
-        [attr.aria-label]="'Scroll left'"
+        [attr.aria-label]="'Desplazar a la izquierda'"
       ></dcx-ng-button>
     }
+    <!-- El tablist en sí no es focuseable: usa tabindex roving en los <button role="tab">
+         hijos (patrón APG Tabs) y captura keydown por delegación desde el hijo con foco. -->
+    <!-- eslint-disable-next-line @angular-eslint/template/interactive-supports-focus -->
     <div
       [class]="tabHeaderClasses()"
       role="tablist"
+      [attr.aria-label]="ariaLabel()"
       #tabsHeader
       (scroll)="updateScrollButtons()"
+      (keydown)="onKeydown($event)"
     >
       @for (tab of tabs(); track tab.id) {
-        <span
+        <button
+          type="button"
           [class]="tabButtonClasses(tab.id)"
-          [attr.role]="'tab'"
+          [id]="tab.id"
+          role="tab"
           [attr.aria-selected]="isActive(tab.id)"
           [attr.aria-controls]="'panel-' + tab.id"
           [attr.data-tab]="tab.id"
           [attr.aria-disabled]="!!tab.disabled"
-          [attr.tabindex]="!!tab.disabled ? -1 : 0"
+          [disabled]="!!tab.disabled"
+          [tabIndex]="isActive(tab.id) && !tab.disabled ? 0 : -1"
           (click)="selectTab(tab.id)"
         >
           @if (tab.icon) {
             <dcx-ng-icon [name]="tab.icon" [size]="'l'" aria-hidden="true" />
           }
           {{ tab.label }}
-        </span>
+          @if (tab.badge !== undefined && tab.badge !== null) {
+            <span class="dcx-tab__badge" [class.active]="isActive(tab.id)">{{ tab.badge }}</span>
+          }
+        </button>
       }
     </div>
     @if (hasOverflow() && canScrollRight()) {
@@ -57,7 +68,7 @@
         [iconName]="'chevron-right'"
         [iconSize]="'l'"
         (buttonClick)="scrollRight()"
-        [attr.aria-label]="'Scroll right'"
+        [attr.aria-label]="'Desplazar a la derecha'"
       ></dcx-ng-button>
     }
   </div>

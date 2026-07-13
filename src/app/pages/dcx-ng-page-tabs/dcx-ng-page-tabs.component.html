@@ -1,93 +1,185 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Tabs</h2>
-  <dcx-ng-tabs
-    [tabs]="tabsDefault"
-    [activeTabId]="selectedTabId()"
-  ></dcx-ng-tabs>
-</section>
+<div class="demo-page">
 
-<dcx-ng-divider class="divider" [thickness]="0.2" color="#000"></dcx-ng-divider>
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Tabs</h1>
+    <p class="demo-page-header__desc">
+      Navegación entre distintas áreas de contenido siguiendo el patrón ARIA
+      de pestañas, con navegación por teclado completa, scroll horizontal y
+      cuatro variantes visuales.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Tabs deshabilitados</h2>
-  <dcx-ng-tabs
-    [tabs]="tabsWithDisabled"
-    [activeTabId]="selectedTabId()"
-  ></dcx-ng-tabs>
-</section>
+  <!-- ── 01 Line (default) ─────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Line (por defecto)</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabsDefault"
+        [activeTabId]="selectedTabId()"
+        ariaLabel="Ejemplo de pestañas, variante line"
+      ></dcx-ng-tabs>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.2" color="#000"></dcx-ng-divider>
+  <!-- ── 02 Deshabilitadas ─────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Con pestañas deshabilitadas</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabsWithDisabled"
+        [activeTabId]="selectedTabId()"
+        ariaLabel="Ejemplo de pestañas con una pestaña deshabilitada"
+      ></dcx-ng-tabs>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Tabs con iconos</h2>
-  <dcx-ng-tabs
-    [tabs]="tabsWithIcons"
-    [activeTabId]="selectedTabId()"
-  ></dcx-ng-tabs>
-</section>
+  <!-- ── 03 Con iconos ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Con iconos</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabsWithIcons"
+        [activeTabId]="selectedTabId()"
+        ariaLabel="Ejemplo de pestañas con iconos"
+      ></dcx-ng-tabs>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.2" color="#000"></dcx-ng-divider>
-<section>
-  <h2 class="example-title">Ejemplo 4 - Tabs con scroll</h2>
-  <dcx-ng-tabs
-    [tabs]="tabItemWithScroll"
-    [activeTabId]="selectedTabId()"
-  ></dcx-ng-tabs>
-</section>
+  <!-- ── 04 Con badges ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Con badges de recuento</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabsWithBadges"
+        [activeTabId]="selectedTabId()"
+        ariaLabel="Ejemplo de pestañas con badges de recuento"
+      ></dcx-ng-tabs>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.2" color="#000"></dcx-ng-divider>
+  <!-- ── 05 Con scroll ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Con scroll horizontal</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabItemWithScroll"
+        [activeTabId]="selectedTabId()"
+        ariaLabel="Ejemplo de pestañas con scroll horizontal"
+      ></dcx-ng-tabs>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 5 - Con controles</h2>
-  <dcx-ng-tabs
-    [tabs]="tabsDefault"
-    [activeTabId]="selectedTabId()"
-    hasControls
-  ></dcx-ng-tabs>
-</section>
+  <!-- ── 06 Con controles ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Con controles numerados</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabsDefault"
+        [activeTabId]="selectedTabId()"
+        ariaLabel="Ejemplo de pestañas con controles numerados"
+        hasControls
+      ></dcx-ng-tabs>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.2" color="#000"></dcx-ng-divider>
+  <!-- ── 07 Con contenido de componentes ──────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Con contenido de componentes</span>
+    </div>
+    <p class="demo-section__desc">
+      El contenido de cada pestaña no vive en <code>DcxTabItem</code>: el
+      consumidor proyecta lo que corresponde según <code>activeTabId</code>.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabItemWithComponents"
+        [activeTabId]="selectedTabIdContent()"
+        ariaLabel="Ejemplo de pestañas con contenido de componentes"
+        (tabChange)="onTabChange($event)"
+      >
+        @switch (selectedTabIdContent()) {
+          @case ('button') {
+            <dcx-ng-button [label]="'Button'"></dcx-ng-button>
+          }
+          @case ('select') {
+            <dcx-ng-select></dcx-ng-select>
+          }
+          @case ('card') {
+            <dcx-ng-card></dcx-ng-card>
+          }
+        }
+      </dcx-ng-tabs>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 6 - Tabs con content de componentes</h2>
-  <dcx-ng-tabs
-    [tabs]="tabItemWithComponents"
-    [activeTabId]="selectedTabIdContent()"
-    (tabChange)="onTabChange($event)"
-  ></dcx-ng-tabs>
-  <section>
-    @switch (selectedTabIdContent()) {
-      @case ('button') {
-        <dcx-ng-button [label]="'Button'"></dcx-ng-button>
-      }
-      @case ('select') {
-        <dcx-ng-select></dcx-ng-select>
-      }
-      @case ('card') {
-        <dcx-ng-card></dcx-ng-card>
-      }
-    }
-  </section>
-</section>
+  <!-- ── 08 Brand ──────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Brand (fondo primario)</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabsDefault"
+        [activeTabId]="selectedTabId()"
+        [variant]="'brand'"
+        ariaLabel="Ejemplo de pestañas, variante brand"
+      ></dcx-ng-tabs>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.2" color="#000"></dcx-ng-divider>
+  <!-- ── 09 Pill ───────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">09</span>
+      <span class="demo-section__title">Pill</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabsDefault"
+        [activeTabId]="selectedTabId()"
+        [variant]="'pill'"
+        ariaLabel="Ejemplo de pestañas, variante pill"
+      ></dcx-ng-tabs>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 7 - Brand (fondo primario)</h2>
-  <dcx-ng-tabs
-    [tabs]="tabsDefault"
-    [activeTabId]="selectedTabId()"
-    [variant]="'brand'"
-  ></dcx-ng-tabs>
-</section>
+  <!-- ── 10 Subtle ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">10</span>
+      <span class="demo-section__title">Subtle</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tabs
+        [tabs]="tabsDefault"
+        [activeTabId]="selectedTabId()"
+        [variant]="'subtle'"
+        ariaLabel="Ejemplo de pestañas, variante subtle"
+      ></dcx-ng-tabs>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.2" color="#000"></dcx-ng-divider>
-
-<section>
-  <h2 class="example-title">Ejemplo 8 - Tabs Pill</h2>
-  <dcx-ng-tabs
-    [tabs]="tabsDefault"
-    [activeTabId]="selectedTabId()"
-    [variant]="'pill'"
-  ></dcx-ng-tabs>
-</section>
+</div>

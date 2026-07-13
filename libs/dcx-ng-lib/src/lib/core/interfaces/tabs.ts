@@ -3,5 +3,6 @@ export interface DcxTabItem {
   label: string;
   disabled?: boolean;
   icon?: string; // opcional si tu botón lo permite
+  badge?: string | number;
 }
-export type DcxTabsVariant = 'line' | 'pill' | 'brand';
+export type DcxTabsVariant = 'line' | 'pill' | 'brand' | 'subtle';
