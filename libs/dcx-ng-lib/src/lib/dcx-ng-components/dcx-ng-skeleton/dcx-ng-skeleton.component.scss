@@ -8,13 +8,11 @@
   flex-shrink: 0;
   width: var(--dcx-skeleton-width, 100%);
   height: var(--dcx-skeleton-height, 1rem);
-  border-radius: var(--dcx-skeleton-border-radius, var(--r-md, 6px));
+  // computedBorderRadius() en el TS ya resuelve el valor final (incluido el
+  // caso circle), no hace falta un segundo fallback ni un override aparte.
+  border-radius: var(--dcx-skeleton-border-radius);
   background: var(--dcx-skeleton-background);
   line-height: 1;
-}
-
-:host(.dcx-skeleton--circle) {
-  border-radius: var(--r-pill, 999px);
 }
 
 :host(.dcx-skeleton--wave)::after {
