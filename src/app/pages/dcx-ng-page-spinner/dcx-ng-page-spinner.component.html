@@ -1,48 +1,109 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Tamaños disponibles</h2>
-  <div class="size-examples">
-    <div>
-      <p>Small</p>
-      <dcx-ng-spinner size="s" title="Loading" description="description" />
-    </div>
-    <div>
-      <p>Medium (default)</p>
-      <dcx-ng-spinner size="m" title="Loading" description="description" />
-    </div>
-    <div>
-      <p>Large</p>
-      <dcx-ng-spinner size="l" title="Loading" description="description" />
-    </div>
-    <div>
-      <p>Extra Large</p>
-      <dcx-ng-spinner size="xl" title="Loading" description="description" />
-    </div>
-  </div>
-</section>
+<div class="demo-page">
 
-<hr />
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Spinner</h1>
+    <p class="demo-page-header__desc">
+      Indicador de carga circular, accesible (<code>role="status"</code> +
+      <code>aria-live="polite"</code>) y personalizable. Puede usarse solo o
+      como overlay (<code>wrapper</code>) sobre contenido proyectado.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Con delay personalizado (1000ms)</h2>
-  <div class="spinner-wrapper">
-    <dcx-ng-spinner [delay]="1000" title="Loading with delay..."></dcx-ng-spinner>
-  </div>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 3 - Wrapper mode (overlay sobre contenido)</h2>
-  <div class="spinner-wrapper2">
-    <dcx-ng-spinner [wrapper]="true" title="Loading content...">
-      <div class="content-box">
-        <h4>Wrapper Content</h4>
-        <p>
-          This is an example of content displayed below the spinner when in
-          wrapper mode.
-        </p>
-        <p>The spinner will be shown as an overlay on this content.</p>
+  <!-- ── 01 Tamaños ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Tamaños</span>
+    </div>
+    <div class="demo-section__body">
+      <div class="spinner-row">
+        <dcx-ng-spinner size="s" [delay]="0" ariaLabel="Cargando"></dcx-ng-spinner>
+        <dcx-ng-spinner size="m" [delay]="0" ariaLabel="Cargando"></dcx-ng-spinner>
+        <dcx-ng-spinner size="l" [delay]="0" ariaLabel="Cargando"></dcx-ng-spinner>
+        <dcx-ng-spinner size="xl" [delay]="0" ariaLabel="Cargando"></dcx-ng-spinner>
       </div>
-    </dcx-ng-spinner>
+    </div>
   </div>
-</section>
+
+  <!-- ── 02 Color personalizado ────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Color personalizado</span>
+    </div>
+    <div class="demo-section__body">
+      <div class="spinner-row">
+        <dcx-ng-spinner size="l" [delay]="0" ariaLabel="Cargando"></dcx-ng-spinner>
+        <dcx-ng-spinner
+          size="l"
+          [delay]="0"
+          color="#7c3aed"
+          ariaLabel="Cargando"
+        ></dcx-ng-spinner>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 03 Con título y descripción ───────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Con título y descripción</span>
+    </div>
+    <div class="demo-section__body">
+      <div class="spinner-row">
+        <dcx-ng-spinner size="l" [delay]="0" title="Cargando…"></dcx-ng-spinner>
+        <dcx-ng-spinner
+          size="l"
+          [delay]="0"
+          title="Procesando"
+          description="Por favor, espera"
+        ></dcx-ng-spinner>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 04 Con delay ──────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Con delay</span>
+    </div>
+    <p class="demo-section__desc">
+      Este spinner no aparece hasta pasado 1 segundo — evita el parpadeo en
+      operaciones que resuelven casi al instante.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-spinner
+        [delay]="1000"
+        title="Cargando con retraso…"
+        description="Este spinner solo aparece pasado 1 segundo"
+      ></dcx-ng-spinner>
+    </div>
+  </div>
+
+  <!-- ── 05 Modo wrapper (overlay) ─────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Modo wrapper (overlay)</span>
+    </div>
+    <div class="demo-section__body">
+      <div class="spinner-wrapper-demo">
+        <dcx-ng-spinner [wrapper]="true" [delay]="0" title="Cargando contenido…">
+          <div class="content-box">
+            <h4>Contenido</h4>
+            <p>
+              Este es un ejemplo del contenido que se muestra bajo el spinner
+              en modo wrapper.
+            </p>
+            <p>El spinner se superpone a este contenido como un overlay.</p>
+          </div>
+        </dcx-ng-spinner>
+      </div>
+    </div>
+  </div>
+
+</div>
