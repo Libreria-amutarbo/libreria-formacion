@@ -137,7 +137,8 @@ const meta: Meta = {
     orientation: {
       control: 'select',
       options: [
-        DCX_LAYOUTS,
+        DCX_LAYOUTS[0],
+        DCX_LAYOUTS[1],
       ],
       table: {
         category: 'Atributos',
