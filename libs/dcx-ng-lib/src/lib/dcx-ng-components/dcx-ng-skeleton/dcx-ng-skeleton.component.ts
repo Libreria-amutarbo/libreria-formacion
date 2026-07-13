@@ -16,7 +16,6 @@ import { DcxSkeletonAnimation, DcxSkeletonShape } from '../../core/interfaces';
   host: {
     class: 'dcx-skeleton',
     'aria-hidden': 'true',
-    '[class.dcx-skeleton--rectangle]': 'shape() === "rectangle"',
     '[class.dcx-skeleton--circle]': 'shape() === "circle"',
     '[class.dcx-skeleton--wave]': 'animation() === "wave"',
     '[class.dcx-skeleton--none]': 'animation() === "none"',
