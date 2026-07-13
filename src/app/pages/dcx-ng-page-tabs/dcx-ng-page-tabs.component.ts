@@ -6,10 +6,10 @@ import {
   DcxNgTabsComponent,
   DcxTabItemDefault,
   DcxTabItemScroll,
+  DcxTabItemWithBadges,
   DcxTabItemWithComponents,
   DcxTabItemWithDisabled,
   DcxTabItemWithIcons,
-  DcxNgDividerComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
@@ -20,7 +20,6 @@ import {
     DcxNgButtonComponent,
     DcxNgSelectComponent,
     DcxNgCardComponent,
-    DcxNgDividerComponent,
   ],
   templateUrl: './dcx-ng-page-tabs.component.html',
   styleUrls: ['./dcx-ng-page-tabs.component.scss'],
@@ -30,6 +29,7 @@ export class DcxNgPageTabsComponent {
   tabsDefault = DcxTabItemDefault;
   tabsWithDisabled = DcxTabItemWithDisabled;
   tabsWithIcons = DcxTabItemWithIcons;
+  tabsWithBadges = DcxTabItemWithBadges;
   selectedTabId = signal<string>('tab1');
 
   tabItemWithScroll = DcxTabItemScroll;
