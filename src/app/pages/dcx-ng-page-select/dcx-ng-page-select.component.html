@@ -1,49 +1,162 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Select por defecto</h2>
-  <dcx-ng-select [options]="optionList" searchable></dcx-ng-select>
-</section>
+<div class="demo-page">
 
-<hr />
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Select</h1>
+    <p class="demo-page-header__desc">
+      Combobox accesible con soporte de búsqueda, limpieza de valor, estado de
+      error y <code>ControlValueAccessor</code> para formularios reactivos y
+      basados en plantilla. Sigue el patrón WAI-ARIA combobox
+      (<code>aria-activedescendant</code>): el foco nunca sale del control, solo
+      se resalta la opción activa.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Select con buscador y clearable</h2>
-  <dcx-ng-select [options]="optionList" searchable clearable></dcx-ng-select>
-</section>
+  <!-- ── 01 Default ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-select [options]="options" label="Select" />
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 02 Con búsqueda ───────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Con búsqueda</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-select [options]="options" searchable />
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Select deshabilitado</h2>
-  <dcx-ng-select
-    [options]="optionList"
-    searchable
-    clearable
-    disabled
-  ></dcx-ng-select>
-</section>
+  <!-- ── 03 Con búsqueda y clearable ───────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Con búsqueda y clearable</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-select [options]="options" searchable clearable />
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 04 Deshabilitado ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Deshabilitado</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-select placeholder="Disabled" disabled />
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 4 - Select requerido</h2>
-  <dcx-ng-select
-    [options]="optionList"
-    label="Required"
-    searchable
-    clearable
-    required
-  ></dcx-ng-select>
-</section>
+  <!-- ── 05 Deshabilitado con búsqueda ─────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Deshabilitado con búsqueda</span>
+    </div>
+    <p class="demo-section__desc">
+      El control queda fuera del orden de tabulación
+      (<code>tabindex="-1"</code>) y anuncia <code>aria-disabled</code>.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-select
+        [options]="options"
+        searchable
+        clearable
+        disabled
+        [valueInput]="options[0].value"
+      />
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 06 Requerido ──────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Requerido</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-select
+        [options]="options"
+        label="Required"
+        searchable
+        clearable
+        required
+      />
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 5 - Select inválido</h2>
-  <dcx-ng-select
-    [options]="optionList"
-    searchable
-    clearable
-    isInvalid
-    errorMessage="Error"
-  ></dcx-ng-select>
-</section>
+  <!-- ── 07 Inválido ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Inválido</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-select
+        [options]="options"
+        searchable
+        clearable
+        isInvalid
+        errorMessage="Error"
+      />
+    </div>
+  </div>
+
+  <!-- ── 08 Con valor preseleccionado ──────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Con valor preseleccionado</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-select
+        [options]="options"
+        clearable
+        [valueInput]="options[1].value"
+      />
+    </div>
+  </div>
+
+  <!-- ── 09 Sin opciones ───────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">09</span>
+      <span class="demo-section__title">Sin opciones</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-select
+        [options]="[]"
+        placeholder="No hay opciones disponibles"
+        searchable
+      />
+    </div>
+  </div>
+
+  <!-- ── 10 Tamaños ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">10</span>
+      <span class="demo-section__title">Tamaños</span>
+    </div>
+    <div class="demo-section__body">
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <dcx-ng-select spacing="xs" placeholder="XS" />
+        <dcx-ng-select spacing="s" placeholder="S" />
+        <dcx-ng-select spacing="m" placeholder="M" />
+        <dcx-ng-select spacing="l" placeholder="L" />
+        <dcx-ng-select spacing="xl" placeholder="XL" />
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -138,36 +138,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  ::ng-deep {
-    button {
-      all: unset;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 12px;
-      height: 12px;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    dcx-ng-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 12px;
-      height: 12px;
-    }
-
-    i.bi {
-      font-size: 12px;
-      color: var(--text-dark, #2a2e33);
-      line-height: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
+  font-size: 12px;
+  color: var(--text-dark, #2a2e33);
+  line-height: 0;
 }
 
 .dcx-ng-select__error {
@@ -179,29 +152,22 @@
   gap: 4px;
 }
 
+// Renderizado vía CDK Overlay (portal a document.body): el posicionamiento
+// (arriba/abajo, offset, ancho) y el z-index los resuelve el propio overlay,
+// no depende de ningún ancestro con overflow visible ni compite en cascada
+// con el resto de la página.
 .dcx-ng-select__panel {
-  position: absolute;
-  margin-top: var(--sp-1, 4px);
   width: 100%;
   background: var(--bg-default, #ffffff);
   border: 1px solid var(--border-input, #d1d5db);
   border-radius: var(--r-sm, 4px);
-  z-index: 10;
   overflow: hidden;
   box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
-}
-
-.dcx-ng-select__search {
-  width: 100%;
-  padding: var(--sp-2, 8px) var(--sp-3, 12px);
-  border: none;
-  border-bottom: 1px solid var(--border-input, #d1d5db);
-  font-size: var(--fs-base, 14px);
+  // El panel ya no es descendiente del :host en el DOM (vive en el overlay
+  // de CDK, colgando de document.body), así que no hereda font-family/color
+  // del :host — se fijan aquí explícitamente para sus descendientes.
   font-family: var(--ff-base, 'Inter', sans-serif);
-
-  &:focus {
-    outline: none;
-  }
+  color: var(--text-dark, #2a2e33);
 }
 
 .dcx-ng-select__options {
@@ -224,7 +190,10 @@
     pointer-events: none;
   }
 
-  &.is-selected {
+  // Resaltado por teclado (aria-activedescendant) y valor confirmado
+  // comparten el mismo tratamiento visual; pueden coincidir o no.
+  &.is-selected,
+  &.is-active {
     background: var(--bg-primary, #0058ab);
     color: var(--text-white, #ffffff);
   }
