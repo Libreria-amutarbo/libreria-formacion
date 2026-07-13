@@ -1,32 +1,8 @@
-.demo-title {
-  margin-bottom: 2rem;
-}
+// page-demo styles are provided globally via src/styles.scss
 
-.example-title {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-}
-
-.note {
-  font-size: 0.9rem;
-  color: var(--color-text-secondary, #666);
-  margin-top: 0.5rem;
-}
-
-.toggle-position-list {
+.demo-section__body--row {
   display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.toggle-size-row {
-  display: flex;
-  gap: 1.2rem;
+  gap: var(--sp-4, 16px);
   align-items: center;
   flex-wrap: wrap;
-}
-
-.selected-value {
-  margin-top: 0.6rem;
-  font-size: 0.95rem;
 }
