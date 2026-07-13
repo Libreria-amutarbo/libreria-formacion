@@ -12,15 +12,15 @@ export const dcxWebDialogTemplate = (component: DcxWebDialog) => {
     <div class="dcx-dialog-root">
       <div
         class="dcx-dialog__backdrop"
-        @pointerdown=${component['_onBackdropClick'].bind(component)}
+        @pointerdown=${component.onBackdropClick.bind(component)}
       ></div>
 
       <div
-        class="${component['_dialogClasses']}"
+        class="${component.dialogClasses}"
         role="dialog"
         aria-modal="true"
         aria-labelledby="${ifDefined(
-          component.title ? component['_dialogTitleId'] : undefined,
+          component.title ? component.dialogTitleId : undefined,
         )}"
       >
         <div class="dcx-dialog__header">
@@ -28,7 +28,7 @@ export const dcxWebDialogTemplate = (component: DcxWebDialog) => {
             component.title
               ? html`
                   <h3
-                    id="${component['_dialogTitleId']}"
+                    id="${component.dialogTitleId}"
                     class="dcx-dialog__title"
                   >
                     ${component.title}
@@ -46,7 +46,7 @@ export const dcxWebDialogTemplate = (component: DcxWebDialog) => {
                     icon-name="x-lg"
                     class="dcx-dialog__close"
                     aria-label="Cerrar diálogo"
-                    @buttonClick=${component['_close'].bind(component)}
+                    @buttonClick=${() => component.close()}
                   >
                   </dcx-web-button>
                 `
