@@ -25,3 +25,9 @@ export const INPUT_DEFAULT_ARIA_DESCRIBEDBY: string | null = null;
 export const INPUT_DEFAULT_ERROR_MESSAGE = '';
 
 export const INPUT_DEFAULT_REQUIRED_MESSAGE = 'Este campo es requerido';
+
+export const INPUT_DEFAULT_VALUES = {
+  min: 0,
+  max: 1000,
+  step: 1,
+};

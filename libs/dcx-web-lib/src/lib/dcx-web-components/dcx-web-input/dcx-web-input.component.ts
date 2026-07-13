@@ -29,7 +29,7 @@ import {
   INPUT_DEFAULT_REQUIRED_MESSAGE,
   ERRORICON,
   SPACING_DEFAULT,
-  SLIDER_DEFAULT_VALUES,
+  INPUT_DEFAULT_VALUES,
 } from '../../core/defaults';
 
 
@@ -105,13 +105,13 @@ export class DcxWebInput extends LitElement {
   accessor multiple = false;
 
   @property({ type: Number })
-  accessor min = SLIDER_DEFAULT_VALUES.min;
+  accessor min = INPUT_DEFAULT_VALUES.min;
 
   @property({ type: Number })
-  accessor max = SLIDER_DEFAULT_VALUES.max;
+  accessor max = INPUT_DEFAULT_VALUES.max;
 
   @property({ type: Number })
-  accessor step = SLIDER_DEFAULT_VALUES.step;
+  accessor step = INPUT_DEFAULT_VALUES.step;
 
   @state()
   accessor showPassword = false;
