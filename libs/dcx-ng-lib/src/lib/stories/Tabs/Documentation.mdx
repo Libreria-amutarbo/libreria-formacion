@@ -1,43 +1,47 @@
 import { Meta, Canvas } from '@storybook/blocks';
-import * as TabsUn from './UnStyled.stories';
 import * as TabsClass from './ClassBased.stories';
 
 <Meta title="DCXLibrary/Tabs/Documentation" />
 
 # Tabs
 
-`dcx-ng-tabs` displays a set of tabs to navigate between different content areas in a tabbed interface.
+`dcx-ng-tabs` muestra un conjunto de pestañas para navegar entre distintas áreas de contenido, siguiendo el patrón ARIA de Tabs (`tablist`/`tab`/`tabpanel`) con navegación por teclado completa.
 
-## Inputs
+## Atributos
 
-- `tabs: DcxTabItem[]` (required) — Array of tab objects that define the tabs
-- `activeTabId: string` — ID of the active tab by default
-- `variant: 'line' | 'pill' | 'brand'` — Visual style of the tabs (default: 'line')
-- `disabled: boolean` — Disables all tabs
+- `tabs: DcxTabItem[]` (obligatorio) — array de objetos que definen cada pestaña.
+- `activeTabId: string` — ID de la pestaña activa inicialmente.
+- `variant: 'line' | 'pill' | 'brand' | 'subtle'` — estilo visual (por defecto: `'line'`).
+- `hasControls: boolean` — muestra botones de control numerados junto a las pestañas.
+- `ariaLabel: string | null` — nombre accesible del grupo de pestañas. Recomendado cuando hay varios grupos de pestañas en la misma página.
 
-## Outputs
+## Eventos
 
-- `(tabChange): void` - Emitted when tab changes, emits the selected tab ID
+- `(tabChange)`: se emite cuando cambia la pestaña seleccionada, con el ID de la pestaña.
 
 ## Interface DcxTabItem
 
 ```typescript
 interface DcxTabItem {
-  id: string;        // Unique identifier for the tab
-  label: string;     // Visible text on the tab
-  content?: string;  // Tab content (optional)
+  id: string;             // Identificador único de la pestaña
+  label: string;          // Texto visible
+  disabled?: boolean;     // Deshabilita la pestaña
+  icon?: string;          // Icono opcional junto al label
+  badge?: string | number; // Pastilla de recuento junto al label
 }
 ```
 
+El contenido de cada pestaña **no** se define en `DcxTabItem` — el componente proyecta un único `<ng-content>` que el consumidor controla en función de `activeTabId`/`tabChange` (ver ejemplo "Con contenido de componentes").
+
 ---
 
-## Variants
+## Variantes
 
-### Line (default)
+### Line (por defecto)
 
 <Canvas of={TabsClass.Default} />
 
-### Brand (primary background)
+### Brand (fondo primario)
 
 <Canvas of={TabsClass.BrandTabs} />
 
@@ -45,13 +49,37 @@ interface DcxTabItem {
 
 <Canvas of={TabsClass.PillTabs} />
 
-### Disabled State
+### Subtle
+
+<Canvas of={TabsClass.SubtleTabs} />
+
+### Con pestañas deshabilitadas
 
 <Canvas of={TabsClass.DisabledTabs} />
 
-## Usage
+### Con iconos
 
-### Basic
+<Canvas of={TabsClass.TabsWithIcons} />
+
+### Con badges de recuento
+
+<Canvas of={TabsClass.TabsWithBadges} />
+
+### Con scroll horizontal
+
+<Canvas of={TabsClass.TabsWithScroll} />
+
+### Con controles numerados
+
+<Canvas of={TabsClass.TabsWithControls} />
+
+### Con contenido de componentes
+
+<Canvas of={TabsClass.TabsWithContentComponents} />
+
+## Uso
+
+### Básico
 
 ```html
 <dcx-ng-tabs
@@ -61,18 +89,18 @@ interface DcxTabItem {
 ></dcx-ng-tabs>
 ```
 
-### With Variant
+### Con variante
 
 ```html
 <dcx-ng-tabs
   [tabs]="tabs"
   [activeTabId]="activeTabId"
-  [variant]="'brand'"  <!-- or 'pill' or 'line' -->
+  [variant]="'brand'"
   (tabChange)="onTabChange($event)"
 ></dcx-ng-tabs>
 ```
 
-### With TypeScript
+### Con TypeScript
 
 ```typescript
 import { Component, signal } from '@angular/core';
@@ -86,35 +114,56 @@ import { DcxTabItem, DcxNgTabsComponent } from '@dcx-ng-components/dcx-ng-lib';
     <dcx-ng-tabs
       [tabs]="tabs()"
       [activeTabId]="activeTab()"
+      [ariaLabel]="'Secciones del proyecto'"
       (tabChange)="onTabChange($event)"
-    ></dcx-ng-tabs>
+    >
+      @switch (activeTab()) {
+        @case ('tab1') { <p>Contenido de Resumen</p> }
+        @case ('tab2') { <p>Contenido de Detalles</p> }
+        @case ('tab3') { <p>Contenido de Ajustes</p> }
+      }
+    </dcx-ng-tabs>
   `,
 })
 export class TabsExampleComponent {
   tabs = signal<DcxTabItem[]>([
-    { id: 'tab1', label: 'Overview', content: 'Overview content' },
-    { id: 'tab2', label: 'Details', content: 'Details content' },
-    { id: 'tab3', label: 'Settings', content: 'Settings content' },
+    { id: 'tab1', label: 'Resumen' },
+    { id: 'tab2', label: 'Detalles' },
+    { id: 'tab3', label: 'Ajustes' },
   ]);
 
   activeTab = signal<string>('tab1');
 
   onTabChange(tabId: string): void {
     this.activeTab.set(tabId);
-    console.log('Tab changed to:', tabId);
   }
 }
 ```
 
-### Disabled
+### Deshabilitar una pestaña
 
 ```html
 <dcx-ng-tabs
-  [tabs]="tabs"
+  [tabs]="[
+    { id: 'tab1', label: 'Activa' },
+    { id: 'tab2', label: 'Deshabilitada', disabled: true }
+  ]"
   [activeTabId]="activeTabId"
-  [disabled]="true"
   (tabChange)="onTabChange($event)"
 ></dcx-ng-tabs>
 ```
 
 ---
+
+## Accesibilidad
+
+- Estructura ARIA completa: `role="tablist"` en el contenedor, `role="tab"` en cada pestaña (`<button>` nativo), `role="tabpanel"` en el panel activo, con `aria-selected`, `aria-controls` y `aria-labelledby` correctamente enlazados.
+- Navegación por teclado nativa del patrón APG Tabs: `←`/`→` mueven la selección y el foco entre pestañas habilitadas (con wrap-around), `Home`/`End` saltan a la primera/última, `Enter`/`Espacio` activan la pestaña con foco.
+- Tabindex roving: solo la pestaña activa es un punto de tabulación (`tabindex="0"`), el resto queda en `-1`.
+- Indica `ariaLabel` cuando haya más de un grupo de pestañas visible en la misma página, para que cada `tablist` tenga un nombre distintivo.
+
+## Buenas prácticas
+
+- Usa `line` para navegación de secciones dentro de una página con fondo claro.
+- Usa `brand`/`pill`/`subtle` según el contexto visual (fondo de color, agrupación compacta, o listado denso de opciones).
+- No abuses de `badge`: resérvalo para recuentos realmente relevantes para el usuario.
