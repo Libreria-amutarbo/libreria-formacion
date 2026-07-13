@@ -13,8 +13,9 @@ import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 import {
   DcxStepperChangeEvent,
   DcxStepperItem,
+  DcxStepperSize,
 } from '../../core/interfaces/stepper';
-import { DcxLayout, DcxSize } from '../../core/interfaces';
+import { DcxLayout } from '../../core/interfaces';
 
 @Component({
   selector: 'dcx-ng-stepper',
@@ -30,7 +31,8 @@ export class DcxNgStepperComponent {
   readonly orientation = input<DcxLayout>('horizontal');
   readonly linear = input<boolean>(false);
   readonly showStepNumbers = input<boolean>(true);
-  readonly size = input<DcxSize>('m');
+  readonly size = input<DcxStepperSize>('m');
+  readonly ariaLabel = input<string | null>(null);
 
   readonly stepChange = output<DcxStepperChangeEvent>();
   readonly stepClick = output<DcxStepperItem>();
@@ -130,6 +132,18 @@ export class DcxNgStepperComponent {
       return;
     }
 
+    if (event.key === 'Home') {
+      event.preventDefault();
+      this.activateStepAtIndex(this.findFirstEnabledStep());
+      return;
+    }
+
+    if (event.key === 'End') {
+      event.preventDefault();
+      this.activateStepAtIndex(this.findLastEnabledStep());
+      return;
+    }
+
     if (isHorizontal) {
       this.navigateByArrowKey(event, index, 'ArrowRight', 'ArrowLeft');
     } else {
@@ -156,10 +170,12 @@ export class DcxNgStepperComponent {
   }
 
   private navigateToEnabledStep(currentIndex: number, direction: number): void {
-    const nextEnabledIndex = this.findNextEnabledStep(currentIndex, direction);
+    this.activateStepAtIndex(this.findNextEnabledStep(currentIndex, direction));
+  }
 
-    if (nextEnabledIndex >= 0) {
-      this.onStepClick(this.steps()[nextEnabledIndex], nextEnabledIndex);
+  private activateStepAtIndex(index: number): void {
+    if (index >= 0) {
+      this.onStepClick(this.steps()[index], index);
     }
   }
 
@@ -172,6 +188,20 @@ export class DcxNgStepperComponent {
         return nextIndex;
       }
       nextIndex += direction;
+    }
+
+    return -1;
+  }
+
+  private findFirstEnabledStep(): number {
+    return this.steps().findIndex(step => !step.disabled);
+  }
+
+  private findLastEnabledStep(): number {
+    const stepsList = this.steps();
+
+    for (let i = stepsList.length - 1; i >= 0; i--) {
+      if (!stepsList[i].disabled) return i;
     }
 
     return -1;
@@ -198,10 +228,6 @@ export class DcxNgStepperComponent {
     const error = step.error ? 'dcx-stepper__step--error' : '';
 
     return [base, active, completed, disabled, error].filter(Boolean).join(' ');
-  }
-
-  getStepNumberClasses(): string {
-    return 'dcx-stepper__number';
   }
 
   getContentTpl(step: DcxStepperItem): TemplateRef<unknown> | null {

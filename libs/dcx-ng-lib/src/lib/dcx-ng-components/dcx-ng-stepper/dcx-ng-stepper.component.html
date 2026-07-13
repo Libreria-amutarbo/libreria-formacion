@@ -1,44 +1,52 @@
-<div [class]="stepperClasses()">
+<nav [class]="stepperClasses()" [attr.aria-label]="ariaLabel()">
   <!-- Header con los pasos -->
-  <div [class]="headerClasses()">
+  <ol [class]="headerClasses()" role="list">
     @for (step of steps(); track step.id; let idx = $index) {
-      <button
-        type="button"
-        [class]="getStepClasses(step)"
-        [disabled]="step.disabled"
-        (click)="onStepClick(step, idx)"
-        (keydown)="onStepKeydown($event, step, idx)"
-        [attr.aria-current]="isActive(step.id) ? 'step' : undefined"
-        [attr.tabindex]="isActive(step.id) ? 0 : -1"
-      >
-        <div class="dcx-stepper__step-indicator">
-          @if (step.completed && !step.error) {
-            <dcx-ng-icon name="check" class="dcx-stepper__check-icon"></dcx-ng-icon>
-          } @else if (step.error) {
-            <dcx-ng-icon name="exclamation-circle" class="dcx-stepper__error-icon"></dcx-ng-icon>
-          } @else if (showStepNumbers()) {
-            <span [class]="getStepNumberClasses()">{{ idx + 1 }}</span>
-          } @else if (step.icon) {
-            <dcx-ng-icon [name]="step.icon" class="dcx-stepper__custom-icon"></dcx-ng-icon>
-          }
-        </div>
+      <li class="dcx-stepper__item">
+        <button
+          type="button"
+          [class]="getStepClasses(step)"
+          [disabled]="step.disabled"
+          (click)="onStepClick(step, idx)"
+          (keydown)="onStepKeydown($event, step, idx)"
+          [attr.aria-current]="isActive(step.id) ? 'step' : undefined"
+          [attr.tabindex]="isActive(step.id) ? 0 : -1"
+        >
+          <div class="dcx-stepper__step-indicator">
+            @if (step.completed && !step.error) {
+              <dcx-ng-icon name="check" class="dcx-stepper__check-icon" aria-hidden="true"></dcx-ng-icon>
+              <span class="visually-hidden">Completado</span>
+            } @else if (step.error) {
+              <dcx-ng-icon name="exclamation-circle" class="dcx-stepper__error-icon" aria-hidden="true"></dcx-ng-icon>
+              <span class="visually-hidden">Error</span>
+            } @else if (showStepNumbers()) {
+              <span class="dcx-stepper__number">{{ idx + 1 }}</span>
+            } @else if (step.icon) {
+              <dcx-ng-icon [name]="step.icon" class="dcx-stepper__custom-icon" aria-hidden="true"></dcx-ng-icon>
+            }
+          </div>
 
-        <div class="dcx-stepper__step-label">
-          <div class="dcx-stepper__label-text">{{ step.label }}</div>
-          @if (step.description) {
-            <div class="dcx-stepper__label-description">{{ step.description }}</div>
-          }
-          @if (step.optional) {
-            <div class="dcx-stepper__label-optional">(optional)</div>
-          }
-        </div>
-      </button>
+          <div class="dcx-stepper__step-label">
+            <div class="dcx-stepper__label-text">{{ step.label }}</div>
+            @if (step.description) {
+              <div class="dcx-stepper__label-description">{{ step.description }}</div>
+            }
+            @if (step.optional) {
+              <div class="dcx-stepper__label-optional">(opcional)</div>
+            }
+          </div>
+        </button>
+      </li>
 
       @if (idx < steps().length - 1) {
-        <div class="dcx-stepper__divider"></div>
+        <div
+          class="dcx-stepper__divider"
+          [class.dcx-stepper__divider--completed]="step.completed"
+          aria-hidden="true"
+        ></div>
       }
     }
-  </div>
+  </ol>
 
   <!-- Contenido del paso activo -->
   @if (activeStep()?.contentTpl) {
@@ -46,4 +54,4 @@
       <ng-container *ngTemplateOutlet="getContentTpl(activeStep()!)"></ng-container>
     </div>
   }
-</div>
+</nav>

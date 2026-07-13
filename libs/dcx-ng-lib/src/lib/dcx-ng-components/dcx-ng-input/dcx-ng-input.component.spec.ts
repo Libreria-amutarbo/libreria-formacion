@@ -572,6 +572,73 @@ describe('DcxNgInputComponent', () => {
       fixture.detectChanges();
       expect(component.verticalClass).toBe(true);
     });
+
+    it('should set aria-orientation on range inputs when vertical', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RANGE);
+      fixture.componentRef.setInput('orientation', 'vertical');
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('input'));
+      expect(input.nativeElement.getAttribute('aria-orientation')).toBe(
+        'vertical',
+      );
+    });
+
+    it('should not set aria-orientation on range inputs when horizontal', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RANGE);
+      fixture.componentRef.setInput('orientation', 'horizontal');
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('input'));
+      expect(
+        input.nativeElement.getAttribute('aria-orientation'),
+      ).toBeNull();
+    });
+
+    it('should not set aria-orientation on non-range inputs even when vertical', () => {
+      fixture.componentRef.setInput('type', DcxInputType.TEXT);
+      fixture.componentRef.setInput('orientation', 'vertical');
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('input'));
+      expect(
+        input.nativeElement.getAttribute('aria-orientation'),
+      ).toBeNull();
+    });
+  });
+
+  describe('Range type (WCAG)', () => {
+    it('should set aria-valuetext when ariaValueText is provided', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RANGE);
+      fixture.componentRef.setInput('ariaValueText', '60k€');
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('input'));
+      expect(input.nativeElement.getAttribute('aria-valuetext')).toBe(
+        '60k€',
+      );
+    });
+
+    it('should not set aria-valuetext by default', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RANGE);
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('input'));
+      expect(
+        input.nativeElement.getAttribute('aria-valuetext'),
+      ).toBeNull();
+    });
+
+    it('should apply the --range control class for range inputs', () => {
+      fixture.componentRef.setInput('type', DcxInputType.RANGE);
+      fixture.detectChanges();
+      expect(component.inputClasses()).toContain(
+        'dcx-ng-input__control--range',
+      );
+    });
+
+    it('should not apply the --range control class for other input types', () => {
+      fixture.componentRef.setInput('type', DcxInputType.TEXT);
+      fixture.detectChanges();
+      expect(component.inputClasses()).not.toContain(
+        'dcx-ng-input__control--range',
+      );
+    });
   });
 
   describe('Required warning', () => {

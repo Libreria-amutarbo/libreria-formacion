@@ -1,6 +1,12 @@
+@use '../../../scss/utils/mixins' as *;
+
 :host {
   display: block;
-  font-family: var(--ff-base, var(--font-family-primary, 'Inter', sans-serif));
+  font-family: var(--ff-base, 'Inter', sans-serif);
+}
+
+.visually-hidden {
+  @include visually-hidden;
 }
 
 .dcx-stepper {
@@ -17,9 +23,12 @@
       width: 100%;
     }
 
-    .dcx-stepper__step {
+    .dcx-stepper__item {
       flex: 1 1 0;
       min-width: 0;
+    }
+
+    .dcx-stepper__step {
       flex-direction: column;
       align-items: center;
       text-align: center;
@@ -119,20 +128,28 @@
   display: flex;
   align-items: center;
   position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dcx-stepper__item {
+  display: flex;
+  list-style: none;
 }
 
 .dcx-stepper__step {
   position: relative;
   display: flex;
   align-items: flex-start;
+  width: 100%;
   gap: var(--sp-3, 12px);
   padding: 0;
   background: transparent;
   border: none;
   cursor: pointer;
   text-align: left;
-  flex-shrink: 1;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
 
   &:focus-visible {
     outline: 2px solid var(--border-focus, #1db8f2);
@@ -142,71 +159,42 @@
 
   &:not(.dcx-stepper__step--disabled):hover {
     .dcx-stepper__step-indicator {
-      background: var(--bg-primary-hover, #004080);
-      color: var(--text-white, #ffffff);
+      border-color: var(--bg-primary-hover, #004080);
+      color: var(--bg-primary-hover, #004080);
     }
   }
 
+  // ── Activo: outline (borde + texto de color), sin relleno ──
   &--active {
     .dcx-stepper__step-indicator {
-      background: var(--bg-primary, #0058ab);
-      color: var(--text-white, #ffffff);
+      border-color: var(--bg-primary, #0058ab);
+      color: var(--bg-primary, #0058ab);
+    }
+
+    .dcx-stepper__label-text {
+      color: var(--bg-primary, #0058ab);
       font-weight: var(--fw-semibold, 600);
-      box-shadow: 0 0 0 3px var(--bg-primary, #0058ab);
-      opacity: 1;
     }
+  }
 
-    &.dcx-stepper__step--completed {
-      .dcx-stepper__step-indicator {
-        background: var(--color-success, #16a34a);
-        box-shadow:
-          0 0 0 1px var(--bg-default, #ffffff),
-          0 0 0 4px var(--color-success, #16a34a);
-      }
-    }
-
-    &.dcx-stepper__step--error {
-      .dcx-stepper__step-indicator {
-        background: var(--color-error, #dc2626);
-        box-shadow:
-          0 0 0 1px var(--bg-default, #ffffff),
-          0 0 0 4px var(--color-error, #dc2626);
-      }
-    }
-
-    &.dcx-stepper__step--disabled {
-      .dcx-stepper__step-indicator {
-        box-shadow:
-          0 0 0 1px var(--bg-default, #ffffff),
-          0 0 0 4px var(--bg-primary, #0058ab);
-      }
+  // ── Completado: relleno de color + icono blanco ──
+  &--completed {
+    .dcx-stepper__step-indicator {
+      background: var(--bg-primary, #0058ab);
+      border-color: var(--bg-primary, #0058ab);
+      color: var(--text-white, #ffffff);
     }
 
     .dcx-stepper__label-text {
       color: var(--text-dark, #2a2e33);
-      font-weight: var(--fw-semibold, 600);
     }
   }
 
-  &--completed {
-    .dcx-stepper__step-indicator {
-      background: var(--color-success, #16a34a);
-      color: var(--text-white, #ffffff);
-      border: none;
-      box-shadow: 0 0 0 1px var(--bg-default, #ffffff);
-    }
-
-    .dcx-stepper__label-text {
-      color: var(--text-muted, #696e75);
-    }
-  }
-
+  // ── Error: mismo tratamiento outline que activo, en rojo ──
   &--error {
     .dcx-stepper__step-indicator {
-      background: var(--color-error, #dc2626);
-      color: var(--text-white, #ffffff);
-      border: none;
-      box-shadow: 0 0 0 1px var(--bg-default, #ffffff);
+      border-color: var(--color-error, #dc2626);
+      color: var(--color-error, #dc2626);
     }
 
     .dcx-stepper__label-text {
@@ -215,25 +203,25 @@
     }
   }
 
+  // ── Deshabilitado: declarado el último a propósito, gana sobre
+  // cualquier otro estado que pueda coincidir en el mismo paso ──
   &--disabled {
     cursor: not-allowed;
-    opacity: 0.5;
 
     .dcx-stepper__step-indicator {
       background: var(--bg-disabled, #f3f4f6);
-      color: var(--text-disabled, #d1d5db);
-      box-shadow: 0 0 0 1px var(--bg-default, #ffffff);
+      border-color: var(--border-light, #d1d5db);
+      color: var(--text-disabled, #9ca3af);
     }
 
     .dcx-stepper__label-text {
-      color: var(--text-disabled, #d1d5db);
+      color: var(--text-disabled, #9ca3af);
     }
 
     &:hover {
       .dcx-stepper__step-indicator {
-        background: var(--bg-disabled, #f3f4f6);
-        color: var(--text-disabled, #d1d5db);
-        box-shadow: none;
+        border-color: var(--border-light, #d1d5db);
+        color: var(--text-disabled, #9ca3af);
       }
     }
   }
@@ -247,7 +235,7 @@
   width: var(--sp-8, 32px);
   height: var(--sp-8, 32px);
   border-radius: 50%;
-  background: var(--bg-surface, #f4f5f7);
+  background: var(--bg-default, #ffffff);
   color: var(--text-muted, #696e75);
   font-weight: var(--fw-medium, 500);
   border: 2px solid var(--border-light, #d1d5db);
@@ -326,6 +314,10 @@
   margin: 0 var(--sp-3, 12px);
   background: var(--border-light, #d1d5db);
   transition: background 0.2s ease;
+
+  &--completed {
+    background: var(--bg-primary, #0058ab);
+  }
 }
 
 .dcx-stepper__content {
