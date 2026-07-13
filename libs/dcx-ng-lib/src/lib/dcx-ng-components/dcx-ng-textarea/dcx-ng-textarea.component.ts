@@ -5,12 +5,17 @@ import {
   computed,
   Component,
   ElementRef,
+  forwardRef,
   input,
   model,
   output,
   signal,
   ViewChild,
 } from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { FloatLabelVariant, TextareaSize } from '../../core/interfaces';
 
 @Component({
@@ -20,8 +25,17 @@ import { FloatLabelVariant, TextareaSize } from '../../core/interfaces';
   templateUrl: './dcx-ng-textarea.component.html',
   styleUrls: ['./dcx-ng-textarea.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DcxNgTextareaComponent),
+      multi: true,
+    },
+  ],
 })
-export class DcxNgTextareaComponent implements AfterViewInit {
+export class DcxNgTextareaComponent
+  implements AfterViewInit, ControlValueAccessor
+{
   @ViewChild('textareaRef', { static: true })
   textareaRef!: ElementRef<HTMLTextAreaElement>;
 
@@ -52,7 +66,43 @@ export class DcxNgTextareaComponent implements AfterViewInit {
   });
   errorMessage = input<string>('');
 
+  id = input<string>(
+    `dcx-textarea-${Math.random().toString(36).substring(2, 9)}`,
+  );
+  ariaLabel = input<string | null>(null);
+  ariaDescribedBy = input<string | null>(null);
+  required = input(false, {
+    transform: booleanAttribute,
+  });
+  hint = input<string>('');
+  maxLength = input<number | null>(null);
+  resizable = input(true, {
+    transform: booleanAttribute,
+  });
+
   focused = signal(false);
+
+  errorId = computed(() => `${this.id()}-error`);
+  hintId = computed(() => `${this.id()}-hint`);
+
+  showError = computed(() => this.invalid() && !!this.errorMessage());
+  showHint = computed(() => !!this.hint() && !this.showError());
+
+  describedBy = computed(() => {
+    const ids = [
+      this.ariaDescribedBy(),
+      this.showError() ? this.errorId() : null,
+      this.showHint() ? this.hintId() : null,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .trim();
+    return ids.length ? ids : null;
+  });
+
+  computedResize = computed<'vertical' | 'none'>(() =>
+    !this.autoResize() && this.resizable() ? 'vertical' : 'none',
+  );
 
   textareaClasses = computed(() => {
     return [
@@ -80,6 +130,9 @@ export class DcxNgTextareaComponent implements AfterViewInit {
 
   valueChange = output<string>();
 
+  private onChange: (value: string) => void = () => undefined;
+  private onTouched: () => void = () => undefined;
+
   ngAfterViewInit(): void {
     this.syncTextareaSize();
   }
@@ -91,6 +144,7 @@ export class DcxNgTextareaComponent implements AfterViewInit {
     const newValue = target.value;
     this.value.set(newValue);
     this.valueChange.emit(newValue);
+    this.onChange(newValue);
     this.syncTextareaSize();
   };
 
@@ -100,7 +154,20 @@ export class DcxNgTextareaComponent implements AfterViewInit {
 
   onBlur = (): void => {
     this.focused.set(false);
+    this.onTouched();
   };
+
+  writeValue(value: string): void {
+    this.value.set(value ?? '');
+  }
+
+  registerOnChange(fn: (value: string) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
 
   private syncTextareaSize = (): void => {
     const textarea = this.textareaRef?.nativeElement;

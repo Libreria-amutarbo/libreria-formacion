@@ -7,6 +7,8 @@
 .dcx-ng-textarea__wrapper {
   position: relative;
   display: flex;
+  flex-direction: column;
+  gap: var(--sp-1, 4px);
   width: 100%;
 
   &--fluid {
@@ -16,6 +18,7 @@
   &--float {
     .dcx-ng-textarea__label {
       position: absolute;
+      z-index: 1;
       font-size: var(--fs-base, 14px);
       color: var(--text-label, #4f545a);
       font-weight: var(--fw-regular, 400);
@@ -55,11 +58,29 @@
   }
 }
 
+.dcx-ng-textarea__label {
+  font-size: var(--fs-base, 14px);
+  font-weight: var(--fw-medium, 500);
+  color: var(--text-dark, #2a2e33);
+
+  &.is-invalid {
+    color: var(--border-error, #dc2626);
+  }
+
+  &.is-disabled {
+    color: var(--text-disabled, #9ca3af);
+  }
+}
+
+.dcx-ng-textarea__required {
+  color: var(--border-error, #dc2626);
+  margin-left: 2px;
+}
+
 .dcx-ng-textarea__control {
   max-width: 100%;
   min-height: 96px;
   box-sizing: border-box;
-  resize: none;
   overflow: auto;
 
   .dcx-ng-textarea__wrapper--fluid & {
@@ -86,7 +107,8 @@
 
   &:focus-visible {
     outline: none;
-    border-color: var(--bg-primary, #0058ab);
+    border-color: var(--border-focus, #1db8f2);
+    box-shadow: 0 0 0 2px rgba(29, 184, 242, 0.18);
   }
 
   &:disabled {
@@ -96,7 +118,6 @@
   }
 
   &--autoresize {
-    resize: none;
     overflow: hidden;
   }
 
@@ -116,6 +137,10 @@
 
   &--filled {
     background: var(--bg-hover, #f7f8fa);
+
+    &:focus-visible {
+      background: var(--bg-default, #ffffff);
+    }
   }
 
   &--invalid {
@@ -123,6 +148,7 @@
 
     &:focus-visible {
       border-color: var(--border-error, #dc2626);
+      box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
     }
   }
 }
@@ -130,6 +156,13 @@
 .dcx-ng-textarea__error {
   font-size: var(--fs-sm, 12px);
   color: var(--border-error, #dc2626);
+  margin-top: var(--sp-1, 4px);
+  font-weight: var(--fw-regular, 400);
+}
+
+.dcx-ng-textarea__hint {
+  font-size: var(--fs-sm, 12px);
+  color: var(--text-muted, #696e75);
   margin-top: var(--sp-1, 4px);
   font-weight: var(--fw-regular, 400);
 }
