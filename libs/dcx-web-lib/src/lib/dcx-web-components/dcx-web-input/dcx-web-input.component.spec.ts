@@ -72,19 +72,19 @@ describe('DcxWebInput', () => {
 
       const label =
         element.shadowRoot?.querySelector(
-          '.dcx-ng-input__label',
+          '.dcx-input__label',
         );
       const wrapper =
         element.shadowRoot?.querySelector(
-          '.dcx-ng-input__wrapper',
+          '.dcx-input__wrapper',
         );
       const field =
         element.shadowRoot?.querySelector(
-          '.dcx-ng-input__field',
+          '.dcx-input__field',
         );
       const control =
         element.shadowRoot?.querySelector(
-          '.dcx-ng-input__control',
+          '.dcx-input__control',
         );
 
       expect(label).toBeTruthy();
