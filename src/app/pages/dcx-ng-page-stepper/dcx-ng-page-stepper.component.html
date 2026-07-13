@@ -1,68 +1,188 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Stepper por defecto</h2>
-  <dcx-ng-stepper [steps]="basicSteps" [activeStepId]="'1'"></dcx-ng-stepper>
-</section>
+<div class="demo-page">
 
-<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Stepper</h1>
+    <p class="demo-page-header__desc">
+      Guía al usuario por una secuencia de pasos, con navegación lineal o libre,
+      orientación horizontal o vertical, y estados de progreso (activo, completado,
+      error, deshabilitado, opcional).
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Stepper vertical</h2>
-  <dcx-ng-stepper
-    [steps]="basicSteps"
-    [activeStepId]="'1'"
-    [orientation]="'vertical'"
-  ></dcx-ng-stepper>
-</section>
+  <!-- ── 01 Horizontal ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Horizontal</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper [steps]="basicSteps" [activeStepId]="'1'"></dcx-ng-stepper>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+  <!-- ── 02 Vertical ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Vertical</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper
+        [steps]="basicSteps"
+        [activeStepId]="'1'"
+        [orientation]="'vertical'"
+      ></dcx-ng-stepper>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Stepper lineal</h2>
-  <dcx-ng-stepper
-    [steps]="basicSteps"
-    [activeStepId]="'1'"
-    [linear]="true"
-  ></dcx-ng-stepper>
-</section>
+  <!-- ── 03 Lineal ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Lineal</span>
+    </div>
+    <p class="demo-section__desc">
+      Solo se puede avanzar al siguiente paso cuando el actual está completado.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-stepper
+        [steps]="basicSteps"
+        [activeStepId]="'1'"
+        [linear]="true"
+      ></dcx-ng-stepper>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+  <!-- ── 04 Con pasos completados ──────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Con pasos completados</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper [steps]="completedSteps" [activeStepId]="'3'"></dcx-ng-stepper>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 4 - Steps completados</h2>
-  <dcx-ng-stepper
-    [steps]="completedSteps"
-    [activeStepId]="'3'"
-  ></dcx-ng-stepper>
-</section>
+  <!-- ── 05 Con pasos deshabilitados ───────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Con pasos deshabilitados</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper [steps]="disabledSteps" [activeStepId]="'1'"></dcx-ng-stepper>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+  <!-- ── 06 Con estado de error ────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Con estado de error</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper [steps]="errorSteps" [activeStepId]="'2'"></dcx-ng-stepper>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 5 - Steps deshabilitados</h2>
-  <dcx-ng-stepper [steps]="disabledSteps" [activeStepId]="'1'"></dcx-ng-stepper>
-</section>
+  <!-- ── 07 Con paso opcional ──────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Con paso opcional</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper [steps]="optionalSteps" [activeStepId]="'1'"></dcx-ng-stepper>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+  <!-- ── 08 Con contenido por paso ─────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Con contenido por paso</span>
+    </div>
+    <p class="demo-section__desc">
+      El campo <code>contentTpl</code> acepta un <code>TemplateRef</code> para
+      renderizar contenido propio bajo el paso activo.
+    </p>
+    <div class="demo-section__body">
+      <ng-template #addressTpl>
+        <p style="margin: 0 0 4px; font-weight: 600;">Dirección de envío</p>
+        <p style="margin: 0; color: var(--text-muted, #696e75); font-size: 13px;">
+          Calle Ejemplo, 42 · 28001 Madrid · España
+        </p>
+      </ng-template>
+      <dcx-ng-stepper
+        [steps]="contentSteps"
+        [activeStepId]="'2'"
+        [orientation]="'vertical'"
+        ariaLabel="Proceso de compra"
+      ></dcx-ng-stepper>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 6 - Estado de error</h2>
-  <dcx-ng-stepper [steps]="errorSteps" [activeStepId]="'2'"></dcx-ng-stepper>
-</section>
+  <!-- ── 09 Pequeño ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">09</span>
+      <span class="demo-section__title">Pequeño</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper
+        [steps]="basicSteps"
+        [activeStepId]="'1'"
+        size="s"
+      ></dcx-ng-stepper>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+  <!-- ── 10 Grande ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">10</span>
+      <span class="demo-section__title">Grande</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper
+        [steps]="basicSteps"
+        [activeStepId]="'1'"
+        size="l"
+      ></dcx-ng-stepper>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 7 - Step opcional</h2>
-  <dcx-ng-stepper [steps]="optionalSteps" [activeStepId]="'1'"></dcx-ng-stepper>
-</section>
+  <!-- ── 11 Extra grande ───────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">11</span>
+      <span class="demo-section__title">Extra grande</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper
+        [steps]="basicSteps"
+        [activeStepId]="'1'"
+        size="xl"
+      ></dcx-ng-stepper>
+    </div>
+  </div>
 
-<dcx-ng-divider class="divider" [thickness]="0.1" color="#000"></dcx-ng-divider>
+  <!-- ── 12 Sin números (con iconos) ───────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">12</span>
+      <span class="demo-section__title">Sin números (con iconos)</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-stepper
+        [steps]="iconSteps"
+        [activeStepId]="'1'"
+        [showStepNumbers]="false"
+      ></dcx-ng-stepper>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 8 - Sin números (con íconos)</h2>
-  <dcx-ng-stepper
-    [steps]="iconSteps"
-    [activeStepId]="'1'"
-    [showStepNumbers]="false"
-  ></dcx-ng-stepper>
-</section>
+</div>

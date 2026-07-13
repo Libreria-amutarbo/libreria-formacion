@@ -1,6 +1,5 @@
 import { Meta, Canvas } from '@storybook/blocks';
 import * as SliderClassBasedStories from './ClassBased.stories';
-import * as SliderUnstyledStories from './UnStyled.stories';
 
 <Meta title="DCXLibrary/Slider/Documentation" />
 
@@ -24,13 +23,35 @@ Incluye estilos visuales modernos y personalizados, con soporte para orientació
 
 ---
 
+## Ejemplo con sufijo de unidad
+
+<Canvas of={SliderClassBasedStories.ConSufijo} />
+
+---
+
+## Ejemplo deshabilitado
+
+<Canvas of={SliderClassBasedStories.Disabled} />
+
+---
+
 ## Props
 
 value (number): Valor actual del slider. Por defecto es 0.
 
+min (number): Valor mínimo del slider. Por defecto es 0.
+
+max (number): Valor máximo del slider. Por defecto es 50.
+
 step (number): Incremento entre valores. Por defecto es 1.
 
 vertical (boolean): Si es true, el slider se muestra en vertical. Por defecto es false.
+
+disabled (boolean): Deshabilita el slider. Por defecto es false.
+
+ariaLabel (string | null): Nombre accesible explícito. Si no se indica y showLabel es true, se usa textLabel como alternativa. Obligatorio cuando showLabel es false.
+
+valueSuffix (string): Sufijo de unidad mostrado junto al valor (p.ej. "k€", " personas") y expuesto vía aria-valuetext.
 
 formControlName (string): Permite la integración con formularios reactivos.
 
@@ -42,9 +63,14 @@ valueChange (number): Se emite cuando el valor del slider cambia.
 
 ## Accesibilidad
 
-- Soporta navegación por teclado.
+- El `<input type="range">` nativo provee `role="slider"`, `aria-valuemin`, `aria-valuemax` y `aria-valuenow` sin configuración adicional.
+- Soporta navegación por teclado nativa: flechas, Home, End, Page Up/Down.
+- Expone `aria-orientation="vertical"` cuando `vertical` es true.
+- Expone `aria-valuetext` cuando se indica `valueSuffix`, para que lectores de pantalla anuncien la unidad.
+- Cuando `showLabel` es false, debe indicarse `ariaLabel` explícitamente para mantener un nombre accesible.
 
 ## Buenas prácticas
 
 - Usa el slider para rangos numéricos continuos.
 - Para valores discretos o etiquetas, considera un select o radio.
+- Si ocultas la etiqueta visual (`showLabel="false"`), indica siempre `ariaLabel`.
