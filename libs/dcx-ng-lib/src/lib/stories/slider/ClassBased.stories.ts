@@ -10,63 +10,113 @@ const meta: Meta<DcxNgSliderComponent> = {
   tags: ['autodocs'],
   argTypes: {
     showLabel: {
-      description: 'Mostrar label',
+      name: 'showLabel',
+      description: 'Muestra la etiqueta con el texto y el valor actual.',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
       },
     },
     textLabel: {
-      description: 'Texto del label',
+      name: 'textLabel',
+      description: 'Texto de la etiqueta mostrada junto al valor.',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Value' },
       },
     },
     value: {
+      name: 'value',
       control: { type: 'number' },
-      description: 'Valor actual del slider',
+      description: 'Valor actual del slider.',
       table: {
+        category: 'Atributos',
+        type: { summary: 'number' },
         defaultValue: { summary: '0' },
-        category: 'Attributes',
       },
     },
     min: {
+      name: 'min',
       control: { type: 'number' },
-      description: 'Valor mínimo del slider',
+      description: 'Valor mínimo del slider.',
       table: {
+        category: 'Atributos',
+        type: { summary: 'number' },
         defaultValue: { summary: '0' },
-        category: 'Attributes',
       },
     },
     max: {
+      name: 'max',
       control: { type: 'number' },
-      description: 'Valor máximo del slider',
+      description: 'Valor máximo del slider.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
+        type: { summary: 'number' },
+        defaultValue: { summary: '50' },
       },
     },
     step: {
+      name: 'step',
       control: { type: 'number' },
-      description: 'Incremento entre valores',
+      description: 'Incremento entre valores.',
       table: {
+        category: 'Atributos',
+        type: { summary: 'number' },
         defaultValue: { summary: '1' },
-        category: 'Attributes',
       },
     },
     vertical: {
+      name: 'vertical',
       control: { type: 'boolean' },
-      description: 'Valor actual del slider',
-      defaultValue: { summary: false },
+      description: 'Muestra el slider en orientación vertical.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    disabled: {
+      name: 'disabled',
+      control: { type: 'boolean' },
+      description: 'Deshabilita el slider.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    ariaLabel: {
+      name: 'ariaLabel',
+      control: { type: 'text' },
+      description:
+        'Nombre accesible explícito. Si no se indica y showLabel es true, se usa textLabel como alternativa. Obligatorio cuando showLabel es false.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string | null' },
+        defaultValue: { summary: 'null' },
+      },
+    },
+    valueSuffix: {
+      name: 'valueSuffix',
+      control: { type: 'text' },
+      description:
+        'Sufijo de unidad mostrado junto al valor (p.ej. "k€", " personas") y expuesto vía aria-valuetext.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
       },
     },
     valueChange: {
+      name: 'valueChange',
       action: 'value changed',
       description: 'Se emite cuando cambia el valor del slider.',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: {
           summary: '(value: number) => void',
         },
@@ -81,9 +131,10 @@ const meta: Meta<DcxNgSliderComponent> = {
     textLabel: SLIDER_DEFAULT_VALUES.textLabel,
     value: SLIDER_DEFAULT_VALUES.value,
     step: SLIDER_DEFAULT_VALUES.step,
-    vertical: SLIDER_DEFAULT_VALUES.showLabel,
+    vertical: SLIDER_DEFAULT_VALUES.vertical,
     min: SLIDER_DEFAULT_VALUES.min,
     max: SLIDER_DEFAULT_VALUES.max,
+    disabled: SLIDER_DEFAULT_VALUES.disabled,
   },
   decorators: [
     moduleMetadata({
@@ -98,16 +149,30 @@ const meta: Meta<DcxNgSliderComponent> = {
 export default meta;
 type Story = StoryObj<DcxNgSliderComponent>;
 
-export const ClassBassed: Story = {
-  args: {
-    vertical: false,
-  },
-};
-
 export const Default: Story = {};
 
 export const Vertical: Story = {
   args: {
     vertical: true,
+  },
+};
+
+export const ConSufijo: Story = {
+  args: {
+    textLabel: 'Presupuesto (k€)',
+    value: 60,
+    max: 100,
+    valueSuffix: 'k€',
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    textLabel: 'Duración (deshabilitado)',
+    value: 12,
+    min: 1,
+    max: 24,
+    valueSuffix: ' meses',
+    disabled: true,
   },
 };

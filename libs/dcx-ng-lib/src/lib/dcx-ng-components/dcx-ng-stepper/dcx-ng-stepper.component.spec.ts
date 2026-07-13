@@ -359,4 +359,163 @@ describe('DcxNgStepperComponent', () => {
 
     expect(stepClickSpy).toHaveBeenCalledWith(stepsWithDisabled[2]);
   });
+
+  describe('Home / End navigation', () => {
+    it('should activate the first enabled step on Home', () => {
+      fixture.componentRef.setInput('steps', mockSteps);
+      fixture.componentRef.setInput('activeStepId', '3');
+      fixture.detectChanges();
+
+      const stepClickSpy = jest.spyOn(component.stepClick, 'emit');
+      const lastStepButton = compiled.nativeElement.querySelectorAll(
+        '.dcx-stepper__step',
+      )[2];
+
+      const homeEvent = new KeyboardEvent('keydown', { key: 'Home' });
+      lastStepButton.dispatchEvent(homeEvent);
+
+      expect(stepClickSpy).toHaveBeenCalledWith(mockSteps[0]);
+    });
+
+    it('should activate the last enabled step on End', () => {
+      fixture.componentRef.setInput('steps', mockSteps);
+      fixture.detectChanges();
+
+      const stepClickSpy = jest.spyOn(component.stepClick, 'emit');
+      const firstStepButton = compiled.nativeElement.querySelectorAll(
+        '.dcx-stepper__step',
+      )[0];
+
+      const endEvent = new KeyboardEvent('keydown', { key: 'End' });
+      firstStepButton.dispatchEvent(endEvent);
+
+      expect(stepClickSpy).toHaveBeenCalledWith(mockSteps[2]);
+    });
+
+    it('should skip disabled steps on Home', () => {
+      const stepsWithDisabled: DcxStepperItem[] = [
+        { id: '1', label: 'Step 1', disabled: true },
+        { id: '2', label: 'Step 2' },
+        { id: '3', label: 'Step 3' },
+      ];
+      fixture.componentRef.setInput('steps', stepsWithDisabled);
+      fixture.componentRef.setInput('activeStepId', '3');
+      fixture.detectChanges();
+
+      const stepClickSpy = jest.spyOn(component.stepClick, 'emit');
+      const lastStepButton = compiled.nativeElement.querySelectorAll(
+        '.dcx-stepper__step',
+      )[2];
+
+      lastStepButton.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
+
+      expect(stepClickSpy).toHaveBeenCalledWith(stepsWithDisabled[1]);
+    });
+
+    it('should skip disabled steps on End', () => {
+      const stepsWithDisabled: DcxStepperItem[] = [
+        { id: '1', label: 'Step 1' },
+        { id: '2', label: 'Step 2' },
+        { id: '3', label: 'Step 3', disabled: true },
+      ];
+      fixture.componentRef.setInput('steps', stepsWithDisabled);
+      fixture.detectChanges();
+
+      const stepClickSpy = jest.spyOn(component.stepClick, 'emit');
+      const firstStepButton = compiled.nativeElement.querySelectorAll(
+        '.dcx-stepper__step',
+      )[0];
+
+      firstStepButton.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
+
+      expect(stepClickSpy).toHaveBeenCalledWith(stepsWithDisabled[1]);
+    });
+  });
+
+  describe('Accessibility (WCAG AA)', () => {
+    it('should render the root as a <nav> element', () => {
+      fixture.componentRef.setInput('steps', mockSteps);
+      fixture.detectChanges();
+
+      const nav = compiled.nativeElement.querySelector('nav.dcx-stepper');
+      expect(nav).toBeTruthy();
+    });
+
+    it('should reflect the ariaLabel input on the root nav', () => {
+      fixture.componentRef.setInput('steps', mockSteps);
+      fixture.componentRef.setInput('ariaLabel', 'Progreso del formulario');
+      fixture.detectChanges();
+
+      const nav = compiled.nativeElement.querySelector('nav.dcx-stepper');
+      expect(nav.getAttribute('aria-label')).toBe('Progreso del formulario');
+    });
+
+    it('should render the steps inside an <ol role="list">, one per <li>', () => {
+      fixture.componentRef.setInput('steps', mockSteps);
+      fixture.detectChanges();
+
+      const list = compiled.nativeElement.querySelector('ol.dcx-stepper__header');
+      expect(list).toBeTruthy();
+      expect(list.getAttribute('role')).toBe('list');
+
+      const items = compiled.nativeElement.querySelectorAll('li.dcx-stepper__item');
+      expect(items.length).toBe(mockSteps.length);
+    });
+
+    it('should include visually-hidden "Completado" text for a completed step', () => {
+      const steps: DcxStepperItem[] = [
+        { id: '1', label: 'Step 1', completed: true },
+        { id: '2', label: 'Step 2' },
+      ];
+      fixture.componentRef.setInput('steps', steps);
+      fixture.detectChanges();
+
+      const firstStep = compiled.nativeElement.querySelectorAll(
+        '.dcx-stepper__step',
+      )[0];
+      expect(firstStep.textContent).toContain('Completado');
+    });
+
+    it('should include visually-hidden "Error" text for a step in error', () => {
+      const steps: DcxStepperItem[] = [
+        { id: '1', label: 'Step 1', error: true },
+        { id: '2', label: 'Step 2' },
+      ];
+      fixture.componentRef.setInput('steps', steps);
+      fixture.detectChanges();
+
+      const firstStep = compiled.nativeElement.querySelectorAll(
+        '.dcx-stepper__step',
+      )[0];
+      expect(firstStep.textContent).toContain('Error');
+    });
+
+    it('should mark the divider as aria-hidden', () => {
+      fixture.componentRef.setInput('steps', mockSteps);
+      fixture.detectChanges();
+
+      const divider = compiled.nativeElement.querySelector('.dcx-stepper__divider');
+      expect(divider.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('should mark the divider after a completed step with the --completed class', () => {
+      const steps: DcxStepperItem[] = [
+        { id: '1', label: 'Step 1', completed: true },
+        { id: '2', label: 'Step 2' },
+        { id: '3', label: 'Step 3' },
+      ];
+      fixture.componentRef.setInput('steps', steps);
+      fixture.detectChanges();
+
+      const dividers = compiled.nativeElement.querySelectorAll(
+        '.dcx-stepper__divider',
+      );
+      expect(
+        dividers[0].classList.contains('dcx-stepper__divider--completed'),
+      ).toBe(true);
+      expect(
+        dividers[1].classList.contains('dcx-stepper__divider--completed'),
+      ).toBe(false);
+    });
+  });
 });

@@ -46,12 +46,22 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
   max = input(SLIDER_DEFAULT_VALUES.max);
 
   step = input(SLIDER_DEFAULT_VALUES.step);
-  stepInput = computed<number>(() => {
-    return this.step();
-  });
   vertical = input(SLIDER_DEFAULT_VALUES.vertical);
+  disabled = input(SLIDER_DEFAULT_VALUES.disabled);
+  ariaLabel = input<string | null>(null);
+  valueSuffix = input<string>('');
 
   valueChange = output<number>();
+
+  displayValue = computed(() => `${this.valueInput()}${this.valueSuffix()}`);
+
+  effectiveAriaLabel = computed(
+    () => this.ariaLabel() || (this.showLabel() ? this.textLabel() : null),
+  );
+
+  effectiveAriaValueText = computed(() =>
+    this.valueSuffix() ? this.displayValue() : null,
+  );
 
   progressPercent = computed(() => {
     const min = this.min();
@@ -73,24 +83,18 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
 
   private onChange: (value: number) => void = () => null;
   private onTouched: () => void = () => null;
+  private cvaActive = false;
 
   constructor() {
     effect(() => {
       const external = this.value();
-      this.valueInput.set(external);
-
-      const min = this.min();
-      const max = this.max();
-
-      if (external < min) {
-        this.valueInput.set(min);
-        return;
-      }
-
-      if (external > max) {
-        this.valueInput.set(max);
-      }
+      if (this.cvaActive) return;
+      this.valueInput.set(this.clamp(external));
     });
+  }
+
+  private clamp(value: number): number {
+    return Math.min(Math.max(value, this.min()), this.max());
   }
 
   onInput(value: string | number | null): void {
@@ -102,14 +106,15 @@ export class DcxNgSliderComponent implements ControlValueAccessor {
   }
 
   writeValue(value: number): void {
-    this.valueInput.set(value);
+    this.cvaActive = true;
+    this.valueInput.set(this.clamp(value));
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: number) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 }

@@ -3,108 +3,108 @@ import { DcxStepperItem } from '../interfaces';
 export const STEPPER_BASIC_STEPS: DcxStepperItem[] = [
   {
     id: '1',
-    label: 'Personal Information',
-    description: 'Enter your details',
+    label: 'Datos personales',
+    description: 'Introduce tus datos',
   },
   {
     id: '2',
-    label: 'Address',
-    description: 'Confirm your address',
+    label: 'Dirección',
+    description: 'Confirma tu dirección',
   },
   {
     id: '3',
-    label: 'Review',
-    description: 'Review your information',
+    label: 'Revisión',
+    description: 'Revisa tu información',
   },
 ];
 
 export const STEPPER_WITH_COMPLETED: DcxStepperItem[] = [
   {
     id: '1',
-    label: 'Personal Information',
+    label: 'Datos personales',
     completed: true,
   },
   {
     id: '2',
-    label: 'Address',
+    label: 'Dirección',
     completed: true,
   },
   {
     id: '3',
-    label: 'Review',
+    label: 'Revisión',
   },
   {
     id: '4',
-    label: 'Payment',
+    label: 'Pago',
   },
 ];
 
 export const STEPPER_WITH_DISABLED: DcxStepperItem[] = [
   {
     id: '1',
-    label: 'Step 1',
+    label: 'Paso 1',
   },
   {
     id: '2',
-    label: 'Step 2 (Disabled)',
+    label: 'Paso 2 (deshabilitado)',
     disabled: true,
   },
   {
     id: '3',
-    label: 'Step 3',
+    label: 'Paso 3',
   },
 ];
 
 export const STEPPER_WITH_ERROR: DcxStepperItem[] = [
   {
     id: '1',
-    label: 'Step 1',
+    label: 'Paso 1',
     completed: true,
   },
   {
     id: '2',
-    label: 'Step 2 (Error)',
+    label: 'Paso 2 (error)',
     error: true,
   },
   {
     id: '3',
-    label: 'Step 3',
+    label: 'Paso 3',
   },
 ];
 
 export const STEPPER_WITH_OPTIONAL: DcxStepperItem[] = [
   {
     id: '1',
-    label: 'Required Step',
-    description: 'This step is required',
+    label: 'Paso obligatorio',
+    description: 'Este paso es obligatorio',
   },
   {
     id: '2',
-    label: 'Optional Step',
-    description: 'This step is optional',
+    label: 'Paso opcional',
+    description: 'Este paso se puede omitir',
     optional: true,
   },
   {
     id: '3',
-    label: 'Required Step',
-    description: 'Another required step',
+    label: 'Paso obligatorio',
+    description: 'Otro paso obligatorio',
   },
 ];
 
 export const STEPPER_WITH_ICONS: DcxStepperItem[] = [
   {
     id: '1',
-    label: 'Home',
-    icon: 'home',
+    label: 'Inicio',
+    icon: 'house',
   },
   {
     id: '2',
-    label: 'Settings',
-    icon: 'cog',
+    label: 'Ajustes',
+    icon: 'gear',
   },
   {
     id: '3',
-    label: 'Users',
-    icon: 'users',
+    label: 'Usuarios',
+    icon: 'people',
   },
 ];

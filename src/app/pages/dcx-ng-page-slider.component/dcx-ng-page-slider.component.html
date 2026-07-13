@@ -1,19 +1,165 @@
-@for (slider of sliders; track slider; let i = $index) {
-  <section>
-    <h2 class="example-title">Ejemplo {{i+1}} - {{slider.label}}</h2>
-    <dcx-ng-slider
-      [showLabel]="slider.showLabel"
-      [value]="slider.value"
-      [step]="slider.step"
-      [min]="slider.min"
-      [max]="slider.max"
-      [vertical]="slider.vertical"
-      (valueChange)="onSliderValueChange(i, $event)"
-    >
-    </dcx-ng-slider>
-  </section>
+<div class="demo-page">
 
-  @if (i < sliders.length - 1) {
-    <hr />
-  }
-}
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Slider</h1>
+    <p class="demo-page-header__desc">
+      Permite seleccionar valores numéricos de forma visual, en orientación
+      horizontal o vertical, con soporte para formularios reactivos y
+      sufijos de unidad en el valor mostrado.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
+
+  <!-- ── 01 Horizontal ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Horizontal</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-slider
+        [showLabel]="basic.showLabel"
+        [textLabel]="basic.label"
+        [value]="basic.value"
+        [step]="basic.step"
+        [min]="basic.min"
+        [max]="basic.max"
+        (valueChange)="onValueChange(basic, $event)"
+      ></dcx-ng-slider>
+    </div>
+  </div>
+
+  <!-- ── 02 Sin label visible ──────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Sin label visible</span>
+    </div>
+    <p class="demo-section__desc">
+      Cuando <code>showLabel</code> es <code>false</code>, es obligatorio
+      indicar <code>ariaLabel</code> para mantener un nombre accesible.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-slider
+        [showLabel]="withoutLabel.showLabel"
+        [ariaLabel]="withoutLabel.ariaLabel ?? null"
+        [value]="withoutLabel.value"
+        [step]="withoutLabel.step"
+        [min]="withoutLabel.min"
+        [max]="withoutLabel.max"
+        (valueChange)="onValueChange(withoutLabel, $event)"
+      ></dcx-ng-slider>
+    </div>
+  </div>
+
+  <!-- ── 03 Min y max distintos de 0 y 100 ─────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Min y max distintos de 0 y 100</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-slider
+        [showLabel]="customRange.showLabel"
+        [textLabel]="customRange.label"
+        [value]="customRange.value"
+        [step]="customRange.step"
+        [min]="customRange.min"
+        [max]="customRange.max"
+        (valueChange)="onValueChange(customRange, $event)"
+      ></dcx-ng-slider>
+    </div>
+  </div>
+
+  <!-- ── 04 Step de 5 en 5 ─────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Step de 5 en 5</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-slider
+        [showLabel]="steppedRange.showLabel"
+        [textLabel]="steppedRange.label"
+        [value]="steppedRange.value"
+        [step]="steppedRange.step"
+        [min]="steppedRange.min"
+        [max]="steppedRange.max"
+        (valueChange)="onValueChange(steppedRange, $event)"
+      ></dcx-ng-slider>
+    </div>
+  </div>
+
+  <!-- ── 05 Vertical ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Vertical</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-slider
+        [showLabel]="vertical.showLabel"
+        [textLabel]="vertical.label"
+        [value]="vertical.value"
+        [step]="vertical.step"
+        [min]="vertical.min"
+        [max]="vertical.max"
+        [vertical]="vertical.vertical"
+        (valueChange)="onValueChange(vertical, $event)"
+      ></dcx-ng-slider>
+    </div>
+  </div>
+
+  <!-- ── 06 Con sufijo de unidad ───────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Con sufijo de unidad</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-slider
+        [showLabel]="budget.showLabel"
+        [textLabel]="budget.label"
+        [value]="budget.value"
+        [step]="budget.step"
+        [min]="budget.min"
+        [max]="budget.max"
+        [valueSuffix]="budget.valueSuffix ?? ''"
+        (valueChange)="onValueChange(budget, $event)"
+      ></dcx-ng-slider>
+      <dcx-ng-slider
+        [showLabel]="team.showLabel"
+        [textLabel]="team.label"
+        [value]="team.value"
+        [step]="team.step"
+        [min]="team.min"
+        [max]="team.max"
+        [valueSuffix]="team.valueSuffix ?? ''"
+        (valueChange)="onValueChange(team, $event)"
+      ></dcx-ng-slider>
+    </div>
+  </div>
+
+  <!-- ── 07 Deshabilitado ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Deshabilitado</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-slider
+        [showLabel]="duration.showLabel"
+        [textLabel]="duration.label"
+        [value]="duration.value"
+        [step]="duration.step"
+        [min]="duration.min"
+        [max]="duration.max"
+        [valueSuffix]="duration.valueSuffix ?? ''"
+        [disabled]="duration.disabled ?? false"
+        (valueChange)="onValueChange(duration, $event)"
+      ></dcx-ng-slider>
+    </div>
+  </div>
+
+</div>

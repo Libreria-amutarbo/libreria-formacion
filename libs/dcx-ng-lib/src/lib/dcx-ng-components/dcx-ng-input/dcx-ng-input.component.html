@@ -36,6 +36,8 @@
     [attr.aria-required]="required() ? 'true' : null"
     [attr.aria-invalid]="isInvalid()"
     [attr.aria-describedby]="describedBy()"
+    [attr.aria-valuetext]="ariaValueText()"
+    [attr.aria-orientation]="isRangeType() && orientation() === 'vertical' ? 'vertical' : null"
     (input)="!isFileType() && !isRadioType() ? onInput($event.target.value) : null"
     (change)="onChangeEvent($event)"
     (focus)="onFocus()"

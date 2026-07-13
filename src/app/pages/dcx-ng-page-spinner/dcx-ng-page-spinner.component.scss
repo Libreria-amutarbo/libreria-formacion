@@ -1,1 +1,30 @@
-@import '../../app.component.scss';
+// page-demo styles are provided globally via src/styles.scss
+
+.spinner-row {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.spinner-wrapper-demo {
+  position: relative;
+  max-width: 24rem;
+  border: 1px dashed var(--border-light, #d1d5db);
+  border-radius: var(--r-md, 6px);
+}
+
+.content-box {
+  padding: var(--sp-4, 16px);
+
+  h4 {
+    margin-bottom: var(--sp-2, 8px);
+    color: var(--text-dark, #2a2e33);
+  }
+
+  p {
+    color: var(--text-muted, #696e75);
+    font-size: 0.875rem;
+    margin-bottom: var(--sp-2, 8px);
+  }
+}
