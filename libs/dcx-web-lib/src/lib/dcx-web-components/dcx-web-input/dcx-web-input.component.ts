@@ -1,6 +1,7 @@
-import { LitElement, html, css, nothing } from 'lit';
+import { LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { dcxWebInputStyles } from './dcx-web-input.component.styles';
+import { renderDcxWebInputTemplate } from './dcx-web-input.component.html';
 import '../dcx-web-button/dcx-web-button.component';
 import '../dcx-web-icon/dcx-web-icon.component';
 
@@ -237,7 +238,7 @@ export class DcxWebInput extends LitElement {
     return '';
   }
 
-  private emit(name: string, detail?: unknown) {
+  public emit(name: string, detail?: unknown) {
     this.dispatchEvent(
       new CustomEvent(name, {
         detail,
@@ -271,7 +272,7 @@ export class DcxWebInput extends LitElement {
     }
   }
 
-  private onInputChange(event: Event) {
+  public onInputChange(event: Event) {
     if (this.isRadioType || this.isFileType) {
       return;
     }
@@ -285,7 +286,7 @@ export class DcxWebInput extends LitElement {
     this.emit('valueChange', formattedValue);
   }
 
-  private onChangeEvent(event: Event) {
+  public onChangeEvent(event: Event) {
     if (this.isFileType) return;
 
     if (!this.isRadioType) return;
@@ -297,12 +298,12 @@ export class DcxWebInput extends LitElement {
     }
   }
 
-  private onFocusEvent() {
+  public onFocusEvent() {
     this.touched = false;
     this.emit('focusEvent');
   }
 
-  private onBlurEvent() {
+  public onBlurEvent() {
     this.touched = true;
     this.emit('blurEvent');
   }
@@ -311,7 +312,7 @@ export class DcxWebInput extends LitElement {
     this.showPassword = !this.showPassword;
   }
 
-  private onActionButtonClick() {
+  public onActionButtonClick() {
     if (this.isPasswordType) {
       this.togglePasswordVisibility();
       return;
@@ -322,7 +323,7 @@ export class DcxWebInput extends LitElement {
     }
   }
 
-  private getInputClasses() {
+  public getInputClasses() {
     const classes = [
       'dcx-input__control',
       `dcx-input__control--${this.spacing}`,
@@ -348,152 +349,7 @@ export class DcxWebInput extends LitElement {
   }
 
   override render() {
-    return html`
-      ${this.label
-        ? html`
-            <label
-              class="dcx-input__label ${this.isInvalid
-                ? 'dcx-input__label--invalid'
-                : ''}"
-              for="${this.id}"
-              id="${this.labelId}"
-            >
-              ${this.label}
-              ${this.required
-                ? html`<span class="dcx-input__required">*</span>`
-                : nothing}
-            </label>
-          `
-        : nothing}
-
-      <div class="dcx-input__wrapper">
-        <div class="dcx-input__field">
-          ${this.getInputIcon
-            ? html`
-                <dcx-web-icon
-                  class="dcx-input__leading-icon"
-                  name="${this.getInputIcon}"
-                ></dcx-web-icon>
-              `
-            : nothing}
-
-          <input
-            class="${this.getInputClasses()}"
-            id="${this.id}"
-            name="${this.name}"
-            type="${this.displayType}"
-            .value="${String(this.value ?? '')}"
-            placeholder="${this.placeholder}"
-            inputmode="${this.inputMode}"
-            autocomplete="${this.autocomplete}"
-            ?readonly="${this.readonly}"
-            ?disabled="${this.disabled}"
-            ?required="${this.required}"
-            ?checked="${this.checked}"
-            ?multiple="${this.isFileType ? this.multiple : false}"
-            min="${this.min}"
-            max="${this.max}"
-            step="${this.step}"
-            aria-label="${!this.label ? this.ariaLabel ?? '' : ''}"
-            aria-required="${this.required ? 'true' : 'false'}"
-            aria-invalid="${String(this.isInvalid)}"
-            aria-describedby="${this.describedBy ?? ''}"
-            @input="${this.onInputChange}"
-            @change="${this.onChangeEvent}"
-            @focus="${this.onFocusEvent}"
-            @blur="${this.onBlurEvent}"
-            @keydown="${(e: KeyboardEvent) =>
-              e.key === 'Enter'
-                ? this.emit('enterPressed')
-                : null}"
-          />
-
-          ${this.showActionIcon && !this.isRangeType
-            ? html`
-                <dcx-web-button
-                  class="dcx-input__action-button"
-                  variant="icon-only"
-                  size="s"
-                  .icon="${true}"
-                  iconSize="l"
-                  .iconName="${this.getActionButtonIcon}"
-                  .ariaLabel="${this.getActionButtonAriaLabel}"
-                  ?disabled="${this.disabled}"
-                  @buttonClick="${this.onActionButtonClick}"
-                ></dcx-web-button>
-              `
-            : nothing}
-        </div>
-
-        ${this.hint && !this.isInvalid
-          ? html`
-              <div
-                class="dcx-input__hint"
-                id="${this.hintId}"
-              >
-                ${this.hint}
-              </div>
-            `
-          : nothing}
-
-        ${this.showRequiredWarning
-          ? html`
-              <div
-                class="dcx-input__error"
-                role="alert"
-                id="${this.errorId}"
-              >
-                <span>
-                  ${this.requiredMessage ??
-                  'Este campo es requerido'}
-                </span>
-              </div>
-            `
-          : nothing}
-
-        ${this.isInvalid &&
-        (this.errorMessage || this.errorMessages.length > 0)
-          ? html`
-              <div
-                class="dcx-input__error"
-                role="alert"
-                id="${this.errorId}"
-              >
-                <dcx-web-icon
-                  .name="${this.errorIcon}"
-                  color="var(--color-error, #dc2626)";
-                ></dcx-web-icon>
-
-                <div>
-                  ${this.errorMessage
-                    ? html`
-                        <span>
-                          ${this.errorMessage}
-                        </span>
-                      `
-                    : nothing}
-
-                  ${this.errorMessages.length
-                    ? html`
-                        <ul
-                          class="dcx-input__error-list"
-                        >
-                          ${this.errorMessages.map(
-                            error => html`
-                              <li>
-                                ${error.message}
-                              </li>
-                            `,
-                          )}
-                        </ul>
-                      `
-                    : nothing}
-                </div>
-              </div>
-            `
-          : nothing}
-      </div>
-    `;
+    return renderDcxWebInputTemplate(this);
   }
 }
 
