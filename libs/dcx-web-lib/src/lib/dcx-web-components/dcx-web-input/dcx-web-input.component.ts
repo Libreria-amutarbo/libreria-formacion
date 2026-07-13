@@ -36,7 +36,7 @@ import {
 export class DcxWebInput extends LitElement {
   
   @property({ type: String })
-  accessor id = `dcx-input-${Math.random().toString(36).substring(2, 9)}`;
+  override accessor id = `dcx-input-${Math.random().toString(36).substring(2, 9)}`;
 
   @property({ attribute: false })
   accessor value: string | number = INPUT_DEFAULT_VALUE;
@@ -65,7 +65,7 @@ export class DcxWebInput extends LitElement {
   accessor autocomplete = INPUT_DEFAULT_AUTOCOMPLETE;
 
   @property({ type: String })
-  accessor inputMode = INPUT_DEFAULT_INPUTMODE;
+  override accessor inputMode = INPUT_DEFAULT_INPUTMODE;
 
   @property({ type: Boolean })
   accessor isInvalid = INPUT_DEFAULT_INVALID;
@@ -77,7 +77,7 @@ export class DcxWebInput extends LitElement {
   accessor hint = '';
 
   @property({ type: String, attribute: 'aria-label' })
-  accessor ariaLabel: string | null = INPUT_DEFAULT_ARIA_LABEL;
+  override accessor ariaLabel: string | null = INPUT_DEFAULT_ARIA_LABEL;
 
   @property({ type: String, attribute: 'aria-describedby' })
   accessor ariaDescribedBy: string | null = INPUT_DEFAULT_ARIA_DESCRIBEDBY;
@@ -329,19 +329,19 @@ export class DcxWebInput extends LitElement {
     ];
 
     if (this.disabled) {
-      classes.push('dcx-input__control--disabled');
+      classes.push('is-disabled', 'dcx-input__control--disabled');
     }
 
     if (this.isInvalid) {
-      classes.push('dcx-input__control--invalid');
+      classes.push('is-invalid', 'dcx-input__control--invalid');
     }
 
     if (this.getInputIcon) {
-      classes.push('dcx-input__control--has-icon');
+      classes.push('has-icon', 'dcx-input__control--has-icon');
     }
 
     if (this.showActionIcon) {
-      classes.push('dcx-input__control--has-action');
+      classes.push('has-action', 'dcx-input__control--has-action');
     }
 
     return classes.join(' ');

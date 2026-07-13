@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
 
 import '../../../index';
+import '../../dcx-web-components/dcx-web-input/dcx-web-input.component';
 
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/Input',

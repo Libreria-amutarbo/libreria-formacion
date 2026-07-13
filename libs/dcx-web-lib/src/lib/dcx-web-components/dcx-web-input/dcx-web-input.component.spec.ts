@@ -65,6 +65,34 @@ describe('DcxWebInput', () => {
       expect(input).toBeTruthy();
     });
 
+    it('should expose Angular-compatible CSS hooks', async () => {
+      element.label = 'Nombre';
+
+      await element.updateComplete;
+
+      const label =
+        element.shadowRoot?.querySelector(
+          '.dcx-ng-input__label',
+        );
+      const wrapper =
+        element.shadowRoot?.querySelector(
+          '.dcx-ng-input__wrapper',
+        );
+      const field =
+        element.shadowRoot?.querySelector(
+          '.dcx-ng-input__field',
+        );
+      const control =
+        element.shadowRoot?.querySelector(
+          '.dcx-ng-input__control',
+        );
+
+      expect(label).toBeTruthy();
+      expect(wrapper).toBeTruthy();
+      expect(field).toBeTruthy();
+      expect(control).toBeTruthy();
+    });
+
     it('should render label when provided', async () => {
       element.label = 'Nombre';
 
