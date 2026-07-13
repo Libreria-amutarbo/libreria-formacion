@@ -1,7 +1,20 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import type { DateFormat, FirstDayOfWeek } from '../../core/interfaces';
+import type { DateFormat, FirstDayOfWeek, DatePickerProps } from '../../core/interfaces';
+import { DATEPICKER_SIMPLE_PROPS, DATEPICKER_DATE_PROPS } from '../../core/interfaces';
 import '../../../index';
+
+export type DatePickerStoryArgs = Omit<
+  DatePickerProps,
+  'selectedDate' | 'selectedDates' | 'startDate' | 'endDate' | 'minDate' | 'maxDate'
+> & {
+  selectedDate: Date | string | null;
+  selectedDates: (Date | string)[];
+  startDate: Date | string | null;
+  endDate: Date | string | null;
+  minDate: Date | string | null;
+  maxDate: Date | string | null;
+};
 
 
 function parseDateInput(value: string | Date | null): Date | null {
@@ -51,23 +64,19 @@ function currentMonthBounds(): { min: string; max: string } {
 }
 
 
-const renderDatePicker = (args: any) => {
+const renderDatePicker = (args: DatePickerStoryArgs) => {
   const container = document.createElement('div');
 
   const datepicker = document.createElement('dcx-web-datepicker');
-  datepicker.multiSelect = args.multiSelect;
-  datepicker.rangeSelect = args.rangeSelect;
-  datepicker.disabled = args.disabled;
-  datepicker.placeholder = args.placeholder;
-  datepicker.dateFormat = args.dateFormat;
-  datepicker.firstDayOfWeek = args.firstDayOfWeek;
+  DATEPICKER_SIMPLE_PROPS.forEach((prop) => {
+    (datepicker as any)[prop] = args[prop];
+  });
 
-  datepicker.selectedDate = parseDateInput(args.selectedDate);
-  datepicker.selectedDates = args.selectedDates ? args.selectedDates.map(parseDateInput).filter(Boolean) : [];
-  datepicker.startDate = parseDateInput(args.startDate);
-  datepicker.endDate = parseDateInput(args.endDate);
-  datepicker.minDate = parseDateInput(args.minDate);
-  datepicker.maxDate = parseDateInput(args.maxDate);
+  DATEPICKER_DATE_PROPS.forEach((prop) => {
+    (datepicker as any)[prop] = parseDateInput(args[prop]);
+  });
+
+  datepicker.selectedDates = args.selectedDates ? args.selectedDates.map(parseDateInput).filter(Boolean) as Date[] : [];
 
   const displayDiv = document.createElement('div');
   displayDiv.style.marginTop = '1rem';
@@ -146,7 +155,7 @@ const renderDatePicker = (args: any) => {
 };
 
 
-const meta: Meta = {
+const meta: Meta<DatePickerStoryArgs> = {
   title: 'DCXLibrary/WebComponents/DatePicker',
   component: 'dcx-web-datepicker',
   tags: ['autodocs'],
@@ -298,7 +307,7 @@ Incluye calendario popup, navegación por meses, validación de fechas min/max.
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<DatePickerStoryArgs>;
 
 
 const { min: DEFAULT_MIN, max: DEFAULT_MAX } = currentMonthBounds();

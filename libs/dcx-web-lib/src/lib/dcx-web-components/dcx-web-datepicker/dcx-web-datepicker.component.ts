@@ -14,11 +14,12 @@ import type {
   DateFormatPattern,
   DatePickerMode,
   FirstDayOfWeek,
+  DatePickerProps,
 } from '../../core/interfaces';
 
 
 @customElement('dcx-web-datepicker')
-export class DcxWebDatePicker extends LitElement {
+export class DcxWebDatePicker extends LitElement implements DatePickerProps {
   static override styles = styles;
 
   @property({ type: Object }) accessor selectedDate: Date | null = null;

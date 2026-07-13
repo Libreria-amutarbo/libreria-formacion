@@ -63,3 +63,37 @@ export interface CalendarDay {
 
 export type DatePickerMode = 'calendar' | 'month' | 'year';
 
+export interface DatePickerProps {
+  selectedDate: Date | null;
+  selectedDates: Date[];
+  multiSelect: boolean;
+  rangeSelect: boolean;
+  startDate: Date | null;
+  endDate: Date | null;
+  minDate: Date | null;
+  maxDate: Date | null;
+  disabled: boolean;
+  placeholder: string;
+  dateFormat: DateFormat;
+  firstDayOfWeek: FirstDayOfWeek;
+}
+
+export const DATEPICKER_SIMPLE_PROPS = [
+  'multiSelect',
+  'rangeSelect',
+  'disabled',
+  'placeholder',
+  'dateFormat',
+  'firstDayOfWeek',
+] as const;
+
+export const DATEPICKER_DATE_PROPS = [
+  'selectedDate',
+  'startDate',
+  'endDate',
+  'minDate',
+  'maxDate',
+] as const;
+
+
+
