@@ -1,8 +1,13 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
+import '../../core/interfaces/generic';
+
 
 import '../../../index';
 import '../../dcx-web-components/dcx-web-input/dcx-web-input.component';
+import { DCX_LAYOUTS, DCX_SPACINGS } from '../../core/interfaces/generic';
+import { DcxInputType } from '../../core/interfaces/input';
+
 
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/Input',
@@ -61,16 +66,16 @@ const meta: Meta = {
     type: {
       control: 'select',
       options: [
-        'text',
-        'number',
-        'email',
-        'password',
-        'search',
-        'tel',
-        'url',
-        'file',
-        'radio',
-        'range',
+        DcxInputType.TEXT,
+        DcxInputType.NUMBER,
+        DcxInputType.EMAIL,
+        DcxInputType.PASSWORD,
+        DcxInputType.SEARCH,
+        DcxInputType.TEL,
+        DcxInputType.URL,
+        DcxInputType.FILE,
+        DcxInputType.RADIO,
+        DcxInputType.RANGE,
       ],
       description: 'Tipo de input.',
       table: {
@@ -80,13 +85,7 @@ const meta: Meta = {
 
     spacing: {
       control: 'select',
-      options: [
-        'xs',
-        's',
-        'm',
-        'l',
-        'xl',
-      ],
+      options: DCX_SPACINGS,
       description: 'Padding interno.',
       table: {
         category: 'Atributos',
@@ -138,8 +137,7 @@ const meta: Meta = {
     orientation: {
       control: 'select',
       options: [
-        'horizontal',
-        'vertical',
+        DCX_LAYOUTS,
       ],
       table: {
         category: 'Atributos',
