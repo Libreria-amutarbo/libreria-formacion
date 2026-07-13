@@ -6,6 +6,7 @@ export * from './lib/dcx-web-components/dcx-web-breadcrumb/dcx-web-breadcrumb.co
 export * from './lib/dcx-web-components/dcx-web-context-menu/dcx-web-context-menu.component';
 export * from './lib/dcx-web-components/dcx-web-accordion/dcx-web-accordion.component';
 export * from './lib/dcx-web-components/dcx-web-button/dcx-web-button.component';
+export * from './lib/dcx-web-components/dcx-web-drawer/dcx-web-drawer.component';
 export * from './lib/dcx-web-components/dcx-web-chip/dcx-web-chip.component';
 export * from './lib/dcx-web-components/dcx-web-icon/dcx-web-icon.component';
 export * from './lib/core/interfaces';

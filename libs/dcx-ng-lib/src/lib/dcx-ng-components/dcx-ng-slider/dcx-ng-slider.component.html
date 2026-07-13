@@ -1,7 +1,8 @@
 @if (showLabel()) {
-  <span class="dcx-slider-value-label">
-    {{textLabel()}} {{ valueInput() }}
-  </span>
+  <div class="dcx-slider-value-label" [class.is-disabled]="disabled()">
+    <span class="dcx-slider-label">{{ textLabel() }}</span>
+    <span class="dcx-slider-value">{{ displayValue() }}</span>
+  </div>
 }
 
 <dcx-ng-input
@@ -10,8 +11,11 @@
   [value]="valueInput()"
   [min]="min()"
   [max]="max()"
-  [step]="1"
-  [style.width.px]="vertical() ? '100' : '100%'"
+  [step]="step()"
+  [disabled]="disabled()"
+  [ariaLabel]="effectiveAriaLabel()"
+  [ariaValueText]="effectiveAriaValueText()"
+  [style.width]="vertical() ? '100px' : '100%'"
   [orientation]="vertical() ? 'vertical' : 'horizontal'"
   (valueChange)="onInput($event)"
 />

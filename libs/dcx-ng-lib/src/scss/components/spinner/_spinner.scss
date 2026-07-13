@@ -26,8 +26,6 @@
 
 // Clases de alias
 @mixin spinner-size-classes {
-  &--xs { @include spinner-size(xs); }
-
   &--s,
   &--small { @include spinner-size(s); }
 

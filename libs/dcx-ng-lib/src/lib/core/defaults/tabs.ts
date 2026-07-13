@@ -51,4 +51,17 @@ export const DcxTabItemWithComponents: DcxTabItem[] = [
   { id: 'card', label: 'Card', icon: 'search' },
 ];
 
-export const TABS_VARIANT_LIST: DcxTabsVariant[] = ['line', 'pill', 'brand'];
+export const DcxTabItemWithBadges: DcxTabItem[] = [
+  { id: 'tab1', label: 'Dashboard', badge: 3 },
+  { id: 'tab2', label: 'Proyectos', badge: 12 },
+  { id: 'tab3', label: 'Equipo' },
+  { id: 'tab4', label: 'Reportes' },
+  { id: 'tab5', label: 'Archivados', disabled: true },
+];
+
+export const TABS_VARIANT_LIST: DcxTabsVariant[] = [
+  'line',
+  'pill',
+  'brand',
+  'subtle',
+];
