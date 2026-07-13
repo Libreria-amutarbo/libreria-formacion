@@ -8,6 +8,7 @@ export * from './lib/dcx-web-components/dcx-web-button/dcx-web-button.component'
 export * from './lib/dcx-web-components/dcx-web-drawer/dcx-web-drawer.component';
 export * from './lib/dcx-web-components/dcx-web-chip/dcx-web-chip.component';
 export * from './lib/dcx-web-components/dcx-web-icon/dcx-web-icon.component';
+export * from './lib/dcx-web-components/dcx-web-carousel/dcx-web-carousel.component';
 export * from './lib/core/interfaces';
 export * from './lib/core/defaults/breadcrumb';
 export * from './lib/core/defaults';
