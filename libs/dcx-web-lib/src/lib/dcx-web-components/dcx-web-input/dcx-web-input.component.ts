@@ -4,77 +4,98 @@ import { dcxWebInputStyles } from './dcx-web-input.component.styles';
 import '../dcx-web-button/dcx-web-button.component';
 import '../dcx-web-icon/dcx-web-icon.component';
 
-import type {
+import {
   DcxInputErrorMessage,
   DcxInputType,
 } from '../../core/interfaces/input';
-
 import type { DcxSpacing } from '../../core/interfaces';
+
+import {
+  INPUT_DEFAULT_VALUE,
+  INPUT_DEFAULT_DISABLED,
+  INPUT_DEFAULT_READONLY,
+  INPUT_DEFAULT_PLACEHOLDER,
+  INPUT_DEFAULT_TYPE,
+  INPUT_DEFAULT_NAME,
+  INPUT_DEFAULT_REQUIRED,
+  INPUT_DEFAULT_AUTOCOMPLETE,
+  INPUT_DEFAULT_INPUTMODE,
+  INPUT_DEFAULT_INVALID,
+  INPUT_DEFAULT_LABEL,
+  INPUT_DEFAULT_ARIA_LABEL,
+  INPUT_DEFAULT_ARIA_DESCRIBEDBY,
+  INPUT_DEFAULT_ERROR_MESSAGE,
+  INPUT_DEFAULT_REQUIRED_MESSAGE,
+  ERRORICON,
+  SPACING_DEFAULT,
+  SLIDER_DEFAULT_VALUES,
+} from '../../core/defaults';
+
 
 @customElement('dcx-web-input')
 export class DcxWebInput extends LitElement {
+  
   @property({ type: String })
   accessor id = `dcx-input-${Math.random().toString(36).substring(2, 9)}`;
 
   @property({ attribute: false })
-  accessor value: string | number = '';
+  accessor value: string | number = INPUT_DEFAULT_VALUE;
 
   @property({ type: Boolean })
-  accessor disabled = false;
+  accessor disabled = INPUT_DEFAULT_DISABLED;
 
   @property({ type: Boolean })
-  accessor readonly = false;
+  accessor readonly = INPUT_DEFAULT_READONLY;
 
   @property({ type: String })
-  accessor placeholder = '';
+  accessor placeholder = INPUT_DEFAULT_PLACEHOLDER;
 
   @property({ type: String })
-  accessor type: DcxInputType = 'text' as DcxInputType;
-
+  accessor type: DcxInputType = INPUT_DEFAULT_TYPE;
   @property({ type: String })
-  accessor name = '';
+  accessor name = INPUT_DEFAULT_NAME;
 
   @property({ type: Boolean })
-  accessor required = false;
+  accessor required = INPUT_DEFAULT_REQUIRED;
 
   @property({ type: Boolean })
   accessor checked = false;
 
   @property({ type: String })
-  accessor autocomplete = '';
+  accessor autocomplete = INPUT_DEFAULT_AUTOCOMPLETE;
 
   @property({ type: String })
-  accessor inputMode = '';
+  accessor inputMode = INPUT_DEFAULT_INPUTMODE;
 
   @property({ type: Boolean })
-  accessor isInvalid = false;
+  accessor isInvalid = INPUT_DEFAULT_INVALID;
 
   @property({ type: String })
-  accessor label = '';
+  accessor label = INPUT_DEFAULT_LABEL;
 
   @property({ type: String })
   accessor hint = '';
 
   @property({ type: String, attribute: 'aria-label' })
-  accessor ariaLabel: string | null = null;
+  accessor ariaLabel: string | null = INPUT_DEFAULT_ARIA_LABEL;
 
   @property({ type: String, attribute: 'aria-describedby' })
-  accessor ariaDescribedBy: string | null = null;
+  accessor ariaDescribedBy: string | null = INPUT_DEFAULT_ARIA_DESCRIBEDBY;
 
   @property({ type: String })
-  accessor errorMessage = '';
+  accessor errorMessage = INPUT_DEFAULT_ERROR_MESSAGE;
 
   @property({ type: String })
-  accessor requiredMessage: string | null = null;
+  accessor requiredMessage: string | null = INPUT_DEFAULT_REQUIRED_MESSAGE;
 
   @property({ attribute: false })
   accessor errorMessages: DcxInputErrorMessage[] = [];
 
   @property({ type: String })
-  accessor errorIcon = 'info-circle';
+  accessor errorIcon = ERRORICON;
 
   @property({ type: String })
-  accessor spacing: DcxSpacing = 'm' as DcxSpacing;
+  accessor spacing: DcxSpacing = SPACING_DEFAULT;
 
   @property({ type: String, reflect: true })
   accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
@@ -83,13 +104,13 @@ export class DcxWebInput extends LitElement {
   accessor multiple = false;
 
   @property({ type: Number })
-  accessor min = 0;
+  accessor min = SLIDER_DEFAULT_VALUES.min;
 
   @property({ type: Number })
-  accessor max = 100;
+  accessor max = SLIDER_DEFAULT_VALUES.max;
 
   @property({ type: Number })
-  accessor step = 1;
+  accessor step = SLIDER_DEFAULT_VALUES.step;
 
   @state()
   accessor showPassword = false;
@@ -112,23 +133,23 @@ export class DcxWebInput extends LitElement {
   }
 
   get isPasswordType() {
-    return this.type === 'password';
+    return this.type === DcxInputType.PASSWORD;
   }
 
   get isSearchType() {
-    return this.type === 'search';
+    return this.type === DcxInputType.SEARCH;
   }
 
   get isFileType() {
-    return this.type === 'file';
+    return this.type === DcxInputType.FILE;
   }
 
   get isRadioType() {
-    return this.type === 'radio';
+    return this.type === DcxInputType.RADIO;
   }
 
   get isRangeType() {
-    return this.type === 'range';
+    return this.type === DcxInputType.RANGE;
   }
 
   get displayType(): string {
@@ -152,16 +173,16 @@ export class DcxWebInput extends LitElement {
 
   get getInputIcon(): string | null {
     const map: Record<string, string | null> = {
-      text: null,
-      number: 'pin',
-      email: 'mail',
-      password: null, 
-      search: 'search',
-      tel: 'phone',
-      url: 'link',
-      file: null,
-      radio: null,
-      range: null,
+      [DcxInputType.TEXT]: null,
+      [DcxInputType.NUMBER]: 'pin',
+      [DcxInputType.EMAIL]: 'mail',
+      [DcxInputType.PASSWORD]: null,
+      [DcxInputType.SEARCH]: 'search',
+      [DcxInputType.TEL]: 'phone',
+      [DcxInputType.URL]: 'link',
+      [DcxInputType.FILE]: null,
+      [DcxInputType.RADIO]: null,
+      [DcxInputType.RANGE]: null,
     };
 
     return map[this.type] ?? null;

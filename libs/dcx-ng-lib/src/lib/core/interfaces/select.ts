@@ -1,5 +1,5 @@
 export interface DcxSelectOptions {
-  value: any;
+  value: string | number;
   label: string;
   disabled?: boolean;
 }

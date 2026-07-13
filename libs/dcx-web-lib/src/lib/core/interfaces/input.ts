@@ -1,4 +1,4 @@
-export enum DcxInputType {
+export const enum DcxInputType {
   TEXT = 'text',
   NUMBER = 'number',
   EMAIL = 'email',

@@ -1,5 +1,4 @@
 import { DcxSelectOptions } from '../interfaces';
-import { DISABLED, SPACING_DEFAULT } from './generic';
 
 export const LABEL = 'Select';
 export const OPTIONS: DcxSelectOptions[] = [
@@ -24,18 +23,4 @@ export const REQUIRED = false;
 export const ISINVALID = false;
 export const ERRORMESSAGE = '';
 
-export const VALUEINPUT: string | null = null;
-
-export const SELECTDEFAULTARGS = {
-  label: LABEL,
-  options: OPTIONS,
-  placeholder: PLACEHOLDER,
-  searchable: SEARCHABLE,
-  clearable: CLEARABLE,
-  disabled: DISABLED,
-  required: REQUIRED,
-  invalid: ISINVALID,
-  errorMessage: ERRORMESSAGE,
-  valueInput: VALUEINPUT,
-  spacing: SPACING_DEFAULT,
-};
+export const VALUEINPUT: string | number | null = null;
