@@ -27,6 +27,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
       options: ['rectangle', 'circle'],
       description: 'Forma visual del placeholder',
       table: {
+        category: 'Atributos',
         type: { summary: "'rectangle' | 'circle'" },
         defaultValue: { summary: 'rectangle' },
       },
@@ -35,6 +36,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
       control: 'text',
       description: 'Ancho CSS. Se ignora cuando size tiene valor',
       table: {
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: '100%' },
       },
@@ -43,6 +45,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
       control: 'text',
       description: 'Alto CSS. Se ignora cuando size tiene valor',
       table: {
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: '1rem' },
       },
@@ -51,6 +54,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
       control: 'text',
       description: 'Tamaño único para ancho y alto',
       table: {
+        category: 'Atributos',
         type: { summary: 'string | null' },
         defaultValue: { summary: 'null' },
       },
@@ -59,6 +63,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
       control: 'text',
       description: 'Radio CSS para rectángulos',
       table: {
+        category: 'Atributos',
         type: { summary: 'string | null' },
         defaultValue: { summary: 'null' },
       },
@@ -68,6 +73,7 @@ const meta: Meta<DcxNgSkeletonComponent> = {
       options: ['wave', 'none'],
       description: 'Animación visual del placeholder',
       table: {
+        category: 'Atributos',
         type: { summary: "'wave' | 'none'" },
         defaultValue: { summary: 'wave' },
       },
@@ -116,6 +122,36 @@ export const Shapes: Story = {
   }),
 };
 
+export const TextLines: Story = {
+  name: 'Líneas de texto',
+  render: args => ({
+    props: args,
+    template: `
+      <div style="display: grid; gap: var(--sp-2, 8px); max-width: 28rem;">
+        <dcx-ng-skeleton width="100%" height="0.875rem" [animation]="animation"></dcx-ng-skeleton>
+        <dcx-ng-skeleton width="94%" height="0.875rem" [animation]="animation"></dcx-ng-skeleton>
+        <dcx-ng-skeleton width="82%" height="0.875rem" [animation]="animation"></dcx-ng-skeleton>
+        <dcx-ng-skeleton width="64%" height="0.875rem" [animation]="animation"></dcx-ng-skeleton>
+      </div>
+    `,
+  }),
+};
+
+export const Avatar: Story = {
+  name: 'Avatar',
+  render: args => ({
+    props: args,
+    template: `
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <dcx-ng-skeleton shape="circle" size="1.5rem" [animation]="animation"></dcx-ng-skeleton>
+        <dcx-ng-skeleton shape="circle" size="2.5rem" [animation]="animation"></dcx-ng-skeleton>
+        <dcx-ng-skeleton shape="circle" size="3.5rem" [animation]="animation"></dcx-ng-skeleton>
+        <dcx-ng-skeleton shape="circle" size="4.5rem" [animation]="animation"></dcx-ng-skeleton>
+      </div>
+    `,
+  }),
+};
+
 export const CardPlaceholder: Story = {
   render: args => ({
     props: args,
@@ -141,17 +177,19 @@ export const CardPlaceholder: Story = {
         </div>
       </ng-template>
 
-      <dcx-ng-card
-        aria-busy="true"
-        [image]="null"
-        [header]="cardSkeletonHeaderTpl"
-        [content]="cardSkeletonContentTpl"
-        [footer]="cardSkeletonFooterTpl"
-        [bordered]="true"
-        [shadow]="1"
-        align="start"
-        maxContentWidth="24rem"
-      ></dcx-ng-card>
+      <div role="status" aria-busy="true">
+        <span class="visually-hidden">Cargando…</span>
+        <dcx-ng-card
+          [image]="null"
+          [header]="cardSkeletonHeaderTpl"
+          [content]="cardSkeletonContentTpl"
+          [footer]="cardSkeletonFooterTpl"
+          [bordered]="true"
+          [shadow]="1"
+          align="start"
+          maxContentWidth="24rem"
+        ></dcx-ng-card>
+      </div>
     `,
   }),
 };
@@ -160,7 +198,8 @@ export const ListPlaceholder: Story = {
   render: args => ({
     props: args,
     template: `
-      <div style="display: grid; gap: var(--sp-4, 16px); max-width: 28rem;">
+      <div role="status" aria-busy="true" style="display: grid; gap: var(--sp-4, 16px); max-width: 28rem;">
+        <span class="visually-hidden">Cargando…</span>
         @for (item of [1, 2, 3, 4]; track item) {
           <div style="display: flex; gap: var(--sp-3, 12px); align-items: center;">
             <dcx-ng-skeleton shape="circle" size="3rem" [animation]="animation"></dcx-ng-skeleton>
