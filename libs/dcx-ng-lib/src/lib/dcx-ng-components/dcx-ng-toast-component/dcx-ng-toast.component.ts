@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostListener,
   computed,
   effect,
   input,
   output,
+  signal,
 } from '@angular/core';
 import {
   DcxToastType,
@@ -31,6 +33,8 @@ export class DcxNgToastComponent {
   readonly actionLabel = input<string>('Deshacer');
   readonly actionIconName = input<string>('');
   readonly actionAriaLabel = input<string>('');
+  readonly dismissible = input<boolean>(true);
+  readonly announce = input<boolean>(true);
 
   readonly actionClick = output<void>();
   readonly dismissed = output<void>();
@@ -80,6 +84,10 @@ export class DcxNgToastComponent {
   });
 
   readonly ariaLive = computed(() => {
+    if (!this.announce()) {
+      return null;
+    }
+
     if (this.type() === 'error') {
       return 'assertive';
     }
@@ -87,8 +95,10 @@ export class DcxNgToastComponent {
     return 'polite';
   });
 
+  private readonly paused = signal(false);
+
   readonly _autoDismissEffect = effect(onCleanup => {
-    if (!this.autoDismiss()) {
+    if (!this.autoDismiss() || this.paused()) {
       return;
     }
 
@@ -106,7 +116,23 @@ export class DcxNgToastComponent {
     });
   });
 
+  @HostListener('mouseenter')
+  @HostListener('focusin')
+  onPauseTimer(): void {
+    this.paused.set(true);
+  }
+
+  @HostListener('mouseleave')
+  @HostListener('focusout')
+  onResumeTimer(): void {
+    this.paused.set(false);
+  }
+
   readonly onAction = (): void => {
     this.actionClick.emit();
+  };
+
+  readonly onClose = (): void => {
+    this.dismissed.emit();
   };
 }

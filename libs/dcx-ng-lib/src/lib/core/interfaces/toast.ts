@@ -7,13 +7,6 @@ export const DCX_TOAST_ICON_BY_TYPE: Record<DcxToastType, string> = {
     error: 'x-circle',
 };
 
-export const DCX_TOAST_COLOR_BY_TYPE: Record<DcxToastType, string> = {
-    info: 'var(--color-info, #1db8f2)',
-    success: 'var(--color-success, #16a34a)',
-    warning: 'var(--color-warning, #d97706)',
-    error: 'var(--color-error, #dc2626)',
-};
-
 export interface DcxToastOptions {
     message: string;
     type?: DcxToastType;
@@ -23,7 +16,14 @@ export interface DcxToastOptions {
     actionLabel?: string;
     actionIconName?: string;
     actionAriaLabel?: string;
+    dismissible?: boolean;
 }
+
+export interface DcxToastInstance extends DcxToastOptions {
+    id: string;
+}
+
+export type DcxToastPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 
 export const DCX_TOAST_TYPE_LIST: DcxToastType[] = [
     'info',
