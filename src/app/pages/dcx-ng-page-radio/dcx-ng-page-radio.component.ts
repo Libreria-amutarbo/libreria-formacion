@@ -1,19 +1,46 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { DcxNgRadioComponent } from '@dcx-ng-components/dcx-ng-lib';
+import { DcxNgRadioComponent, DcxRadioOption } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'app-dcx-ng-page-radio',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DcxNgRadioComponent],
+  imports: [ReactiveFormsModule, DcxNgRadioComponent],
   templateUrl: './dcx-ng-page-radio.component.html',
   styleUrl: './dcx-ng-page-radio.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageRadioComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   formulario!: FormGroup;
-  resumen = false;
+
+  readonly opcionesColor: DcxRadioOption[] = [
+    { value: 'azul', label: 'Azul' },
+    { value: 'rojo', label: 'Rojo' },
+    { value: 'verde', label: 'Verde' },
+  ];
+
+  readonly opcionesBebida: DcxRadioOption[] = [
+    { value: 'cafe', label: 'Café' },
+    { value: 'te', label: 'Té' },
+    { value: 'ninguno', label: 'Ninguno' },
+  ];
+
+  readonly opcionesConDisabled: DcxRadioOption[] = [
+    { value: 'basico', label: 'Básico' },
+    { value: 'pro', label: 'Pro' },
+    { value: 'enterprise', label: 'Enterprise (no disponible)', disabled: true },
+  ];
+
+  readonly opcionesSuscripcion: DcxRadioOption[] = [
+    { value: 'mensual', label: 'Plan mensual' },
+    { value: 'anual', label: 'Plan anual' },
+  ];
+
+  readonly opcionesTerminos: DcxRadioOption[] = [
+    { value: 'si', label: 'Sí' },
+    { value: 'no', label: 'No' },
+  ];
 
   get tamanioControl(): FormControl {
     return this.formulario.get('tamanioControl') as FormControl;
@@ -27,20 +54,20 @@ export class DcxNgPageRadioComponent implements OnInit {
     return this.formulario.get('bebidaControl') as FormControl;
   }
 
+  get disabledOptionControl(): FormControl {
+    return this.formulario.get('disabledOptionControl') as FormControl;
+  }
+
+  get disabledGroupControl(): FormControl {
+    return this.formulario.get('disabledGroupControl') as FormControl;
+  }
+
+  get hintControl(): FormControl {
+    return this.formulario.get('hintControl') as FormControl;
+  }
+
   get errorControl(): FormControl {
     return this.formulario.get('errorControl') as FormControl;
-  }
-
-  get hoverControl(): FormControl {
-    return this.formulario.get('hoverControl') as FormControl;
-  }
-
-  get focusControl(): FormControl {
-    return this.formulario.get('focusControl') as FormControl;
-  }
-
-  get disabledControl(): FormControl {
-    return this.formulario.get('disabledControl') as FormControl;
   }
 
   ngOnInit(): void {
@@ -48,14 +75,10 @@ export class DcxNgPageRadioComponent implements OnInit {
       tamanioControl: [''],
       colorControl: [''],
       bebidaControl: [''],
+      disabledOptionControl: [''],
+      disabledGroupControl: [{ value: '', disabled: true }],
+      hintControl: [''],
       errorControl: [''],
-      hoverControl: [''],
-      focusControl: [''],
-      disabledControl: [{ value: '', disabled: true }]
     });
-  }
-
-  mostrarResumen() {
-    this.resumen = true;
   }
 }

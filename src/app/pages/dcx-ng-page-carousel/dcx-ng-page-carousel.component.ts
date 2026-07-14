@@ -7,6 +7,7 @@ import {
   DcxNgListComponent,
   DcxNgRadioComponent,
   DcxNgDividerComponent,
+  DcxRadioOption,
   CAROUSEL_DEFAULT_ITEMS,
   CAROUSEL_MIXED_ITEMS,
   LIST_ITEMS_WITH_ICONS,
@@ -31,4 +32,10 @@ export class DcxNgPageCarouselComponent {
   defaultItems = CAROUSEL_DEFAULT_ITEMS;
   mixedItems = CAROUSEL_MIXED_ITEMS;
   listItems = LIST_ITEMS_WITH_ICONS;
+
+  readonly radioOptions: DcxRadioOption[] = [
+    { value: '1', label: 'Basic option' },
+    { value: '2', label: 'Pro option' },
+    { value: '3', label: 'Premium option' },
+  ];
 }
