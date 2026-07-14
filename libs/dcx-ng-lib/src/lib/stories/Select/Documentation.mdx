@@ -1,6 +1,5 @@
 import { Meta, Canvas } from '@storybook/blocks';
 import * as SelectClassBasedStories from './ClassBased.stories';
-import * as SelectUnstyledStories from './UnStyled.stories';
 
 <Meta title="DCXLibrary/Select/Documentation" />
 
@@ -11,29 +10,18 @@ It implements `ControlValueAccessor` to integrate smoothly with Angular Reactive
 
 ---
 
-## Unstyled Version
-
-Use this version when you want full control over the appearance.
-No styles are applied beyond native HTML input behavior, which makes it ideal for custom theming.
-
-{/* * Ajusta el nombre si tu story por defecto en UnStyled.stories.ts no es 'Default' */}
-
-<Canvas of={SelectUnstyledStories.Default} />
-
 ## Class-Based Version
 
 This version includes minimal styling using CSS custom properties.
 It supports focus styles, keyboard navigation, and optional placeholder behavior.
 
-<Canvas of={SelectClassBasedStories.Default} />
+<Canvas of={SelectClassBasedStories.ClassBased} />
 
 ---
 
-### Usage page example
+### With a preselected value
 
-The following story demonstrates multiple selects used inside a reactive form, mirroring the page implementation: placeholder handling, disabled control state, preselected value via FormControl and change-event logging.
-
-<Canvas of={SelectClassBasedStories.SelectShowcase} />
+<Canvas of={SelectClassBasedStories.WithPreselectedValue} />
 
 ---
 
@@ -48,13 +36,16 @@ The following story demonstrates multiple selects used inside a reactive form, m
 
 ## Keyboard Navigation
 
-The select component supports native keyboard interaction:
+The select follows the WAI-ARIA APG combobox pattern (`aria-activedescendant`) — focus never
+leaves the control (or the search input, when `searchable`), only a visual/AT highlight moves:
 
-- **Tab** to focus
-- **Arrow keys** to navigate options
-- **Enter** to select an option
-
-These behaviors follow the native HTML `<select>` pattern, ensuring accessibility and usability.
+- **Tab** to focus the control
+- **Arrow Down / Arrow Up** — opens the panel if closed; when open, moves the highlighted
+  option (`aria-activedescendant`) without changing the selected value
+- **Home / End** — jump the highlight to the first / last enabled option
+- **Enter** — confirms the highlighted option as the selected value and closes the panel
+- **Escape** — closes the panel and returns focus to the control
+- Clicking outside the component also closes the panel
 
 ---
 

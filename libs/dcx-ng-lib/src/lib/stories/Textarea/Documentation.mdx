@@ -20,22 +20,29 @@ El componente `DcxNgTextareaComponent` es un elemento de entrada de múltiples l
 
 ### Inputs
 
-| Propiedad      | Tipo                                  | Default     | Descripción                                                  |
-| -------------- | ------------------------------------- | ----------- | ------------------------------------------------------------ |
-| `value`        | `string`                              | `''`        | Valor vinculable del textarea mediante `[(ngModel)]` o model |
-| `rows`         | `number`                              | `5`         | Número de filas visibles                                     |
-| `cols`         | `number`                              | `30`        | Número de columnas visibles                                  |
-| `placeholder`  | `string`                              | `''`        | Texto placeholder                                            |
-| `disabled`     | `boolean`                             | `false`     | Deshabilita el textarea                                      |
-| `readonly`     | `boolean`                             | `false`     | Modo solo lectura                                            |
-| `autoResize`   | `boolean`                             | `false`     | Ajusta altura automáticamente según contenido                |
-| `floatLabel`   | `'over' \| 'in' \| 'on' \| undefined` | `undefined` | Tipo de etiqueta flotante                                    |
-| `label`        | `string`                              | `''`        | Texto de la etiqueta                                         |
-| `size`         | `'small' \| 'normal' \| 'large'`      | `'normal'`  | Tamaño del textarea                                          |
-| `fluid`        | `boolean`                             | `false`     | Ocupa 100% del ancho                                         |
-| `filled`       | `boolean`                             | `false`     | Estilo con fondo relleno                                     |
-| `invalid`      | `boolean`                             | `false`     | Estado inválido                                              |
-| `errorMessage` | `string`                              | `''`        | Mensaje de error a mostrar                                   |
+| Propiedad         | Tipo                                          | Default            | Descripción                                                          |
+| ----------------- | ---------------------------------------------- | ------------------ | --------------------------------------------------------------------- |
+| `value`           | `string`                                       | `''`                | Valor vinculable del textarea mediante `[(ngModel)]`, `model` o `formControlName` |
+| `rows`            | `number`                                       | `5`                 | Número de filas visibles                                              |
+| `cols`            | `number`                                       | `30`                | Número de columnas visibles                                           |
+| `placeholder`     | `string`                                       | `''`                | Texto placeholder                                                     |
+| `disabled`        | `boolean`                                      | `false`             | Deshabilita el textarea                                               |
+| `readonly`        | `boolean`                                      | `false`             | Modo solo lectura                                                     |
+| `autoResize`      | `boolean`                                      | `false`             | Ajusta altura automáticamente según contenido (fuerza `resize: none`) |
+| `floatLabel`      | `'over' \| 'in' \| 'on' \| 'ifta' \| undefined` | `undefined`         | Tipo de etiqueta flotante                                             |
+| `label`           | `string`                                       | `''`                | Texto de la etiqueta. Se renderiza siempre que tenga contenido, con o sin `floatLabel` |
+| `size`            | `'small' \| 'normal' \| 'large'`               | `'normal'`          | Tamaño del textarea                                                   |
+| `fluid`           | `boolean`                                      | `false`             | Ocupa 100% del ancho                                                  |
+| `filled`          | `boolean`                                      | `false`             | Estilo con fondo relleno                                              |
+| `invalid`         | `boolean`                                      | `false`             | Estado inválido                                                       |
+| `errorMessage`    | `string`                                       | `''`                | Mensaje de error a mostrar (se anuncia con `role="alert"`)            |
+| `id`              | `string`                                       | generado (`dcx-textarea-{random}`) | Identificador de instancia, usado para asociar `label`/`aria-describedby` |
+| `ariaLabel`       | `string \| null`                               | `null`              | Nombre accesible de respaldo cuando no hay `label` visible            |
+| `ariaDescribedBy` | `string \| null`                               | `null`              | `aria-describedby` adicional del consumidor; se combina con el del hint/error internos |
+| `required`        | `boolean`                                      | `false`             | Marca el campo como obligatorio (`aria-required` + asterisco junto al label) |
+| `hint`            | `string`                                       | `''`                | Texto de ayuda bajo el campo; se oculta si hay error visible          |
+| `maxLength`       | `number \| null`                               | `null`              | Aplica el atributo `maxlength` nativo                                 |
+| `resizable`       | `boolean`                                      | `true`              | Permite redimensionar verticalmente de forma manual (se ignora si `autoResize` está activo) |
 
 ### Outputs
 
@@ -133,15 +140,17 @@ El componente soporta tres tamaños:
 - **over**: La etiqueta flota sobre el textarea
 - **in**: La etiqueta flota dentro del textarea
 - **on**: La etiqueta flota sobre el borde superior
+- **ifta**: La etiqueta se muestra dentro del área de texto cuando está vacío, sin animación de transición
 
 ## Best Practices
 
 ### Accessibility
 
-- Siempre asocia un `label` cuando uses `floatLabel`
-- Proporciona `errorMessage` claro para validación fallida
+- Proporciona siempre `label` (se asocia automáticamente al textarea vía `for`/`id`); si no puede mostrarse un label visible, usa `ariaLabel`
+- Proporciona `errorMessage` claro para validación fallida — se anuncia con `role="alert"` y se referencia vía `aria-describedby`
+- Usa `required` para marcar el campo como obligatorio: añade `aria-required` y el asterisco visual junto al label
 - El placeholder no debe ser el único indicador del propósito
-- Asegúrate de que el contrast sea suficiente en estados disabled
+- Asegúrate de que el contraste sea suficiente en estados disabled
 
 ### Performance
 
@@ -160,9 +169,10 @@ El componente soporta tres tamaños:
 ```
 dcx-ng-textarea
 ├── wrapper (div)
-│   ├── textarea
-│   └── label (si floatLabel)
-└── error (div, si invalid)
+│   ├── label (si label tiene contenido, con o sin floatLabel)
+│   └── textarea
+├── error (div, role="alert", si invalid + errorMessage)
+└── hint (div, si hint y no hay error visible)
 ```
 
 ## CSS Classes
@@ -181,7 +191,7 @@ dcx-ng-textarea
 
 ## Integration with Forms
 
-El componente funciona con Angular Forms:
+El componente implementa `ControlValueAccessor`, por lo que funciona tanto con `[(ngModel)]` como con Reactive Forms (`formControlName`/`[formControl]`):
 
 ```typescript
 import { ReactiveFormsModule } from '@angular/forms';

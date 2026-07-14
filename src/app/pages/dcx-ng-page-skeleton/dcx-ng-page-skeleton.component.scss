@@ -1,12 +1,4 @@
-@use './../../app.component.scss';
-
-.example-title {
-  margin-bottom: var(--sp-3, 12px);
-}
-
-.divider {
-  margin: var(--sp-6, 24px) 0;
-}
+// page-demo styles are provided globally via src/styles.scss
 
 .example-stack {
   display: grid;
@@ -30,6 +22,12 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--sp-3, 12px);
+}
+
+.text-lines {
+  display: grid;
+  gap: var(--sp-2, 8px);
+  max-width: 28rem;
 }
 
 .card-header,

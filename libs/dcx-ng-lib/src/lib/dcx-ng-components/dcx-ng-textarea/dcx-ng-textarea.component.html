@@ -1,6 +1,20 @@
 <div [class]="wrapperClasses()">
+  @if (label()) {
+    <label
+      class="dcx-ng-textarea__label"
+      [class.is-invalid]="invalid()"
+      [class.is-disabled]="disabled()"
+      [attr.for]="id()"
+    >
+      {{ label() }}
+      @if (required()) {
+        <span class="dcx-ng-textarea__required">*</span>
+      }
+    </label>
+  }
   <textarea
     #textareaRef
+    [id]="id()"
     [class]="textareaClasses()"
     [rows]="rows()"
     [cols]="cols()"
@@ -8,14 +22,22 @@
     [placeholder]="placeholder()"
     [disabled]="disabled()"
     [readOnly]="readonly()"
+    [style.resize]="computedResize()"
+    [attr.maxlength]="maxLength()"
+    [attr.aria-label]="label() ? null : ariaLabel()"
+    [attr.aria-invalid]="invalid() ? 'true' : null"
+    [attr.aria-required]="required() ? 'true' : null"
+    [attr.aria-describedby]="describedBy()"
     (input)="onInput($event)"
     (focus)="onFocus()"
     (blur)="onBlur()"
   ></textarea>
-  @if (floatLabel()) {
-    <label class="dcx-ng-textarea__label">{{ label() }}</label>
-  }
 </div>
-@if (invalid() && errorMessage()) {
-  <div class="dcx-ng-textarea__error">{{ errorMessage() }}</div>
+@if (showError()) {
+  <div class="dcx-ng-textarea__error" role="alert" [id]="errorId()">
+    {{ errorMessage() }}
+  </div>
+}
+@if (showHint()) {
+  <div class="dcx-ng-textarea__hint" [id]="hintId()">{{ hint() }}</div>
 }

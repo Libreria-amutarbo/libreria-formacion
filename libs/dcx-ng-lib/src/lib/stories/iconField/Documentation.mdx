@@ -1,105 +1,92 @@
 import { Meta, Canvas } from '@storybook/blocks';
 import * as IconFieldClassBasedStories from './ClassBased.stories';
-import * as IconFieldUnstyledStories from './UnStyled.stories';
 
 <Meta title="DCXLibrary/IconField/Documentation" />
 
 # IconField
 
-El componente `dcx-ng-icon-field` es un campo de entrada con iconos integrados que funciona igual que un input normal pero permite añadir iconos a la izquierda y/o derecha del texto.
+`dcx-ng-icon-field` es un contenedor visual que añade un icono a la izquierda o a la derecha de un `dcx-ng-input` proyectado vía `<ng-content>`. No es un input en sí mismo: no implementa `ControlValueAccessor` ni tiene `value`/`valueChange` propios — toda la lógica de valor, validación y formularios la aporta el `dcx-ng-input` que se proyecta dentro.
 
 ---
 
 ## Versión Class Based
 
-Incluye estilos visuales modernos y personalizados, con efectos de focus, transiciones suaves y un diseño profesional.
-
-<Canvas of={IconFieldClassBasedStories.IconLeft} />
+<Canvas of={IconFieldClassBasedStories.ClassBased} />
 
 ---
 
 ## Ejemplos de uso
 
-### Campo con icono izquierdo
+### Icono a la izquierda (por defecto)
 
-<Canvas of={IconFieldClassBasedStories.IconLeft} />
+<Canvas of={IconFieldClassBasedStories.ClassBased} />
 
-### Campo con icono derecho
+### Icono a la derecha
 
-<Canvas of={IconFieldClassBasedStories.IconRight} />
+<Canvas of={IconFieldClassBasedStories.IconInRightPosition} />
 
-### Campo con ambos iconos
+### Icono clicable
 
-<Canvas of={IconFieldClassBasedStories.BothIcons} />
+Por defecto el icono es puramente decorativo (no recibe foco). Para que sea un botón interactivo, activa `iconClickable` y proporciona siempre `iconAriaLabel`.
 
-### Diferentes tamaños de iconos
+<Canvas of={IconFieldClassBasedStories.IconClickable} />
 
-<Canvas of={IconFieldClassBasedStories.SizeLarge} />
+### Deshabilitado
+
+<Canvas of={IconFieldClassBasedStories.DisabledIconField} />
+
+### Composición para campos de contraseña
+
+<Canvas of={IconFieldClassBasedStories.PasswordComposition} />
 
 ---
 
 ## Propiedades
 
-**placeholder** (string): Texto placeholder que se muestra cuando el campo está vacío. Por defecto es una cadena vacía.
-
-**iconLeft** (string): Nombre del icono de Material Icons que se muestra a la izquierda del input. Por defecto es una cadena vacía.
-
-**iconRight** (string): Nombre del icono de Material Icons que se muestra a la derecha del input. Por defecto es una cadena vacía.
-
-**iconSize** (IconSize): Tamaño de los iconos. Valores disponibles: 's', 'm', 'l', 'xl'. Por defecto es 'm'.
-
-**disabled** (boolean): Estado deshabilitado del campo. Cuando es true, el usuario no puede interactuar con el campo. Por defecto es false.
-
-**value** (string): Valor actual del campo. Se puede usar para establecer un valor inicial o leer el valor actual. Por defecto es una cadena vacía.
+| Propiedad | Tipo | Por defecto | Descripción |
+|---|---|---|---|
+| `iconName` | `string` | `'search'` | Icono de Bootstrap Icons. |
+| `iconPosition` | `'left' \| 'right'` | `'left'` | Posición del icono respecto al campo proyectado. |
+| `iconSize` | `'s' \| 'm' \| 'l' \| 'xl'` | `'m'` | Tamaño del icono. |
+| `iconClickable` | `boolean` | `false` | Si es `true`, el icono se renderiza como un botón interactivo (requiere `iconAriaLabel`). Si es `false`, es puramente decorativo. |
+| `iconAriaLabel` | `string \| null` | `null` | Nombre accesible del botón del icono. Obligatorio en la práctica cuando `iconClickable` es `true`. |
+| `disabled` | `boolean` | `false` | Deshabilita el botón del icono y atenúa el contenedor. No deshabilita por sí solo el input proyectado — indícalo también en el `dcx-ng-input`. |
 
 ## Eventos
 
-**valueChange** (string): Se emite cada vez que el usuario cambia el valor del campo.
-
-**focus** (void): Se emite cuando el campo recibe el focus.
-
-**blur** (void): Se emite cuando el campo pierde el focus.
+**iconClick** (`void`): se emite al hacer clic en el icono — solo cuando `iconClickable` es `true`.
 
 ---
 
 ## Accesibilidad
 
-- El componente mantiene todas las características de accesibilidad de un input nativo.
-- Los iconos son decorativos y no interfieren con lectores de pantalla.
-- Soporta navegación por teclado estándar (Tab, Shift+Tab).
-- El placeholder proporciona información contextual sobre el propósito del campo.
+- Por defecto el icono es decorativo (`<dcx-ng-icon>`, `aria-hidden` automático, no recibe foco) — no añade un tab-stop sin propósito.
+- Cuando `iconClickable` es `true`, el icono se renderiza como un `<dcx-ng-button>` real con `aria-label` explícito (`iconAriaLabel`) — nunca el genérico "Button".
+- `dcx-ng-icon-field` **no** aporta nombre accesible al campo — el `label`/`ariaLabel` debe indicarse en el `dcx-ng-input` proyectado.
+- El estado de error (`isInvalid`) del `dcx-ng-input` proyectado se refleja visualmente en el borde del contenedor.
 
 ## Casos de uso comunes
 
-**Campo de búsqueda**: Usa `iconLeft="search"` para crear un campo de búsqueda intuitivo.
+**Campo de búsqueda**: `iconName="search"` (decorativo, por defecto).
 
-**Campo con limpiar**: Usa `iconRight="close"` o `iconRight="clear"` para permitir al usuario limpiar el campo fácilmente.
+**Campo con botón de limpiar**: `iconName="x-circle"` con `iconClickable` y `iconAriaLabel="Limpiar campo"`.
 
-**Campo de usuario**: Usa `iconLeft="person"` para campos relacionados con información de usuario.
-
-**Campo de contraseña**: Combina `iconLeft="lock"` con `iconRight="visibility"` para campos de contraseña con opción de mostrar/ocultar.
+**Campo de contraseña**: `iconName="lock" iconPosition="left"` (decorativo) en IconField, combinado con `<dcx-ng-input type="password">` — el propio `dcx-ng-input` ya aporta su propio icono de mostrar/ocultar contraseña en el lado derecho, de forma nativa y accesible. No dupliques esa función con un segundo icono en IconField.
 
 ---
 
 ## Integración con formularios
 
-El componente se integra perfectamente con Angular Reactive Forms:
+`dcx-ng-icon-field` no participa en Reactive Forms — el `formControlName`/`[formControl]` se indica en el `dcx-ng-input` proyectado, no en el wrapper:
 
 ```html
 <form [formGroup]="miFormulario">
-  <dcx-ng-icon-field
-    formControlName="busqueda"
-    placeholder="Buscar productos..."
-    iconLeft="search"
-    iconRight="close">
+  <dcx-ng-icon-field iconName="search">
+    <dcx-ng-input
+      formControlName="busqueda"
+      label="Buscar"
+      placeholder="Buscar productos..."
+    ></dcx-ng-input>
   </dcx-ng-icon-field>
 </form>
 ```
-
----
-
-## Personalización
-
-La versión **Class Based** viene con estilos predefinidos que puedes personalizar mediante CSS custom properties o clases.
-
-La versión **UnStyled** te permite aplicar tus propios estilos completamente desde cero, manteniendo solo la funcionalidad básica.

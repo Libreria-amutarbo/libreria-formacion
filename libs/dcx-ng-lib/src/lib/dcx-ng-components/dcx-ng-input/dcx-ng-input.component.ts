@@ -110,6 +110,7 @@ export class DcxNgInputComponent {
   labelId = computed(() => `${this.id()}-label`);
   ariaLabel = input<string | null>(INPUT_DEFAULT_ARIA_LABEL);
   ariaDescribedBy = input<string | null>(INPUT_DEFAULT_ARIA_DESCRIBEDBY);
+  ariaValueText = input<string | null>(null);
   errorMessage = input<string>(INPUT_DEFAULT_ERROR_MESSAGE);
   requiredMessage = input<string | null>(INPUT_DEFAULT_REQUIRED_MESSAGE);
   errorMessages = input<DcxInputErrorMessage[]>([]);
@@ -216,6 +217,7 @@ export class DcxNgInputComponent {
     if (this.isInvalid()) classes.push('is-invalid');
     if (this.getInputIcon() !== null) classes.push('has-icon');
     if (this.showActionIcon()) classes.push('has-action');
+    if (this.isRangeType()) classes.push(`${base}--range`);
     return classes.filter(Boolean).join(' ');
   });
 

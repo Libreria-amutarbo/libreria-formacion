@@ -12,21 +12,60 @@ const meta: Meta<DcxNgTooltipComponent> = {
   ],
   argTypes: {
     position: {
+      name: 'position',
       control: 'select',
       options: ['top', 'right', 'bottom', 'left'],
-      table: { category: 'Attributes' }
+      description: 'Posición preferida del tooltip respecto al elemento envuelto.',
+      table: {
+        category: 'Atributos',
+        type: { summary: "'top' | 'bottom' | 'left' | 'right'" },
+        defaultValue: { summary: 'top' },
+      },
+    },
+    arrowAlignment: {
+      name: 'arrowAlignment',
+      control: 'select',
+      options: ['left', 'center', 'right'],
+      description: 'Alineación de la flecha dentro del bocadillo.',
+      table: {
+        category: 'Atributos',
+        type: { summary: "'left' | 'center' | 'right'" },
+        defaultValue: { summary: 'center' },
+      },
+    },
+    variant: {
+      name: 'variant',
+      control: 'select',
+      options: ['default', 'primary'],
+      description: 'Estilo visual del bocadillo.',
+      table: {
+        category: 'Atributos',
+        type: { summary: "'default' | 'primary'" },
+        defaultValue: { summary: 'default' },
+      },
     },
     content: {
+      name: 'content',
       control: 'text',
-      description: 'Content of the tooltip',
-      defaultValue: 'This is a tooltip',
-      table: { category: 'Attributes' }
+      description: 'Texto plano del tooltip.',
+      table: { category: 'Atributos', type: { summary: 'string' } },
+    },
+    contentHtml: {
+      name: 'contentHtml',
+      control: 'text',
+      description:
+        'Contenido HTML del tooltip (formato: negrita, cursiva, párrafos). Los elementos interactivos (enlaces, botones, campos) se eliminan automáticamente — un tooltip no debe requerir interacción con su contenido.',
+      table: { category: 'Atributos', type: { summary: 'string' } },
     },
     hideTooltipOnClick: {
+      name: 'hideTooltipOnClick',
       control: 'boolean',
-      description: 'Whether the tooltip should hide when clicking',
-      defaultValue: false,
-      table: { category: 'Attributes' }
+      description: 'Oculta el tooltip al hacer clic dentro del elemento envuelto.',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
   },
 };
@@ -36,7 +75,7 @@ type Story = StoryObj<DcxNgTooltipComponent>;
 
 export const DefaultTooltip: Story = {
   args: {
-    content: 'Default tooltip',
+    content: 'Tooltip por defecto',
     position: 'top',
     hideTooltipOnClick: false,
   },
@@ -45,7 +84,7 @@ export const DefaultTooltip: Story = {
     template: `
     <div style="width: 100%; justify-content: center; align-items: center; display: flex; padding: 80px 0;">
       <dcx-ng-tooltip [content]="content" [position]="position" [hideTooltipOnClick]="hideTooltipOnClick">
-        <dcx-ng-button label="Hover me"></dcx-ng-button>
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
       </dcx-ng-tooltip>
     </div>
     `,
@@ -54,14 +93,14 @@ export const DefaultTooltip: Story = {
 export const LeftTooltip: Story = {
   args: {
     position: 'left',
-    content: 'Tooltip on the left',
+    content: 'Tooltip a la izquierda',
   },
   render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; align-items: center; display: flex; padding: 80px 0;">
       <dcx-ng-tooltip [content]="content" [position]="position">
-        <dcx-ng-button label="Hover me"></dcx-ng-button>
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
       </dcx-ng-tooltip>
     </div>
     `,
@@ -70,14 +109,14 @@ export const LeftTooltip: Story = {
 export const RightTooltip: Story = {
   args: {
     position: 'right',
-    content: 'Tooltip on the right',
+    content: 'Tooltip a la derecha',
   },
   render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; align-items: center; display: flex; padding: 80px 0;">
       <dcx-ng-tooltip [content]="content" [position]="position">
-        <dcx-ng-button label="Hover me"></dcx-ng-button>
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
       </dcx-ng-tooltip>
     </div>
     `,
@@ -86,14 +125,14 @@ export const RightTooltip: Story = {
 export const BottomTooltip: Story = {
   args: {
     position: 'bottom',
-    content: 'Tooltip on the bottom',
+    content: 'Tooltip abajo',
   },
   render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; align-items: center; display: flex; padding: 80px 0;">
       <dcx-ng-tooltip [content]="content" [position]="position">
-        <dcx-ng-button label="Hover me"></dcx-ng-button>
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
       </dcx-ng-tooltip>
     </div>
     `,
@@ -102,22 +141,41 @@ export const BottomTooltip: Story = {
 export const TopTooltip: Story = {
   args: {
     position: 'top',
-    content: 'Tooltip on the top',
+    content: 'Tooltip arriba',
   },
   render: (args) => ({
     props: args,
     template: `
     <div style="width: 100%; justify-content: center; align-items: center; display: flex; padding: 80px 0;">
       <dcx-ng-tooltip [content]="content" [position]="position">
-        <dcx-ng-button label="Hover me"></dcx-ng-button>
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
       </dcx-ng-tooltip>
     </div>
     `,
   }),
 };
+
+export const PrimaryTooltip: Story = {
+  args: {
+    content: 'Tooltip con variante primary',
+    position: 'top',
+    variant: 'primary',
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+    <div style="width: 100%; justify-content: center; align-items: center; display: flex; padding: 80px 0;">
+      <dcx-ng-tooltip [content]="content" [position]="position" [variant]="variant">
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
+      </dcx-ng-tooltip>
+    </div>
+    `,
+  }),
+};
+
 export const HideOnClickTooltip: Story = {
   args: {
-    content: 'Tooltip on the top',
+    content: 'Tooltip arriba',
     hideTooltipOnClick: true,
   },
   render: (args) => ({
@@ -125,7 +183,7 @@ export const HideOnClickTooltip: Story = {
     template: `
     <div style="width: 100%; justify-content: center; align-items: center; display: flex; padding: 80px 0;">
       <dcx-ng-tooltip [content]="content" [hideTooltipOnClick]="hideTooltipOnClick">
-        <dcx-ng-button label="Hover me"></dcx-ng-button>
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
       </dcx-ng-tooltip>
     </div>
     `,
@@ -134,7 +192,7 @@ export const HideOnClickTooltip: Story = {
 
 export const LongContentTooltip: Story = {
   args: {
-    content: 'This is a very long tooltip content that should wrap properly and test the intelligent positioning system with longer text that might cause issues with viewport boundaries when positioned near edges.',
+    content: 'Este es un contenido de tooltip muy largo que debería ajustarse correctamente y probar el sistema de posicionamiento inteligente con un texto más extenso que podría causar problemas cerca de los bordes del viewport.',
     position: 'right',
   },
   render: (args) => ({
@@ -143,7 +201,7 @@ export const LongContentTooltip: Story = {
     <div style="height: 200px; position: relative; padding: 20px;">
       <div style="position: absolute; top: 40px; left: 20px;">
         <dcx-ng-tooltip [content]="content" [position]="position">
-          <dcx-ng-button label="Long Content Test"></dcx-ng-button>
+          <dcx-ng-button label="Contenido largo"></dcx-ng-button>
         </dcx-ng-tooltip>
       </div>
     </div>
@@ -153,7 +211,7 @@ export const LongContentTooltip: Story = {
 
 export const WithIcon: Story = {
   args: {
-    content: 'This is an icon with a tooltip',
+    content: 'Este es un icono con tooltip',
     position: 'right',
   },
   render: (args) => ({
@@ -161,16 +219,16 @@ export const WithIcon: Story = {
     template: `
     <div style="width: 100%; justify-content: center; align-items: center; display: flex; padding: 80px 0;">
       <dcx-ng-tooltip [content]="content" [position]="position">
-        <dcx-ng-icon name="info-circle" size="24"></dcx-ng-icon>
+        <dcx-ng-icon name="info-circle" size="l"></dcx-ng-icon>
       </dcx-ng-tooltip>
     </div>
     `,
   }),
 };
 
-export const WithLinkInside: Story = {
+export const WithFormattedContent: Story = {
   args: {
-    contentHtml: 'Click <a href="#">here</a> to learn more',
+    contentHtml: '<p><strong>Importante:</strong> revisa <em>todos</em> los campos</p>',
     position: 'top',
   },
   render: (args) => ({
@@ -178,7 +236,7 @@ export const WithLinkInside: Story = {
     template: `
     <div style="width: 100%; justify-content: center; align-items: center; display: flex; padding: 80px 0;">
       <dcx-ng-tooltip [contentHtml]="contentHtml" [position]="position">
-        <dcx-ng-button label="Hover for link"></dcx-ng-button>
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
       </dcx-ng-tooltip>
     </div>
     `,

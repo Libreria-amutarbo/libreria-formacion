@@ -1,98 +1,176 @@
-<h1 class="page-title">Textarea Component</h1>
+<div class="demo-page">
 
-<section>
-  <h2 class="example-title">Ejemplo 1 - Textarea por defecto</h2>
-  <dcx-ng-textarea placeholder="Escribe aquí..."></dcx-ng-textarea>
-</section>
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Textarea</h1>
+    <p class="demo-page-header__desc">
+      Entrada de texto multilínea con soporte para etiquetas flotantes,
+      redimensionamiento automático o manual, validación y hint de ayuda.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<dcx-ng-divider></dcx-ng-divider>
+  <!-- ── 01 Por defecto ────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Por defecto</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-textarea
+        label="Comentarios"
+        placeholder="Escribe aquí..."
+      ></dcx-ng-textarea>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - AutoResize</h2>
-  <dcx-ng-textarea
-    [autoResize]="true"
-    placeholder="Escribe para ver cómo crece automáticamente..."
-  ></dcx-ng-textarea>
-</section>
+  <!-- ── 02 AutoResize ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">AutoResize</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-textarea
+        label="Notas"
+        [autoResize]="true"
+        placeholder="Escribe para ver cómo crece automáticamente..."
+      ></dcx-ng-textarea>
+    </div>
+  </div>
 
-<dcx-ng-divider></dcx-ng-divider>
-
-<section>
-  <h2 class="example-title">Ejemplo 3 - Float Label Variants</h2>
-  <div class="variant-group">
-    <div>
+  <!-- ── 03 Variantes de label flotante ───────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Variantes de label flotante</span>
+    </div>
+    <div class="demo-section__body demo-section__body--row">
       <dcx-ng-textarea floatLabel="over" label="Over Label"></dcx-ng-textarea>
-    </div>
-    <div>
       <dcx-ng-textarea floatLabel="in" label="In Label"></dcx-ng-textarea>
-    </div>
-    <div>
       <dcx-ng-textarea floatLabel="on" label="On Label"></dcx-ng-textarea>
     </div>
   </div>
-</section>
 
-<dcx-ng-divider></dcx-ng-divider>
-
-<section>
-  <h2 class="example-title">Ejemplo 4 - IFTA Label</h2>
-  <dcx-ng-textarea floatLabel="ifta" label="Description"></dcx-ng-textarea>
-</section>
-
-<dcx-ng-divider></dcx-ng-divider>
-
-<section>
-  <h2 class="example-title">Ejemplo 5 - Sizes</h2>
-  <div class="examples-container">
-    <div>
-      <dcx-ng-textarea size="small" placeholder="Small"></dcx-ng-textarea>
+  <!-- ── 04 IFTA Label ─────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">IFTA Label</span>
     </div>
-    <div>
-      <dcx-ng-textarea placeholder="Normal"></dcx-ng-textarea>
-    </div>
-    <div>
-      <dcx-ng-textarea size="large" placeholder="Large"></dcx-ng-textarea>
+    <div class="demo-section__body">
+      <dcx-ng-textarea floatLabel="ifta" label="Descripción"></dcx-ng-textarea>
     </div>
   </div>
-</section>
 
-<dcx-ng-divider></dcx-ng-divider>
+  <!-- ── 05 Tamaños ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Tamaños</span>
+    </div>
+    <div class="demo-section__body demo-section__body--row">
+      <dcx-ng-textarea label="Small" size="small" placeholder="Small"></dcx-ng-textarea>
+      <dcx-ng-textarea label="Normal" placeholder="Normal"></dcx-ng-textarea>
+      <dcx-ng-textarea label="Large" size="large" placeholder="Large"></dcx-ng-textarea>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 6 - Fluid</h2>
-  <dcx-ng-textarea
-    [fluid]="true"
-    placeholder="Fluid textarea - ocupa el 100% del ancho"
-  ></dcx-ng-textarea>
-</section>
+  <!-- ── 06 Fluid ──────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Fluid</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-textarea
+        label="Descripción"
+        [fluid]="true"
+        placeholder="Textarea que ocupa el 100% del ancho"
+      ></dcx-ng-textarea>
+    </div>
+  </div>
 
-<dcx-ng-divider></dcx-ng-divider>
+  <!-- ── 07 Filled ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Filled</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-textarea
+        label="Notas"
+        [filled]="true"
+        placeholder="Filled textarea"
+      ></dcx-ng-textarea>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 7 - Filled</h2>
-  <dcx-ng-textarea
-    [filled]="true"
-    placeholder="Filled textarea"
-  ></dcx-ng-textarea>
-</section>
+  <!-- ── 08 Disabled ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Disabled</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-textarea
+        label="Observaciones"
+        [disabled]="true"
+        placeholder="No disponible"
+      ></dcx-ng-textarea>
+    </div>
+  </div>
 
-<dcx-ng-divider></dcx-ng-divider>
+  <!-- ── 09 Obligatorio con error ─────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">09</span>
+      <span class="demo-section__title">Obligatorio con error</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-textarea
+        label="Descripción"
+        [required]="true"
+        [invalid]="true"
+        placeholder="Escribe aquí..."
+        errorMessage="Este campo es obligatorio"
+      ></dcx-ng-textarea>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 8 - Disabled</h2>
-  <dcx-ng-textarea
-    [disabled]="true"
-    placeholder="Disabled textarea"
-  ></dcx-ng-textarea>
-</section>
+  <!-- ── 10 Con hint y límite de caracteres ───────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">10</span>
+      <span class="demo-section__title">Con hint y límite de caracteres</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-textarea
+        label="Notas"
+        [filled]="true"
+        [maxLength]="500"
+        hint="Max. 500 caracteres"
+      ></dcx-ng-textarea>
+    </div>
+  </div>
 
-<dcx-ng-divider></dcx-ng-divider>
+  <!-- ── 11 Resize manual desactivado ─────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">11</span>
+      <span class="demo-section__title">Resize manual desactivado</span>
+    </div>
+    <p class="demo-section__desc">
+      Por defecto el textarea es redimensionable verticalmente por el
+      usuario (<code>resizable</code>). Aquí se desactiva explícitamente.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-textarea
+        label="Comentarios"
+        [resizable]="false"
+        placeholder="No se puede redimensionar manualmente"
+      ></dcx-ng-textarea>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 9 - Invalid with Error Message</h2>
-  <dcx-ng-textarea
-    [invalid]="true"
-    placeholder="Invalid textarea"
-    errorMessage="This field is required"
-  ></dcx-ng-textarea>
-</section>
+</div>

@@ -89,6 +89,18 @@
     color: var(--text-muted, #696e75);
     opacity: 1;
   }
+
+  &.dcx-ng-input__control--range {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+
+    &:focus-visible {
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
 }
 
 .dcx-ng-input__required {
@@ -119,6 +131,10 @@
 
 .dcx-ng-input__control:hover:not(.is-disabled) {
   box-shadow: 0 0 0 2px var(--border-hover, #9ca3af);
+}
+
+.dcx-ng-input__control.dcx-ng-input__control--range:hover:not(.is-disabled) {
+  box-shadow: none;
 }
 
 .dcx-ng-input__action-button {

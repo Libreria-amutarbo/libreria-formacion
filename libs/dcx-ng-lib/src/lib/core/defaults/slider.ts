@@ -6,4 +6,5 @@ export const SLIDER_DEFAULT_VALUES = {
   vertical: false,
   min: 0,
   max: 50,
+  disabled: false,
 };

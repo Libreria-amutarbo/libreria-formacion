@@ -2,6 +2,7 @@ export * from './generic';
 export * from './button';
 export * from './icon';
 export * from './badge';
+export * from './card';
 export * from './drawer';
 export * from './checkbox';
 export * from './chip';
@@ -10,4 +11,4 @@ export * from './breadcrumb';
 export * from './contextMenu';
 export * from './accordion';
 export * from './carousel';
-
+export * from './input';

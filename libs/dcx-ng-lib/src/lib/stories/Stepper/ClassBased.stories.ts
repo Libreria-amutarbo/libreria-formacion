@@ -8,7 +8,6 @@ import {
   STEPPER_WITH_ERROR,
   STEPPER_WITH_OPTIONAL,
   STEPPER_WITH_ICONS,
-  ICON_SIZE_LIST,
   LAYOUT_LIST,
 } from '@dcx-ng-components/dcx-ng-lib';
 
@@ -18,39 +17,83 @@ const meta: Meta<DcxNgStepperComponent> = {
   tags: ['autodocs'],
   argTypes: {
     steps: {
-      description: 'Array of step items to display',
+      description: 'Array de pasos a mostrar',
       control: 'object',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxStepperItem[]' },
+      },
     },
     activeStepId: {
-      description: 'ID of the currently active step',
+      description: 'ID del paso actualmente activo',
       control: 'text',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string | number' },
+        defaultValue: { summary: "''" },
+      },
     },
     orientation: {
-      description: 'Layout orientation of the stepper',
+      description: 'Orientación del stepper',
       control: 'radio',
       options: LAYOUT_LIST,
+      table: {
+        category: 'Atributos',
+        type: { summary: "'horizontal' | 'vertical'" },
+        defaultValue: { summary: 'horizontal' },
+      },
     },
     linear: {
       description:
-        'The linear property enforces sequential step navigation (only proceed when current step is complete) when true, or allows free navigation between any steps when false',
+        'Fuerza la navegación secuencial (solo se puede avanzar cuando el paso actual está completado) cuando es true; si es false, permite navegar libremente entre pasos',
       control: 'boolean',
+      table: {
+        category: 'Atributos',
+        defaultValue: { summary: 'false' },
+      },
     },
     showStepNumbers: {
-      description: 'Whether to show step numbers in indicators',
+      description: 'Muestra el número de paso en los indicadores',
       control: 'boolean',
+      table: {
+        category: 'Atributos',
+        defaultValue: { summary: 'true' },
+      },
     },
     size: {
-      description: 'Size of the stepper component',
+      description: 'Tamaño del stepper',
       control: 'radio',
-      options: ICON_SIZE_LIST,
+      options: ['s', 'm', 'l', 'xl'],
+      table: {
+        category: 'Atributos',
+        type: { summary: "'s' | 'm' | 'l' | 'xl'" },
+        defaultValue: { summary: 'm' },
+      },
+    },
+    ariaLabel: {
+      description: 'Nombre accesible del landmark de navegación',
+      control: 'text',
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string | null' },
+        defaultValue: { summary: 'null' },
+      },
     },
     stepChange: {
-      description: 'Emitted when active step changes',
+      description: 'Se emite cuando cambia el paso activo',
       action: 'stepChange',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(event: DcxStepperChangeEvent) => void' },
+      },
     },
     stepClick: {
-      description: 'Emitted when a step is clicked',
+      description: 'Se emite cuando se hace click en un paso',
       action: 'stepClick',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(step: DcxStepperItem) => void' },
+      },
     },
   },
   args: {
@@ -60,6 +103,7 @@ const meta: Meta<DcxNgStepperComponent> = {
     linear: false,
     showStepNumbers: true,
     size: 'm',
+    ariaLabel: null,
     stepChange: fn(),
     stepClick: fn(),
   },
@@ -92,6 +136,7 @@ export const Linear: Story = {
 };
 
 export const WithCompletedSteps: Story = {
+  name: 'Con pasos completados',
   args: {
     steps: STEPPER_WITH_COMPLETED,
     activeStepId: '3',
@@ -99,6 +144,7 @@ export const WithCompletedSteps: Story = {
 };
 
 export const WithDisabledSteps: Story = {
+  name: 'Con pasos deshabilitados',
   args: {
     steps: STEPPER_WITH_DISABLED,
     activeStepId: '1',
@@ -106,6 +152,7 @@ export const WithDisabledSteps: Story = {
 };
 
 export const WithErrorSteps: Story = {
+  name: 'Con estado de error',
   args: {
     steps: STEPPER_WITH_ERROR,
     activeStepId: '2',
@@ -113,6 +160,7 @@ export const WithErrorSteps: Story = {
 };
 
 export const WithOptionalSteps: Story = {
+  name: 'Con paso opcional',
   args: {
     steps: STEPPER_WITH_OPTIONAL,
     activeStepId: '1',
@@ -120,6 +168,7 @@ export const WithOptionalSteps: Story = {
 };
 
 export const Small: Story = {
+  name: 'Pequeño',
   args: {
     steps: STEPPER_BASIC_STEPS,
     activeStepId: '1',
@@ -128,6 +177,7 @@ export const Small: Story = {
 };
 
 export const Large: Story = {
+  name: 'Grande',
   args: {
     steps: STEPPER_BASIC_STEPS,
     activeStepId: '1',
@@ -135,7 +185,17 @@ export const Large: Story = {
   },
 };
 
+export const ExtraLarge: Story = {
+  name: 'Extra grande',
+  args: {
+    steps: STEPPER_BASIC_STEPS,
+    activeStepId: '1',
+    size: 'xl',
+  },
+};
+
 export const WithoutNumbers: Story = {
+  name: 'Sin números (con iconos)',
   args: {
     steps: STEPPER_WITH_ICONS,
     activeStepId: '1',
@@ -143,15 +203,30 @@ export const WithoutNumbers: Story = {
   },
 };
 
-export const Interactive: Story = {
-  args: {
-    steps: STEPPER_BASIC_STEPS,
-    activeStepId: '1',
-    orientation: 'horizontal',
-    linear: false,
-    showStepNumbers: true,
-    size: 'm',
-    stepChange: fn(),
-    stepClick: fn(),
+export const WithContent: Story = {
+  name: 'Con contenido por paso',
+  render: () => ({
+    template: `
+      <ng-template #addressTpl>
+        <p style="margin: 0 0 8px; font-weight: 600;">Dirección de envío</p>
+        <p style="margin: 0; color: var(--text-muted, #696e75); font-size: 13px;">
+          Calle Ejemplo, 42 · 28001 Madrid · España
+        </p>
+      </ng-template>
+
+      <dcx-ng-stepper
+        [steps]="[
+          { id: '1', label: 'Datos personales', description: 'Completado', completed: true },
+          { id: '2', label: 'Dirección de envío', description: 'Introduce tu dirección', contentTpl: addressTpl },
+          { id: '3', label: 'Método de pago', description: 'Pendiente' }
+        ]"
+        [orientation]="'vertical'"
+        [activeStepId]="'2'"
+        ariaLabel="Proceso de compra"
+      ></dcx-ng-stepper>
+    `,
+  }),
+  parameters: {
+    controls: { disable: true },
   },
 };

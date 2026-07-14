@@ -1,11 +1,28 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DcxNgSelectComponent } from './dcx-ng-select.component';
 import { By } from '@angular/platform-browser';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { DcxSelectOptions } from '../../core/interfaces';
 import { OPTIONS, PLACEHOLDER } from '@dcx-ng-components/dcx-ng-lib';
+
+const OPTIONS_WITH_DISABLED: DcxSelectOptions[] = [
+  { value: 'a', label: 'A' },
+  { value: 'b', label: 'B', disabled: true },
+  { value: 'c', label: 'C' },
+];
 
 describe('DcxNgSelectComponent', () => {
   let component: DcxNgSelectComponent;
   let fixture: ComponentFixture<DcxNgSelectComponent>;
+  let overlayContainer: OverlayContainer;
+  let overlayContainerElement: HTMLElement;
+
+  // El panel se renderiza vía CDK Overlay (portal a document.body), fuera
+  // del árbol del fixture — se consulta a través del overlay container.
+  const panelOptions = () =>
+    Array.from(
+      overlayContainerElement.querySelectorAll('.dcx-ng-select__option'),
+    );
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -15,9 +32,16 @@ describe('DcxNgSelectComponent', () => {
     fixture = TestBed.createComponent(DcxNgSelectComponent);
     component = fixture.componentInstance;
 
+    overlayContainer = TestBed.inject(OverlayContainer);
+    overlayContainerElement = overlayContainer.getContainerElement();
+
     fixture.componentRef.setInput('options', OPTIONS);
     fixture.componentRef.setInput('placeholder', PLACEHOLDER);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    overlayContainer.ngOnDestroy();
   });
 
   it('should create the component', () => {
@@ -38,12 +62,20 @@ describe('DcxNgSelectComponent', () => {
   it('should display options when panel is open', () => {
     component.toggle();
     fixture.detectChanges();
-    const options = fixture.debugElement.queryAll(
-      By.css('.dcx-ng-select__option'),
-    );
+    const options = panelOptions();
     expect(options.length).toBe(OPTIONS.length);
-    expect(options[0].nativeElement.textContent.trim()).toBe(OPTIONS[0].label);
-    expect(options[1].nativeElement.textContent.trim()).toBe(OPTIONS[1].label);
+    expect(options[0].textContent?.trim()).toBe(OPTIONS[0].label);
+    expect(options[1].textContent?.trim()).toBe(OPTIONS[1].label);
+  });
+
+  it('should remove the panel from the DOM when closed', () => {
+    component.toggle();
+    fixture.detectChanges();
+    expect(panelOptions().length).toBeGreaterThan(0);
+
+    component.toggle();
+    fixture.detectChanges();
+    expect(panelOptions().length).toBe(0);
   });
 
   it('should reflect selected value in selectedLabel', () => {
@@ -72,7 +104,7 @@ describe('DcxNgSelectComponent', () => {
     expect(component.isOpen()).toBe(false);
   });
 
-  it('should set disabled to false via writeValue', () => {
+  it('should set value to null via writeValue', () => {
     component.writeValue(null);
     expect(component.value()).toBeNull();
   });
@@ -166,90 +198,8 @@ describe('DcxNgSelectComponent', () => {
     expect(component.search()).toBe('123');
   });
 
-  describe('keyboard navigation (onKey)', () => {
-    beforeEach(() => {
-      component.toggle();
-      fixture.detectChanges();
-      component.writeValue(OPTIONS[0].value);
-    });
-
-    it('ArrowDown should select next option', () => {
-      const ev = new KeyboardEvent('keydown', { key: 'ArrowDown' });
-      jest.spyOn(ev, 'preventDefault');
-      component.onKey(ev);
-      expect(ev.preventDefault).toHaveBeenCalled();
-      expect(component.value()).toBe(OPTIONS[1].value);
-    });
-
-    it('ArrowUp should select previous option', () => {
-      component.writeValue(OPTIONS[1].value);
-      const ev = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      jest.spyOn(ev, 'preventDefault');
-      component.onKey(ev);
-      expect(ev.preventDefault).toHaveBeenCalled();
-      expect(component.value()).toBe(OPTIONS[0].value);
-    });
-
-    it('ArrowDown on last option should wrap to first', () => {
-      component.writeValue(OPTIONS[OPTIONS.length - 1].value);
-      const ev = new KeyboardEvent('keydown', { key: 'ArrowDown' });
-      component.onKey(ev);
-      expect(component.value()).toBe(OPTIONS[0].value);
-    });
-
-    it('ArrowUp on first option should wrap to last', () => {
-      component.writeValue(OPTIONS[0].value);
-      const ev = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      component.onKey(ev);
-      expect(component.value()).toBe(OPTIONS[OPTIONS.length - 1].value);
-    });
-
-    it('Enter should select current option and close', () => {
-      const changeSpy = jest.fn();
-      component.registerOnChange(changeSpy);
-      const ev = new KeyboardEvent('keydown', { key: 'Enter' });
-      jest.spyOn(ev, 'preventDefault');
-      component.onKey(ev);
-      expect(ev.preventDefault).toHaveBeenCalled();
-      expect(component.isOpen()).toBe(false);
-      expect(changeSpy).toHaveBeenCalledWith(OPTIONS[0].value);
-    });
-
-    it('Escape should close the dropdown', () => {
-      expect(component.isOpen()).toBe(true);
-      const ev = new KeyboardEvent('keydown', { key: 'Escape' });
-      component.onKey(ev);
-      expect(component.isOpen()).toBe(false);
-    });
-
-    it('should not handle keys when panel is closed', () => {
-      component.isOpen.set(false);
-      const ev = new KeyboardEvent('keydown', { key: 'ArrowDown' });
-      component.onKey(ev);
-      expect(component.value()).toBe(OPTIONS[0].value);
-    });
-  });
-
-  it('onOptionSpace should select non-disabled option', () => {
-    const ev = new KeyboardEvent('keydown', { key: ' ' });
-    jest.spyOn(ev, 'preventDefault');
-    const changeSpy = jest.fn();
-    component.registerOnChange(changeSpy);
-    component.onOptionSpace(ev, { value: OPTIONS[1].value });
-    expect(ev.preventDefault).toHaveBeenCalled();
-    expect(changeSpy).toHaveBeenCalledWith(OPTIONS[1].value);
-  });
-
-  it('onOptionSpace should not select disabled option', () => {
-    const ev = new KeyboardEvent('keydown', { key: ' ' });
-    const changeSpy = jest.fn();
-    component.registerOnChange(changeSpy);
-    component.onOptionSpace(ev, { value: 'x', disabled: true });
-    expect(changeSpy).not.toHaveBeenCalled();
-  });
-
-  it('selectContolClasses should return class string', () => {
-    const classes = component.selectContolClasses();
+  it('selectControlClasses should return class string', () => {
+    const classes = component.selectControlClasses();
     expect(classes).toContain('dcx-ng-select__control');
   });
 
@@ -261,6 +211,23 @@ describe('DcxNgSelectComponent', () => {
     expect(f.componentInstance.value()).toBe(OPTIONS[1].value);
   });
 
+  it('should update value() when valueInput changes after initialization (no form)', () => {
+    fixture.componentRef.setInput('valueInput', OPTIONS[0].value);
+    fixture.detectChanges();
+    expect(component.value()).toBe(OPTIONS[0].value);
+
+    fixture.componentRef.setInput('valueInput', OPTIONS[1].value);
+    fixture.detectChanges();
+    expect(component.value()).toBe(OPTIONS[1].value);
+  });
+
+  it('should not override a form-driven value when valueInput changes later', () => {
+    component.writeValue(OPTIONS[0].value);
+    fixture.componentRef.setInput('valueInput', OPTIONS[1].value);
+    fixture.detectChanges();
+    expect(component.value()).toBe(OPTIONS[0].value);
+  });
+
   it('toggle with searchable should focus search input', () => {
     fixture.componentRef.setInput('searchable', true);
     fixture.detectChanges();
@@ -269,7 +236,7 @@ describe('DcxNgSelectComponent', () => {
     expect(component.isOpen()).toBe(true);
   });
 
-  it('toggle should scroll to selected option when open', () => {
+  it('toggle should scroll to the active option when open', () => {
     Element.prototype.scrollIntoView = jest.fn();
     component.writeValue(OPTIONS[1].value);
     component.toggle();
@@ -312,6 +279,229 @@ describe('DcxNgSelectComponent', () => {
       fixture.componentRef.setInput('searchable', 'false');
       fixture.detectChanges();
       expect(component.searchable()).toBe(false);
+    });
+  });
+
+  describe('keyboard navigation (onKey) — panel open', () => {
+    beforeEach(() => {
+      component.writeValue(OPTIONS[0].value);
+      fixture.detectChanges();
+      component.toggle();
+      fixture.detectChanges();
+    });
+
+    it('ArrowDown should move activeIndex to the next option without changing value', () => {
+      const ev = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+      jest.spyOn(ev, 'preventDefault');
+      component.onKey(ev);
+      expect(ev.preventDefault).toHaveBeenCalled();
+      expect(component.activeIndex()).toBe(1);
+      expect(component.value()).toBe(OPTIONS[0].value);
+    });
+
+    it('ArrowUp should move activeIndex to the previous option without changing value', () => {
+      const ev = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+      jest.spyOn(ev, 'preventDefault');
+      component.onKey(ev);
+      expect(ev.preventDefault).toHaveBeenCalled();
+      expect(component.activeIndex()).toBe(OPTIONS.length - 1);
+      expect(component.value()).toBe(OPTIONS[0].value);
+    });
+
+    it('ArrowDown should wrap back to the first option', () => {
+      for (let i = 0; i < OPTIONS.length; i++) {
+        component.onKey(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      }
+      expect(component.activeIndex()).toBe(0);
+    });
+
+    it('Home should move activeIndex to the first option', () => {
+      component.onKey(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      const ev = new KeyboardEvent('keydown', { key: 'Home' });
+      jest.spyOn(ev, 'preventDefault');
+      component.onKey(ev);
+      expect(ev.preventDefault).toHaveBeenCalled();
+      expect(component.activeIndex()).toBe(0);
+    });
+
+    it('End should move activeIndex to the last option', () => {
+      const ev = new KeyboardEvent('keydown', { key: 'End' });
+      jest.spyOn(ev, 'preventDefault');
+      component.onKey(ev);
+      expect(ev.preventDefault).toHaveBeenCalled();
+      expect(component.activeIndex()).toBe(OPTIONS.length - 1);
+    });
+
+    it('Enter should confirm the active option and close', () => {
+      const changeSpy = jest.fn();
+      component.registerOnChange(changeSpy);
+      component.onKey(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      const ev = new KeyboardEvent('keydown', { key: 'Enter' });
+      jest.spyOn(ev, 'preventDefault');
+      component.onKey(ev);
+      expect(ev.preventDefault).toHaveBeenCalled();
+      expect(component.isOpen()).toBe(false);
+      expect(changeSpy).toHaveBeenCalledWith(OPTIONS[1].value);
+    });
+
+    it('Escape should close the dropdown and return focus to the control', () => {
+      expect(component.isOpen()).toBe(true);
+      const control = fixture.debugElement.query(
+        By.css('.dcx-ng-select__control'),
+      ).nativeElement as HTMLElement;
+      const ev = new KeyboardEvent('keydown', { key: 'Escape' });
+      component.onKey(ev);
+      expect(component.isOpen()).toBe(false);
+      expect(document.activeElement).toBe(control);
+    });
+  });
+
+  describe('keyboard navigation (onKey) — panel closed', () => {
+    it('ArrowDown should open the panel', () => {
+      expect(component.isOpen()).toBe(false);
+      const ev = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+      jest.spyOn(ev, 'preventDefault');
+      component.onKey(ev);
+      expect(ev.preventDefault).toHaveBeenCalled();
+      expect(component.isOpen()).toBe(true);
+    });
+
+    it('ArrowUp should open the panel', () => {
+      component.onKey(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+      expect(component.isOpen()).toBe(true);
+    });
+
+    it('should ignore other keys when panel is closed', () => {
+      component.onKey(new KeyboardEvent('keydown', { key: 'Enter' }));
+      expect(component.isOpen()).toBe(false);
+    });
+  });
+
+  it('should skip disabled options when navigating with ArrowDown', () => {
+    fixture.componentRef.setInput('options', OPTIONS_WITH_DISABLED);
+    fixture.detectChanges();
+    component.toggle();
+    fixture.detectChanges();
+    component.onKey(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    expect(component.activeIndex()).toBe(2);
+  });
+
+  describe('click outside (CDK Overlay outsidePointerEvents)', () => {
+    it('should close the panel when clicking outside the component', () => {
+      component.toggle();
+      fixture.detectChanges();
+      expect(component.isOpen()).toBe(true);
+
+      const outsideEl = document.createElement('div');
+      document.body.appendChild(outsideEl);
+      outsideEl.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      fixture.detectChanges();
+
+      expect(component.isOpen()).toBe(false);
+      document.body.removeChild(outsideEl);
+    });
+
+    it('should not close the panel when clicking inside the panel', () => {
+      component.toggle();
+      fixture.detectChanges();
+
+      const optionEl = panelOptions()[0];
+      optionEl.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      fixture.detectChanges();
+
+      // El propio click en la opción confirma la selección y cierra —
+      // pero no debe pasar por el camino de "click fuera".
+      expect(component.value()).toBe(OPTIONS[0].value);
+    });
+  });
+
+  describe('Accessibility (WCAG AA)', () => {
+    it('should set aria-activedescendant to the active option id when open', () => {
+      component.toggle();
+      fixture.detectChanges();
+      const control = fixture.debugElement.query(
+        By.css('.dcx-ng-select__control'),
+      ).nativeElement as HTMLElement;
+      const activeId = `${component.selectId}-opt-${component.activeIndex()}`;
+      expect(control.getAttribute('aria-activedescendant')).toBe(activeId);
+    });
+
+    it('should not set aria-activedescendant when the panel is closed', () => {
+      const control = fixture.debugElement.query(
+        By.css('.dcx-ng-select__control'),
+      ).nativeElement as HTMLElement;
+      expect(control.hasAttribute('aria-activedescendant')).toBe(false);
+    });
+
+    it('should set aria-disabled and tabindex -1 on the control when disabled', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+      const control = fixture.debugElement.query(
+        By.css('.dcx-ng-select__control'),
+      ).nativeElement as HTMLElement;
+      expect(control.getAttribute('aria-disabled')).toBe('true');
+      expect(control.getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('should set tabindex 0 on the control when enabled', () => {
+      const control = fixture.debugElement.query(
+        By.css('.dcx-ng-select__control'),
+      ).nativeElement as HTMLElement;
+      expect(control.getAttribute('tabindex')).toBe('0');
+    });
+
+    it('should apply the accessible name to the clear button inner <button>', () => {
+      component.selectOption({ value: OPTIONS[0].value });
+      fixture.componentRef.setInput('clearable', true);
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(
+        By.css('.dcx-ng-select__clear-btn button'),
+      ).nativeElement as HTMLButtonElement;
+      expect(btn.getAttribute('aria-label')).toBe('Borrar selección');
+    });
+
+    it('should render the chevron as a non-interactive icon with no wrapping button', () => {
+      const chevron = fixture.debugElement.query(
+        By.css('.dcx-ng-select__chevron'),
+      );
+      expect(chevron.nativeElement.tagName.toLowerCase()).toBe('dcx-ng-icon');
+      expect(chevron.nativeElement.querySelector('button')).toBeNull();
+    });
+
+    it('should apply aria-label to the control when there is no visible label', () => {
+      fixture.componentRef.setInput('ariaLabel', 'Selecciona país');
+      fixture.detectChanges();
+      const control = fixture.debugElement.query(
+        By.css('.dcx-ng-select__control'),
+      ).nativeElement as HTMLElement;
+      expect(control.getAttribute('aria-label')).toBe('Selecciona país');
+    });
+
+    it('should not apply aria-label when a visible label is present', () => {
+      fixture.componentRef.setInput('label', 'País');
+      fixture.componentRef.setInput('ariaLabel', 'Selecciona país');
+      fixture.detectChanges();
+      const control = fixture.debugElement.query(
+        By.css('.dcx-ng-select__control'),
+      ).nativeElement as HTMLElement;
+      expect(control.hasAttribute('aria-label')).toBe(false);
+    });
+
+    it('should not set tabindex on options', () => {
+      component.toggle();
+      fixture.detectChanges();
+      panelOptions().forEach(o =>
+        expect(o.hasAttribute('tabindex')).toBe(false),
+      );
+    });
+
+    it('should render the panel with role="listbox" inside the overlay container', () => {
+      component.toggle();
+      fixture.detectChanges();
+      const panel = overlayContainerElement.querySelector(
+        '.dcx-ng-select__panel',
+      );
+      expect(panel?.getAttribute('role')).toBe('listbox');
     });
   });
 });

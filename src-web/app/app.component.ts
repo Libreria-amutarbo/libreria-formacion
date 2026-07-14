@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import './pages/dcx-web-page-badge/dcx-web-page-badge.component';
+import './pages/dcx-web-page-card/dcx-web-page-card.component';
 import './pages/dcx-web-page-breadcrumb/dcx-web-page-breadcrumb.component';
 import './pages/dcx-web-page-accordion/dcx-web-page-accordion.component';
 import './pages/dcx-web-page-button/dcx-web-page-button.component';
@@ -12,6 +13,7 @@ import './pages/dcx-web-page-home/dcx-web-page-home.component';
 import './pages/dcx-web-page-checkbox/dcx-web-page-checkbox.component';
 import './pages/dcx-web-page-divider/dcx-web-page-divider.component';
 import './pages/dcx-web-page-context-menu/dcx-web-page-context-menu.component';
+import './pages/dcx-web-page-input/dcx-web-page-input.component';
 
 @customElement('dcx-web-root')
 export class DcxWebRoot extends LitElement {
@@ -51,6 +53,9 @@ export class DcxWebRoot extends LitElement {
       case '#badge':
         content = html`<dcx-web-page-badge></dcx-web-page-badge>`;
         break;
+      case '#card':
+        content = html`<dcx-web-page-card></dcx-web-page-card>`;
+        break;
       case '#checkbox':
         content = html`<dcx-web-page-checkbox></dcx-web-page-checkbox>`;
         break;
@@ -77,6 +82,9 @@ export class DcxWebRoot extends LitElement {
         break;
       case '#icon':
         content = html`<dcx-web-page-icon></dcx-web-page-icon>`;
+        break;
+      case '#input':
+        content = html`<dcx-web-page-input></dcx-web-page-input>`;
         break;
       default:
         content = html`<dcx-web-page-home></dcx-web-page-home>`;

@@ -9,6 +9,7 @@ interface HomeCard {
 
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
+  card: 'card-heading',
   divider: 'dash',
   breadcrumb: 'signpost-split',
   'context-menu': 'menu-button-wide',
@@ -28,6 +29,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'badge',
       name: 'Badge',
       icon: ROUTE_ICONS['badge'],
+    },
+    {
+      route: 'card',
+      name: 'Card',
+      icon: ROUTE_ICONS['card'],
     },
     {
       route: 'divider',
@@ -73,6 +79,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'icon',
       name: 'Icon',
       icon: ROUTE_ICONS['icon'],
+    },
+    {
+      route: 'input',
+      name: 'Input',
+      icon: ROUTE_ICONS['input'],
     },
   ];
 
