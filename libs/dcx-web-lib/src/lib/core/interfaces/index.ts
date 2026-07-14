@@ -9,3 +9,4 @@ export * from './divider';
 export * from './breadcrumb';
 export * from './contextMenu';
 export * from './accordion';
+export * from './input';
