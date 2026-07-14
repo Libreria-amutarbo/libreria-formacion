@@ -1,82 +1,143 @@
-<section>
-  <h2>Ejemplo 1 - Componente por defecto</h2>
-  <dcx-ng-tooltip content="Este es mi tooltip">
-    <dcx-ng-button label="Default"></dcx-ng-button>
-  </dcx-ng-tooltip>
-</section>
+<div class="demo-page">
 
-<hr />
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Tooltip</h1>
+    <p class="demo-page-header__desc">
+      Información contextual accesible por ratón y teclado, con
+      reposicionamiento automático vía CDK Overlay y contenido no
+      interactivo.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2>Ejemplo 2 - Posiciones del tooltip</h2>
-
-  <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-    <dcx-ng-tooltip
-      content="Tooltip TOP (flecha centro)"
-      position="top"
-      arrowAlignment="center"
-    >
-      <dcx-ng-button label="TOP"></dcx-ng-button>
-    </dcx-ng-tooltip>
-
-    <dcx-ng-tooltip
-      content="Tooltip TOP (flecha izquierda)"
-      position="top"
-      arrowAlignment="left"
-    >
-      <dcx-ng-button label="TOP LEFT"></dcx-ng-button>
-    </dcx-ng-tooltip>
-
-    <dcx-ng-tooltip
-      content="Tooltip TOP (flecha derecha)"
-      position="top"
-      arrowAlignment="right"
-    >
-      <dcx-ng-button label="TOP RIGHT"></dcx-ng-button>
-    </dcx-ng-tooltip>
-
-    <dcx-ng-tooltip
-      content="Tooltip BOTTOM (flecha centro)"
-      position="bottom"
-      arrowAlignment="center"
-    >
-      <dcx-ng-button label="BOTTOM"></dcx-ng-button>
-    </dcx-ng-tooltip>
-
-    <dcx-ng-tooltip
-      content="Tooltip BOTTOM (flecha izquierda)"
-      position="bottom"
-      arrowAlignment="left"
-    >
-      <dcx-ng-button label="BOTTOM LEFT"></dcx-ng-button>
-    </dcx-ng-tooltip>
-
-    <dcx-ng-tooltip
-      content="Tooltip BOTTOM (flecha derecha)"
-      position="bottom"
-      arrowAlignment="right"
-    >
-      <dcx-ng-button label="BOTTOM RIGHT"></dcx-ng-button>
-    </dcx-ng-tooltip>
-
-    <dcx-ng-tooltip content="Este es mi tooltip" position="right">
-      <dcx-ng-button label="RIGHT"></dcx-ng-button>
-    </dcx-ng-tooltip>
-
-    <dcx-ng-tooltip
-      content="Este es mi tooltip, muy largo para que se divida en varias lineas"
-      position="left"
-    >
-      <dcx-ng-button label="LEFT"></dcx-ng-button>
-    </dcx-ng-tooltip>
+  <!-- ── 01 Por defecto ────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Por defecto</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tooltip content="Este es mi tooltip">
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
+      </dcx-ng-tooltip>
+    </div>
   </div>
-</section>
 
-<hr />
+  <!-- ── 02 Posiciones y alineación de flecha ─────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Posiciones y alineación de flecha</span>
+    </div>
+    <div class="demo-section__body demo-section__body--row">
+      <dcx-ng-tooltip content="Tooltip TOP (flecha centro)" position="top" arrowAlignment="center">
+        <dcx-ng-button label="TOP"></dcx-ng-button>
+      </dcx-ng-tooltip>
 
-<section>
-  <h2>Ejemplo 3 - Ocultar al hacer clic</h2>
-  <dcx-ng-tooltip content="Este es mi tooltip" [hideTooltipOnClick]="true">
-    <dcx-ng-button label="Hide on click"></dcx-ng-button>
-  </dcx-ng-tooltip>
-</section>
+      <dcx-ng-tooltip content="Tooltip TOP (flecha izquierda)" position="top" arrowAlignment="left">
+        <dcx-ng-button label="TOP LEFT"></dcx-ng-button>
+      </dcx-ng-tooltip>
+
+      <dcx-ng-tooltip content="Tooltip TOP (flecha derecha)" position="top" arrowAlignment="right">
+        <dcx-ng-button label="TOP RIGHT"></dcx-ng-button>
+      </dcx-ng-tooltip>
+
+      <dcx-ng-tooltip content="Tooltip BOTTOM (flecha centro)" position="bottom" arrowAlignment="center">
+        <dcx-ng-button label="BOTTOM"></dcx-ng-button>
+      </dcx-ng-tooltip>
+
+      <dcx-ng-tooltip content="Tooltip BOTTOM (flecha izquierda)" position="bottom" arrowAlignment="left">
+        <dcx-ng-button label="BOTTOM LEFT"></dcx-ng-button>
+      </dcx-ng-tooltip>
+
+      <dcx-ng-tooltip content="Tooltip BOTTOM (flecha derecha)" position="bottom" arrowAlignment="right">
+        <dcx-ng-button label="BOTTOM RIGHT"></dcx-ng-button>
+      </dcx-ng-tooltip>
+
+      <dcx-ng-tooltip content="Este es mi tooltip" position="right">
+        <dcx-ng-button label="RIGHT"></dcx-ng-button>
+      </dcx-ng-tooltip>
+
+      <dcx-ng-tooltip content="Este es mi tooltip" position="left">
+        <dcx-ng-button label="LEFT"></dcx-ng-button>
+      </dcx-ng-tooltip>
+    </div>
+  </div>
+
+  <!-- ── 03 Ocultar al hacer clic ─────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Ocultar al hacer clic</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tooltip content="Este es mi tooltip" [hideTooltipOnClick]="true">
+        <dcx-ng-button label="Hide on click"></dcx-ng-button>
+      </dcx-ng-tooltip>
+    </div>
+  </div>
+
+  <!-- ── 04 Contenido largo ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Contenido largo</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tooltip
+        content="Este es un contenido de tooltip muy largo que debería ajustarse correctamente y probar el sistema de posicionamiento inteligente con un texto más extenso que podría causar problemas cerca de los bordes del viewport."
+        position="right"
+      >
+        <dcx-ng-button label="Contenido largo"></dcx-ng-button>
+      </dcx-ng-tooltip>
+    </div>
+  </div>
+
+  <!-- ── 05 Con icono como disparador ─────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Con icono como disparador</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tooltip content="Información adicional" position="right">
+        <dcx-ng-icon name="info-circle" size="l"></dcx-ng-icon>
+      </dcx-ng-tooltip>
+    </div>
+  </div>
+
+  <!-- ── 06 Contenido formateado ───────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Contenido formateado</span>
+    </div>
+    <p class="demo-section__desc">
+      <code>contentHtml</code> admite formato básico. Los elementos
+      interactivos se eliminan automáticamente.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-tooltip
+        contentHtml="<p><strong>Importante:</strong> revisa <em>todos</em> los campos</p>"
+        position="top"
+      >
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
+      </dcx-ng-tooltip>
+    </div>
+  </div>
+
+  <!-- ── 07 Variante primary ──────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Variante primary</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-tooltip content="Tooltip con variante primary" variant="primary">
+        <dcx-ng-button label="Pasa el ratón o enfoca"></dcx-ng-button>
+      </dcx-ng-tooltip>
+    </div>
+  </div>
+
+</div>
