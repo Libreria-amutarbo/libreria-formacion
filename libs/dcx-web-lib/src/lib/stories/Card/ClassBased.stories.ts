@@ -19,7 +19,7 @@ import {
 
 const DEMO_STYLES = html`
   <style>
-    .card-demo__avatar { width: 40px; height: 40px; border-radius: var(--r-pill, 999px); background: var(--color-info-light, #dbeafe); display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: var(--fw-semibold, 600); color: var(--color-info, #0058ab); flex-shrink: 0; }
+    .card-demo__avatar { width: var(--sp-10, 40px); height: var(--sp-10, 40px); border-radius: var(--r-pill, 999px); background: var(--color-info-light, #dbeafe); display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-sm, 12px); font-weight: var(--fw-semibold, 600); color: var(--color-info, #0058ab); flex-shrink: 0; }
     .card-demo__name { font-size: var(--fs-base, 14px); font-weight: var(--fw-semibold, 600); color: var(--text-dark, #2a2e33); }
     .card-demo__role { margin-top: 1px; font-size: var(--fs-sm, 12px); color: var(--text-muted, #696e75); }
     .card-demo__header { display: flex; align-items: center; gap: var(--sp-3, 12px); }
@@ -28,31 +28,16 @@ const DEMO_STYLES = html`
     .card-demo__subtitle { font-size: var(--fs-sm, 12px); color: var(--text-muted, #696e75); margin-top: var(--sp-1, 4px); }
     .card-demo__title-lg { font-size: var(--fs-lg, 18px); font-weight: var(--fw-semibold, 600); color: var(--text-dark, #2a2e33); margin: 0; }
     .card-demo__subtitle-lg { font-size: var(--fs-base, 14px); color: var(--text-muted, #696e75); margin: 0; margin-top: var(--sp-1, 4px); }
-    .card-demo__hr { border: 0; border-top: 1px solid var(--border-default, #2a2e33); margin: var(--sp-3, 12px) 0; }
+    .card-demo__hr { margin: var(--sp-3, 12px) 0; }
     .card-demo__stats { display: flex; gap: var(--sp-4, 16px); }
     .card-demo__stat { flex: 1; background: var(--bg-surface, #f4f5f7); border-radius: var(--r-md, 6px); padding: var(--sp-2, 8px); text-align: center; }
     .card-demo__stat-val { font-size: var(--fs-lg, 18px); font-weight: var(--fw-bold, 700); color: var(--bg-primary, #0058ab); }
     .card-demo__stat-lbl { margin-top: 1px; font-size: var(--fs-xs, 11px); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted, #696e75); }
-    .card-demo__kpi-value { margin: var(--sp-2, 8px) 0 var(--sp-1, 4px); font-size: 36px; line-height: 1; font-weight: var(--fw-bold, 700); color: var(--text-dark, #2a2e33); }
+    .card-demo__kpi-value { margin: var(--sp-2, 8px) 0 var(--sp-1, 4px); font-size: var(--fs-2xl, 36px); line-height: 1; font-weight: var(--fw-bold, 700); color: var(--text-dark, #2a2e33); }
     .card-demo__kpi-trend { margin: 0 0 var(--sp-1, 4px); font-size: var(--fs-sm, 12px); font-weight: var(--fw-semibold, 600); color: var(--color-success, #16a34a); }
     .card-demo__kpi-label { margin: 0; font-size: var(--fs-sm, 12px); color: var(--text-muted, #696e75); }
     .card-demo__tags { display: flex; flex-wrap: wrap; gap: var(--sp-2, 8px); margin-top: 0; }
     .card-demo__actions { display: flex; gap: var(--sp-2, 8px); margin-top: 0; }
-  </style>
-`;
-
-const MOCK_STYLES = html`
-  <style>
-    .mock-slider { -webkit-appearance: none; appearance: none; width: 100%; height: var(--sp-1, 4px); background: linear-gradient(to right, var(--bg-primary, #0058ab) 0%, var(--bg-primary, #0058ab) var(--slider-fill, 0%), var(--border-light, #d1d5db) var(--slider-fill, 0%), var(--border-light, #d1d5db) 100%); border-radius: var(--r-sm, 4px); outline: none; margin: var(--sp-2, 8px) 0; cursor: pointer; }
-    .mock-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; background: var(--bg-primary, #0058ab); border-radius: var(--r-pill, 50%); border: 2px solid var(--text-white, #ffffff); box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06)); cursor: pointer; }
-    .mock-slider::-moz-range-thumb { width: 16px; height: 16px; background: var(--bg-primary, #0058ab); border-radius: var(--r-pill, 50%); cursor: pointer; border: 2px solid var(--text-white, #ffffff); box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06)); }
-    .mock-slider__progress { margin: var(--sp-3, 12px) 0 var(--sp-1, 4px); display: flex; justify-content: space-between; font-size: var(--fs-sm, 12px); color: var(--text-muted, #696e75); width: 100%; }
-    .mock-slider__progress-val { color: var(--bg-primary, #0058ab); font-weight: var(--fw-semibold, 600); }
-    .mock-chip { display: inline-flex; align-items: center; height: 2rem; padding: 0 var(--sp-3, 12px); border-radius: var(--r-pill, 999px); border: 1px solid transparent; font-family: var(--ff-base, 'Inter', sans-serif); font-size: var(--fs-base, 14px); font-weight: var(--fw-medium, 500); line-height: 1; white-space: nowrap; cursor: default; }
-    .mock-chip--primary { background-color: var(--bg-primary, #0058ab); color: var(--text-white, #ffffff); }
-    .mock-chip--secondary { background-color: var(--bg-default, #ffffff); color: var(--text-dark, #2a2e33); border-color: var(--border-default, #2a2e33); }
-    .mock-chip--success { background-color: var(--status-success, #00a76f); color: var(--text-white, #ffffff); }
-    .mock-chip--warning { background-color: var(--status-warning, #ffa726); color: var(--text-dark, #2a2e33); }
   </style>
 `;
 
@@ -93,7 +78,6 @@ const meta: Meta = {
   decorators: [
     (story) => html`
       ${DEMO_STYLES}
-      ${MOCK_STYLES}
       ${story()}
     `,
   ],
@@ -240,7 +224,7 @@ export const Default: Story = {};
 
 export const ProfileCard: Story = {
   render: (args) => html`
-    <div style="max-width:640px; margin:auto; padding:2.5rem; background:var(--color-surface,#f4f5f7);">
+    <div style="max-width:640px; margin:auto; padding:var(--sp-10, 40px); background:var(--bg-surface,#f4f5f7);">
       ${Template(
         { ...args, accent: true },
         html`
@@ -253,7 +237,7 @@ export const ProfileCard: Story = {
           </div>
 
           <div slot="content">
-            <hr class="card-demo__hr" />
+            <dcx-web-divider class="card-demo__hr" thickness="0.0625" color="var(--border-default, #2a2e33)"></dcx-web-divider>
             <div class="card-demo__stats">
               <div class="card-demo__stat">
                 <div class="card-demo__stat-val">12</div>
@@ -294,26 +278,20 @@ export const ProjectCard: Story = {
     html`
       <div slot="header" class="card-demo__header card-demo__header--space-between">
         <div class="card-demo__title">Cloud Migration</div>
-        <span class="mock-chip mock-chip--success">Activo</span>
+        <dcx-web-chip label="Activo" color="success"></dcx-web-chip>
       </div>
       <div slot="content">
-        <p style="margin:0 0 1rem;font-size:15px;color:#9ca3af;">
+        <p style="margin:0 0 var(--sp-4, 16px);font-size:var(--fs-base, 14px);color:var(--text-muted, #9ca3af);">
           Descripción del proyecto de migración a la nube.
         </p>
-        <div class="mock-slider__progress">
-          <span>Progreso</span>
-          <span class="mock-slider__progress-val">82%</span>
-        </div>
-        <input 
-          class="mock-slider"
-          style="--slider-fill: 82%"
+        <dcx-web-slider
+          textLabel="Progreso"
           min="0"
           max="100"
           value="82"
-          type="range"
+          valueSuffix="%"
           step="1"
-          oninput="this.style.setProperty('--slider-fill', this.value + '%'); this.previousElementSibling.querySelector('.mock-slider__progress-val').textContent = this.value + '%';"
-        />
+        ></dcx-web-slider>
       </div>
       <div slot="footer">
         <div class="card-demo__actions" style="margin-top: var(--sp-4, 16px);">
@@ -378,9 +356,9 @@ export const LabelCard: Story = {
       </div>
       <div slot="content">
         <div class="card-demo__tags">
-          <span class="mock-chip mock-chip--primary">SAP</span>
-          <span class="mock-chip mock-chip--secondary">Finanzas</span>
-          <span class="mock-chip mock-chip--warning">En revisión</span>
+          <dcx-web-chip label="SAP" color="primary"></dcx-web-chip>
+          <dcx-web-chip label="Finanzas" color="secondary"></dcx-web-chip>
+          <dcx-web-chip label="En revisión" color="warning"></dcx-web-chip>
         </div>
       </div>
       <div slot="footer">
@@ -451,7 +429,7 @@ export const WithSlotsVertical: Story = {
 export const AccentVariant: Story = {
   name: 'Acento',
   render: () => html`
-    <div style="display:flex;gap:16px;align-items:stretch;">
+    <div style="display:flex;gap:var(--sp-4, 16px);align-items:stretch;">
       ${Template({
         title: 'Sin acento',
         subtitle: 'accent = false',
@@ -483,7 +461,7 @@ export const AccentVariant: Story = {
 export const BorderStyles: Story = {
   name: 'Estilos de borde',
   render: () => html`
-    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+    <div style="display:flex;gap:var(--sp-3, 12px);flex-wrap:wrap;">
       ${Template({ title: 'solid',  subtitle: 'borderStyle', image: null, size: 's', bordered: true, borderStyle: 'solid',  borderWidth: 2, maxContentWidth: '160px', interactive: false })}
       ${Template({ title: 'dashed', subtitle: 'borderStyle', image: null, size: 's', bordered: true, borderStyle: 'dashed', borderWidth: 2, maxContentWidth: '160px', interactive: false })}
       ${Template({ title: 'dotted', subtitle: 'borderStyle', image: null, size: 's', bordered: true, borderStyle: 'dotted', borderWidth: 2, maxContentWidth: '160px', interactive: false })}
@@ -496,7 +474,7 @@ export const BorderStyles: Story = {
 export const ShadowVariants: Story = {
   name: 'Sombras',
   render: () => html`
-    <div style="display:flex;gap:20px;flex-wrap:wrap;padding:20px;background:var(--bg-surface,#f4f5f7);">
+    <div style="display:flex;gap:var(--sp-5, 20px);flex-wrap:wrap;padding:var(--sp-5, 20px);background:var(--bg-surface,#f4f5f7);">
       ${Template({ title: 'shadow 0', subtitle: 'sin sombra',    image: null, size: 's', shadow: 0, maxContentWidth: '160px', interactive: false })}
       ${Template({ title: 'shadow 1', subtitle: 'sombra suave',  image: null, size: 's', shadow: 1, maxContentWidth: '160px', interactive: false })}
       ${Template({ title: 'shadow 2', subtitle: 'sombra media',  image: null, size: 's', shadow: 2, maxContentWidth: '160px', interactive: false })}
@@ -526,7 +504,7 @@ export const WithSlotsHorizontal: Story = {
     args,
     html`
       <div slot="header">
-        <h3 class="card-demo__title-lg" style="margin:0 0 0.5rem;">Encabezado personalizado</h3>
+        <h3 class="card-demo__title-lg" style="margin:0 0 var(--sp-2, 8px);">Encabezado personalizado</h3>
         <p class="card-demo__subtitle-lg" style="margin:0;">Este header sobrescribe el título/subtítulo por defecto</p>
       </div>
       <div slot="content">

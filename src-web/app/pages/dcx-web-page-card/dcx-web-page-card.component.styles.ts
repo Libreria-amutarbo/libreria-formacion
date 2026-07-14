@@ -170,8 +170,6 @@ export const pageCardStyles = css`
     }
 
     .card-demo__hr {
-        border: 0;
-        border-top: 1px solid var(--border-light, #d1d5db);
         margin: var(--sp-3, 12px) 0;
     }
 
@@ -202,102 +200,7 @@ export const pageCardStyles = css`
         color: var(--text-muted, #696e75);
     }
 
-    .mock-slider {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 100%;
-        height: 4px;
-        background: linear-gradient(
-            to right,
-            var(--bg-primary, #0058ab) 0%,
-            var(--bg-primary, #0058ab) var(--slider-fill, 0%),
-            var(--border-light, #d1d5db) var(--slider-fill, 0%),
-            var(--border-light, #d1d5db) 100%
-        );
-        border-radius: var(--r-sm, 4px);
-        outline: none;
-        margin: var(--sp-2, 8px) 0;
-        cursor: pointer;
-    }
 
-    .mock-slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 18px;
-        height: 18px;
-        background: var(--bg-primary, #0058ab);
-        border-radius: 50%;
-        border: 2px solid var(--text-white, #ffffff);
-        box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06));
-        cursor: pointer;
-    }
-
-    .mock-slider::-moz-range-thumb {
-        width: 16px;
-        height: 16px;
-        background: var(--bg-primary, #0058ab);
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid var(--text-white, #ffffff);
-        box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06));
-    }
-
-    .mock-slider__progress {
-        margin: var(--sp-3, 12px) 0 var(--sp-1, 4px);
-        display: flex;
-        justify-content: space-between;
-        font-size: var(--fs-sm, 12px);
-        color: var(--text-muted, #696e75);
-        width: 100%;
-    }
-
-    .mock-slider__progress-val {
-        color: var(--bg-primary, #0058ab);
-        font-weight: var(--fw-semibold, 600);
-    }
-
-    .mock-chip {
-        display: inline-flex;
-        align-items: center;
-
-        height: 2rem;
-        padding: 0 var(--sp-3, 12px);
-
-        border-radius: var(--r-pill, 999px);
-        border: 1px solid transparent;
-
-        font-family: var(--ff-base, 'Inter', sans-serif);
-        font-size: var(--fs-base, 14px);
-        font-weight: var(--fw-medium, 500);
-        line-height: 1;
-
-        white-space: nowrap;
-
-        cursor: default;
-    }
-
-    .mock-chip:hover { text-decoration: underline; }
-
-    .mock-chip--primary {
-        background-color: var(--bg-primary, #0058ab);
-        color: var(--text-white, #ffffff);
-    }
-
-    .mock-chip--secondary {
-        background-color: var(--bg-default, #ffffff);
-        color: var(--text-dark, #2a2e33);
-        border-color: var(--border-default, #2a2e33);
-    }
-
-    .mock-chip--success {
-        background-color: var(--status-success, #00a76f);
-        color: var(--text-white, #ffffff);
-    }
-
-    .mock-chip--warning {
-        background-color: var(--status-warning, #ffa726);
-        color: var(--text-dark, #2a2e33);
-    }
 
     .card-demo__kpi-value {
         margin: var(--sp-2, 8px) 0 var(--sp-1, 4px);

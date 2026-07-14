@@ -1,7 +1,5 @@
-import { LitElement, html, css, nothing } from 'lit';
+import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import type {
   DcxLayout,
   DcxAlign,
@@ -10,6 +8,7 @@ import type {
   ShadowPresetCard,
 } from '../../core/interfaces';
 import { cardStyles } from './dcx-web-card.component.styles';
+import { renderDcxWebCardTemplate } from './dcx-web-card.component.html';
 
 @customElement('dcx-web-card')
 export class DcxWebCard extends LitElement {
@@ -37,7 +36,80 @@ export class DcxWebCard extends LitElement {
 
   static override styles = cardStyles;
 
-  private _handleCardClick(evt: MouseEvent | KeyboardEvent) {
+  get cardClasses(): string {
+    const interactiveClass = this.interactive ? 'dcx-card--interactive' : '';
+    const disabledClass = this.disabled ? 'dcx-card--disabled' : '';
+    return `dcx-card ${interactiveClass} ${disabledClass}`.trim().replace(/\s+/g, ' ');
+  }
+
+  get innerClasses(): string {
+    const accentClass = this.accent ? 'dcx-card__inner--accent-top' : '';
+    return `dcx-card__inner dcx-card__inner--layout-${this.layout} dcx-card__inner--align-${this.align} dcx-card__inner--size-${this.size} ${accentClass}`.trim().replace(/\s+/g, ' ');
+  }
+
+  get innerStyles() {
+    return {
+      '--card-max-content-width': this.maxContentWidth,
+      '--card-max-image-width': this.maxImageWidth,
+      '--card-border-style': this.bordered ? this.borderStyle : 'solid',
+      '--card-border-width': this.bordered ? `${this.borderWidth}px` : '0',
+      '--card-shadow': this.shadowCSS,
+    };
+  }
+
+  get cardRole(): string {
+    return this.disabled
+      ? 'region'
+      : this.interactive
+      ? 'button'
+      : 'region';
+  }
+
+  get cardTabIndex(): number | undefined {
+    if (this.disabled) return -1;
+    if (this.cardRole === 'button') return 0;
+    return undefined;
+  }
+
+  get hasHeader(): boolean {
+    return this.querySelector('[slot="header"]') !== null;
+  }
+
+  get hasContent(): boolean {
+    return (
+      this.querySelector('[slot="content"]') !== null ||
+      Array.from(this.childNodes).some(
+        (node) =>
+          (node.nodeType === Node.ELEMENT_NODE && !(node as HTMLElement).hasAttribute('slot')) ||
+          (node.nodeType === Node.TEXT_NODE && (node.textContent ?? '').trim().length > 0)
+      )
+    );
+  }
+
+  get hasFooter(): boolean {
+    return this.querySelector('[slot="footer"]') !== null;
+  }
+
+  get effectiveAriaLabel(): string | null {
+    return this.cardRole === 'region' && !this.hasHeader && this.title
+      ? this.title
+      : null;
+  }
+
+  get shadowCSS(): string {
+    switch (this.shadow) {
+      case 1:
+        return 'var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06))';
+      case 2:
+        return 'var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08))';
+      case 3:
+        return 'var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12))';
+      default:
+        return 'var(--shadow-0, none)';
+    }
+  }
+
+  _handleCardClick(evt: MouseEvent | KeyboardEvent) {
     if (this.disabled) return;
 
     if (evt instanceof KeyboardEvent) {
@@ -63,128 +135,8 @@ export class DcxWebCard extends LitElement {
     }
   }
 
-  private _shadowToCSS(preset: ShadowPresetCard): string {
-    switch (preset) {
-      case 1:
-        return 'var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.6))';
-      case 2:
-        return 'var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08))';
-      case 3:
-        return 'var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12))';
-      default:
-        return 'var(--shadow-0, none)';
-    }
-  }
-
   override render() {
-    const cardClasses = {
-      'dcx-card': true,
-      'dcx-card--interactive': this.interactive,
-      'dcx-card--disabled': this.disabled,
-    };
-
-    const innerClasses = {
-      'dcx-card__inner': true,
-      [`dcx-card__inner--layout-${this.layout}`]: true,
-      [`dcx-card__inner--align-${this.align}`]: true,
-      [`dcx-card__inner--size-${this.size}`]: true,
-      'dcx-card__inner--accent-top': this.accent,
-    };
-
-    const innerStyles = {
-      '--card-max-content-width': this.maxContentWidth,
-      '--card-max-image-width': this.maxImageWidth,
-      '--card-border-style': this.bordered ? this.borderStyle : 'solid',
-      '--card-border-width': this.bordered ? `${this.borderWidth}px` : '0',
-      '--card-shadow': this._shadowToCSS(this.shadow),
-    };
-
-    const role = this.disabled
-      ? 'region'
-      : this.interactive
-      ? 'button'
-      : 'region';
-    
-    const tabIndex = this.disabled ? -1 : role === 'button' ? 0 : null;
-    
-    const hasHeader = this.querySelector('[slot="header"]') !== null;
-    
-    const hasContent = 
-      this.querySelector('[slot="content"]') !== null || 
-      Array.from(this.childNodes).some(
-        (node) =>
-          (node.nodeType === Node.ELEMENT_NODE && !(node as HTMLElement).hasAttribute('slot')) ||
-          (node.nodeType === Node.TEXT_NODE && (node.textContent ?? '').trim().length > 0)
-      );
-
-    const hasFooter = this.querySelector('[slot="footer"]') !== null;
-
-    const ariaLabel =
-      role === 'region' && !hasHeader && this.title
-        ? this.title
-        : null;
-
-    return html`
-      <div
-        class="${classMap(cardClasses)}"
-        tabindex="${tabIndex ?? nothing}"
-        role="${role}"
-        aria-disabled="${this.disabled}"
-        aria-label="${ariaLabel ?? nothing}"
-        @click="${this._handleCardClick}"
-        @keydown="${this._handleCardClick}"
-      >
-        <div class="${classMap(innerClasses)}" style="${styleMap(innerStyles)}">
-          ${this.image
-            ? html`
-                <div class="dcx-card__image-container">
-                  <img
-                    src="${this.image}"
-                    alt="${this.imageAlt}"
-                    class="dcx-card__image"
-                  />
-                </div>
-              `
-            : nothing}
-
-          <div class="dcx-card__body">
-            
-            ${hasHeader
-              ? html`
-                  <div class="dcx-card__header">
-                    <slot name="header"></slot>
-                  </div>
-                `
-              : (this.title || this.subtitle)
-              ? html`
-                  <div class="dcx-card__header">
-                    ${this.title ? html`<h3 class="dcx-card__title">${this.title}</h3>` : nothing}
-                    ${this.subtitle ? html`<p class="dcx-card__subtitle">${this.subtitle}</p>` : nothing}
-                  </div>
-                `
-              : nothing}
-            
-            ${hasContent
-              ? html`
-                  <div class="dcx-card__content">
-                    <slot name="content"></slot>
-                    <slot></slot>
-                  </div>
-                `
-              : nothing}
-
-            ${hasFooter
-              ? html`
-                  <div class="dcx-card__footer">
-                    <slot name="footer"></slot>
-                  </div>
-                `
-              : nothing}
-
-          </div>
-        </div>
-      </div>
-    `;
+    return renderDcxWebCardTemplate(this);
   }
 }
 

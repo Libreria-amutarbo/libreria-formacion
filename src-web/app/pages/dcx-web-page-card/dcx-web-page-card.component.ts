@@ -3,6 +3,9 @@ import { customElement, state } from 'lit/decorators.js';
 
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-card/dcx-web-card.component';
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-button/dcx-web-button.component';
+import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-slider/dcx-web-slider.component';
+import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-chip/dcx-web-chip.component';
+import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-divider/dcx-web-divider.component';
 import { pageCardStyles } from './dcx-web-page-card.component.styles';
 
 const DEFAULT_ARGS = {
@@ -72,7 +75,7 @@ export class DcxWebPageCard extends LitElement {
                   </div>
                 </div>
                 <div slot="content">
-                  <hr class="card-demo__hr" />
+                  <dcx-web-divider class="card-demo__hr" thickness="0.0625" color="var(--border-light, #d1d5db)"></dcx-web-divider>
                   <div class="card-demo__stats">
                     <div class="card-demo__stat"><div class="card-demo__stat-val">12</div><div class="card-demo__stat-lbl">Proyectos</div></div>
                     <div class="card-demo__stat"><div class="card-demo__stat-val">98%</div><div class="card-demo__stat-lbl">Satisf.</div></div>
@@ -91,21 +94,19 @@ export class DcxWebPageCard extends LitElement {
               >
                 <div slot="header" class="card-demo__header card-demo__header--space-between">
                   <div class="card-demo__title">Cloud Migration</div>
-                  <span class="mock-chip mock-chip--success">Activo</span>
+                  <dcx-web-chip label="Activo" color="success"></dcx-web-chip>
                 </div>
                 <div slot="content">
                   <p style="margin-top:var(--sp-2, 8px);color: var(--text-muted, #696e75);">Migración de infraestructura on-premise a Azure para BNP Paribas.</p>
-                  <div class="mock-slider__progress">
-                    <span>Progreso</span>
-                    <span class="mock-slider__progress-val">${this._sliderVal}%</span></div>
-                  <input 
-                    type="range" 
-                    class="mock-slider" 
-                    min="0" max="100" 
-                    .value=${String(this._sliderVal)}
-                    style="--slider-fill: ${this._sliderVal}%"
-                    @input=${this._handleSliderInput}
-                  >
+                  <dcx-web-slider
+                    textLabel="Progreso"
+                    min="0"
+                    max="100"
+                    .value=${this._sliderVal}
+                    valueSuffix="%"
+                    step="1"
+                    @valueChange=${(e: CustomEvent<number>) => this._sliderVal = e.detail}
+                  ></dcx-web-slider>
                 </div>
                 <div slot="footer">
                   <div class="card-demo__actions" style="margin-top: var(--sp-4, 16px);">
@@ -152,9 +153,9 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="content">
                   <div class="card-demo__tags">
-                    <span class="mock-chip mock-chip--primary">SAP</span>
-                    <span class="mock-chip mock-chip--secondary">Finanzas</span>
-                    <span class="mock-chip mock-chip--warning">En revisión</span>
+                    <dcx-web-chip label="SAP" color="primary"></dcx-web-chip>
+                    <dcx-web-chip label="Finanzas" color="secondary"></dcx-web-chip>
+                    <dcx-web-chip label="En revisión" color="warning"></dcx-web-chip>
                   </div>
                 </div>
                 <div slot="footer">
@@ -176,9 +177,9 @@ export class DcxWebPageCard extends LitElement {
                 </div>
                 <div slot="content">
                   <div class="card-demo__tags">
-                    <span class="mock-chip mock-chip--primary">Data & AI</span>
-                    <span class="mock-chip mock-chip--secondary">Azure</span>
-                    <span class="mock-chip mock-chip--success">Planificado</span>
+                    <dcx-web-chip label="Data & AI" color="primary"></dcx-web-chip>
+                    <dcx-web-chip label="Azure" color="secondary"></dcx-web-chip>
+                    <dcx-web-chip label="Planificado" color="success"></dcx-web-chip>
                   </div>
                 </div>
                 <div slot="footer">
