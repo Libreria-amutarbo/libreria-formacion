@@ -1,0 +1,163 @@
+import { Meta, Story, Canvas } from '@storybook/blocks';
+import * as Stories from './card.stories';
+
+<Meta title="UI/Card" of={Stories} />
+
+# Card Universal (Web Components)
+
+Componente de card flexible con soporte para contenido vía **slots**, estilos configurables y comportamiento interactivo.
+
+- Compatible con layouts vertical y horizontal.
+- Soporta personalización de header, content y footer.
+- Permite controlar borde, sombra, estado y tamaño.
+
+---
+
+## Características
+
+- Uso de **slots** para personalización completa.
+- Props reactivas (Lit / Web Components).
+- Compatible con estados:
+  - `interactive` (hover, focus)
+  - `disabled`
+- Control de layout y alineación.
+- Borde configurable (`borderWidth`, `borderStyle`, `accent`).
+- Sombra configurable a través de presets.
+- Sección de contenido adaptativa con `maxContentWidth` y `maxImageWidth`.
+
+---
+
+## Props
+
+| Prop                | Tipo        | Descripción                          |
+|---------------------|-------------|--------------------------------------|
+| `title`             | `string`    | Título principal.                    |
+| `subtitle`          | `string`    | Subtítulo.                           |
+| `image`             | `string`    | Imagen opcional (URL).               |
+| `imageAlt`          | `string`    | Texto alternativo de la imagen.      |
+| `layout`            | `string`    | `'vertical'` \| `'horizontal'`.      |
+| `align`             | `string`    | `'start'` \| `'center'` \| `'end'`.  |
+| `size`              | `string`    | `'s'` \| `'m'` \| `'l'` \| `'xl'`.   |
+| `interactive`       | `boolean`   | Activa hover y foco.                 |
+| `disabled`          | `boolean`   | Deshabilita la card.                 |
+| `bordered`          | `boolean`   | Activa el borde.                     |
+| `borderWidth`       | `number`    | Grosor del borde (px).               |
+| `borderStyle`       | `string`    | Tipo de borde (`solid`, etc.).       |
+| `accent`            | `boolean`   | Aplica color de acento.              |
+| `shadow`            | `number`    | Preset de sombra (0/1/2/3).         |
+| `maxContentWidth`   | `string`    | Ancho máximo del contenido.          |
+| `maxImageWidth`     | `string`    | Ancho máximo de la imagen.           |
+
+---
+
+## Slots (Web Components)
+
+En la versión Web Components, el contenido personalizado se pasa mediante **slots**:
+
+| Slot      | Descripción                          |
+|-----------|--------------------------------------|
+| `header`  | Encabezado personalizado.            |
+| `content` | Contenido principal.                 |
+| `footer`  | Pie de card (opcional).              |
+
+---
+
+## Eventos
+
+- `dcx-card-click`: se emite al hacer clic o activar con teclado (Enter / Space) cuando la card es interactiva y no está deshabilitada.
+
+---
+
+## Ejemplo básico
+
+<Canvas>
+  <Story of={Stories.Default} />
+</Canvas>
+
+---
+
+## Card de perfil
+
+<Canvas>
+  <Story of={Stories.ProfileCard} />
+</Canvas>
+
+---
+
+## Card de proyecto
+
+<Canvas>
+  <Story of={Stories.ProjectCard} />
+</Canvas>
+
+---
+
+## Card KPI
+
+<Canvas>
+  <Story of={Stories.KpiCard} />
+</Canvas>
+
+---
+
+## Card con etiquetas
+
+<Canvas>
+  <Story of={Stories.LabelCard} />
+</Canvas>
+
+---
+
+## Card deshabilitada
+
+<Canvas>
+  <Story of={Stories.DisabledCard} />
+</Canvas>
+
+---
+
+## Card con slots y borde personalizado
+
+<Canvas>
+  <Story of={Stories.WithSlotsVertical} />
+</Canvas>
+
+---
+
+## Acento
+
+<Canvas>
+  <Story of={Stories.AccentVariant} />
+</Canvas>
+
+---
+
+## Estilos de borde
+
+<Canvas>
+  <Story of={Stories.BorderStyles} />
+</Canvas>
+
+---
+
+## Sombras
+
+<Canvas>
+  <Story of={Stories.ShadowVariants} />
+</Canvas>
+
+---
+
+## Tamaño XL
+
+<Canvas>
+  <Story of={Stories.SizeXL} />
+</Canvas>
+
+---
+
+## With Slots Horizontal
+
+<Canvas>
+  <Story of={Stories.WithSlotsHorizontal} />
+</Canvas>
