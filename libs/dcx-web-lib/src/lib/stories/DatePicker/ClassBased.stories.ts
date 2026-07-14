@@ -109,7 +109,7 @@ const renderDatePicker = (args: DatePickerStoryArgs) => {
       displayLabel = 'Fechas seleccionadas:';
       const dates = datepicker.selectedDates || [];
       if (dates.length === 0) {
-        displayContent = ` <div style="display:flex;flex-wrap:wrap;gap:var(--sp-1, 4px);61;margin-top:6px;min-height:28px;max-height:96px;overflow-y:auto;overflow-x:hidden;"><span style="color:var(--text-placeholder, #9ca3af);font-size:var(--fs-sm, 12px);">ninguna</span></div>`;
+        displayContent = ` <div style="display:flex;flex-wrap:wrap;gap:var(--sp-1, 4px);margin-top:6px;min-height:28px;max-height:96px;overflow-y:auto;overflow-x:hidden;"><span style="color:var(--text-placeholder, #9ca3af);font-size:var(--fs-sm, 12px);">ninguna</span></div>`;
       } else {
         const chipsHtml = dates.map(d => `<span style="background:var(--color-info-bg, #eff6ff);color:var(--color-info, #0058ab);padding:2px 10px;border-radius:999px;font-size:var(--fs-sm, 12px);font-weight:var(--fw-semibold, 600);white-space:nowrap;border:1px solid var(--color-info-border, #bfdbfe);">${fmt(d)}</span>`).join('');
         displayContent = ` <div style="display:flex;flex-wrap:wrap;gap:var(--sp-1, 4px);margin-top:6px;min-height:28px;max-height:96px;overflow-y:auto;overflow-x:hidden;">${chipsHtml}</div>`;
