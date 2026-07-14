@@ -1,4 +1,4 @@
-export const enum DcxInputType {
+export enum DcxInputType {
   TEXT = 'text',
   NUMBER = 'number',
   EMAIL = 'email',
@@ -10,6 +10,8 @@ export const enum DcxInputType {
   RADIO = 'radio',
   RANGE = 'range',
 }
+
+export const DCX_INPUT_TYPES: DcxInputType[] = Object.values(DcxInputType) as DcxInputType[];
 
 export interface DcxInputErrorMessage {
   type: string;

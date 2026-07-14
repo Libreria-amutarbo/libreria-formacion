@@ -6,7 +6,7 @@ import '../../core/interfaces/generic';
 import '../../../index';
 import '../../dcx-web-components/dcx-web-input/dcx-web-input.component';
 import { DCX_LAYOUTS, DCX_SPACINGS } from '../../core/interfaces/generic';
-import { DcxInputType } from '../../core/interfaces/input';
+import { DcxInputType, DCX_INPUT_TYPES } from '../../core/interfaces/input';
 
 
 const meta: Meta = {
@@ -65,18 +65,7 @@ const meta: Meta = {
 
     type: {
       control: 'select',
-      options: [
-        DcxInputType.TEXT,
-        DcxInputType.NUMBER,
-        DcxInputType.EMAIL,
-        DcxInputType.PASSWORD,
-        DcxInputType.SEARCH,
-        DcxInputType.TEL,
-        DcxInputType.URL,
-        DcxInputType.FILE,
-        DcxInputType.RADIO,
-        DcxInputType.RANGE,
-      ],
+      options: DCX_INPUT_TYPES,
       description: 'Tipo de input.',
       table: {
         category: 'Atributos',
@@ -187,7 +176,7 @@ const meta: Meta = {
     label: 'Nombre completo',
     hint: '',
     placeholder: 'Ej: Jean Dupont',
-    type: 'text',
+    type: DcxInputType.TEXT,
     spacing: 'm',
     disabled: false,
     readonly: false,
