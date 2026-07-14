@@ -119,4 +119,97 @@ describe('DcxNgToastComponent', () => {
 
         expect(emitSpy).not.toHaveBeenCalled();
     }));
+
+    describe('close button (WCAG)', () => {
+        it('should render a close button by default', () => {
+            const closeButton = fixture.debugElement.query(By.css('.dcx-toast__close'));
+            expect(closeButton).toBeTruthy();
+        });
+
+        it('should not render a close button when dismissible is false', () => {
+            fixture.componentRef.setInput('dismissible', false);
+            fixture.detectChanges();
+            const closeButton = fixture.debugElement.query(By.css('.dcx-toast__close'));
+            expect(closeButton).toBeFalsy();
+        });
+
+        it('should emit dismissed when the close button is clicked', () => {
+            const emitSpy = jest.spyOn(component.dismissed, 'emit');
+            const closeButton = fixture.debugElement.query(By.css('.dcx-toast__close'));
+            closeButton.triggerEventHandler('buttonClick', {});
+            expect(emitSpy).toHaveBeenCalled();
+        });
+
+        it('should set aria-label "Cerrar" on the close button', () => {
+            const closeButton = fixture.debugElement.query(By.css('.dcx-toast__close'));
+            expect(closeButton.componentInstance.ariaLabel()).toBe('Cerrar');
+        });
+    });
+
+    describe('pause on hover/focus (WCAG 2.2.1)', () => {
+        it('should pause the auto-dismiss timer on mouseenter', fakeAsync(() => {
+            const emitSpy = jest.spyOn(component.dismissed, 'emit');
+
+            fixture.componentRef.setInput('autoDismiss', true);
+            fixture.componentRef.setInput('durationMs', 1000);
+            fixture.detectChanges();
+
+            tick(500);
+            component.onPauseTimer();
+            fixture.detectChanges();
+            tick(1000);
+
+            expect(emitSpy).not.toHaveBeenCalled();
+        }));
+
+        it('should resume the timer with the full duration on mouseleave', fakeAsync(() => {
+            const emitSpy = jest.spyOn(component.dismissed, 'emit');
+
+            fixture.componentRef.setInput('autoDismiss', true);
+            fixture.componentRef.setInput('durationMs', 1000);
+            fixture.detectChanges();
+
+            component.onPauseTimer();
+            fixture.detectChanges();
+            component.onResumeTimer();
+            fixture.detectChanges();
+
+            tick(1000);
+
+            expect(emitSpy).toHaveBeenCalled();
+        }));
+
+        it('should pause on focusin and resume on focusout', fakeAsync(() => {
+            const emitSpy = jest.spyOn(component.dismissed, 'emit');
+
+            fixture.componentRef.setInput('autoDismiss', true);
+            fixture.componentRef.setInput('durationMs', 1000);
+            fixture.detectChanges();
+
+            component.onPauseTimer();
+            fixture.detectChanges();
+            tick(1000);
+            expect(emitSpy).not.toHaveBeenCalled();
+
+            component.onResumeTimer();
+            fixture.detectChanges();
+            tick(1000);
+            expect(emitSpy).toHaveBeenCalled();
+        }));
+    });
+
+    describe('announce (used by dcx-ng-toast-outlet)', () => {
+        it('should set aria-live by default', () => {
+            const toastElement = fixture.debugElement.query(By.css('.dcx-toast'));
+            expect(toastElement.nativeElement.getAttribute('aria-live')).toBe('polite');
+        });
+
+        it('should not set aria-live when announce is false, but keep role', () => {
+            fixture.componentRef.setInput('announce', false);
+            fixture.detectChanges();
+            const toastElement = fixture.debugElement.query(By.css('.dcx-toast'));
+            expect(toastElement.nativeElement.getAttribute('aria-live')).toBeNull();
+            expect(toastElement.nativeElement.getAttribute('role')).toBe('status');
+        });
+    });
 });

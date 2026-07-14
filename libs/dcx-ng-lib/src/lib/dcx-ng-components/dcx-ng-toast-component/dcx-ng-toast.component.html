@@ -24,4 +24,17 @@
       (buttonClick)="onAction()"
     ></dcx-ng-button>
   }
+
+  @if (dismissible()) {
+    <dcx-ng-button
+      class="dcx-toast__close"
+      icon
+      iconName="x-lg"
+      iconSize="m"
+      [ariaLabel]="'Cerrar'"
+      variant="icon-only"
+      size="s"
+      (buttonClick)="onClose()"
+    ></dcx-ng-button>
+  }
 </div>
