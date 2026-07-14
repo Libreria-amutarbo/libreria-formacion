@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
+  DcxInputType,
   DcxNgIconFieldComponent,
   DcxNgInputComponent,
 } from '@dcx-ng-components/dcx-ng-lib';
@@ -13,6 +14,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageIconFieldComponent {
+  readonly inputType = DcxInputType;
+
   onIconClick() {
     alert('Icono clickado');
   }

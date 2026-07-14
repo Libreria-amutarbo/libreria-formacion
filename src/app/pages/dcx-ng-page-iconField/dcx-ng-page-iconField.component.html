@@ -1,37 +1,137 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - Icono a la izquierda</h2>
-  <dcx-ng-icon-field iconSize="m" iconPosition="left" [iconName]="'search'">
-    <dcx-ng-input
-      [placeholder]="'Icon Field con icono a la izquierda'"
-    ></dcx-ng-input>
-  </dcx-ng-icon-field>
-</section>
+<div class="demo-page">
 
-<hr />
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">IconField</h1>
+    <p class="demo-page-header__desc">
+      Añade un icono decorativo o clicable a la izquierda o derecha de un
+      <code>dcx-ng-input</code> proyectado.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Icono a la derecha</h2>
-  <dcx-ng-icon-field iconSize="m" iconPosition="right" [iconName]="'search'">
-    <dcx-ng-input
-      [placeholder]="'Icon Field con icono a la derecha'"
-    ></dcx-ng-input>
-  </dcx-ng-icon-field>
-</section>
+  <!-- ── 01 Icono a la izquierda (decorativo) ─────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Icono a la izquierda (decorativo)</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-icon-field iconSize="m" iconPosition="left" [iconName]="'search'">
+        <dcx-ng-input
+          label="Buscar"
+          [placeholder]="'Icon Field con icono a la izquierda'"
+        ></dcx-ng-input>
+      </dcx-ng-icon-field>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 02 Icono a la derecha (decorativo) ───────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Icono a la derecha (decorativo)</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-icon-field iconSize="m" iconPosition="right" [iconName]="'search'">
+        <dcx-ng-input
+          label="Buscar"
+          [placeholder]="'Icon Field con icono a la derecha'"
+        ></dcx-ng-input>
+      </dcx-ng-icon-field>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Icono clickable</h2>
-  <dcx-ng-icon-field
-    iconSize="m"
-    iconPosition="left"
-    [iconName]="'search'"
-    (iconClick)="onIconClick()"
-  >
-    <dcx-ng-input
-      [placeholder]="'Icon Field con icono clickable'"
-    ></dcx-ng-input>
-  </dcx-ng-icon-field>
-</section>
+  <!-- ── 03 Icono clicable ─────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Icono clicable</span>
+    </div>
+    <p class="demo-section__desc">
+      Con <code>iconClickable</code> el icono pasa a ser un botón real —
+      requiere siempre <code>iconAriaLabel</code>.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-icon-field
+        iconSize="m"
+        iconPosition="left"
+        [iconName]="'search'"
+        [iconClickable]="true"
+        iconAriaLabel="Buscar"
+        (iconClick)="onIconClick()"
+      >
+        <dcx-ng-input
+          label="Buscar"
+          [placeholder]="'Icon Field con icono clickable'"
+        ></dcx-ng-input>
+      </dcx-ng-icon-field>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 04 Deshabilitado ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Deshabilitado</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-icon-field
+        iconSize="m"
+        iconPosition="left"
+        [iconName]="'search'"
+        [iconClickable]="true"
+        iconAriaLabel="Buscar"
+        [disabled]="true"
+      >
+        <dcx-ng-input
+          label="Buscar"
+          [placeholder]="'No disponible'"
+          [disabled]="true"
+        ></dcx-ng-input>
+      </dcx-ng-icon-field>
+    </div>
+  </div>
+
+  <!-- ── 05 Con error ──────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Con error</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-icon-field iconSize="m" iconPosition="left" [iconName]="'envelope'">
+        <dcx-ng-input
+          label="Email"
+          [type]="inputType.EMAIL"
+          [placeholder]="'nombre@ejemplo.com'"
+          [isInvalid]="true"
+          errorMessage="Introduce un email válido"
+        ></dcx-ng-input>
+      </dcx-ng-icon-field>
+    </div>
+  </div>
+
+  <!-- ── 06 Composición para contraseñas ──────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Composición para contraseñas</span>
+    </div>
+    <p class="demo-section__desc">
+      <code>dcx-ng-input</code> ya aporta su propio icono de mostrar/ocultar
+      contraseña en el lado derecho — IconField solo añade el candado
+      decorativo a la izquierda.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-icon-field iconSize="m" iconPosition="left" [iconName]="'lock'">
+        <dcx-ng-input
+          label="Contraseña"
+          [type]="inputType.PASSWORD"
+          [placeholder]="'Introduce tu contraseña'"
+        ></dcx-ng-input>
+      </dcx-ng-icon-field>
+    </div>
+  </div>
+
+</div>

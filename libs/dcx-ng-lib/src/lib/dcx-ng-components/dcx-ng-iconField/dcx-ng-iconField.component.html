@@ -1,29 +1,40 @@
 <div
   class="icon-field"
-  [class.has-left]="iconPositionChange()"
-  [class.has-right]="iconPositionChange()"
+  [class.has-left]="iconPosition() === 'left'"
+  [class.has-right]="iconPosition() === 'right'"
+  [class.disabled]="disabled()"
 >
   @if (iconPosition() === 'left' && iconName() !== '') {
-    <dcx-ng-button
-      icon
-      [iconName]="iconName()"
-      [variant]="'icon-only'"
-      [iconSize]="iconSize()"
-      isIconClickable
-      (buttonClick)="onIconClick()"
-    ></dcx-ng-button>
+    @if (iconClickable()) {
+      <dcx-ng-button
+        icon
+        [iconName]="iconName()"
+        [variant]="'icon-only'"
+        [iconSize]="iconSize()"
+        [ariaLabel]="iconAriaLabel() ?? ''"
+        [disabled]="disabled()"
+        (buttonClick)="onIconClick()"
+      ></dcx-ng-button>
+    } @else {
+      <dcx-ng-icon [name]="iconName()" [size]="iconSize()"></dcx-ng-icon>
+    }
   }
 
   <ng-content></ng-content>
 
   @if (iconPosition() === 'right' && iconName() !== '') {
-    <dcx-ng-button
-      icon
-      [iconName]="iconName()"
-      [variant]="'icon-only'"
-      [iconSize]="iconSize()"
-      isIconClickable
-      (buttonClick)="onIconClick()"
-    ></dcx-ng-button>
+    @if (iconClickable()) {
+      <dcx-ng-button
+        icon
+        [iconName]="iconName()"
+        [variant]="'icon-only'"
+        [iconSize]="iconSize()"
+        [ariaLabel]="iconAriaLabel() ?? ''"
+        [disabled]="disabled()"
+        (buttonClick)="onIconClick()"
+      ></dcx-ng-button>
+    } @else {
+      <dcx-ng-icon [name]="iconName()" [size]="iconSize()"></dcx-ng-icon>
+    }
   }
 </div>
