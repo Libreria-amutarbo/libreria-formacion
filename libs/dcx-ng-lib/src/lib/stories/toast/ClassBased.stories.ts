@@ -1,18 +1,19 @@
+import { Component, inject } from '@angular/core';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { fn } from '@storybook/test';
 import {
     DCX_TOAST_DEFAULT_ARGS,
     DCX_TOAST_ERROR_DEMO,
-    DCX_TOAST_INFO_DEMO,
     DCX_TOAST_ICON_ONLY_ACTION,
     DCX_TOAST_SUCCESS_WITH_ACTION,
     DCX_TOAST_WITH_ICON_ACTION,
     DCX_TOAST_WARNING_DEMO,
+    DCX_TOAST_TYPE_LIST,
     DcxNgButtonComponent,
     DcxNgToastComponent,
-    DcxToastOptions,
-    DcxToastType,
+    DcxNgToastOutletComponent,
+    DcxNgToastService,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 const actionsData = {
@@ -34,25 +35,34 @@ const meta: Meta<DcxNgToastComponent> = {
             control: { type: 'text' },
             description: 'Texto principal del toast.',
             table: {
-                category: 'Attributes',
+                category: 'Atributos',
                 type: { summary: 'string' },
             },
         },
         type: {
             control: { type: 'select' },
-            options: ['info', 'success', 'warning', 'error'] as DcxToastType[],
+            options: DCX_TOAST_TYPE_LIST,
             description: 'Variante visual del toast.',
             table: {
-                category: 'Attributes',
+                category: 'Atributos',
                 type: { summary: 'DcxToastType' },
                 defaultValue: { summary: 'info' },
+            },
+        },
+        iconName: {
+            control: { type: 'text' },
+            description: 'Icono a mostrar. Si se omite, se usa el icono por defecto de type.',
+            table: {
+                category: 'Atributos',
+                type: { summary: 'string' },
+                defaultValue: { summary: "''" },
             },
         },
         autoDismiss: {
             control: { type: 'boolean' },
             description: 'Dispara dismissed automaticamente tras durationMs.',
             table: {
-                category: 'Attributes',
+                category: 'Atributos',
                 type: { summary: 'boolean' },
                 defaultValue: { summary: 'false' },
             },
@@ -61,16 +71,34 @@ const meta: Meta<DcxNgToastComponent> = {
             control: { type: 'number' },
             description: 'Duracion del auto dismiss en ms.',
             table: {
-                category: 'Attributes',
+                category: 'Atributos',
                 type: { summary: 'number' },
                 defaultValue: { summary: '5000' },
+            },
+        },
+        dismissible: {
+            control: { type: 'boolean' },
+            description: 'Muestra un botón de cierre real.',
+            table: {
+                category: 'Atributos',
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
+            },
+        },
+        announce: {
+            control: { type: 'boolean' },
+            description: 'Si es false, suprime aria-live propio (mantiene role) — usado por dcx-ng-toast-outlet.',
+            table: {
+                category: 'Atributos',
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
             },
         },
         actionLabel: {
             control: { type: 'text' },
             description: 'Texto del CTA del toast.',
             table: {
-                category: 'Attributes',
+                category: 'Atributos',
                 type: { summary: 'string' },
                 defaultValue: { summary: 'Deshacer' },
             },
@@ -79,7 +107,7 @@ const meta: Meta<DcxNgToastComponent> = {
             control: { type: 'text' },
             description: 'Icono opcional del CTA del toast.',
             table: {
-                category: 'Attributes',
+                category: 'Atributos',
                 type: { summary: 'string' },
                 defaultValue: { summary: "''" },
             },
@@ -88,21 +116,23 @@ const meta: Meta<DcxNgToastComponent> = {
             control: { type: 'text' },
             description: 'Texto accesible para CTA solo icono.',
             table: {
-                category: 'Attributes',
+                category: 'Atributos',
                 type: { summary: 'string' },
                 defaultValue: { summary: "''" },
             },
         },
         actionClick: {
             action: 'actionClick',
+            description: 'Se emite al pulsar el botón de acción.',
             table: {
-                category: 'Events',
+                category: 'Eventos',
             },
         },
         dismissed: {
             action: 'dismissed',
+            description: 'Se emite al cerrar el toast (por temporizador o manualmente).',
             table: {
-                category: 'Events',
+                category: 'Eventos',
             },
         },
     },
@@ -143,94 +173,72 @@ export const IconOnlyAction: Story = {
     },
 };
 
-export const Interactive: Story = {
-    render: () => {
-        let nextId = 0;
-        type DcxToastDemoItem = DcxToastOptions & { id: number };
-
-        const defaultToast: DcxToastOptions = DCX_TOAST_INFO_DEMO;
-
-        const successToast: DcxToastOptions = {
-            ...DCX_TOAST_SUCCESS_WITH_ACTION,
-            message: 'Archivo exportado con exito',
-        };
-
-        const warningToast: DcxToastOptions = DCX_TOAST_WARNING_DEMO;
-
-        const errorToast: DcxToastOptions = DCX_TOAST_ERROR_DEMO;
-
-        const removeToast = (id: number, ctx: any): void => {
-            ctx.activeToasts = ctx.activeToasts.filter((toast: DcxToastDemoItem) => toast.id !== id);
-        };
-
-        return {
-            props: {
-                activeToasts: [] as DcxToastDemoItem[],
-                lastEvent: 'Sin interacciones todavía.',
-                showInfoToast(this: any) {
-                    this.activeToasts = [...this.activeToasts, { ...defaultToast, id: nextId++ }];
-                },
-                showSuccessToast(this: any) {
-                    this.activeToasts = [...this.activeToasts, { ...successToast, id: nextId++ }];
-                },
-                showWarningToast(this: any) {
-                    this.activeToasts = [...this.activeToasts, { ...warningToast, id: nextId++ }];
-                },
-                showErrorToast(this: any) {
-                    this.activeToasts = [...this.activeToasts, { ...errorToast, id: nextId++ }];
-                },
-                clearToasts(this: any) {
-                    this.activeToasts = [];
-                    this.lastEvent = 'Se limpiaron todos los toasts.';
-                },
-                handleAction(this: any, id: number, label: string) {
-                    this.lastEvent = `Accion ejecutada en ${label}.`;
-                    removeToast(id, this);
-                    actionsData.actionClick();
-                },
-                handleDismissed(this: any, id: number, label: string) {
-                    this.lastEvent = `Toast cerrado por tiempo: ${label}.`;
-                    removeToast(id, this);
-                    actionsData.dismissed();
-                },
-            },
-            template: `
-        <section class="toast-page" style="padding: 16px; border-radius: 8px; background: var(--bg-primary, #0058ab); min-width: 640px;">
-          <h3 style="margin: 0; color: var(--text-white, #ffffff);">Toast</h3>
-          <p style="margin: 4px 0 16px; color: var(--text-white, #ffffff); opacity: .92;">Avisos breves para confirmar acciones, advertir o informar errores sin bloquear al usuario.</p>
-
-          <div style="display:flex; flex-wrap:wrap; gap: 8px; margin-bottom: 12px;" aria-label="Controles de demo de toast">
-            <dcx-ng-button label="Mostrar info" variant="secondary" (buttonClick)="showInfoToast()"></dcx-ng-button>
-            <dcx-ng-button label="Mostrar exito" variant="secondary" (buttonClick)="showSuccessToast()"></dcx-ng-button>
-            <dcx-ng-button label="Mostrar warning" variant="secondary" (buttonClick)="showWarningToast()"></dcx-ng-button>
-            <dcx-ng-button label="Mostrar error" variant="danger" (buttonClick)="showErrorToast()"></dcx-ng-button>
-            <dcx-ng-button label="Limpiar" variant="secondary" (buttonClick)="clearToasts()"></dcx-ng-button>
-          </div>
-
-          <p style="margin: 0 0 12px; font-size: 12px; color: var(--text-white, #ffffff); opacity: .95;">Toasts activos: {{ activeToasts.length }}. Ultimo evento: {{ lastEvent }}</p>
-
-          <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-start;">
-            @for (toast of activeToasts; track toast.id) {
-              <dcx-ng-toast
-                [message]="toast.message"
-                [type]="toast.type || 'info'"
-                [autoDismiss]="toast.autoDismiss || false"
-                [durationMs]="toast.durationMs || 5000"
-                [iconName]="toast.iconName || ''"
-                                [actionLabel]="toast.actionLabel || 'Deshacer'"
-                                [actionIconName]="toast.actionIconName || ''"
-                                [actionAriaLabel]="toast.actionAriaLabel || ''"
-                (actionClick)="handleAction(toast.id, toast.type || 'info')"
-                (dismissed)="handleDismissed(toast.id, toast.type || 'info')"
-              ></dcx-ng-toast>
-            }
-
-            @if (activeToasts.length === 0) {
-              <p style="margin:0; padding:8px 12px; border-radius:4px; background: rgba(255, 255, 255, 0.08); color: var(--text-white, #ffffff); font-size: 12px;">No hay toasts activos. Pulsa un boton para lanzar uno.</p>
-            }
-          </div>
-        </section>
-      `,
-        };
+export const NotDismissible: Story = {
+    args: {
+        ...DCX_TOAST_DEFAULT_ARGS,
+        dismissible: false,
     },
+};
+
+// Componente auxiliar para demostrar DcxNgToastService + dcx-ng-toast-outlet,
+// sustituyendo la máquina de estado manual (array + contador de id) que antes
+// se reimplementaba aquí y en la página de demo por separado.
+@Component({
+    selector: 'dcx-ng-toast-story-demo',
+    standalone: true,
+    imports: [DcxNgButtonComponent, DcxNgToastOutletComponent],
+    template: `
+    <section style="padding: 16px; border-radius: 8px; background: var(--bg-primary, #0058ab); min-width: 640px; position: relative; min-height: 160px;">
+      <h3 style="margin: 0; color: var(--text-white, #ffffff);">Toast (con DcxNgToastService)</h3>
+      <p style="margin: 4px 0 16px; color: var(--text-white, #ffffff); opacity: .92;">
+        Los botones llaman al servicio; dcx-ng-toast-outlet (montado una sola vez) se encarga de renderizar y apilar los toasts activos.
+      </p>
+
+      <div style="display:flex; flex-wrap:wrap; gap: 8px;" aria-label="Controles de demo de toast">
+        <dcx-ng-button label="Mostrar info" variant="secondary" (buttonClick)="showInfo()"></dcx-ng-button>
+        <dcx-ng-button label="Mostrar exito" variant="secondary" (buttonClick)="showSuccess()"></dcx-ng-button>
+        <dcx-ng-button label="Mostrar warning" variant="secondary" (buttonClick)="showWarning()"></dcx-ng-button>
+        <dcx-ng-button label="Mostrar error" variant="danger" (buttonClick)="showError()"></dcx-ng-button>
+        <dcx-ng-button label="Limpiar" variant="secondary" (buttonClick)="clear()"></dcx-ng-button>
+      </div>
+
+      <dcx-ng-toast-outlet position="top-right"></dcx-ng-toast-outlet>
+    </section>
+  `,
+})
+class DcxNgToastStoryDemoComponent {
+    private readonly toastService = inject(DcxNgToastService);
+
+    showInfo(): void {
+        this.toastService.info('Informacion actualizada correctamente');
+    }
+
+    showSuccess(): void {
+        this.toastService.success('Archivo exportado con exito', {
+            actionLabel: 'Ver detalle',
+        });
+    }
+
+    showWarning(): void {
+        this.toastService.show(DCX_TOAST_WARNING_DEMO);
+    }
+
+    showError(): void {
+        this.toastService.show(DCX_TOAST_ERROR_DEMO);
+    }
+
+    clear(): void {
+        this.toastService.clear();
+    }
+}
+
+export const WithService: Story = {
+    render: () => ({
+        template: `<dcx-ng-toast-story-demo></dcx-ng-toast-story-demo>`,
+    }),
+    decorators: [
+        moduleMetadata({
+            imports: [DcxNgToastStoryDemoComponent],
+        }),
+    ],
 };
