@@ -1,6 +1,5 @@
-import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import type { DateFormat, FirstDayOfWeek, DatePickerProps } from '../../core/interfaces';
+import type { DatePickerProps } from '../../core/interfaces';
 import { DATEPICKER_SIMPLE_PROPS, DATEPICKER_DATE_PROPS } from '../../core/interfaces';
 import '../../../index';
 
@@ -79,8 +78,8 @@ const renderDatePicker = (args: DatePickerStoryArgs) => {
   datepicker.selectedDates = args.selectedDates ? args.selectedDates.map(parseDateInput).filter(Boolean) as Date[] : [];
 
   const displayDiv = document.createElement('div');
-  displayDiv.style.marginTop = '1rem';
-  displayDiv.style.fontSize = '13px';
+  displayDiv.style.marginTop = 'var(--sp-4, 16px)';
+  displayDiv.style.fontSize = 'var(--fs-base, 14px)';
 
   const fmt = (date: Date): string => {
     const dd = String(date.getDate()).padStart(2, '0');
@@ -110,10 +109,10 @@ const renderDatePicker = (args: DatePickerStoryArgs) => {
       displayLabel = 'Fechas seleccionadas:';
       const dates = datepicker.selectedDates || [];
       if (dates.length === 0) {
-        displayContent = ` <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;min-height:28px;max-height:96px;overflow-y:auto;overflow-x:hidden;"><span style="color:#9ca3af;font-size:13px;">ninguna</span></div>`;
+        displayContent = ` <div style="display:flex;flex-wrap:wrap;gap:var(--sp-1, 4px);61;margin-top:6px;min-height:28px;max-height:96px;overflow-y:auto;overflow-x:hidden;"><span style="color:var(--text-placeholder, #9ca3af);font-size:var(--fs-sm, 12px);">ninguna</span></div>`;
       } else {
-        const chipsHtml = dates.map(d => `<span style="background:#eff6ff;color:#0058ab;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap;border:1px solid #bfdbfe;">${fmt(d)}</span>`).join('');
-        displayContent = ` <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;min-height:28px;max-height:96px;overflow-y:auto;overflow-x:hidden;">${chipsHtml}</div>`;
+        const chipsHtml = dates.map(d => `<span style="background:var(--color-info-bg, #eff6ff);color:var(--color-info, #0058ab);padding:2px 10px;border-radius:999px;font-size:var(--fs-sm, 12px);font-weight:var(--fw-semibold, 600);white-space:nowrap;border:1px solid var(--color-info-border, #bfdbfe);">${fmt(d)}</span>`).join('');
+        displayContent = ` <div style="display:flex;flex-wrap:wrap;gap:var(--sp-1, 4px);margin-top:6px;min-height:28px;max-height:96px;overflow-y:auto;overflow-x:hidden;">${chipsHtml}</div>`;
       }
     } else {
       displayLabel = 'Fecha seleccionada:';

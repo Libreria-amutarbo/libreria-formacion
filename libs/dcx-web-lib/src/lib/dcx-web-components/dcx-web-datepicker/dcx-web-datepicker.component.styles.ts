@@ -107,9 +107,9 @@ export const styles = css`
   .dcx-datepicker__month-year {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    font-size: 14px;
-    font-weight: 600;
+    gap: var(--sp-1, 4px);
+    font-size: var(--fs-base, 14px);
+    font-weight: var(--fw-semibold, 600);
     color: var(--text-white, #ffffff);
   }
 
@@ -117,8 +117,8 @@ export const styles = css`
   .dcx-datepicker__year {
     --text-dark: var(--text-white, #ffffff);
     --bg-hover: rgba(255, 255, 255, 0.2);
-    --fs-sm: 14px;
-    font-weight: 600;
+    font-size: var(--fs-base, 14px);
+    font-weight: var(--fw-semibold, 600);
     text-transform: capitalize;
   }
 
@@ -126,7 +126,7 @@ export const styles = css`
   .dcx-datepicker__select-list {
     display: grid;
     padding: var(--sp-2, 8px) var(--sp-3, 12px);
-    gap: 4px;
+    gap: var(--sp-1, 4px);
     box-sizing: border-box;
   }
 
@@ -155,8 +155,8 @@ export const styles = css`
   }
 
   .dcx-datepicker__weekday {
-    font-size: 11px;
-    font-weight: 600;
+    font-size: var(--fs-xs, 11px);
+    font-weight: var(--fw-semibold, 600);
     color: var(--text-muted, #696e75);
     text-align: center;
     padding: 5px 0 6px;
@@ -191,7 +191,7 @@ export const styles = css`
     background: var(--color-info-bg, #eff6ff);
     --text-dark: var(--color-info, #0058ab);
     --bg-hover: #dbeafe;
-    border-radius: 6px;
+    border-radius: var(--r-md, 6px);
   }
 
   .dcx-datepicker__day--other-month {
@@ -210,7 +210,8 @@ export const styles = css`
     flex-wrap: nowrap;
     max-width: 100%;
     box-sizing: border-box;
-    --r-sm: 20px;
+    border-radius: 20px;
+
   }
 
   .dcx-datepicker__footer-btn {
@@ -225,7 +226,7 @@ export const styles = css`
     border-radius: var(--r-sm, 4px);
     border: none;
     cursor: pointer;
-    padding: 0 8px;
+    padding: 0 var(--sp-2, 8px);
     box-sizing: border-box;
     transition: background 0.2s, color 0.2s;
     max-width: 100%;
