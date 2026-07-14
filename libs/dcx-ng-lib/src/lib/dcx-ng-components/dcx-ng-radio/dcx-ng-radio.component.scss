@@ -3,6 +3,41 @@
   font-family: var(--ff-base, var(--font-family-primary, 'Inter', sans-serif));
 }
 
+.dcx-ng-radio-group {
+  border: 1px solid var(--border-light, #e0e0e0);
+  border-radius: var(--r-md, 8px);
+  padding: var(--sp-4, 16px);
+  background: var(--bg-default, #ffffff);
+  margin: 0;
+
+  &__legend {
+    font-weight: var(--fw-semibold, 600);
+    font-size: var(--fs-base, 14px);
+    color: var(--text-label, #4f545a);
+    padding: 0;
+    margin-bottom: var(--sp-4, 16px);
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3, 12px);
+  }
+
+  &__hint {
+    margin-top: var(--sp-2, 8px);
+    font-size: var(--fs-sm, 12px);
+    color: var(--text-muted, #696e75);
+  }
+
+  &__error {
+    margin-top: var(--sp-2, 8px);
+    font-size: var(--fs-sm, 12px);
+    color: var(--border-error, #dc2626);
+    font-weight: var(--fw-medium, 500);
+  }
+}
+
 .dcx-ng-radio {
   display: inline-flex;
   align-items: center;
@@ -63,13 +98,11 @@
   }
 }
 
-.dcx-ng-radio:hover:not(.dcx-ng-radio--disabled),
-.dcx-ng-radio.dcx-ng-radio--hover:not(.dcx-ng-radio--disabled) {
+.dcx-ng-radio:hover:not(.dcx-ng-radio--disabled) {
   --dcx-radio-border-color: var(--bg-primary, #0058ab);
 }
 
-.dcx-ng-radio:focus-within:not(.dcx-ng-radio--disabled),
-.dcx-ng-radio.dcx-ng-radio--focus:not(.dcx-ng-radio--disabled) {
+.dcx-ng-radio:focus-within:not(.dcx-ng-radio--disabled) {
   .dcx-ng-radio__control {
     box-shadow: 0 0 0 2px var(--bg-default, #ffffff), 0 0 0 4px var(--border-focus, #1db8f2);
   }

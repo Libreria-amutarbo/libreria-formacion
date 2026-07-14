@@ -1,13 +1,17 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  HostBinding,
-  HostListener,
   computed,
+  forwardRef,
   input,
-  output,
   model,
+  output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { DcxSize, DcxPosition } from '../../core/interfaces';
 
 @Component({
@@ -16,8 +20,16 @@ import { DcxSize, DcxPosition } from '../../core/interfaces';
   imports: [CommonModule],
   templateUrl: './dcx-ng-toggle.component.html',
   styleUrl: './dcx-ng-toggle.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DcxNgToggleComponent),
+      multi: true,
+    },
+  ],
 })
-export class DcxNgToggleComponent {
+export class DcxNgToggleComponent implements ControlValueAccessor {
   checked = model<boolean>(false);
   disabled = input<boolean>(false);
   label = input<string | null>(null);
@@ -27,8 +39,9 @@ export class DcxNgToggleComponent {
 
   toggled = output<boolean>();
 
-  @HostBinding('attr.aria-label')
-  ariaLabelBinding = computed(() => this.ariaLabel() || 'Toggle');
+  effectiveAriaLabel = computed(
+    () => this.ariaLabel() || this.label() || 'Toggle',
+  );
 
   sizeClasses = computed(() =>
     [
@@ -40,20 +53,28 @@ export class DcxNgToggleComponent {
       .join(' '),
   );
 
+  private onChange: (value: boolean) => void = () => undefined;
+  private onTouched: () => void = () => undefined;
+
   toggle(): void {
     if (this.disabled()) return;
 
     const next = !this.checked();
     this.checked.set(next);
     this.toggled.emit(next);
+    this.onChange(next);
+    this.onTouched();
   }
 
-  @HostListener('keydown.enter', ['$event'])
-  @HostListener('keydown.space', ['$event'])
-  handleKeyboardToggle(event: Event): void {
-    if (!this.disabled()) {
-      event.preventDefault();
-      this.toggle();
-    }
+  writeValue(value: boolean): void {
+    this.checked.set(!!value);
+  }
+
+  registerOnChange(fn: (value: boolean) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
   }
 }

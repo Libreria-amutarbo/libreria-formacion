@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/WebComponents/Input/Documentation" />
+
+# Input
+
+El componente `dcx-web-input` permite capturar información del usuario manteniendo accesibilidad WCAG AA, validaciones visuales, mensajes de error accesibles y soporte para múltiples tipos de entrada.
+
+---
+
+## Cuándo usarlo
+
+- Formularios de registro
+- Formularios corporativos
+- Búsquedas
+- Contraseñas
+- Carga de archivos
+- Campos de contacto
+- Captura de datos estructurados
+
+---
+
+## API
+
+| Atributo / Propiedad | Tipo | Default | Descripción |
+|----------------------|------|---------|-------------|
+| value | string \| number | '' | Valor actual |
+| label | string | '' | Etiqueta visible |
+| hint | string | '' | Texto de ayuda |
+| placeholder | string | '' | Placeholder |
+| type | DcxInputType | text | Tipo de input |
+| spacing | xs \| s \| m \| l \| xl | m | Espaciado interno |
+| disabled | boolean | false | Campo deshabilitado |
+| readonly | boolean | false | Solo lectura |
+| required | boolean | false | Campo obligatorio |
+| isInvalid | boolean | false | Estado de error |
+| errorMessage | string | '' | Mensaje de error |
+| requiredMessage | string | Este campo es requerido | Error requerido |
+| orientation | horizontal \| vertical | horizontal | Orientación |
+
+---
+
+## Eventos
+
+| Evento | Detail | Descripción |
+|----------|----------|----------|
+| valueChange | string \| number | Cambio de valor |
+| focusEvent | void | Recepción de foco |
+| blurEvent | void | Pérdida de foco |
+| enterPressed | void | Pulsación de Enter |
+
+---
+
+## Tipos soportados
+
+```html
+text
+number
+email
+password
+search
+tel
+url
+file
+radio
+range
+``

@@ -1,17 +1,18 @@
-<div
+<button
+  type="button"
   [class]="sizeClasses()"
   [class.disabled]="disabled()"
   role="switch"
   [attr.aria-checked]="checked()"
-  [attr.aria-label]="ariaLabelBinding()"
-  [attr.tabindex]="disabled() ? -1 : 0"
+  [attr.aria-label]="effectiveAriaLabel()"
+  [disabled]="disabled()"
   (click)="toggle()"
 >
-  <div class="dcx-ng-toggle__track">
-    <div class="dcx-ng-toggle__thumb" [class.checked]="checked()"></div>
-  </div>
+  <span class="dcx-ng-toggle__track">
+    <span class="dcx-ng-toggle__thumb" [class.checked]="checked()"></span>
+  </span>
 
   @if (label()) {
     <span class="dcx-ng-toggle__label">{{ label() }}</span>
   }
-</div>
+</button>

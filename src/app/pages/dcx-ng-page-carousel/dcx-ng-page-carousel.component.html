@@ -132,11 +132,7 @@
                 }
                 @case ('radio') {
                   <h3 class="mixed-content-title">{{ data.title }}</h3>
-                  <div class="radio-group">
-                    <dcx-ng-radio [name]="'group-' + data.id" [value]="'1'" label="Basic option"></dcx-ng-radio>
-                    <dcx-ng-radio [name]="'group-' + data.id" [value]="'2'" label="Pro option"></dcx-ng-radio>
-                    <dcx-ng-radio [name]="'group-' + data.id" [value]="'3'" label="Premium option"></dcx-ng-radio>
-                  </div>
+                  <dcx-ng-radio [name]="'group-' + data.id" [options]="radioOptions"></dcx-ng-radio>
                 }
                 @default {
                   <dcx-ng-card [title]="data.title" [interactive]="true"></dcx-ng-card>

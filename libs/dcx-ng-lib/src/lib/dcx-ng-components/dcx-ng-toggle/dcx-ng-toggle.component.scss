@@ -1,16 +1,5 @@
-@use 'sass:map';
-@use '../../../scss/main' as *;
-@use '../../../scss/utils/_mixins' as mixins;
-
 :host {
   display: inline-flex;
-  cursor: pointer;
-
-  --toggle-width: 2.5rem;
-  --toggle-height: 1.5rem;
-  --thumb-size: calc(var(--toggle-height) - 0.4rem);
-  --toggle-transition-duration: 300ms;
-  --toggle-transition-timing: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .dcx-ng-toggle {
@@ -18,46 +7,46 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--ff-base, 'Inter', sans-serif);
+  color: var(--text-dark, #2a2e33);
+
+  --toggle-width: 2.25rem;
+  --toggle-height: 1.25rem;
+  --thumb-size: 1rem;
+  --toggle-transition-duration: 150ms;
+  --toggle-transition-timing: ease;
 
   &.disabled {
     cursor: not-allowed;
-    opacity: 0.6;
-  }
-
-  &.disabled[aria-checked='true'] {
-    .dcx-ng-toggle__track {
-      background-color: var(--background-secondary-light);
-    }
-  }
-
-  &.disabled[aria-checked='false'] {
-    .dcx-ng-toggle__track {
-      background-color: var(--background-default);
-      border: 1px solid var(--background-disabled);
-    }
-
-    .dcx-ng-toggle__thumb {
-      background-color: var(--background-disabled);
-      box-shadow: none;
-    }
+    opacity: 0.45;
   }
 
   &--s {
-    --toggle-width: 2.5rem;
+    --toggle-width: 1.75rem;
     --toggle-height: 1rem;
-    --thumb-size: 0.65rem;
+    --thumb-size: 0.75rem;
   }
 
   &--m {
-    --toggle-width: 4rem;
-    --toggle-height: 1.75rem;
+    --toggle-width: 2.25rem;
+    --toggle-height: 1.25rem;
     --thumb-size: 1rem;
   }
 
   &--l {
-    --toggle-width: 6rem;
-    --toggle-height: 2.5rem;
-    --thumb-size: 1.75rem;
+    --toggle-width: 2.75rem;
+    --toggle-height: 1.5rem;
+    --thumb-size: 1.25rem;
+  }
+
+  &--xl {
+    --toggle-width: 3.25rem;
+    --toggle-height: 1.75rem;
+    --thumb-size: 1.5rem;
   }
 
   &--top {
@@ -81,67 +70,52 @@
   &__track {
     width: var(--toggle-width);
     height: var(--toggle-height);
-    background-color: var(--background-off);
+    background-color: var(--border-default, #d1d5db);
     border-radius: 999px;
     position: relative;
+    flex-shrink: 0;
     transition: background-color var(--toggle-transition-duration)
       var(--toggle-transition-timing);
-    @include mixins.flex-center;
   }
 
   &__thumb {
+    display: block;
     width: var(--thumb-size);
     height: var(--thumb-size);
-    background-color: var(--content-default-white);
+    background-color: var(--bg-default, #ffffff);
     border-radius: 50%;
     position: absolute;
     top: 50%;
     left: 0.125rem;
-
-    transform: translateX(0) translateY(-50%);
-    transition:
-      transform var(--toggle-transition-duration)
-        var(--toggle-transition-timing),
-      background-color var(--toggle-transition-duration)
-        var(--toggle-transition-timing),
-      box-shadow var(--toggle-transition-duration)
-        var(--toggle-transition-timing);
-    box-shadow: var(--shadow-sm);
+    transform: translateY(-50%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: left var(--toggle-transition-duration)
+      var(--toggle-transition-timing);
 
     &.checked {
-      transform: translateX(
-          calc(var(--toggle-width) - var(--thumb-size) - 0.25rem)
-        )
-        translateY(-50%);
+      left: calc(var(--toggle-width) - var(--thumb-size) - 0.125rem);
     }
   }
 
   &__label {
-    font-size: 1rem;
+    font-size: var(--fs-base, 14px);
   }
 
   &[aria-checked='true'] {
     .dcx-ng-toggle__track {
-      background-color: var(--background-primary);
+      background-color: var(--bg-primary, #0058ab);
     }
 
     &:not(.disabled):hover {
       .dcx-ng-toggle__track {
-        background-color: var(--background-primary-hover);
+        background-color: var(--bg-primary-hover, #004f9a);
       }
     }
   }
 
-  &:focus {
-    outline: none;
-  }
-
-  &:focus .dcx-ng-toggle__track::after {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: calc(var(--toggle-height) / 2 + 4px);
-    border: 2px solid map.get($border, 'focus');
-    pointer-events: none;
+  &:focus-visible {
+    outline: 2px solid var(--border-focus, #1db8f2);
+    outline-offset: 2px;
+    border-radius: 999px;
   }
 }

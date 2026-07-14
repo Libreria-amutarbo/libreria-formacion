@@ -1,57 +1,59 @@
 @use '../../../scss/main' as *;
 
 :host {
-  font-family: var(--font-family-primary);
+  display: inline-flex;
 }
 
 .tooltip-container {
-  position: relative;
-  @include flex-center-inline;
-  margin: var(--spacing-inset-s);
-  cursor: help;
+  display: inline-flex;
 }
 
 .dcx-ng-tooltip {
-  --tooltip-arrow-size: 6px;
+  --tooltip-arrow-size: 5px;
   --tooltip-arrow-side-offset: 8px;
+  --tooltip-align-shift: 16px;
 
-  background-color: var(--background-secondary);
-  color: var(--content-default-white);
-  border-radius: var(--border-radius-sm);
-  padding: var(--spacing-inset-xs) var(--spacing-inset-s);
-  font-size: var(--font-size-body-small);
-  line-height: var(--line-height-tight);
-  font-family: var(--font-family-primary);
+  background-color: var(--background-secondary, #1c1f23);
+  color: var(--content-default-white, #fff);
+  border-radius: var(--r-md, 6px);
+  padding: var(--sp-1, 5px) var(--sp-2, 10px);
+  font-size: var(--fs-sm, 12px);
+  line-height: 1.4;
+  font-family: var(--ff-base, 'Inter', sans-serif);
   max-width: 250px;
   width: max-content;
   word-wrap: break-word;
-  position: absolute;
-  z-index: 1000;
-  box-shadow: var(--shadow-4);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.15));
   animation: fade-in linear 0.2s;
 
-  &--top {
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: var(--tooltip-arrow-size);
+  &--primary {
+    background-color: var(--bg-primary, #0058ab);
 
-    &[data-position='top'] {
-      left: max(8px, min(50%, calc(100vw - 250px - 8px)));
-      transform: translateX(max(-50%, calc(-50vw + 8px)));
+    .tooltip-arrow {
+      border-color: var(--bg-primary, #0058ab) transparent transparent
+        transparent;
     }
 
+    &.dcx-ng-tooltip--top .tooltip-arrow,
+    &.dcx-ng-tooltip--bottom .tooltip-arrow {
+      border-color: transparent transparent var(--bg-primary, #0058ab)
+        transparent;
+    }
+  }
+
+  &--top {
     .tooltip-arrow {
       bottom: -3px;
       left: 50%;
       transform: translateX(-50%);
-      border-width: 4px 4px 0 4px;
-      border-color: var(--background-secondary) transparent transparent
-        transparent;
+      border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0
+        var(--tooltip-arrow-size);
+      border-color: var(--background-secondary, #1c1f23) transparent
+        transparent transparent;
     }
 
     &.dcx-ng-tooltip--arrow-left {
-      left: calc(50% - -64px);
+      transform: translateX(var(--tooltip-align-shift));
 
       .tooltip-arrow {
         left: var(--tooltip-arrow-side-offset);
@@ -60,7 +62,7 @@
     }
 
     &.dcx-ng-tooltip--arrow-right {
-      left: calc(50% + -64px);
+      transform: translateX(calc(-1 * var(--tooltip-align-shift)));
 
       .tooltip-arrow {
         left: auto;
@@ -71,29 +73,18 @@
   }
 
   &--bottom {
-    width: 120px;
-    min-height: 43px;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 10px;
-
-    &[data-position='bottom'] {
-      left: max(8px, min(50%, calc(100vw - 250px - 8px)));
-      transform: translateX(max(-50%, calc(-50vw + 8px)));
-    }
-
     .tooltip-arrow {
-      top: -4px;
+      top: -3px;
       left: 50%;
       transform: translateX(-50%);
-      border-width: 0 4px 4px 4px;
-      border-color: transparent transparent var(--background-secondary)
-        transparent;
+      border-width: 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size)
+        var(--tooltip-arrow-size);
+      border-color: transparent transparent
+        var(--background-secondary, #1c1f23) transparent;
     }
 
     &.dcx-ng-tooltip--arrow-left {
-      left: calc(50% - 8px);
+      transform: translateX(var(--tooltip-align-shift));
 
       .tooltip-arrow {
         left: var(--tooltip-arrow-side-offset);
@@ -102,7 +93,7 @@
     }
 
     &.dcx-ng-tooltip--arrow-right {
-      left: calc(50% + 8px);
+      transform: translateX(calc(-1 * var(--tooltip-align-shift)));
 
       .tooltip-arrow {
         left: auto;
@@ -113,44 +104,26 @@
   }
 
   &--left {
-    right: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-right: var(--tooltip-arrow-size);
-
-    &[data-position='left'] {
-      top: max(8px, min(50%, calc(100vh - 60px)));
-      transform: translateY(max(-50%, -45vh));
-    }
-
     .tooltip-arrow {
-      right: -3.5px;
+      right: -3px;
       top: 50%;
       transform: translateY(-50%);
-      border-width: 4px 0 4px 4px;
+      border-width: var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size)
+        var(--tooltip-arrow-size);
       border-color: transparent transparent transparent
-        var(--background-secondary);
+        var(--background-secondary, #1c1f23);
     }
   }
 
   &--right {
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-left: var(--tooltip-arrow-size);
-
-    &[data-position='right'] {
-      top: max(8px, min(50%, calc(100vh - 60px)));
-      transform: translateY(max(-50%, -45vh));
-    }
-
     .tooltip-arrow {
-      left: -3.5px;
+      left: -3px;
       top: 50%;
       transform: translateY(-50%);
-      border-width: 4px 4px 4px 0;
-      border-color: transparent var(--background-secondary) transparent
-        transparent;
+      border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size)
+        var(--tooltip-arrow-size) 0;
+      border-color: transparent var(--background-secondary, #1c1f23)
+        transparent transparent;
     }
   }
 }
@@ -165,27 +138,11 @@
 }
 
 div[innerHTML] {
-  a {
-    color: var(--content-default-white);
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: 500;
-    transition: opacity 0.2s ease;
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    &:active {
-      opacity: 0.7;
-    }
-  }
-
   p {
     margin: 0;
 
     &:not(:last-child) {
-      margin-bottom: var(--spacing-inset-xs);
+      margin-bottom: var(--sp-1, 4px);
     }
   }
 
@@ -197,5 +154,14 @@ div[innerHTML] {
   em,
   i {
     font-style: italic;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

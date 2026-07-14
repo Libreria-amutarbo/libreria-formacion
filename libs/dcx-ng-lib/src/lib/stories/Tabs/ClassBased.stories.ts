@@ -6,6 +6,7 @@ import {
   DcxNgTabsComponent,
   DcxTabItemDefault,
   DcxTabItemScroll,
+  DcxTabItemWithBadges,
   DcxTabItemWithComponents,
   DcxTabItemWithDisabled,
   DcxTabItemWithIcons,
@@ -19,47 +20,65 @@ const meta: Meta<DcxNgTabsComponent> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
+      name: 'variant',
       control: { type: 'select' },
       options: TABS_VARIANT_LIST,
-      description: 'Variante visual de los tabs',
+      description: 'Variante visual de los tabs.',
       table: {
-        category: 'Attributes',
-        type: { summary: '"line" | "pill" | "brand"' },
+        category: 'Atributos',
+        type: { summary: '"line" | "pill" | "brand" | "subtle"' },
         defaultValue: { summary: 'line' },
       },
     },
     tabs: {
+      name: 'tabs',
       options: DcxTabItemDefault,
       control: 'object',
-      description: 'Array de tabs con id, label y contenido',
+      description: 'Array de tabs (id, label, disabled?, icon?, badge?).',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'DcxTabItem[]' },
       },
     },
     activeTabId: {
+      name: 'activeTabId',
       control: 'text',
-      description: 'ID del tab actualmente seleccionado',
+      description: 'ID del tab actualmente seleccionado.',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         type: { summary: 'string' },
         defaultValue: { summary: 'tab1' },
       },
     },
     hasControls: {
-      description: 'Opción para poner botones de control',
+      name: 'hasControls',
+      description: 'Opción para mostrar botones de control numerados.',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    ariaLabel: {
+      name: 'ariaLabel',
+      description:
+        'Nombre accesible del grupo de pestañas (aria-label del tablist). Recomendado cuando hay varios grupos de pestañas en la misma página.',
+      control: { type: 'text' },
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string | null' },
+        defaultValue: { summary: 'null' },
       },
     },
     tabChange: {
+      name: 'tabChange',
       action: 'tabChange',
-      description: 'Evento que se emite cuando se selecciona un tab',
+      description: 'Evento que se emite cuando se selecciona un tab.',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: {
-          summary: '(string) => void',
+          summary: '(tabId: string) => void',
         },
         defaultValue: {
           summary: '-',
@@ -79,12 +98,13 @@ export default meta;
 type Story = StoryObj<DcxNgTabsComponent>;
 
 export const Default: Story = {};
+
 export const BrandTabs: Story = {
   args: {
     tabs: DcxTabItemDefault,
     variant: 'brand',
   },
-  name: 'Brand (primary background)',
+  name: 'Brand (fondo primario)',
 };
 
 export const PillTabs: Story = {
@@ -94,6 +114,15 @@ export const PillTabs: Story = {
   },
   name: 'Pill',
 };
+
+export const SubtleTabs: Story = {
+  args: {
+    tabs: DcxTabItemDefault,
+    variant: 'subtle',
+  },
+  name: 'Subtle',
+};
+
 export const DisabledTabs: Story = {
   args: {
     tabs: DcxTabItemWithDisabled,
@@ -103,6 +132,12 @@ export const DisabledTabs: Story = {
 export const TabsWithIcons: Story = {
   args: {
     tabs: DcxTabItemWithIcons,
+  },
+};
+
+export const TabsWithBadges: Story = {
+  args: {
+    tabs: DcxTabItemWithBadges,
   },
 };
 
@@ -119,7 +154,7 @@ export const TabsWithControls: Story = {
 };
 
 @Component({
-  selector: 'dcx-ng-page-tabs',
+  selector: 'dcx-ng-tabs-story-wrapper',
   standalone: true,
   imports: [
     DcxNgTabsComponent,
@@ -159,7 +194,7 @@ class DcxNgTabsWrapperComponent {
 export const TabsWithContentComponents: Story = {
   render: () => ({
     props: {},
-    template: `<dcx-ng-page-tabs/>`,
+    template: `<dcx-ng-tabs-story-wrapper/>`,
   }),
   decorators: [
     moduleMetadata({

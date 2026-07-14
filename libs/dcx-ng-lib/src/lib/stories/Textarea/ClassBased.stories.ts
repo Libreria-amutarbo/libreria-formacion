@@ -14,67 +14,104 @@ const meta: Meta<DcxNgTextareaComponent> = {
     value: {
       description: 'Valor del textarea',
       control: { type: 'text' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     rows: {
       description: 'Número de filas visibles',
       control: { type: 'number' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     cols: {
       description: 'Número de columnas visibles',
       control: { type: 'number' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     placeholder: {
       description: 'Placeholder del textarea',
       control: { type: 'text' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     disabled: {
       description: 'Estado deshabilitado',
       control: { type: 'boolean' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     readonly: {
       description: 'Estado solo lectura',
       control: { type: 'boolean' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     autoResize: {
       description: 'Ajusta la altura automáticamente según el contenido',
       control: { type: 'boolean' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     fluid: {
       description: 'Ocupa el 100% del ancho del contenedor',
       control: { type: 'boolean' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     size: {
       description: 'Tamaño del textarea',
       control: { type: 'select' },
       options: ['small', 'normal', 'large'],
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     filled: {
       description: 'Estilo filled con fondo relleno',
       control: { type: 'boolean' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     invalid: {
       description: 'Estado inválido',
       control: { type: 'boolean' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
     },
     errorMessage: {
       description: 'Mensaje de error a mostrar',
       control: { type: 'text' },
-      table: { category: 'Attributes' },
+      table: { category: 'Atributos' },
+    },
+    id: {
+      description:
+        'Identificador único de la instancia (se genera automáticamente si no se indica).',
+      control: { type: 'text' },
+      table: { category: 'Atributos' },
+    },
+    ariaLabel: {
+      description:
+        'Nombre accesible de respaldo cuando no hay label visible.',
+      control: { type: 'text' },
+      table: { category: 'Atributos' },
+    },
+    required: {
+      description: 'Marca el campo como obligatorio (aria-required + asterisco).',
+      control: { type: 'boolean' },
+      table: { category: 'Atributos' },
+    },
+    hint: {
+      description: 'Texto de ayuda bajo el campo (se oculta si hay error).',
+      control: { type: 'text' },
+      table: { category: 'Atributos' },
+    },
+    maxLength: {
+      description: 'Número máximo de caracteres permitidos (maxlength nativo).',
+      control: { type: 'number' },
+      table: { category: 'Atributos' },
+    },
+    resizable: {
+      description:
+        'Permite redimensionar verticalmente de forma manual. Se ignora si autoResize está activo.',
+      control: { type: 'boolean' },
+      table: { category: 'Atributos' },
     },
     valueChange: {
       action: 'valueChange',
-      table: { category: 'Events' },
+      description: 'Se emite cuando cambia el valor del textarea.',
+      table: {
+        category: 'Eventos',
+        type: { summary: '(value: string) => void' },
+      },
     },
   },
   args: {
@@ -90,6 +127,9 @@ const meta: Meta<DcxNgTextareaComponent> = {
     filled: false,
     invalid: false,
     errorMessage: '',
+    required: false,
+    hint: '',
+    resizable: true,
   },
   parameters: {
     controls: { expanded: true },
@@ -220,15 +260,34 @@ export const Disabled: Story = {
 
 export const Invalid: Story = {
   args: {
+    label: 'Descripción',
+    required: true,
     invalid: true,
-    placeholder: 'Invalid textarea',
-    errorMessage: 'Error',
+    placeholder: 'Escribe aquí...',
+    errorMessage: 'Este campo es obligatorio',
   },
   parameters: {
     docs: {
       description: {
         story:
-          'El estado inválido se activa con la propiedad invalid, que aplica estilos de error al textarea. Además, se puede mostrar un mensaje de error utilizando la propiedad errorMessage para proporcionar retroalimentación al usuario sobre el problema.',
+          'El estado inválido se activa con la propiedad invalid, que aplica estilos de error al textarea y al label, y muestra el asterisco de campo obligatorio si required es true. El mensaje de error se anuncia con role="alert".',
+      },
+    },
+  },
+};
+
+export const WithHint: Story = {
+  args: {
+    label: 'Notas',
+    filled: true,
+    hint: 'Max. 500 caracteres',
+    maxLength: 500,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'La propiedad hint muestra un texto de ayuda bajo el campo (se oculta automáticamente si hay un error visible). maxLength aplica el atributo maxlength nativo.',
       },
     },
   },

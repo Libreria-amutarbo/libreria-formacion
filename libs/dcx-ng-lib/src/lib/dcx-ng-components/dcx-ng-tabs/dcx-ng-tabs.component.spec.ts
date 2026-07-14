@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { DcxNgTabsComponent } from './dcx-ng-tabs.component';
 import {
   DcxTabItemDefault,
   DcxTabItemWithDisabled,
+  DcxTabItemWithBadges,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 describe('DcxNgTabsComponent', () => {
@@ -26,9 +28,9 @@ describe('DcxNgTabsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render all tabs', () => {
+  it('should render all tabs as native buttons', () => {
     const buttons = fixture.nativeElement.querySelectorAll(
-      'span.dcx-tab__button',
+      'button.dcx-tab__button',
     );
     expect(buttons.length).toBe(3);
   });
@@ -105,6 +107,63 @@ describe('DcxNgTabsComponent', () => {
     expect(panel).toBeTruthy();
   });
 
+  it('should set id on each tab button matching its aria-labelledby reference on the panel', () => {
+    component.selectTab('tab1');
+    fixture.detectChanges();
+    const tabButton = fixture.nativeElement.querySelector(
+      '[data-tab="tab1"]',
+    );
+    const panel = fixture.nativeElement.querySelector('.dcx-tab__panel');
+    expect(tabButton.id).toBe('tab1');
+    expect(panel.getAttribute('aria-labelledby')).toBe('tab1');
+  });
+
+  it('should apply roving tabindex: 0 on the active tab, -1 on the rest', () => {
+    component.selectTab('tab2');
+    fixture.detectChanges();
+    const tab1 = fixture.nativeElement.querySelector('[data-tab="tab1"]');
+    const tab2 = fixture.nativeElement.querySelector('[data-tab="tab2"]');
+    const tab3 = fixture.nativeElement.querySelector('[data-tab="tab3"]');
+    expect(tab1.tabIndex).toBe(-1);
+    expect(tab2.tabIndex).toBe(0);
+    expect(tab3.tabIndex).toBe(-1);
+  });
+
+  it('should set aria-label on the tablist when ariaLabel is provided', () => {
+    fixture.componentRef.setInput('ariaLabel', 'Navegación del proyecto');
+    fixture.detectChanges();
+    const tablist = fixture.nativeElement.querySelector('[role="tablist"]');
+    expect(tablist.getAttribute('aria-label')).toBe('Navegación del proyecto');
+  });
+
+  it('should render a badge when tab.badge is set', () => {
+    fixture.componentRef.setInput('tabs', DcxTabItemWithBadges);
+    fixture.detectChanges();
+    const badge = fixture.nativeElement.querySelector(
+      '[data-tab="tab1"] .dcx-tab__badge',
+    );
+    expect(badge).toBeTruthy();
+    expect(badge.textContent.trim()).toBe('3');
+  });
+
+  it('should not render a badge when tab.badge is not set', () => {
+    fixture.componentRef.setInput('tabs', DcxTabItemWithBadges);
+    fixture.detectChanges();
+    const badge = fixture.nativeElement.querySelector(
+      '[data-tab="tab3"] .dcx-tab__badge',
+    );
+    expect(badge).toBeFalsy();
+  });
+
+  it('should render control buttons with visible numeric text as their accessible name', () => {
+    fixture.componentRef.setInput('hasControls', true);
+    fixture.detectChanges();
+    const controlButtons = fixture.nativeElement.querySelectorAll(
+      '.dcx-tabs__controls button',
+    );
+    expect(controlButtons[0].textContent.trim()).toBe('1');
+  });
+
   it('should handle keyboard navigation - ArrowRight', () => {
     component.selectTab('tab1');
     fixture.detectChanges();
@@ -135,6 +194,55 @@ describe('DcxNgTabsComponent', () => {
     const event = new KeyboardEvent('keydown', { key: 'End' });
     component.onKeydown(event);
     expect(component.isActive('tab3')).toBe(true);
+  });
+
+  it('should call preventDefault for handled navigation keys', () => {
+    component.selectTab('tab1');
+    fixture.detectChanges();
+    const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+    const spy = jest.spyOn(event, 'preventDefault');
+    component.onKeydown(event);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should not call preventDefault for unhandled keys', () => {
+    component.selectTab('tab1');
+    fixture.detectChanges();
+    const event = new KeyboardEvent('keydown', { key: 'Escape' });
+    const spy = jest.spyOn(event, 'preventDefault');
+    component.onKeydown(event);
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('should skip disabled tabs when navigating with ArrowRight', () => {
+    fixture.componentRef.setInput('tabs', DcxTabItemWithDisabled);
+    fixture.detectChanges();
+    component.selectTab('tab1');
+    fixture.detectChanges();
+    const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+    component.onKeydown(event);
+    expect(component.isActive('tab3')).toBe(true);
+  });
+
+  it('should keydown binding be wired to the tablist in the DOM', () => {
+    component.selectTab('tab1');
+    fixture.detectChanges();
+    const tablist = fixture.debugElement.query(By.css('[role="tablist"]'));
+    const spy = jest.spyOn(component, 'onKeydown');
+    tablist.triggerEventHandler('keydown', new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should move DOM focus to the newly selected tab after keyboard navigation', () => {
+    component.selectTab('tab1');
+    fixture.detectChanges();
+    const tab2Button = fixture.debugElement.query(
+      By.css('[data-tab="tab2"]'),
+    ).nativeElement as HTMLElement;
+    const focusSpy = jest.spyOn(tab2Button, 'focus');
+    const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+    component.onKeydown(event);
+    expect(focusSpy).toHaveBeenCalled();
   });
 
   it('should render controls when hasControls is true', () => {
