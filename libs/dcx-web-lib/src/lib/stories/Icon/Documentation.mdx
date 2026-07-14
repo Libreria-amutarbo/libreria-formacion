@@ -1,0 +1,78 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as IconClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Icon/Documentation" />
+
+# Icon
+
+`dcx-web-icon` es el componente encargado de renderizar elementos gráficos basados en la colección de **Bootstrap Icons**. Se integra de forma fluida con el resto de componentes (como `dcx-web-button`) y renderiza internamente etiquetas `<i>` en el DOM de forma eficiente.
+
+---
+
+## Uso básico
+
+Para renderizar un icono, simplemente indica su nombre (sin el prefijo `bi-`).
+
+```html
+<dcx-web-icon name="gear"></dcx-web-icon>
+```
+
+<Canvas of={IconClassBasedStories.Default} />
+
+---
+
+## Tamaños
+
+El componente expone una propiedad `size` que acepta los valores: `'s'` | `'m'` | `'l'` | `'xl'` | `'auto'`. El valor `'auto'` hereda el tamaño de fuente configurado en el contenedor padre.
+
+```html
+<dcx-web-icon name="gear" size="l"></dcx-web-icon>
+```
+
+<Canvas of={IconClassBasedStories.Sizes} />
+
+---
+
+## Espaciado (spacing)
+
+Permite configurar márgenes horizontales rápidos mediante la propiedad `spacing` con los valores `'none'` | `'compact'` | `'spacious'`.
+
+```html
+<dcx-web-icon name="gear" spacing="spacious"></dcx-web-icon>
+```
+
+<Canvas of={IconClassBasedStories.Spacing} />
+
+---
+
+## Color personalizado
+
+Por defecto, los iconos heredan el color del texto o contenedor donde están situados (`color: currentColor`), o el azul corporativo de la librería. Si deseas forzar un color concreto, puedes pasárselo en formato hexadecimal o nombre de color CSS.
+
+```html
+<dcx-web-icon name="gear" color="#dc2626"></dcx-web-icon>
+```
+
+<Canvas of={IconClassBasedStories.Color} />
+
+---
+
+## Accesibilidad
+
+El componente gestiona automáticamente los atributos de accesibilidad en función de la presencia de `aria-label`:
+
+* **Icono decorativo (por defecto):** Si no se le proporciona `aria-label`, el componente asume que el icono es decorativo, configurando `aria-hidden="true"` y eliminando cualquier rol.
+* **Icono con significado semántico:** Si pasas un valor en `aria-label`, el componente asume un rol de imagen (`role="img"`) para ser leído por lectores de pantalla.
+
+```html
+<!-- Icono significativo semánticamente -->
+<dcx-web-icon name="gear" aria-label="Configuración de cuenta"></dcx-web-icon>
+```
+
+---
+
+## Catálogo de Iconos
+
+Haz clic sobre cualquiera de los iconos del catálogo para copiar su nombre en el portapapeles y usarlo directamente en el atributo `name` de tus componentes.
+
+<Canvas of={IconClassBasedStories.AllIcons} />

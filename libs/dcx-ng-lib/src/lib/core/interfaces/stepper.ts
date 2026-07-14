@@ -1,5 +1,7 @@
 import { TemplateRef } from '@angular/core';
 
+export type DcxStepperSize = 's' | 'm' | 'l' | 'xl';
+
 export interface DcxStepperItem {
   id: string | number;
   label: string;

@@ -1,0 +1,150 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as DrawerStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Drawer/Documentation" />
+
+# Drawer
+
+`dcx-web-drawer` es un panel deslizante lateral, superior o inferior con comportamiento modal opcional, adaptado al diseño de la librería.
+
+- Control de visibilidad mediante la propiedad `.open`.
+- Soporte para posiciones: `left`, `right`, `top`, `bottom`.
+- Modo modal opcional con máscara (`modal`) y cierre por click en la máscara (`dismissible`).
+- Cierre al pulsar la tecla `Escape` usando `closeOnEscape`.
+- Header con título y botón de cierre opcionales.
+- Slots para personalización completa: `drawerHeader` y `drawerFooter`.
+- Estilos basados en CSS Custom Properties de la librería.
+
+> **Nota de scroll:** por defecto los ejemplos usan `blockScroll=false` para permitir el desplazamiento de la página de Docs. Revisa el ejemplo **BlockScrollTrue** para ver el bloqueo intencional de la página.
+
+---
+
+## Uso básico
+
+```html
+<dcx-web-drawer header="Título del Drawer" open="false" position="right">
+  <p>Contenido del drawer...</p>
+</dcx-web-drawer>
+```
+
+<Canvas of={DrawerStories.Default} />
+
+---
+
+## Posiciones
+
+Define desde qué lado aparece el drawer usando `position`: `'left'` | `'right'` | `'top'` | `'bottom'`.
+
+<Canvas of={DrawerStories.Positions} />
+
+---
+
+## Sin Modal
+
+No se renderiza máscara de fondo cuando `modal` es `false`.
+
+<Canvas of={DrawerStories.NonModal} />
+
+---
+
+## No Dismissible
+
+El click en la máscara de fondo no cierra el drawer si `dismissible` es `false`.
+
+<Canvas of={DrawerStories.NonDismissible} />
+
+---
+
+## Cierre por tecla Escape
+
+Cierra el drawer al pulsar la tecla `Escape` si `closeOnEscape` es `true`.
+
+<Canvas of={DrawerStories.CloseOnEscapeEnabled} />
+
+---
+
+## Cierre por tecla Escape deshabilitado
+
+Previene el cierre por tecla `Escape` si `closeOnEscape` es `false`.
+
+<Canvas of={DrawerStories.CloseOnEscapeDisabled} />
+
+---
+
+## Solo cierre por ícono
+
+Permite cerrar únicamente a través del botón con ícono de cierre si se deshabilitan las opciones de máscara y Escape.
+
+<Canvas of={DrawerStories.CloseOnlyWithIcon} />
+
+---
+
+## Tamaños en Top y Bottom
+
+Permite configurar una altura personalizada para las posiciones superior e inferior usando la propiedad `size`.
+
+<Canvas of={DrawerStories.TopAndBottomSizes} />
+
+---
+
+## FullScreen
+
+El drawer ocupará todo el ancho y alto disponible en pantalla.
+
+<Canvas of={DrawerStories.FullScreenOpen} />
+
+---
+
+## Bloqueo de Scroll en Body
+
+Cuando `blockScroll` es `true`, se bloquea el scroll del body al abrir el drawer.
+
+<Canvas of={DrawerStories.BlockScrollTrue} />
+
+---
+
+## Control de Z-Index
+
+Comportamiento de apilamiento con múltiples drawers abiertos utilizando `baseZIndex` y `autoZIndex`.
+
+<Canvas of={DrawerStories.ZIndexExample} />
+
+---
+
+## Header Personalizado (Slot)
+
+Permite proyectar el slot `drawerHeader` para reemplazar el texto plano por un contenido HTML complejo.
+
+```html
+<dcx-web-drawer open="true">
+  <div slot="drawerHeader">
+    <h3>Header Custom</h3>
+  </div>
+  <p>Contenido...</p>
+</dcx-web-drawer>
+```
+
+<Canvas of={DrawerStories.WithCustomHeader} />
+
+---
+
+## Footer Personalizado (Slot)
+
+Permite proyectar el slot `drawerFooter` para añadir botones de acción en la parte inferior.
+
+```html
+<dcx-web-drawer open="true">
+  <p>Contenido...</p>
+  <div slot="drawerFooter">
+    <dcx-web-button label="Guardar"></dcx-web-button>
+  </div>
+</dcx-web-drawer>
+```
+
+<Canvas of={DrawerStories.WithCustomFooter} />
+
+---
+
+## API del Componente
+
+<Controls of={DrawerStories.Default} />

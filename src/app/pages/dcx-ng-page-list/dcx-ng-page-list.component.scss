@@ -1,25 +1,33 @@
-:host {
+// page-demo styles are provided globally via src/styles.scss
+
+.value-preview {
+  margin-top: 0.75rem;
   display: flex;
-  flex-direction: column;
-  width: 60%;
-  font-family: var(--ff-base, 'Inter', sans-serif);
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted, #696e75);
 }
 
-section {
+.custom-item {
   display: flex;
-  flex-direction: column;
-  gap: var(--sp-4, 16px);
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
 
-  h2 {
-    font-size: var(--fs-lg, 18px);
-    color: var(--text-dark, #2a2e33);
+  &__title {
+    font-weight: 600;
   }
 
-  strong {
-    margin-right: var(--sp-1, 4px);
+  &__desc {
+    font-size: 0.6875rem;
+    color: var(--text-muted, #696e75);
   }
-}
 
-.divider {
-  margin: var(--sp-5, 20px) 0;
+  &__check {
+    margin-left: auto;
+    color: var(--color-primary, #0058ab);
+    font-weight: 700;
+  }
 }

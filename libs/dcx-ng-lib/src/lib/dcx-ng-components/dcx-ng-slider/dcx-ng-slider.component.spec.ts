@@ -79,7 +79,6 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('step', 5);
       fixture.detectChanges();
       expect(component.step()).toBe(5);
-      expect(component.stepInput()).toBe(5);
     });
 
     it('should update vertical input', () => {
@@ -98,6 +97,24 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('textLabel', 'Rango');
       fixture.detectChanges();
       expect(component.textLabel()).toBe('Rango');
+    });
+
+    it('should have disabled false by default', () => {
+      expect(component.disabled()).toBe(false);
+    });
+
+    it('should update disabled input', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+      expect(component.disabled()).toBe(true);
+    });
+
+    it('should have ariaLabel null by default', () => {
+      expect(component.ariaLabel()).toBeNull();
+    });
+
+    it('should have valueSuffix empty by default', () => {
+      expect(component.valueSuffix()).toBe('');
     });
   });
 
@@ -167,15 +184,109 @@ describe('DcxNgSliderComponent', () => {
       expect(rangeInput.nativeElement.value).toBe('20');
     });
 
-    it('should set width style based on vertical flag', () => {
+    it('should set width to 100px when vertical is true', () => {
       fixture.componentRef.setInput('vertical', true);
       fixture.detectChanges();
       const dcxInput = fixture.debugElement.query(
         By.directive(DcxNgInputComponent),
       );
+      expect(dcxInput.nativeElement.style.width).toBe('100px');
+    });
+
+    it('should set width to 100% when vertical is false', () => {
+      fixture.componentRef.setInput('vertical', false);
+      fixture.detectChanges();
+      const dcxInput = fixture.debugElement.query(
+        By.directive(DcxNgInputComponent),
+      );
+      expect(dcxInput.nativeElement.style.width).toBe('100%');
+    });
+
+    it('should propagate step to the inner input (not hardcoded)', () => {
+      fixture.componentRef.setInput('step', 5);
+      fixture.detectChanges();
+      const rangeInput = fixture.debugElement.query(
+        By.css('input[type=range]'),
+      );
+      expect(rangeInput.nativeElement.step).toBe('5');
+    });
+
+    it('should propagate disabled to the inner input', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+      const rangeInput = fixture.debugElement.query(
+        By.css('input[type=range]'),
+      );
+      expect(rangeInput.nativeElement.disabled).toBe(true);
+    });
+
+    it('should set aria-label from ariaLabel when provided', () => {
+      fixture.componentRef.setInput('ariaLabel', 'Volumen');
+      fixture.componentRef.setInput('showLabel', false);
+      fixture.detectChanges();
+      const rangeInput = fixture.debugElement.query(
+        By.css('input[type=range]'),
+      );
+      expect(rangeInput.nativeElement.getAttribute('aria-label')).toBe(
+        'Volumen',
+      );
+    });
+
+    it('should fall back to textLabel as aria-label when showLabel is true and ariaLabel is not set', () => {
+      fixture.componentRef.setInput('showLabel', true);
+      fixture.componentRef.setInput('textLabel', 'Presupuesto');
+      fixture.detectChanges();
+      const rangeInput = fixture.debugElement.query(
+        By.css('input[type=range]'),
+      );
+      expect(rangeInput.nativeElement.getAttribute('aria-label')).toBe(
+        'Presupuesto',
+      );
+    });
+
+    it('should not set aria-label when showLabel is false and ariaLabel is not set', () => {
+      fixture.componentRef.setInput('showLabel', false);
+      fixture.detectChanges();
+      const rangeInput = fixture.debugElement.query(
+        By.css('input[type=range]'),
+      );
+      expect(rangeInput.nativeElement.getAttribute('aria-label')).toBeNull();
+    });
+
+    it('should append valueSuffix to the displayed value', () => {
+      fixture.componentRef.setInput('showLabel', true);
+      fixture.componentRef.setInput('max', 100);
+      fixture.componentRef.setInput('value', 60);
+      fixture.componentRef.setInput('valueSuffix', 'k€');
+      fixture.detectChanges();
+      const valueEl = fixture.debugElement.query(
+        By.css('.dcx-slider-value'),
+      );
+      expect(valueEl.nativeElement.textContent).toBe('60k€');
+    });
+
+    it('should set aria-valuetext when valueSuffix is provided', () => {
+      fixture.componentRef.setInput('max', 100);
+      fixture.componentRef.setInput('value', 60);
+      fixture.componentRef.setInput('valueSuffix', 'k€');
+      fixture.detectChanges();
+      const rangeInput = fixture.debugElement.query(
+        By.css('input[type=range]'),
+      );
+      expect(rangeInput.nativeElement.getAttribute('aria-valuetext')).toBe(
+        '60k€',
+      );
+    });
+
+    it('should not set aria-valuetext when valueSuffix is empty', () => {
+      fixture.componentRef.setInput('value', 60);
+      fixture.detectChanges();
+      const rangeInput = fixture.debugElement.query(
+        By.css('input[type=range]'),
+      );
       expect(
-        dcxInput.styles['width.px'] || dcxInput.nativeElement.style.width,
-      ).toBeTruthy();
+        rangeInput.nativeElement.getAttribute('aria-valuetext'),
+      ).toBeNull();
     });
 
     it('should pass orientation horizontal when vertical is false', () => {
@@ -249,6 +360,16 @@ describe('DcxNgSliderComponent', () => {
       expect(component.valueInput()).toBe(35);
     });
 
+    it('should clamp writeValue to min/max', () => {
+      fixture.componentRef.setInput('min', 10);
+      fixture.componentRef.setInput('max', 50);
+      fixture.detectChanges();
+      component.writeValue(5);
+      expect(component.valueInput()).toBe(10);
+      component.writeValue(100);
+      expect(component.valueInput()).toBe(50);
+    });
+
     it('should register onChange callback', () => {
       const fn = jest.fn();
       component.registerOnChange(fn);
@@ -287,23 +408,6 @@ describe('DcxNgSliderComponent', () => {
       fixture.componentRef.setInput('value', 25);
       fixture.detectChanges();
       expect(component.valueInput()).toBe(25);
-    });
-  });
-
-  describe('stepInput computed', () => {
-    it('should return step value from computed', () => {
-      fixture.componentRef.setInput('step', 10);
-      fixture.detectChanges();
-      expect(component.stepInput()).toBe(10);
-    });
-
-    it('should update when step changes', () => {
-      fixture.componentRef.setInput('step', 2);
-      fixture.detectChanges();
-      expect(component.stepInput()).toBe(2);
-      fixture.componentRef.setInput('step', 5);
-      fixture.detectChanges();
-      expect(component.stepInput()).toBe(5);
     });
   });
 
@@ -376,12 +480,12 @@ describe('DcxNgSliderComponent - CVA integration', () => {
     expect(hostComponent).toBeTruthy();
   });
 
-  it('should reflect value input default when form control value is set without value binding', () => {
+  it('should honor the FormControl initial value via writeValue, not the value input default', () => {
     const sliderEl = hostFixture.debugElement.query(
       By.directive(DcxNgSliderComponent),
     );
     const sliderComp = sliderEl.componentInstance as DcxNgSliderComponent;
-    expect(sliderComp.valueInput()).toBe(0);
+    expect(sliderComp.valueInput()).toBe(20);
   });
 
   it('should update form control when slider value changes', () => {

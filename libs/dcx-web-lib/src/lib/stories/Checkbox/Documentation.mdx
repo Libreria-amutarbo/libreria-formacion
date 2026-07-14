@@ -1,0 +1,103 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as CheckboxClassBasedStories from './ClassBased.stories';
+
+<Meta
+  of={CheckboxClassBasedStories}
+  title="DCXLibrary/WebComponents/Checkbox/Documentation"
+/>
+
+# Checkbox
+
+El componente `dcx-web-checkbox` permite seleccionar valores con **tres estados**:
+
+- ✅ Marcado (`true`)
+- ➖ Indeterminado (`false`)
+- ⬜ Sin valor (`null`)
+
+Este componente está desarrollado como **Web Component (Lit)**, proporcionando encapsulación, reactividad y compatibilidad con cualquier framework.
+
+---
+
+## Versión Class-Based
+
+La versión class-based utiliza estilos CSS y API basada en propiedades para máxima flexibilidad.
+
+---
+
+## Checkbox Individual
+
+<Canvas of={CheckboxClassBasedStories.Default} />
+
+<Canvas of={CheckboxClassBasedStories.ErrorCheckBox} />
+
+---
+
+## Estados
+
+### Deshabilitado
+
+<Canvas of={CheckboxClassBasedStories.DisabledCheckBox} />
+
+### Requerido
+
+<Canvas of={CheckboxClassBasedStories.RequiredCheckbox} />
+
+---
+
+## Posición del Label
+
+Permite colocar el label antes o después del checkbox.
+
+<Canvas of={CheckboxClassBasedStories.DiferentsLabelPositions} />
+
+---
+
+## Grupo de Checkboxes
+
+### Selección múltiple / estados mixtos
+
+<Canvas of={CheckboxClassBasedStories.CheckboxGroup} />
+
+---
+
+## Grupo con cambio dinámico de label
+
+Ejemplo equivalente a Angular Signals: el label cambia en función del estado.
+
+<Canvas of={CheckboxClassBasedStories.CheckboxGroupWithChangeLabel} />
+
+---
+
+## Personalización
+
+Puedes personalizar:
+
+- **label** → texto del checkbox  
+- **value** → estado (`true | false | null`)  
+- **disabled** → deshabilita interacción  
+- **error** → muestra estado de error  
+- **errorMessage** → mensaje debajo  
+- **required** → añade indicador visual  
+- **labelPosition** → `'left' | 'right'`  
+
+---
+
+## Propiedad Principal
+
+| Propiedad | Tipo | Descripción |
+|----------|------|------------|
+| `options` | `DcxCheckbox[]` | Lista de opciones del checkbox |
+
+---
+
+## Evento
+
+| Evento | Descripción |
+|------|------------|
+| `changeOptions` | Se emite al cambiar el estado |
+
+```ts
+element.addEventListener('changeOptions', (e) => {
+  console.log(e.detail); // nuevo estado
+});
+``

@@ -4,8 +4,8 @@
   aria-live="polite"
   [attr.aria-label]="computedAriaLabel()"
 >
-  @if (!wrapper()) {
-    <div class="circle"></div>
+  @if (!wrapper() && visible()) {
+    <div class="circle" aria-hidden="true"></div>
 
     @if (hasContent()) {
       <div class="text">
@@ -21,11 +21,13 @@
 
   @if (wrapper()) {
     <ng-content></ng-content>
-    <div class="overlay">
-      <div class="circle"></div>
-      @if (title()) {
-        <span class="label">{{ title() }}</span>
-      }
-    </div>
+    @if (visible()) {
+      <div class="overlay">
+        <div class="circle" aria-hidden="true"></div>
+        @if (title()) {
+          <span class="label">{{ title() }}</span>
+        }
+      </div>
+    }
   }
 </div>

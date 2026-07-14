@@ -1,20 +1,24 @@
-import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { DcxNgToggleComponent } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
-  selector: 'dcx-ng-dcx-ng-page-toggle',
+  selector: 'dcx-ng-page-toggle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DcxNgToggleComponent],
+  imports: [ReactiveFormsModule, DcxNgToggleComponent],
   templateUrl: './dcx-ng-page-toggle.component.html',
   styleUrl: './dcx-ng-page-toggle.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DcxNgPageToggleComponent {
-  isDarkMode = false;
-  eventState = signal<boolean>(false);
+  isDarkMode = signal(false);
+  eventState = signal(false);
 
-  handleToggle(value: boolean) {
-    this.isDarkMode = value;
+  form = new FormGroup({
+    notifications: new FormControl(true),
+  });
+
+  handleToggle(value: boolean): void {
+    this.isDarkMode.set(value);
   }
 }

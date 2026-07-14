@@ -30,12 +30,12 @@ describe('DcxNgSkeletonComponent', () => {
     expect(component.animation()).toBe('wave');
   });
 
-  it('should render rectangle and wave classes by default', () => {
+  it('should render the base and wave classes by default', () => {
     expect(hostElement.classList.contains('dcx-skeleton')).toBe(true);
-    expect(hostElement.classList.contains('dcx-skeleton--rectangle')).toBe(
-      true,
-    );
     expect(hostElement.classList.contains('dcx-skeleton--wave')).toBe(true);
+    expect(hostElement.classList.contains('dcx-skeleton--circle')).toBe(
+      false,
+    );
   });
 
   it('should compute width and height from inputs when size is not provided', () => {

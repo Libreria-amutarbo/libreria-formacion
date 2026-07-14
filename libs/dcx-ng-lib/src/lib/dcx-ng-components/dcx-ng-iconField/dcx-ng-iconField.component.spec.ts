@@ -1,6 +1,8 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DcxNgIconFieldComponent } from './dcx-ng-iconField.component';
+import { DcxNgInputComponent } from '../dcx-ng-input/dcx-ng-input.component';
 
 describe('DcxNgIconFieldComponent', () => {
   let component: DcxNgIconFieldComponent;
@@ -32,25 +34,17 @@ describe('DcxNgIconFieldComponent', () => {
     it('should have default iconSize as "m"', () => {
       expect(component.iconSize()).toBe('m');
     });
-  });
 
-  describe('iconPositionChange computed', () => {
-    it('should return "has-left" when position is left', () => {
-      fixture.componentRef.setInput('iconPosition', 'left');
-      fixture.detectChanges();
-      expect(component.iconPositionChange()).toBe('has-left');
+    it('should have iconClickable false by default', () => {
+      expect(component.iconClickable()).toBe(false);
     });
 
-    it('should return "has-right" when position is right', () => {
-      fixture.componentRef.setInput('iconPosition', 'right');
-      fixture.detectChanges();
-      expect(component.iconPositionChange()).toBe('has-right');
+    it('should have disabled false by default', () => {
+      expect(component.disabled()).toBe(false);
     });
 
-    it('should return empty string when position is invalid', () => {
-      fixture.componentRef.setInput('iconPosition', 'center');
-      fixture.detectChanges();
-      expect(component.iconPositionChange()).toBe('');
+    it('should have iconAriaLabel null by default', () => {
+      expect(component.iconAriaLabel()).toBeNull();
     });
   });
 
@@ -61,6 +55,15 @@ describe('DcxNgIconFieldComponent', () => {
       component.onIconClick();
       expect(spy).toHaveBeenCalled();
     });
+
+    it('should not emit iconClick when disabled', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+      const spy = jest.fn();
+      component.iconClick.subscribe(spy);
+      component.onIconClick();
+      expect(spy).not.toHaveBeenCalled();
+    });
   });
 
   describe('Template rendering', () => {
@@ -69,24 +72,75 @@ describe('DcxNgIconFieldComponent', () => {
       expect(wrapper).toBeTruthy();
     });
 
-    it('should render icon button on the left by default', () => {
-      fixture.detectChanges();
-      const buttons = fixture.debugElement.queryAll(By.css('dcx-ng-button'));
-      expect(buttons.length).toBe(1);
+    it('should render a decorative dcx-ng-icon by default (not a button)', () => {
+      const icon = fixture.debugElement.query(By.css('dcx-ng-icon'));
+      const button = fixture.debugElement.query(By.css('dcx-ng-button'));
+      expect(icon).toBeTruthy();
+      expect(button).toBeFalsy();
     });
 
-    it('should render icon button on the right when position is right', () => {
+    it('should apply has-left class only when position is left', () => {
+      const wrapper = fixture.debugElement.query(By.css('.icon-field'));
+      expect(wrapper.nativeElement.classList.contains('has-left')).toBe(true);
+      expect(wrapper.nativeElement.classList.contains('has-right')).toBe(
+        false,
+      );
+    });
+
+    it('should apply has-right class only when position is right', () => {
       fixture.componentRef.setInput('iconPosition', 'right');
       fixture.detectChanges();
-      const buttons = fixture.debugElement.queryAll(By.css('dcx-ng-button'));
-      expect(buttons.length).toBe(1);
+      const wrapper = fixture.debugElement.query(By.css('.icon-field'));
+      expect(wrapper.nativeElement.classList.contains('has-right')).toBe(
+        true,
+      );
+      expect(wrapper.nativeElement.classList.contains('has-left')).toBe(
+        false,
+      );
     });
 
-    it('should not render button when iconName is empty', () => {
+    it('should render dcx-ng-button when iconClickable is true', () => {
+      fixture.componentRef.setInput('iconClickable', true);
+      fixture.componentRef.setInput('iconAriaLabel', 'Buscar');
+      fixture.detectChanges();
+      const button = fixture.debugElement.query(By.css('dcx-ng-button'));
+      const directIcon = fixture.debugElement.query(
+        By.css('.icon-field > dcx-ng-icon'),
+      );
+      expect(button).toBeTruthy();
+      expect(directIcon).toBeFalsy();
+    });
+
+    it('should set aria-label on the button from iconAriaLabel', () => {
+      fixture.componentRef.setInput('iconClickable', true);
+      fixture.componentRef.setInput('iconAriaLabel', 'Buscar');
+      fixture.detectChanges();
+      const button = fixture.debugElement.query(By.css('dcx-ng-button'));
+      expect(button.componentInstance.ariaLabel()).toBe('Buscar');
+    });
+
+    it('should render icon on the right when position is right', () => {
+      fixture.componentRef.setInput('iconPosition', 'right');
+      fixture.detectChanges();
+      const icon = fixture.debugElement.query(By.css('dcx-ng-icon'));
+      expect(icon).toBeTruthy();
+    });
+
+    it('should not render an icon when iconName is empty', () => {
       fixture.componentRef.setInput('iconName', '');
       fixture.detectChanges();
-      const buttons = fixture.debugElement.queryAll(By.css('dcx-ng-button'));
-      expect(buttons.length).toBe(0);
+      const icon = fixture.debugElement.query(By.css('dcx-ng-icon'));
+      const button = fixture.debugElement.query(By.css('dcx-ng-button'));
+      expect(icon).toBeFalsy();
+      expect(button).toBeFalsy();
+    });
+
+    it('should disable the button when disabled and iconClickable are true', () => {
+      fixture.componentRef.setInput('iconClickable', true);
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+      const button = fixture.debugElement.query(By.css('dcx-ng-button'));
+      expect(button.componentInstance.disabled()).toBe(true);
     });
   });
 
@@ -111,5 +165,36 @@ describe('DcxNgIconFieldComponent', () => {
       fixture.detectChanges();
       expect(component.iconPosition()).toBe('right');
     });
+  });
+});
+
+@Component({
+  standalone: true,
+  imports: [DcxNgIconFieldComponent, DcxNgInputComponent],
+  template: `
+    <dcx-ng-icon-field>
+      <dcx-ng-input [isInvalid]="invalid" label="Email"></dcx-ng-input>
+    </dcx-ng-icon-field>
+  `,
+})
+class TestHostComponent {
+  invalid = false;
+}
+
+describe('DcxNgIconFieldComponent - projected invalid input', () => {
+  it('should reflect the invalid state of the projected input on the container', async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestHostComponent],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(TestHostComponent);
+    const host = fixture.componentInstance;
+    host.invalid = true;
+    fixture.detectChanges();
+
+    const control = fixture.nativeElement.querySelector(
+      '.dcx-ng-input__control',
+    );
+    expect(control.classList.contains('is-invalid')).toBe(true);
   });
 });

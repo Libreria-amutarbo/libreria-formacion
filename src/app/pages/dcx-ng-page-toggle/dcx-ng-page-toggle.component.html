@@ -1,118 +1,136 @@
-<h1 class="demo-title">Ejemplos de Toggle</h1>
+<div class="demo-page">
 
-<section>
-  <h2 class="example-title">Ejemplo 1 - Toggle básico</h2>
-  <dcx-ng-toggle
-    [checked]="isDarkMode"
-    label="Dark mode"
-    size="m"
-    (toggled)="handleToggle($event)"
-    textPosition="right"
-  ></dcx-ng-toggle>
-</section>
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Toggle</h1>
+    <p class="demo-page-header__desc">
+      Switch on/off accesible, con tamaños, posiciones de label e
+      integración con formularios reactivos.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<hr />
+  <!-- ── 01 Básico ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Básico</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-toggle
+        [checked]="isDarkMode()"
+        label="Dark mode"
+        size="m"
+        (toggled)="handleToggle($event)"
+        textPosition="right"
+      ></dcx-ng-toggle>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - Toggle deshabilitado</h2>
-  <dcx-ng-toggle
-    [checked]="true"
-    [disabled]="true"
-    label="Disabled"
-    size="m"
-    textPosition="right"
-  ></dcx-ng-toggle>
-</section>
+  <!-- ── 02 Deshabilitado ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Deshabilitado</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-toggle
+        [checked]="true"
+        [disabled]="true"
+        label="Deshabilitado"
+        size="m"
+        textPosition="right"
+      ></dcx-ng-toggle>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 03 Sin label visible ──────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Sin label visible</span>
+    </div>
+    <p class="demo-section__desc">
+      Este toggle no muestra texto, pero sigue siendo accesible con
+      <code>ariaLabel</code>.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-toggle
+        [checked]="false"
+        ariaLabel="Toggle sin label visible"
+        size="m"
+        textPosition="right"
+      ></dcx-ng-toggle>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - Toggle sin label (solo aria-label)</h2>
-  <dcx-ng-toggle
-    [checked]="false"
-    ariaLabel="Toggle sin label visible"
-    size="m"
-    textPosition="right"
-  ></dcx-ng-toggle>
-  <p class="note">
-    Este toggle no muestra texto, pero sigue siendo accesible con
-    <code>aria-label</code>.
-  </p>
-</section>
+  <!-- ── 04 Posiciones del texto ──────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Posiciones del texto</span>
+    </div>
+    <div class="demo-section__body demo-section__body--row">
+      <dcx-ng-toggle [checked]="true" label="Top" textPosition="top"></dcx-ng-toggle>
+      <dcx-ng-toggle [checked]="true" label="Bottom" textPosition="bottom"></dcx-ng-toggle>
+      <dcx-ng-toggle [checked]="true" label="Left" textPosition="left"></dcx-ng-toggle>
+      <dcx-ng-toggle [checked]="true" label="Right" textPosition="right"></dcx-ng-toggle>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 05 Tamaños ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Tamaños</span>
+    </div>
+    <div class="demo-section__body demo-section__body--row">
+      <dcx-ng-toggle [checked]="true" size="s" label="Small" textPosition="right"></dcx-ng-toggle>
+      <dcx-ng-toggle [checked]="true" size="m" label="Medium" textPosition="right"></dcx-ng-toggle>
+      <dcx-ng-toggle [checked]="true" size="l" label="Large" textPosition="right"></dcx-ng-toggle>
+      <dcx-ng-toggle [checked]="true" size="xl" label="XL" textPosition="right"></dcx-ng-toggle>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">
-    Ejemplo 4 - Toggle con diferentes posiciones del texto
-  </h2>
-  <article class="toggle-position-list">
-    <dcx-ng-toggle
-      [checked]="true"
-      label="Top"
-      textPosition="top"
-    ></dcx-ng-toggle>
-    <dcx-ng-toggle
-      [checked]="true"
-      label="Bottom"
-      textPosition="bottom"
-    ></dcx-ng-toggle>
-    <dcx-ng-toggle
-      [checked]="true"
-      label="Left"
-      textPosition="left"
-    ></dcx-ng-toggle>
-    <dcx-ng-toggle
-      [checked]="true"
-      label="Right"
-      textPosition="right"
-    ></dcx-ng-toggle>
-  </article>
-</section>
+  <!-- ── 06 Controlado por evento ─────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Controlado por evento</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-toggle
+        [checked]="eventState()"
+        label="Click para cambiar"
+        size="m"
+        textPosition="right"
+        (toggled)="eventState.set($event)"
+      ></dcx-ng-toggle>
+      <p class="demo-section__desc">Estado actual: {{ eventState() ? 'ON' : 'OFF' }}</p>
+    </div>
+  </div>
 
-<hr />
+  <!-- ── 07 Formulario reactivo ───────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Formulario reactivo</span>
+    </div>
+    <p class="demo-section__desc">
+      El componente implementa <code>ControlValueAccessor</code>, por lo
+      que funciona con <code>formControlName</code>.
+    </p>
+    <div class="demo-section__body">
+      <form [formGroup]="form">
+        <dcx-ng-toggle
+          formControlName="notifications"
+          label="Notificaciones"
+        ></dcx-ng-toggle>
+      </form>
+      <p class="demo-section__desc">
+        Valor del FormControl: {{ form.value.notifications ? 'ON' : 'OFF' }}
+      </p>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 5 - Toggle en diferentes tamaños</h2>
-  <article class="toggle-size-row">
-    <dcx-ng-toggle
-      [checked]="true"
-      size="s"
-      label="Small"
-      textPosition="right"
-    ></dcx-ng-toggle>
-    <dcx-ng-toggle
-      [checked]="true"
-      size="m"
-      label="Medium"
-      textPosition="right"
-    ></dcx-ng-toggle>
-    <dcx-ng-toggle
-      [checked]="true"
-      size="l"
-      label="Large"
-      textPosition="right"
-    ></dcx-ng-toggle>
-    <dcx-ng-toggle
-      [checked]="true"
-      size="xl"
-      label="XL"
-      textPosition="right"
-    ></dcx-ng-toggle>
-  </article>
-</section>
-
-<hr />
-
-<section>
-  <h2 class="example-title">Ejemplo 6 - Toggle solo controlado por evento</h2>
-  <dcx-ng-toggle
-    [checked]="eventState()"
-    label="Click para cambiar"
-    size="m"
-    textPosition="right"
-    (toggled)="eventState.set($event)"
-  ></dcx-ng-toggle>
-
-  <p class="selected-value">Estado actual: {{ eventState() ? 'ON' : 'OFF' }}</p>
-</section>
+</div>

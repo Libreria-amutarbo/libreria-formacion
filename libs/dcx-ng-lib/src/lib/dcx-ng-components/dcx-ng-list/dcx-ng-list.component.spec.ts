@@ -40,7 +40,7 @@ describe('DcxNgListComponent', () => {
 
     const lis = host().querySelectorAll('.dcx-list-item');
     expect(lis.length).toBe(SIMPLE_LIST_ITEMS.length);
-    expect(lis[0].textContent?.trim()).toContain('Three');
+    expect(lis[0].textContent?.trim()).toContain('Perfil');
   });
 
   it('renders items with icon containers', () => {
@@ -240,6 +240,79 @@ describe('DcxNgListComponent', () => {
       fixture.detectChanges();
       const lis = host().querySelectorAll('.dcx-list-item');
       expect(lis.length).toBe(0);
+    });
+  });
+
+  describe('accesibilidad (WCAG)', () => {
+    const container = (): HTMLElement =>
+      host().querySelector('.dcx-list-container') as HTMLElement;
+    const items = (): HTMLElement[] =>
+      Array.from(host().querySelectorAll('.dcx-list-item'));
+
+    it('should default the container aria-label to "Lista de elementos" and be configurable', () => {
+      fixture.componentRef.setInput('items', SIMPLE_LIST_ITEMS);
+      fixture.detectChanges();
+      expect(component.ariaLabel()).toBe('Lista de elementos');
+      expect(container().getAttribute('aria-label')).toBe('Lista de elementos');
+
+      fixture.componentRef.setInput('ariaLabel', 'Opciones disponibles');
+      fixture.detectChanges();
+      expect(container().getAttribute('aria-label')).toBe('Opciones disponibles');
+    });
+
+    it('should expose aria-selected on selected items when selectable', () => {
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
+      fixture.componentRef.setInput('selectable', true);
+      fixture.detectChanges();
+
+      expect(items()[0].getAttribute('aria-selected')).toBe('false');
+
+      component.onItemClick(SELECTABLE_LIST_ITEMS[0], 0);
+      fixture.detectChanges();
+      expect(items()[0].getAttribute('aria-selected')).toBe('true');
+      expect(items()[1].getAttribute('aria-selected')).toBe('false');
+    });
+
+    it('should NOT set aria-selected when not selectable', () => {
+      fixture.componentRef.setInput('items', SIMPLE_LIST_ITEMS);
+      fixture.detectChanges();
+      expect(items()[0].getAttribute('aria-selected')).toBeNull();
+    });
+
+    it('should NOT set aria-selected when externalSelection is enabled', () => {
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
+      fixture.componentRef.setInput('selectable', true);
+      fixture.componentRef.setInput('externalSelection', true);
+      fixture.detectChanges();
+      expect(items()[0].getAttribute('aria-selected')).toBeNull();
+    });
+
+    it('should not set aria-multiselectable by default', () => {
+      fixture.componentRef.setInput('items', SIMPLE_LIST_ITEMS);
+      fixture.detectChanges();
+      expect(container().hasAttribute('aria-multiselectable')).toBe(false);
+    });
+
+    it('should reflect multiselectable as aria-multiselectable on the container', () => {
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
+      fixture.componentRef.setInput('listRole', 'listbox');
+      fixture.componentRef.setInput('multiselectable', true);
+      fixture.detectChanges();
+      expect(container().getAttribute('aria-multiselectable')).toBe('true');
+    });
+
+    it('should expose aria-selected via isItemSelected predicate in external mode', () => {
+      fixture.componentRef.setInput('items', SELECTABLE_LIST_ITEMS);
+      fixture.componentRef.setInput('selectable', true);
+      fixture.componentRef.setInput('externalSelection', true);
+      fixture.componentRef.setInput(
+        'isItemSelected',
+        (_item: unknown, index: number) => index === 1,
+      );
+      fixture.detectChanges();
+
+      expect(items()[0].getAttribute('aria-selected')).toBe('false');
+      expect(items()[1].getAttribute('aria-selected')).toBe('true');
     });
   });
 });

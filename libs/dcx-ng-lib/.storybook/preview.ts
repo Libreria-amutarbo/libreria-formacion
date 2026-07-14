@@ -36,7 +36,7 @@ const preview: Preview = {
       const currentGlobals = context.globals;
 
       channel.emit('MANAGER_THEME_CHANGE', {
-        theme: currentGlobals['theme'] || 'dark',
+        theme: currentGlobals['theme'] || 'light',
       });
 
       return story();

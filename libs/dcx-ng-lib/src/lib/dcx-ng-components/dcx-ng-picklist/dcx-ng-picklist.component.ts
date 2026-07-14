@@ -100,6 +100,13 @@ export class DcxNgPickListComponent {
   readonly focusedSourceIndex = signal(0);
   readonly focusedTargetIndex = signal(0);
 
+  // Predicados de selección por lado, con referencia estable, para que
+  // dcx-ng-list refleje aria-selected en el <li role="option"> (selección externa).
+  readonly isSourceItemSelected = (item: DcxPickListItem): boolean =>
+    this.isSelected(item, 'source');
+  readonly isTargetItemSelected = (item: DcxPickListItem): boolean =>
+    this.isSelected(item, 'target');
+
   readonly pickListClasses = computed(() => {
     const base = 'dcx-picklist';
 

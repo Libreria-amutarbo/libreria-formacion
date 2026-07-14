@@ -284,7 +284,7 @@ describe('DcxNgInputOtpComponent', () => {
     expect(context.attrs.type).toBe('password');
     expect(context.attrs.inputmode).toBe('numeric');
     expect(context.attrs.placeholder).toBe('•');
-    expect(context.attrs.ariaLabel).toBe('OTP 2 of 4');
+    expect(context.attrs.ariaLabel).toBe('Dígito 2 de 4');
     expect(context.attrs.value).toBe('1');
     expect(typeof context.events.input).toBe('function');
     expect(typeof context.events.keydown).toBe('function');
@@ -313,5 +313,52 @@ describe('DcxNgInputOtpComponent', () => {
     expect(fixture.nativeElement.classList.contains('dcx-input-otp--invalid')).toBe(
       true,
     );
+  });
+
+  describe('accesibilidad (WCAG)', () => {
+    const getGroup = (): HTMLElement =>
+      fixture.nativeElement.querySelector('.dcx-input-otp__group');
+    const getError = (): HTMLElement | null =>
+      fixture.nativeElement.querySelector('.dcx-input-otp__error');
+
+    it('should default the group aria-label to Spanish', () => {
+      expect(component.ariaLabel()).toBe('Código de un solo uso');
+      expect(getGroup().getAttribute('aria-label')).toBe('Código de un solo uso');
+    });
+
+    it('should build per-box aria-label in Spanish ("Dígito N de M")', () => {
+      fixture.componentRef.setInput('length', 6);
+      fixture.detectChanges();
+      expect(component.getAriaLabel(0)).toBe('Dígito 1 de 6');
+      expect(getInputs()[2].getAttribute('aria-label')).toBe('Dígito 3 de 6');
+    });
+
+    it('should render a role="alert" error only when invalid and errorMessage set', () => {
+      expect(getError()).toBeNull();
+
+      fixture.componentRef.setInput('errorMessage', 'Código incorrecto');
+      fixture.detectChanges();
+      expect(getError()).toBeNull(); // aún no es inválido
+
+      fixture.componentRef.setInput('invalid', true);
+      fixture.detectChanges();
+      const error = getError();
+      expect(error).toBeTruthy();
+      expect(error?.getAttribute('role')).toBe('alert');
+      expect(error?.textContent).toContain('Código incorrecto');
+    });
+
+    it('should link the group to the error via aria-describedby', () => {
+      fixture.componentRef.setInput('invalid', true);
+      fixture.componentRef.setInput('errorMessage', 'Código incorrecto');
+      fixture.detectChanges();
+      expect(component.describedBy()).toBe(component.errorId);
+      expect(getGroup().getAttribute('aria-describedby')).toBe(component.errorId);
+    });
+
+    it('should not set aria-describedby when there is no error', () => {
+      expect(component.describedBy()).toBeNull();
+      expect(getGroup().getAttribute('aria-describedby')).toBeNull();
+    });
   });
 });

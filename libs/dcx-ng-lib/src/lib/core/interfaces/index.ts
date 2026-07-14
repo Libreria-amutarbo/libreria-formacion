@@ -32,3 +32,5 @@ export * from './editor';
 export * from './stepper';
 export * from './badge';
 export * from './skeleton';
+export * from './spinner';
+export * from './radio';

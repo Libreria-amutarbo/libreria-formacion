@@ -1,0 +1,128 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/WebComponents/Accordion/Documentation" />
+
+# Accordion
+
+El componente `dcx-web-accordion` es un contenedor colapsable que permite organizar la información en paneles expandibles. Ayuda a reducir la sobrecarga de información en la página mostrando solo las cabeceras principales y permitiendo al usuario decidir qué secciones desea leer.
+
+---
+
+## Cuándo usarlo
+
+- Preguntas frecuentes (FAQs).
+- Secciones de configuración detallada o avanzada.
+- Formularios divididos por pasos u opciones lógicas.
+- Agrupar contenido extenso bajo títulos claros y escaneables.
+
+---
+
+## API del Componente
+
+### Propiedades y Atributos
+
+| Propiedad | Atributo | Tipo | Default | Descripción |
+|-----------|----------|------|---------|-------------|
+| `items` | - | `DcxWebAccordionItem[]` | `[]` | Array de ítems que se renderizarán en el acordeón |
+| `transition` | `transition` | `'smooth' \| 'fast' \| 'slow' \| 'none'` | `'smooth'` | Controla el comportamiento y velocidad de la animación al abrir/cerrar |
+| `closeOthers` | `close-others` | `boolean` | `true` | Si es `true`, al expandir un panel se colapsan automáticamente los demás |
+| `expandedIds` | - | `string[]` | `[]` | Lista de identificadores de los ítems que estarán expandidos inicialmente |
+| `variant` | `variant` | `'default' \| 'flush'` | `'default'` | Variante visual. `flush` elimina bordes exteriores y bordes redondeados |
+| `ariaLabel` | `aria-label` | `string \| null` | `null` | Etiqueta accesible (`aria-label`) para el elemento raíz del acordeón |
+
+### Interfaz del Ítem (`DcxWebAccordionItem`)
+
+| Propiedad | Tipo | Descripción |
+|-----------|------|-------------|
+| `id` | `string` | Identificador único del ítem (requerido) |
+| `title` | `string` | Título principal visible en la cabecera (requerido) |
+| `description` | `string` | *(Opcional)* Subtítulo o texto descriptivo bajo el título |
+| `content` | `string` | *(Opcional)* Contenido textual o HTML plano del panel |
+| `contentTemplate` | `() => TemplateResult` | *(Opcional)* Función que devuelve una plantilla Lit para renderizar contenido interactivo/complejo |
+| `disabled` | `boolean` | Deshabilita por completo la interacción y el foco con el panel |
+| `disabledContent` | `boolean` | Muestra el panel abierto pero deshabilita la interacción con el contenido interno |
+| `expanded` | `boolean` | Determina si el ítem debe iniciarse en estado expandido (si no se usa `expandedIds`) |
+| `icon` | `string` | *(Opcional)* Nombre del icono a mostrar a la izquierda del título |
+| `maxContentHeight` | `string` | *(Opcional)* Altura máxima del panel (ej. `'200px'`) que activa scroll interno |
+
+### Eventos
+
+El componente emite eventos personalizados cuando el usuario interactúa con él:
+
+| Evento | Detalle (`event.detail`) | Descripción |
+|--------|--------------------------|-------------|
+| `itemExpanded` | `DcxWebAccordionItem` | Se emite cuando se abre un panel |
+| `itemCollapsed` | `DcxWebAccordionItem` | Se emite cuando se cierra un panel |
+| `itemToggled` | `DcxWebAccordionItem` | Se emite al realizar cualquier acción de toggle (abrir o cerrar) |
+
+---
+
+## Accesibilidad (Teclado)
+
+El componente cumple con los estándares WAI-ARIA para acordeones:
+- `ArrowDown`: Mueve el foco a la cabecera del siguiente panel activo.
+- `ArrowUp`: Mueve el foco a la cabecera del panel activo anterior.
+- `Home`: Mueve el foco a la primera cabecera activa del acordeón.
+- `End`: Mueve el foco a la última cabecera activa del acordeón.
+- `Enter` / `Space`: Ejecuta la acción de expandir/colapsar el panel enfocado.
+
+---
+
+## Ejemplos de uso
+
+### Uso básico (HTML estático)
+
+```html
+<dcx-web-accordion id="mi-acordeon"></dcx-web-accordion>
+
+<script>
+  const acordeon = document.getElementById('mi-acordeon');
+  acordeon.items = [
+    { id: '1', title: 'Sección 1', content: 'Contenido de la sección 1' },
+    { id: '2', title: 'Sección 2', content: 'Contenido de la sección 2' }
+  ];
+</script>
+```
+
+### Contenido dinámico con Plantillas (Lit / LitElement)
+
+```typescript
+import { html } from 'lit';
+
+const items = [
+  {
+    id: '1',
+    title: 'Mi Formulario',
+    contentTemplate: () => html`
+      <form>
+        <label>Nombre:</label>
+        <input type="text" />
+        <button type="submit">Enviar</button>
+      </form>
+    `
+  }
+];
+
+// Asignar al componente
+// <dcx-web-accordion .items=${items}></dcx-web-accordion>
+```
+
+### API de Control Externo (Métodos públicos)
+
+El componente expone métodos para que puedas controlar el estado de los paneles mediante JavaScript:
+
+```javascript
+const acc = document.querySelector('dcx-web-accordion');
+
+// Abrir un panel específico por ID
+acc.expandItemById('panel-1');
+
+// Cerrar un panel específico por ID
+acc.collapseItemById('panel-1');
+
+// Abrir todos los paneles activos simultáneamente (ignora 'closeOthers')
+acc.expandAll();
+
+// Cerrar todos los paneles activos
+acc.collapseAll();
+```

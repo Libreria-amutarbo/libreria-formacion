@@ -67,6 +67,10 @@
   border-bottom: 1px solid var(--dcx-picklist-panel-border);
 }
 
+.dcx-picklist__list-wrap {
+  position: relative;
+}
+
 .dcx-picklist__list {
   display: flex;
   flex-direction: column;
@@ -179,24 +183,17 @@
 }
 
 .dcx-picklist__empty {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 9rem;
+  margin: 0;
+  padding: var(--sp-4, 16px);
   color: var(--dcx-picklist-muted);
   font-size: var(--fs-sm, 12px);
   text-align: center;
-}
-
-.dcx-picklist__visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  pointer-events: none;
 }
 
 .cdk-drag-preview {

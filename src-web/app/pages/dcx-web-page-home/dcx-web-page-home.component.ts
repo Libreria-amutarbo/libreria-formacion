@@ -10,7 +10,14 @@ interface HomeCard {
 const ROUTE_ICONS: Record<string, string> = {
   badge: 'app-indicator',
   card: 'card-heading',
+  divider: 'dash',
+  breadcrumb: 'signpost-split',
+  'context-menu': 'menu-button-wide',
+  accordion: 'list',
   button: 'hand-index-thumb',
+  drawer: 'layout-sidebar-inset',
+  chip: 'tag',
+  icon: 'star',
 };
 
 @customElement('dcx-web-page-home')
@@ -29,9 +36,54 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['card'],
     },
     {
+      route: 'divider',
+      name: 'Divider',
+      icon: ROUTE_ICONS['divider'],
+    },
+    {
+      route: 'checkbox',
+      name: 'Checkbox',
+      icon: ROUTE_ICONS['checkbox'],
+    },
+    {
+      route: 'breadcrumb',
+      name: 'Breadcrumb',
+      icon: ROUTE_ICONS['breadcrumb'],
+    },
+    {
+      route: 'context-menu',
+      name: 'Context Menu',
+      icon: ROUTE_ICONS['context-menu'],
+    },
+    {
+      route: 'accordion',
+      name: 'Accordion',
+      icon: ROUTE_ICONS['accordion'],
+    },
+    {
       route: 'button',
       name: 'Button',
       icon: ROUTE_ICONS['button'],
+    },
+    {
+      route: 'drawer',
+      name: 'Drawer',
+      icon: ROUTE_ICONS['drawer'],
+    },
+    {
+      route: 'chip',
+      name: 'Chip',
+      icon: ROUTE_ICONS['chip'],
+    },
+    {
+      route: 'icon',
+      name: 'Icon',
+      icon: ROUTE_ICONS['icon'],
+    },
+    {
+      route: 'input',
+      name: 'Input',
+      icon: ROUTE_ICONS['input'],
     },
   ];
 
@@ -129,7 +181,7 @@ export class DcxWebPageHome extends LitElement {
   private _filteredCards() {
     if (!this._searchTerm) return this._cards;
     return this._cards.filter(card =>
-      `${card.name} ${card.route}`.toLowerCase().includes(this._searchTerm)
+      `${card.name} ${card.route}`.toLowerCase().includes(this._searchTerm),
     );
   }
 
@@ -154,11 +206,13 @@ export class DcxWebPageHome extends LitElement {
               <div class="card-name">${card.name}</div>
               <div class="card-file">dcx-web-page-${card.route}.html</div>
             </a>
-          `
+          `,
         )}
-        ${filtered.length === 0
-          ? html`<div class="no-results">No hay componentes que coincidan.</div>`
-          : ''}
+        ${
+          filtered.length === 0
+            ? html`<div class="no-results">No hay componentes que coincidan.</div>`
+            : ''
+        }
       </div>
     `;
   }

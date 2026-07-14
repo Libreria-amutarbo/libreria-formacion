@@ -1,38 +1,42 @@
-<div
-  [ngClass]="['message__container', messageData().role]"
-  [attr.aria-role]="messageData().role"
->
-  @if (icon()) {
-    <dcx-ng-icon
-      class="icon__container"
-      [name]="iconName() || messageData().icon || 'info-circle'"
-      size="m"
-      color="inherit"
-    ></dcx-ng-icon>
-  }
-
-  <div class="message__container__body">
-    @if (title()) {
-      <h3 class="message__container__title">{{ title() }}</h3>
+@if (!dismissed()) {
+  <div
+    [ngClass]="['message__container', type()]"
+    [attr.role]="announce() ? messageData().role : null"
+    [attr.aria-live]="announce() ? messageData().ariaLive : null"
+  >
+    @if (icon()) {
+      <dcx-ng-icon
+        class="icon__container"
+        [name]="iconName() || messageData().icon"
+        size="m"
+        color="inherit"
+      ></dcx-ng-icon>
     }
 
-    <p class="message__container__paragraph">{{ body() }}</p>
+    <div class="message__container__body">
+      @if (title()) {
+        <p class="message__container__title">{{ title() }}</p>
+      }
 
-    @if (link()) {
-      <a [href]="link()" class="message__container__link">{{link()}}</a>
+      <p class="message__container__paragraph">{{ body() }}</p>
+
+      @if (link()) {
+        <a [href]="link()" class="message__container__link">{{ link() }}</a>
+      }
+    </div>
+
+    @if (showClose()) {
+      <dcx-ng-button
+        class="icon__container__close"
+        type="button"
+        variant="icon-only"
+        size="m"
+        icon
+        iconName="x-lg"
+        iconSize="m"
+        ariaLabel="Cerrar"
+        (buttonClick)="onClose()"
+      ></dcx-ng-button>
     }
   </div>
-
-  @if (showClose()) {
-    <dcx-ng-button
-      class="icon__container__close"
-      type="button"
-      variant="icon-only"
-      size="m"
-      icon
-      iconName="x-lg"
-      iconSize="m"
-      ariaLabel="Cerrar"
-    ></dcx-ng-button>
-  }
-</div>
+}

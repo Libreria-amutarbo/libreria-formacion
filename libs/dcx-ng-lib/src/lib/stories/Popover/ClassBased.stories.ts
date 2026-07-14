@@ -18,7 +18,11 @@ import {
       <div #buttonContainer style="display: inline-block;">
         <dcx-ng-button
           [label]="buttonVariant() === 'icon-only' ? '' : buttonLabel()"
+          [ariaLabel]="buttonVariant() === 'icon-only' ? buttonLabel() : ''"
           [variant]="buttonVariant()"
+          ariaHaspopup="dialog"
+          [ariaExpanded]="popover.isOpen()"
+          [ariaControls]="popover.panelId"
           (buttonClick)="onButtonClick($event)"
         >
           @if (buttonVariant() === 'icon-only') {
@@ -27,7 +31,12 @@ import {
         </dcx-ng-button>
       </div>
 
-      <dcx-ng-popover #popover (opened)="opened.emit()" (closed)="closed.emit()">
+      <dcx-ng-popover
+        #popover
+        [ariaLabel]="popoverTitle() || 'Contenido contextual'"
+        (opened)="opened.emit()"
+        (closed)="closed.emit()"
+      >
         @if (popoverTitle()) { <h3>{{ popoverTitle() }}</h3> }
         @if (popoverContent()) { <p>{{ popoverContent() }}</p> }
         <ng-content></ng-content>
@@ -45,7 +54,7 @@ class PopoverStoryWrapperComponent {
   readonly opened = output<void>();
   readonly closed = output<void>();
 
-  popover = viewChild.required<DcxNgPopoverComponent>('popover');
+  popover = viewChild<DcxNgPopoverComponent>('popover');
   buttonContainer = viewChild.required<any>('buttonContainer');
 
   onButtonClick(event: Event): void {
@@ -55,8 +64,21 @@ class PopoverStoryWrapperComponent {
     const container = this.buttonContainer();
     if (container) {
       const targetEl = container.nativeElement || container;
-      this.popover().toggle(event, targetEl);
+      this.popover()?.toggle(event, targetEl);
     }
+  }
+
+  // Métodos delegados en el popover (documentados en Storybook).
+  toggle(event: Event, targetElement?: HTMLElement): void {
+    this.popover()?.toggle(event, targetElement);
+  }
+
+  show(event?: Event, targetElement?: HTMLElement): void {
+    this.popover()?.show(event, targetElement);
+  }
+
+  hide(options?: { returnFocus?: boolean }): void {
+    this.popover()?.hide(options);
   }
 }
 
@@ -157,6 +179,33 @@ const meta: Meta<PopoverStoryWrapperComponent> = {
         category: 'Eventos',
         type: { summary: '() => void' },
         defaultValue: { summary: '-' },
+      },
+    },
+    toggle: {
+      name: 'toggle()',
+      control: false,
+      description: 'Alterna la apertura del popover para el elemento disparador.',
+      table: {
+        category: 'Métodos',
+        type: { summary: '(event: Event, target?: HTMLElement) => void' },
+      },
+    },
+    show: {
+      name: 'show()',
+      control: false,
+      description: 'Abre el popover y lo posiciona respecto al disparador.',
+      table: {
+        category: 'Métodos',
+        type: { summary: '(event?: Event, target?: HTMLElement) => void' },
+      },
+    },
+    hide: {
+      name: 'hide()',
+      control: false,
+      description: 'Cierra el popover (devuelve el foco al disparador por defecto).',
+      table: {
+        category: 'Métodos',
+        type: { summary: '(options?: { returnFocus?: boolean }) => void' },
       },
     },
   },
