@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DcxNgToastService } from '@dcx-ng-components/dcx-ng-lib';
 import { DcxNgPageToastComponent } from './dcx-ng-page-toast.component';
 
 describe('DcxNgPageToastComponent', () => {
     let component: DcxNgPageToastComponent;
     let fixture: ComponentFixture<DcxNgPageToastComponent>;
+    let toastService: DcxNgToastService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -12,6 +14,7 @@ describe('DcxNgPageToastComponent', () => {
 
         fixture = TestBed.createComponent(DcxNgPageToastComponent);
         component = fixture.componentInstance;
+        toastService = TestBed.inject(DcxNgToastService);
         fixture.detectChanges();
     });
 
@@ -19,22 +22,27 @@ describe('DcxNgPageToastComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should add a toast when showInfoToast is called', () => {
+    it('should add a toast to the service when showInfoToast is called', () => {
         component.showInfoToast();
 
-        expect(component.activeCount()).toBe(1);
-        expect(component.activeToasts()[0]?.type).toBe('info');
+        expect(toastService.toasts().length).toBe(1);
+        expect(toastService.toasts()[0].type).toBe('info');
     });
 
-    it('should clear all toasts', () => {
+    it('should add a non-dismissible toast when showNotDismissibleToast is called', () => {
+        component.showNotDismissibleToast();
+
+        expect(toastService.toasts()[0].dismissible).toBe(false);
+    });
+
+    it('should clear all toasts via the service', () => {
         component.showInfoToast();
         component.showWarningToast();
 
-        expect(component.activeCount()).toBe(2);
+        expect(toastService.toasts().length).toBe(2);
 
         component.clearToasts();
 
-        expect(component.activeCount()).toBe(0);
-        expect(component.lastEvent()).toContain('limpiaron');
+        expect(toastService.toasts().length).toBe(0);
     });
 });

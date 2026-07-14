@@ -1,0 +1,22 @@
+<div
+  class="dcx-toast-outlet"
+  [class]="'dcx-toast-outlet--' + position()"
+  aria-live="polite"
+>
+  @for (toast of toasts(); track toast.id) {
+    <dcx-ng-toast
+      [message]="toast.message"
+      [type]="toast.type || 'info'"
+      [autoDismiss]="toast.autoDismiss ?? false"
+      [durationMs]="toast.durationMs ?? 5000"
+      [iconName]="toast.iconName || ''"
+      [actionLabel]="toast.actionLabel || ''"
+      [actionIconName]="toast.actionIconName || ''"
+      [actionAriaLabel]="toast.actionAriaLabel || ''"
+      [dismissible]="toast.dismissible ?? true"
+      [announce]="false"
+      (actionClick)="onDismiss(toast.id)"
+      (dismissed)="onDismiss(toast.id)"
+    ></dcx-ng-toast>
+  }
+</div>
