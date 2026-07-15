@@ -41,5 +41,5 @@ export const CAROUSEL_WEB_MIXED_ITEMS = [
 export const CAROUSEL_CHECKBOX_OPTIONS_DEFAULT = [
   { id: '1', value: true, label: 'Opción Básica (Web Component)' },
   { id: '2', value: false, label: 'Opción Pro (Web Component)' },
-  { id: '3', value: null, label: 'Opción Premium (Web Component)' }
+  { id: '3', value: null, label: 'Opción Premium (Web Component)' },
 ];

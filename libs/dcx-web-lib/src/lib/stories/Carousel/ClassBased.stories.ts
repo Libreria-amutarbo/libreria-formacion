@@ -17,9 +17,11 @@ const defaultItemTemplate = (data: any) => html`
     style="width: 100%; box-sizing: border-box;"
   >
     <div slot="content">
-      ${data.tag
-        ? html`<dcx-web-chip label="${data.tag}" size="s" style="margin-bottom: var(--sp-2, 8px); display: inline-block;"></dcx-web-chip>`
-        : nothing}
+      ${
+        data.tag
+          ? html`<dcx-web-chip label="${data.tag}" size="s" style="margin-bottom: var(--sp-2, 8px); display: inline-block;"></dcx-web-chip>`
+          : nothing
+      }
       <p style="margin: 0; font-size: var(--fs-base, 14px); color: var(--text-muted, #696e75);">${data.description}</p>
     </div>
   </dcx-web-card>
@@ -43,8 +45,16 @@ let checkboxOptionsState = [...CAROUSEL_CHECKBOX_OPTIONS_DEFAULT];
 const mixedItemTemplate = (data: any) => {
   if (data.type === 'accordion') {
     const accordionItems = [
-      { id: '1', title: 'Panel 1 (Web Component)', content: 'Contenido del panel 1 hecho con Web Component Accordion.' },
-      { id: '2', title: 'Panel 2 (Web Component)', content: 'Contenido del panel 2 hecho con Web Component Accordion.' }
+      {
+        id: '1',
+        title: 'Panel 1 (Web Component)',
+        content: 'Contenido del panel 1 hecho con Web Component Accordion.',
+      },
+      {
+        id: '2',
+        title: 'Panel 2 (Web Component)',
+        content: 'Contenido del panel 2 hecho con Web Component Accordion.',
+      },
     ];
     return html`
       <div style="width: 100%; box-sizing: border-box; text-align: left;">
@@ -139,7 +149,8 @@ const meta: Meta = {
     },
     autoplayInterval: {
       control: { type: 'number', min: 0, step: 500 },
-      description: 'Tiempo en milisegundos para el cambio automático de slide (0 para desactivar).',
+      description:
+        'Tiempo en milisegundos para el cambio automático de slide (0 para desactivar).',
       table: {
         category: 'Atributos',
         defaultValue: { summary: '0' },
@@ -147,7 +158,8 @@ const meta: Meta = {
     },
     ariaLabel: {
       control: 'text',
-      description: 'Nombre accesible de la región del carousel (atributo aria-label).',
+      description:
+        'Nombre accesible de la región del carousel (atributo aria-label).',
       table: {
         category: 'Atributos',
         defaultValue: { summary: 'Carousel' },
@@ -171,7 +183,9 @@ const meta: Meta = {
       margin: auto;
       padding: var(--sp-5, 20px);
     `;
-    const itemTpl = args.itemTemplate || (isVertical ? verticalItemTemplate : defaultItemTemplate);
+    const itemTpl =
+      args.itemTemplate ||
+      (isVertical ? verticalItemTemplate : defaultItemTemplate);
 
     return html`
       <div style=${containerStyle}>

@@ -21,8 +21,9 @@ export const template = (context: DcxWebCarousel) => {
       </div>
 
       <div class="dcx-carousel__content">
-        ${context.showNavigatorButtons && !context.isPrevDisabled
-          ? html`
+        ${
+          context.showNavigatorButtons && !context.isPrevDisabled
+            ? html`
               <dcx-web-button
                 variant="secondary"
                 size="s"
@@ -33,7 +34,8 @@ export const template = (context: DcxWebCarousel) => {
                 <dcx-web-icon slot="dcx-icon" name="${context.currentIcon}"></dcx-web-icon>
               </dcx-web-button>
             `
-          : nothing}
+            : nothing
+        }
 
         <div class="dcx-carousel__container">
           <div
@@ -47,19 +49,22 @@ export const template = (context: DcxWebCarousel) => {
                   aria-hidden="${index !== context.currentPage ? 'true' : 'false'}"
                   aria-label="Diapositiva ${index + 1} de ${context.totalItems}"
                 >
-                  ${context.itemTemplate
-                    ? context.itemTemplate(item, index)
-                    : typeof item === 'object'
-                    ? html`<pre>${JSON.stringify(item, null, 2)}</pre>`
-                    : item}
+                  ${
+                    context.itemTemplate
+                      ? context.itemTemplate(item, index)
+                      : typeof item === 'object'
+                        ? html`<pre>${JSON.stringify(item, null, 2)}</pre>`
+                        : item
+                  }
                 </div>
-              `
+              `,
             )}
           </div>
         </div>
 
-        ${context.showNavigatorButtons && !context.isNextDisabled
-          ? html`
+        ${
+          context.showNavigatorButtons && !context.isNextDisabled
+            ? html`
               <dcx-web-button
                 variant="secondary"
                 size="s"
@@ -70,11 +75,13 @@ export const template = (context: DcxWebCarousel) => {
                 <dcx-web-icon slot="dcx-icon" name="${context.nextIcon}"></dcx-web-icon>
               </dcx-web-button>
             `
-          : nothing}
+            : nothing
+        }
       </div>
 
-      ${context.showIndicatorDots
-        ? html`
+      ${
+        context.showIndicatorDots
+          ? html`
             <div class="dcx-carousel__indicators" role="group" aria-label="Indicadores de diapositiva">
               ${context.value.map(
                 (_, index) => html`
@@ -87,11 +94,12 @@ export const template = (context: DcxWebCarousel) => {
                     aria-pressed="${index === context.currentPage ? 'true' : 'false'}"
                     @click="${() => context.setPage(index)}"
                   ></dcx-web-button>
-                `
+                `,
               )}
             </div>
           `
-        : nothing}
+          : nothing
+      }
     </div>
   `;
 };

@@ -37,7 +37,9 @@ describe('DcxWebCarousel', () => {
       element.value = carouselItems;
       await element.updateComplete;
 
-      const slides = element.shadowRoot?.querySelectorAll('.dcx-carousel__item');
+      const slides = element.shadowRoot?.querySelectorAll(
+        '.dcx-carousel__item',
+      );
       expect(slides?.length).toBe(3);
       expect(slides?.[0]?.getAttribute('aria-hidden')).toBe('false');
       expect(slides?.[1]?.getAttribute('aria-hidden')).toBe('true');
@@ -56,7 +58,9 @@ describe('DcxWebCarousel', () => {
       element.value = carouselItems;
       await element.updateComplete;
 
-      const indicators = element.shadowRoot?.querySelectorAll('.dcx-carousel__indicator');
+      const indicators = element.shadowRoot?.querySelectorAll(
+        '.dcx-carousel__indicator',
+      );
       expect(indicators?.length).toBe(3);
       expect(indicators?.[0]?.getAttribute('aria-pressed')).toBe('true');
       expect(indicators?.[1]?.getAttribute('aria-pressed')).toBe('false');
@@ -91,7 +95,9 @@ describe('DcxWebCarousel', () => {
       element.value = carouselItems;
       await element.updateComplete;
 
-      const indicators = element.shadowRoot?.querySelectorAll('.dcx-carousel__indicator');
+      const indicators = element.shadowRoot?.querySelectorAll(
+        '.dcx-carousel__indicator',
+      );
       expect(indicators?.length).toBe(3);
 
       indicators?.[2]?.dispatchEvent(

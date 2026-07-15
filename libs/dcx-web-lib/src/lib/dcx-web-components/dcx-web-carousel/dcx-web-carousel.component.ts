@@ -8,13 +8,20 @@ import type { DcxCarouselOrientation } from '../../core/interfaces/carousel';
 export class DcxWebCarousel extends LitElement {
   @property({ type: Array }) accessor value: any[] = [];
   @property({ type: Boolean }) accessor circular = false;
-  @property({ type: String }) accessor orientation: DcxCarouselOrientation = 'horizontal';
-  @property({ type: Boolean, attribute: 'show-navigators' }) accessor showNavigators = true;
-  @property({ type: Boolean, attribute: 'show-indicators' }) accessor showIndicators = true;
-  @property({ type: Number, attribute: 'autoplay-interval' }) accessor autoplayInterval = 0;
-  @property({ type: String, attribute: 'aria-label' }) override accessor ariaLabel = 'Carousel';
+  @property({ type: String }) accessor orientation: DcxCarouselOrientation =
+    'horizontal';
+  @property({ type: Boolean, attribute: 'show-navigators' })
+  accessor showNavigators = true;
+  @property({ type: Boolean, attribute: 'show-indicators' })
+  accessor showIndicators = true;
+  @property({ type: Number, attribute: 'autoplay-interval' })
+  accessor autoplayInterval = 0;
+  @property({ type: String, attribute: 'aria-label' })
+  override accessor ariaLabel = 'Carousel';
 
-  @property({ attribute: false }) accessor itemTemplate: ((item: any, index: number) => any) | undefined = undefined;
+  @property({ attribute: false }) accessor itemTemplate:
+    | ((item: any, index: number) => any)
+    | undefined = undefined;
 
   @state() accessor currentPage = 0;
 
@@ -117,7 +124,7 @@ export class DcxWebCarousel extends LitElement {
         detail: { page: this.currentPage },
         bubbles: true,
         composed: true,
-      })
+      }),
     );
   }
 
@@ -136,7 +143,7 @@ export class DcxWebCarousel extends LitElement {
         detail: { page: this.currentPage },
         bubbles: true,
         composed: true,
-      })
+      }),
     );
   }
 
@@ -147,7 +154,7 @@ export class DcxWebCarousel extends LitElement {
         detail: { page },
         bubbles: true,
         composed: true,
-      })
+      }),
     );
   }
 
