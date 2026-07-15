@@ -28,9 +28,8 @@ export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.compone
 export * from './lib/dcx-ng-components/dcx-ng-tabs/dcx-ng-tabs.component';
 export * from './lib/dcx-ng-components/dcx-ng-contextMenu/dcx-ng-contextMenu.component';
 export * from './lib/dcx-ng-components/dcx-ng-file-upload/dcx-ng-file-upload.component';
-export * from './lib/dcx-ng-components/dcx-ng-toast-component/dcx-ng-toast.component';
-export * from './lib/dcx-ng-components/dcx-ng-toast-component/dcx-ng-toast.service';
-export * from './lib/dcx-ng-components/dcx-ng-toast-outlet/dcx-ng-toast-outlet.component';
+export * from './lib/dcx-ng-components/dcx-ng-toast/dcx-ng-toast.component';
+export * from './lib/dcx-ng-components/dcx-ng-toast/dcx-ng-toast.service';
 export * from './lib/services/icon.service';
 export * from './lib/dcx-ng-components/dcx-ng-dialog/dcx-ng-dialog.component';
 export * from './lib/services/dialog.service';
