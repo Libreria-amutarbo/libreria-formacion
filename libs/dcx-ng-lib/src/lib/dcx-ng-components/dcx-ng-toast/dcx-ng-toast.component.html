@@ -1,0 +1,51 @@
+<div
+  class="dcx-toast-outlet"
+  [class]="'dcx-toast-outlet--' + position()"
+  aria-live="polite"
+>
+  @for (toast of toasts(); track toast.id) {
+    <div
+      [class]="getToastClasses(toast)"
+      [attr.role]="getRole(toast)"
+      (mouseenter)="pause(toast.id)"
+      (mouseleave)="resume(toast.id)"
+      (focusin)="pause(toast.id)"
+      (focusout)="resume(toast.id)"
+    >
+      <dcx-ng-message
+        class="dcx-toast__message-content"
+        [body]="toast.message"
+        [type]="getResolvedMessageType(toast)"
+        [icon]="true"
+        [iconName]="getResolvedIconName(toast)"
+        [announce]="false"
+      ></dcx-ng-message>
+
+      @if (hasAction(toast)) {
+        <dcx-ng-button
+          class="dcx-toast__action"
+          [label]="toast.actionLabel || ''"
+          [icon]="!!toast.actionIconName?.trim()"
+          [iconName]="toast.actionIconName || ''"
+          [ariaLabel]="getResolvedActionAriaLabel(toast)"
+          variant="text"
+          size="m"
+          (buttonClick)="onAction(toast)"
+        ></dcx-ng-button>
+      }
+
+      @if (isDismissible(toast)) {
+        <dcx-ng-button
+          class="dcx-toast__close"
+          icon
+          iconName="x-lg"
+          iconSize="m"
+          [ariaLabel]="'Cerrar'"
+          variant="icon-only"
+          size="s"
+          (buttonClick)="dismiss(toast.id)"
+        ></dcx-ng-button>
+      }
+    </div>
+  }
+</div>

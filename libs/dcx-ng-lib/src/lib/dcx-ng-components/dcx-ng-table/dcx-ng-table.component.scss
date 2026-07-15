@@ -1,0 +1,423 @@
+/* ================================
+   TIPOGRAFÍA — misma fuente que el resto de componentes de la librería.
+   Los elementos nativos (input/button) no heredan font-family del body por
+   defecto; al usar dcx-ng-input/dcx-ng-button/dcx-ng-badge esto ya viene
+   resuelto por esos componentes, pero se fija aquí también por si algún
+   consumidor añade contenido propio dentro de la tabla.
+   ================================ */
+
+:host {
+  display: block;
+  font-family: var(--ff-base, 'Inter', sans-serif);
+}
+
+/* ================================
+   ACCESIBILIDAD
+   ================================ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ================================
+   CARD (contenedor: toolbar + tabla + paginador)
+   ================================ */
+
+.dcx-table-card {
+  background: var(--bg-default, #ffffff);
+  border: 1px solid var(--border-light, #e5e7eb);
+  border-radius: var(--r-lg, 8px);
+  overflow: hidden;
+}
+
+/* ================================
+   TOOLBAR
+   ================================ */
+
+.dcx-table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-light, #e5e7eb);
+
+  &__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark, #2a2e33);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+}
+
+// El buscador usa dcx-ng-icon-field + dcx-ng-input (ya traen su propio
+// estilo/tipografía); aquí solo se fija el ancho para que coincida con el mock.
+.dcx-table-search {
+  width: 200px;
+
+  dcx-ng-icon-field {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* ================================
+   ESTRUCTURA BASE DE LA TABLA
+   ================================ */
+
+.dcx-table-wrapper {
+  width: 100%;
+  overflow: visible;
+
+  &.scroll {
+    overflow: auto;
+
+    &.has-open-menu {
+      overflow-x: auto;
+      overflow-y: visible;
+    }
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  &.grid td,
+  &.grid th {
+    border: 1px solid var(--border-light, #e5e7eb);
+  }
+
+  &.striped tbody tr:nth-child(odd) {
+    background: var(--bg-surface, #f4f5f7);
+  }
+}
+
+/* ================================
+   CABECERA
+   ================================ */
+
+thead {
+  background: var(--bg-surface, #f4f5f7);
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--bg-surface, #f4f5f7);
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted, #696e75);
+  white-space: nowrap;
+  border-bottom: 1.5px solid var(--border-light, #e5e7eb);
+
+  &.sortable {
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      color: var(--text-dark, #2a2e33);
+    }
+  }
+
+  &[aria-sort='ascending'],
+  &[aria-sort='descending'] {
+    color: var(--bg-primary, #0058ab);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--border-focus, #1db8f2);
+    outline-offset: -2px;
+  }
+}
+
+.th-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sort-indicator {
+  margin-left: 4px;
+  opacity: 0.4;
+
+  th[aria-sort='ascending'] &,
+  th[aria-sort='descending'] & {
+    opacity: 1;
+  }
+}
+
+/* ================================
+   SELECCIÓN DE FILAS
+   ================================ */
+
+.select-header,
+.select-cell {
+  width: 40px;
+  min-width: 40px;
+  padding: 12px !important;
+  text-align: center;
+}
+
+/* ================================
+   CELDAS DEL BODY (ESTILOS BASE)
+   ================================ */
+
+tbody td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text-dark, #2a2e33);
+  vertical-align: middle;
+  position: relative;
+  border-bottom: 1px solid var(--border-light, #e5e7eb);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-row:hover td {
+  background: var(--bg-hover, #f7f8fa);
+}
+
+.table-row.selected td {
+  background: var(--table-selected-bg, #eff6ff);
+}
+
+.empty-cell {
+  text-align: center;
+  color: var(--text-muted, #696e75);
+  padding: 1.5rem;
+}
+
+/* ================================
+   COLUMNA DE ÍNDICE
+   ================================ */
+
+.row-index-header,
+.row-index-cell {
+  width: 3rem;
+  min-width: 3rem;
+  text-align: center;
+  color: var(--text-muted, #696e75);
+  font-variant-numeric: tabular-nums;
+}
+
+.row-index-header {
+  padding: 0.5rem 0.25rem;
+  background: var(--bg-surface, #f4f5f7);
+}
+
+.row-index-cell {
+  padding: 0.5rem 0.25rem;
+}
+
+/* ================================
+   FILTROS DE COLUMNA
+   ================================ */
+
+// El input de filtro es un dcx-ng-input (ya trae su propio estilo); aquí
+// solo se posiciona debajo del texto de la cabecera y se neutraliza el
+// uppercase/letter-spacing de la cabecera para que el valor tecleado se
+// lea con tipografía normal.
+.filter-input-wrapper {
+  margin-top: 0.5rem;
+  width: 100%;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+
+/* ================================
+   CELDAS EDITABLES
+   ================================ */
+
+td.editable {
+  cursor: pointer;
+
+  &:hover::after {
+    content: '\270E';
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--bg-primary, #0058ab);
+    font-size: 0.875rem;
+    opacity: 0.6;
+  }
+}
+
+// dcx-ng-input ya trae su propio borde/foco; solo se resalta un poco más
+// el borde de foco para dejar claro que la celda está en modo edición.
+.cell-edit-input {
+  display: block;
+  width: 100%;
+
+  ::ng-deep .dcx-ng-input__control:focus-visible {
+    border-color: var(--border-focus, #1db8f2);
+    box-shadow: 0 0 0 3px rgba(29, 184, 242, 0.2);
+  }
+}
+
+/* ================================
+   COLUMNAS FROZEN
+   ================================ */
+
+thead th.frozen-left,
+thead th.frozen-right {
+  position: sticky;
+  z-index: 4;
+  background: var(--bg-surface, #f4f5f7);
+}
+
+tbody td.frozen-left,
+tbody td.frozen-right {
+  position: sticky;
+  z-index: 2;
+  background: inherit;
+}
+
+thead th.frozen-separator-left,
+tbody td.frozen-separator-left {
+  border-right: 2px solid var(--border-light, #cbd5e1);
+}
+
+thead th.frozen-separator-right,
+tbody td.frozen-separator-right {
+  border-left: 2px solid var(--border-light, #cbd5e1);
+}
+
+/* ================================
+   CELDA DE USUARIO (AVATAR + NOMBRE)
+   ================================ */
+
+.dcx-user-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+
+  &__avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+
+    &--initials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #dbeafe;
+      color: var(--bg-primary, #0058ab);
+      font-size: 11px;
+      font-weight: 600;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: 14px;
+    color: var(--text-dark, #2a2e33);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__subtitle {
+    font-size: 12px;
+    color: var(--text-muted, #696e75);
+  }
+}
+
+/* ================================
+   COLUMNA DE ACCIONES
+   ================================ */
+
+.actions-inline {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+/* ================================
+   MENÚ DE ACCIONES (DROPDOWN)
+   ================================ */
+
+.actions-menu {
+  position: relative;
+}
+
+.actions-dropdown {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  right: 0;
+  left: auto;
+  min-width: 12rem;
+  background: var(--bg-default, #ffffff);
+  border: 1px solid var(--border-light, #e5e7eb);
+  border-radius: var(--r-md, 6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  padding: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+tbody td.has-open-menu {
+  z-index: 9999 !important;
+}
+
+// Cada item del menú es un dcx-ng-button (variant="text") — se estira a
+// todo el ancho y se alinea a la izquierda, en vez del centrado por defecto.
+.action-menu-item {
+  display: block;
+  width: 100%;
+
+  ::ng-deep .dcx-ng-button {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  &.action-danger ::ng-deep .dcx-ng-button {
+    color: var(--color-error, #dc2626);
+
+    &:hover:not(:disabled) {
+      background: var(--color-error-bg, #fef2f2);
+    }
+  }
+}
+
+/* ================================
+   PAGINADOR
+   ================================ */
+
+.dcx-table-paginator-wrap {
+  border-top: 1px solid var(--border-light, #e5e7eb);
+  padding: 4px 8px;
+}

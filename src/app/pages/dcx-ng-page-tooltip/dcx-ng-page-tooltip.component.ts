@@ -1,16 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   DcxNgButtonComponent,
+  DcxNgIconComponent,
   DcxNgTooltipComponent,
-  DcxPosition,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
-  selector: 'dcx-ng-dcx-ng-page-tooltip',
+  selector: 'dcx-ng-page-tooltip',
   standalone: true,
-  imports: [CommonModule, DcxNgTooltipComponent, DcxNgButtonComponent],
+  imports: [DcxNgTooltipComponent, DcxNgButtonComponent, DcxNgIconComponent],
   templateUrl: './dcx-ng-page-tooltip.component.html',
   styleUrls: ['./dcx-ng-page-tooltip.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DcxNgPageTooltipComponent { }
+export class DcxNgPageTooltipComponent {}

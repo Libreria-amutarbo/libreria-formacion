@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { DcxNgPageButtonComponent } from './pages/dcx-ng-page-button/dcx-ng-page-button.component';
+import { DcxNgPageCalendarComponent } from './pages/dcx-ng-page-calendar/dcx-ng-page-calendar.component';
 import { DcxNgPageMessageComponent } from './pages/dcx-ng-page-message/dcx-ng-page-message.component';
 import { DcxNgPageToastComponent } from './pages/dcx-ng-page-toast/dcx-ng-page-toast.component';
 import { DcxNgPageIconComponent } from './pages/dcx-ng-page-icon/dcx-ng-page-icon.component';
@@ -24,6 +25,7 @@ import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page
 import { DcxNgPageDrawerComponent } from './pages/dcx-ng-page-drawer/dcx-ng-page-drawer.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
+import { DcxNgPageTableComponent } from './pages/dcx-ng-page-table/dcx-ng-page-table.component';
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
 import { DcxNgPageBreadcrumbComponent } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
 import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.component/dcx-ng-page-contextMenu.component';
@@ -54,8 +56,16 @@ export const appRoutes: Route[] = [
     component: DcxNgPageFullTableComponent,
   },
   {
+    path: APP_ROUTES.TABLE_V2,
+    component: DcxNgPageTableComponent,
+  },
+  {
     path: APP_ROUTES.BUTTON,
     component: DcxNgPageButtonComponent,
+  },
+  {
+    path: APP_ROUTES.CALENDAR,
+    component: DcxNgPageCalendarComponent,
   },
   {
     path: APP_ROUTES.MESSAGE,
