@@ -23,6 +23,7 @@ export * from './lib/dcx-ng-components/dcx-ng-iconField/dcx-ng-iconField.compone
 export * from './lib/dcx-ng-components/dcx-ng-list/dcx-ng-list.component';
 export * from './lib/dcx-ng-components/dcx-ng-toggle/dcx-ng-toggle.component';
 export * from './lib/dcx-ng-components/dcx-ng-datePicker/dcx-ng-datePicker.component';
+export * from './lib/dcx-ng-components/dcx-ng-calendar/dcx-ng-calendar.component';
 export * from './lib/dcx-ng-components/dcx-ng-checkbox/dcx-ng-checkbox.component';
 export * from './lib/dcx-ng-components/dcx-ng-accordion/dcx-ng-accordion.component';
 export * from './lib/dcx-ng-components/dcx-ng-tabs/dcx-ng-tabs.component';

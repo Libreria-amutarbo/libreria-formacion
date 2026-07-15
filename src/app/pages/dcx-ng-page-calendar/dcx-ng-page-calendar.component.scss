@@ -1,0 +1,57 @@
+.demo-section__body {
+  overflow-x: auto;
+}
+
+.dcx-calendar-page__grid-two {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: var(--sp-6, 24px);
+  align-items: start;
+}
+
+.dcx-calendar-page__range-stack,
+.dcx-calendar-page__mini-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.dcx-calendar-page__range-stack {
+  gap: var(--sp-3, 12px);
+}
+
+.dcx-calendar-page__mini-stack {
+  gap: var(--sp-4, 16px);
+}
+
+.dcx-calendar-page__info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dcx-calendar-page__info-card-title,
+.dcx-calendar-page__info-card-value {
+  margin: 0;
+  color: var(--text-dark, #2a2e33);
+}
+
+.dcx-calendar-page__info-card-title {
+  font-size: 13px;
+  font-weight: var(--fw-bold, 700);
+}
+
+.dcx-calendar-page__info-card-value {
+  font-size: var(--fs-xl, 20px);
+  line-height: 1.1;
+}
+
+@media (max-width: 1200px) {
+  .dcx-calendar-page__grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .dcx-calendar-page__mini-stack {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
