@@ -85,7 +85,7 @@ export const template = (context: DcxWebCarousel) => {
                     class="${context.indicatorClass(index)}"
                     aria-label="Ir a la diapositiva ${index + 1}"
                     aria-pressed="${index === context.currentPage ? 'true' : 'false'}"
-                    @buttonClick="${() => context.setPage(index)}"
+                    @click="${() => context.setPage(index)}"
                   ></dcx-web-button>
                 `
               )}

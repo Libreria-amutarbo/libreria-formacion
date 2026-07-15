@@ -1,34 +1,44 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { CAROUSEL_DEFAULT_ITEMS, CAROUSEL_MIXED_ITEMS } from '../../core/defaults/carousel';
+import {
+  CAROUSEL_DEFAULT_ITEMS,
+  CAROUSEL_MIXED_ITEMS,
+  CAROUSEL_WEB_MIXED_ITEMS,
+  CAROUSEL_CHECKBOX_OPTIONS_DEFAULT,
+} from '../../core/defaults/carousel';
+import { CAROUSEL_ORIENTATIONS } from '../../core/interfaces';
 import '../../../index';
 
 const defaultItemTemplate = (data: any) => html`
-  <div style="border: 1px solid var(--border-light, #d1d5db); border-radius: var(--r-lg, 8px); padding: var(--sp-4, 16px); background: var(--bg-default, #fff); width: 100%; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.06)); box-sizing: border-box;">
-    <dcx-web-chip label=${data.tag} size="s" style="margin-bottom: 8px; display: inline-block;"></dcx-web-chip>
-    <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: var(--text-dark, #2a2e33);">${data.title}</h3>
-    <p style="margin: 0; font-size: 14px; color: var(--text-muted, #696e75);">${data.description}</p>
-  </div>
+  <dcx-web-card
+    title="${data.title}"
+    .interactive=${true}
+    size="m"
+    style="width: 100%; box-sizing: border-box;"
+  >
+    <div slot="content">
+      ${data.tag
+        ? html`<dcx-web-chip label="${data.tag}" size="s" style="margin-bottom: var(--sp-2, 8px); display: inline-block;"></dcx-web-chip>`
+        : nothing}
+      <p style="margin: 0; font-size: var(--fs-base, 14px); color: var(--text-muted, #696e75);">${data.description}</p>
+    </div>
+  </dcx-web-card>
 `;
 
 const verticalItemTemplate = (data: any) => html`
-  <div style="border: 1px solid var(--border-light, #d1d5db); border-radius: var(--r-lg, 8px); padding: var(--sp-4, 16px); background: var(--bg-default, #fff); width: 100%; height: 100%; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.06)); box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;">
-    <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: var(--text-dark, #2a2e33);">${data.title}</h3>
-    <p style="margin: 0; font-size: 14px; color: var(--text-muted, #696e75);">${data.description}</p>
-  </div>
+  <dcx-web-card
+    title="${data.title}"
+    .interactive=${true}
+    size="m"
+    style="width: 100%; height: 100%; box-sizing: border-box;"
+  >
+    <div slot="content">
+      <p style="margin: 0; font-size: var(--fs-base, 14px); color: var(--text-muted, #696e75);">${data.description}</p>
+    </div>
+  </dcx-web-card>
 `;
 
-const CAROUSEL_WEB_MIXED_ITEMS = [
-  { id: 1, title: 'Sección Acordeón', type: 'accordion' },
-  { id: 2, title: 'Formulario de Opciones', type: 'checkbox' },
-  { id: 3, title: 'Etiquetas e Indicadores', type: 'chips-badges' },
-];
-
-let checkboxOptionsState = [
-  { id: '1', value: true, label: 'Opción Básica (Web Component)' },
-  { id: '2', value: false, label: 'Opción Pro (Web Component)' },
-  { id: '3', value: null, label: 'Opción Premium (Web Component)' }
-];
+let checkboxOptionsState = [...CAROUSEL_CHECKBOX_OPTIONS_DEFAULT];
 
 const mixedItemTemplate = (data: any) => {
   if (data.type === 'accordion') {
@@ -38,7 +48,7 @@ const mixedItemTemplate = (data: any) => {
     ];
     return html`
       <div style="width: 100%; box-sizing: border-box; text-align: left;">
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600; color: var(--text-dark, #2a2e33);">${data.title}</h3>
+        <h3 style="margin: 0 0 var(--sp-3, 12px) 0; font-size: var(--fs-md, 16px); font-weight: var(--fw-semibold, 600); color: var(--text-dark, #2a2e33);">${data.title}</h3>
         <dcx-web-accordion .items=${accordionItems} closeOthers></dcx-web-accordion>
       </div>
     `;
@@ -46,7 +56,7 @@ const mixedItemTemplate = (data: any) => {
   if (data.type === 'checkbox') {
     return html`
       <div style="width: 100%; box-sizing: border-box; text-align: left;">
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600; color: var(--text-dark, #2a2e33);">${data.title}</h3>
+        <h3 style="margin: 0 0 var(--sp-3, 12px) 0; font-size: var(--fs-md, 16px); font-weight: var(--fw-semibold, 600); color: var(--text-dark, #2a2e33);">${data.title}</h3>
         <dcx-web-checkbox
           .options=${checkboxOptionsState}
           @changeOptions=${(e: CustomEvent) => {
@@ -64,8 +74,8 @@ const mixedItemTemplate = (data: any) => {
   if (data.type === 'chips-badges') {
     return html`
       <div style="width: 100%; box-sizing: border-box; text-align: left;">
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600; color: var(--text-dark, #2a2e33);">${data.title}</h3>
-        <div style="display: flex; gap: 8px; align-items: center;">
+        <h3 style="margin: 0 0 var(--sp-3, 12px) 0; font-size: var(--fs-md, 16px); font-weight: var(--fw-semibold, 600); color: var(--text-dark, #2a2e33);">${data.title}</h3>
+        <div style="display: flex; gap: var(--sp-2, 8px); align-items: center;">
           <dcx-web-chip label="Chip 1" color="primary"></dcx-web-chip>
           <dcx-web-chip label="Chip 2" color="success"></dcx-web-chip>
         </div>
@@ -73,9 +83,12 @@ const mixedItemTemplate = (data: any) => {
     `;
   }
   return html`
-    <div style="border: 1px solid var(--border-light, #d1d5db); border-radius: var(--r-lg, 8px); padding: var(--sp-4, 16px); background: var(--bg-default, #fff); width: 100%; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.06)); box-sizing: border-box;">
-      <h3 style="margin: 0; font-size: 16px; font-weight: 600; color: var(--text-dark, #2a2e33);">${data.title}</h3>
-    </div>
+    <dcx-web-card
+      title="${data.title}"
+      .interactive=${true}
+      size="m"
+      style="width: 100%; box-sizing: border-box;"
+    ></dcx-web-card>
   `;
 };
 
@@ -101,7 +114,7 @@ const meta: Meta = {
     },
     orientation: {
       control: 'select',
-      options: ['horizontal', 'vertical'],
+      options: CAROUSEL_ORIENTATIONS,
       description: 'Dirección del desplazamiento del carousel.',
       table: {
         category: 'Atributos',
@@ -156,7 +169,7 @@ const meta: Meta = {
       max-width: ${isVertical ? '400px' : '450px'};
       height: ${isVertical ? '600px' : 'auto'};
       margin: auto;
-      padding: 20px;
+      padding: var(--sp-5, 20px);
     `;
     const itemTpl = args.itemTemplate || (isVertical ? verticalItemTemplate : defaultItemTemplate);
 
@@ -204,7 +217,7 @@ export const MixedContent: Story = {
   },
   render: (args: any) => {
     return html`
-      <div style="max-width: 450px; margin: auto; padding: 20px;">
+      <div style="max-width: 450px; margin: auto; padding: var(--sp-5, 20px);">
         <dcx-web-carousel
           .value=${args.value}
           ?circular=${args.circular}
