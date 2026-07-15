@@ -7,14 +7,14 @@ import {
   DCX_TOAST_WARNING_DEMO,
   DCX_TOAST_WITH_ICON_ACTION,
   DcxNgButtonComponent,
-  DcxNgToastOutletComponent,
+  DcxNgToastComponent,
   DcxNgToastService,
 } from '@dcx-ng-components/dcx-ng-lib';
 
 @Component({
   selector: 'dcx-ng-page-toast',
   standalone: true,
-  imports: [DcxNgButtonComponent, DcxNgToastOutletComponent],
+  imports: [DcxNgButtonComponent, DcxNgToastComponent],
   templateUrl: './dcx-ng-page-toast.component.html',
   styleUrl: './dcx-ng-page-toast.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
