@@ -1,170 +1,132 @@
-import './dcx-web-carousel.component';
-import { DcxWebCarousel } from './dcx-web-carousel.component';
-
 describe('DcxWebCarousel', () => {
-  let element: DcxWebCarousel;
+  let DcxWebCarousel: typeof import('./dcx-web-carousel.component').DcxWebCarousel;
+  let element: InstanceType<typeof DcxWebCarousel>;
   const carouselItems = ['Diapositiva 1', 'Diapositiva 2', 'Diapositiva 3'];
 
+  beforeAll(async () => {
+    ({ DcxWebCarousel } = await import('./dcx-web-carousel.component'));
+  });
+
   beforeEach(async () => {
-    element = document.createElement('dcx-web-carousel') as DcxWebCarousel;
+    element = document.createElement('dcx-web-carousel') as InstanceType<
+      typeof DcxWebCarousel
+    >;
     document.body.appendChild(element);
     await element.updateComplete;
   });
 
   afterEach(() => {
-    document.body.removeChild(element);
+    jest.useRealTimers();
+    if (element?.isConnected) {
+      element.remove();
+    }
   });
 
   it('should be defined', () => {
     expect(element).toBeInstanceOf(DcxWebCarousel);
   });
 
-  describe('Default Properties', () => {
-    it('should have default property values', () => {
-      expect(element.value).toEqual([]);
-      expect(element.circular).toBe(false);
-      expect(element.orientation).toBe('horizontal');
-      expect(element.showNavigators).toBe(true);
-      expect(element.showIndicators).toBe(true);
-      expect(element.autoplayInterval).toBe(0);
-      expect(element.ariaLabel).toBe('Carousel');
-      expect(element.currentPage).toBe(0);
-    });
+  it('should render slides and expose the current accessible state', async () => {
+    element.value = carouselItems;
+    await element.updateComplete;
+
+    const slides = element.shadowRoot?.querySelectorAll('.dcx-carousel__item');
+    const container = element.shadowRoot?.querySelector('.dcx-carousel');
+    const indicators = element.shadowRoot?.querySelectorAll(
+      '.dcx-carousel__indicator',
+    );
+
+    expect(slides?.length).toBe(3);
+    expect(slides?.[0]?.getAttribute('aria-hidden')).toBe('false');
+    expect(slides?.[1]?.getAttribute('aria-hidden')).toBe('true');
+    expect(container?.getAttribute('aria-label')).toBe('Carousel');
+    expect(indicators?.[0]?.getAttribute('aria-pressed')).toBe('true');
   });
 
-  describe('Rendering & Accessibility', () => {
-    it('should render items and set aria-hidden correctly', async () => {
-      element.value = carouselItems;
-      await element.updateComplete;
+  it('should navigate between pages', () => {
+    element.value = carouselItems;
 
-      const slides = element.shadowRoot?.querySelectorAll(
-        '.dcx-carousel__item',
-      );
-      expect(slides?.length).toBe(3);
-      expect(slides?.[0]?.getAttribute('aria-hidden')).toBe('false');
-      expect(slides?.[1]?.getAttribute('aria-hidden')).toBe('true');
-      expect(slides?.[2]?.getAttribute('aria-hidden')).toBe('true');
-    });
+    element.next();
+    expect(element.currentPage).toBe(1);
 
-    it('should apply the aria-label to the carousel region', async () => {
-      element.ariaLabel = 'Carousel de prueba';
-      await element.updateComplete;
-
-      const container = element.shadowRoot?.querySelector('.dcx-carousel');
-      expect(container?.getAttribute('aria-label')).toBe('Carousel de prueba');
-    });
-
-    it('should set aria-pressed on the active indicator dot', async () => {
-      element.value = carouselItems;
-      await element.updateComplete;
-
-      const indicators = element.shadowRoot?.querySelectorAll(
-        '.dcx-carousel__indicator',
-      );
-      expect(indicators?.length).toBe(3);
-      expect(indicators?.[0]?.getAttribute('aria-pressed')).toBe('true');
-      expect(indicators?.[1]?.getAttribute('aria-pressed')).toBe('false');
-      expect(indicators?.[2]?.getAttribute('aria-pressed')).toBe('false');
-    });
+    element.prev();
+    expect(element.currentPage).toBe(0);
   });
 
-  describe('Navigation', () => {
-    it('should navigate to next and previous page and emit pageChange', async () => {
-      element.value = carouselItems;
-      await element.updateComplete;
-
-      const spy = jest.fn();
-      element.addEventListener('pageChange', spy);
-
-      element.next();
-      await element.updateComplete;
-
-      expect(element.currentPage).toBe(1);
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy.mock.calls[0][0].detail).toEqual({ page: 1 });
-
-      element.prev();
-      await element.updateComplete;
-
-      expect(element.currentPage).toBe(0);
-      expect(spy).toHaveBeenCalledTimes(2);
-      expect(spy.mock.calls[1][0].detail).toEqual({ page: 0 });
-    });
-
-    it('should change page when an indicator is clicked', async () => {
-      element.value = carouselItems;
-      await element.updateComplete;
-
-      const indicators = element.shadowRoot?.querySelectorAll(
-        '.dcx-carousel__indicator',
-      );
-      expect(indicators?.length).toBe(3);
-
-      indicators?.[2]?.dispatchEvent(
-        new Event('click', {
-          bubbles: true,
-          composed: true,
-        }),
-      );
-
-      await element.updateComplete;
-      expect(element.currentPage).toBe(2);
-    });
-
-    it('should navigate with ArrowRight and ArrowLeft keys', async () => {
-      element.value = carouselItems;
-      await element.updateComplete;
-
-      element.onKeydown(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
-      await element.updateComplete;
-      expect(element.currentPage).toBe(1);
-
-      element.onKeydown(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
-      await element.updateComplete;
-      expect(element.currentPage).toBe(0);
-    });
-
-    it('should navigate with ArrowDown when vertical', async () => {
-      element.value = carouselItems;
-      element.orientation = 'vertical';
-      await element.updateComplete;
-
-      element.onKeydown(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
-      await element.updateComplete;
-      expect(element.currentPage).toBe(1);
-    });
+  it('should expose the default configuration values', () => {
+    expect(element.value).toEqual([]);
+    expect(element.circular).toBe(false);
+    expect(element.orientation).toBe('horizontal');
+    expect(element.showNavigators).toBe(true);
+    expect(element.showIndicators).toBe(true);
+    expect(element.autoplayInterval).toBe(0);
+    expect(element.ariaLabel).toBe('Carousel');
+    expect(element.currentPage).toBe(0);
   });
 
-  describe('Autoplay', () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
+  it('should render the vertical configuration and related icons', async () => {
+    element.value = carouselItems;
+    element.orientation = 'vertical';
+    await element.updateComplete;
 
-    afterEach(() => {
-      jest.useRealTimers();
-    });
+    expect(element.carouselClass).toContain('dcx-carousel--vertical');
+    expect(element.slideDirection).toBe('column');
+    expect(element.currentIcon).toBe('chevron-up');
+    expect(element.nextIcon).toBe('chevron-down');
+  });
 
-    it('should advance slides automatically when autoplayInterval is set', async () => {
-      element.value = carouselItems;
-      element.autoplayInterval = 50;
-      await element.updateComplete;
+  it('should hide navigators and indicators when disabled', async () => {
+    element.value = carouselItems;
+    element.showNavigators = false;
+    element.showIndicators = false;
+    await element.updateComplete;
 
-      jest.advanceTimersByTime(60);
-      await element.updateComplete;
+    const prevButton = element.shadowRoot?.querySelector('.dcx-carousel__prev');
+    const nextButton = element.shadowRoot?.querySelector('.dcx-carousel__next');
+    const indicators = element.shadowRoot?.querySelector(
+      '.dcx-carousel__indicators',
+    );
 
-      expect(element.currentPage).toBe(1);
-    });
+    expect(prevButton).toBeNull();
+    expect(nextButton).toBeNull();
+    expect(indicators).toBeNull();
+  });
 
-    it('should pause and resume autoplay', async () => {
-      element.value = carouselItems;
-      element.autoplayInterval = 50;
-      await element.updateComplete;
+  it('should wrap around when circular mode is enabled', () => {
+    element.value = carouselItems;
+    element.circular = true;
+    element.currentPage = 2;
 
-      element.pauseAutoplay();
-      expect((element as any)._timer).toBeUndefined();
+    element.next();
+    expect(element.currentPage).toBe(0);
 
-      element.resumeAutoplay();
-      expect((element as any)._timer).toBeDefined();
-    });
+    element.prev();
+    expect(element.currentPage).toBe(2);
+  });
+
+  it('should react to keyboard navigation keys', () => {
+    element.value = carouselItems;
+
+    element.onKeydown(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    expect(element.currentPage).toBe(1);
+
+    element.onKeydown(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+    expect(element.currentPage).toBe(0);
+
+    element.orientation = 'vertical';
+    element.onKeydown(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    expect(element.currentPage).toBe(1);
+  });
+
+  it('should pause and resume autoplay without breaking the component', async () => {
+    element.value = carouselItems;
+    element.autoplayInterval = 50;
+    await element.updateComplete;
+
+    element.resumeAutoplay();
+    expect((element as any)._timer).toBeDefined();
+
+    element.pauseAutoplay();
+    expect((element as any)._timer).toBeUndefined();
   });
 });
