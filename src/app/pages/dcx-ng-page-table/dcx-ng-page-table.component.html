@@ -1,0 +1,163 @@
+<div class="demo-page">
+
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Table</h1>
+    <p class="demo-page-header__desc">
+      Reconstrucción de la tabla de datos (<code>dcx-ng-table</code>) siguiendo el
+      diseño de <code>designs/dcx-ng-page-full-table-paginator-list.html</code>:
+      ordenación, búsqueda, selección, badges, filtro por columna, edición
+      inline, columnas fijadas y paginación — con arquitectura plana, sin
+      servicios ni clases de estado externas. Convive con
+      <code>dcx-ng-full-table</code> hasta que se apruebe y se migre.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
+
+  <!-- ── 01 Igual que el mock ─────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Toolbar + búsqueda + selección + badges + usuario</span>
+    </div>
+    <p class="demo-section__desc">
+      Coincide con el diseño de referencia: título, buscador, checkboxes de
+      selección, badges de estado y avatar de iniciales en "Responsable".
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-table
+        [headers]="projectHeaders"
+        [rows]="projectRows"
+        tableTitle="Proyectos activos"
+        [searchable]="true"
+        [selectable]="true"
+        [selectedIds]="selectedIds()"
+        (selectionChange)="onSelectionChange($event)"
+        (rowAction)="onRowAction($event)"
+      />
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── 02 Filtro por columna + edición inline ──────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Filtro por columna + edición inline</span>
+    </div>
+    <p class="demo-section__desc">
+      "Cliente" y "Responsable" tienen filtro propio bajo la cabecera.
+      Doble-click sobre "Proyecto" para editar el valor.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-table
+        [headers]="filterableEditableHeaders"
+        [rows]="projectRows"
+        (cellEdit)="onCellEdit($event)"
+        (rowAction)="onRowAction($event)"
+      />
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── 03 Columnas fijadas (frozen) ─────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Columnas fijadas (frozen) + scroll</span>
+    </div>
+    <p class="demo-section__desc">
+      "Proyecto" queda fijada a la izquierda y las acciones a la derecha
+      mientras se hace scroll horizontal/vertical.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-table
+        [headers]="frozenHeaders"
+        [rows]="largeDataset"
+        [scroll]="true"
+        scrollHeight="360px"
+        [frozenLeftSeparator]="true"
+        [frozenRightSeparator]="true"
+        (rowAction)="onRowAction($event)"
+      />
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── 04 Acciones en modo menú ─────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Acciones en modo menú (dropdown)</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-table
+        [headers]="menuActionHeaders"
+        [rows]="projectRows"
+        (rowAction)="onRowAction($event)"
+      />
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── 05 Índice de fila + grid + rayado ────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Índice de fila + grid + rayado</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-table
+        [headers]="projectHeaders"
+        [rows]="projectRows"
+        [showRowIndex]="true"
+        [showGrid]="true"
+        [showStripped]="true"
+        (rowAction)="onRowAction($event)"
+      />
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── 06 Paginada (117 filas) ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Paginada (117 filas)</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-table
+        [headers]="projectHeaders"
+        [rows]="largeDataset"
+        [paginator]="true"
+        [rowsPerPage]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        (rowAction)="onRowAction($event)"
+      />
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── 07 Sin datos ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Sin datos</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-table
+        [headers]="projectHeaders"
+        [rows]="[]"
+        tableTitle="Proyectos activos"
+        [searchable]="true"
+      />
+    </div>
+  </div>
+
+</div>

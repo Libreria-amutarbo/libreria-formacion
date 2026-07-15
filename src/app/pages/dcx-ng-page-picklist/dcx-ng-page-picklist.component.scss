@@ -1,23 +1,5 @@
-:host {
-  display: block;
-  padding: 2rem;
-}
-
-section {
-  max-width: 1180px;
-}
-
-.example-title {
-  margin: 0 0 1rem;
-  color: var(--text-dark, #2a2e33);
-  font-size: var(--fs-xl, 20px);
-  font-weight: var(--fw-bold, 700);
-}
-
-.divider {
-  display: block;
-  margin: 2rem 0;
-}
+// page-demo styles are provided globally via src/styles.scss
+// Only the custom-template item styles for example 03 remain here.
 
 .course-option {
   display: flex;

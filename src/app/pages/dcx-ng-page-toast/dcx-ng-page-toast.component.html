@@ -1,32 +1,108 @@
-<section class="toast-page">
-    <h3>Toast</h3>
-    <p>Avisos breves para confirmar acciones, advertir o informar errores sin bloquear al usuario.</p>
+<div class="demo-page">
 
-    <div class="toast-page__controls" aria-label="Controles de demo de toast">
-        <dcx-ng-button class="toast-page__btn" label="Mostrar info" variant="secondary"
-            (buttonClick)="showInfoToast()"></dcx-ng-button>
-        <dcx-ng-button class="toast-page__btn" label="Mostrar exito" variant="secondary"
-            (buttonClick)="showSuccessToast()"></dcx-ng-button>
-        <dcx-ng-button class="toast-page__btn" label="Mostrar warning" variant="secondary"
-            (buttonClick)="showWarningToast()"></dcx-ng-button>
-        <dcx-ng-button class="toast-page__btn" label="Mostrar error" variant="danger"
-            (buttonClick)="showErrorToast()"></dcx-ng-button>
-        <dcx-ng-button class="toast-page__btn" label="Limpiar" variant="secondary"
-            (buttonClick)="clearToasts()"></dcx-ng-button>
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Toast</h1>
+    <p class="demo-page-header__desc">
+      Avisos breves para confirmar acciones, advertir o informar errores sin
+      bloquear al usuario. Usa <code>DcxNgToastService</code> +
+      <code>dcx-ng-toast</code> (montado una sola vez abajo) para
+      lanzarlos de forma imperativa desde cualquier parte de la app.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
+
+  <!-- ── 01 Básico ─────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Básico (info)</span>
     </div>
-
-    <p class="toast-page__status">Toasts activos: {{ activeCount() }}. Ultimo evento: {{ lastEvent() }}</p>
-
-    <div class="toast-page__stack">
-        @for (toast of activeToasts(); track toast.id) {
-        <dcx-ng-toast [message]="toast.message" [type]="toast.type || 'info'" [autoDismiss]="toast.autoDismiss || false"
-            [durationMs]="toast.durationMs || 5000" [iconName]="toast.iconName || ''"
-            (actionClick)="handleAction(toast.id, toast.type || 'info')"
-            (dismissed)="handleDismissed(toast.id, toast.type || 'info')"></dcx-ng-toast>
-        }
-
-        @if (activeCount() === 0) {
-        <p class="toast-page__empty">No hay toasts activos. Pulsa un boton para lanzar uno.</p>
-        }
+    <div class="demo-section__body">
+      <dcx-ng-button label="Mostrar info" variant="secondary" (buttonClick)="showInfoToast()"></dcx-ng-button>
     </div>
-</section>
+  </div>
+
+  <!-- ── 02 Éxito con acción ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Éxito con acción personalizada</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Mostrar éxito" variant="secondary" (buttonClick)="showSuccessToast()"></dcx-ng-button>
+    </div>
+  </div>
+
+  <!-- ── 03 Warning con auto-cierre ────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Warning con auto-cierre</span>
+    </div>
+    <p class="demo-section__desc">
+      El temporizador se pausa si pasas el ratón o el foco por encima del toast.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Mostrar warning" variant="secondary" (buttonClick)="showWarningToast()"></dcx-ng-button>
+    </div>
+  </div>
+
+  <!-- ── 04 Error con auto-cierre ──────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Error con auto-cierre</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Mostrar error" variant="danger" (buttonClick)="showErrorToast()"></dcx-ng-button>
+    </div>
+  </div>
+
+  <!-- ── 05 Acción con icono ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Acción con icono + texto</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Mostrar con icono" variant="secondary" (buttonClick)="showIconActionToast()"></dcx-ng-button>
+    </div>
+  </div>
+
+  <!-- ── 06 Acción solo icono ──────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Acción solo icono</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Mostrar acción icono" variant="secondary" (buttonClick)="showIconOnlyActionToast()"></dcx-ng-button>
+    </div>
+  </div>
+
+  <!-- ── 07 Sin botón de cierre ────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">07</span>
+      <span class="demo-section__title">Sin botón de cierre</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Mostrar sin cierre" variant="secondary" (buttonClick)="showNotDismissibleToast()"></dcx-ng-button>
+    </div>
+  </div>
+
+  <!-- ── 08 Limpiar todos ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">08</span>
+      <span class="demo-section__title">Limpiar todos los toasts activos</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-button label="Limpiar" variant="secondary" (buttonClick)="clearToasts()"></dcx-ng-button>
+    </div>
+  </div>
+
+</div>
+
+<dcx-ng-toast position="top-right"></dcx-ng-toast>

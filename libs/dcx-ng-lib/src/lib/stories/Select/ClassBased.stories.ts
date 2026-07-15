@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   CLEARABLE,
   DcxNgSelectComponent,
@@ -26,24 +26,37 @@ const meta: Meta<DcxNgSelectComponent> = {
       description: 'Texto visible del label',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: LABEL,
         },
       },
     },
+    ariaLabel: {
+      description:
+        'Nombre accesible del control, usado únicamente cuando no hay `label` visible.',
+      control: { type: 'text' },
+      table: {
+        category: 'Atributos',
+        type: { summary: 'string | null' },
+        defaultValue: { summary: 'null' },
+      },
+    },
     options: {
-      description: 'Listado de opciones { value, label, boolean(opcional) }',
-      options: OPTIONS,
+      description: 'Listado de opciones { value, label, disabled(opcional) }',
       control: { type: 'object' },
-      table: { category: 'Attributes' },
+      table: {
+        category: 'Atributos',
+        type: { summary: 'DcxSelectOptions[]' },
+        defaultValue: { summary: '[]' },
+      },
     },
     placeholder: {
       description:
         'Placeholder, opcional, para poner texto informativo en el select antes de la selección',
       control: 'text',
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: PLACEHOLDER,
         },
@@ -54,14 +67,14 @@ const meta: Meta<DcxNgSelectComponent> = {
         'Editor de texto que nos permite buscar entre las opciones disponibles del select',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     clearable: {
       description: 'Botón que borra la opción seleccionada',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
 
@@ -69,28 +82,28 @@ const meta: Meta<DcxNgSelectComponent> = {
       description: 'Selector deshabilitado',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     required: {
       description: 'Indica si el selector es requerido o no en un formulario',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     isInvalid: {
       description: 'Indica si el select, o la opción seleccionada, es inválido',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
       },
     },
     errorMessage: {
       description: 'Mensaje de error que aparece cuando el select es inválido',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: ERRORMESSAGE,
         },
@@ -100,7 +113,7 @@ const meta: Meta<DcxNgSelectComponent> = {
       description: 'Icono de error que aparece cuando el select es inválido',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: ERRORICON,
         },
@@ -110,7 +123,7 @@ const meta: Meta<DcxNgSelectComponent> = {
       description: 'Opción seleccionada por defecto',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: '',
         },
@@ -121,7 +134,7 @@ const meta: Meta<DcxNgSelectComponent> = {
       action: 'valueChange',
       description: 'Evento que se emite cuando se cambia el valor seleccionado',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: {
           summary: '(item: string | number | null) => void',
         },
@@ -135,7 +148,7 @@ const meta: Meta<DcxNgSelectComponent> = {
       control: { type: 'select' },
       options: SPACING_LIST,
       table: {
-        category: 'Attributes',
+        category: 'Atributos',
         defaultValue: {
           summary: SPACING_DEFAULT,
         },
@@ -145,7 +158,7 @@ const meta: Meta<DcxNgSelectComponent> = {
       action: 'clear',
       description: 'Evento que se emite cuando se borra el valor seleccionado',
       table: {
-        category: 'Events',
+        category: 'Eventos',
         type: {
           summary: '(item: void) => void',
         },
@@ -176,6 +189,14 @@ const meta: Meta<DcxNgSelectComponent> = {
   ],
   parameters: {
     controls: { expanded: true },
+    // El panel de opciones se posiciona con `position: absolute` y necesita
+    // salirse de los límites de la story. Renderizada "inline" (por defecto
+    // en la página Docs, para poder hacer zoom), el contenedor recorta ese
+    // overflow. Con `inline: false` la story se renderiza en su propio
+    // <iframe>, que no sufre ese recorte.
+    docs: {
+      story: { inline: false, height: '280px' },
+    },
   },
 };
 
@@ -207,6 +228,17 @@ export const Disabled: Story = {
   },
 };
 
+export const DisabledWithSearchable: Story = {
+  name: 'Deshabilitado con búsqueda',
+  args: {
+    options: OPTIONS,
+    searchable: true,
+    clearable: true,
+    disabled: true,
+    valueInput: OPTIONS[0].value,
+  },
+};
+
 export const Required: Story = {
   args: {
     options: OPTIONS,
@@ -224,6 +256,24 @@ export const SelectWithError: Story = {
     required: true,
     isInvalid: true,
     errorMessage: 'Error',
+  },
+};
+
+export const WithPreselectedValue: Story = {
+  name: 'Con valor preseleccionado',
+  args: {
+    options: OPTIONS,
+    clearable: true,
+    valueInput: OPTIONS[1].value,
+  },
+};
+
+export const Empty: Story = {
+  name: 'Sin opciones',
+  args: {
+    options: [],
+    placeholder: 'No hay opciones disponibles',
+    searchable: true,
   },
 };
 

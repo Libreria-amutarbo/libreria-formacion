@@ -2,7 +2,7 @@
 @use '../../../scss/components/spinner/spinner' as spinner;
 
 :host {
-  font-family: var(--font-family-primary)
+  font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
 .dcx-ng-spinner {
@@ -21,10 +21,14 @@
   .circle {
     flex-shrink: 0;
     border-style: solid;
-    border-color: var(--border-terciary);
-    border-top-color: var(--dcx-spinner-color, var(--content-primary));
+    border-color: var(--border-light, #d1d5db);
+    border-top-color: var(--dcx-spinner-color, var(--bg-primary, #0058ab));
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation-duration: 2.4s;
+    }
   }
 
   .text {
@@ -33,18 +37,18 @@
 
   .title {
     font-size: 1rem;
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
+    font-weight: var(--fw-semibold, 600);
+    color: var(--text-dark, #2a2e33);
   }
 
   .description {
     font-size: 0.875rem;
-    color: var(--color-text-secondary);
+    color: var(--text-muted, #696e75);
   }
 
   .label {
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
+    font-weight: var(--fw-medium, 500);
+    color: var(--text-dark, #2a2e33);
   }
 
   &--wrapper {
@@ -56,8 +60,8 @@
       inset: 0;
       @include flex-center;
       @include flex-column;
-      gap: var(--spacing-xs);
-      background-color: rgba(255, 255, 255, 0.92);
+      gap: var(--sp-2, 8px);
+      background-color: color-mix(in srgb, var(--bg-default, #ffffff) 92%, transparent);
       backdrop-filter: blur(2px);
       z-index: 10;
     }

@@ -1,70 +1,160 @@
-<section>
-  <h2 class="example-title">Ejemplo 1 - PickList básico</h2>
-  <dcx-ng-picklist
-    sourceHeader="Disponibles"
-    targetHeader="Asignados"
-    [source]="basicSource()"
-    [target]="basicTarget()"
-    (sourceChange)="updateBasicSource($event)"
-    (targetChange)="updateBasicTarget($event)"
-  ></dcx-ng-picklist>
-</section>
+<div class="demo-page">
 
-<dcx-ng-divider
-  class="divider"
-  [thickness]="0.1"
-  color="var(--bg-primary, #0058ab)"
-></dcx-ng-divider>
+  <!-- ── Page header ──────────────────────────────────────────────── -->
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">PickList</h1>
+    <p class="demo-page-header__desc">
+      Lista de transferencia (dual listbox) para mover elementos entre un panel
+      origen y uno destino, con selección múltiple, filtros, reordenación,
+      arrastrar y soltar y plantillas de ítem personalizadas.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
 
-<section>
-  <h2 class="example-title">Ejemplo 2 - PickList con filtros</h2>
-  <dcx-ng-picklist
-    sourceHeader="Cursos disponibles"
-    targetHeader="Plan formativo"
-    filterBy="label,description,category"
-    sourceFilterPlaceholder="Buscar cursos"
-    targetFilterPlaceholder="Buscar seleccionados"
-    scrollHeight="20rem"
-    dragdrop
-    showSourceFilter
-    showTargetFilter
-    [source]="filterSource()"
-    [target]="filterTarget()"
-    (sourceChange)="updateFilterSource($event)"
-    (targetChange)="updateFilterTarget($event)"
-  ></dcx-ng-picklist>
-</section>
+  <!-- ── 01 Default ────────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Default</span>
+    </div>
+    <div class="demo-section__body">
+      <dcx-ng-picklist
+        sourceHeader="Disponibles"
+        targetHeader="Asignados"
+        [source]="basicSource()"
+        [target]="basicTarget()"
+        (sourceChange)="updateBasicSource($event)"
+        (targetChange)="updateBasicTarget($event)"
+      ></dcx-ng-picklist>
+    </div>
+  </div>
 
-<dcx-ng-divider
-  class="divider"
-  [thickness]="0.1"
-  color="var(--bg-primary, #0058ab)"
-></dcx-ng-divider>
+  <!-- ── 02 With Filters ───────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">With Filters</span>
+    </div>
+    <p class="demo-section__desc">
+      Con <code>showSourceFilter</code>/<code>showTargetFilter</code> y
+      <code>dragdrop</code> se habilitan búsqueda y arrastrar/soltar.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-picklist
+        sourceHeader="Cursos disponibles"
+        targetHeader="Plan formativo"
+        filterBy="label,description,category"
+        sourceFilterPlaceholder="Buscar cursos"
+        targetFilterPlaceholder="Buscar seleccionados"
+        scrollHeight="20rem"
+        dragdrop
+        showSourceFilter
+        showTargetFilter
+        [source]="filterSource()"
+        [target]="filterTarget()"
+        (sourceChange)="updateFilterSource($event)"
+        (targetChange)="updateFilterTarget($event)"
+      ></dcx-ng-picklist>
+    </div>
+  </div>
 
-<section>
-  <h2 class="example-title">Ejemplo 3 - PickList con template</h2>
-  <dcx-ng-picklist
-    sourceHeader="Cursos disponibles"
-    targetHeader="Plan formativo"
-    filterBy="label,description,category"
-    scrollHeight="20rem"
-    dragdrop
-    [source]="templateSource()"
-    [target]="templateTarget()"
-    (sourceChange)="updateTemplateSource($event)"
-    (targetChange)="updateTemplateTarget($event)"
-  >
-    <ng-template #item let-item let-selected="selected">
-      <div class="course-option">
-        <span class="course-option__initial">{{ item.label.charAt(0) }}</span>
-        <span class="course-option__content">
-          <strong>{{ item.label }}</strong>
-          <small>{{ item.description }}</small>
-        </span>
-        @if (selected) {
-          <span class="course-option__badge">Incluido</span>
-        }
-      </div>
-    </ng-template>
-  </dcx-ng-picklist>
-</section>
+  <!-- ── 03 Custom Template ────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Custom Template</span>
+    </div>
+    <p class="demo-section__desc">
+      La plantilla <code>#item</code> permite renderizar cada elemento con un
+      diseño propio.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-picklist
+        sourceHeader="Cursos disponibles"
+        targetHeader="Plan formativo"
+        filterBy="label,description,category"
+        scrollHeight="20rem"
+        dragdrop
+        [source]="templateSource()"
+        [target]="templateTarget()"
+        (sourceChange)="updateTemplateSource($event)"
+        (targetChange)="updateTemplateTarget($event)"
+      >
+        <ng-template #item let-item let-selected="selected">
+          <div class="course-option">
+            <span class="course-option__initial">{{ item.label.charAt(0) }}</span>
+            <span class="course-option__content">
+              <strong>{{ item.label }}</strong>
+              <small>{{ item.description }}</small>
+            </span>
+            @if (selected) {
+              <span class="course-option__badge">Incluido</span>
+            }
+          </div>
+        </ng-template>
+      </dcx-ng-picklist>
+    </div>
+  </div>
+
+  <!-- ── 04 Disabled ───────────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Disabled</span>
+    </div>
+    <p class="demo-section__desc">
+      Con <code>[disabled]="true"</code> todo el componente queda inerte.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-picklist
+        [disabled]="true"
+        [source]="disabledSource()"
+        [target]="disabledTarget()"
+      ></dcx-ng-picklist>
+    </div>
+  </div>
+
+  <!-- ── 05 Item Disabled ──────────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">05</span>
+      <span class="demo-section__title">Item Disabled</span>
+    </div>
+    <p class="demo-section__desc">
+      Los ítems con <code>disabled: true</code> no se pueden seleccionar ni mover.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-picklist
+        [source]="itemDisabledSource()"
+        [target]="itemDisabledTarget()"
+        (sourceChange)="updateItemDisabledSource($event)"
+        (targetChange)="updateItemDisabledTarget($event)"
+      ></dcx-ng-picklist>
+    </div>
+  </div>
+
+  <!-- ── 06 Without Controls ───────────────────────────────────────── -->
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">06</span>
+      <span class="demo-section__title">Without Controls</span>
+    </div>
+    <p class="demo-section__desc">
+      Ocultando los controles de reordenar (<code>showSourceControls</code>/<code>showTargetControls</code>)
+      la transferencia se realiza solo por arrastrar y soltar.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-picklist
+        [showSourceControls]="false"
+        [showTargetControls]="false"
+        dragdrop
+        [source]="controlsSource()"
+        [target]="controlsTarget()"
+        (sourceChange)="updateControlsSource($event)"
+        (targetChange)="updateControlsTarget($event)"
+      ></dcx-ng-picklist>
+    </div>
+  </div>
+
+</div>

@@ -31,6 +31,7 @@ export class DcxNgPaginatorComponent {
   showPageInfo = input<boolean>(false);
   showItemsPerPageInfo = input<boolean>(false);
   limitedButtons = input<boolean>(false);
+  pageSizeOptions = input<readonly number[]>([5, 10, 20]);
 
   // Signals
   currentPage = signal(0);
@@ -81,8 +82,6 @@ export class DcxNgPaginatorComponent {
   visiblePages = computed<(number | string)[]>(() => {
     return this.calculateVisiblePages();
   });
-
-  visiblePagesForView = computed<(number | string)[]>(() => this.visiblePages());
 
   constructor() {
     effect(() => {
@@ -138,10 +137,6 @@ export class DcxNgPaginatorComponent {
     return this.currentPage() === pageNum;
   }
 
-  getNavigationButtonClasses(disabled: boolean): string {
-    return disabled ? 'dcx-paginator__button dcx-paginator__button--disabled' : 'dcx-paginator__button';
-  }
-
   getPageButtonClasses(page: number | string): string {
     const pageNumber = this.getPageNumber(page);
     return this.getCurrentPage(pageNumber) ? 'dcx-paginator__page dcx-paginator__page--current' : 'dcx-paginator__page';
@@ -149,6 +144,16 @@ export class DcxNgPaginatorComponent {
 
   getButtonVariant(pageNum: number): DcxButtonVariant {
     return this.currentPage() === pageNum ? 'primary' : 'text';
+  }
+
+  getPageAriaCurrent(pageNum: number): 'page' | null {
+    return this.currentPage() === pageNum ? 'page' : null;
+  }
+
+  getPageAriaLabel(pageNum: number): string {
+    return this.currentPage() === pageNum
+      ? `Página ${pageNum}, página actual`
+      : `Ir a la página ${pageNum}`;
   }
 
   getButtonLabel(page: number): string {

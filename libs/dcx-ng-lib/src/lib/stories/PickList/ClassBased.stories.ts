@@ -12,52 +12,172 @@ const meta: Meta<DcxNgPickListComponent> = {
   tags: ['autodocs'],
   argTypes: {
     source: {
+      name: 'source',
       control: { type: 'object' },
-      description: 'Elementos disponibles de la lista origen',
-      table: {
-        category: 'Atributos',
-        type: { summary: 'DcxPickListItem[]' },
-      },
+      description: 'Elementos disponibles de la lista origen.',
+      table: { category: 'Atributos', type: { summary: 'DcxPickListItem[]' }, defaultValue: { summary: '[]' } },
     },
     target: {
+      name: 'target',
       control: { type: 'object' },
-      description: 'Elementos de la lista destino',
-      table: {
-        category: 'Atributos',
-        type: { summary: 'DcxPickListItem[]' },
-      },
+      description: 'Elementos de la lista destino.',
+      table: { category: 'Atributos', type: { summary: 'DcxPickListItem[]' }, defaultValue: { summary: '[]' } },
+    },
+    sourceHeader: {
+      name: 'sourceHeader',
+      control: { type: 'text' },
+      description: 'Título del panel origen.',
+      table: { category: 'Atributos', type: { summary: 'string' }, defaultValue: { summary: 'Disponibles' } },
+    },
+    targetHeader: {
+      name: 'targetHeader',
+      control: { type: 'text' },
+      description: 'Título del panel destino.',
+      table: { category: 'Atributos', type: { summary: 'string' }, defaultValue: { summary: 'Seleccionados' } },
     },
     filterBy: {
+      name: 'filterBy',
       control: { type: 'text' },
-      description: 'Campo o campos separados por coma para filtrar',
-      table: {
-        category: 'Atributos',
-        type: { summary: 'string' },
-      },
+      description: 'Campo o campos separados por coma para filtrar.',
+      table: { category: 'Atributos', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+    },
+    showSourceFilter: {
+      name: 'showSourceFilter',
+      control: { type: 'boolean' },
+      description: 'Muestra el buscador del panel origen.',
+      table: { category: 'Atributos', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    showTargetFilter: {
+      name: 'showTargetFilter',
+      control: { type: 'boolean' },
+      description: 'Muestra el buscador del panel destino.',
+      table: { category: 'Atributos', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    sourceFilterPlaceholder: {
+      name: 'sourceFilterPlaceholder',
+      control: { type: 'text' },
+      description: 'Placeholder del buscador origen.',
+      table: { category: 'Atributos', type: { summary: 'string' }, defaultValue: { summary: 'Filtrar disponibles' } },
+    },
+    targetFilterPlaceholder: {
+      name: 'targetFilterPlaceholder',
+      control: { type: 'text' },
+      description: 'Placeholder del buscador destino.',
+      table: { category: 'Atributos', type: { summary: 'string' }, defaultValue: { summary: 'Filtrar seleccionados' } },
+    },
+    scrollHeight: {
+      name: 'scrollHeight',
+      control: { type: 'text' },
+      description: 'Altura máxima de cada lista antes de hacer scroll.',
+      table: { category: 'Atributos', type: { summary: 'string' }, defaultValue: { summary: '14rem' } },
     },
     dragdrop: {
+      name: 'dragdrop',
       control: { type: 'boolean' },
-      description: 'Activa reordenacion y transferencia por drag/drop',
-      table: {
-        category: 'Atributos',
-        defaultValue: { summary: 'false' },
-      },
+      description: 'Activa reordenación y transferencia por arrastrar y soltar.',
+      table: { category: 'Atributos', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    responsive: {
+      name: 'responsive',
+      control: { type: 'boolean' },
+      description: 'Apila los paneles en pantallas estrechas.',
+      table: { category: 'Atributos', type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+    },
+    disabled: {
+      name: 'disabled',
+      control: { type: 'boolean' },
+      description: 'Desactiva toda la interacción del componente.',
+      table: { category: 'Atributos', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    showSourceControls: {
+      name: 'showSourceControls',
+      control: { type: 'boolean' },
+      description: 'Muestra los controles de reordenar del panel origen.',
+      table: { category: 'Atributos', type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+    },
+    showTargetControls: {
+      name: 'showTargetControls',
+      control: { type: 'boolean' },
+      description: 'Muestra los controles de reordenar del panel destino.',
+      table: { category: 'Atributos', type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+    },
+    keepSelection: {
+      name: 'keepSelection',
+      control: { type: 'boolean' },
+      description: 'Mantiene la selección tras transferir elementos.',
+      table: { category: 'Atributos', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
     },
     sourceChange: {
+      name: 'sourceChange',
       action: 'sourceChange',
-      table: { category: 'Eventos' },
+      description: 'Se emite cuando cambian los elementos del panel origen.',
+      table: { category: 'Eventos', type: { summary: '(items: DcxPickListItem[]) => void' } },
     },
     targetChange: {
+      name: 'targetChange',
       action: 'targetChange',
-      table: { category: 'Eventos' },
+      description: 'Se emite cuando cambian los elementos del panel destino.',
+      table: { category: 'Eventos', type: { summary: '(items: DcxPickListItem[]) => void' } },
     },
     moveToTarget: {
+      name: 'moveToTarget',
       action: 'moveToTarget',
-      table: { category: 'Eventos' },
+      description: 'Se emite al mover los seleccionados a destino.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListMoveEvent) => void' } },
+    },
+    moveAllToTarget: {
+      name: 'moveAllToTarget',
+      action: 'moveAllToTarget',
+      description: 'Se emite al mover todos los elementos a destino.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListMoveEvent) => void' } },
     },
     moveToSource: {
+      name: 'moveToSource',
       action: 'moveToSource',
-      table: { category: 'Eventos' },
+      description: 'Se emite al mover los seleccionados a origen.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListMoveEvent) => void' } },
+    },
+    moveAllToSource: {
+      name: 'moveAllToSource',
+      action: 'moveAllToSource',
+      description: 'Se emite al mover todos los elementos a origen.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListMoveEvent) => void' } },
+    },
+    sourceReorder: {
+      name: 'sourceReorder',
+      action: 'sourceReorder',
+      description: 'Se emite al reordenar el panel origen.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListReorderEvent) => void' } },
+    },
+    targetReorder: {
+      name: 'targetReorder',
+      action: 'targetReorder',
+      description: 'Se emite al reordenar el panel destino.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListReorderEvent) => void' } },
+    },
+    sourceSelect: {
+      name: 'sourceSelect',
+      action: 'sourceSelect',
+      description: 'Se emite al cambiar la selección del panel origen.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListSelectionEvent) => void' } },
+    },
+    targetSelect: {
+      name: 'targetSelect',
+      action: 'targetSelect',
+      description: 'Se emite al cambiar la selección del panel destino.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListSelectionEvent) => void' } },
+    },
+    sourceFilter: {
+      name: 'sourceFilter',
+      action: 'sourceFilter',
+      description: 'Se emite al filtrar el panel origen.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListFilterEvent) => void' } },
+    },
+    targetFilter: {
+      name: 'targetFilter',
+      action: 'targetFilter',
+      description: 'Se emite al filtrar el panel destino.',
+      table: { category: 'Eventos', type: { summary: '(e: DcxPickListFilterEvent) => void' } },
     },
   },
   args: {
@@ -237,4 +357,42 @@ export const ItemDisabled: Story = {
     })),
     target: PICKLIST_SELECTED_COURSES,
   },
+};
+
+export const WithoutControls: Story = {
+  args: {
+    source: PICKLIST_AVAILABLE_COURSES,
+    target: PICKLIST_SELECTED_COURSES,
+    showSourceControls: false,
+    showTargetControls: false,
+    dragdrop: true,
+  },
+  render: args => ({
+    props: {
+      ...args,
+      sourceValue: [...(args.source as DcxPickListItem[])],
+      targetValue: [...(args.target as DcxPickListItem[])],
+      updateSource(items: DcxPickListItem[]) {
+        this['sourceValue'] = items;
+      },
+      updateTarget(items: DcxPickListItem[]) {
+        this['targetValue'] = items;
+      },
+    },
+    template: `
+      <div style="max-width: 1180px;">
+        <dcx-ng-picklist
+          [source]="sourceValue"
+          [target]="targetValue"
+          [sourceHeader]="sourceHeader"
+          [targetHeader]="targetHeader"
+          [showSourceControls]="showSourceControls"
+          [showTargetControls]="showTargetControls"
+          [dragdrop]="dragdrop"
+          (sourceChange)="updateSource($event)"
+          (targetChange)="updateTarget($event)">
+        </dcx-ng-picklist>
+      </div>
+    `,
+  }),
 };

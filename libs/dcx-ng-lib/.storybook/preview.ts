@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/angular';
-import { addons } from 'storybook/preview-api';
+import { addons } from '@storybook/preview-api';
 import { dcxLightTheme } from './theme';
 
 const preview: Preview = {
@@ -36,7 +36,7 @@ const preview: Preview = {
       const currentGlobals = context.globals;
 
       channel.emit('MANAGER_THEME_CHANGE', {
-        theme: currentGlobals['theme'] || 'dark',
+        theme: currentGlobals['theme'] || 'light',
       });
 
       return story();

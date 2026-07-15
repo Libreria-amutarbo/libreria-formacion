@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/WebComponents/Badge/Documentation" />
+
+# Badge
+
+El componente `dcx-web-badge` es un indicador visual pequeño y compacto usado para mostrar contadores, estados o etiquetas semánticas sobre otros elementos de la interfaz.
+
+A diferencia del `Chip`, el `Badge` es **puramente informativo** — no tiene interacción ni puede ser eliminado por el usuario.
+
+---
+
+## Cuándo usarlo
+
+- Contador de notificaciones no leídas
+- Indicador de estado de un registro (`Activo`, `Pendiente`, `Error`)
+- Número de ítems en un carrito o bandeja de entrada
+- Superpuesto sobre botones, iconos o avatares
+
+---
+
+## API
+
+| Atributo / Propiedad | Tipo | Default | Descripción |
+|----------------------|------|---------|-------------|
+| `value` | `string` | `''` | Texto o número a mostrar. Si está vacío, muestra un punto |
+| `severity` | `'primary' \| 'secondary' \| 'success' \| 'info' \| 'warn' \| 'danger'` | `'primary'` | Color semántico del badge |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Tamaño del badge |
+
+---
+
+## Severidades
+
+| Valor | Color | Uso típico |
+|-------|-------|------------|
+| `primary` | Azul corporativo | Por defecto, acciones principales |
+| `secondary` | Gris | Información neutral |
+| `success` | Verde | Estado correcto o completado |
+| `info` | Azul | Información adicional |
+| `warn` | Ámbar | Advertencia o pendiente |
+| `danger` | Rojo | Error o acción destructiva |
+
+---
+
+## Uso básico
+
+```html
+<dcx-web-badge value="5"></dcx-web-badge>
+<dcx-web-badge value="3" severity="danger"></dcx-web-badge>
+<dcx-web-badge value="OK" severity="success" size="lg"></dcx-web-badge>
+```
+
+## Overlay sobre otro elemento
+
+```html
+<div style="position:relative; display:inline-flex;">
+  <dcx-web-badge value="2" style="position:absolute; top:-6px; right:-6px;"></dcx-web-badge>
+  <button class="mi-boton">Notificaciones</button>
+</div>
+```

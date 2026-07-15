@@ -24,13 +24,14 @@ import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
 export class DcxNgTabsComponent {
   tabs = input.required<DcxTabItem[]>();
 
-  variant = input<'line' | 'pill' | 'brand'>('line');
+  variant = input<'line' | 'pill' | 'brand' | 'subtle'>('line');
 
-  public hasControls = input(false, {
+  hasControls = input(false, {
     transform: (value: boolean | string) =>
       typeof value === 'string' ? value === '' : value,
   });
   activeTabId = input<string>('');
+  ariaLabel = input<string | null>(null);
 
   tabChange = output<string>();
 
@@ -71,15 +72,21 @@ export class DcxNgTabsComponent {
       .join(' ');
   };
 
-  private getHeaderVariantClass(variant: 'line' | 'pill' | 'brand'): string {
+  private getHeaderVariantClass(
+    variant: 'line' | 'pill' | 'brand' | 'subtle',
+  ): string {
     if (variant === 'brand') return 'dcx-tabs__header--brand';
     if (variant === 'pill') return 'dcx-tabs__header--pill';
+    if (variant === 'subtle') return 'dcx-tabs__header--subtle';
     return '';
   }
 
-  private getButtonVariantClass(variant: 'line' | 'pill' | 'brand'): string {
+  private getButtonVariantClass(
+    variant: 'line' | 'pill' | 'brand' | 'subtle',
+  ): string {
     if (variant === 'brand') return 'dcx-tab__button--brand';
     if (variant === 'pill') return 'dcx-tab__button--pill';
+    if (variant === 'subtle') return 'dcx-tab__button--subtle';
     return '';
   }
 
@@ -141,9 +148,8 @@ export class DcxNgTabsComponent {
     this.tabsHeader.nativeElement.scrollBy({ left: 150, behavior: 'smooth' });
   }
 
-  scrollIntoView(tabId: string) {
-    const container = this.tabsHeader.nativeElement;
-    const btn = container.querySelector(`[data-tab="${tabId}"]`) as HTMLElement;
+  private scrollIntoView(tabId: string) {
+    const btn = this.findTabElement(tabId);
     if (btn) {
       btn.scrollIntoView({
         behavior: 'smooth',
@@ -153,19 +159,39 @@ export class DcxNgTabsComponent {
     }
   }
 
-  onKeydown(event: KeyboardEvent) {
-    const list = this.tabs();
-    const idx = list.findIndex(t => t.id === this._activeTabId());
-    const last = list.length - 1;
+  private findTabElement(tabId: string): HTMLElement | null {
+    return this.tabsHeader?.nativeElement.querySelector(
+      `[data-tab="${tabId}"]`,
+    );
+  }
 
+  onKeydown(event: KeyboardEvent): void {
+    const list = this.tabs();
+    const enabledIndices = list
+      .map((tab, index) => (tab.disabled ? -1 : index))
+      .filter(index => index !== -1);
+    if (enabledIndices.length === 0) return;
+
+    const currentIndex = list.findIndex(t => t.id === this._activeTabId());
+    const posInEnabled = enabledIndices.indexOf(currentIndex);
+    const count = enabledIndices.length;
+
+    let targetIndex: number | null = null;
     if (event.key === 'ArrowRight') {
-      this.selectTab(list[(idx + 1) % list.length].id);
+      targetIndex = enabledIndices[(posInEnabled + 1 + count) % count];
     } else if (event.key === 'ArrowLeft') {
-      this.selectTab(list[(idx - 1 + list.length) % list.length].id);
+      targetIndex = enabledIndices[(posInEnabled - 1 + count) % count];
     } else if (event.key === 'Home') {
-      this.selectTab(list[0].id);
+      targetIndex = enabledIndices[0];
     } else if (event.key === 'End') {
-      this.selectTab(list[last].id);
+      targetIndex = enabledIndices[count - 1];
+    } else {
+      return;
     }
+
+    event.preventDefault();
+    const targetTab = list[targetIndex];
+    this.selectTab(targetTab.id);
+    this.findTabElement(targetTab.id)?.focus();
   }
 }

@@ -1,40 +1,21 @@
-import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Meta, Canvas } from '@storybook/blocks';
+import * as StepperStories from './ClassBased.stories';
 
 <Meta title="DCXLibrary/Stepper/Documentation" />
 
-# Stepper Component
+# Stepper
 
-The Stepper component guides users through a series of steps in a process, supporting both linear and non-linear navigation with multiple orientations and states.
+`dcx-ng-stepper` guía al usuario por una secuencia de pasos, con navegación lineal
+(secuencial) o libre, orientación horizontal o vertical, y estados de progreso
+(activo, completado, error, deshabilitado, opcional).
 
-## Overview
+Ideal para formularios multi-paso, asistentes de configuración y flujos de proceso.
 
-The stepper component is ideal for:
-- Multi-step forms
-- Wizards
-- Process flows
-- Sequential workflows
+---
 
-## Key Features
+## Uso básico
 
-- **Flexible Navigation**: Support for linear (sequential) and non-linear (free navigation) modes
-- **Multiple Orientations**: Horizontal or vertical layout
-- **Rich States**: Active, completed, error, and disabled states
-- **Keyboard Navigation**: Full accessibility with arrow keys and Enter/Space
-- **Customizable Appearance**: Configurable sizes (sm, md, lg) and optional step numbers
-- **Template Support**: Render custom content for each step
-
-## Basic Usage
-
-```typescript
-import { DcxNgStepperComponent } from '@dcx-ng-components/dcx-ng-lib';
-
-const steps = [
-  { id: '1', label: 'Step 1', description: 'First step' },
-  { id: '2', label: 'Step 2', description: 'Second step' },
-  { id: '3', label: 'Step 3', description: 'Third step' },
-];
-
-// In your component
+```html
 <dcx-ng-stepper
   [steps]="steps"
   [activeStepId]="'1'"
@@ -44,25 +25,106 @@ const steps = [
 ></dcx-ng-stepper>
 ```
 
-## Inputs
+```typescript
+const steps = [
+  { id: '1', label: 'Datos personales', description: 'Introduce tus datos' },
+  { id: '2', label: 'Dirección', description: 'Confirma tu dirección' },
+  { id: '3', label: 'Revisión', description: 'Revisa tu información' },
+];
+```
 
-| Input | Type | Default | Description |
-|-------|------|---------|-------------|
-| `steps` | `DcxStepperItem[]` | Required | Array of step items |
-| `activeStepId` | `string \| number` | First enabled | ID of active step |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout orientation |
-| `linear` | `boolean` | `false` | Only allow sequential navigation |
-| `showStepNumbers` | `boolean` | `true` | Display step numbers |
-| `size` | `'s' \| 'm' \| 'lg'` | `'m'` | Component size |
+---
 
-## Outputs
+## Horizontal
 
-| Output | Type | Description |
-|--------|------|-------------|
-| `stepChange` | `DcxStepperChangeEvent` | Emitted when active step changes |
-| `stepClick` | `DcxStepperItem` | Emitted when a step is clicked |
+<Canvas of={StepperStories.Default} />
 
-## DcxStepperItem Interface
+---
+
+## Vertical
+
+<Canvas of={StepperStories.Vertical} />
+
+---
+
+## Modo lineal
+
+En modo lineal solo se puede avanzar al siguiente paso cuando el actual está
+completado — no se puede saltar a pasos futuros.
+
+<Canvas of={StepperStories.Linear} />
+
+---
+
+## Con pasos completados
+
+<Canvas of={StepperStories.WithCompletedSteps} />
+
+---
+
+## Con estado de error
+
+<Canvas of={StepperStories.WithErrorSteps} />
+
+---
+
+## Con pasos deshabilitados
+
+<Canvas of={StepperStories.WithDisabledSteps} />
+
+---
+
+## Con paso opcional
+
+<Canvas of={StepperStories.WithOptionalSteps} />
+
+---
+
+## Con contenido por paso
+
+El campo `contentTpl` acepta un `TemplateRef` para renderizar contenido propio bajo
+el paso activo.
+
+<Canvas of={StepperStories.WithContent} />
+
+---
+
+## Tamaños
+
+### Pequeño
+<Canvas of={StepperStories.Small} />
+
+### Medio (por defecto)
+<Canvas of={StepperStories.Default} />
+
+### Grande
+<Canvas of={StepperStories.Large} />
+
+### Extra grande
+<Canvas of={StepperStories.ExtraLarge} />
+
+---
+
+## Propiedades
+
+| Propiedad | Tipo | Default | Descripción |
+|---|---|---|---|
+| `steps` | `DcxStepperItem[]` | requerido | Array de pasos |
+| `activeStepId` | `string \| number` | `''` | ID del paso activo (por defecto, el primero habilitado) |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Orientación |
+| `linear` | `boolean` | `false` | Solo permite navegación secuencial |
+| `showStepNumbers` | `boolean` | `true` | Muestra los números de paso |
+| `size` | `'s' \| 'm' \| 'l' \| 'xl'` | `'m'` | Tamaño del componente |
+| `ariaLabel` | `string \| null` | `null` | Nombre accesible del landmark de navegación |
+
+## Eventos
+
+| Evento | Tipo | Descripción |
+|---|---|---|
+| `stepChange` | `DcxStepperChangeEvent` | Se emite cuando cambia el paso activo |
+| `stepClick` | `DcxStepperItem` | Se emite al hacer click en un paso |
+
+## Interfaz `DcxStepperItem`
 
 ```typescript
 interface DcxStepperItem {
@@ -78,7 +140,7 @@ interface DcxStepperItem {
 }
 ```
 
-## DcxStepperChangeEvent Interface
+## Interfaz `DcxStepperChangeEvent`
 
 ```typescript
 interface DcxStepperChangeEvent {
@@ -89,137 +151,48 @@ interface DcxStepperChangeEvent {
 }
 ```
 
-## States
+---
 
-### Active
-The currently visible step, highlighted with primary color.
+## Estados
 
-### Completed
-A step that has been finished, showing a checkmark indicator.
+- **Activo**: el paso actualmente visible — borde y texto en color primario.
+- **Completado**: un paso ya finalizado — indicador relleno con marca de check.
+- **Error**: un paso con errores de validación — borde y texto en rojo.
+- **Deshabilitado**: un paso con el que no se puede interactuar — colores atenuados.
+- **Opcional**: se añade la etiqueta "(opcional)" bajo la descripción del paso.
 
-### Error
-A step with validation errors, highlighted with error color.
+---
 
-### Disabled
-A step that cannot be interacted with, visually grayed out.
+## Accesibilidad
 
-## Examples
+- El contenedor raíz es un `<nav>` con `aria-label` configurable (`ariaLabel`).
+- Los pasos se renderizan dentro de un `<ol role="list">` — el orden es información
+  real, no solo visual.
+- El paso activo se marca con `aria-current="step"`.
+- Los estados "completado"/"error" incluyen texto oculto para lectores de pantalla
+  ("Completado"/"Error"), ya que sus iconos son decorativos (`aria-hidden`).
+- **Teclado**: flechas para navegar entre pasos habilitados (horizontal:
+  izquierda/derecha, vertical: arriba/abajo), `Home`/`End` para saltar al primer/último
+  paso habilitado, `Enter`/`Espacio` para activar el paso con foco. El foco usa un
+  patrón de *roving tabindex*: solo el paso activo es alcanzable con Tab.
 
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--default" />
-</Canvas>
+---
 
-## Horizontal Layout
+## Clases CSS
 
-The default horizontal layout is perfect for workflows where steps progress left to right.
-
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--default" />
-</Canvas>
-
-## Vertical Layout
-
-Use vertical orientation for flows where vertical space is preferred or for better mobile responsiveness.
-
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--vertical" />
-</Canvas>
-
-## Linear Mode
-
-In linear mode, users can only proceed to the next step sequentially. They cannot jump ahead to future steps.
-
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--linear" />
-</Canvas>
-
-## Completed Steps
-
-Display completed steps with a visual indicator to show progress.
-
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--with-completed-steps" />
-</Canvas>
-
-## Error State
-
-Show error state on steps that have validation issues.
-
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--with-error-steps" />
-</Canvas>
-
-## Disabled Steps
-
-Disable specific steps when they should not be accessible.
-
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--with-disabled-steps" />
-</Canvas>
-
-## Optional Steps
-
-Mark steps as optional to indicate they can be skipped.
-
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--with-optional-steps" />
-</Canvas>
-
-## Size Variants
-
-### Small
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--small" />
-</Canvas>
-
-### Medium (Default)
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--default" />
-</Canvas>
-
-### Large
-<Canvas sourceState="shown">
-  <Story id="dcxlibrary-components-stepper--large" />
-</Canvas>
-
-## Accessibility
-
-The Stepper component includes full keyboard support:
-- **Arrow Keys**: Navigate between steps (horizontal: left/right, vertical: up/down)
-- **Enter / Space**: Activate current step
-- **Tab**: Navigate to next step button
-- **Aria Labels**: Proper ARIA attributes for screen readers
-
-## Best Practices
-
-1. **Clear Labels**: Use descriptive, action-oriented labels for each step
-2. **Visual Feedback**: Use completed and error states to provide clear feedback
-3. **Linear Workflows**: Use linear mode for dependent steps
-4. **Mobile Friendly**: Consider vertical orientation for mobile layouts
-5. **Descriptions**: Add descriptions to steps for additional context
-
-## CSS Classes
-
-You can target stepper elements with these CSS classes:
-- `.dcx-stepper`: Root container
-- `.dcx-stepper--horizontal`: Horizontal orientation
-- `.dcx-stepper--vertical`: Vertical orientation
-. `.dcx-stepper--s|m|l|xl`: Size modifiers
-- `.dcx-stepper__step`: Individual step button
-- `.dcx-stepper__step--active`: Active step
-- `.dcx-stepper__step--completed`: Completed step
-- `.dcx-stepper__step--error`: Error state
-- `.dcx-stepper__step--disabled`: Disabled step
-- `.dcx-stepper__content`: Content container
+- `.dcx-stepper`: contenedor raíz
+- `.dcx-stepper--horizontal` / `.dcx-stepper--vertical`: orientación
+- `.dcx-stepper--s|m|l|xl`: tamaño
+- `.dcx-stepper__step`: botón de cada paso
+- `.dcx-stepper__step--active` / `--completed` / `--error` / `--disabled`: estados
+- `.dcx-stepper__content`: contenedor del contenido del paso activo
 
 ## Theming
 
-The component uses CSS custom properties for theming:
-- `--background-primary`: Primary background color
-- `--border-light`: Light border color
-- `--text-dark`: Primary text color
-- `--text-muted`: Secondary text color
-- `--color-success`: Success state color
-- `--color-error`: Error state color
+El componente usa custom properties CSS para el color:
 
-Customize these variables in your stylesheet to match your design system.
+- `--bg-primary`: color primario (paso activo/completado, conector de progreso)
+- `--border-light`: color de borde por defecto
+- `--text-dark`: color de texto principal
+- `--text-muted`: color de texto secundario
+- `--color-error`: color del estado de error

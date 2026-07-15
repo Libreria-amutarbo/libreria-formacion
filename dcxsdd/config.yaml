@@ -1,0 +1,13 @@
+# dcxsdd configuration — generado por 'dcxsdd init'
+schema: spec-driven
+agents:
+  - copilot
+
+# Project context (opcional)
+# La IA usa este contexto al generar artefactos SDD.
+# Añade tu tech stack, convenciones, guías de estilo y conocimiento de dominio.
+# context:
+#   description: Descripción del proyecto aquí
+#   tech-stack:
+#     frontend: typescript, angular v21, ...
+#     backend: node, java, springboot, ...

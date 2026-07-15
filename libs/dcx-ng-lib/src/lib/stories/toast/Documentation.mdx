@@ -1,0 +1,100 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ToastClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/Toast/Documentation" />
+
+# Toast
+
+`dcx-ng-toast` muestra un aviso breve (info/éxito/advertencia/error) con icono, mensaje, un botón de acción opcional y un botón de cierre. Para mostrar toasts de forma imperativa desde cualquier parte de la aplicación (sin gestionar tú mismo un array de toasts activos), usa `DcxNgToastService` junto con `dcx-ng-toast-outlet`.
+
+---
+
+## Uso standalone (un solo toast)
+
+<Canvas of={ToastClassBasedStories.Default} />
+
+```html
+<dcx-ng-toast
+  message="Proyecto guardado correctamente"
+  type="info"
+></dcx-ng-toast>
+```
+
+## Con acción personalizada
+
+<Canvas of={ToastClassBasedStories.CustomActionText} />
+<Canvas of={ToastClassBasedStories.CustomActionWithIcon} />
+<Canvas of={ToastClassBasedStories.IconOnlyAction} />
+
+## Sin botón de cierre
+
+<Canvas of={ToastClassBasedStories.NotDismissible} />
+
+---
+
+## Uso recomendado: `DcxNgToastService` + `dcx-ng-toast-outlet`
+
+<Canvas of={ToastClassBasedStories.WithService} />
+
+1. Monta `<dcx-ng-toast-outlet>` **una sola vez**, normalmente en el componente raíz de la app:
+
+```html
+<!-- app.component.html -->
+<router-outlet></router-outlet>
+<dcx-ng-toast-outlet position="top-right"></dcx-ng-toast-outlet>
+```
+
+2. Inyecta `DcxNgToastService` en cualquier componente/servicio y llama a sus métodos:
+
+```typescript
+import { inject } from '@angular/core';
+import { DcxNgToastService } from '@dcx-ng-components/dcx-ng-lib';
+
+export class MiComponente {
+  private readonly toast = inject(DcxNgToastService);
+
+  guardar(): void {
+    this.toast.success('Cambios guardados correctamente');
+  }
+
+  onError(): void {
+    this.toast.error('No se pudo completar la operación', {
+      autoDismiss: true,
+      durationMs: 8000,
+    });
+  }
+}
+```
+
+El servicio expone `show(options)`, `success(message, options?)`, `error(message, options?)`, `warning(message, options?)`, `info(message, options?)`, `dismiss(id)` y `clear()`. `dcx-ng-toast-outlet` se suscribe al estado del servicio y apila los toasts activos automáticamente — no hace falta gestionar ningún array ni contador de id a mano.
+
+---
+
+## Propiedades de `dcx-ng-toast`
+
+| Propiedad | Tipo | Por defecto | Descripción |
+|---|---|---|---|
+| `message` | `string` (obligatorio) | — | Texto principal. |
+| `type` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Variante visual. |
+| `iconName` | `string` | `''` | Icono a mostrar; si se omite, usa el icono por defecto del `type`. |
+| `autoDismiss` | `boolean` | `false` | Si es `true`, se cierra automáticamente tras `durationMs`. |
+| `durationMs` | `number` | `5000` | Duración del auto-cierre. Se pausa mientras el ratón o el foco están sobre el toast (WCAG 2.2.1). |
+| `dismissible` | `boolean` | `true` | Muestra un botón de cierre real. |
+| `actionLabel` / `actionIconName` / `actionAriaLabel` | `string` | — | CTA opcional del toast. |
+| `announce` | `boolean` | `true` | Si es `false`, suprime `aria-live` propio (mantiene `role`) — lo usa internamente `dcx-ng-toast-outlet`, que ya aporta una región viva persistente. |
+
+## Propiedades de `dcx-ng-toast-outlet`
+
+| Propiedad | Tipo | Por defecto | Descripción |
+|---|---|---|---|
+| `position` | `'top-right' \| 'top-left' \| 'bottom-right' \| 'bottom-left'` | `'top-right'` | Esquina de anclaje del stack. |
+
+---
+
+## Accesibilidad
+
+- Cada toast usa `role="status"` (info/éxito) o `role="alert"` (advertencia/error) con `aria-live` correspondiente para el uso standalone.
+- `dcx-ng-toast-outlet` aporta un contenedor **persistente** con `aria-live="polite"` — la técnica recomendada, en vez de crear y destruir una región viva con cada toast (lo que algunos lectores de pantalla pueden no anunciar de forma fiable).
+- El temporizador de auto-cierre se pausa al pasar el ratón o el foco por encima, y se reinicia con la duración completa al salir — un usuario no puede perder el mensaje mientras lo está leyendo.
+- El botón de cierre es un `<button>` real con `aria-label="Cerrar"`.
+- El color no es el único diferenciador de severidad: cada `type` tiene su propio icono (círculo con "i", check, triángulo de aviso, X).

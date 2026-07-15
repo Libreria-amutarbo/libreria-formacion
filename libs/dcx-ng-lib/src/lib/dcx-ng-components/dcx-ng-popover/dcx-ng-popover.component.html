@@ -1,11 +1,22 @@
 @if (isOpen()) {
   <div
     #container
+    [id]="panelId"
     class="dcx-popover"
+    [class.dcx-popover--flipped]="placement() === 'top'"
+    [attr.role]="role()"
+    [attr.aria-label]="ariaLabelledby() ? null : ariaLabel() || null"
+    [attr.aria-labelledby]="ariaLabelledby()"
+    tabindex="-1"
     [style.top]="top()"
     [style.left]="left()"
     [style.opacity]="isPositioned() ? '1' : '0'"
   >
+    <span
+      class="dcx-popover__arrow"
+      aria-hidden="true"
+      [style.left.px]="arrowLeft()"
+    ></span>
     <div class="dcx-popover__content">
       <ng-content></ng-content>
     </div>

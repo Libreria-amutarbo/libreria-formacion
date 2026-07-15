@@ -4,9 +4,9 @@ module.exports = [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
-  
-...nx.configs['flat/angular'],
-...nx.configs['flat/angular-template'],
+
+  ...nx.configs['flat/angular'],
+  ...nx.configs['flat/angular-template'],
 
   {
     ignores: [
@@ -14,6 +14,7 @@ module.exports = [
       '**/node_modules',
       '**/*.min.js',
       '**/coverage',
+      '**/vite.config.*.timestamp*',
     ],
   },
   // Configuración específica para archivos de ejemplo/demo
@@ -68,8 +69,8 @@ module.exports = [
       '@typescript-eslint/no-explicit-any': 'warn', // Warning en lugar de error
     },
   },
-  
-{
+
+  {
     files: ['*.ts'],
     languageOptions: {
       parser: require('@typescript-eslint/parser'),
@@ -82,5 +83,4 @@ module.exports = [
       // tus reglas aquí
     },
   },
-
 ];

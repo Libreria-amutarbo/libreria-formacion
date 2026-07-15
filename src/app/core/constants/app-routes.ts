@@ -1,5 +1,6 @@
 export const APP_ROUTES = {
   TABLE: 'table',
+  TABLE_V2: 'table-v2',
   BUTTON: 'button',
   CALENDAR: 'calendar',
   MESSAGE: 'message',

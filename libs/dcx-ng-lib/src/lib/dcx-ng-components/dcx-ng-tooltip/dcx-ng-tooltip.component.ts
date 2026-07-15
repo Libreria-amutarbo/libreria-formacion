@@ -1,24 +1,76 @@
 import {
-  Component,
-  HostListener,
-  ElementRef,
   AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  Renderer2,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  computed,
   inject,
   input,
   signal,
-  computed,
-  viewChild,
-  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
-  DcxPosition,
-  TooltipArrowAlignment,
-  AvailableSpace,
-  TooltipPositionOption,
-} from '../../core/interfaces';
-import { TOOLTIP_DEFAULT_CONFIG } from '../../core/defaults';
+  ConnectedPosition,
+  ConnectionPositionPair,
+  Overlay,
+  OverlayRef,
+} from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { DcxPosition, TooltipArrowAlignment, TooltipVariant } from '../../core/interfaces';
+
+// Se renderiza vía CDK Overlay (portal a document.body) para no depender de
+// que ningún ancestro tenga overflow visible (diálogos, tarjetas, etc.),
+// igual que dcx-ng-select. Cada entrada lleva el DcxPosition que representa,
+// para poder reflejar la flecha en la posición realmente resuelta por CDK.
+const ARROW_GAP = 8;
+
+interface NamedPosition extends ConnectedPosition {
+  dcxPosition: DcxPosition;
+}
+
+const POSITION_MAP: Record<DcxPosition, NamedPosition> = {
+  top: {
+    dcxPosition: 'top',
+    originX: 'center',
+    originY: 'top',
+    overlayX: 'center',
+    overlayY: 'bottom',
+    offsetY: -ARROW_GAP,
+  },
+  bottom: {
+    dcxPosition: 'bottom',
+    originX: 'center',
+    originY: 'bottom',
+    overlayX: 'center',
+    overlayY: 'top',
+    offsetY: ARROW_GAP,
+  },
+  left: {
+    dcxPosition: 'left',
+    originX: 'start',
+    originY: 'center',
+    overlayX: 'end',
+    overlayY: 'center',
+    offsetX: -ARROW_GAP,
+  },
+  right: {
+    dcxPosition: 'right',
+    originX: 'end',
+    originY: 'center',
+    overlayX: 'start',
+    overlayY: 'center',
+    offsetX: ARROW_GAP,
+  },
+};
+
+const INTERACTIVE_TAGS = ['a', 'button', 'input', 'select', 'textarea'];
 
 @Component({
   selector: 'dcx-ng-tooltip',
@@ -26,24 +78,33 @@ import { TOOLTIP_DEFAULT_CONFIG } from '../../core/defaults';
   imports: [CommonModule],
   templateUrl: './dcx-ng-tooltip.component.html',
   styleUrls: ['./dcx-ng-tooltip.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DcxNgTooltipComponent implements AfterViewInit {
+export class DcxNgTooltipComponent implements AfterViewInit, OnDestroy {
   position = input<DcxPosition>('top');
   arrowAlignment = input<TooltipArrowAlignment>('center');
   hideTooltipOnClick = input<boolean>(false);
   content = input<string>('');
   contentHtml = input<string>('');
+  variant = input<TooltipVariant>('default');
 
   visible = signal<boolean>(false);
   actualPosition = signal<DcxPosition>('top');
 
+  readonly tooltipId = `dcx-tooltip-${Math.random().toString(36).substring(2, 9)}`;
+
   private readonly elementRef = inject(ElementRef);
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly overlay = inject(Overlay);
+  private readonly viewContainerRef = inject(ViewContainerRef);
+  private readonly renderer = inject(Renderer2);
 
-  tooltipElement = viewChild<ElementRef>('tooltipElement');
+  @ViewChild('tooltipTemplate') tooltipTemplate!: TemplateRef<unknown>;
+
+  private overlayRef: OverlayRef | null = null;
 
   sanitizedHtml = computed(() => {
-    const html = this.contentHtml();
+    const html = this.sanitizeContent(this.contentHtml());
     return html ? this.sanitizer.bypassSecurityTrustHtml(html) : null;
   });
 
@@ -51,130 +112,129 @@ export class DcxNgTooltipComponent implements AfterViewInit {
     const baseClass = 'dcx-ng-tooltip';
     const positionClass = `${baseClass}--${this.actualPosition()}`;
     const arrowAlignmentClass = `${baseClass}--arrow-${this.arrowAlignment()}`;
-    return `${baseClass} ${positionClass} ${arrowAlignmentClass}`.trim();
+    const variantClass =
+      this.variant() === 'primary' ? `${baseClass}--primary` : '';
+    return [baseClass, positionClass, arrowAlignmentClass, variantClass]
+      .filter(Boolean)
+      .join(' ');
   });
 
-  constructor() {
-    effect(() => {
-      if (this.visible()) {
-        setTimeout(() => this.adjustPosition(), 0);
-      }
-    });
-  }
-
   @HostListener('mouseenter')
-  onMouseEnter() {
-    this.visible.set(true);
+  onMouseEnter(): void {
+    this.show();
   }
 
   @HostListener('mouseleave')
-  onMouseLeave() {
-    this.visible.set(false);
+  onMouseLeave(): void {
+    this.hide();
+  }
+
+  @HostListener('focusin')
+  onFocusIn(): void {
+    this.show();
+  }
+
+  @HostListener('focusout')
+  onFocusOut(): void {
+    this.hide();
+  }
+
+  @HostListener('keydown.escape')
+  onEscape(): void {
+    this.hide();
   }
 
   @HostListener('document:click', ['$event'])
-  onDocumentClick(event: Event) {
+  onDocumentClick(event: Event): void {
     if (this.hideTooltipOnClick()) {
       const clickedInside = this.elementRef.nativeElement.contains(
         event.target,
       );
       if (clickedInside) {
-        this.visible.set(false);
+        this.hide();
       }
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.actualPosition.set(this.position());
+    this.linkTriggerToTooltip();
   }
 
-  private adjustPosition() {
-    setTimeout(() => {
-      const tooltipEl = this.tooltipElement()?.nativeElement;
-      if (!tooltipEl) return;
-
-      const hostEl = this.elementRef.nativeElement;
-
-      const viewport = {
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
-
-      const hostRect = hostEl.getBoundingClientRect();
-
-      const tooltipRect = tooltipEl.getBoundingClientRect();
-
-      const availableSpace: AvailableSpace = {
-        spaceTop: hostRect.top,
-        spaceBottom: viewport.height - hostRect.bottom,
-        spaceLeft: hostRect.left,
-        spaceRight: viewport.width - hostRect.right,
-      };
-
-      const optimalPosition = this.calculateOptimalPosition(
-        this.position(),
-        tooltipRect,
-        availableSpace,
-      );
-
-      if (optimalPosition !== this.actualPosition()) {
-        this.actualPosition.set(optimalPosition);
-      }
-    }, TOOLTIP_DEFAULT_CONFIG.adjustDelay);
+  ngOnDestroy(): void {
+    this.overlayRef?.dispose();
   }
 
-  private calculateOptimalPosition(
-    preferredPosition: DcxPosition,
-    tooltipRect: DOMRect,
-    availableSpace: AvailableSpace,
-  ): DcxPosition {
-    const { margin } = TOOLTIP_DEFAULT_CONFIG;
-    const tooltipHeight = tooltipRect.height;
-    const tooltipWidth = tooltipRect.width;
+  private show(): void {
+    if (this.visible() || (!this.content() && !this.contentHtml())) return;
+    this.visible.set(true);
+    this.open();
+  }
 
-    switch (preferredPosition) {
-      case 'top':
-        if (availableSpace.spaceTop >= tooltipHeight + margin) {
-          return 'top';
-        }
-        break;
-      case 'bottom':
-        if (availableSpace.spaceBottom >= tooltipHeight + margin) {
-          return 'bottom';
-        }
-        break;
-      case 'left':
-        if (availableSpace.spaceLeft >= tooltipWidth + margin) {
-          return 'left';
-        }
-        break;
-      case 'right':
-        if (availableSpace.spaceRight >= tooltipWidth + margin) {
-          return 'right';
-        }
-        break;
+  private hide(): void {
+    if (!this.visible()) return;
+    this.visible.set(false);
+    this.overlayRef?.dispose();
+    this.overlayRef = null;
+  }
+
+  private open(): void {
+    const preferred = POSITION_MAP[this.position()];
+    const fallbacks = Object.values(POSITION_MAP).filter(
+      p => p.dcxPosition !== preferred.dcxPosition,
+    );
+    const positions: NamedPosition[] = [preferred, ...fallbacks];
+
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(this.elementRef)
+      .withPositions(positions)
+      .withFlexibleDimensions(false)
+      .withPush(false);
+
+    positionStrategy.positionChanges.subscribe(change => {
+      const resolved = this.matchPosition(change.connectionPair);
+      if (resolved) this.actualPosition.set(resolved);
+    });
+
+    this.overlayRef = this.overlay.create({
+      positionStrategy,
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+    });
+
+    this.overlayRef.attach(
+      new TemplatePortal(this.tooltipTemplate, this.viewContainerRef),
+    );
+  }
+
+  private matchPosition(pair: ConnectionPositionPair): DcxPosition | null {
+    const match = Object.values(POSITION_MAP).find(
+      p =>
+        p.originX === pair.originX &&
+        p.originY === pair.originY &&
+        p.overlayX === pair.overlayX &&
+        p.overlayY === pair.overlayY,
+    );
+    return match?.dcxPosition ?? null;
+  }
+
+  private linkTriggerToTooltip(): void {
+    const trigger = this.elementRef.nativeElement.querySelector(
+      '.tooltip-container > *',
+    ) as HTMLElement | null;
+    if (trigger) {
+      this.renderer.setAttribute(trigger, 'aria-describedby', this.tooltipId);
     }
+  }
 
-    const alternatives: TooltipPositionOption[] = [
-      { position: 'top', space: availableSpace.spaceTop },
-      { position: 'bottom', space: availableSpace.spaceBottom },
-      { position: 'left', space: availableSpace.spaceLeft },
-      { position: 'right', space: availableSpace.spaceRight },
-    ];
-
-    alternatives.sort((a, b) => b.space - a.space);
-
-    for (const alt of alternatives) {
-      const requiredSpace =
-        alt.position === 'left' || alt.position === 'right'
-          ? tooltipWidth + margin
-          : tooltipHeight + margin;
-
-      if (alt.space >= requiredSpace) {
-        return alt.position;
-      }
-    }
-
-    return alternatives[0].position;
+  private sanitizeContent(html: string): string {
+    if (!html) return '';
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    INTERACTIVE_TAGS.forEach(tag => {
+      doc.body.querySelectorAll(tag).forEach(el => {
+        el.replaceWith(...Array.from(el.childNodes));
+      });
+    });
+    return doc.body.innerHTML;
   }
 }

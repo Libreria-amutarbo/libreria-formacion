@@ -1,67 +1,91 @@
 import { Meta, Canvas } from '@storybook/blocks';
 import * as RadioClassBasedStories from './ClassBased.stories';
- 
-<Meta title="DCXLibrary/Radio/Documentation" />
- 
+
+<Meta title="DCXLibrary/Components/Radio/Documentation" />
+
 # Radio
- 
-The `dcx-ng-radio` component is a customizable and accessible radio button.  
-It implements `ControlValueAccessor` to integrate smoothly with Angular Reactive Forms and Template-Driven Forms.
- 
+
+`dcx-ng-radio` representa un **grupo completo** de radio buttons: recibe un array de `options` y renderiza internamente un `<fieldset>`/`<legend>` accesible junto con un `<input type="radio">` nativo por cada opción, todos compartiendo el mismo `name` (generado automáticamente si no se indica). Implementa `ControlValueAccessor` a nivel de grupo — un único valor seleccionado, no uno por radio individual.
+
+Al usar inputs nativos con `name` compartido, la navegación por teclado entre opciones del grupo (flechas) funciona de forma gratuita, sin código adicional.
+
 ---
- 
-## Class-Based Version
- 
-This version includes minimal styling using CSS custom properties.  
-It supports different sizes, focus styles, and keyboard navigation.
- 
+
+## Uso básico
+
 <Canvas of={RadioClassBasedStories.Basic} />
-<Canvas of={RadioClassBasedStories.Sizes} />
- 
----
- 
-### Available Properties
- 
-- **name**: The radio group name (string)
-- **value**: The value of this radio button (string)
-- **label**: The text displayed next to the radio (string)
-- **size**: `'s' | 'm' | 'l'` — Visual size of the radio
-- **disabled**: Disables the radio if `true`
-- **ariaLabel**: Provides screen reader context for accessibility
- 
----
- 
- 
-## Usage in Reactive Forms
- 
-This example shows how to use the radio within a reactive form.
- 
+
 ```html
-<!-- file.HTML -->
 <dcx-ng-radio
-  name="exampleGroup"
-  value="option1"
-  label="Option 1"
-  size="m"
-  [(ngModel)]="selectedRadio"
-  ariaLabel="Radio option 1"
-></dcx-ng-radio>
-<dcx-ng-radio
-  name="exampleGroup"
-  value="option2"
-  label="Option 2"
-  size="m"
-  [(ngModel)]="selectedRadio"
-  ariaLabel="Radio option 2"
+  [options]="[
+    { value: 'opcion1', label: 'Opción 1' },
+    { value: 'opcion2', label: 'Opción 2' },
+    { value: 'opcion3', label: 'Opción 3' }
+  ]"
+  label="Elige tu opción favorita"
+  [formControl]="opcionControl"
 ></dcx-ng-radio>
 ```
- 
-## Additional Examples
- 
-### Long label
-Demonstrates how the radio behaves with a long text label.
-<Canvas of={RadioClassBasedStories.Basic} />
- 
-### No label
-Example of a radio without text, only the circle.
-<Canvas of={RadioClassBasedStories.Basic} />
+
+## Tamaños
+
+<Canvas of={RadioClassBasedStories.Sizes} />
+
+## Con una opción deshabilitada
+
+<Canvas of={RadioClassBasedStories.WithDisabledOption} />
+
+## Grupo deshabilitado
+
+<Canvas of={RadioClassBasedStories.Disabled} />
+
+## Con texto de ayuda
+
+<Canvas of={RadioClassBasedStories.WithHint} />
+
+## Con error
+
+<Canvas of={RadioClassBasedStories.Error} />
+
+---
+
+### Propiedades disponibles
+
+- **options**: `DcxRadioOption[]` — array de opciones (`{ value, label, disabled? }`).
+- **label**: texto del `<legend>` — nombre accesible del grupo.
+- **name**: nombre nativo compartido por las opciones. Se genera automáticamente por instancia si no se indica.
+- **size**: `'s' | 'm' | 'l'` — tamaño visual de los radio buttons.
+- **disabled**: deshabilita todas las opciones del grupo. Una opción individual también puede deshabilitarse con `{ disabled: true }` en `options`.
+- **error** / **errorMessage**: estado de error del grupo, con mensaje anunciado vía `role="alert"`.
+- **hint**: texto de ayuda bajo el grupo. Se oculta automáticamente si hay un error visible.
+- **ariaLabel**: nombre accesible cuando no se indica `label` visible.
+
+---
+
+## Uso con formularios reactivos
+
+```html
+<form [formGroup]="form">
+  <dcx-ng-radio
+    [options]="opciones"
+    label="Elige una opción"
+    [formControl]="opcionControl"
+  ></dcx-ng-radio>
+</form>
+```
+
+```typescript
+opciones: DcxRadioOption[] = [
+  { value: 'a', label: 'Opción A' },
+  { value: 'b', label: 'Opción B' },
+];
+```
+
+---
+
+## Accesibilidad
+
+- `<fieldset>`/`<legend>` es la técnica recomendada para nombrar un grupo de `<input type="radio">` nativos agrupados por `name` — no se añade `role="radiogroup"` explícito porque sería redundante con la semántica nativa ya presente.
+- Cada opción usa un `<input type="radio">` nativo envuelto implícitamente en su `<label>`: `checked`, navegación por teclado (flechas) y asociación de nombre accesible vienen gratis del navegador.
+- El mensaje de ayuda o error se referencia desde el `<fieldset>` vía `aria-describedby`, igual que en `dcx-ng-input`/`dcx-ng-textarea`.
+- El mensaje de error usa `role="alert"` para que se anuncie automáticamente al aparecer.

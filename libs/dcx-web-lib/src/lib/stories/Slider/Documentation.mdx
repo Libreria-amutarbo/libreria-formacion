@@ -1,0 +1,66 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/WebComponents/Slider/Documentation" />
+
+# Slider
+
+El componente `dcx-web-slider` permite a los usuarios seleccionar un valor de un rango continuo o discreto moviendo un selector (thumb) a lo largo de una barra de progreso (track).
+
+---
+
+## Cuándo usarlo
+
+- Ajuste de volúmenes, brillo o rangos numéricos continuos.
+- Selección de cantidades discretas con incrementos fijos (`step`).
+- Formularios interactivos donde se requiera un valor visual aproximado dentro de límites mínimos (`min`) y máximos (`max`).
+
+---
+
+## API
+
+| Atributo / Propiedad | Tipo | Default | Descripción |
+|----------------------|------|---------|-------------|
+| \`showLabel\` | \`boolean\` | \`true\` | Muestra u oculta la etiqueta superior con el valor actual |
+| \`textLabel\` | \`string\` | \`'Value'\` | Texto descriptivo de la etiqueta (ej. 'Volumen') |
+| \`value\` | \`number\` | \`0\` | Valor numérico actual del slider |
+| \`min\` | \`number\` | \`0\` | Límite mínimo del rango de selección |
+| \`max\` | \`number\` | \`50\` | Límite máximo del rango de selección |
+| \`step\` | \`number\` | \`1\` | Incremento o incremento por pasos entre valores |
+| \`vertical\` | \`boolean\` | \`false\` | Cambia la orientación a vertical |
+| \`disabled\` | \`boolean\` | \`false\` | Deshabilita la interacción con el slider |
+| \`ariaLabel\` | \`string \| null\` | \`null\` | Nombre accesible explícito del slider |
+| \`valueSuffix\` | \`string\` | \`''\` | Sufijo que acompaña al valor en el label (ej. '%', 'k€') |
+
+---
+
+## Eventos
+
+| Nombre | Detalle | Descripción |
+|--------|---------|-------------|
+| \`valueChange\` | \`number\` | Se emite al modificar el valor del slider (retorna el nuevo número) |
+
+---
+
+## Uso básico
+
+\`\`\`html
+<dcx-web-slider
+  text-label="Volumen"
+  min="0"
+  max="100"
+  value="50"
+  value-suffix="%"
+></dcx-web-slider>
+\`\`\`
+
+## Orientación Vertical
+
+\`\`\`html
+<dcx-web-slider
+  text-label="Nivel"
+  min="0"
+  max="10"
+  value="5"
+  vertical
+></dcx-web-slider>
+\`\`\`

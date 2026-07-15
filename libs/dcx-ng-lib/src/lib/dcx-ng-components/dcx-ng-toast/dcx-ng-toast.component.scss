@@ -1,0 +1,189 @@
+:host {
+  display: contents;
+}
+
+/* ================================
+   OUTLET (contenedor fijo, apila los toasts activos)
+   ================================ */
+
+.dcx-toast-outlet {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3, 12px);
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+
+  &--top-right {
+    top: var(--sp-4, 16px);
+    right: var(--sp-4, 16px);
+    align-items: flex-end;
+  }
+
+  &--top-left {
+    top: var(--sp-4, 16px);
+    left: var(--sp-4, 16px);
+    align-items: flex-start;
+  }
+
+  &--bottom-right {
+    bottom: var(--sp-4, 16px);
+    right: var(--sp-4, 16px);
+    align-items: flex-end;
+    flex-direction: column-reverse;
+  }
+
+  &--bottom-left {
+    bottom: var(--sp-4, 16px);
+    left: var(--sp-4, 16px);
+    align-items: flex-start;
+    flex-direction: column-reverse;
+  }
+}
+
+/* ================================
+   TOAST (cada aviso individual)
+   ================================ */
+
+.dcx-toast {
+  --dcx-toast-bg: #1e2226;
+  --dcx-toast-action-color: var(--color-info, #1db8f2);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 280px;
+  max-width: 440px;
+  padding: 12px 14px;
+  border-radius: var(--r-lg, 8px);
+  background: var(--dcx-toast-bg);
+  color: var(--text-white, #ffffff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  font-family: var(--ff-base, var(--font-family-primary, 'Inter', sans-serif));
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+
+  &--info {
+    --dcx-toast-bg: #1e2226;
+    --dcx-toast-action-color: var(--color-info, #1db8f2);
+  }
+
+  &--success {
+    --dcx-toast-bg: #166534;
+    --dcx-toast-action-color: #86efac;
+  }
+
+  &--warning {
+    --dcx-toast-bg: #78350f;
+    --dcx-toast-action-color: #fde68a;
+  }
+
+  &--error {
+    --dcx-toast-bg: #7f1d1d;
+    --dcx-toast-action-color: #fca5a5;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: var(--text-white, #ffffff);
+  }
+
+  &__message-content {
+    flex: 1;
+    min-width: 0;
+
+    // dcx-ng-message aplica sus propios estilos de color por `type`
+    // (`.message__container.notification`, `.success`, etc.) con más
+    // especificidad que un simple `::ng-deep .message__container` — sin
+    // `!important` esas reglas ganan la cascada y el toast se queda con el
+    // fondo/texto claro pensado para un banner, no con el fondo oscuro del mock.
+    ::ng-deep .message__container {
+      align-items: center !important;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      margin-bottom: 0 !important;
+      gap: 12px !important;
+      color: var(--text-white, #ffffff) !important;
+    }
+
+    // `.icon__container` es la propia etiqueta <dcx-ng-icon>; el glifo real
+    // vive en el <i class="dcx-icon dcx-icon--size-m"> que renderiza dentro
+    // de su propia vista, así que hay que apuntar a `.dcx-icon`, no a un
+    // `dcx-ng-icon` anidado (ese elemento no existe en el DOM real).
+    ::ng-deep .icon__container {
+      color: var(--text-white, #ffffff) !important;
+
+      .dcx-icon {
+        font-size: 18px !important;
+      }
+    }
+
+    ::ng-deep .message__container__paragraph {
+      color: var(--text-white, #ffffff) !important;
+      font-size: 13px;
+      font-weight: 500;
+      margin: 0;
+      opacity: 1 !important;
+    }
+  }
+
+  &__action {
+    margin-left: auto;
+
+    ::ng-deep .dcx-ng-button {
+      padding: 0 4px;
+      color: var(--dcx-toast-action-color);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    // El mock no define un estado :hover para el CTA. `dcx-ng-button` con
+    // variant="text" trae su propio hover (fondo gris claro) que desentona
+    // según el color de fondo del toast, así que se anula explícitamente.
+    // Solo se mantiene el anillo de :focus-visible por accesibilidad de teclado.
+    ::ng-deep .dcx-ng-button:hover,
+    ::ng-deep .dcx-ng-button:active {
+      background: transparent !important;
+      border-color: transparent !important;
+      color: var(--dcx-toast-action-color) !important;
+    }
+
+    ::ng-deep .dcx-ng-button:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+
+  &__close {
+    flex-shrink: 0;
+    opacity: 0.65;
+    transition: opacity 0.15s ease;
+
+    &:hover,
+    &:focus-within {
+      opacity: 1;
+    }
+
+    // El tamaño del glifo lo controla el input `iconSize="m"` del botón
+    // (ver dcx-ng-toast.component.html) — un `font-size` en CSS no llega al
+    // <i class="dcx-icon"> real porque ese nodo fija su propio font-size.
+    ::ng-deep .dcx-ng-button {
+      padding: 0;
+      color: var(--text-white, #ffffff);
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { DcxInputType, DcxSize } from '../interfaces';
+import { DcxInputType } from '../interfaces';
 
 export const INPUT_DEFAULT_VALUE: string | number = '';
 
@@ -25,5 +25,3 @@ export const INPUT_DEFAULT_ARIA_DESCRIBEDBY: string | null = null;
 export const INPUT_DEFAULT_ERROR_MESSAGE = '';
 
 export const INPUT_DEFAULT_REQUIRED_MESSAGE = 'Este campo es requerido';
-
-export const INPUT_DEFAULT_SIZE: DcxSize = 'm';

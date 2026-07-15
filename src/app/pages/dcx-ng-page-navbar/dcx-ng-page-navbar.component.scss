@@ -3,18 +3,34 @@
 .example-hint {
   margin-top: 0.75rem;
   font-size: 0.875rem;
-  color: #696e75;
+  color: var(--text-muted, #696e75);
 }
 
 .vertical-demo {
   display: flex;
   height: 400px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-light, #e0e0e0);
   border-radius: 0.5rem;
   overflow: hidden;
 
   &__content {
     padding: 1.5rem;
     flex: 1;
+  }
+}
+
+.mobile-frame {
+  max-width: 360px;
+  border: 1px solid var(--border-light, #d1d5db);
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  // Fuerza el layout del breakpoint móvil: el viewport de escritorio suele ser más ancho que 767px
+  ::ng-deep .dcx-ng-navbar__items {
+    display: flex !important;
+  }
+
+  ::ng-deep .dcx-ng-navbar__toggle {
+    display: inline-block !important;
   }
 }
