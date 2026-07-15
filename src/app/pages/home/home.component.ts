@@ -11,6 +11,7 @@ const ROUTE_ICONS: Record<string, string> = {
   accordion: 'chevron-down',
   breadcrumb: 'signpost-split',
   button: 'toggle-on',
+  calendar: 'calendar4-week',
   card: 'card-text',
   checkbox: 'check-square',
   chip: 'tag',

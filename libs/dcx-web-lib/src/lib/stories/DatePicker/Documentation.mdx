@@ -1,0 +1,124 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as DatePickerStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/DatePicker/Documentation" />
+
+# DatePicker
+
+The `dcx-web-datepicker` component is a customizable and accessible date selection field.
+It provides an interactive calendar popup for date selection.
+
+---
+
+## Class-Based Version
+
+This version includes styling using CSS custom properties and BEM methodology.
+It supports calendar popup, month navigation, date validation, and disabled states.
+
+<Canvas of={DatePickerStories.Default} />
+
+---
+
+### Usage Examples
+
+The following stories demonstrate different use cases:
+
+**With Min/Max Date Validation:**
+
+<Canvas of={DatePickerStories.WithMinAndMaxDate} />
+
+**Disabled State:**
+
+<Canvas of={DatePickerStories.Disabled} />
+
+---
+
+### Available Properties
+
+#### Properties
+
+- **selectedDate**: `Date | null` - Currently selected date
+- **selectedDates**: `Date[]` - Selected dates in multi-select mode
+- **multiSelect**: `boolean` - Enables multi-select mode
+- **rangeSelect**: `boolean` - Enables range-select mode
+- **startDate**: `Date | null` - Start date of the selection range
+- **endDate**: `Date | null` - End date of the selection range
+- **minDate**: `Date | null` - Minimum selectable date (dates before this will be disabled)
+- **maxDate**: `Date | null` - Maximum selectable date (dates after this will be disabled)
+- **disabled**: `boolean` - Disables the entire component
+- **placeholder**: `string` - Placeholder text when no date is selected (default: 'Select date')
+- **dateFormat**: `'dd/MM/yyyy' | 'MM/dd/yyyy'` - The format pattern for dates (default: 'dd/MM/yyyy')
+- **firstDayOfWeek**: `'monday' | 'sunday'` - First day of the week (default: 'monday')
+
+#### Events
+
+- **selectedDateChange**: Emitted when a single date is selected or cleared
+- **selectedDatesChange**: Emitted when multiple dates are modified
+- **startDateChange**: Emitted when the start date of a range changes
+- **endDateChange**: Emitted when the end date of a range changes
+
+---
+
+## Calendar Features
+
+The DatePicker includes a rich calendar interface:
+
+- **42-day grid**: Displays 6 weeks for consistent layout
+- **Week starts on Monday/Sunday**: Configurable first day of the week
+- **Month navigation**: Previous/Next buttons to navigate between months
+- **Visual indicators**:
+  - Today's date is highlighted
+  - Selected date has distinct styling
+  - Dates from other months appear grayed out
+  - Disabled dates are crossed out and non-interactive
+- **Clear button**: Optional button to reset selection (shown when date is selected)
+
+---
+
+## Usage Examples
+
+### Basic Usage
+
+```html
+<dcx-web-datepicker></dcx-web-datepicker>
+
+<script>
+  const picker = document.querySelector('dcx-web-datepicker');
+  picker.addEventListener('selectedDateChange', (e) => {
+    console.log('Selected date:', e.detail);
+  });
+</script>
+```
+
+### With Date Constraints
+
+```html
+<dcx-web-datepicker
+  min-date="2026-01-01"
+  max-date="2026-12-31"
+  placeholder="Selecciona una fecha"
+></dcx-web-datepicker>
+```
+
+### Disabled State
+
+```html
+<dcx-web-datepicker disabled></dcx-web-datepicker>
+```
+
+---
+
+## Date Format
+
+The component displays dates in formats: **dd/MM/yyyy** or **MM/dd/yyyy**.
+
+---
+
+## Accessibility
+
+- Semantic HTML structure with proper ARIA attributes
+- Keyboard navigation support (Tab, Arrow keys, Enter, Esc)
+- Clear visual feedback for interactive elements
+- Disabled state properly communicated
+- Focus management for popup interactions
+- Screen reader friendly

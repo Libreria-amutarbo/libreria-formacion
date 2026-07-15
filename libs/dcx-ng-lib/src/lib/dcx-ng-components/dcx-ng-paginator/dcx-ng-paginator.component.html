@@ -12,9 +12,9 @@
           [value]="selectedItemsPerPage()"
           (change)="onItemsPerPageChange($any($event.target).value)"
         >
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
+          @for (size of pageSizeOptions(); track size) {
+            <option [value]="size">{{ size }}</option>
+          }
         </select>
       }
     </div>
