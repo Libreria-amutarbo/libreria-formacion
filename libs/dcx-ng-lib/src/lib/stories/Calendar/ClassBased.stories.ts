@@ -141,6 +141,9 @@ export const Month: Story = {};
 
 export const Range: Story = {
   args: {
+    // El modo rango usa la rejilla compacta tipo date-picker del mock — sin
+    // eventos, igual que la página demo real.
+    events: [],
     selectionMode: 'range',
     selectedDate: null,
     rangeStart: new Date(2026, 5, 19),

@@ -2,12 +2,14 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   booleanAttribute,
   computed,
   effect,
   input,
   output,
   signal,
+  viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -22,6 +24,7 @@ import {
   DcxCalendarSelectionMode,
   DcxCalendarView,
   DcxCalendarWeekDay,
+  DcxRadioOption,
 } from '../../core/interfaces';
 import { DcxNgButtonComponent } from '../dcx-ng-button/dcx-ng-button.component';
 import { DcxNgIconComponent } from '../dcx-ng-icon/dcx-ng-icon.component';
@@ -113,12 +116,26 @@ export class DcxNgCalendarComponent {
     { value: 'weekly', label: 'Cada semana' },
     { value: 'monthly', label: 'Cada mes' },
   ];
+  readonly deleteScopeOptions: DcxRadioOption[] = [
+    { value: 'single', label: 'Solo este evento' },
+    { value: 'following', label: 'Este y los siguientes' },
+    { value: 'all', label: 'Todos los eventos' },
+  ];
+
+  private readonly dialogPanel = viewChild<ElementRef<HTMLElement>>('dialogPanel');
+  private lastFocusedBeforeModal: HTMLElement | null = null;
 
   readonly isMonthView = computed(() => this.view() === 'month');
   readonly isWeekView = computed(() => this.view() === 'week');
   readonly isYearView = computed(() => this.view() === 'year');
   readonly isMiniView = computed(() => this.view() === 'mini');
   readonly isRangeMode = computed(() => this.selectionMode() === 'range');
+
+  // El modo rango usa la rejilla compacta tipo date-picker (igual que el
+  // mock): nunca muestra eventos dentro de la celda, aunque la vista sea
+  // 'month'. Mostrarlos ahí fuerza la fila a expandirse y el botón de día
+  // (pensado para ser un círculo pequeño) se estira hasta un óvalo gigante.
+  readonly showMonthEvents = computed(() => this.isMonthView() && !this.isRangeMode());
 
   readonly monthLabel = computed(() =>
     this.capitalize(
@@ -215,6 +232,21 @@ export class DcxNgCalendarComponent {
     effect(() => {
       this.localRangeStart.set(this.normalizeDate(this.rangeStart()));
       this.localRangeEnd.set(this.normalizeDate(this.rangeEnd()));
+    });
+
+    // Gestión de foco del modal (WCAG 2.4.3): al abrir se guarda el elemento
+    // que tenía el foco y se mueve al panel; al cerrar se restaura.
+    effect(() => {
+      const isOpen = this.modalMode() !== null;
+
+      if (isOpen) {
+        this.lastFocusedBeforeModal = document.activeElement as HTMLElement | null;
+        this.dialogPanel()?.nativeElement.focus();
+        return;
+      }
+
+      this.lastFocusedBeforeModal?.focus();
+      this.lastFocusedBeforeModal = null;
     });
   }
 

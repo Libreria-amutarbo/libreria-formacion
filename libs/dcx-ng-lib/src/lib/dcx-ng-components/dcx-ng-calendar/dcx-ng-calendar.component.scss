@@ -39,10 +39,14 @@
   width: 220px;
 }
 
-.dcx-calendar--week-view,
 .dcx-calendar--year-view,
 .dcx-calendar--month-view {
   width: 100%;
+}
+
+.dcx-calendar--week-view {
+  width: 540px;
+  max-width: 100%;
 }
 
 .dcx-calendar--disabled {
@@ -84,31 +88,17 @@
   color: var(--text-white, #ffffff);
   font-size: var(--fs-base, 14px);
   font-weight: var(--fw-semibold, 600);
-  text-transform: capitalize;
 }
 
 .dcx-calendar__year-title {
   font-size: var(--fs-md, 16px);
 }
 
-.dcx-calendar__weekdays {
-  padding: var(--sp-2, 8px) var(--sp-3, 12px) 0;
-}
-
-.dcx-calendar__weekdays-grid,
 .dcx-calendar__grid,
 .dcx-calendar__week-table {
   width: 100%;
   table-layout: fixed;
-}
-
-.dcx-calendar__week-table {
   border-collapse: collapse;
-}
-
-.dcx-calendar__grid {
-  border-collapse: separate;
-  border-spacing: 2px 1px;
 }
 
 .dcx-calendar__grid-wrap {
@@ -125,27 +115,50 @@
 
 .dcx-calendar__weekday {
   padding: 5px 0 6px;
+  border-bottom: 1px solid var(--calendar-border);
+}
+
+.dcx-calendar__weekday--weekend {
+  color: var(--text-disabled, #9ca3af);
+}
+
+// ── Celda de día — base compacta (mini y modo rango) ──────────────────────
+.dcx-calendar__month-cell {
+  position: relative;
+  height: 32px;
+  padding: 1px;
+  vertical-align: top;
+  cursor: pointer;
 }
 
 .dcx-calendar__day-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 100%;
   padding: 6px 2px;
   border: 0;
   border-radius: var(--r-sm, 4px);
   background: transparent;
-  color: var(--text-dark, #2a2e33);
-  font-size: var(--fs-sm, 12px);
-  text-align: center;
   cursor: pointer;
-  line-height: 1;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.15s ease;
 }
 
-.dcx-calendar__day-button:hover:not(.dcx-calendar__day-button--selected):not(.dcx-calendar__day-button--in-range):not(.dcx-calendar__day-button--other-month):not(:disabled) {
+.dcx-calendar__day-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark, #2a2e33);
+  font-size: var(--fs-sm, 12px);
+  line-height: 1;
+}
+
+.dcx-calendar__day-button:hover:not(.dcx-calendar__day-button--selected):not(.dcx-calendar__day-button--in-range):not(:disabled) {
   background: var(--calendar-surface-subtle);
 }
 
-.dcx-calendar__day-button--today {
+.dcx-calendar__day-number--today {
   font-weight: var(--fw-bold, 700);
   color: var(--bg-primary, #0058ab);
 }
@@ -153,16 +166,87 @@
 .dcx-calendar__day-button--selected {
   background: var(--bg-primary, #0058ab);
   border-radius: var(--r-pill, 999px);
+}
+
+.dcx-calendar__day-button--selected .dcx-calendar__day-number {
   color: var(--text-white, #ffffff);
 }
 
 .dcx-calendar__day-button--in-range {
   background: var(--color-info-bg, #eff6ff);
+  border-radius: var(--r-md, 6px);
+}
+
+.dcx-calendar__day-button--in-range .dcx-calendar__day-number {
   color: var(--color-info, #0058ab);
 }
 
-.dcx-calendar__day-button--other-month {
+.dcx-calendar__month-cell--other-month .dcx-calendar__day-number {
   color: var(--text-disabled, #9ca3af);
+}
+
+// ── Vista mensual (sin modo rango): rejilla espaciosa tipo mock ───────────
+.dcx-calendar--month-view:not(.dcx-calendar--range) {
+  .dcx-calendar__month-cell {
+    height: 108px;
+    padding: var(--sp-1, 4px) var(--sp-2, 8px);
+    border-right: 1px solid var(--calendar-border);
+    border-bottom: 1px solid var(--calendar-border);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .dcx-calendar__grid tbody tr:last-child .dcx-calendar__month-cell {
+    border-bottom: none;
+  }
+
+  .dcx-calendar__month-cell--today {
+    background: var(--calendar-surface-subtle);
+  }
+
+  .dcx-calendar__month-cell--weekend {
+    background: var(--calendar-surface-muted, #fafafa);
+  }
+
+  .dcx-calendar__month-cell--other-month {
+    background: var(--calendar-surface-muted, #f8fafc);
+  }
+
+  .dcx-calendar__day-button {
+    justify-content: flex-start;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin-bottom: 3px;
+  }
+
+  .dcx-calendar__day-button:hover:not(.dcx-calendar__day-button--selected) {
+    background: transparent;
+  }
+
+  .dcx-calendar__day-number {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-weight: var(--fw-semibold, 600);
+  }
+
+  .dcx-calendar__day-number--today {
+    background: var(--bg-primary, #0058ab);
+    color: var(--text-white, #ffffff);
+  }
+
+  .dcx-calendar__day-button--selected {
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .dcx-calendar__day-button--selected .dcx-calendar__day-number {
+    background: var(--bg-primary, #0058ab);
+    color: var(--text-white, #ffffff);
+  }
 }
 
 .dcx-calendar__month-pill,
@@ -171,13 +255,14 @@
   display: block;
   width: 100%;
   margin-top: 2px;
-  padding: 2px 5px;
+  padding: 3px 5px;
   overflow: hidden;
   border: 0;
   border-left: 3px solid transparent;
-  border-radius: var(--r-sm, 4px);
+  border-radius: 3px;
   background: transparent;
   font-size: var(--fs-xs, 11px);
+  font-weight: var(--fw-medium, 500);
   line-height: 1.4;
   text-align: left;
   white-space: nowrap;
@@ -266,22 +351,43 @@
 }
 
 .dcx-calendar__week-table-wrap {
+  padding: 0 var(--sp-3, 12px) var(--sp-3, 12px);
   overflow-x: auto;
 }
 
 .dcx-calendar__week-corner {
-  width: 48px;
+  width: 44px;
+  border-right: 1px solid var(--border-default, #d1d5db);
+  border-bottom: 1px solid var(--border-default, #d1d5db);
 }
 
 .dcx-calendar__week-header {
-  padding: var(--sp-2, 8px) 0 var(--sp-3, 12px);
+  padding: var(--sp-2, 8px) var(--sp-1, 4px) var(--sp-3, 12px);
+  text-align: center;
+  color: var(--text-muted, #696e75);
   border-bottom: 1px solid var(--border-default, #d1d5db);
+}
+
+.dcx-calendar__week-header--today {
+  color: var(--bg-primary, #0058ab);
+}
+
+.dcx-calendar__week-header--weekend {
+  color: var(--text-muted, #696e75);
 }
 
 .dcx-calendar__week-day-number {
   font-size: 18px;
   font-weight: var(--fw-semibold, 600);
   color: var(--text-dark, #2a2e33);
+  display: inline-block;
+  min-width: 28px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.dcx-calendar__week-header--weekend .dcx-calendar__week-day-number {
+  color: var(--text-disabled, #9ca3af);
 }
 
 .dcx-calendar__week-day-number--today {
@@ -302,8 +408,12 @@
   font-weight: var(--fw-semibold, 600);
 }
 
+.dcx-calendar__week-header--today .dcx-calendar__week-day-label {
+  color: var(--bg-primary, #0058ab);
+}
+
 .dcx-calendar__time-column {
-  width: 48px;
+  width: 44px;
   padding: 4px var(--sp-2, 8px) 0 0;
   border-right: 1px solid var(--border-default, #d1d5db);
   border-bottom: 1px solid var(--border-default, #d1d5db);
@@ -319,6 +429,10 @@
   border-right: 1px solid var(--border-default, #d1d5db);
   border-bottom: 1px solid var(--border-default, #d1d5db);
   vertical-align: top;
+}
+
+.dcx-calendar__week-slot:last-child {
+  border-right: none;
 }
 
 .dcx-calendar__year-grid {
@@ -385,16 +499,14 @@
 
 .dcx-calendar-popover {
   overflow: hidden;
-  border-radius: var(--r-xl, 12px);
+  border-radius: var(--r-lg, 8px);
   background: var(--calendar-surface);
-  box-shadow: var(--calendar-shadow);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   font-family: var(--ff-base, 'Inter', sans-serif);
 }
 
 .dcx-calendar-popover--embedded {
-  width: 280px;
-  border: 1px solid var(--calendar-border);
-  box-shadow: none;
+  width: 272px;
 }
 
 .dcx-calendar-popover__accent {
@@ -588,6 +700,12 @@
   background: var(--calendar-surface);
   box-shadow: var(--calendar-shadow);
   font-family: var(--ff-base, 'Inter', sans-serif);
+
+  // El panel recibe el foco por script al abrirse (ver constructor); no es
+  // parte del recorrido normal de tabulación, así que no necesita anillo.
+  &:focus {
+    outline: none;
+  }
 }
 
 .dcx-calendar-dialog--delete {

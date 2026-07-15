@@ -72,6 +72,27 @@ describe('DcxNgCalendarComponent', () => {
     expect(events.length).toBeGreaterThan(0);
   });
 
+  it('should mark the weekend columns in week view header', () => {
+    fixture.componentRef.setInput('view', 'week');
+    fixture.detectChanges();
+
+    const weekendHeaders = fixture.nativeElement.querySelectorAll(
+      '.dcx-calendar__week-header--weekend',
+    );
+    expect(weekendHeaders.length).toBe(2);
+  });
+
+  it('should mark the today column in week view header when visible', () => {
+    fixture.componentRef.setInput('view', 'week');
+    fixture.componentRef.setInput('activeDate', new Date());
+    fixture.detectChanges();
+
+    const todayHeader = fixture.nativeElement.querySelector(
+      '.dcx-calendar__week-header--today',
+    );
+    expect(todayHeader).toBeTruthy();
+  });
+
   it('should render twelve months in year view', () => {
     fixture.componentRef.setInput('view', 'year');
     fixture.detectChanges();
@@ -109,6 +130,19 @@ describe('DcxNgCalendarComponent', () => {
       start: days[0].date,
       end: days[1].date,
     });
+  });
+
+  it('should not render event pills in range mode, even if events are passed', () => {
+    // Bug real: si se muestran eventos en la rejilla compacta de rango, la
+    // fila se expande por el contenido y el botón de día (100% del alto de
+    // la celda + border-radius de píldora) se estira en un óvalo gigante.
+    fixture.componentRef.setInput('selectionMode', 'range');
+    fixture.detectChanges();
+
+    expect(component.showMonthEvents()).toBe(false);
+    expect(
+      fixture.nativeElement.querySelectorAll('.dcx-calendar__month-pill').length,
+    ).toBe(0);
   });
 
   it('should emit eventSelect when opening an event', () => {
@@ -193,6 +227,44 @@ describe('DcxNgCalendarComponent', () => {
     ).find(element => element.textContent?.includes('+2 más'));
 
     expect(moreButton).toBeTruthy();
+  });
+
+  it('should render a single grouped dcx-ng-radio in the delete modal', () => {
+    const recurringEvent = component
+      .localEvents()
+      .find(event => event.seriesId === 'standup-daily-june-2026');
+
+    component.openEvent(recurringEvent!);
+    component.openDeleteModal();
+    fixture.detectChanges();
+
+    const radios = fixture.nativeElement.querySelectorAll('dcx-ng-radio');
+    expect(radios.length).toBe(1);
+    expect(component.deleteScopeOptions.map(option => option.value)).toEqual([
+      'single',
+      'following',
+      'all',
+    ]);
+  });
+
+  it('should mark today with a distinctive cell class in month view', () => {
+    // `today` se calcula internamente a partir de `new Date()`; se apunta
+    // `activeDate` al mes real actual para garantizar que "hoy" cae dentro
+    // de la rejilla visible, sin depender de la fecha fija de las demos.
+    fixture.componentRef.setInput('activeDate', new Date());
+    fixture.detectChanges();
+
+    const todayCell = fixture.nativeElement.querySelector(
+      '.dcx-calendar__month-cell--today',
+    );
+    expect(todayCell).toBeTruthy();
+  });
+
+  it('should mark weekend columns with a distinctive cell class in month view', () => {
+    const weekendCells = fixture.nativeElement.querySelectorAll(
+      '.dcx-calendar__month-cell--weekend',
+    );
+    expect(weekendCells.length).toBeGreaterThan(0);
   });
 
   it('should disable interaction when disabled is true', () => {

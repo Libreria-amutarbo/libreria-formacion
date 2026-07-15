@@ -5,17 +5,18 @@
     [class.dcx-calendar--week-view]="isWeekView()"
     [class.dcx-calendar--year-view]="isYearView()"
     [class.dcx-calendar--mini]="isMiniView()"
+    [class.dcx-calendar--range]="isRangeMode()"
     [class.dcx-calendar--disabled]="disabled()"
     [attr.aria-label]="ariaLabel()"
   >
     @if (isYearView()) {
       <div class="dcx-calendar__year-header">
         <button class="dcx-calendar__nav" type="button" aria-label="Anterior" (click)="previous()">
-          <span aria-hidden="true">&#10094;</span>
+          <dcx-ng-icon name="chevron-left" size="s" aria-hidden="true"></dcx-ng-icon>
         </button>
         <span class="dcx-calendar__year-title">{{ yearLabel() }}</span>
         <button class="dcx-calendar__nav" type="button" aria-label="Siguiente" (click)="next()">
-          <span aria-hidden="true">&#10095;</span>
+          <dcx-ng-icon name="chevron-right" size="s" aria-hidden="true"></dcx-ng-icon>
         </button>
       </div>
 
@@ -51,13 +52,13 @@
     } @else {
       <div class="dcx-calendar__header">
         <button class="dcx-calendar__nav" type="button" aria-label="Anterior" (click)="previous()">
-          <span aria-hidden="true">&#10094;</span>
+          <dcx-ng-icon name="chevron-left" size="s" aria-hidden="true"></dcx-ng-icon>
         </button>
         <span class="dcx-calendar__title">
           {{ isWeekView() ? weekLabel() : monthLabel() }}
         </span>
         <button class="dcx-calendar__nav" type="button" aria-label="Siguiente" (click)="next()">
-          <span aria-hidden="true">&#10095;</span>
+          <dcx-ng-icon name="chevron-right" size="s" aria-hidden="true"></dcx-ng-icon>
         </button>
       </div>
 
@@ -108,39 +109,42 @@
           </table>
         </div>
       } @else {
-        <div class="dcx-calendar__weekdays">
-          <table class="dcx-calendar__weekdays-grid">
+        <div class="dcx-calendar__grid-wrap">
+          <table class="dcx-calendar__grid">
             <thead>
               <tr>
-                @for (weekday of weekLabels; track weekday) {
-                  <th class="dcx-calendar__weekday">{{ weekday }}</th>
+                @for (weekday of weekLabels; track weekday; let i = $index) {
+                  <th class="dcx-calendar__weekday" [class.dcx-calendar__weekday--weekend]="i >= 5">
+                    {{ weekday }}
+                  </th>
                 }
               </tr>
             </thead>
-          </table>
-        </div>
-
-        <div class="dcx-calendar__grid-wrap">
-          <table class="dcx-calendar__grid">
             <tbody>
               @for (week of monthWeeks(); track $index) {
                 <tr>
                   @for (day of week; track day.date.getTime()) {
-                    <td>
+                    <td
+                      class="dcx-calendar__month-cell"
+                      [class.dcx-calendar__month-cell--today]="day.isToday"
+                      [class.dcx-calendar__month-cell--weekend]="day.isWeekend"
+                      [class.dcx-calendar__month-cell--other-month]="!day.isCurrentMonth"
+                      (click)="selectDay(day)"
+                    >
                       <button
                         type="button"
                         class="dcx-calendar__day-button"
-                        [class.dcx-calendar__day-button--today]="day.isToday"
                         [class.dcx-calendar__day-button--selected]="day.isSelected || day.isRangeStart || day.isRangeEnd"
                         [class.dcx-calendar__day-button--in-range]="day.isInRange"
-                        [class.dcx-calendar__day-button--other-month]="!day.isCurrentMonth"
                         [disabled]="disabled()"
-                        (click)="selectDay(day)"
+                        (click)="selectDay(day); $event.stopPropagation()"
                       >
-                        {{ day.date.getDate() }}
+                        <span class="dcx-calendar__day-number" [class.dcx-calendar__day-number--today]="day.isToday">
+                          {{ day.date.getDate() }}
+                        </span>
                       </button>
 
-                      @if (isMonthView()) {
+                      @if (showMonthEvents()) {
                         @for (event of getVisibleEvents(day); track event.id) {
                           <button
                             type="button"
@@ -150,14 +154,14 @@
                             [class.dcx-calendar__month-pill--orange]="getEventClass(event.type) === 'orange'"
                             [class.dcx-calendar__month-pill--red]="getEventClass(event.type) === 'red'"
                             [class.dcx-calendar__month-pill--purple]="getEventClass(event.type) === 'purple'"
-                            (click)="openEvent(event)"
+                            (click)="openEvent(event); $event.stopPropagation()"
                           >
                             {{ event.title }}
                           </button>
                         }
 
                         @if (getOverflowCount(day) > 0) {
-                          <button type="button" class="dcx-calendar__month-more" (click)="openDayOverflow(day)">
+                          <button type="button" class="dcx-calendar__month-more" (click)="openDayOverflow(day); $event.stopPropagation()">
                             +{{ getOverflowCount(day) }} más
                           </button>
                         }
@@ -263,11 +267,17 @@
 </div>
 
 @if (modalMode(); as activeModal) {
-  <div class="dcx-calendar-overlay" role="dialog" aria-modal="true">
+  <div
+    class="dcx-calendar-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dcx-calendar-dialog-title"
+    (click)="closeOverlay()"
+  >
     @if (activeModal === 'delete') {
-      <div class="dcx-calendar-dialog dcx-calendar-dialog--delete">
+      <div class="dcx-calendar-dialog dcx-calendar-dialog--delete" #dialogPanel tabindex="-1" (click)="$event.stopPropagation()">
         <div class="dcx-calendar-dialog__header">
-          <div class="dcx-calendar-dialog__title">Eliminar evento</div>
+          <div class="dcx-calendar-dialog__title" id="dcx-calendar-dialog-title">Eliminar evento</div>
           <button class="dcx-calendar-dialog__close" type="button" (click)="closeOverlay()">
             <dcx-ng-icon name="x-lg" size="m" aria-hidden="true"></dcx-ng-icon>
           </button>
@@ -279,24 +289,7 @@
           <div class="dcx-calendar-delete-options">
             <dcx-ng-radio
               name="deleteScope"
-              value="single"
-              label="Solo este evento"
-              size="m"
-              [ngModel]="deleteScope()"
-              (ngModelChange)="setDeleteScope($event)"
-            ></dcx-ng-radio>
-            <dcx-ng-radio
-              name="deleteScope"
-              value="following"
-              label="Este y los siguientes"
-              size="m"
-              [ngModel]="deleteScope()"
-              (ngModelChange)="setDeleteScope($event)"
-            ></dcx-ng-radio>
-            <dcx-ng-radio
-              name="deleteScope"
-              value="all"
-              label="Todos los eventos"
+              [options]="deleteScopeOptions"
               size="m"
               [ngModel]="deleteScope()"
               (ngModelChange)="setDeleteScope($event)"
@@ -321,10 +314,10 @@
         </div>
       </div>
     } @else {
-      <div class="dcx-calendar-dialog">
+      <div class="dcx-calendar-dialog" #dialogPanel tabindex="-1" (click)="$event.stopPropagation()">
         <div class="dcx-calendar-dialog__header">
           <div>
-            <div class="dcx-calendar-dialog__title">{{ activeModal === 'create' ? 'Nuevo evento' : 'Editar evento' }}</div>
+            <div class="dcx-calendar-dialog__title" id="dcx-calendar-dialog-title">{{ activeModal === 'create' ? 'Nuevo evento' : 'Editar evento' }}</div>
             <div class="dcx-calendar-dialog__date-badge">{{ eventForm.date }}</div>
           </div>
           <button class="dcx-calendar-dialog__close" type="button" (click)="closeOverlay()">
