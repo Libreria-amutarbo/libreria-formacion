@@ -1,0 +1,130 @@
+<div class="demo-page dcx-calendar-page">
+  <header class="demo-page-header">
+    <p class="demo-page-header__kicker">Components</p>
+    <h1 class="demo-page-header__title">Calendar</h1>
+    <p class="demo-page-header__desc">
+      Showcase funcional del calendario en fase 1: vistas mensual, semanal,
+      anual y mini, navegación temporal, selección de rango y gestión local de eventos.
+    </p>
+    <hr class="demo-page-header__divider" />
+  </header>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">01</span>
+      <span class="demo-section__title">Vista mensual</span>
+    </div>
+    <p class="demo-section__desc">
+      Navegación por mes, eventos por día, vista rápida del evento y acceso a crear evento.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-calendar
+        [view]="'month'"
+        [activeDate]="monthDate()"
+        [selectedDate]="selectedDay()"
+        [selectionMode]="'single'"
+        [events]="events()"
+        [dayMaxVisibleEvents]="2"
+        (activeDateChange)="handleMonthDateChange($event)"
+        (dateSelect)="handleMonthDateSelect($event)"
+        (eventCreate)="handleCalendarEventCreate($event)"
+        (eventUpdate)="handleCalendarEventUpdate($event)"
+        (eventDelete)="handleCalendarEventDelete($event)"
+      ></dcx-ng-calendar>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">02</span>
+      <span class="demo-section__title">Rango y mini</span>
+    </div>
+    <p class="demo-section__desc">
+      Selección de rango con aplicar/limpiar y variante mini para navegación compacta.
+    </p>
+    <div class="demo-section__body">
+      <div class="dcx-calendar-page__grid-two">
+        <div class="dcx-calendar-page__range-stack">
+          <div class="dcx-calendar-page__info-card">
+            <div class="dcx-calendar-page__info-card-title">Rango aplicado</div>
+            <p class="dcx-calendar-page__info-card-value">{{ appliedRangeLabel() }}</p>
+          </div>
+          <dcx-ng-calendar
+            [view]="'month'"
+            [activeDate]="rangeDate()"
+            [selectionMode]="'range'"
+            [rangeStart]="rangeStart()"
+            [rangeEnd]="rangeEnd()"
+            [showFooter]="true"
+            [allowCreate]="false"
+            [events]="[]"
+            (activeDateChange)="handleRangeDateChange($event)"
+            (rangeChange)="handleRangeChange($event)"
+          ></dcx-ng-calendar>
+        </div>
+
+        <div class="dcx-calendar-page__mini-stack">
+          <dcx-ng-calendar
+            [view]="'mini'"
+            [activeDate]="miniDate()"
+            [selectedDate]="miniDate()"
+            [selectionMode]="'single'"
+            [allowCreate]="false"
+            [allowEdit]="false"
+            [allowDelete]="false"
+            [events]="[]"
+            (activeDateChange)="handleMiniDateChange($event)"
+            (dateSelect)="handleMiniDateSelect($event)"
+          ></dcx-ng-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">03</span>
+      <span class="demo-section__title">Vista semanal</span>
+    </div>
+    <p class="demo-section__desc">
+      Rejilla horaria simplificada para validar colocación de eventos por día y hora.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-calendar
+        [view]="'week'"
+        [activeDate]="weekDate()"
+        [events]="events()"
+        [selectionMode]="'none'"
+        [allowCreate]="false"
+        [showFooter]="false"
+        [weekStartHour]="9"
+        [weekEndHour]="16"
+        (activeDateChange)="handleWeekDateChange($event)"
+      ></dcx-ng-calendar>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-section__header">
+      <span class="demo-section__num">04</span>
+      <span class="demo-section__title">Vista anual</span>
+    </div>
+    <p class="demo-section__desc">
+      Resumen navegable de los 12 meses del año con realce del mes activo y del día de referencia.
+    </p>
+    <div class="demo-section__body">
+      <dcx-ng-calendar
+        [view]="'year'"
+        [activeDate]="yearDate()"
+        [selectedDate]="selectedDay()"
+        [allowCreate]="false"
+        [allowEdit]="false"
+        [allowDelete]="false"
+        [showFooter]="false"
+        [events]="[]"
+        (activeDateChange)="handleYearDateChange($event)"
+      ></dcx-ng-calendar>
+    </div>
+  </div>
+
+</div>

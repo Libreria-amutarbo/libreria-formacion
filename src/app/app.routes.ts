@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { DcxNgPageButtonComponent } from './pages/dcx-ng-page-button/dcx-ng-page-button.component';
+import { DcxNgPageCalendarComponent } from './pages/dcx-ng-page-calendar/dcx-ng-page-calendar.component';
 import { DcxNgPageMessageComponent } from './pages/dcx-ng-page-message/dcx-ng-page-message.component';
 import { DcxNgPageToastComponent } from './pages/dcx-ng-page-toast/dcx-ng-page-toast.component';
 import { DcxNgPageIconComponent } from './pages/dcx-ng-page-icon/dcx-ng-page-icon.component';
@@ -61,6 +62,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.BUTTON,
     component: DcxNgPageButtonComponent,
+  },
+  {
+    path: APP_ROUTES.CALENDAR,
+    component: DcxNgPageCalendarComponent,
   },
   {
     path: APP_ROUTES.MESSAGE,
