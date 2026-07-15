@@ -1,6 +1,53 @@
 :host {
-  display: block;
+  display: contents;
 }
+
+/* ================================
+   OUTLET (contenedor fijo, apila los toasts activos)
+   ================================ */
+
+.dcx-toast-outlet {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3, 12px);
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+
+  &--top-right {
+    top: var(--sp-4, 16px);
+    right: var(--sp-4, 16px);
+    align-items: flex-end;
+  }
+
+  &--top-left {
+    top: var(--sp-4, 16px);
+    left: var(--sp-4, 16px);
+    align-items: flex-start;
+  }
+
+  &--bottom-right {
+    bottom: var(--sp-4, 16px);
+    right: var(--sp-4, 16px);
+    align-items: flex-end;
+    flex-direction: column-reverse;
+  }
+
+  &--bottom-left {
+    bottom: var(--sp-4, 16px);
+    left: var(--sp-4, 16px);
+    align-items: flex-start;
+    flex-direction: column-reverse;
+  }
+}
+
+/* ================================
+   TOAST (cada aviso individual)
+   ================================ */
 
 .dcx-toast {
   --dcx-toast-bg: #1e2226;
