@@ -24,6 +24,7 @@ import { DcxNgPageDialogComponent } from './pages/dcx-ng-page-dialog/dcx-ng-page
 import { DcxNgPageDrawerComponent } from './pages/dcx-ng-page-drawer/dcx-ng-page-drawer.component';
 import { DcxNgPageAccordionComponent } from './pages/dcx-ng-page-accordion/dcx-ng-page-accordion.component';
 import { DcxNgPageFullTableComponent } from './pages/dcx-ng-page-full-table/dcx-ng-page-full-table.component';
+import { DcxNgPageTableComponent } from './pages/dcx-ng-page-table/dcx-ng-page-table.component';
 import { DcxNgPageTabsComponent } from './pages/dcx-ng-page-tabs/dcx-ng-page-tabs.component';
 import { DcxNgPageBreadcrumbComponent } from './pages/dcx-ng-page-breadcrumb/dcx-ng-page-breadcrumb';
 import { DcxNgPageContextMenuComponent } from './pages/dcx-ng-page-contextMenu.component/dcx-ng-page-contextMenu.component';
@@ -52,6 +53,10 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.TABLE,
     component: DcxNgPageFullTableComponent,
+  },
+  {
+    path: APP_ROUTES.TABLE_V2,
+    component: DcxNgPageTableComponent,
   },
   {
     path: APP_ROUTES.BUTTON,

@@ -41,6 +41,8 @@ export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table.compo
 export * from './lib/dcx-ng-components/dcx-ng-full-table/dcx-ng-full-table-template.directive';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-data-pipeline.service';
 export * from './lib/dcx-ng-components/dcx-ng-full-table/services/table-comparator.service';
+export * from './lib/dcx-ng-components/dcx-ng-table/dcx-ng-table.component';
+export * from './lib/dcx-ng-components/dcx-ng-table/dcx-ng-table-template.directive';
 export * from './lib/dcx-ng-components/dcx-ng-navbar/dcx-ng-navbar.component';
 export * from './lib/dcx-ng-components/dcx-ng-popover/dcx-ng-popover.component';
 export * from './lib/dcx-ng-components/dcx-ng-progressbar/dcx-ng-progressbar.component';

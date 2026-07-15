@@ -6,6 +6,7 @@ export type DcxCellType =
   | 'number'
   | 'date'
   | 'badge'
+  | 'user'
   | 'actions'
   | 'custom';
 
@@ -61,6 +62,7 @@ export type DcxCellTypeConfig =
   | DcxDateTemplateConfig
   | DcxActionsConfig
   | DcxBadgeConfig
+  | DcxUserCellConfig
   | Record<string, unknown>;
 
 // ==================== MODELO DE DATOS ====================
@@ -138,4 +140,20 @@ export interface DcxFrozenColumnMeta {
   right: number | null;
   separatorLeft: boolean;
   separatorRight: boolean;
+}
+
+// ==================== DCX-NG-TABLE (v2) ====================
+// Tipos específicos del componente `dcx-ng-table`. Reutilizan lo de arriba
+// (DcxTableRow, DcxHeaderData, DcxSort, DcxActionEvent, DcxCellEditEvent...)
+// para no duplicar nada entre `dcx-ng-full-table` y `dcx-ng-table`.
+
+/** Identificador de fila usado para selección. */
+export type DcxTableRowId = string | number;
+
+/** Configuración para celdas de tipo `user` (avatar + nombre). */
+export interface DcxUserCellConfig {
+  /** Clave de la fila que contiene la URL del avatar. Si no hay valor, se usan las iniciales del nombre. */
+  avatarUrlKey?: string;
+  /** Clave de la fila con un subtítulo opcional bajo el nombre (p.ej. email). */
+  subtitleKey?: string;
 }

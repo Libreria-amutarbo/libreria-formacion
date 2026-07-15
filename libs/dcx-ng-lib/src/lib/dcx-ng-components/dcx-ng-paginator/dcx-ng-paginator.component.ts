@@ -31,6 +31,7 @@ export class DcxNgPaginatorComponent {
   showPageInfo = input<boolean>(false);
   showItemsPerPageInfo = input<boolean>(false);
   limitedButtons = input<boolean>(false);
+  pageSizeOptions = input<readonly number[]>([5, 10, 20]);
 
   // Signals
   currentPage = signal(0);
