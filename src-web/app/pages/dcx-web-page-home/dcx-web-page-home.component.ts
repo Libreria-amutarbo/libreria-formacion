@@ -81,6 +81,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['icon'],
     },
     {
+      route: 'input-otp',
+      name: 'Input OTP',
+      icon: ROUTE_ICONS['input-otp'],
+    },
+    {
       route: 'input',
       name: 'Input',
       icon: ROUTE_ICONS['input'],
