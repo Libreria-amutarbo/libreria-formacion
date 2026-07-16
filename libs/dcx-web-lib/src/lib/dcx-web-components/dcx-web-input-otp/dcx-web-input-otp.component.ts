@@ -48,7 +48,10 @@ export class DcxWebInputOtp extends LitElement {
   @state()
   accessor tokens: string[] = this.createEmptyTokens(4);
 
-  @property({ attribute: false })
+  @property({
+    attribute: false,
+    state: false,
+  })
   accessor inputTemplateRenderer:
     ((
       context: DcxInputOtpTemplateContext,
