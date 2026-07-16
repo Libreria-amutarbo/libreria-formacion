@@ -305,7 +305,7 @@ describe('DcxWebInputOtp', () => {
       await Promise.resolve();
 
       expect(
-        document.activeElement,
+        element.shadowRoot?.activeElement,
       ).toBe(inputs[2]);
     });
 
@@ -324,7 +324,7 @@ describe('DcxWebInputOtp', () => {
       await Promise.resolve();
 
       expect(
-        document.activeElement,
+        element.shadowRoot?.activeElement,
       ).toBe(inputs[1]);
     });
 
@@ -338,7 +338,7 @@ describe('DcxWebInputOtp', () => {
       await Promise.resolve();
 
       expect(
-        document.activeElement,
+        element.shadowRoot?.activeElement,
       ).toBe(inputs[1]);
     });
 
@@ -359,7 +359,7 @@ describe('DcxWebInputOtp', () => {
       await Promise.resolve();
 
       expect(
-        document.activeElement,
+        element.shadowRoot?.activeElement,
       ).toBe(inputs[0]);
     });
 
@@ -446,7 +446,7 @@ describe('DcxWebInputOtp', () => {
       await Promise.resolve();
 
       expect(
-        document.activeElement,
+        element.shadowRoot?.activeElement,
       ).toBe(getInputs()[2]);
     });
 
@@ -460,7 +460,7 @@ describe('DcxWebInputOtp', () => {
       await Promise.resolve();
 
       expect(
-        document.activeElement,
+        element.shadowRoot?.activeElement,
       ).toBe(getInputs()[0]);
     });
 
