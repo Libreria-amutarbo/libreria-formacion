@@ -5,6 +5,9 @@ import type {
 } from '@storybook/web-components';
 
 import '../../../index';
+import {
+  DCXINPUT_OTP_SIZES,
+} from '../../core/interfaces/inputOtp';
 
 import '../../dcx-web-components/dcx-web-input-otp/dcx-web-input-otp.component';
 import '../../dcx-web-components/dcx-web-button/dcx-web-button.component';
@@ -40,9 +43,7 @@ const meta: Meta = {
     size: {
       control: { type: 'select' },
       options: [
-        'small',
-        'medium',
-        'large',
+        DCXINPUT_OTP_SIZES,
       ],
       description:
         'Tamaño visual de las casillas OTP.',
@@ -245,115 +246,282 @@ export default meta;
 
 type Story = StoryObj;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: () => {
+    const wrapper =
+      document.createElement('div');
+
+    wrapper.style.display = 'flex';
+    wrapper.style.flexDirection =
+      'column';
+    wrapper.style.gap = 'var(--sp-3, 12px)';
+
+    const otp =
+      document.createElement(
+        'dcx-web-input-otp',
+      );
+
+    const preview =
+      document.createElement('p');
+
+    preview.style.margin = '0';
+    preview.style.color = 'var(--text-muted, #696e75)';
+    preview.style.fontSize = 'var(--fs-sm, 12px)';
+
+    preview.textContent =
+      'Valor actual: Sin completar';
+
+    otp.addEventListener(
+      'valueChange',
+      (event: Event) => {
+        const customEvent =
+          event as CustomEvent<string>;
+
+        preview.textContent =
+          `Valor actual: ${
+            customEvent.detail ||
+            'Sin completar'
+          }`;
+      },
+    );
+
+    wrapper.append(
+      otp,
+      preview,
+    );
+
+    return wrapper;
+  },
+};
 
 export const IntegerOnly: Story = {
-  args: {
-    length: 6,
-    integerOnly: true,
-    ariaLabel:
-      'Código numérico de verificación',
+  render: () => {
+    const wrapper =
+      document.createElement('div');
+
+    wrapper.style.display = 'flex';
+
+    wrapper.style.flexDirection =
+      'column';
+
+    wrapper.style.gap = 'var(--sp-3, 12px)';
+
+    const otp =
+      document.createElement(
+        'dcx-web-input-otp',
+      ) as any;
+
+    otp.length = 6;
+    otp.integerOnly = true;
+    otp.ariaLabel =
+      'Código numérico de verificación';
+
+    otp.writeValue('123456');
+
+    const preview =
+      document.createElement('p');
+
+    preview.style.margin = '0';
+
+    preview.style.color = 'var(--text-muted, #696e75)';
+
+    preview.style.fontSize = 'var(--fs-sm, 12px)';
+
+    preview.textContent =
+      'Código precargado: 123456';
+
+    otp.addEventListener(
+      'valueChange',
+      (event: Event) => {
+        const customEvent =
+          event as CustomEvent<string>;
+
+        preview.textContent =
+          `Código precargado: ${
+            customEvent.detail
+          }`;
+      },
+    );
+
+    wrapper.append(
+      otp,
+      preview,
+    );
+
+    return wrapper;
   },
-
-  render: args => html`
-    <div
-      style="
-        display:flex;
-        flex-direction:column;
-        gap:12px;
-        max-width:360px;
-      "
-    >
-      <dcx-web-input-otp
-        .length=${args.length}
-        .integerOnly=${args.integerOnly}
-        aria-label=${args.ariaLabel}
-      >
-      </dcx-web-input-otp>
-
-      <p
-        style="
-          margin:0;
-          color:#696e75;
-          font-size:12px;
-        "
-      >
-        Código numérico de 6 posiciones.
-      </p>
-    </div>
-  `,
 };
 
 export const Masked: Story = {
-  args: {
-    mask: true,
-    placeholder: '•',
-    ariaLabel:
-      'Código OTP enmascarado',
+  render: () => {
+    const wrapper =
+      document.createElement('div');
+
+    wrapper.style.display = 'flex';
+
+    wrapper.style.flexDirection =
+      'column';
+
+    wrapper.style.gap = 'var(--sp-3, 12px)';
+
+    const otp =
+      document.createElement(
+        'dcx-web-input-otp',
+      ) as any;
+
+    otp.mask = true;
+
+    otp.placeholder = '•';
+
+    otp.ariaLabel =
+      'Código OTP enmascarado';
+
+    const preview =
+      document.createElement('p');
+
+    preview.style.margin = '0';
+
+    preview.style.color = 'var(--text-muted, #696e75)';
+
+    preview.style.fontSize = 'var(--fs-sm, 12px)';
+
+    preview.textContent =
+      'Valor real: Sin completar';
+
+    otp.addEventListener(
+      'valueChange',
+      (event: Event) => {
+        const customEvent =
+          event as CustomEvent<string>;
+
+        preview.textContent =
+          `Valor real: ${
+            customEvent.detail ||
+            'Sin completar'
+          }`;
+      },
+    );
+
+    wrapper.append(
+      otp,
+      preview,
+    );
+
+    return wrapper;
   },
-
-  render: args => html`
-    <div
-      style="
-        display:flex;
-        flex-direction:column;
-        gap:12px;
-        max-width:320px;
-      "
-    >
-      <dcx-web-input-otp
-        .mask=${args.mask}
-        placeholder=${args.placeholder}
-        aria-label=${args.ariaLabel}
-      >
-      </dcx-web-input-otp>
-
-      <p
-        style="
-          margin:0;
-          color:#696e75;
-          font-size:12px;
-        "
-      >
-        Valor real oculto mediante máscara.
-      </p>
-    </div>
-  `,
 };
 
 export const Interactive: Story = {
-  render: () => html`
-    <div
-      style="
-        display:flex;
-        flex-direction:column;
-        gap:16px;
-        max-width:360px;
-      "
-    >
-      <dcx-web-input-otp
-        id="interactiveOtp"
-        .integerOnly=${true}
-        aria-label="Código interactivo de verificación"
-      >
-      </dcx-web-input-otp>
+  render: () => {
+    const wrapper =
+      document.createElement('div');
 
-      <dcx-web-button
-        label="Limpiar código"
-        variant="secondary"
-        size="s"
-        @buttonClick=${() => {
-          const otp =
-            document.querySelector(
-              '#interactiveOtp',
-            ) as any;
+    wrapper.style.display = 'flex';
 
-          otp?.clear();
-        }}
-      >
-      </dcx-web-button>
-    </div>
-  `,
+    wrapper.style.flexDirection =
+      'column';
+
+    wrapper.style.gap = 'var(--sp-4, 16px)';
+
+    const otp =
+      document.createElement(
+        'dcx-web-input-otp',
+      ) as any;
+
+    otp.integerOnly = true;
+
+    const values =
+      document.createElement('div');
+
+    values.style.display = 'flex';
+
+    values.style.flexDirection =
+      'column';
+
+    values.style.gap = '6px';
+
+    values.style.color =
+      'var(--text-muted, #696e75)';
+
+    values.style.fontSize =
+      'var(--fs-sm,12px)';
+
+    const currentValue =
+      document.createElement('span');
+
+    const completedValue =
+      document.createElement('span');
+
+    currentValue.textContent =
+      'Valor actual: Sin completar';
+
+    completedValue.textContent =
+      'Último código completo: Pendiente';
+
+    values.append(
+      currentValue,
+      completedValue,
+    );
+
+    otp.addEventListener(
+      'valueChange',
+      (event: Event) => {
+        const customEvent =
+          event as CustomEvent<string>;
+
+        currentValue.textContent =
+          `Valor actual: ${
+            customEvent.detail ||
+            'Sin completar'
+          }`;
+      },
+    );
+
+    otp.addEventListener(
+      'completed',
+      (event: Event) => {
+        const customEvent =
+          event as CustomEvent<string>;
+
+        completedValue.textContent =
+          `Último código completo: ${customEvent.detail}`;
+      },
+    );
+
+    const button =
+      document.createElement(
+        'dcx-web-button',
+      ) as any;
+
+    button.label =
+      'Limpiar código';
+
+    button.variant =
+      'secondary';
+
+    button.size = 's';
+
+    button.addEventListener(
+      'buttonClick',
+      () => {
+        otp.clear();
+
+        currentValue.textContent =
+          'Valor actual: Sin completar';
+
+        completedValue.textContent =
+          'Último código completo: Pendiente';
+      },
+    );
+
+    wrapper.append(
+      otp,
+      values,
+      button,
+    );
+
+    return wrapper;
+  },
 };
 
 export const Sizes: Story = {
@@ -362,7 +530,7 @@ export const Sizes: Story = {
       style="
         display:flex;
         flex-direction:column;
-        gap:16px;
+        gap:var(--sp-4, 16px);
         align-items:flex-start;
       "
     >
@@ -388,77 +556,143 @@ export const Sizes: Story = {
 };
 
 export const TemplateDrivenForm: Story = {
-  render: () => html`
-    <div
-      style="
-        display:flex;
-        flex-direction:column;
-        gap:12px;
-        max-width:360px;
-      "
-    >
-      <dcx-web-input-otp
-        .integerOnly=${true}
-        aria-label="OTP con formulario template-driven"
-      >
-      </dcx-web-input-otp>
+  render: () => {
+    const wrapper =
+      document.createElement('div');
 
-      <p
-        style="
-          margin:0;
-          min-height:18px;
-          color:#c81e1e;
-          font-size:12px;
-        "
-      >
-        Passcode is required.
-      </p>
+    wrapper.style.display = 'flex';
 
-      <dcx-web-button
-        label="Submit"
-        variant="primary"
-        size="s"
-      >
-      </dcx-web-button>
-    </div>
-  `,
+    wrapper.style.flexDirection =
+      'column';
+
+    wrapper.style.gap = 'var(--sp-3, 12px)';
+
+    const otp =
+      document.createElement(
+        'dcx-web-input-otp',
+      ) as any;
+
+    otp.integerOnly = true;
+
+    const error =
+      document.createElement('p');
+
+    error.style.margin = '0';
+    error.style.minHeight = '18px';
+    error.style.color = 'var(--text-error, #c81e1e)';
+    error.style.fontSize = 'var(--fs-sm,12px)';
+
+    const button =
+      document.createElement(
+        'dcx-web-button',
+      ) as any;
+
+    button.label = 'Submit';
+    button.variant = 'primary';
+    button.size = 's';
+
+    button.addEventListener(
+      'buttonClick',
+      () => {
+        const value =
+          otp.tokens.join('');
+
+        if (!value) {
+          otp.invalid = true;
+
+          error.textContent =
+            'Passcode is required.';
+
+          return;
+        }
+
+        otp.invalid = false;
+
+        error.textContent = '';
+
+        otp.clear();
+      },
+    );
+
+    wrapper.append(
+      otp,
+      error,
+      button,
+    );
+
+    return wrapper;
+  },
 };
 
 export const ReactiveForm: Story = {
-  render: () => html`
-    <div
-      style="
-        display:flex;
-        flex-direction:column;
-        gap:12px;
-        max-width:360px;
-      "
-    >
-      <dcx-web-input-otp
-        .integerOnly=${true}
-        aria-label="OTP con reactive forms"
-      >
-      </dcx-web-input-otp>
+  render: () => {
+    const wrapper =
+      document.createElement('div');
 
-      <p
-        style="
-          margin:0;
-          min-height:18px;
-          color:#c81e1e;
-          font-size:12px;
-        "
-      >
-        Passcode is required.
-      </p>
+    wrapper.style.display = 'flex';
 
-      <dcx-web-button
-        label="Submit"
-        variant="primary"
-        size="s"
-      >
-      </dcx-web-button>
-    </div>
-  `,
+    wrapper.style.flexDirection =
+      'column';
+
+    wrapper.style.gap = 'var(--sp-3, 12px)';
+
+    const otp =
+      document.createElement(
+        'dcx-web-input-otp',
+      ) as any;
+
+    otp.integerOnly = true;
+
+    const error =
+      document.createElement('p');
+
+    error.style.margin = '0';
+    error.style.minHeight = '18px';
+    error.style.color = '#c81e1e';
+    error.style.fontSize = 'var(--fs-sm, 12px)';
+
+    const button =
+      document.createElement(
+        'dcx-web-button',
+      ) as any;
+
+    button.label = 'Submit';
+    button.variant = 'primary';
+    button.size = 's';
+
+    button.addEventListener(
+      'buttonClick',
+      () => {
+        const value =
+          otp.tokens.join('');
+
+        if (
+          value.length < 4
+        ) {
+          otp.invalid = true;
+
+          error.textContent =
+            'Passcode is required.';
+
+          return;
+        }
+
+        otp.invalid = false;
+
+        error.textContent = '';
+
+        otp.clear();
+      },
+    );
+
+    wrapper.append(
+      otp,
+      error,
+      button,
+    );
+
+    return wrapper;
+  },
 };
 
 export const SampleLayout: Story = {
@@ -467,7 +701,7 @@ export const SampleLayout: Story = {
       style="
         display:flex;
         justify-content:center;
-        padding:16px;
+        padding: var(--sp-4, 16px);
       "
     >
       <div
@@ -475,15 +709,15 @@ export const SampleLayout: Story = {
           display:flex;
           flex-direction:column;
           align-items:center;
-          gap:12px;
+          gap:var(--sp-3, 12px);
           width:100%;
           max-width:420px;
         "
       >
         <div
           style="
-            font-size:24px;
-            font-weight:700;
+            font-size:var(--fs-2xl, 24px);
+            font-weight:var(--fw-bold, 700px);
             text-align:center;
           "
         >
@@ -493,7 +727,7 @@ export const SampleLayout: Story = {
         <p
           style="
             margin:0;
-            color:#696e75;
+            color:var(--text-muted, #696e75);
             text-align:center;
           "
         >
@@ -511,7 +745,7 @@ export const SampleLayout: Story = {
           style="
             display:flex;
             justify-content:space-between;
-            gap:12px;
+            gap:var(--sp-3, 12px);
             width:100%;
           "
         >

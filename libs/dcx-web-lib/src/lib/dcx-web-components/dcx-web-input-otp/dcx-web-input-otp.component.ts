@@ -6,7 +6,6 @@ import type { TemplateResult } from 'lit';
 import { renderDcxWebInputOtpTemplate } from './dcx-web-input-otp.component.html';
 import { dcxWebInputOtpStyles } from './dcx-web-input-otp.component.styles';
 
-// Ajustar ruta según estructura real del proyecto
 import type {
   DcxInputOtpSize,
   DcxInputOtpType,

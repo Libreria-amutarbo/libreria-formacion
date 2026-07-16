@@ -2,7 +2,6 @@ import {
   LitElement,
   html,
   css,
-  nothing,
 } from 'lit';
 
 import {
@@ -123,7 +122,7 @@ export class DcxWebPageInputOtp extends LitElement {
     }
 
     .demo-section__num {
-      font-size: 10px;
+      font-size: var(--fs-xs, 11px);
       font-weight: var(--fw-bold, 700);
       color: var(--text-muted, #696e75);
       background: var(--bg-sidebar, #f0f2f5);
@@ -176,7 +175,7 @@ export class DcxWebPageInputOtp extends LitElement {
     .value-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: var(--sp-2, 8px);
       color: var(--text-muted, #696e75);
       font-size: var(--fs-base, 14px);
     }
@@ -193,22 +192,6 @@ export class DcxWebPageInputOtp extends LitElement {
       font-size: var(--fs-sm, 12px);
     }
 
-    .demo-button {
-      width: max-content;
-      padding: var(--sp-2, 8px) 16px;
-      border: 1px solid var(--border-input, #d1d5db);
-      border-radius: var(--r-lg, 8px);
-      background: white;
-      cursor: pointer;
-    }
-
-    .demo-button--link {
-      border: 0;
-      padding: 0;
-      background: transparent;
-      color: var(--bg-primary, #0058ab);
-    }
-
     .sample-layout {
       display: flex;
       flex-direction: column;
@@ -222,7 +205,7 @@ export class DcxWebPageInputOtp extends LitElement {
 
     .sample-layout__title {
       font-size: var(--fs-2xl, 24px);
-      font-weight: 700;
+      font-weight: var(--fw-bold, 700);
     }
 
     .sample-layout__desc {
@@ -234,13 +217,13 @@ export class DcxWebPageInputOtp extends LitElement {
       display: flex;
       width: 100%;
       justify-content: space-between;
-      gap: 12px;
+      gap: var(--sp-3, 12px);
     }
 
     .sample-layout__token-wrapper {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: var(--sp-3, 12px);
     }
 
     .sample-layout__token-input {
@@ -249,13 +232,13 @@ export class DcxWebPageInputOtp extends LitElement {
       border: 1px solid var(--border-input, #d1d5db);
       border-radius: var(--r-lg, 8px);
       text-align: center;
-      font-size: 20px;
-      font-weight: 600;
+      font-size: var(--fs-xl, 20px);
+      font-weight: var(--fw-semibold, 600);
     }
 
     .sample-layout__token-separator {
       color: var(--text-muted, #696e75);
-      font-size: 18px;
+      font-size: var(--fs-lg, 18px);
     }
   `;
 
@@ -729,16 +712,15 @@ export class DcxWebPageInputOtp extends LitElement {
 
                 <dcx-web-button
                 label="Resend Code"
-                variant="tertiary"
+                variant="terciary"
                 >
                 </dcx-web-button>
 
-                <button
-                type="button"
-                class="demo-button"
+                <dcx-web-button
+                label="Submit Code"
+                variant="primary"
                 >
-                Submit Code
-                </button>
+                </dcx-web-button>
 
               </div>
 

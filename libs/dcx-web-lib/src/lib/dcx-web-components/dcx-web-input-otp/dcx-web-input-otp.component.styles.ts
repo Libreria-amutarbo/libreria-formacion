@@ -19,8 +19,8 @@ export const dcxWebInputOtpStyles = css`
   }
 
   .dcx-input-otp__input {
-    width: 3rem;
-    height: 3rem;
+    width: 48px;
+    height: 48px;
     padding: 0;
 
     border: 1px solid
@@ -68,14 +68,14 @@ export const dcxWebInputOtpStyles = css`
   }
 
   .dcx-input-otp__input--small {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 40px;
+    height: 40px;
     font-size: var(--fs-md, 16px);
   }
 
   .dcx-input-otp__input--large {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 56px;
+    height: 56px;
     font-size: var(--fs-xl, 20px);
   }
 
