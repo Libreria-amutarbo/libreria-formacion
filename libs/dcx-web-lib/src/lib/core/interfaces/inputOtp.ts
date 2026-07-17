@@ -1,11 +1,8 @@
 export type DcxInputOtpSize = 'small' | 'medium' | 'large';
-export const DCXINPUT_OTP_SIZES: DcxInputOtpSize[] = ['small', 'medium', 'large'];
 
 export type DcxInputOtpType = 'text' | 'password' | 'tel';
-export const DCXINPUT_OTP_TYPES: DcxInputOtpType[] = ['text', 'password', 'tel'];
 
 export type DcxInputOtpInputMode = 'text' | 'numeric';
-export const DCXINPUT_OTP_INPUT_MODES: DcxInputOtpInputMode[] = ['text', 'numeric'];
 
 export interface DcxInputOtpTemplateContext {
   $implicit: string;

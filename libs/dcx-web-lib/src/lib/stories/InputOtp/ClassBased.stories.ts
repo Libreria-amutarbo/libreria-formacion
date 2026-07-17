@@ -5,12 +5,10 @@ import type {
 } from '@storybook/web-components';
 
 import '../../../index';
-import {
-  DCXINPUT_OTP_SIZES,
-} from '../../core/interfaces/inputOtp';
 
 import '../../dcx-web-components/dcx-web-input-otp/dcx-web-input-otp.component';
 import '../../dcx-web-components/dcx-web-button/dcx-web-button.component';
+import {DCXINPUT_OTP_SIZES} from '../../core/defaults/inputOtp';
 
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/InputOtp',
@@ -42,9 +40,7 @@ const meta: Meta = {
 
     size: {
       control: { type: 'select' },
-      options: [
-        DCXINPUT_OTP_SIZES,
-      ],
+      options: DCXINPUT_OTP_SIZES,
       description:
         'Tamaño visual de las casillas OTP.',
       table: {
@@ -228,15 +224,15 @@ const meta: Meta = {
 
   render: args => html`
     <dcx-web-input-otp
-      .length=${args.length}
-      size=${args.size}
+      length="${args.length}"
+      size="${args.size}"
       ?integerOnly=${args.integerOnly}
       ?mask=${args.mask}
       ?invalid=${args.invalid}
       ?disabled=${args.disabled}
-      placeholder=${args.placeholder}
-      aria-label=${args.ariaLabel}
-      errorMessage=${args.errorMessage}
+      placeholder="${args.placeholder}"
+      aria-label="${args.ariaLabel}"
+      errorMessage="${args.errorMessage}"
     >
     </dcx-web-input-otp>
   `,
@@ -247,7 +243,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
-  render: () => {
+  render: (args) => {
     const wrapper =
       document.createElement('div');
 
@@ -259,7 +255,17 @@ export const Default: Story = {
     const otp =
       document.createElement(
         'dcx-web-input-otp',
-      );
+      ) as any;
+
+    otp.length = args.length;
+    otp.size = args.size;
+    otp.integerOnly = args.integerOnly;
+    otp.mask = args.mask;
+    otp.invalid = args.invalid;
+    otp.disabled = args.disabled;
+    otp.placeholder = args.placeholder;
+    otp.ariaLabel = args.ariaLabel;
+    otp.errorMessage = args.errorMessage;
 
     const preview =
       document.createElement('p');
@@ -278,9 +284,8 @@ export const Default: Story = {
           event as CustomEvent<string>;
 
         preview.textContent =
-          `Valor actual: ${
-            customEvent.detail ||
-            'Sin completar'
+          `Valor actual: ${customEvent.detail ||
+          'Sin completar'
           }`;
       },
     );
@@ -295,7 +300,7 @@ export const Default: Story = {
 };
 
 export const IntegerOnly: Story = {
-  render: () => {
+  render: (args) => {
     const wrapper =
       document.createElement('div');
 
@@ -311,10 +316,15 @@ export const IntegerOnly: Story = {
         'dcx-web-input-otp',
       ) as any;
 
-    otp.length = 6;
-    otp.integerOnly = true;
-    otp.ariaLabel =
-      'Código numérico de verificación';
+    otp.length = args.length !== undefined ? args.length : 6;
+    otp.size = args.size;
+    otp.integerOnly = args.integerOnly !== undefined ? args.integerOnly : true;
+    otp.mask = args.mask;
+    otp.invalid = args.invalid;
+    otp.disabled = args.disabled;
+    otp.placeholder = args.placeholder;
+    otp.ariaLabel = args.ariaLabel !== undefined ? args.ariaLabel : 'Código numérico de verificación';
+    otp.errorMessage = args.errorMessage;
 
     otp.writeValue('123456');
 
@@ -337,8 +347,7 @@ export const IntegerOnly: Story = {
           event as CustomEvent<string>;
 
         preview.textContent =
-          `Código precargado: ${
-            customEvent.detail
+          `Código precargado: ${customEvent.detail
           }`;
       },
     );
@@ -353,7 +362,7 @@ export const IntegerOnly: Story = {
 };
 
 export const Masked: Story = {
-  render: () => {
+  render: (args) => {
     const wrapper =
       document.createElement('div');
 
@@ -369,12 +378,15 @@ export const Masked: Story = {
         'dcx-web-input-otp',
       ) as any;
 
-    otp.mask = true;
-
-    otp.placeholder = '•';
-
-    otp.ariaLabel =
-      'Código OTP enmascarado';
+    otp.length = args.length;
+    otp.size = args.size;
+    otp.integerOnly = args.integerOnly;
+    otp.mask = args.mask !== undefined ? args.mask : true;
+    otp.invalid = args.invalid;
+    otp.disabled = args.disabled;
+    otp.placeholder = args.placeholder || '•';
+    otp.ariaLabel = args.ariaLabel !== undefined ? args.ariaLabel : 'Código OTP enmascarado';
+    otp.errorMessage = args.errorMessage;
 
     const preview =
       document.createElement('p');
@@ -395,9 +407,8 @@ export const Masked: Story = {
           event as CustomEvent<string>;
 
         preview.textContent =
-          `Valor real: ${
-            customEvent.detail ||
-            'Sin completar'
+          `Valor real: ${customEvent.detail ||
+          'Sin completar'
           }`;
       },
     );
@@ -412,7 +423,7 @@ export const Masked: Story = {
 };
 
 export const Interactive: Story = {
-  render: () => {
+  render: (args) => {
     const wrapper =
       document.createElement('div');
 
@@ -428,7 +439,15 @@ export const Interactive: Story = {
         'dcx-web-input-otp',
       ) as any;
 
-    otp.integerOnly = true;
+    otp.length = args.length;
+    otp.size = args.size;
+    otp.integerOnly = args.integerOnly !== undefined ? args.integerOnly : true;
+    otp.mask = args.mask;
+    otp.invalid = args.invalid;
+    otp.disabled = args.disabled;
+    otp.placeholder = args.placeholder;
+    otp.ariaLabel = args.ariaLabel;
+    otp.errorMessage = args.errorMessage;
 
     const values =
       document.createElement('div');
@@ -470,9 +489,8 @@ export const Interactive: Story = {
           event as CustomEvent<string>;
 
         currentValue.textContent =
-          `Valor actual: ${
-            customEvent.detail ||
-            'Sin completar'
+          `Valor actual: ${customEvent.detail ||
+          'Sin completar'
           }`;
       },
     );
@@ -556,7 +574,7 @@ export const Sizes: Story = {
 };
 
 export const TemplateDrivenForm: Story = {
-  render: () => {
+  render: (args) => {
     const wrapper =
       document.createElement('div');
 
@@ -572,7 +590,15 @@ export const TemplateDrivenForm: Story = {
         'dcx-web-input-otp',
       ) as any;
 
-    otp.integerOnly = true;
+    otp.length = args.length;
+    otp.size = args.size;
+    otp.integerOnly = args.integerOnly !== undefined ? args.integerOnly : true;
+    otp.mask = args.mask;
+    otp.invalid = args.invalid;
+    otp.disabled = args.disabled;
+    otp.placeholder = args.placeholder;
+    otp.ariaLabel = args.ariaLabel;
+    otp.errorMessage = args.errorMessage;
 
     const error =
       document.createElement('p');
@@ -625,7 +651,7 @@ export const TemplateDrivenForm: Story = {
 };
 
 export const ReactiveForm: Story = {
-  render: () => {
+  render: (args) => {
     const wrapper =
       document.createElement('div');
 
@@ -641,7 +667,15 @@ export const ReactiveForm: Story = {
         'dcx-web-input-otp',
       ) as any;
 
-    otp.integerOnly = true;
+    otp.length = args.length;
+    otp.size = args.size;
+    otp.integerOnly = args.integerOnly !== undefined ? args.integerOnly : true;
+    otp.mask = args.mask;
+    otp.invalid = args.invalid;
+    otp.disabled = args.disabled;
+    otp.placeholder = args.placeholder;
+    otp.ariaLabel = args.ariaLabel;
+    otp.errorMessage = args.errorMessage;
 
     const error =
       document.createElement('p');
