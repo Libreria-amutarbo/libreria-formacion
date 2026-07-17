@@ -1,0 +1,105 @@
+import {
+  Meta,
+  Canvas,
+  Story,
+  ArgsTable,
+  Description,
+  Heading,
+  Controls,
+} from '@storybook/blocks';
+import * as DialogClassBasedStories from './ClassBased.stories';
+
+<Meta of={DialogClassBasedStories} />
+
+# Dialog
+
+`dcx-web-dialog` es un componente modal accesible implementado como Web Component.
+
+- Se abre estableciendo la propiedad `.visible`.
+- Se cierra escuchando el evento `closeDialog`.
+- El contenido se proyecta mediante slots: `slot="body"` y `slot="footer"`.
+- Soporta posicionamiento configurable, backdrop opcional, header con título y botón de cierre.
+
+---
+
+<Description>
+DcxWebDialog es un diálogo modal:
+
+- Proporciona un `dialogId` al componente para generar identificadores accesibles.
+- Usa `.visible=${true}` para abrir y `.visible=${false}` para cerrar.
+- El contenido se pasa por slots (`slot="body"`, `slot="footer"`).
+
+⚠️ Nota: En esta página, el **Host de la story** incluye un botón externo que actualiza la propiedad `.visible`.
+El HTML inyectado con `unsafeHTML` es estático; para interacción usa nodos reales o componentes dentro de los slots.
+</Description>
+
+<Heading>Demostración</Heading>
+
+<Canvas>
+  <Story of={DialogClassBasedStories.BasicDialog} />
+</Canvas>
+
+<Controls of={DialogClassBasedStories.BasicDialog} />
+
+<Heading>Parámetros (Args)</Heading>
+
+<ArgsTable of={DialogClassBasedStories.BasicDialog} />
+
+---
+
+## API
+
+| Atributo / Propiedad | Tipo | Default | Descripción |
+|----------------------|------|---------|-------------|
+| `dialogId` | `string \| undefined` | `undefined` | Identificador del diálogo. Se usa para generar ids accesibles |
+| `title` | `string` | `''` | Título del diálogo. Si está vacío, no se renderiza el título |
+| `visible` | `boolean` | `false` | Controla si el diálogo está abierto |
+| `showClose` | `boolean` | `true` | Muestra u oculta el botón de cierre |
+| `position` | `DialogPosition` | `'center'` | Posición del diálogo en pantalla |
+| `closeOnBackdrop` | `boolean` | `true` | Permite cerrar al hacer clic en el backdrop |
+
+---
+
+## Eventos
+
+| Evento | Tipo | Descripción |
+|--------|------|-------------|
+| `closeDialog` | `CustomEvent<void>` | Se emite cuando el diálogo solicita cerrarse |
+
+---
+
+## Slots
+
+| Slot | Descripción |
+|------|-------------|
+| `body` | Contenido principal del diálogo |
+| `footer` | Acciones del diálogo |
+
+---
+
+## Accesibilidad
+
+`dcx-web-dialog` incluye:
+
+- `role="dialog"`
+- `aria-modal="true"`
+- `aria-labelledby` cuando existe título
+- cierre mediante tecla `Escape`
+- cierre opcional mediante backdrop
+- botón de cierre con `aria-label="Cerrar diálogo"`
+
+---
+
+## Posiciones disponibles
+
+```ts
+type DialogPosition =
+  | 'center'
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
