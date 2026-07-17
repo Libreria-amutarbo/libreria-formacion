@@ -1,0 +1,165 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as InputOtpStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/InputOtp/Documentation" />
+
+# Input OTP
+
+El componente `dcx-web-input-otp` permite introducir códigos de verificación en varias casillas independientes manteniendo un valor agregado único.
+
+---
+
+## Características principales
+
+- Longitud configurable mediante `length`
+- Tamaños `small`, `medium` y `large`
+- Restricción numérica con `integerOnly`
+- Enmascarado mediante `mask`
+- Estado visual inválido mediante `invalid`
+- Navegación por teclado
+- Pegado de códigos completos
+- Compatible con formularios
+- Accesibilidad integrada
+- Renderizado personalizado mediante `inputTemplateRenderer`
+
+---
+
+## Demo principal
+
+<Canvas of={InputOtpStories.Default} />
+
+---
+
+## API
+
+### Propiedades
+
+| Propiedad | Tipo | Default | Descripción |
+|------------|------------|------------|------------|
+| `length` | `number` | `4` | Número de casillas OTP |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Tamaño de las casillas |
+| `integerOnly` | `boolean` | `false` | Restringe la entrada a dígitos |
+| `mask` | `boolean` | `false` | Oculta el valor introducido |
+| `invalid` | `boolean` | `false` | Activa estado visual de error |
+| `disabled` | `boolean` | `false` | Deshabilita interacción |
+| `placeholder` | `string` | `''` | Placeholder de cada casilla |
+| `ariaLabel` | `string` | `'Código de un solo uso'` | Etiqueta accesible |
+| `errorMessage` | `string` | `''` | Mensaje accesible de error |
+
+---
+
+## Eventos
+
+| Evento | Detail | Descripción |
+|----------|----------|----------|
+| `valueChange` | `string` | Valor agregado actualizado |
+| `completed` | `string` | Código completo introducido |
+| `focusEvent` | `number` | Índice enfocado |
+| `blurEvent` | `number` | Índice que pierde foco |
+
+---
+
+## Uso básico
+
+```html
+<dcx-web-input-otp
+  .length=${6}
+  .integerOnly=${true}
+>
+</dcx-web-input-otp>
+```
+
+---
+
+## Renderizado personalizado
+
+El componente permite personalizar visualmente cada token mediante la propiedad:
+
+```ts
+inputTemplateRenderer
+```
+
+La función recibe un objeto:
+
+```ts
+DcxInputOtpTemplateContext
+```
+
+que expone:
+
+```ts
+token
+index
+events
+attrs
+```
+
+para construir interfaces OTP completamente personalizadas.
+
+---
+
+## Variantes
+
+### Integer Only
+
+<Canvas of={InputOtpStories.IntegerOnly} />
+
+### Sizes
+
+<Canvas of={InputOtpStories.Sizes} />
+
+### Masked
+
+<Canvas of={InputOtpStories.Masked} />
+
+### Interactive
+
+<Canvas of={InputOtpStories.Interactive} />
+
+### Template-driven Form
+
+<Canvas of={InputOtpStories.TemplateDrivenForm} />
+
+### Reactive Form
+
+<Canvas of={InputOtpStories.ReactiveForm} />
+
+### Sample Layout
+
+<Canvas of={InputOtpStories.SampleLayout} />
+
+### Disabled
+
+<Canvas of={InputOtpStories.Disabled} />
+
+### Invalid
+
+<Canvas of={InputOtpStories.Invalid} />
+
+---
+
+## Accesibilidad
+
+- El grupo OTP utiliza `role="group"`.
+- El atributo `aria-label` identifica el conjunto completo.
+- Cada casilla dispone de una etiqueta accesible individual.
+- Compatible con navegación mediante teclado.
+- Soporta `ArrowLeft` y `ArrowRight`.
+- Soporta eliminación mediante `Backspace`.
+- Utiliza `autocomplete="one-time-code"`.
+- Los errores se anuncian mediante `role="alert"`.
+- Los mensajes de error se enlazan mediante `aria-describedby`.
+
+---
+
+## Eventos de teclado soportados
+
+```text
+ArrowLeft
+ArrowRight
+Backspace
+Paste
+Focus
+Blur
+Input
+```
