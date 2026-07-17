@@ -12,3 +12,4 @@ export * from './contextMenu';
 export * from './accordion';
 export * from './datePicker';
 export * from './input';
+export * from './stepper';
