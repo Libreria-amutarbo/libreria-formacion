@@ -1,0 +1,62 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as CarouselClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Carousel/Documentation" />
+
+# Carousel
+
+## Overview
+
+El componente `dcx-web-carousel` es un carrusel interactivo para Web Components que permite mostrar múltiples elementos de forma secuencial. Soporta navegación manual mediante botones, indicadores de página, autoplay y orientación horizontal o vertical.
+
+### Características principales
+
+- **Navegación flexible**: Botones prev/next integrando `dcx-web-button` y `dcx-web-icon`.
+- **Orientación dual**: Horizontal o vertical.
+- **Indicadores visuales**: Puntos de navegación por página.
+- **Autoplay**: Cambio automático de slides con intervalo configurable (pausado automático en hover/focus).
+- **Circular/Infinito**: Navegación continua sin límites.
+- **Template personalizado**: Soporte para contenido dinámico mediante la propiedad `itemTemplate`.
+- **Eventos**: Notificación de cambios de página a través del evento `pageChange`.
+
+---
+
+## Props
+
+| Prop               | Tipo                                          | Default        | Descripción                                                                   |
+| ------------------ | --------------------------------------------- | -------------- | ----------------------------------------------------------------------------- |
+| `value`            | `any[]`                                       | `[]`           | Array de elementos a mostrar en el carousel                                   |
+| `circular`         | `boolean`                                     | `false`        | Indica si el carousel es infinito (vuelve al inicio al llegar al final)       |
+| `orientation`      | `DcxCarouselOrientation`                      | `'horizontal'` | Dirección del desplazamiento del carousel                                     |
+| `showNavigators`   | `boolean`                                     | `true`         | Muestra u oculta los botones de navegación (prev/next)                        |
+| `showIndicators`   | `boolean`                                     | `true`         | Muestra u oculta los indicadores de página                                    |
+| `autoplayInterval` | `number`                                      | `0`            | Tiempo en milisegundos para el cambio automático de slide (0 para desactivar) |
+| `itemTemplate`     | `(item: any, index: number) => TemplateResult` | `undefined`    | Función que devuelve el template Lit para renderizar cada elemento            |
+
+---
+
+## Eventos
+
+| Evento       | Tipo de dato                        | Descripción                                                          |
+| ------------ | ----------------------------------- | -------------------------------------------------------------------- |
+| `pageChange` | `CustomEvent<{ page: number }>`     | Se dispara al cambiar de página, emite el índice de la página actual |
+
+---
+
+## Casos de uso
+
+### 1. Galería de tarjetas básica
+
+<Canvas of={CarouselClassBasedStories.Default} />
+
+### 2. Carousel infinito con autoplay
+
+<Canvas of={CarouselClassBasedStories.AutoplayCircular} />
+
+### 3. Navegación vertical
+
+<Canvas of={CarouselClassBasedStories.Vertical} />
+
+### 4. Contenido mixto con componentes interactivos
+
+<Canvas of={CarouselClassBasedStories.MixedContent} />

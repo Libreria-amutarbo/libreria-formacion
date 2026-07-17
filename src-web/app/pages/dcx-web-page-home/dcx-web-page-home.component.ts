@@ -31,6 +31,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['badge'],
     },
     {
+      route: 'dialog',
+      name: 'Dialog',
+      icon: ROUTE_ICONS['dialog'],
+    },
+    {
       route: 'card',
       name: 'Card',
       icon: ROUTE_ICONS['card'],
