@@ -15,6 +15,7 @@ import './pages/dcx-web-page-checkbox/dcx-web-page-checkbox.component';
 import './pages/dcx-web-page-divider/dcx-web-page-divider.component';
 import './pages/dcx-web-page-context-menu/dcx-web-page-context-menu.component';
 import './pages/dcx-web-page-input/dcx-web-page-input.component';
+import './pages/dcx-web-page-select/dcx-web-page-select.component';
 
 @customElement('dcx-web-root')
 export class DcxWebRoot extends LitElement {
@@ -84,12 +85,16 @@ export class DcxWebRoot extends LitElement {
       case '#chip':
         content = html`<dcx-web-page-chip></dcx-web-page-chip>`;
         break;
+      case '#select':
+        content = html`<dcx-web-page-select></dcx-web-page-select>`;
+        break;
       case '#icon':
         content = html`<dcx-web-page-icon></dcx-web-page-icon>`;
         break;
       case '#input':
         content = html`<dcx-web-page-input></dcx-web-page-input>`;
         break;
+      
       default:
         content = html`<dcx-web-page-home></dcx-web-page-home>`;
     }
