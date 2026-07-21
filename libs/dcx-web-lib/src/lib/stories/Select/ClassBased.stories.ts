@@ -4,6 +4,8 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '../../../index';
 
 import '../../dcx-web-components/dcx-web-select/dcx-web-select.component';
+import type { DcxSelectOptions } from '../../core/interfaces/select';
+import type { DcxSpacing } from '../../core/interfaces/generic';
 
 import {
     CLEARABLE,
@@ -21,27 +23,58 @@ import {
     VALUEINPUT,
 } from '../../core/defaults';
 
-const meta: Meta = {
+type SelectStoryArgs = {
+    label: string;
+    ariaLabel?: string | null;
+    options: DcxSelectOptions[];
+    placeholder: string;
+    searchable: boolean;
+    clearable: boolean;
+    disabled: boolean;
+    required: boolean;
+    isInvalid: boolean;
+    errorMessage: string;
+    errorIcon: string;
+    valueInput: string | number | null;
+    spacing: DcxSpacing;
+    valueChange: (...args: unknown[]) => void;
+    clear: (...args: unknown[]) => void;
+};
+
+const meta: Meta<SelectStoryArgs> = {
     title: 'DCXLibrary/WebComponents/Select',
     component: 'dcx-web-select',
     tags: ['autodocs'],
 
     parameters: {
-        controls: {
-            expanded: true,
-        },
+  controls: {
+    expanded: true,
+  },
 
-        docs: {
-            source: {
-                type: 'dynamic',
-            },
-
-            story: {
-                inline: false,
-                height: '320px',
-            },
+  docs: {
+    source: {
+        transform: (_src: string, {args}: { args: SelectStoryArgs }) => {
+      return `
+        <dcx-web-select
+          label="${args.label ?? ''}"
+          placeholder="${args.placeholder ?? ''}"
+          spacing="${args.spacing ?? 'm'}"
+          ${args.searchable ? 'searchable' : ''}
+          ${args.clearable ? 'clearable' : ''}
+          ${args.disabled ? 'disabled' : ''}
+          ${args.required ? 'required' : ''}
+        >
+        </dcx-web-select>
+      `;
         },
-    },
+          },
+
+          story: {
+            inline: false,
+            height: '320px',
+          },
+        },
+      },
 
     argTypes: {
         label: {
@@ -173,28 +206,30 @@ const meta: Meta = {
     },
 
     render: args => html`
-    <dcx-web-select
-      label="${args.label ?? ''}"
-      aria-label="${args.ariaLabel ?? ''}"
-      placeholder="${args.placeholder ?? ''}"
-      errorMessage="${args.errorMessage ?? ''}"
-      errorIcon="${args.errorIcon ?? ''}"
-      spacing="${args.spacing ?? 'm'}"
-      ?searchable=${args.searchable}
-      ?clearable=${args.clearable}
-      ?disabled=${args.disabled}
-      ?required=${args.required}
-      ?isInvalid=${args.isInvalid}
-      .options=${args.options}
-      .valueInput=${args.valueInput}
-    >
-    </dcx-web-select>
-  `,
+      <dcx-web-select
+        .label=${args.label}
+        .ariaLabel=${args.ariaLabel}
+        .options=${args.options}
+        .placeholder=${args.placeholder}
+        .searchable=${args.searchable}
+        .clearable=${args.clearable}
+        .disabled=${args.disabled}
+        .required=${args.required}
+        .isInvalid=${args.isInvalid}
+        .errorMessage=${args.errorMessage}
+        .errorIcon=${args.errorIcon}
+        .valueInput=${args.valueInput}
+        .spacing="m"
+        @valueChange=${args.valueChange}
+        @clear=${args.clear}
+      >
+      </dcx-web-select>
+    `,
 };
 
 export default meta;
 
-type Story = StoryObj;
+type Story = StoryObj<SelectStoryArgs>;
 
 export const ClassBased: Story = {};
 
@@ -268,7 +303,7 @@ export const Spacing: Story = {
     <div
       style="
         display:flex;
-        gap:12px;
+        gap:var(--sp-3, 12px);
         align-items:center;
         flex-wrap:wrap;
       "
