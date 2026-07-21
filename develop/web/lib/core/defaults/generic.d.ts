@@ -1,0 +1,15 @@
+import { DcxLayout, DcxAlign, DcxSize, DcxPosition, DcxIconSpacing, DcxSpacing } from '../interfaces';
+export declare const LAYOUT_LIST: DcxLayout[];
+export declare const ALIGN_LIST: DcxAlign[];
+export declare const SIZE_LIST: DcxSize[];
+export declare const POSITION_LIST: DcxPosition[];
+export declare const ICON_SPACING_LIST: DcxIconSpacing[];
+export declare const LAYOUT_DEFAULT: DcxLayout;
+export declare const ALIGN_DEFAULT: DcxAlign;
+export declare const SIZE_DEFAULT: DcxSize;
+export declare const SPACING_DEFAULT: DcxSpacing;
+export declare const SPACING_LIST: DcxSpacing[];
+export declare const ICON_SPACING_DEFAULT: DcxIconSpacing;
+export declare const ICON_SIZE_LIST: DcxSize[];
+export declare const DISABLED = false;
+export declare const ERRORICON = "info-circle";

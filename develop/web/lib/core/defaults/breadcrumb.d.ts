@@ -1,0 +1,10 @@
+import { DcxBreadcrumbItem, DcxBreadCrumbSeparatorIcons } from '../interfaces/breadcrumb';
+export declare const DcxBreadCrumbItemDefault: DcxBreadcrumbItem[];
+export declare const DcxBreadCrumbItemWithIcon: DcxBreadcrumbItem[];
+export declare const DcxBreadCrumbDisabled: DcxBreadcrumbItem[];
+export declare const DcxBreadCrumbCurrentPage: DcxBreadcrumbItem[];
+export declare const DcxBreadCrumbOverflow: DcxBreadcrumbItem[];
+export declare const DcxBreadCrumbSlashIcon: DcxBreadCrumbSeparatorIcons;
+export declare const DcxBreadCrumbArrowhIcon: DcxBreadCrumbSeparatorIcons;
+export declare const DcxBreadChevronSlashIcon: DcxBreadCrumbSeparatorIcons;
+export declare const DcxBreadCrumbIconList: DcxBreadCrumbSeparatorIcons[];

@@ -1,0 +1,11 @@
+import { DcxWebAccordionItem, DcxWebAccordionTransition, DcxWebAccordionVariant } from '../interfaces';
+export declare const DcxAccordionTransitionList: DcxWebAccordionTransition[];
+export declare const DcxAccordionVariantList: DcxWebAccordionVariant[];
+export declare const DcxAccordionDefault: DcxWebAccordionItem[];
+export declare const DcxAccordionItemsWithIcon: DcxWebAccordionItem[];
+export declare const DcxAccordionItemsWithExpanded: DcxWebAccordionItem[];
+export declare const DcxAccordionItemsDisabled: DcxWebAccordionItem[];
+export declare const DcxAccordionItemsContentDisabled: DcxWebAccordionItem[];
+export declare const DcxAccordionLargeContent: DcxWebAccordionItem[];
+export declare const DcxAccordionItemsWithDescription: DcxWebAccordionItem[];
+export declare const LIST_ITEMS_MOCK: string[];

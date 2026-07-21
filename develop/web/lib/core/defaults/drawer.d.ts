@@ -1,0 +1,17 @@
+import { DcxDrawerMockData } from '../interfaces/drawer';
+import { DcxPosition } from '../interfaces/generic';
+export declare const DRAWER_OPEN_DEFAULT = false;
+export declare const DRAWER_POSITION_DEFAULT: DcxPosition;
+export declare const DRAWER_POSITIONS: readonly ["top", "bottom", "left", "right"];
+export declare const DRAWER_MODAL_DEFAULT = true;
+export declare const DRAWER_DISMISSIBLE_DEFAULT = true;
+export declare const DRAWER_SHOW_CLOSE_ICON_DEFAULT = true;
+export declare const DRAWER_CLOSE_ON_ESCAPE_DEFAULT = true;
+export declare const DRAWER_BLOCK_SCROLL_DEFAULT = false;
+export declare const DRAWER_FULLSCREEN_DEFAULT = false;
+export declare const DRAWER_SIZE_DEFAULT = "22rem";
+export declare const DRAWER_BASE_Z_INDEX_DEFAULT = 1000;
+export declare const DRAWER_AUTO_Z_INDEX_DEFAULT = true;
+export declare const DRAWER_HEADER_DEFAULT = "Drawer";
+export declare const DRAWER_FOOTER_DEFAULT = "";
+export declare const DRAWER_DEFAULT_ARGS: DcxDrawerMockData;

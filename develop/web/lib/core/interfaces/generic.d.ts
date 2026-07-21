@@ -1,0 +1,10 @@
+export declare const DCX_SIZES: readonly ["s", "m", "l", "xl", "auto"];
+export type DcxSize = typeof DCX_SIZES[number];
+export declare const DCX_POSITIONS: readonly ["top", "bottom", "left", "right"];
+export type DcxPosition = typeof DCX_POSITIONS[number];
+export declare const DCX_LAYOUTS: readonly ["vertical", "horizontal"];
+export type DcxLayout = typeof DCX_LAYOUTS[number];
+export declare const DCX_ALIGNS: readonly ["start", "center", "end"];
+export type DcxAlign = typeof DCX_ALIGNS[number];
+export declare const DCX_SPACINGS: readonly ["xs", "s", "m", "l", "xl"];
+export type DcxSpacing = typeof DCX_SPACINGS[number];

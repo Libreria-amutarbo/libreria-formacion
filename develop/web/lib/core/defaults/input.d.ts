@@ -1,0 +1,21 @@
+import { DcxInputType } from '../interfaces/input';
+export declare const INPUT_DEFAULT_VALUE: string | number;
+export declare const INPUT_DEFAULT_DISABLED = false;
+export declare const INPUT_DEFAULT_READONLY = false;
+export declare const INPUT_DEFAULT_PLACEHOLDER = "";
+export declare const INPUT_DEFAULT_TYPE: DcxInputType;
+export declare const INPUT_DEFAULT_NAME = "";
+export declare const INPUT_DEFAULT_REQUIRED = false;
+export declare const INPUT_DEFAULT_AUTOCOMPLETE = "";
+export declare const INPUT_DEFAULT_INPUTMODE = "";
+export declare const INPUT_DEFAULT_INVALID = false;
+export declare const INPUT_DEFAULT_LABEL = "";
+export declare const INPUT_DEFAULT_ARIA_LABEL: string | null;
+export declare const INPUT_DEFAULT_ARIA_DESCRIBEDBY: string | null;
+export declare const INPUT_DEFAULT_ERROR_MESSAGE = "";
+export declare const INPUT_DEFAULT_REQUIRED_MESSAGE = "Este campo es requerido";
+export declare const INPUT_DEFAULT_VALUES: {
+    min: number;
+    max: number;
+    step: number;
+};

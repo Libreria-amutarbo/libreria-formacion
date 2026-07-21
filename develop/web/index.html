@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>@storybook/core - Storybook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    
+    <style>
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-regular.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-italic.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold-italic.woff2') format('woff2');
+      }
+    </style>
+
+    <link href="./sb-manager/runtime.js" rel="modulepreload" />
+
+    
+    <link href="./sb-addons/storybook-core-core-server-presets-0/common-manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-controls-1/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-actions-2/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-backgrounds-3/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-viewport-4/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-toolbars-5/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-measure-6/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-outline-7/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/a11y-8/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/docs-9/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/themes-10/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/libs-dcx-web-lib-storybook-11/manager-bundle.js" rel="modulepreload" />
+      <link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  :root {
+    --bg-soft: #f0f2f5;
+    --bg-muted: #e8ecf1;
+    --border: #dde2ea;
+    --text: #0d1b2a;
+    --text-muted: #5a6a7e;
+    --accent: #0070ad;
+    --accent-soft: rgba(0,112,173,0.09);
+    --r-2: 6px;
+    --app-font: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  body, .sidebar, .tabs, .panel, .docs, .docblock {
+    font-family: var(--app-font) !important;
+  }
+
+  .sidebar {
+    border-right: 1px solid var(--border) !important;
+  }
+
+  .sidebar-header {
+    padding: 12px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  .sidebar-header img {
+    width: 28px !important;
+    height: 28px !important;
+    object-fit: contain !important;
+    border-radius: 4px !important;
+  }
+
+  .sidebar-header a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .sidebar-header a::before {
+    content: '' !important;
+    display: block !important;
+    width: 24px !important;
+    height: 24px !important;
+    background-image: url('/cap-icono.svg') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    flex-shrink: 0 !important;
+  }
+</style>
+ 
+
+    <style>
+      #storybook-root[hidden] {
+        display: none !important;
+      }
+    </style>
+
+    
+  </head>
+  <body>
+    <div id="root"></div>
+
+    
+    <script>
+      
+        
+          window['FEATURES'] = {
+  "argTypeTargetsV7": true,
+  "legacyDecoratorFileOrder": false,
+  "disallowImplicitActionsInRenderV8": true
+};
+        
+      
+        
+          window['REFS'] = {};
+        
+      
+        
+          window['LOGLEVEL'] = "info";
+        
+      
+        
+          window['DOCS_OPTIONS'] = {
+  "defaultName": "Docs",
+  "autodocs": "tag"
+};
+        
+      
+        
+          window['CONFIG_TYPE'] = "PRODUCTION";
+        
+      
+        
+      
+        
+      
+        
+          window['TAGS_OPTIONS'] = {
+  "dev-only": {
+    "excludeFromDocsStories": true
+  },
+  "docs-only": {
+    "excludeFromSidebar": true
+  },
+  "test-only": {
+    "excludeFromSidebar": true,
+    "excludeFromDocsStories": true
+  }
+};
+        
+      
+        
+          window['STORYBOOK_RENDERER'] = "web-components";
+        
+      
+        
+          window['STORYBOOK_BUILDER'] = "@storybook/builder-vite";
+        
+      
+        
+          window['STORYBOOK_FRAMEWORK'] = "@storybook/web-components-vite";
+        
+      
+    </script>
+    
+
+    <script type="module">
+      import './sb-manager/globals-runtime.js';
+      
+      
+        import './sb-addons/storybook-core-core-server-presets-0/common-manager-bundle.js';
+      
+        import './sb-addons/essentials-controls-1/manager-bundle.js';
+      
+        import './sb-addons/essentials-actions-2/manager-bundle.js';
+      
+        import './sb-addons/essentials-backgrounds-3/manager-bundle.js';
+      
+        import './sb-addons/essentials-viewport-4/manager-bundle.js';
+      
+        import './sb-addons/essentials-toolbars-5/manager-bundle.js';
+      
+        import './sb-addons/essentials-measure-6/manager-bundle.js';
+      
+        import './sb-addons/essentials-outline-7/manager-bundle.js';
+      
+        import './sb-addons/a11y-8/manager-bundle.js';
+      
+        import './sb-addons/docs-9/manager-bundle.js';
+      
+        import './sb-addons/themes-10/manager-bundle.js';
+      
+        import './sb-addons/libs-dcx-web-lib-storybook-11/manager-bundle.js';
+      
+      
+      import './sb-manager/runtime.js';
+    </script>
+  </body>
+</html>
