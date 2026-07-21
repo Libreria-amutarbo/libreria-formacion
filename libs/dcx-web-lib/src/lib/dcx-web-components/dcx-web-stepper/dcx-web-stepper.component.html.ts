@@ -1,9 +1,7 @@
 import { html, nothing } from 'lit';
 import type { DcxWebStepper } from './dcx-web-stepper.component';
 
-export function renderDcxWebStepperTemplate(
-  stepper: DcxWebStepper,
-) {
+export function renderDcxWebStepperTemplate(stepper: DcxWebStepper) {
   return html`
     <nav
       class="${stepper.stepperClasses}"
@@ -20,32 +18,18 @@ export function renderDcxWebStepperTemplate(
                 type="button"
                 class="${stepper.getStepClasses(step)}"
                 ?disabled="${step.disabled}"
-                aria-current="${stepper.isActive(step.id)
-                  ? 'step'
-                  : nothing}"
-                tabindex="${stepper.isActive(step.id)
-                  ? 0
-                  : -1}"
-                @click="${() =>
-                  stepper.onStepClick(
-                    step,
-                    idx,
-                  )}"
-                @keydown="${(
-                  event: KeyboardEvent,
-                ) =>
-                  stepper.onStepKeydown(
-                    event,
-                    step,
-                    idx,
-                  )}"
+                aria-current="${stepper.isActive(step.id) ? 'step' : nothing}"
+                tabindex="${stepper.isActive(step.id) ? 0 : -1}"
+                @click="${() => stepper.onStepClick(step, idx)}"
+                @keydown="${(event: KeyboardEvent) =>
+                  stepper.onStepKeydown(event, step, idx)}"
               >
                 <div
                   class="dcx-stepper__step-indicator"
                 >
-                  ${step.completed &&
-                  !step.error
-                    ? html`
+                  ${
+                    step.completed && !step.error
+                      ? html`
                         <dcx-web-icon
                           name="check"
                           class="dcx-stepper__check-icon"
@@ -58,8 +42,8 @@ export function renderDcxWebStepperTemplate(
                           Completado
                         </span>
                       `
-                    : step.error
-                      ? html`
+                      : step.error
+                        ? html`
                           <dcx-web-icon
                             name="exclamation-circle"
                             class="dcx-stepper__error-icon"
@@ -72,23 +56,24 @@ export function renderDcxWebStepperTemplate(
                             Error
                           </span>
                         `
-                      : stepper.showStepNumbers
-                        ? html`
+                        : stepper.showStepNumbers
+                          ? html`
                             <span
                               class="dcx-stepper__number"
                             >
                               ${idx + 1}
                             </span>
                           `
-                        : step.icon
-                          ? html`
+                          : step.icon
+                            ? html`
                               <dcx-web-icon
                                 name="${step.icon}"
                                 class="dcx-stepper__custom-icon"
                                 aria-hidden="true"
                               ></dcx-web-icon>
                             `
-                          : nothing}
+                            : nothing
+                  }
                 </div>
 
                 <div
@@ -100,46 +85,52 @@ export function renderDcxWebStepperTemplate(
                     ${step.label}
                   </div>
 
-                  ${step.description
-                    ? html`
+                  ${
+                    step.description
+                      ? html`
                         <div
                           class="dcx-stepper__label-description"
                         >
                           ${step.description}
                         </div>
                       `
-                    : nothing}
+                      : nothing
+                  }
 
-                  ${step.optional
-                    ? html`
+                  ${
+                    step.optional
+                      ? html`
                         <div
                           class="dcx-stepper__label-optional"
                         >
                           (opcional)
                         </div>
                       `
-                    : nothing}
+                      : nothing
+                  }
                 </div>
               </button>
             </li>
 
-            ${idx <
-            stepper.steps.length - 1
-              ? html`
+            ${
+              idx < stepper.steps.length - 1
+                ? html`
                   <div
-                    class="dcx-stepper__divider ${step.completed
-                      ? 'dcx-stepper__divider--completed'
-                      : ''}"
+                    class="dcx-stepper__divider ${
+                      step.completed ? 'dcx-stepper__divider--completed' : ''
+                    }"
                     aria-hidden="true"
                   ></div>
                 `
-              : nothing}
+                : nothing
+            }
           `,
         )}
       </ol>
 
-      ${stepper.activeStepContent
-        ? html`
+      ${
+        stepper.activeStepContent
+          ? html`
             <div
               class="${stepper.contentClasses}"
             >
@@ -148,7 +139,8 @@ export function renderDcxWebStepperTemplate(
               ></slot>
             </div>
           `
-        : nothing}
+          : nothing
+      }
     </nav>
   `;
 }
