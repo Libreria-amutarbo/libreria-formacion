@@ -1,0 +1,10 @@
+import { DcxSelectOptions } from '../interfaces';
+export declare const LABEL = "Select";
+export declare const OPTIONS: DcxSelectOptions[];
+export declare const PLACEHOLDER = "Seleccione una opci\u00F3n";
+export declare const SEARCHABLE = false;
+export declare const CLEARABLE = false;
+export declare const REQUIRED = false;
+export declare const ISINVALID = false;
+export declare const ERRORMESSAGE = "";
+export declare const VALUEINPUT: string | number | null;
