@@ -95,6 +95,11 @@ export class DcxWebPageHome extends LitElement {
       name: 'Input',
       icon: ROUTE_ICONS['input'],
     },
+    {
+      route: 'stepper',
+      name: 'Stepper',
+      icon: ROUTE_ICONS['stepper'],
+    },
   ];
 
   static override styles = css`
