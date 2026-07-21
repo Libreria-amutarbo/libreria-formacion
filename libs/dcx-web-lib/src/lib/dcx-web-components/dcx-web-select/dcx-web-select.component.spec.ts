@@ -6,6 +6,11 @@ import { OPTIONS, PLACEHOLDER } from '../../core/defaults';
 describe('DcxWebSelect', () => {
   let element: DcxWebSelect;
 
+  beforeAll(() => {
+    Element.prototype.scrollIntoView =
+        jest.fn();
+    });
+
   beforeEach(async () => {
     element = document.createElement(
       'dcx-web-select',
