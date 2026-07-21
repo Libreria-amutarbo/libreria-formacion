@@ -13,7 +13,7 @@ export class DcxWebDivider extends LitElement {
   @property({ type: String }) accessor color = '#d1d5db';
   @property({ type: String }) accessor label = '';
 
-  @property({ type: String, attribute: 'aria-label' }) accessor ariaLabelAttr: string | null = null;
+  @property({ type: String, attribute: 'aria-label' }) override accessor ariaLabel: string | null = null;
 
   static override styles = dcxWebDividerStyles;
 
@@ -36,13 +36,13 @@ export class DcxWebDivider extends LitElement {
   }
 
   private _getComputedAriaLabel(): string {
-    if (this.ariaLabelAttr && this.ariaLabelAttr.trim().length > 0) return this.ariaLabelAttr;
+    if (this.ariaLabel && this.ariaLabel.trim().length > 0) return this.ariaLabel;
     if (this.label && this.label.trim().length > 0) return this.label;
     return '';
   }
 
   private _isHidden(): boolean {
-    return !this.label && !this.ariaLabelAttr;
+    return !this.label && !this.ariaLabel;
   }
 
   override updated() {
@@ -85,5 +85,11 @@ export class DcxWebDivider extends LitElement {
         aria-hidden="${isHidden ? 'true' : 'false'}"
       ></span>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'dcx-web-divider': DcxWebDivider;
   }
 }

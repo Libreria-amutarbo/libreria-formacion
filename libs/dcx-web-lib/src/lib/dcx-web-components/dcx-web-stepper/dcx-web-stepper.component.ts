@@ -369,3 +369,9 @@ export class DcxWebStepper extends LitElement {
     );
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'dcx-web-stepper': DcxWebStepper;
+  }
+}

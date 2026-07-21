@@ -8,7 +8,7 @@ export class DcxWebBadge extends LitElement {
   @property({ type: String }) accessor severity: BadgeSeverityType = 'primary';
   @property({ type: String }) accessor size: BadgeSizeType = 'md';
 
-  @property({ type: String, attribute: 'aria-label' }) accessor ariaLabelAttr: string | null = null;
+  @property({ type: String, attribute: 'aria-label' }) override accessor ariaLabel: string | null = null;
   @property({ type: Boolean, attribute: 'aria-hidden' }) accessor ariaHiddenAttr = false;
   @property({ type: String }) accessor roleAttr: 'status' | 'alert' | null = null;
 
@@ -87,7 +87,7 @@ export class DcxWebBadge extends LitElement {
 
   private _getComputedAriaLabel(): string | null {
     if (this.ariaHiddenAttr) return null;
-    if (this.ariaLabelAttr !== null) return this.ariaLabelAttr;
+    if (this.ariaLabel !== null) return this.ariaLabel;
     const v = this.value;
     return v ? `${v}, ${this.severity}` : this.severity;
   }

@@ -61,9 +61,9 @@ describe('DcxWebDivider', () => {
     expect(div?.getAttribute('aria-label')).toBe('Section');
   });
 
-  it('should use ariaLabelAttr over label', async () => {
+  it('should use ariaLabel over label', async () => {
     element.label = 'Section';
-    element.ariaLabelAttr = 'Custom';
+    element.ariaLabel = 'Custom';
     await element.updateComplete;
 
     const div = element.shadowRoot?.querySelector('div');
