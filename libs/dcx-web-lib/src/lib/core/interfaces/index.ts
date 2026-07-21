@@ -13,5 +13,4 @@ export * from './accordion';
 export * from './carousel';
 export * from './datePicker';
 export * from './input';
-export * from './stepper';
 export * from './inputOtp';
