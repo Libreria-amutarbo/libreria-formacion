@@ -24,20 +24,15 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build Storybook (main)
-        if: github.ref == 'refs/heads/main'
+      - name: Build Storybook Angular (dcx-ng-lib)
         run: |
           export NODE_OPTIONS="--experimental-vm-modules"
           npx nx build-storybook dcx-ng-lib --no-cloud
-        # Si tus assets necesitan base, puedes usar:
-        # STORYBOOK_BASE=/MAIN/ npx nx build-storybook ...
 
-      - name: Build Storybook (develop)
-        if: github.ref == 'refs/heads/develop'
+      - name: Build Storybook Web (dcx-web-lib)
         run: |
           export NODE_OPTIONS="--experimental-vm-modules"
-          npx nx build-storybook dcx-ng-lib --no-cloud
-        # STORYBOOK_BASE=/develop/ ...
+          npx nx build-storybook dcx-web-lib --no-cloud
 
       - name: Checkout gh-pages
         uses: actions/checkout@v4
@@ -45,12 +40,20 @@ jobs:
           ref: gh-pages
           path: gh-pages-branch
 
-      - name: Copy build to gh-pages folder
+      - name: Copy builds to gh-pages folder
         run: |
           DEST_DIR=$([ "${GITHUB_REF##*/}" = "main" ] && echo "main" || echo "develop")
+
+          # Storybook Angular -> <rama>/
           rm -rf gh-pages-branch/$DEST_DIR
           mkdir -p gh-pages-branch/$DEST_DIR
           cp -r dist/storybook/dcx-ng-lib/* gh-pages-branch/$DEST_DIR/
+
+          # Storybook Web -> <rama>/web/
+          rm -rf gh-pages-branch/$DEST_DIR/web
+          mkdir -p gh-pages-branch/$DEST_DIR/web
+          cp -r dist/storybook/dcx-web-lib/* gh-pages-branch/$DEST_DIR/web/
+
           # evita que GitHub trate el contenido como Jekyll
           touch gh-pages-branch/.nojekyll
         env:
