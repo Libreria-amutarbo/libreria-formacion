@@ -33,3 +33,8 @@ export declare class DcxWebStepper extends LitElement {
     private canNavigateToIndex;
     render(): import('lit-html').TemplateResult<1>;
 }
+declare global {
+    interface HTMLElementTagNameMap {
+        'dcx-web-stepper': DcxWebStepper;
+    }
+}

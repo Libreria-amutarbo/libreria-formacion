@@ -7,7 +7,7 @@ export declare class DcxWebDivider extends LitElement {
     accessor thickness: number;
     accessor color: string;
     accessor label: string;
-    accessor ariaLabelAttr: string | null;
+    accessor ariaLabel: string | null;
     static styles: import('lit').CSSResult;
     private _getDividerStyle;
     private _getDividerSize;
@@ -15,4 +15,9 @@ export declare class DcxWebDivider extends LitElement {
     private _isHidden;
     updated(): void;
     render(): import('lit-html').TemplateResult<1>;
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        'dcx-web-divider': DcxWebDivider;
+    }
 }

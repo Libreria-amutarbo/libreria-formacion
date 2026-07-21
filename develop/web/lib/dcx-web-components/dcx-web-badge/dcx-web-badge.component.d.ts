@@ -4,7 +4,7 @@ export declare class DcxWebBadge extends LitElement {
     accessor value: string;
     accessor severity: BadgeSeverityType;
     accessor size: BadgeSizeType;
-    accessor ariaLabelAttr: string | null;
+    accessor ariaLabel: string | null;
     accessor ariaHiddenAttr: boolean;
     accessor roleAttr: 'status' | 'alert' | null;
     static styles: import('lit').CSSResult;
