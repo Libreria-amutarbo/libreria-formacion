@@ -1,0 +1,65 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as SelectStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Select/Documentation" />
+
+# Select
+
+El componente `dcx-web-select` es un combobox accesible construido con Web Components y Lit.
+
+Permite seleccionar una opción de un listado, realizar búsquedas sobre las opciones disponibles, limpiar la selección y mostrar estados de validación accesibles.
+
+---
+
+## Cuándo usarlo
+
+- Formularios corporativos
+- Filtros
+- Selección de categorías
+- Selección de países
+- Selección de estados
+- Formularios complejos
+- Reemplazo accesible del elemento `<select>`
+
+---
+
+## Ejemplo básico
+
+<Canvas of={SelectStories.ClassBased} />
+
+---
+
+## Con valor preseleccionado
+
+<Canvas of={SelectStories.WithPreselectedValue} />
+
+---
+
+## API
+
+| Atributo / Propiedad | Tipo | Default | Descripción |
+|----------------------|------|---------|-------------|
+| label | string | '' | Etiqueta visible |
+| ariaLabel | string \| null | null | Nombre accesible cuando no existe label |
+| options | DcxSelectOptions[] | [] | Opciones disponibles |
+| placeholder | string | Seleccione una opción | Texto mostrado sin selección |
+| searchable | boolean | false | Activa búsqueda |
+| clearable | boolean | false | Permite borrar la selección |
+| disabled | boolean | false | Estado deshabilitado |
+| required | boolean | false | Campo obligatorio |
+| isInvalid | boolean | false | Estado inválido |
+| errorMessage | string | '' | Mensaje de error |
+| errorIcon | string | info-circle | Icono de error |
+| valueInput | string \| number \| null | null | Valor inicial |
+| spacing | xs \| s \| m \| l \| xl | m | Espaciado interno |
+
+---
+
+## Estructura de opciones
+
+```ts
+interface DcxSelectOptions {
+  value: string | number;
+  label: string;
+  disabled?: boolean;
+}
