@@ -1,4 +1,4 @@
-import{a as e}from"./lit-LoFRC6vp.js";import"./defaults-DUNPOyan.js";import{c as t,l as n,m as r,u as i,v as a}from"./src-C5tb4Xyy.js";var o={title:`DCXLibrary/WebComponents/Select`,component:`dcx-web-select`,tags:[`autodocs`],parameters:{controls:{expanded:!0},docs:{source:{transform:(e,{args:t})=>`
+import{a as e}from"./lit-LoFRC6vp.js";import"./defaults-DUNPOyan.js";import{c as t,l as n,m as r,u as i,v as a}from"./src-DFT7Sogt.js";var o={title:`DCXLibrary/WebComponents/Select`,component:`dcx-web-select`,tags:[`autodocs`],parameters:{controls:{expanded:!0},docs:{source:{transform:(e,{args:t})=>`
         <dcx-web-select
           label="${t.label??``}"
           placeholder="${t.placeholder??``}"

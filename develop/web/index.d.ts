@@ -15,6 +15,7 @@ export * from './lib/dcx-web-components/dcx-web-datepicker/dcx-web-datepicker.co
 export * from './lib/dcx-web-components/dcx-web-input/dcx-web-input.component';
 export * from './lib/dcx-web-components/dcx-web-slider/dcx-web-slider.component';
 export * from './lib/dcx-web-components/dcx-web-select/dcx-web-select.component';
+export * from './lib/dcx-web-components/dcx-web-stepper/dcx-web-stepper.component';
 export * from './lib/core/interfaces';
 export * from './lib/core/fixtures';
 export * from './lib/core/defaults';

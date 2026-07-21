@@ -1,4 +1,4 @@
-import{a as e,l as t,n,t as r}from"./lit-LoFRC6vp.js";import{C as i,S as a,_ as o,v as s,x as c}from"./defaults-DUNPOyan.js";import"./src-C5tb4Xyy.js";var l=[`small`,`medium`,`large`];function u(t){return e`
+import{a as e,l as t,n,t as r}from"./lit-LoFRC6vp.js";import{C as i,S as a,_ as o,v as s,x as c}from"./defaults-DUNPOyan.js";import"./src-DFT7Sogt.js";var l=[`small`,`medium`,`large`];function u(t){return e`
     <div
       class="dcx-input-otp__group"
       role="group"
