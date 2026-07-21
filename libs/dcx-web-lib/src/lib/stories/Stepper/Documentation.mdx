@@ -1,0 +1,394 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as StepperStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Stepper/Documentation" />
+
+# Stepper
+
+`dcx-web-stepper` guía al usuario por una secuencia de pasos, con navegación lineal o libre, orientación horizontal o vertical y distintos estados de progreso.
+
+Es ideal para:
+
+- Formularios multipaso
+- Procesos de compra
+- Wizards
+- Asistentes de configuración
+- Flujos de onboarding
+
+---
+
+## Uso básico
+
+```html
+<dcx-web-stepper
+  .steps=${steps}
+  activeStepId="1"
+  orientation="horizontal"
+>
+</dcx-web-stepper>
+```
+
+```ts
+const steps = [
+  {
+    id: '1',
+    label: 'Datos personales',
+    description: 'Introduce tus datos',
+  },
+  {
+    id: '2',
+    label: 'Dirección',
+    description: 'Confirma tu dirección',
+  },
+  {
+    id: '3',
+    label: 'Revisión',
+    description: 'Revisa tu información',
+  },
+];
+```
+
+---
+
+## Horizontal
+
+<Canvas of={StepperStories.Default} />
+
+---
+
+## Vertical
+
+<Canvas of={StepperStories.Vertical} />
+
+---
+
+## Modo lineal
+
+Cuando `linear=true`, la navegación se limita a pasos cuyos anteriores han sido completados.
+
+<Canvas of={StepperStories.Linear} />
+
+---
+
+## Con pasos completados
+
+<Canvas of={StepperStories.WithCompletedSteps} />
+
+---
+
+## Con pasos deshabilitados
+
+<Canvas of={StepperStories.WithDisabledSteps} />
+
+---
+
+## Con estado de error
+
+<Canvas of={StepperStories.WithErrorSteps} />
+
+---
+
+## Con paso opcional
+
+<Canvas of={StepperStories.WithOptionalSteps} />
+
+---
+
+## Con contenido por paso
+
+Angular utilizaba `TemplateRef` mediante la propiedad `contentTpl`.
+
+En Web Components el contenido personalizado se proporciona mediante el slot `step-content`.
+
+```html
+<dcx-web-stepper>
+  <div slot="step-content">
+    Contenido personalizado
+  </div>
+</dcx-web-stepper>
+```
+
+<Canvas of={StepperStories.WithContent} />
+
+---
+
+## Tamaños
+
+### Pequeño
+
+<Canvas of={StepperStories.Small} />
+
+### Medio (por defecto)
+
+<Canvas of={StepperStories.Default} />
+
+### Grande
+
+<Canvas of={StepperStories.Large} />
+
+### Extra grande
+
+<Canvas of={StepperStories.ExtraLarge} />
+
+---
+
+## Sin números (con iconos)
+
+<Canvas of={StepperStories.WithoutNumbers} />
+
+---
+
+## API
+
+| Propiedad | Tipo | Default | Descripción |
+|------------|------|----------|-------------|
+| `steps` | `DcxStepperItem[]` | `[]` | Lista de pasos |
+| `activeStepId` | `string \| number` | `''` | Paso actualmente activo |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Orientación del componente |
+| `linear` | `boolean` | `false` | Navegación secuencial |
+| `showStepNumbers` | `boolean` | `true` | Muestra numeración de los pasos |
+| `size` | `'s' \| 'm' \| 'l' \| 'xl'` | `'m'` | Tamaño visual |
+| `ariaLabel` | `string \| null` | `null` | Nombre accesible del landmark |
+
+---
+
+## Eventos
+
+| Evento | Detail | Descripción |
+|----------|----------|----------|
+| `stepClick` | `DcxStepperItem` | Emitido al hacer click sobre un paso |
+| `stepChange` | `DcxStepperChangeEvent` | Emitido cuando cambia el paso activo |
+
+---
+
+## Slots
+
+### step-content
+
+Permite renderizar contenido personalizado debajo del paso activo.
+
+```html
+<dcx-web-stepper>
+  <div slot="step-content">
+    Mi contenido personalizado
+  </div>
+</dcx-web-stepper>
+```
+
+---
+
+## Interfaz DcxStepperItem
+
+```ts
+interface DcxStepperItem {
+  id: string | number;
+  label: string;
+  description?: string;
+  disabled?: boolean;
+  completed?: boolean;
+  error?: boolean;
+  optional?: boolean;
+  icon?: string;
+
+  /**
+   * Marcador interno utilizado para indicar
+   * que el paso dispone de contenido asociado.
+   */
+  contentTpl?: unknown;
+}
+`*`
+
+---
+
+## Interfaz DcxStepperChan*eEvent
+
+```ts
+interface DcxStepper*hangeEvent {
+  previousStepId: str*ng | number | null;
+  currentStepI*: string | number;
+  previousIndex* number;
+  currentIndex: number;
+}*```
+
+---
+
+## Estados
+
+### Activo
+
+*aso actualmente seleccionado.
+
+- C*lor primario
+- Texto destacado
+- M*rcado mediante `aria-current="step*`
+
+### Completado
+
+Paso finalizado*correctamente.
+
+- Indicador rellen*
+- Icono de confirmación
+
+### Erro*
+
+Paso con errores de validación.
+*- Indicador en color de error
+- Ic*no de advertencia
+
+### Deshabilita*o
+
+Paso no interactivo.
+
+- Aparien*ia atenuada
+- No recibe interacció*
+
+### Opcional
+
+Paso no obligatori*.
+
+- Se muestra la etiqueta "(opci*nal)"
+
+---
+
+## Accesibilidad
+
+El c*mponente incorpora soporte WCAG AA*
+
+- Contenedor raíz mediante `<nav*`
+- `aria-label` configurable
+- Pa*os renderizados dentro de `<ol rol*="list">`
+- El paso activo utiliza*`aria-current="step"`
+- Los estado* de error y completado incluyen te*to oculto para lectores de pantall*
+- Navegación completa por teclado*- Patrón de foco tipo roving tabin*ex
+
+### Teclas soportadas
+
+| Tecla*| Acción |
+|---------|---------|
+|*Enter | Activa el paso |
+| Espacio*| Activa el paso |
+| Home | Primer*paso habilitado |
+| End | Último p*so habilitado |
+| ArrowLeft | Paso*anterior (horizontal) |
+| ArrowRig*t | Paso siguiente (horizontal) |
+* ArrowUp | Paso anterior (vertical* |
+| ArrowDown | Paso siguiente (v*rtical) |
+
+---
+
+## Clases CSS prin*ipales
+
+```css
+.dcx-stepper
+
+.dcx-*tepper--horizontal
+.dcx-stepper--v*rtical
+
+.dcx-stepper--s
+.dcx-stepp*r--m
+.dcx-stepper--l
+.dcx-stepper-*xl
+
+.dcx-stepper__header
+.dcx-step*er__item
+
+.dcx-stepper__step
+.dcx-*tepper__step--active
+.dcx-stepper_*step--completed
+.dcx-stepper__step*-error
+.dcx-stepper__step--disable*
+
+.dcx-stepper__step-indicator
+.dc*-stepper__step-label
+
+.dcx-stepper*_divider
+.dcx-stepper__divider--co*pleted
+
+.dcx-stepper__content
+```
+*---
+
+## Theming
+
+El componente uti*iza variables CSS para personaliza*ión visual:
+
+```css
+--bg-primary
+-*bg-primary-hover
+
+--border-light
+-*border-focus
+
+--text-dark
+--text-m*ted
+--text-disabled
+--text-placeho*der
+--text-white
+
+--color-error
+``*
+
+Estas variables permiten adaptar*fácilmente el Stepper a distintos *istemas de diseño manteniendo cons*stencia visual y accesibilidad.
+
+-*-
+
+## Ejemplo con contenido person*lizado
+
+```html
+<dcx-web-stepper
+ *.steps=${[
+    {
+      id: '1',
+  *   label: 'Datos personales',
+    * completed: true,
+    },
+    {
+   *  id: '2',
+      label: 'Dirección*de envío',
+      description: 'Int*oduce tu dirección',
+      content*pl: 'slot',
+    },
+    {
+      id:*'3',
+      label: 'Método de pago'*
+    },
+  ]}
+  activeStepId="2"
+  *rientation="vertical"
+>
+  <div slo*="step-content">
+    <p><strong>Di*ección de envío</strong></p>
+    <*>
+      Calle Ejemplo, 42 · 28001 *adrid · España
+    </p>
+  </div>
+<*dcx-web-stepper>
+```
+
+---
+
+## Ejem*lo con iconos
+
+```html
+<dcx-web-st*pper
+  .steps=${[
+    {
+      id: *1',
+      label: 'Datos personales',
+      icon: 'user',
+    },
+    {
+      id: '2',
+      label: 'Dirección',
+      icon: 'location',
+    },
+    {
+      id: '3',
+      label: 'Pago',
+      icon: 'credit-card',
+    },
+  ]}
+  .showStepNumbers=${false}
+>
+</dcx-web-stepper>
+```

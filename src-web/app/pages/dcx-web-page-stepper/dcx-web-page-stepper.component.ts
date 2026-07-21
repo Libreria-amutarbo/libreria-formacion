@@ -44,7 +44,7 @@ export class DcxWebPageStepper extends LitElement {
       id: '2',
       label: 'Dirección de envío',
       description: 'Introduce tu dirección',
-      contentTpl: true,
+      contentTpl: 'slot' as never,
     },
     {
       id: '3',
@@ -119,7 +119,7 @@ export class DcxWebPageStepper extends LitElement {
     }
 
     .demo-section__num {
-      font-size: 10px;
+      font-size: var(--fs-xs, 11px);
       font-weight: var(--fw-bold, 700);
       color: var(--text-muted, #696e75);
       background: var(--bg-sidebar, #f0f2f5);
@@ -145,14 +145,14 @@ export class DcxWebPageStepper extends LitElement {
     }
 
     .demo-content-address-title {
-      margin: 0 0 4px;
+      margin: 0 0 var(--sp-1, 4px);
       font-weight: var(--fw-semibold, 600);
     }
 
     .demo-content-address-text {
       margin: 0;
       color: var(--text-muted, #696e75);
-      font-size: 13px;
+      font-size: var(--fs-base, 14px);
     }
   `;
 

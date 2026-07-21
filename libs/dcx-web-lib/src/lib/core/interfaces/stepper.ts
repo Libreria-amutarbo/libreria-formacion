@@ -1,5 +1,3 @@
-import { TemplateRef } from '@angular/core';
-
 export type DcxStepperSize = 's' | 'm' | 'l' | 'xl';
 
 export interface DcxStepperItem {
@@ -11,7 +9,7 @@ export interface DcxStepperItem {
   error?: boolean;
   optional?: boolean;
   icon?: string;
-  contentTpl?: TemplateRef<unknown>;
+  contentTpl?: unknown;
 }
 
 export interface DcxStepperChangeEvent {

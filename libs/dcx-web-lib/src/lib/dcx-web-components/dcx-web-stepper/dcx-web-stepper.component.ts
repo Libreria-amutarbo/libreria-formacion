@@ -87,7 +87,9 @@ export class DcxWebStepper extends LitElement {
   }
 
   get activeStepContent() {
-    return this.activeStep?.contentTpl;
+    return Boolean(
+      this.activeStep?.contentTpl,
+    );
   }
 
   get stepperClasses() {
