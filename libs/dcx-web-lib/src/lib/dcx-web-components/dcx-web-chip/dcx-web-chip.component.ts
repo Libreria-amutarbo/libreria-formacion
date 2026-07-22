@@ -1,7 +1,8 @@
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import type { DcxChipColorType, DcxChipVariantType, DcxChipType } from '../../core/interfaces/chip';
-import { chipStyles } from './dcx-web-chip.component.styles';
+import { styles } from './dcx-web-chip.component.styles';
+import { template } from './dcx-web-chip.component.html';
 import '../dcx-web-icon/dcx-web-icon.component';
 import '../dcx-web-button/dcx-web-button.component';
 
@@ -14,19 +15,19 @@ export class DcxWebChip extends LitElement {
   @property({ type: String, reflect: true }) accessor image = '';
   @property({ type: String, reflect: true }) accessor variant: DcxChipVariantType = 'choice';
 
-  static override styles = chipStyles;
+  static override styles = styles;
 
-  private get _chipType(): DcxChipType {
+  get chipType(): DcxChipType {
     if (this.image.trim()) return 'with-image';
     if (this.icon.trim()) return 'with-icon';
     return 'label-only';
   }
 
-  private get _showRemove(): boolean {
+  get showRemove(): boolean {
     return this.variant === 'filter' || this.removable;
   }
 
-  private _renderIcon() {
+  renderIcon() {
     const validIcons = [
       'house',
       'person',
@@ -42,10 +43,10 @@ export class DcxWebChip extends LitElement {
     return html`<dcx-web-icon name=${iconName}></dcx-web-icon>`;
   }
 
-  private _handleRemove(event: Event): void {
+  handleRemove(event: Event): void {
     event.stopPropagation();
 
-    if (!this._showRemove) {
+    if (!this.showRemove) {
       return;
     }
 
@@ -58,43 +59,7 @@ export class DcxWebChip extends LitElement {
   }
 
   override render() {
-    const chipClasses = `dcx-chip dcx-chip--${this.color}`;
-    const removeAriaLabel = this.label ? `Remover ${this.label}` : 'Remover chip';
-
-    return html`
-      <span
-        class=${chipClasses}
-        data-chip-type=${this._chipType}
-        data-variant=${this.variant}
-      >
-        ${this._chipType === 'with-image'
-          ? html`<img
-              class="dcx-chip__image"
-              src=${this.image}
-              alt=${this.label || 'Chip image'}
-              loading="lazy"
-            />`
-          : nothing}
-
-        ${this._chipType === 'with-icon'
-          ? html`<span class="dcx-chip__icon" aria-hidden="true">${this._renderIcon()}</span>`
-          : nothing}
-
-        ${this.label ? html`<span class="dcx-chip__label">${this.label}</span>` : nothing}
-
-        ${this._showRemove
-          ? html`<dcx-web-button
-              class="dcx-chip__remove-button"
-              variant="icon-only"
-              size="s"
-              icon-name="x"
-              icon-size="l"
-              aria-label=${removeAriaLabel}
-              @click=${(e: Event) => this._handleRemove(e)}
-            ></dcx-web-button>`
-          : nothing}
-      </span>
-    `;
+    return template(this);
   }
 }
 

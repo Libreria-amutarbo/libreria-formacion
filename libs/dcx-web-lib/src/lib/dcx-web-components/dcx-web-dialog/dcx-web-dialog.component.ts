@@ -2,8 +2,8 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { DialogPosition } from '../../core/interfaces/dialog';
-import { dcxWebDialogStyles } from './dcx-web-dialog.component.styles';
-import { dcxWebDialogTemplate } from './dcx-web-dialog.component.html';
+import { styles } from './dcx-web-dialog.component.styles';
+import { template } from './dcx-web-dialog.component.html';
 
 import '../dcx-web-button/dcx-web-button.component';
 
@@ -27,7 +27,7 @@ export class DcxWebDialog extends LitElement {
   @property({ type: Boolean })
   accessor visible = false;
 
-  static override styles = dcxWebDialogStyles;
+  static override styles = styles;
 
   public get dialogTitleId(): string {
     return `dialog-title-${this.dialogId || 'default'}`;
@@ -71,7 +71,7 @@ export class DcxWebDialog extends LitElement {
   }
 
   override render() {
-    return dcxWebDialogTemplate(this);
+    return template(this);
   }
 }
 

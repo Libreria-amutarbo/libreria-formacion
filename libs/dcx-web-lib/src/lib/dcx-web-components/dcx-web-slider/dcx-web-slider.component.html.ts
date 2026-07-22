@@ -1,16 +1,16 @@
 import { html, nothing } from 'lit';
 import type { DcxWebSlider } from './dcx-web-slider.component';
 
-export const template = (context: DcxWebSlider) => html`
-  ${context.showLabel
+export const template = (host: DcxWebSlider) => html`
+  ${host.showLabel
     ? html`
         <div
-          class="dcx-slider__value-label ${context.disabled
+          class="dcx-slider__value-label ${host.disabled
             ? 'is-disabled'
             : ''}"
         >
-          <span class="dcx-slider__label">${context.textLabel}</span>
-          <span class="dcx-slider__value">${context.displayValue}</span>
+          <span class="dcx-slider__label">${host.textLabel}</span>
+          <span class="dcx-slider__value">${host.displayValue}</span>
         </div>
       `
     : nothing}
@@ -18,14 +18,14 @@ export const template = (context: DcxWebSlider) => html`
   <dcx-web-input
     class="dcx-slider__control"
     .type="${'range'}"
-    .value="${context.valueInput}"
-    .min="${context.min}"
-    .max="${context.max}"
-    .step="${context.step}"
-    ?disabled="${context.disabled}"
-    .ariaLabel="${context.effectiveAriaLabel}"
-    style="width: ${context.vertical ? '100px' : '100%'};"
-    .orientation="${context.vertical ? 'vertical' : 'horizontal'}"
-    @valueChange="${context.onInput}"
+    .value="${host.valueInput}"
+    .min="${host.min}"
+    .max="${host.max}"
+    .step="${host.step}"
+    ?disabled="${host.disabled}"
+    .ariaLabel="${host.effectiveAriaLabel}"
+    style="width: ${host.vertical ? '100px' : '100%'};"
+    .orientation="${host.vertical ? 'vertical' : 'horizontal'}"
+    @valueChange="${host.onInput}"
   ></dcx-web-input>
 `;

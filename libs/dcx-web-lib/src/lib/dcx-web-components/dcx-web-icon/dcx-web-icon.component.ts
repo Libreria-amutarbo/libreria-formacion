@@ -1,8 +1,8 @@
-import { LitElement, html, nothing } from 'lit';
+import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import type { DcxSize } from '../../core/interfaces/generic';
 import type { DcxIconSpacing } from '../../core/interfaces/icon';
-import { styles } from './dcx-web-icon.component.styles';
+import { template } from './dcx-web-icon.component.html';
 
 @customElement('dcx-web-icon')
 export class DcxWebIcon extends LitElement {
@@ -17,11 +17,11 @@ export class DcxWebIcon extends LitElement {
     return this;
   }
 
-  private get _decorative(): boolean {
+  get decorative(): boolean {
     return !this.ariaLabel || this.ariaLabel.trim() === '';
   }
 
-  private get _iconClass(): string {
+  get iconClass(): string {
     const classes: string[] = [
       'bi',
       `bi-${this.name}`,
@@ -53,18 +53,7 @@ export class DcxWebIcon extends LitElement {
   }
 
   override render() {
-    return html`
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-      <style>
-        ${styles}
-      </style>
-      <i
-        class="${this._iconClass}"
-        aria-hidden="${this._decorative ? 'true' : nothing}"
-        role="${this._decorative ? nothing : 'img'}"
-        aria-label="${this._decorative ? nothing : this.ariaLabel}"
-      ></i>
-    `;
+    return template(this);
   }
 }
 

@@ -1,6 +1,7 @@
-import { LitElement, html, nothing, type PropertyValues } from 'lit';
+import { LitElement, type PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { drawerStyles } from './dcx-web-drawer.component.styles';
+import { styles } from './dcx-web-drawer.component.styles';
+import { template } from './dcx-web-drawer.component.html';
 import '../dcx-web-button/dcx-web-button.component';
 import '../dcx-web-icon/dcx-web-icon.component';
 import type { DcxPosition } from '../../core/interfaces/generic';
@@ -36,14 +37,14 @@ export class DcxWebDrawer extends LitElement {
   @property({ type: String, reflect: true }) accessor header = DRAWER_HEADER_DEFAULT;
   @property({ type: String, reflect: true }) accessor footer = DRAWER_FOOTER_DEFAULT;
 
-  static override styles = drawerStyles;
+  static override styles = styles;
 
   private static _instanceCount = 0;
   private static _globalZIndex = 0;
 
   @state() private accessor _currentZIndex = DRAWER_BASE_Z_INDEX_DEFAULT;
-  @state() private accessor _rendered = false;
-  @state() private accessor _closing = false;
+  @state() accessor rendered = false;
+  @state() accessor closing = false;
 
   private _closeTimer?: number;
   private _scrollBlocked = false;
@@ -56,28 +57,28 @@ export class DcxWebDrawer extends LitElement {
     if (!this.open || !this.closeOnEscape || event.key !== 'Escape') {
       return;
     }
-    this._closeDrawer();
+    this.closeDrawer();
   };
 
-  private get _drawerTitleId(): string {
+  get drawerTitleId(): string {
     return `${this._drawerId}-title`;
   }
 
-  private get _hasHeader(): boolean {
+  get hasHeader(): boolean {
     return Boolean(
       this.header || this.showCloseIcon || this.querySelector('[slot="drawerHeader"]'),
     );
   }
 
-  private get _hasFooter(): boolean {
+  get hasFooter(): boolean {
     return Boolean(this.footer || this.querySelector('[slot="drawerFooter"]'));
   }
 
-  private get _resolvedZIndex(): number {
+  get resolvedZIndex(): number {
     return this._currentZIndex;
   }
 
-  private get _panelWidth(): string | null {
+  get panelWidth(): string | null {
     if (this.fullScreen) {
       return '100%';
     }
@@ -89,7 +90,7 @@ export class DcxWebDrawer extends LitElement {
     return null;
   }
 
-  private get _panelHeight(): string | null {
+  get panelHeight(): string | null {
     if (this.fullScreen) {
       return '100%';
     }
@@ -121,10 +122,10 @@ export class DcxWebDrawer extends LitElement {
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('open')) {
       if (this.open) {
-        this._closing = false;
-        this._rendered = true;
+        this.closing = false;
+        this.rendered = true;
       } else {
-        this._closing = true;
+        this.closing = true;
       }
     }
 
@@ -169,8 +170,8 @@ export class DcxWebDrawer extends LitElement {
 
         window.clearTimeout(this._closeTimer);
         this._closeTimer = window.setTimeout(() => {
-          this._rendered = false;
-          this._closing = false;
+          this.rendered = false;
+          this.closing = false;
           this.requestUpdate();
         }, 220);
       }
@@ -190,90 +191,24 @@ export class DcxWebDrawer extends LitElement {
   }
 
   override render() {
-    if (!this._rendered) {
-      return nothing;
-    }
-
-    const drawerClasses = [
-      'dcx-drawer',
-      `dcx-drawer--${this.position}`,
-      this.fullScreen ? 'dcx-drawer--fullscreen' : '',
-    ].filter(Boolean);
-
-    const rootClasses = ['dcx-drawer-root', this._closing ? 'dcx-drawer-root--closing' : ''];
-    const shouldRenderMask = this.modal;
-
-    return html`
-      <div class=${rootClasses.filter(Boolean).join(' ')} style="z-index:${this._resolvedZIndex};">
-        ${shouldRenderMask
-          ? html`<div
-              class="dcx-drawer__mask"
-              aria-hidden="true"
-              @pointerdown=${this._handleMaskPointerDown}
-            ></div>`
-          : nothing}
-
-        <aside
-          class=${drawerClasses.join(' ')}
-          role="dialog"
-          aria-modal=${this.modal ? 'true' : nothing}
-          aria-labelledby=${this.header ? this._drawerTitleId : nothing}
-          style="z-index:${this._resolvedZIndex + 1};${this._panelWidth ? ` width:${this._panelWidth};` : ''}${this._panelHeight ? ` height:${this._panelHeight};` : ''}"
-        >
-          ${this._hasHeader
-            ? html`
-                <header class="dcx-drawer__header">
-                  ${this.querySelector('[slot="drawerHeader"]')
-                    ? html`<slot name="drawerHeader"></slot>`
-                    : html`<h3 class="dcx-drawer__title" id=${this._drawerTitleId}>${this.header}</h3>`}
-
-                  ${this.showCloseIcon
-                    ? html`<dcx-web-button
-                        variant="icon-only"
-                        size="s"
-                        aria-label="Cerrar drawer"
-                        @buttonClick=${this._closeDrawer}
-                      >
-                        <dcx-web-icon slot="dcx-icon" name="x"></dcx-web-icon>
-                      </dcx-web-button>`
-                    : nothing}
-                </header>
-              `
-            : nothing}
-
-          <div class="dcx-drawer__content">
-            <slot></slot>
-          </div>
-
-          ${this._hasFooter
-            ? html`
-                <footer class="dcx-drawer__footer">
-                  ${this.querySelector('[slot="drawerFooter"]')
-                    ? html`<slot name="drawerFooter"></slot>`
-                    : html`<span>${this.footer}</span>`}
-                </footer>
-              `
-            : nothing}
-        </aside>
-      </div>
-    `;
+    return template(this);
   }
 
   public close(): void {
-    this._closeDrawer();
+    this.closeDrawer();
   }
 
-  private readonly _handleMaskPointerDown = (event: PointerEvent): void => {
+  readonly handleMaskPointerDown = (event: PointerEvent): void => {
     event.stopPropagation();
 
     if (!this.dismissible) {
       return;
     }
 
-    this._closeDrawer();
+    this.closeDrawer();
   };
 
-  private readonly _closeDrawer = (): void => {
+  readonly closeDrawer = (): void => {
     if (!this.open) {
       return;
     }

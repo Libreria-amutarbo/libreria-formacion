@@ -29,27 +29,35 @@ en `dcx-web-lib`.
 
 ## 2. Estructura de ficheros de un componente
 
-Cada componente vive en `src/lib/dcx-web-components/dcx-web-<nombre>/` y consta de:
+Cada componente vive en `src/lib/dcx-web-components/dcx-web-<nombre>/` y **SIEMPRE**
+consta de estos **4 ficheros** (estructura obligatoria e idéntica para todos):
 
 ```
 dcx-web-<nombre>/
-├── dcx-web-<nombre>.component.ts          # Clase LitElement (obligatorio)
-├── dcx-web-<nombre>.component.styles.ts   # export const styles = css`...` (obligatorio)
-├── dcx-web-<nombre>.component.html.ts      # render externo (solo si el template es grande)
-└── dcx-web-<nombre>.component.spec.ts      # tests (obligatorio)
+├── dcx-web-<nombre>.component.ts          # Clase LitElement
+├── dcx-web-<nombre>.component.styles.ts   # export const styles = css`...`
+├── dcx-web-<nombre>.component.html.ts       # export const template = (host) => html`...`
+└── dcx-web-<nombre>.component.spec.ts      # tests
 ```
 
-Hay **dos estilos de render** válidos:
+**Convenciones de nombres (obligatorias, sin excepciones):**
 
-- **Inline** (por defecto, para templates pequeños/medianos): el `render()`
-  devuelve el `html\`\`` directamente en el `.component.ts`. Ver `accordion`.
-- **Externo** (para templates grandes): una función
-  `renderDcxWeb<Nombre>Template(cmp)` en `*.component.html.ts`, y en el
-  componente `override render() { return renderDcxWeb<Nombre>Template(this); }`.
-  Ver `input`.
+- **Estilos:** ``export const styles = css`...` `` (siempre `styles`, nunca
+  `dcxWeb<Nombre>Styles` ni `<nombre>Styles`). En el componente:
+  `static override styles = styles;`.
+- **Template:** el render vive SIEMPRE en el `.component.html.ts` como
+  `export const template = (host: DcxWeb<Nombre>) => html\`...\``, y el
+  componente hace `override render() { return template(this); }`.
+- **`host`** es siempre el nombre del parámetro del template (nunca `component`,
+  `context`, `input`, etc.).
+- Cualquier método/getter/estado que use el template debe ser **público**
+  (sin `private`, sin prefijo `_`). Los helpers puramente internos siguen
+  `private` con prefijo `_`.
 
 Los tipos, `enum`s, `defaults` y `fixtures` van a `src/lib/core/`
 (`interfaces/`, `defaults/`, `fixtures/`, `tokens/`), igual que en Angular.
+**Nunca** definas `type`/`interface`/mocks/consts de datos dentro del
+`.component.ts`.
 
 ---
 
@@ -273,7 +281,7 @@ como clases planas:
 1. [ ] Crear carpeta `dcx-web-<nombre>/` con los 3-4 ficheros.
 2. [ ] Portar `interfaces` / `defaults` / `fixtures` necesarios a `core/`.
 3. [ ] Traducir inputs → `@property`, outputs → `CustomEvent`, estado → `@state`.
-4. [ ] Traducir el template (`.html`) a `html\`\`` (inline o externo según tamaño).
+4. [ ] Traducir el template (`.html`) al `.component.html.ts` como `export const template = (host) => html\`\``.
 5. [ ] Traducir el SCSS a `css\`\`` con custom properties y BEM.
 6. [ ] Añadir `declare global { HTMLElementTagNameMap }`.
 7. [ ] Exportar el componente en `src/index.ts`.

@@ -1,30 +1,28 @@
 import { html, nothing } from 'lit';
 import type { DcxWebInputOtp } from './dcx-web-input-otp.component';
 
-export function renderDcxWebInputOtpTemplate(
-  component: DcxWebInputOtp,
-) {
+export const template = (host: DcxWebInputOtp) => {
   return html`
     <div
       class="dcx-input-otp__group"
       role="group"
-      aria-label="${component.ariaLabel}"
-      aria-invalid="${String(component.invalid)}"
-      aria-describedby="${component.describedBy ?? nothing}"
+      aria-label="${host.ariaLabel}"
+      aria-invalid="${String(host.invalid)}"
+      aria-describedby="${host.describedBy ?? nothing}"
     >
-      ${component.displayTokens.map(
+      ${host.displayTokens.map(
         (token, index) => {
 
           const context =
-            component.getTemplateContext(
+            host.getTemplateContext(
               token,
               index,
             );
 
           if (
-            component.inputTemplateRenderer
+            host.inputTemplateRenderer
           ) {
-            return component
+            return host
               .inputTemplateRenderer(
                 context,
               );
@@ -32,18 +30,18 @@ export function renderDcxWebInputOtpTemplate(
 
           return html`
             <input
-              class="${component.getInputClass(
+              class="${host.getInputClass(
                 token,
               )}"
-              type="${component.inputType}"
-              inputmode="${component.inputMode}"
+              type="${host.inputType}"
+              inputmode="${host.inputMode}"
               autocomplete="one-time-code"
               maxlength="1"
-              placeholder="${component.placeholder}"
-              aria-label="${component.getAriaLabel(
+              placeholder="${host.placeholder}"
+              aria-label="${host.getAriaLabel(
                 index,
               )}"
-              ?disabled="${component.isDisabled}"
+              ?disabled="${host.isDisabled}"
               .value="${token}"
               @focus="${(
                 event: FocusEvent,
@@ -81,14 +79,14 @@ export function renderDcxWebInputOtpTemplate(
       )}
     </div>
 
-    ${component.showError
+    ${host.showError
       ? html`
           <div
             class="dcx-input-otp__error"
             role="alert"
-            id="${component.errorId}"
+            id="${host.errorId}"
           >
-            ${component.errorMessage}
+            ${host.errorMessage}
           </div>
         `
       : nothing}

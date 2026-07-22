@@ -5,8 +5,8 @@ import {
   state,
 } from 'lit/decorators.js';
 
-import { dcxWebStepperStyles } from './dcx-web-stepper.component.styles';
-import { renderDcxWebStepperTemplate } from './dcx-web-stepper.component.html';
+import { styles } from './dcx-web-stepper.component.styles';
+import { template } from './dcx-web-stepper.component.html';
 
 import '../dcx-web-icon/dcx-web-icon.component';
 
@@ -52,7 +52,7 @@ export class DcxWebStepper extends LitElement {
     | null = null;
 
   static override styles =
-    dcxWebStepperStyles;
+    styles;
 
   override connectedCallback() {
     super.connectedCallback();
@@ -364,7 +364,7 @@ export class DcxWebStepper extends LitElement {
   }
 
   override render() {
-    return renderDcxWebStepperTemplate(
+    return template(
       this,
     );
   }

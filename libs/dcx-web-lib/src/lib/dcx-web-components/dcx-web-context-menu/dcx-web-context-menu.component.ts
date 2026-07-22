@@ -1,6 +1,7 @@
 import { LitElement, html, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { styles } from './dcx-web-context-menu.component.styles';
+import { template } from './dcx-web-context-menu.component.html';
 import type { DcxContextMenuItem } from '../../core/interfaces';
 import '../dcx-web-icon/dcx-web-icon.component';
 
@@ -166,7 +167,7 @@ export class DcxWebContextMenu extends LitElement {
     }
   }
 
-  private renderItem(item: DcxContextMenuItem, index: number): TemplateResult {
+  renderItem(item: DcxContextMenuItem, index: number): TemplateResult {
     if (item.divider) {
       return html`<li class="dcx-context-menu__divider" role="separator"></li>`;
     }
@@ -236,29 +237,7 @@ export class DcxWebContextMenu extends LitElement {
   }
 
   override render() {
-    if (!this.isOpen) return html``;
-
-    const classes = `dcx-context-menu ${
-      this.positionMode === 'absolute' ? 'dcx-context-menu--absolute' : ''
-    }`;
-    const style = `top: ${this.top}; left: ${this.left}; opacity: ${
-      this.isPositioned ? '1' : '0'
-    };`;
-
-    return html`
-      <div
-        class="${classes}"
-        style="${style}"
-        @click="${(e: Event) => e.stopPropagation()}"
-        tabindex="-1"
-        role="menu"
-        aria-label="Menú contextual"
-      >
-        <ul class="dcx-context-menu__list" role="presentation">
-          ${this.items.map((item, index) => this.renderItem(item, index))}
-        </ul>
-      </div>
-    `;
+    return template(this);
   }
 }
 

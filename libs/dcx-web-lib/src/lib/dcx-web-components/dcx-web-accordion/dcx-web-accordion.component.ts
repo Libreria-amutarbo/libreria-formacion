@@ -1,14 +1,12 @@
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { styleMap } from 'lit/directives/style-map.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type {
   DcxWebAccordionTransition,
   DcxWebAccordionVariant,
   DcxWebAccordionItem,
 } from '../../core/interfaces';
 import { styles } from './dcx-web-accordion.component.styles';
+import { template } from './dcx-web-accordion.component.html';
 import '../dcx-web-icon/dcx-web-icon.component';
 
 @customElement('dcx-web-accordion')
@@ -256,7 +254,7 @@ export class DcxWebAccordion extends LitElement {
     return iconName;
   }
 
-  private _renderIcon(iconName: string) {
+  renderIcon(iconName: string) {
     const mappedName = this._getIconName(iconName);
     if (iconName.toLowerCase() === 'chevron-down') {
       return html`<dcx-web-icon name="${mappedName}" size="auto"></dcx-web-icon>`;
@@ -267,104 +265,7 @@ export class DcxWebAccordion extends LitElement {
   static override styles = styles;
 
   override render() {
-    const accordionClasses = {
-      'dcx-accordion': true,
-      [`dcx-accordion--transition-${this.transition}`]: true,
-      'dcx-accordion--flush': this.variant === 'flush',
-    };
-
-    return html`
-      <div
-        class="${classMap(accordionClasses)}"
-        aria-label="${this.ariaLabel || nothing}"
-      >
-        ${this.items.map(item => {
-          const isExpanded = this.isExpanded(item.id);
-          const itemClasses = {
-            'dcx-accordion__item': true,
-            'dcx-accordion__item--disabled': !!item.disabled,
-            'dcx-accordion__item--expanded': isExpanded,
-          };
-          const contentWrapperClasses = {
-            'dcx-accordion__content-wrapper': true,
-            'dcx-accordion__content-wrapper--expanded': isExpanded,
-            'dcx-accordion__content-wrapper--disabled-content':
-              !!item.disabledContent,
-          };
-          const contentClasses = {
-            'dcx-accordion__content': true,
-            'dcx-accordion__content--scrollable': !!item.maxContentHeight,
-          };
-          const contentStyles = {
-            maxHeight: item.maxContentHeight || null,
-          };
-
-          return html`
-              <div class="${classMap(itemClasses)}">
-                <h3 class="dcx-accordion__heading">
-                  <button
-                    class="dcx-accordion__header"
-                    id="accordion-header-${item.id}"
-                    aria-expanded="${isExpanded}"
-                    aria-controls="accordion-content-${item.id}"
-                    ?disabled="${item.disabled}"
-                    @click="${() => this.toggleItem(item)}"
-                    @keydown="${this.onHeaderKeydown}"
-                  >
-                    ${
-                      item.icon
-                        ? html`
-                          <span class="dcx-accordion__icon" aria-hidden="true">
-                            ${this._renderIcon(item.icon)}
-                          </span>
-                        `
-                        : nothing
-                    }
-                    <span class="dcx-accordion__title-group">
-                      <span class="dcx-accordion__title">${item.title}</span>
-                      ${
-                        item.description
-                          ? html`
-                            <span class="dcx-accordion__description"
-                              >${item.description}</span
-                            >
-                          `
-                          : nothing
-                      }
-                    </span>
-                    <span class="dcx-accordion__chevron" aria-hidden="true">
-                      ${this._renderIcon('chevron-down')}
-                    </span>
-                  </button>
-                </h3>
-
-                <div
-                  class="${classMap(contentWrapperClasses)}"
-                  id="accordion-content-${item.id}"
-                  aria-labelledby="accordion-header-${item.id}"
-                  aria-hidden="${!isExpanded}"
-                  role="region"
-                >
-                  <div
-                    class="${classMap(contentClasses)}"
-                    style="${styleMap(contentStyles)}"
-                  >
-                    ${
-                      item.contentTemplate
-                        ? typeof item.contentTemplate === 'function'
-                          ? item.contentTemplate()
-                          : item.contentTemplate
-                        : item.content
-                          ? unsafeHTML(item.content)
-                          : ''
-                    }
-                  </div>
-                </div>
-              </div>
-            `;
-        })}
-      </div>
-    `;
+    return template(this);
   }
 }
 

@@ -1,6 +1,7 @@
-import { LitElement, html } from 'lit';
+import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { dcxWebDividerStyles } from './dcx-web-divider.component.styles';
+import { styles } from './dcx-web-divider.component.styles';
+import { template } from './dcx-web-divider.component.html';
 import type { DividerOrientation, DividerType, DividerSize } from '../../core/interfaces/divider';
 
 @customElement('dcx-web-divider')
@@ -15,7 +16,7 @@ export class DcxWebDivider extends LitElement {
 
   @property({ type: String, attribute: 'aria-label' }) override accessor ariaLabel: string | null = null;
 
-  static override styles = dcxWebDividerStyles;
+  static override styles = styles;
 
   private _getDividerStyle(): string {
     switch (this.type) {
@@ -35,13 +36,13 @@ export class DcxWebDivider extends LitElement {
     }
   }
 
-  private _getComputedAriaLabel(): string {
+  getComputedAriaLabel(): string {
     if (this.ariaLabel && this.ariaLabel.trim().length > 0) return this.ariaLabel;
     if (this.label && this.label.trim().length > 0) return this.label;
     return '';
   }
 
-  private _isHidden(): boolean {
+  isHidden(): boolean {
     return !this.label && !this.ariaLabel;
   }
 
@@ -57,34 +58,7 @@ export class DcxWebDivider extends LitElement {
   }
 
   override render() {
-    const ariaLabel = this._getComputedAriaLabel();
-    const isHidden = this._isHidden();
-
-    if (this.label) {
-      return html`
-        <div
-          class="dcx-divider dcx-divider--labeled"
-          role="separator"
-          aria-orientation="${this.orientation}"
-          aria-label="${ariaLabel}"
-          aria-hidden="${isHidden ? 'true' : 'false'}"
-        >
-          <span class="dcx-divider__line" aria-hidden="true"></span>
-          <span class="dcx-divider__label">${this.label}</span>
-          <span class="dcx-divider__line" aria-hidden="true"></span>
-        </div>
-      `;
-    }
-
-    return html`
-      <span
-        class="dcx-divider"
-        role="separator"
-        aria-orientation="${this.orientation}"
-        aria-label="${ariaLabel}"
-        aria-hidden="${isHidden ? 'true' : 'false'}"
-      ></span>
-    `;
+    return template(this);
   }
 }
 

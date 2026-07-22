@@ -2,24 +2,24 @@ import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import type { DcxWebCard } from './dcx-web-card.component';
 
-export function renderDcxWebCardTemplate(card: DcxWebCard) {
+export const template = (host: DcxWebCard) => {
   return html`
     <div
-      class="${card.cardClasses}"
-      tabindex="${card.cardTabIndex ?? nothing}"
-      role="${card.cardRole}"
-      aria-disabled="${card.disabled}"
-      aria-label="${card.effectiveAriaLabel ?? nothing}"
-      @click="${card._handleCardClick}"
-      @keydown="${card._handleCardClick}"
+      class="${host.cardClasses}"
+      tabindex="${host.cardTabIndex ?? nothing}"
+      role="${host.cardRole}"
+      aria-disabled="${host.disabled}"
+      aria-label="${host.effectiveAriaLabel ?? nothing}"
+      @click="${host._handleCardClick}"
+      @keydown="${host._handleCardClick}"
     >
-      <div class="${card.innerClasses}" style="${styleMap(card.innerStyles)}">
-        ${card.image
+      <div class="${host.innerClasses}" style="${styleMap(host.innerStyles)}">
+        ${host.image
           ? html`
               <div class="dcx-card__image-container">
                 <img
-                  src="${card.image}"
-                  alt="${card.imageAlt}"
+                  src="${host.image}"
+                  alt="${host.imageAlt}"
                   class="dcx-card__image"
                 />
               </div>
@@ -28,22 +28,22 @@ export function renderDcxWebCardTemplate(card: DcxWebCard) {
 
         <div class="dcx-card__body">
 
-          ${card.hasHeader
+          ${host.hasHeader
             ? html`
                 <div class="dcx-card__header">
                   <slot name="header"></slot>
                 </div>
               `
-            : (card.title || card.subtitle)
+            : (host.title || host.subtitle)
             ? html`
                 <div class="dcx-card__header">
-                  ${card.title ? html`<h3 class="dcx-card__title">${card.title}</h3>` : nothing}
-                  ${card.subtitle ? html`<p class="dcx-card__subtitle">${card.subtitle}</p>` : nothing}
+                  ${host.title ? html`<h3 class="dcx-card__title">${host.title}</h3>` : nothing}
+                  ${host.subtitle ? html`<p class="dcx-card__subtitle">${host.subtitle}</p>` : nothing}
                 </div>
               `
             : nothing}
 
-          ${card.hasContent
+          ${host.hasContent
             ? html`
                 <div class="dcx-card__content">
                   <slot name="content"></slot>
@@ -52,7 +52,7 @@ export function renderDcxWebCardTemplate(card: DcxWebCard) {
               `
             : nothing}
 
-          ${card.hasFooter
+          ${host.hasFooter
             ? html`
                 <div class="dcx-card__footer">
                   <slot name="footer"></slot>

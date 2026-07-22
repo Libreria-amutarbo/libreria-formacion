@@ -1,6 +1,6 @@
 import { css } from 'lit';
 
-export const dcxWebDividerStyles = css`
+export const styles = css`
   :host {
     display: block;
   }

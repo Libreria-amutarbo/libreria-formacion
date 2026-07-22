@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { dcxWebInputStyles } from './dcx-web-input.component.styles';
-import { renderDcxWebInputTemplate } from './dcx-web-input.component.html';
+import { styles } from './dcx-web-input.component.styles';
+import { template } from './dcx-web-input.component.html';
 import '../dcx-web-button/dcx-web-button.component';
 import '../dcx-web-icon/dcx-web-icon.component';
 
@@ -119,7 +119,7 @@ export class DcxWebInput extends LitElement {
   @state()
   accessor touched = false;
 
-  static override styles = dcxWebInputStyles;
+  static override styles = styles;
 
   get labelId() {
     return `${this.id}-label`;
@@ -349,7 +349,7 @@ export class DcxWebInput extends LitElement {
   }
 
   override render() {
-    return renderDcxWebInputTemplate(this);
+    return template(this);
   }
 }
 

@@ -1,6 +1,6 @@
 import { css } from 'lit';
 
-export const dcxWebInputOtpStyles = css`
+export const styles = css`
   :host {
     display: inline-flex;
     flex-direction: column;

@@ -3,8 +3,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 import type { TemplateResult } from 'lit';
 
 
-import { renderDcxWebInputOtpTemplate } from './dcx-web-input-otp.component.html';
-import { dcxWebInputOtpStyles } from './dcx-web-input-otp.component.styles';
+import { template } from './dcx-web-input-otp.component.html';
+import { styles } from './dcx-web-input-otp.component.styles';
 
 import type {
   DcxInputOtpSize,
@@ -58,7 +58,7 @@ export class DcxWebInputOtp extends LitElement {
     ) => TemplateResult)
     | null = null;
 
-  static override styles = dcxWebInputOtpStyles;
+  static override styles = styles;
 
   private readonly uid =
     `dcx-otp-${Math.random().toString(36).slice(2, 9)}`;
@@ -528,7 +528,7 @@ export class DcxWebInputOtp extends LitElement {
   }
 
   override render() {
-    return renderDcxWebInputOtpTemplate(
+    return template(
       this,
     );
   }

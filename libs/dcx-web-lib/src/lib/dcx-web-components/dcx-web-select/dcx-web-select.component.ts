@@ -5,8 +5,8 @@ import {
   state,
 } from 'lit/decorators.js';
 
-import { renderDcxWebSelectTemplate } from './dcx-web-select.component.html';
-import { dcxWebSelectStyles } from './dcx-web-select.component.styles';
+import { template } from './dcx-web-select.component.html';
+import { styles } from './dcx-web-select.component.styles';
 
 import '../dcx-web-button/dcx-web-button.component';
 import '../dcx-web-icon/dcx-web-icon.component';
@@ -14,7 +14,11 @@ import '../dcx-web-input/dcx-web-input.component';
 
 import type { DcxSpacing } from '../../core/interfaces';
 
-import type { DcxSelectOptions } from '../../core/interfaces/select';
+import type {
+  DcxSelectOptions,
+  DcxSelectValue,
+  MoveDirection,
+} from '../../core/interfaces/select';
 
 import {
   PLACEHOLDER,
@@ -27,17 +31,6 @@ import {
   ERRORICON,
   SPACING_DEFAULT,
 } from '../../core/defaults';
-
-type DcxSelectValue =
-  | string
-  | number
-  | null;
-
-type MoveDirection =
-  | 'next'
-  | 'prev'
-  | 'first'
-  | 'last';
 
 @customElement('dcx-web-select')
 export class DcxWebSelect extends LitElement {
@@ -114,7 +107,7 @@ export class DcxWebSelect extends LitElement {
     false;
 
   static override styles =
-    dcxWebSelectStyles;
+    styles;
 
   override id = `dcx-select-${Math.random()
     .toString(36)
@@ -503,7 +496,7 @@ export class DcxWebSelect extends LitElement {
   }
 
   override render() {
-    return renderDcxWebSelectTemplate(
+    return template(
       this,
     );
   }

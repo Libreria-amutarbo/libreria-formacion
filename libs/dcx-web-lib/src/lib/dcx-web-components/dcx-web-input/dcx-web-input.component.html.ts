@@ -1,19 +1,19 @@
 import { html, nothing } from 'lit';
 import type { DcxWebInput } from './dcx-web-input.component';
 
-export function renderDcxWebInputTemplate(input: DcxWebInput) {
+export const template = (host: DcxWebInput) => {
   return html`
-    ${input.label
+    ${host.label
       ? html`
           <label
-            class="dcx-input__label ${input.isInvalid
+            class="dcx-input__label ${host.isInvalid
               ? 'dcx-input__label--invalid'
               : ''}"
-            for="${input.id}"
-            id="${input.labelId}"
+            for="${host.id}"
+            id="${host.labelId}"
           >
-            ${input.label}
-            ${input.required
+            ${host.label}
+            ${host.required
               ? html`<span class="dcx-input__required">*</span>`
               : nothing}
           </label>
@@ -22,45 +22,45 @@ export function renderDcxWebInputTemplate(input: DcxWebInput) {
 
     <div class="dcx-input__wrapper">
       <div class="dcx-input__field">
-        ${input.getInputIcon
+        ${host.getInputIcon
           ? html`
               <dcx-web-icon
                 class="dcx-input__leading-icon"
-                name="${input.getInputIcon}"
+                name="${host.getInputIcon}"
               ></dcx-web-icon>
             `
           : nothing}
 
         <input
-          class="${input.getInputClasses()}"
-          id="${input.id}"
-          name="${input.name}"
-          type="${input.displayType}"
-          .value="${String(input.value ?? '')}"
-          placeholder="${input.placeholder}"
-          inputmode="${input.inputMode}"
-          autocomplete="${input.autocomplete}"
-          ?readonly="${input.readonly}"
-          ?disabled="${input.disabled}"
-          ?required="${input.required}"
-          ?checked="${input.checked}"
-          ?multiple="${input.isFileType ? input.multiple : false}"
-          min="${input.min}"
-          max="${input.max}"
-          step="${input.step}"
-          aria-label="${!input.label ? input.ariaLabel ?? '' : ''}"
-          aria-required="${input.required ? 'true' : 'false'}"
-          aria-invalid="${String(input.isInvalid)}"
-          aria-describedby="${input.describedBy ?? ''}"
-          @input="${input.onInputChange}"
-          @change="${input.onChangeEvent}"
-          @focus="${input.onFocusEvent}"
-          @blur="${input.onBlurEvent}"
+          class="${host.getInputClasses()}"
+          id="${host.id}"
+          name="${host.name}"
+          type="${host.displayType}"
+          .value="${String(host.value ?? '')}"
+          placeholder="${host.placeholder}"
+          inputmode="${host.inputMode}"
+          autocomplete="${host.autocomplete}"
+          ?readonly="${host.readonly}"
+          ?disabled="${host.disabled}"
+          ?required="${host.required}"
+          ?checked="${host.checked}"
+          ?multiple="${host.isFileType ? host.multiple : false}"
+          min="${host.min}"
+          max="${host.max}"
+          step="${host.step}"
+          aria-label="${!host.label ? host.ariaLabel ?? '' : ''}"
+          aria-required="${host.required ? 'true' : 'false'}"
+          aria-invalid="${String(host.isInvalid)}"
+          aria-describedby="${host.describedBy ?? ''}"
+          @input="${host.onInputChange}"
+          @change="${host.onChangeEvent}"
+          @focus="${host.onFocusEvent}"
+          @blur="${host.onBlurEvent}"
           @keydown="${(e: KeyboardEvent) =>
-            e.key === 'Enter' ? input.emit('enterPressed') : null}"
+            e.key === 'Enter' ? host.emit('enterPressed') : null}"
         />
 
-        ${input.showActionIcon && !input.isRangeType
+        ${host.showActionIcon && !host.isRangeType
           ? html`
               <dcx-web-button
                 class="dcx-input__action-button"
@@ -68,54 +68,54 @@ export function renderDcxWebInputTemplate(input: DcxWebInput) {
                 size="s"
                 .icon="${true}"
                 iconSize="l"
-                .iconName="${input.getActionButtonIcon}"
-                .ariaLabel="${input.getActionButtonAriaLabel}"
-                ?disabled="${input.disabled}"
-                @buttonClick="${input.onActionButtonClick}"
+                .iconName="${host.getActionButtonIcon}"
+                .ariaLabel="${host.getActionButtonAriaLabel}"
+                ?disabled="${host.disabled}"
+                @buttonClick="${host.onActionButtonClick}"
               ></dcx-web-button>
             `
           : nothing}
       </div>
 
-      ${input.hint && !input.isInvalid
+      ${host.hint && !host.isInvalid
         ? html`
-            <div class="dcx-input__hint" id="${input.hintId}">
-              ${input.hint}
+            <div class="dcx-input__hint" id="${host.hintId}">
+              ${host.hint}
             </div>
           `
         : nothing}
 
-      ${input.showRequiredWarning
+      ${host.showRequiredWarning
         ? html`
-            <div class="dcx-input__error" role="alert" id="${input.errorId}">
+            <div class="dcx-input__error" role="alert" id="${host.errorId}">
               <span>
-                ${input.requiredMessage ?? 'Este campo es requerido'}
+                ${host.requiredMessage ?? 'Este campo es requerido'}
               </span>
             </div>
           `
         : nothing}
 
-      ${input.isInvalid && (input.errorMessage || input.errorMessages.length > 0)
+      ${host.isInvalid && (host.errorMessage || host.errorMessages.length > 0)
         ? html`
-            <div class="dcx-input__error" role="alert" id="${input.errorId}">
+            <div class="dcx-input__error" role="alert" id="${host.errorId}">
               <dcx-web-icon
-                .name="${input.errorIcon}"
+                .name="${host.errorIcon}"
                 color="var(--color-error, #dc2626)";
               ></dcx-web-icon>
 
               <div>
-                ${input.errorMessage
+                ${host.errorMessage
                   ? html`
                       <span>
-                        ${input.errorMessage}
+                        ${host.errorMessage}
                       </span>
                     `
                   : nothing}
 
-                ${input.errorMessages.length
+                ${host.errorMessages.length
                   ? html`
                       <ul class="dcx-input__error-list">
-                        ${input.errorMessages.map(
+                        ${host.errorMessages.map(
                           error => html`
                             <li>
                               ${error.message}

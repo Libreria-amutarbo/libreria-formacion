@@ -1,28 +1,28 @@
 import { html, nothing } from 'lit';
 import type { DcxWebStepper } from './dcx-web-stepper.component';
 
-export function renderDcxWebStepperTemplate(stepper: DcxWebStepper) {
+export const template = (host: DcxWebStepper) => {
   return html`
     <nav
-      class="${stepper.stepperClasses}"
-      aria-label="${stepper.ariaLabel ?? ''}"
+      class="${host.stepperClasses}"
+      aria-label="${host.ariaLabel ?? ''}"
     >
       <ol
-        class="${stepper.headerClasses}"
+        class="${host.headerClasses}"
         role="list"
       >
-        ${stepper.steps.map(
+        ${host.steps.map(
           (step, idx) => html`
             <li class="dcx-stepper__item">
               <button
                 type="button"
-                class="${stepper.getStepClasses(step)}"
+                class="${host.getStepClasses(step)}"
                 ?disabled="${step.disabled}"
-                aria-current="${stepper.isActive(step.id) ? 'step' : nothing}"
-                tabindex="${stepper.isActive(step.id) ? 0 : -1}"
-                @click="${() => stepper.onStepClick(step, idx)}"
+                aria-current="${host.isActive(step.id) ? 'step' : nothing}"
+                tabindex="${host.isActive(step.id) ? 0 : -1}"
+                @click="${() => host.onStepClick(step, idx)}"
                 @keydown="${(event: KeyboardEvent) =>
-                  stepper.onStepKeydown(event, step, idx)}"
+                  host.onStepKeydown(event, step, idx)}"
               >
                 <div
                   class="dcx-stepper__step-indicator"
@@ -56,7 +56,7 @@ export function renderDcxWebStepperTemplate(stepper: DcxWebStepper) {
                             Error
                           </span>
                         `
-                        : stepper.showStepNumbers
+                        : host.showStepNumbers
                           ? html`
                             <span
                               class="dcx-stepper__number"
@@ -113,7 +113,7 @@ export function renderDcxWebStepperTemplate(stepper: DcxWebStepper) {
             </li>
 
             ${
-              idx < stepper.steps.length - 1
+              idx < host.steps.length - 1
                 ? html`
                   <div
                     class="dcx-stepper__divider ${
@@ -129,10 +129,10 @@ export function renderDcxWebStepperTemplate(stepper: DcxWebStepper) {
       </ol>
 
       ${
-        stepper.activeStepContent
+        host.activeStepContent
           ? html`
             <div
-              class="${stepper.contentClasses}"
+              class="${host.contentClasses}"
             >
               <slot
                 name="step-content"

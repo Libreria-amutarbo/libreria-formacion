@@ -1,6 +1,6 @@
 import { css } from "lit";
 
-export const chipStyles = css`
+export const styles = css`
     :host {
       display: inline-flex;
     }

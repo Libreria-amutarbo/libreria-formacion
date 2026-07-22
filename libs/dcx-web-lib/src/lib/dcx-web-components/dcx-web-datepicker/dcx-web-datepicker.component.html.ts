@@ -3,11 +3,11 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import type { DcxWebDatePicker } from './dcx-web-datepicker.component';
 
-export const template = (context: DcxWebDatePicker) => {
+export const template = (host: DcxWebDatePicker) => {
   const inputWrapperClasses = {
     'dcx-datepicker__input-wrapper': true,
-    'dcx-datepicker__input-wrapper--disabled': context.disabled,
-    'dcx-datepicker__input-wrapper--open': context.isOpen,
+    'dcx-datepicker__input-wrapper--disabled': host.disabled,
+    'dcx-datepicker__input-wrapper--open': host.isOpen,
   };
 
   return html`
@@ -16,24 +16,24 @@ export const template = (context: DcxWebDatePicker) => {
         class="${classMap(inputWrapperClasses)}"
         role="button"
         tabindex="0"
-        aria-expanded="${context.isOpen}"
+        aria-expanded="${host.isOpen}"
         aria-haspopup="dialog"
         aria-label="Seleccionar fecha"
-        aria-disabled="${context.disabled ? 'true' : nothing}"
-        @click="${context.toggleCalendar}"
-        @keydown="${context.onTriggerKeydown}"
+        aria-disabled="${host.disabled ? 'true' : nothing}"
+        @click="${host.toggleCalendar}"
+        @keydown="${host.onTriggerKeydown}"
       >
         <input
           class="dcx-datepicker__input"
-          placeholder="${context.placeholder || 'dd/mm/yyyy'}"
-          ?disabled="${context.disabled}"
+          placeholder="${host.placeholder || 'dd/mm/yyyy'}"
+          ?disabled="${host.disabled}"
           type="text"
-          .value="${context.formattedSelectedDate}"
+          .value="${host.formattedSelectedDate}"
           readonly
         />
       </div>
 
-      ${context.isOpen
+      ${host.isOpen
         ? html`
             <div
               class="dcx-datepicker__popover"
@@ -48,8 +48,8 @@ export const template = (context: DcxWebDatePicker) => {
                     ?icon="${true}"
                     icon-position="right"
                     icon-name="chevron-left"
-                    aria-label="${context.labels.previous}"
-                    @buttonClick="${context.previousMonth}"
+                    aria-label="${host.labels.previous}"
+                    @buttonClick="${host.previousMonth}"
                   ></dcx-web-button>
 
                   <span class="dcx-datepicker__month-year">
@@ -57,20 +57,20 @@ export const template = (context: DcxWebDatePicker) => {
                       class="dcx-datepicker__month"
                       variant="terciary"
                       size="s"
-                      aria-label="Seleccionar mes: ${context.monthName}"
-                      label="${context.monthName}"
-                      ?disabled="${context.isMonthMode}"
-                      @buttonClick="${context.openMonthSelector}"
+                      aria-label="Seleccionar mes: ${host.monthName}"
+                      label="${host.monthName}"
+                      ?disabled="${host.isMonthMode}"
+                      @buttonClick="${host.openMonthSelector}"
                     ></dcx-web-button>
                     <span aria-hidden="true">&nbsp;</span>
                     <dcx-web-button
                       class="dcx-datepicker__year"
                       variant="terciary"
                       size="s"
-                      aria-label="Seleccionar año: ${context.yearNumber}"
-                      label="${context.yearNumber}"
-                      ?disabled="${context.isYearMode}"
-                      @buttonClick="${context.openYearSelector}"
+                      aria-label="Seleccionar año: ${host.yearNumber}"
+                      label="${host.yearNumber}"
+                      ?disabled="${host.isYearMode}"
+                      @buttonClick="${host.openYearSelector}"
                     ></dcx-web-button>
                   </span>
 
@@ -79,27 +79,27 @@ export const template = (context: DcxWebDatePicker) => {
                     ?icon="${true}"
                     icon-position="right"
                     icon-name="chevron-right"
-                    aria-label="${context.labels.next}"
-                    @buttonClick="${context.nextMonth}"
+                    aria-label="${host.labels.next}"
+                    @buttonClick="${host.nextMonth}"
                   ></dcx-web-button>
                 </div>
 
-                ${context.isMonthMode
+                ${host.isMonthMode
                   ? html`
                       <div
                         class="dcx-datepicker__select-list dcx-datepicker__select-list--months"
                         role="listbox"
                         aria-label="Seleccionar mes"
                       >
-                        ${context.monthsIndexes.map(
+                        ${host.monthsIndexes.map(
                           (idx) => html`
                             <dcx-web-button
                               class="dcx-datepicker__select-item"
-                              label="${context.monthsList[idx]}"
+                              label="${host.monthsList[idx]}"
                               variant="terciary"
                               size="s"
-                              aria-label="${context.monthsList[idx]}"
-                              @buttonClick="${() => context.selectMonth(idx)}"
+                              aria-label="${host.monthsList[idx]}"
+                              @buttonClick="${() => host.selectMonth(idx)}"
                             ></dcx-web-button>
                           `
                         )}
@@ -107,14 +107,14 @@ export const template = (context: DcxWebDatePicker) => {
                     `
                   : nothing}
 
-                ${context.isYearMode
+                ${host.isYearMode
                   ? html`
                       <div
                         class="dcx-datepicker__select-list dcx-datepicker__select-list--years"
                         role="listbox"
                         aria-label="Seleccionar año"
                       >
-                        ${context.yearsList.map(
+                        ${host.yearsList.map(
                           (year) => html`
                             <dcx-web-button
                               class="dcx-datepicker__select-item"
@@ -122,7 +122,7 @@ export const template = (context: DcxWebDatePicker) => {
                               variant="terciary"
                               size="s"
                               aria-label="${year.toString()}"
-                              @buttonClick="${() => context.selectYear(year)}"
+                              @buttonClick="${() => host.selectYear(year)}"
                             ></dcx-web-button>
                           `
                         )}
@@ -130,17 +130,17 @@ export const template = (context: DcxWebDatePicker) => {
                     `
                   : nothing}
 
-                ${context.isCalendarMode
+                ${host.isCalendarMode
                   ? html`
                       <div class="dcx-datepicker__grid-wrapper">
                         <table
                           class="dcx-datepicker__grid"
                           role="grid"
-                          aria-label="${context.gridAriaLabel}"
+                          aria-label="${host.gridAriaLabel}"
                         >
                           <thead>
                             <tr role="row">
-                              ${context.weekDays.map(
+                              ${host.weekDays.map(
                                 (wd) => html`
                                   <th scope="col" class="dcx-datepicker__weekday" abbr="${wd}">
                                     ${wd}
@@ -150,7 +150,7 @@ export const template = (context: DcxWebDatePicker) => {
                             </tr>
                           </thead>
                           <tbody>
-                            ${context.calendarWeeks.map(
+                            ${host.calendarWeeks.map(
                               (week) => html`
                                 <tr role="row">
                                   ${week.map((day) => {
@@ -174,11 +174,11 @@ export const template = (context: DcxWebDatePicker) => {
                                           size="s"
                                           .label="${day.date.getDate().toString()}"
                                           ?disabled="${day.isDisabled}"
-                                          tabindex="${context.isFocusedDay(day) ? 0 : -1}"
-                                          aria-label="${day.date.getDate()} ${context.monthName} ${context.yearNumber}"
-                                          @buttonClick="${() => context.selectDate(day)}"
+                                          tabindex="${host.isFocusedDay(day) ? 0 : -1}"
+                                          aria-label="${day.date.getDate()} ${host.monthName} ${host.yearNumber}"
+                                          @buttonClick="${() => host.selectDate(day)}"
                                           @keydown="${(e: KeyboardEvent) =>
-                                            context.onGridKeydown(e, day)}"
+                                            host.onGridKeydown(e, day)}"
                                         ></dcx-web-button>
                                       </td>
                                     `;
@@ -193,15 +193,15 @@ export const template = (context: DcxWebDatePicker) => {
                   : nothing}
 
                 <div class="dcx-datepicker__footer">
-                  ${context.showClearButton
+                  ${host.showClearButton
                     ? html`
                         <dcx-web-button
                           class="dcx-datepicker__footer-btn dcx-datepicker__footer-btn--ghost dcx-datepicker__clear"
                           variant="secondary"
                           size="s"
-                          aria-label="${context.labels.clearDate}"
-                          label="${context.labels.clearDate}"
-                          @buttonClick="${context.clearDate}"
+                          aria-label="${host.labels.clearDate}"
+                          label="${host.labels.clearDate}"
+                          @buttonClick="${host.clearDate}"
                         ></dcx-web-button>
                       `
                     : nothing}
@@ -211,16 +211,16 @@ export const template = (context: DcxWebDatePicker) => {
                     size="s"
                     ?icon="${true}"
                     icon-name="calendar-fill"
-                    aria-label="${context.labels.goToToday}"
-                    label="${context.labels.today}"
-                    @buttonClick="${context.goToToday}"
+                    aria-label="${host.labels.goToToday}"
+                    label="${host.labels.today}"
+                    @buttonClick="${host.goToToday}"
                   ></dcx-web-button>
                   <dcx-web-button
                     class="dcx-datepicker__footer-btn dcx-datepicker__footer-btn--primary"
                     label="Aplicar"
                     variant="primary"
                     size="s"
-                    @buttonClick="${context.applyDate}"
+                    @buttonClick="${host.applyDate}"
                   ></dcx-web-button>
                 </div>
               </div>

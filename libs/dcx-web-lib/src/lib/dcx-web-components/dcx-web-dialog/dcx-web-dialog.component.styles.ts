@@ -1,6 +1,6 @@
 import { css } from 'lit';
 
-export const dcxWebDialogStyles = css`
+export const styles = css`
   :host {
     display: block;
   }

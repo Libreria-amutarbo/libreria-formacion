@@ -1,6 +1,6 @@
 import { css } from 'lit';
 
-export const dcxWebSelectStyles = css`
+export const styles = css`
   :host {
     display: inline-block;
     width: 100%;

@@ -7,8 +7,8 @@ import type {
   BorderStyleCard,
   ShadowPresetCard,
 } from '../../core/interfaces';
-import { cardStyles } from './dcx-web-card.component.styles';
-import { renderDcxWebCardTemplate } from './dcx-web-card.component.html';
+import { styles } from './dcx-web-card.component.styles';
+import { template } from './dcx-web-card.component.html';
 
 @customElement('dcx-web-card')
 export class DcxWebCard extends LitElement {
@@ -34,7 +34,7 @@ export class DcxWebCard extends LitElement {
   @property({ type: Boolean }) accessor interactive = true;
   @property({ type: Boolean }) accessor disabled = false;
 
-  static override styles = cardStyles;
+  static override styles = styles;
 
   get cardClasses(): string {
     const interactiveClass = this.interactive ? 'dcx-card--interactive' : '';
@@ -136,7 +136,7 @@ export class DcxWebCard extends LitElement {
   }
 
   override render() {
-    return renderDcxWebCardTemplate(this);
+    return template(this);
   }
 }
 

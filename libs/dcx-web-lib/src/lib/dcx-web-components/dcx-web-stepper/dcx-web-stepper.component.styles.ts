@@ -1,6 +1,6 @@
 import { css } from 'lit';
 
-export const dcxWebStepperStyles = css`
+export const styles = css`
   :host {
     display: block;
     font-family: var(--ff-base, 'Inter', sans-serif);

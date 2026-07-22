@@ -3,8 +3,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 import type { DcxWebDialog } from './dcx-web-dialog.component';
 
-export const dcxWebDialogTemplate = (component: DcxWebDialog) => {
-  if (!component.visible) {
+export const template = (host: DcxWebDialog) => {
+  if (!host.visible) {
     return html``;
   }
 
@@ -12,33 +12,33 @@ export const dcxWebDialogTemplate = (component: DcxWebDialog) => {
     <div class="dcx-dialog-root">
       <div
         class="dcx-dialog__backdrop"
-        @pointerdown=${component.onBackdropClick.bind(component)}
+        @pointerdown=${host.onBackdropClick.bind(host)}
       ></div>
 
       <div
-        class="${component.dialogClasses}"
+        class="${host.dialogClasses}"
         role="dialog"
         aria-modal="true"
         aria-labelledby="${ifDefined(
-          component.title ? component.dialogTitleId : undefined,
+          host.title ? host.dialogTitleId : undefined,
         )}"
       >
         <div class="dcx-dialog__header">
           ${
-            component.title
+            host.title
               ? html`
                   <h3
-                    id="${component.dialogTitleId}"
+                    id="${host.dialogTitleId}"
                     class="dcx-dialog__title"
                   >
-                    ${component.title}
+                    ${host.title}
                   </h3>
                 `
               : null
           }
 
           ${
-            component.showClose
+            host.showClose
               ? html`
                   <dcx-web-button
                     variant="icon-only"
@@ -46,7 +46,7 @@ export const dcxWebDialogTemplate = (component: DcxWebDialog) => {
                     icon-name="x-lg"
                     class="dcx-dialog__close"
                     aria-label="Cerrar diálogo"
-                    @buttonClick=${() => component.close()}
+                    @buttonClick=${() => host.close()}
                   >
                   </dcx-web-button>
                 `

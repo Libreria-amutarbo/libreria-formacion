@@ -5,20 +5,18 @@ import {
 
 import type { DcxWebSelect } from './dcx-web-select.component';
 
-export function renderDcxWebSelectTemplate(
-  select: DcxWebSelect,
-) {
+export const template = (host: DcxWebSelect) => {
   return html`
-    ${select.label
+    ${host.label
       ? html`
           <label
             class="dcx-select__label"
-            for="${select.selectId}"
-            id="${select.labelId}"
+            for="${host.selectId}"
+            id="${host.labelId}"
           >
-            ${select.label}
+            ${host.label}
 
-            ${select.required
+            ${host.required
           ? html`
                   <span class="dcx-select__required">
                     *
@@ -40,44 +38,44 @@ export function renderDcxWebSelectTemplate(
         element instanceof
         HTMLElement
       ) {
-        select.registerControlElement(
+        host.registerControlElement(
           element,
         );
       }
     }}
-        class="${select.getControlClasses()}"
+        class="${host.getControlClasses()}"
         role="combobox"
-        tabindex="${select.disabled
+        tabindex="${host.disabled
       ? -1
       : 0}"
-        id="${select.selectId}"
+        id="${host.selectId}"
         aria-expanded="${String(
-        select.isOpen,
+        host.isOpen,
       )}"
-        aria-labelledby="${select.label
-      ? select.labelId
+        aria-labelledby="${host.label
+      ? host.labelId
       : nothing}"
-        aria-label="${!select.label
-      ? (select.ariaLabel ??
+        aria-label="${!host.label
+      ? (host.ariaLabel ??
         '')
       : nothing}"
         aria-haspopup="listbox"
-        aria-controls="${select.selectId}-panel"
-        aria-activedescendant="${select.activeDescendant ??
+        aria-controls="${host.selectId}-panel"
+        aria-activedescendant="${host.activeDescendant ??
     nothing}"
-        aria-disabled="${select.disabled
+        aria-disabled="${host.disabled
       ? 'true'
       : 'false'}"
-        @click="${select.toggle}"
-        @keydown="${select.onKey}"
+        @click="${host.toggle}"
+        @keydown="${host.onKey}"
       >
         <span class="dcx-select__selected-value">
-          ${select.selectedLabel}
+          ${host.selectedLabel}
         </span>
 
         <div class="dcx-select__buttons">
-          ${select.clearable &&
-      select.value !== null
+          ${host.clearable &&
+      host.value !== null
       ? html`
                 <dcx-web-button
                   class="dcx-select__clear-btn"
@@ -88,7 +86,7 @@ export function renderDcxWebSelectTemplate(
                   icon-size="l"
                   aria-label="Borrar selección"
                   @click="${(e: Event) => e.stopPropagation()}"
-                  @buttonClick="${select.clearValue}"
+                  @buttonClick="${host.clearValue}"
                 >
                 </dcx-web-button>
               `
@@ -103,50 +101,50 @@ export function renderDcxWebSelectTemplate(
         </div>
       </div>
 
-      ${select.isInvalid &&
-      select.errorMessage
+      ${host.isInvalid &&
+      host.errorMessage
       ? html`
             <div
               class="dcx-select__error"
               role="alert"
             >
               <dcx-web-icon
-                name="${select.errorIcon}"
+                name="${host.errorIcon}"
                 color="var(--color-error, #dc2626)"
                 aria-hidden="true"
               >
               </dcx-web-icon>
 
               <span>
-                ${select.errorMessage}
+                ${host.errorMessage}
               </span>
             </div>
           `
       : nothing}
 
-      ${select.isOpen
+      ${host.isOpen
       ? html`
             <div
               class="dcx-select__panel"
               role="listbox"
-              id="${select.selectId}-panel"
-              aria-labelledby="${select.labelId}"
+              id="${host.selectId}-panel"
+              aria-labelledby="${host.labelId}"
             >
-              ${select.searchable
+              ${host.searchable
           ? html`
                     <dcx-web-input
                       placeholder="Buscar..."
-                      .value="${select.search}"
+                      .value="${host.search}"
                       type="text"
                       aria-label="Buscar opciones"
-                      @valueChange="${select.onSearchEvent}"
+                      @valueChange="${host.onSearchEvent}"
                     >
                     </dcx-web-input>
                   `
           : nothing}
 
               <div class="dcx-select__options">
-                ${select.filtered.map(
+                ${host.filtered.map(
             (
               option,
               index,
@@ -158,25 +156,25 @@ export function renderDcxWebSelectTemplate(
                 ? 'is-disabled'
                 : ''}
                         ${option.value ===
-                select.value
+                host.value
                 ? 'is-selected'
                 : ''}
                         ${index ===
-                select.activeIndex
+                host.activeIndex
                 ? 'is-active'
                 : ''}
                       "
                       role="option"
                       aria-selected="${String(
                   option.value ===
-                  select.value,
+                  host.value,
                 )}"
                       aria-disabled="${option.disabled
                 ? 'true'
                 : nothing}"
-                      id="${select.selectId}-opt-${index}"
+                      id="${host.selectId}-opt-${index}"
                       @click="${() =>
-                select.selectOption(
+                host.selectOption(
                   option,
                 )}"
                     >
