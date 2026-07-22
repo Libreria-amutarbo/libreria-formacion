@@ -1,0 +1,253 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ProgressbarStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Progressbar/Documentation" />
+
+# Progressbar
+
+El componente `dcx-web-progressbar` es un indicador visual para mostrar el progreso de una tarea o guiar al usuario a través de un proceso de múltiples pasos.
+
+---
+
+## Características
+
+### 🎯 Tres Variantes
+
+- **Default**: barra de progreso simple
+- **Segmented**: barra dividida en segmentos con animación
+- **Stepper**: proceso por pasos numerados o completados
+
+### 📊 Opciones de Visualización
+
+- Tooltip de porcentaje
+- Cabecera con porcentaje
+- Checkmarks para pasos completados
+- Segmentación configurable
+
+### 🎨 Diseño
+
+- Basado en Capgemini Design Tokens
+- Responsive
+- Accesible
+- Compatible con WCAG AA
+
+---
+
+## API
+
+### Propiedades
+
+| Propiedad | Tipo | Default | Descripción |
+|------------|------------|------------|------------|
+| variant | `'default' \| 'segmented' \| 'stepper'` | `'default'` | Variante visual |
+| value | number | `0` | Valor de progreso entre 0 y 100 |
+| label | string | `''` | Etiqueta de cabecera |
+| ariaLabel | string | `''` | Nombre accesible |
+| showLabel | boolean | `false` | Muestra cabecera |
+| showTooltip | boolean | `false` | Muestra tooltip |
+| steps | DcxProgressStep[] | `[]` | Pasos del stepper |
+| currentStep | number | `0` | Paso activo |
+| showCheckmarks | boolean | `false` | Checks en completados |
+| segments | number | `5` | Número de segmentos |
+
+---
+
+## Interface DcxProgressStep
+
+```ts
+export interface DcxProgressStep {
+  label: string;
+}
+```
+
+---
+
+## Eventos
+
+El componente actualmente no emite eventos personalizados.
+
+---
+
+## Slots
+
+El componente actualmente no expone slots.
+
+---
+
+## Barra de Progreso
+
+<Canvas of={ProgressbarStories.Default} />
+
+```html
+<dcx-web-progressbar
+  value="60"
+  aria-label="Progreso"
+>
+</dcx-web-progressbar>
+```
+
+---
+
+## Barra Segmentada
+
+<Canvas of={ProgressbarStories.Segmented} />
+
+```html
+<dcx-web-progressbar
+  variant="segmented"
+  segments="5"
+>
+</dcx-web-progressbar>
+```
+
+---
+
+## Con Tooltip
+
+<Canvas of={ProgressbarStories.WithTooltip} />
+
+```html
+<dcx-web-progressbar
+  value="75"
+  .showTooltip="${true}"
+>
+</dcx-web-progressbar>
+```
+
+---
+
+## Con Cabecera
+
+<Canvas of={ProgressbarStories.WithHeaderLabel} />
+
+```html
+<dcx-web-progressbar
+  value="82"
+  label="Progreso"
+  .showLabel="${true}"
+>
+</dcx-web-progressbar>
+```
+
+---
+
+## Estado Inicial
+
+<Canvas of={ProgressbarStories.Zero} />
+
+---
+
+## Estado Completado
+
+<Canvas of={ProgressbarStories.Complete} />
+
+---
+
+## Stepper Numerado
+
+<Canvas of={ProgressbarStories.StepperNumbered} />
+
+```html
+<dcx-web-progressbar
+  variant="stepper"
+  .steps="${steps}"
+  .currentStep="${3}"
+>
+</dcx-web-progressbar>
+```
+
+---
+
+## Stepper con Checkmarks
+
+<Canvas of={ProgressbarStories.StepperCheckmarks} />
+
+```html
+<dcx-web-progressbar
+  variant="stepper"
+  .steps="${steps}"
+  .currentStep="${3}"
+  .showCheckmarks="${true}"
+>
+</dcx-web-progressbar>
+```
+
+---
+
+## Stepper de Proceso
+
+<Canvas of={ProgressbarStories.StepperProcess} />
+
+```html
+<dcx-web-progressbar
+  variant="stepper"
+  .steps="${processSteps}"
+  .currentStep="${3}"
+>
+</dcx-web-progressbar>
+```
+
+---
+
+## Casos de Uso
+
+### 📦 Barras de Progreso
+
+- Descargas
+- Subidas de archivos
+- Procesos batch
+- Instalaciones
+- Procesos de importación
+
+### 🔄 Stepper
+
+- Checkout e-commerce
+- Formularios multipaso
+- Onboarding
+- Registro y verificación
+- Flujos de contratación
+
+---
+
+## Tokens CSS Utilizados
+
+```css
+--bg-primary
+--bg-default
+--border-light
+
+--text-dark
+--text-muted
+--text-white
+
+--color-success
+
+--sp-*
+--fs-*
+--fw-*
+--r-*
+```
+
+---
+
+## Accesibilidad
+
+✅ `role="progressbar"`
+
+✅ `aria-valuemin`
+
+✅ `aria-valuemax`
+
+✅ `aria-valuenow`
+
+✅ `aria-valuetext`
+
+✅ `aria-labelledby`
+
+✅ `aria-label`
+
+✅ `aria-current="step"` para steppers
+
+✅ Elementos decorativos marcados como `aria-hidden`
+
+✅ Compatible con WCAG AA

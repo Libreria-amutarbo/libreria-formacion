@@ -105,6 +105,11 @@ export class DcxWebPageHome extends LitElement {
       name: 'Stepper',
       icon: ROUTE_ICONS['stepper'],
     },
+    {
+      route: 'progressbar',
+      name: 'Progress Bar',
+      icon: ROUTE_ICONS['progressbar'],
+    },
   ];
 
   static override styles = css`
