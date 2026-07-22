@@ -8,3 +8,5 @@ export * from './input';
 export * from './inputOtp';
 export * from './slider';
 export * from './select';
+export * from './radio';
+
