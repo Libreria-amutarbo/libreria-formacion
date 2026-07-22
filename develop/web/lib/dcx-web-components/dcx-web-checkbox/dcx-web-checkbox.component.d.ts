@@ -1,16 +1,16 @@
 import { LitElement } from 'lit';
-import { DcxCheckbox } from '../../core/interfaces/checkbox';
+import { DcxCheckbox, DcxCheckboxAriaChecked, DcxCheckBoxVariant } from '../../core/interfaces/checkbox';
 export declare class DcxWebCheckbox extends LitElement {
     static styles: import('lit').CSSResult;
     accessor options: DcxCheckbox[];
-    private readonly _errorIcon;
+    readonly errorIcon = "exclamation-circle-fill";
     private _getValue;
     private _normalizeValue;
-    private _getVariant;
-    private _getIconName;
-    private _getAriaChecked;
-    private _changeValue;
-    private _renderLabel;
+    getVariant(option: DcxCheckbox): DcxCheckBoxVariant;
+    getIconName(option: DcxCheckbox): string;
+    getAriaChecked(option: DcxCheckbox): DcxCheckboxAriaChecked;
+    changeValue(id: string): void;
+    renderLabel(option: DcxCheckbox): import('lit-html').TemplateResult<1>;
     render(): import('lit-html').TemplateResult<1>;
 }
 declare global {

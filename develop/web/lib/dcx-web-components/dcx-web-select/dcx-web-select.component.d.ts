@@ -1,7 +1,6 @@
 import { LitElement } from 'lit';
 import { DcxSpacing } from '../../core/interfaces';
-import { DcxSelectOptions } from '../../core/interfaces/select';
-type DcxSelectValue = string | number | null;
+import { DcxSelectOptions, DcxSelectValue } from '../../core/interfaces/select';
 export declare class DcxWebSelect extends LitElement {
     accessor label: string;
     accessor options: DcxSelectOptions[];
@@ -52,4 +51,3 @@ declare global {
         'dcx-web-select': DcxWebSelect;
     }
 }
-export {};

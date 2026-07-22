@@ -1,2 +1,2 @@
 import { DcxWebSelect } from './dcx-web-select.component';
-export declare function renderDcxWebSelectTemplate(select: DcxWebSelect): import('lit-html').TemplateResult<1>;
+export declare const template: (host: DcxWebSelect) => import('lit-html').TemplateResult<1>;

@@ -8,7 +8,7 @@ export declare class DcxWebBadge extends LitElement {
     accessor ariaHiddenAttr: boolean;
     accessor roleAttr: 'status' | 'alert' | null;
     static styles: import('lit').CSSResult;
-    private _getComputedAriaLabel;
+    getComputedAriaLabel(): string | null;
     render(): import('lit-html').TemplateResult<1>;
 }
 declare global {

@@ -26,7 +26,7 @@ export declare class DcxWebContextMenu extends LitElement {
     private calculatePosition;
     onItemClick(item: DcxContextMenuItem, event?: Event): void;
     onItemKeydown(item: DcxContextMenuItem, index: number, event: KeyboardEvent): void;
-    private renderItem;
+    renderItem(item: DcxContextMenuItem, index: number): TemplateResult;
     render(): TemplateResult<1>;
 }
 declare global {

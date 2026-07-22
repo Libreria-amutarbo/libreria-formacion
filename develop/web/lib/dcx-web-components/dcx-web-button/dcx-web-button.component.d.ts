@@ -24,7 +24,7 @@ export declare class DcxWebButton extends LitElement {
     accessor iconPosition: DcxIconPosition;
     accessor iconRightName: string;
     static styles: import('lit').CSSResult;
-    private _handleClick;
+    handleClick(e: Event): void;
     render(): import('lit-html').TemplateResult<1>;
 }
 declare global {

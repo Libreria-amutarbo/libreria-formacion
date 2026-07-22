@@ -18,7 +18,7 @@ export declare class DcxWebAccordion extends LitElement {
     collapseAll(): void;
     private navigateFocus;
     private _getIconName;
-    private _renderIcon;
+    renderIcon(iconName: string): import('lit-html').TemplateResult<1>;
     static styles: import('lit').CSSResult;
     render(): import('lit-html').TemplateResult<1>;
 }

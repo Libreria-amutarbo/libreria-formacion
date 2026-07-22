@@ -1,1 +1,1 @@
-export declare const chipStyles: import('lit').CSSResult;
+export declare const styles: import('lit').CSSResult;

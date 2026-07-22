@@ -9,8 +9,8 @@ export declare class DcxWebIcon extends LitElement {
     accessor extraClass: string;
     accessor ariaLabel: string;
     createRenderRoot(): this;
-    private get _decorative();
-    private get _iconClass();
+    get decorative(): boolean;
+    get iconClass(): string;
     updated(changedProperties: Map<string | number | symbol, unknown>): void;
     render(): import('lit-html').TemplateResult<1>;
 }

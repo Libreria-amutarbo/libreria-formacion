@@ -11,8 +11,8 @@ export declare class DcxWebDivider extends LitElement {
     static styles: import('lit').CSSResult;
     private _getDividerStyle;
     private _getDividerSize;
-    private _getComputedAriaLabel;
-    private _isHidden;
+    getComputedAriaLabel(): string;
+    isHidden(): boolean;
     updated(): void;
     render(): import('lit-html').TemplateResult<1>;
 }

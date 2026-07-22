@@ -1,1 +1,1 @@
-export declare const dcxWebDialogStyles: import('lit').CSSResult;
+export declare const styles: import('lit').CSSResult;

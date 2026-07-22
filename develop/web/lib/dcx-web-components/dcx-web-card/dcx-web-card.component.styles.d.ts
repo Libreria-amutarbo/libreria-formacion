@@ -1,1 +1,1 @@
-export declare const cardStyles: import('lit').CSSResult;
+export declare const styles: import('lit').CSSResult;

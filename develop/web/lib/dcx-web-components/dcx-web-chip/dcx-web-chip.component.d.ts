@@ -1,5 +1,5 @@
 import { LitElement } from 'lit';
-import { DcxChipColorType, DcxChipVariantType } from '../../core/interfaces/chip';
+import { DcxChipColorType, DcxChipVariantType, DcxChipType } from '../../core/interfaces/chip';
 export declare class DcxWebChip extends LitElement {
     accessor label: string;
     accessor color: DcxChipColorType;
@@ -8,10 +8,10 @@ export declare class DcxWebChip extends LitElement {
     accessor image: string;
     accessor variant: DcxChipVariantType;
     static styles: import('lit').CSSResult;
-    private get _chipType();
-    private get _showRemove();
-    private _renderIcon;
-    private _handleRemove;
+    get chipType(): DcxChipType;
+    get showRemove(): boolean;
+    renderIcon(): import('lit-html').TemplateResult<1>;
+    handleRemove(event: Event): void;
     render(): import('lit-html').TemplateResult<1>;
 }
 declare global {

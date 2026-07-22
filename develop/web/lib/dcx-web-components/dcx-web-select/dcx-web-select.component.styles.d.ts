@@ -1,1 +1,1 @@
-export declare const dcxWebSelectStyles: import('lit').CSSResult;
+export declare const styles: import('lit').CSSResult;
