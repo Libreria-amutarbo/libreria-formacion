@@ -1,12 +1,6 @@
 import './dcx-web-radio.component';
 import { DcxWebRadio } from './dcx-web-radio.component';
-import type { DcxRadioOption } from '../../core/interfaces/radio';
-
-const OPTIONS: DcxRadioOption[] = [
-  { value: 'a', label: 'Opción A' },
-  { value: 'b', label: 'Opción B' },
-  { value: 'c', label: 'Opción C', disabled: true },
-];
+import { RADIO_MOCK_OPTIONS } from '../../core/fixtures';
 
 describe('DcxWebRadio', () => {
   let element: DcxWebRadio;
@@ -14,7 +8,7 @@ describe('DcxWebRadio', () => {
   beforeEach(async () => {
     element = document.createElement('dcx-web-radio') as DcxWebRadio;
     document.body.appendChild(element);
-    element.options = OPTIONS;
+    element.options = RADIO_MOCK_OPTIONS;
     await element.updateComplete;
   });
 
@@ -87,12 +81,12 @@ describe('DcxWebRadio', () => {
   });
 
   it('should update the selected value via onOptionChange', () => {
-    element.onOptionChange(OPTIONS[0]);
+    element.onOptionChange(RADIO_MOCK_OPTIONS[0]);
     expect(element.isChecked('a')).toBe(true);
   });
 
   it('should not select a disabled option', () => {
-    element.onOptionChange(OPTIONS[2]);
+    element.onOptionChange(RADIO_MOCK_OPTIONS[2]);
     expect(element.isChecked('c')).toBe(false);
   });
 
@@ -117,7 +111,7 @@ describe('DcxWebRadio', () => {
     element.addEventListener('change', changeSpy);
     element.addEventListener('valueChange', valueChangeSpy);
 
-    element.onOptionChange(OPTIONS[1]);
+    element.onOptionChange(RADIO_MOCK_OPTIONS[1]);
 
     expect(valueChangeSpy).toHaveBeenCalled();
     const eventDetail = (valueChangeSpy.mock.calls[0][0] as CustomEvent).detail;

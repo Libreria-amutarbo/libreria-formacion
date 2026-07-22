@@ -1,8 +1,10 @@
-export const RADIO_SIZES = ['s', 'm', 'l'];
-export type DcxRadioSize = (typeof RADIO_SIZES)[number];
+export type DcxRadioSize = 's' | 'm' | 'l';
+
+export type DcxRadioValue = string | null;
 
 export interface DcxRadioOption {
   value: string;
   label: string;
   disabled?: boolean;
 }
+

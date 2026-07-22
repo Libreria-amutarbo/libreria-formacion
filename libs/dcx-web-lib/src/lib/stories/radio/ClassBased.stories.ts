@@ -2,8 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '../../../index';
 import type { DcxRadioOption } from '../../core/interfaces/radio';
-import { RADIO_SIZES } from '../../core/interfaces/radio';
-import { RADIO_DEFAULT_OPTIONS } from '../../core/defaults';
+import { RADIO_DEFAULT_OPTIONS, RADIO_SIZES } from '../../core/defaults';
 
 
 const meta: Meta = {

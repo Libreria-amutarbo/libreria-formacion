@@ -2,7 +2,7 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styles } from './dcx-web-radio.component.styles';
 import { template } from './dcx-web-radio.component.html';
-import type { DcxRadioOption, DcxRadioSize } from '../../core/interfaces/radio';
+import type { DcxRadioOption, DcxRadioSize, DcxRadioValue } from '../../core/interfaces/radio';
 
 @customElement('dcx-web-radio')
 export class DcxWebRadio extends LitElement {
@@ -36,7 +36,7 @@ export class DcxWebRadio extends LitElement {
   accessor errorMessage = '';
 
   @property({ type: String })
-  accessor value: string | null = null;
+  accessor value: DcxRadioValue = null;
 
   readonly groupId = `dcx-radio-group-${Math.random().toString(36).substring(2, 9)}`;
 
