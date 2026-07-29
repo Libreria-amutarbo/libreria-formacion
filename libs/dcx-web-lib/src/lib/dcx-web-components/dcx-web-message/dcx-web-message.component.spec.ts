@@ -128,7 +128,7 @@ describe('DcxWebMessage', () => {
 
             const icon = element.shadowRoot?.querySelector('dcx-web-icon') as HTMLElement | null;
 
-            expect(icon?.style.color).toBe('inherit');
+            expect(icon?.getAttribute('color')).toBe('inherit');
         });
     });
 
