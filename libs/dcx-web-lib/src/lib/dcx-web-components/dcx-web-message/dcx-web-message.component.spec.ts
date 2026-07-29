@@ -120,6 +120,16 @@ describe('DcxWebMessage', () => {
                 ),
             ).toBeTruthy();
         });
+
+        it('should pass inherit color to the icon so it follows the message text color', async () => {
+            element.icon = true;
+
+            await element.updateComplete;
+
+            const icon = element.shadowRoot?.querySelector('dcx-web-icon') as HTMLElement | null;
+
+            expect(icon?.style.color).toBe('inherit');
+        });
     });
 
     describe('WCAG', () => {

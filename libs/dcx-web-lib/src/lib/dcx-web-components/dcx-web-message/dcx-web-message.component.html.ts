@@ -20,6 +20,7 @@ export const template = (host: DcxWebMessage) => {
               class="dcx-message__icon"
               name="${host.iconName ||
                 host.messageData.icon}"
+              color="inherit"
             >
             </dcx-web-icon>
           `
@@ -39,11 +40,12 @@ export const template = (host: DcxWebMessage) => {
         </p>
 
         ${host.link
-            ? html`
-              <a
-                href="${host.link}"
-                class="           `
-            : nothing}
+          ? html`
+              <a href="${host.link}" class="dcx-message__link">
+                ${host.link}
+              </a>
+            `
+          : nothing}
       </div>
 
       ${host.showClose
@@ -54,9 +56,9 @@ export const template = (host: DcxWebMessage) => {
               variant="icon-only"
               size="m"
               .icon="${true}"
-              iconName="x"
-              iconSize="m"
-              ariaLabel="Cerrar"
+              icon-name="x"
+              icon-size="xl"
+              aria-label="Cerrar"
               @buttonClick="${host.onClose}"
             >
             </dcx-web-button>

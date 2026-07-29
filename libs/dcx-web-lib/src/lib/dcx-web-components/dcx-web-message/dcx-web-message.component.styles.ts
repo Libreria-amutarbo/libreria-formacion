@@ -59,8 +59,16 @@ export const styles = css`
   }
 
   .dcx-message__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
     flex-shrink: 0;
     margin-left: auto;
+    width: 1.375rem;
+    height: 1.375rem;
+    padding: 0;
+    border-radius: var(--r-sm, 4px);
     opacity: 0.5;
   }
 
