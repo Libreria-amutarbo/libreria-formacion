@@ -18,6 +18,8 @@ import './pages/dcx-web-page-input/dcx-web-page-input.component';
 import './pages/dcx-web-page-select/dcx-web-page-select.component';
 import './pages/dcx-web-page-input-otp/dcx-web-page-input-otp.component';
 import './pages/dcx-web-page-stepper/dcx-web-page-stepper.component';
+import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
+
 
 @customElement('dcx-web-root')
 export class DcxWebRoot extends LitElement {
@@ -100,6 +102,11 @@ export class DcxWebRoot extends LitElement {
       case '#input-otp':
         content = html`<dcx-web-page-input-otp></dcx-web-page-input-otp>`;
         break;
+
+      case '#progressbar':
+        content = html`<dcx-web-page-progressbar></dcx-web-page-progressbar>`;
+        break;
+
       case '#stepper':
         content = html`<dcx-web-page-stepper></dcx-web-page-stepper>`;
         break;
