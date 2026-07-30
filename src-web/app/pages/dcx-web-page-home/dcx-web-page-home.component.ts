@@ -105,6 +105,11 @@ export class DcxWebPageHome extends LitElement {
       name: 'Stepper',
       icon: ROUTE_ICONS['stepper'],
     },
+    {
+      route: 'toggle',
+      name: 'Toggle',
+      icon: ROUTE_ICONS['toggle'],
+    },
   ];
 
   static override styles = css`
