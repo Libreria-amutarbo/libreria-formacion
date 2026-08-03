@@ -20,6 +20,7 @@ export * from './lib/dcx-web-components/dcx-web-stepper/dcx-web-stepper.componen
 export * from './lib/dcx-web-components/dcx-web-message/dcx-web-message.component';
 export * from './lib/dcx-web-components/dcx-web-progressbar/dcx-web-progressbar.component';
 export * from './lib/dcx-web-components/dcx-web-radio/dcx-web-radio.component';
+export * from './lib/dcx-web-components/dcx-web-list/dcx-web-list.component';
 
 export * from './lib/core/interfaces';
 export * from './lib/core/fixtures';
