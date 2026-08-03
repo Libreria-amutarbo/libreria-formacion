@@ -19,6 +19,8 @@ import './pages/dcx-web-page-select/dcx-web-page-select.component';
 import './pages/dcx-web-page-input-otp/dcx-web-page-input-otp.component';
 import './pages/dcx-web-page-stepper/dcx-web-page-stepper.component';
 import './pages/dcx-web-page-message/dcx-web-page-message.component';
+import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
+
 
 @customElement('dcx-web-root')
 export class DcxWebRoot extends LitElement {
@@ -104,6 +106,9 @@ export class DcxWebRoot extends LitElement {
 
       case '#message':
         content = html`<dcx-web-page-message></dcx-web-page-message>`;
+        break;
+      case '#progressbar':
+        content = html`<dcx-web-page-progressbar></dcx-web-page-progressbar>`;
         break;
 
       case '#stepper':
