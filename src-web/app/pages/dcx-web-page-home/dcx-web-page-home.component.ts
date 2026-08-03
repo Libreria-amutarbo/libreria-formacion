@@ -91,6 +91,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['input-otp'],
     },
     {
+      route: 'message',
+      name: 'Message',
+      icon: ROUTE_ICONS['message'],
+    },
+    {
       route: 'input',
       name: 'Input',
       icon: ROUTE_ICONS['input'],
@@ -230,19 +235,18 @@ export class DcxWebPageHome extends LitElement {
 
       <div class="grid">
         ${filtered.map(
-          card => html`
+      card => html`
             <a class="card" href="#${card.route}">
               <div class="card-icon"><i class="bi bi-${card.icon}"></i></div>
               <div class="card-name">${card.name}</div>
               <div class="card-file">dcx-web-page-${card.route}.html</div>
             </a>
           `,
-        )}
-        ${
-          filtered.length === 0
-            ? html`<div class="no-results">No hay componentes que coincidan.</div>`
-            : ''
-        }
+    )}
+        ${filtered.length === 0
+        ? html`<div class="no-results">No hay componentes que coincidan.</div>`
+        : ''
+      }
       </div>
     `;
   }

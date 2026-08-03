@@ -4,26 +4,27 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "start-web": "nx serve dcx-web-app",
-    "start-storybook": "npx nx storybook dcx-ng-lib",
+    "start:web": "nx serve dcx-web-app",
+    "start-web": "npm run start:web",
+    "start-storybook": "nx storybook dcx-ng-lib",
     "start-storybook:web": "nx storybook dcx-web-lib",
-    "build": "nx build dcx-ng-lib",
+    "build": "nx run-many -t build",
+    "build:ng": "nx build dcx-ng-lib",
+    "build:web": "nx build dcx-web-lib",
     "build-storybook": "nx build-storybook dcx-ng-lib",
-    "test": "nx run-many --target=test --all -- --coverage --coverageDirectory='coverage/libs'",
-    "lint": "nx lint dcx-ng-lib",
-    "lint-fix": "nx lint dcx-ng-lib --fix",
+    "build-storybook:web": "nx build-storybook dcx-web-lib",
+    "test": "nx run-many -t test --coverage --coverageDirectory='coverage/libs'",
+    "lint": "nx run-many -t lint",
+    "lint:fix": "nx run-many -t lint --fix",
+    "lint-fix": "npm run lint:fix",
+    "format": "nx format:write",
+    "format:check": "nx format:check",
     "clean:dist": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
-    "verify:commit": "npm run lint",
+    "verify:commit": "npx lint-staged",
     "verify:push": "nx affected -t lint test build build-storybook && npm run clean:dist",
     "deploy:main": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy main' -b gh-pages --dest main --add --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git",
     "deploy:develop": "gh-pages -d dist/storybook/dcx-ng-lib -m 'Deploy develop' -b gh-pages --dest develop --add --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git",
     "prepare": "husky install"
-  },
-  "lint-staged": {
-    "*.{ts,html,scss}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   },
   "private": true,
   "dependencies": {
@@ -93,6 +94,7 @@
     "jest-preset-angular": "^14.6.1",
     "jest-util": "^29.7.0",
     "jiti": "2.4.2",
+    "lint-staged": "^15.2.2",
     "jsonc-eslint-parser": "^2.1.0",
     "ng-packagr": "^20.0.0",
     "nx": "^22.7.5",
