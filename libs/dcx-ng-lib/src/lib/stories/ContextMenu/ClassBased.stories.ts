@@ -129,12 +129,15 @@ const rightClickTemplate = (label: string) => `
   </div>
 `;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const rightClickProps = (args: any) => ({
   items: args.items,
   position: args.position,
   positionMode: args.positionMode,
-  openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent, area: HTMLElement) {
+  openContextMenu(
+    menu: DcxNgContextMenuComponent,
+    event: MouseEvent,
+    area: HTMLElement,
+  ) {
     event.preventDefault();
     (this as any)._computedPosition = { x: event.clientX, y: event.clientY };
     setTimeout(() => menu.open(), 0);
@@ -145,16 +148,20 @@ const rightClickProps = (args: any) => ({
 });
 
 export const ContextMenuOnRightClick: Story = {
-  render: (args) => ({
+  render: args => ({
     props: rightClickProps(args),
-    template: rightClickTemplate('Haz clic derecho aquí para abrir el menú contextual'),
+    template: rightClickTemplate(
+      'Haz clic derecho aquí para abrir el menú contextual',
+    ),
   }),
 };
 
 export const ContextMenuWithSublists: Story = {
-  render: (args) => ({
+  render: args => ({
     props: rightClickProps(args),
-    template: rightClickTemplate('Haz clic derecho aquí para abrir el menú con sublistas'),
+    template: rightClickTemplate(
+      'Haz clic derecho aquí para abrir el menú con sublistas',
+    ),
   }),
   args: {
     items: SUBLIST_CONTEXT_MENU_ITEMS,
@@ -162,16 +169,19 @@ export const ContextMenuWithSublists: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Menú contextual con items anidados en varios niveles. Usa `ArrowRight` para navegar al submenú con teclado.',
+        story:
+          'Menú contextual con items anidados en varios niveles. Usa `ArrowRight` para navegar al submenú con teclado.',
       },
     },
   },
 };
 
 export const WithDisabledItems: Story = {
-  render: (args) => ({
+  render: args => ({
     props: rightClickProps(args),
-    template: rightClickTemplate('Haz clic derecho para ver items desactivados'),
+    template: rightClickTemplate(
+      'Haz clic derecho para ver items desactivados',
+    ),
   }),
   args: {
     items: DISABLED_ITEMS,
@@ -179,16 +189,19 @@ export const WithDisabledItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Items desactivados no responden a clics y tienen `aria-disabled="true"` para lectores de pantalla.',
+        story:
+          'Items desactivados no responden a clics y tienen `aria-disabled="true"` para lectores de pantalla.',
       },
     },
   },
 };
 
 export const WithDangerItems: Story = {
-  render: (args) => ({
+  render: args => ({
     props: rightClickProps(args),
-    template: rightClickTemplate('Haz clic derecho para ver la variante danger'),
+    template: rightClickTemplate(
+      'Haz clic derecho para ver la variante danger',
+    ),
   }),
   args: {
     items: DANGER_ITEMS,
@@ -196,14 +209,15 @@ export const WithDangerItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'La variante `danger` marca acciones destructivas (eliminar, archivar) con color rojo.',
+        story:
+          'La variante `danger` marca acciones destructivas (eliminar, archivar) con color rojo.',
       },
     },
   },
 };
 
 export const ButtonTrigger: Story = {
-  render: (args) => ({
+  render: args => ({
     props: {
       items: args.items,
       position: args.position,
@@ -242,19 +256,24 @@ export const ButtonTrigger: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Menú contextual abierto programáticamente desde un botón, sin necesidad de clic derecho.',
+        story:
+          'Menú contextual abierto programáticamente desde un botón, sin necesidad de clic derecho.',
       },
     },
   },
 };
 
 export const AbsolutePositioning: Story = {
-  render: (args) => ({
+  render: args => ({
     props: {
       items: args.items,
       position: args.position,
       positionMode: args.positionMode,
-      openContextMenu(menu: DcxNgContextMenuComponent, event: MouseEvent, area: HTMLElement) {
+      openContextMenu(
+        menu: DcxNgContextMenuComponent,
+        event: MouseEvent,
+        area: HTMLElement,
+      ) {
         event.preventDefault();
         const rect = area.getBoundingClientRect();
         (this as any)._computedPosition = {
@@ -302,7 +321,8 @@ export const AbsolutePositioning: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Con `positionMode="absolute"` el menú se posiciona relativo al contenedor padre en lugar del viewport. Útil dentro de contenedores con scroll.',
+        story:
+          'Con `positionMode="absolute"` el menú se posiciona relativo al contenedor padre en lugar del viewport. Útil dentro de contenedores con scroll.',
       },
     },
   },
