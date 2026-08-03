@@ -19,6 +19,8 @@ import './pages/dcx-web-page-select/dcx-web-page-select.component';
 import './pages/dcx-web-page-input-otp/dcx-web-page-input-otp.component';
 import './pages/dcx-web-page-stepper/dcx-web-page-stepper.component';
 import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
+import './pages/dcx-web-page-list/dcx-web-page-list.component';
+
 
 
 @customElement('dcx-web-root')
@@ -88,6 +90,9 @@ export class DcxWebRoot extends LitElement {
         break;
       case '#chip':
         content = html`<dcx-web-page-chip></dcx-web-page-chip>`;
+        break;
+      case '#list':
+        content = html`<dcx-web-page-list></dcx-web-page-list>`;
         break;
       case '#select':
         content = html`<dcx-web-page-select></dcx-web-page-select>`;
