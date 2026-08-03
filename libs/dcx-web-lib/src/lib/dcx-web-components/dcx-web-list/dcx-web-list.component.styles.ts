@@ -18,7 +18,6 @@ export const styles = css`
     --list-icon-bg: var(--bg-hover, #f3f4f6);
   }
 
-  /* ── Container ── */
   .dcx-list-container {
     margin: 0;
     padding: 0;
@@ -34,7 +33,6 @@ export const styles = css`
     border-bottom: 1px solid var(--list-divider-color);
   }
 
-  /* ── Item base ── */
   .dcx-list-item {
     margin: 0;
     transition: var(--list-transition);
@@ -51,7 +49,6 @@ export const styles = css`
     transition: var(--list-transition);
   }
 
-  /* ── Selectable ── */
   .dcx-list-item.selectable {
     cursor: pointer;
     user-select: none;
@@ -76,7 +73,6 @@ export const styles = css`
     z-index: 1;
   }
 
-  /* ── Selected ── */
   .dcx-list-item.selected {
     background-color: var(--color-info-bg, #eff6ff);
     box-shadow: inset 3px 0 0 var(--bg-primary, #0058ab);
@@ -120,7 +116,6 @@ export const styles = css`
     transform: none;
   }
 
-  /* ── Disabled ── */
   .dcx-list-item.disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -130,7 +125,6 @@ export const styles = css`
     pointer-events: none;
   }
 
-  /* ── Danger ── */
   .dcx-list-item.danger {
     color: var(--color-error, #dc2626);
   }
@@ -167,7 +161,6 @@ export const styles = css`
     color: white;
   }
 
-  /* ── Icon container ── */
   .dcx-list-icon-container {
     flex-shrink: 0;
     width: calc(var(--list-icon-size) * 2);
@@ -182,7 +175,6 @@ export const styles = css`
     font-size: var(--list-icon-size);
   }
 
-  /* ── Icon ── */
   .dcx-list-icon {
     flex-shrink: 0;
     font-size: 1.2rem;
@@ -192,7 +184,6 @@ export const styles = css`
     justify-content: center;
   }
 
-  /* ── Text container ── */
   .dcx-list-text-container {
     flex: 1;
     display: flex;
@@ -201,7 +192,6 @@ export const styles = css`
     min-width: 0;
   }
 
-  /* ── Text ── */
   .dcx-list-text {
     font-weight: var(--fw-medium, 500);
     white-space: nowrap;
@@ -210,7 +200,6 @@ export const styles = css`
     color: var(--text-dark, #2a2e33);
   }
 
-  /* ── Description ── */
   .dcx-list-description {
     font-size: 0.9em;
     color: var(--text-muted, #696e75);
@@ -218,7 +207,6 @@ export const styles = css`
     margin-top: 2px;
   }
 
-  /* ── Children indicator ── */
   .dcx-list-children-indicator {
     flex-shrink: 0;
     margin-left: auto;
@@ -227,35 +215,44 @@ export const styles = css`
     transition: transform 0.2s ease;
   }
 
-  /* ── Divider ── */
   .dcx-list-divider {
     height: 1px;
     background-color: var(--list-divider-color);
     margin: 0;
   }
 
-  /* ── Nested list ── */
-  .dcx-list-nested {
+  :host(.dcx-list-nested) {
+    display: block;
     padding: var(--sp-2, 8px);
     background-color: var(--bg-hover, #f7f8fa);
   }
 
-  .dcx-list-nested ul {
+  :host(.dcx-list-nested) .dcx-list-container {
     border: 1px solid var(--list-divider-color);
     border-radius: var(--r-md, 6px);
-    background-color: white;
+    background-color: var(--bg-default, #ffffff);
     overflow: hidden;
+    box-shadow: none;
   }
 
-  .dcx-list-nested ul .dcx-list-item {
+  :host(.dcx-list-nested) .dcx-list-container .dcx-list-item:not(:last-child) {
     border-bottom: 1px solid var(--list-divider-color);
   }
 
-  .dcx-list-nested ul .dcx-list-item:last-child {
+  :host(.dcx-list-nested) .dcx-list-container .dcx-list-item:last-child {
     border-bottom: none;
   }
 
-  /* ── Context Menu integration ── */
+  :host(.parent-selected) .dcx-list-text {
+    color: var(--bg-primary, #0058ab);
+    font-weight: var(--fw-semibold, 600);
+  }
+
+  :host(.parent-selected) .dcx-list-description {
+    color: var(--bg-primary, #0058ab);
+    opacity: 0.75;
+  }
+
   :host-context(.dcx-context-menu) .dcx-list-container {
     border: none;
     background: transparent;

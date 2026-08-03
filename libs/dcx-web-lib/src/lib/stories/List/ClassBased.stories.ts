@@ -187,17 +187,93 @@ export const WithSubLists: Story = {
 };
 
 export const Selectable: Story = {
-  args: {
-    items: SELECTABLE_LIST_ITEMS,
-    selectable: true,
+  render: () => {
+    const updateStatus = (e: Event) => {
+      const { item, index } = (e as CustomEvent<{ item: DcxListItem; index: number }>).detail;
+      const el = document.getElementById('selectable-status');
+      if (el) el.textContent = `Seleccionado: ${item.text ?? item.label} (index: ${index})`;
+    };
+
+    return html`
+      <div>
+        <dcx-web-list
+          .items=${SELECTABLE_LIST_ITEMS}
+          .selectable=${true}
+          @itemSelected=${updateStatus}
+        ></dcx-web-list>
+        <p
+          id="selectable-status"
+          style="
+            margin-top: 14px;
+            font-size: 13px;
+            color: #374151;
+            font-family: 'Inter', sans-serif;
+            padding: 8px 12px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            border-left: 3px solid #0058ab;
+          "
+        >
+          Seleccionado: —
+        </p>
+      </div>
+    `;
   },
 };
 
 export const MultiSelectable: Story = {
-  args: {
-    items: MULTI_SELECT_LIST_ITEMS,
-    selectable: true,
-    multiSelect: true,
+  render: () => {
+    const selected = new Map<number, string>();
+
+    const onSelected = (e: Event) => {
+      const { item, index } = (e as CustomEvent<{ item: DcxListItem; index: number }>).detail;
+      selected.set(index, item.text ?? item.label ?? '');
+      updateStatus();
+    };
+
+    const onDeselected = (e: Event) => {
+      const { index } = (e as CustomEvent<{ index: number }>).detail;
+      selected.delete(index);
+      updateStatus();
+    };
+
+    const updateStatus = () => {
+      const el = document.getElementById('multi-status');
+      if (!el) return;
+      if (selected.size === 0) {
+        el.textContent = 'Elementos seleccionados: —';
+      } else {
+        const names = [...selected.values()].join(', ');
+        el.textContent = `Elementos seleccionados (${selected.size}): ${names}`;
+      }
+    };
+
+    return html`
+      <div>
+        <dcx-web-list
+          .items=${MULTI_SELECT_LIST_ITEMS}
+          .selectable=${true}
+          .multiSelect=${true}
+          @itemSelected=${onSelected}
+          @itemDeselected=${onDeselected}
+        ></dcx-web-list>
+        <p
+          id="multi-status"
+          style="
+            margin-top: 14px;
+            font-size: 13px;
+            color: #374151;
+            font-family: 'Inter', sans-serif;
+            padding: 8px 12px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            border-left: 3px solid #0058ab;
+          "
+        >
+          Elementos seleccionados: —
+        </p>
+      </div>
+    `;
   },
 };
 
@@ -222,10 +298,38 @@ export const Danger: Story = {
 };
 
 export const ExternalControl: Story = {
-  args: {
-    items: SELECTABLE_LIST_ITEMS,
-    selectable: true,
-    externalSelection: true,
+  render: () => {
+    const updateStatus = (e: Event) => {
+      const { index } = (e as CustomEvent<{ item: DcxListItem; index: number }>).detail;
+      const el = document.getElementById('external-status');
+      if (el) el.textContent = `Índice emitido: ${index}`;
+    };
+
+    return html`
+      <div>
+        <dcx-web-list
+          .items=${SELECTABLE_LIST_ITEMS}
+          .selectable=${true}
+          .externalSelection=${true}
+          @itemSelected=${updateStatus}
+        ></dcx-web-list>
+        <p
+          id="external-status"
+          style="
+            margin-top: 14px;
+            font-size: 13px;
+            color: #374151;
+            font-family: 'Inter', sans-serif;
+            padding: 8px 12px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            border-left: 3px solid #0058ab;
+          "
+        >
+          Índice emitido: —
+        </p>
+      </div>
+    `;
   },
 };
 
@@ -235,12 +339,12 @@ export const CustomTemplate: Story = {
       .items=${LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION}
       .selectable=${true}
       .itemTemplate=${({
-        item,
-        selected,
-      }: {
-        item: DcxListItem;
-        selected: boolean;
-      }) => html`
+    item,
+    selected,
+  }: {
+    item: DcxListItem;
+    selected: boolean;
+  }) => html`
         <div
           style="
             display:flex;
@@ -265,7 +369,7 @@ export const CustomTemplate: Story = {
           </span>
 
           ${selected
-            ? html`
+      ? html`
                 <span
                   style="
                     margin-left:auto;
@@ -276,7 +380,7 @@ export const CustomTemplate: Story = {
                   ✓
                 </span>
               `
-            : ''}
+      : ''}
         </div>
       `}
     >
