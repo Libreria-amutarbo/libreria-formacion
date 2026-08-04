@@ -116,6 +116,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['toggle'],
     },
     {
+      route: 'tooltip',
+      name: 'Tooltip',
+      icon: ROUTE_ICONS['tooltip'],
+    },
+    {
       route: 'progressbar',
       name: 'Progress Bar',
       icon: ROUTE_ICONS['progressbar'],

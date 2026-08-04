@@ -1,0 +1,63 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as TooltipStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Tooltip/Documentation" />
+
+# Tooltip
+
+`dcx-web-tooltip` muestra información contextual breve al pasar el ratón o al enfocar mediante teclado el elemento que actúa como disparador.
+
+Mantiene el patrón WAI-ARIA Tooltip, soporta contenido HTML sanitizado, diferentes posiciones y variantes visuales.
+
+---
+
+## Funcionalidad
+
+- Trigger mediante contenido proyectado usando slot.
+- Posiciones disponibles:
+  - `top`
+  - `bottom`
+  - `left`
+  - `right`
+- Alineación de flecha:
+  - `left`
+  - `center`
+  - `right`
+- Variante visual:
+  - `default`
+  - `primary`
+- Soporte para contenido HTML básico.
+- Sanitización automática de contenido interactivo.
+- Compatible con navegación mediante teclado.
+- Compatible con WCAG AA.
+
+---
+
+## API
+
+| Atributo / Propiedad | Tipo | Default | Descripción |
+|----------------------|------|----------|-------------|
+| position | top \| bottom \| left \| right | top | Posición preferida |
+| arrowAlignment | left \| center \| right | center | Posición visual de la flecha |
+| variant | default \| primary | default | Variante visual |
+| content | string | '' | Texto plano |
+| contentHtml | string | '' | Contenido HTML sanitizado |
+| hideTooltipOnClick | boolean | false | Oculta el tooltip tras clic |
+
+---
+
+## Slots
+
+### Default
+
+Elemento utilizado como trigger.
+
+```html
+<dcx-web-tooltip
+  content="Información adicional"
+>
+  <button>
+    Abrir tooltip
+  </button>
+</dcx-web-tooltip>
