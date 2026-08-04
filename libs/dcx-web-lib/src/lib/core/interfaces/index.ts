@@ -16,6 +16,6 @@ export * from './input';
 export * from './select';
 export * from './inputOtp';
 export * from './stepper';
+export * from './progressbar';
 export * from './radio';
 export * from './editor';
-

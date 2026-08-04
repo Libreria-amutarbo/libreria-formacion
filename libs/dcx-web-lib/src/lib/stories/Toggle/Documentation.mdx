@@ -1,0 +1,98 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as ToggleStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Toggle/Documentation" />
+
+# Toggle
+
+`dcx-web-toggle` es un switch accesible construido con Web Components y Lit para representar estados binarios (on/off).
+
+Implementa el patrón ARIA recomendado mediante un botón nativo con:
+
+- role="switch"
+- aria-checked
+- aria-label
+- disabled nativo
+
+preservando compatibilidad WCAG AA.
+
+---
+
+## Versión Class Based
+
+El componente utiliza estilos internos basados en BEM y los tokens definidos en `capgemini-tokens.css`.
+
+<Canvas of={ToggleStories.Default} />
+
+<Canvas of={ToggleStories.CheckedByDefault} />
+
+---
+
+## API
+
+| Atributo / Propiedad | Tipo | Default | Descripción |
+|----------------------|------|---------|-------------|
+| checked | boolean | false | Estado actual del toggle |
+| disabled | boolean | false | Deshabilita la interacción |
+| label | string \| null | null | Texto visible |
+| ariaLabel | string \| null | null | Nombre accesible explícito |
+| size | s \| m \| l \| xl | m | Tamaño visual |
+| textPosition | top \| bottom \| left \| right | right | Posición del texto |
+
+---
+
+## Eventos
+
+| Evento | Detail | Descripción |
+|----------|----------|----------|
+| toggled | boolean | Nuevo estado tras una interacción |
+
+---
+
+## Tamaños
+
+<Canvas of={ToggleStories.Small} />
+
+<Canvas of={ToggleStories.Medium} />
+
+<Canvas of={ToggleStories.Large} />
+
+<Canvas of={ToggleStories.ExtraLarge} />
+
+---
+
+## Posiciones del label
+
+<Canvas of={ToggleStories.RightLabel} />
+
+<Canvas of={ToggleStories.LeftLabel} />
+
+<Canvas of={ToggleStories.TopLabel} />
+
+<Canvas of={ToggleStories.BottomLabel} />
+
+---
+
+## Sin label visible
+
+Cuando el texto visual no se muestra, debe proporcionarse un nombre accesible mediante `ariaLabel`.
+
+<Canvas of={ToggleStories.AriaOnly} />
+
+---
+
+## Estado deshabilitado
+
+<Canvas of={ToggleStories.Disabled} />
+
+---
+
+## Ejemplo de uso
+
+```html
+<dcx-web-toggle
+  .checked=${featureEnabled}
+  label="Activar función"
+>
+</dcx-web-toggle>

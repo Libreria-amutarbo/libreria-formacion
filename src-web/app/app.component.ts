@@ -18,6 +18,10 @@ import './pages/dcx-web-page-input/dcx-web-page-input.component';
 import './pages/dcx-web-page-select/dcx-web-page-select.component';
 import './pages/dcx-web-page-input-otp/dcx-web-page-input-otp.component';
 import './pages/dcx-web-page-stepper/dcx-web-page-stepper.component';
+import './pages/dcx-web-page-toggle/dcx-web-page-toggle.component';
+import './pages/dcx-web-page-message/dcx-web-page-message.component';
+import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
+
 
 @customElement('dcx-web-root')
 export class DcxWebRoot extends LitElement {
@@ -100,9 +104,22 @@ export class DcxWebRoot extends LitElement {
       case '#input-otp':
         content = html`<dcx-web-page-input-otp></dcx-web-page-input-otp>`;
         break;
+
+      case '#message':
+        content = html`<dcx-web-page-message></dcx-web-page-message>`;
+        break;
+      case '#progressbar':
+        content = html`<dcx-web-page-progressbar></dcx-web-page-progressbar>`;
+        break;
+
       case '#stepper':
         content = html`<dcx-web-page-stepper></dcx-web-page-stepper>`;
         break;
+
+      case '#toggle':
+        content = html`<dcx-web-page-toggle></dcx-web-page-toggle>`;
+        break;
+
       default:
         content = html`<dcx-web-page-home></dcx-web-page-home>`;
     }
