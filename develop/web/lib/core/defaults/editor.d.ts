@@ -1,0 +1,13 @@
+import { DcxEditorToolbarAction } from '../interfaces';
+export declare const EDITOR_DEFAULT_VALUE = "";
+export declare const EDITOR_DEFAULT_LABEL = "";
+export declare const EDITOR_DEFAULT_PLACEHOLDER = "";
+export declare const EDITOR_DEFAULT_DISABLED = false;
+export declare const EDITOR_DEFAULT_READONLY = false;
+export declare const EDITOR_DEFAULT_REQUIRED = false;
+export declare const EDITOR_DEFAULT_INVALID = false;
+export declare const EDITOR_DEFAULT_ERROR_MESSAGE = "";
+export declare const EDITOR_DEFAULT_ARIA_LABEL: string | null;
+export declare const EDITOR_DEFAULT_ARIA_DESCRIBEDBY: string | null;
+export declare const EDITOR_DEFAULT_MIN_HEIGHT = "160px";
+export declare const EDITOR_DEFAULT_TOOLBAR_ACTIONS: DcxEditorToolbarAction[];
