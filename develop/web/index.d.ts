@@ -18,6 +18,7 @@ export * from './lib/dcx-web-components/dcx-web-slider/dcx-web-slider.component'
 export * from './lib/dcx-web-components/dcx-web-select/dcx-web-select.component';
 export * from './lib/dcx-web-components/dcx-web-stepper/dcx-web-stepper.component';
 export * from './lib/dcx-web-components/dcx-web-message/dcx-web-message.component';
+export * from './lib/dcx-web-components/dcx-web-toggle/dcx-web-toggle.component';
 export * from './lib/dcx-web-components/dcx-web-progressbar/dcx-web-progressbar.component';
 export * from './lib/dcx-web-components/dcx-web-radio/dcx-web-radio.component';
 export * from './lib/core/interfaces';
