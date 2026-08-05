@@ -78,12 +78,6 @@ describe('DcxWebSpinner', () => {
     });
   });
 
-  describe('Delay', () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
-  });
-
   describe('Accessibility', () => {
     it('should render role status', async () => {
       element.delay = 0;
