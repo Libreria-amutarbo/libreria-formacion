@@ -96,6 +96,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['message'],
     },
     {
+      route: 'navbar',
+      name: 'Navbar',
+      icon: ROUTE_ICONS['navbar'],
+    },
+    {
       route: 'input',
       name: 'Input',
       icon: ROUTE_ICONS['input'],

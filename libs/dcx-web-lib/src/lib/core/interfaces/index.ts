@@ -19,3 +19,4 @@ export * from './stepper';
 export * from './progressbar';
 export * from './radio';
 export * from './editor';
+export * from './navbar';
