@@ -79,7 +79,7 @@ export class DcxWebSpinner extends LitElement {
     this.startDelayTimer();
   }
 
-  override updated(changedProperties: Map<string, unknown>) {
+  override willUpdate(changedProperties: Map<string, unknown>) {
     if (changedProperties.has('delay')) {
       this.startDelayTimer();
     }
