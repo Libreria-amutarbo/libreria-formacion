@@ -68,7 +68,7 @@ describe('DcxWebTooltip', () => {
   });
 
   it('should sanitize anchors', () => {
-    element.contentHtml = 'hola #';
+    element.contentHtml = 'hola #link</a>';
 
     expect(element.sanitizedHtml.includes('<a')).toBe(false);
 
