@@ -71,7 +71,6 @@ export class DcxWebNavbar extends LitElement {
     if (this.isMenuOpen) {
       document.addEventListener('keydown', this._onDocKeydown);
 
-      // Try to attach a keydown listener directly to the inner native button
       const toggleHost = this.shadowRoot?.querySelector(
         '.dcx-navbar__toggle',
       ) as HTMLElement | null;
@@ -119,7 +118,6 @@ export class DcxWebNavbar extends LitElement {
       '.dcx-navbar__toggle',
     ) as HTMLElement | null;
 
-    // Try to focus the inner native button inside the dcx-web-button shadow root
     const inner = (toggleHost as any)?.shadowRoot?.querySelector(
       'button',
     ) as HTMLButtonElement | null;
@@ -129,7 +127,6 @@ export class DcxWebNavbar extends LitElement {
       return;
     }
 
-    // Fallback: focus the host element
     toggleHost?.focus();
   }
 
