@@ -13,6 +13,7 @@ export class DcxWebNavbar extends LitElement {
   @property({ attribute: false })
   accessor brand: DcxNavbarBrand = {
     title: 'App',
+    logo: '/cap-logo.svg',
   };
 
   @property({ attribute: false })
@@ -35,6 +36,8 @@ export class DcxWebNavbar extends LitElement {
 
   @state()
   accessor isMenuOpen = false;
+
+  private readonly itemsListId = `dcx-navbar-items-${Math.random().toString(36).slice(2, 10)}`;
 
   static override styles = styles;
 
@@ -140,6 +143,11 @@ export class DcxWebNavbar extends LitElement {
     this.closeMenu();
 
     this.emit('itemClick', value);
+  }
+
+  override disconnectedCallback() {
+    this.closeMenu();
+    super.disconnectedCallback();
   }
 
   public onBrandClick() {

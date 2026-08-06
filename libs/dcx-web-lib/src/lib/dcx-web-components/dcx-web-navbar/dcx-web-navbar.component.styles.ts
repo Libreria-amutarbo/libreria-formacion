@@ -86,7 +86,6 @@ export const styles = css`
     display: flex;
   }
 
-  /* Native button used for navbar items */
   .dcx-navbar__item-btn {
     display: inline-flex;
     align-items: center;
@@ -103,7 +102,7 @@ export const styles = css`
     white-space: nowrap;
   }
 
-  .dcx-navbar__item-btn:hover:not(:disabled) {
+  .dcx-navbar__item-btn:hover {
     background: var(--bg-hover, #f7f8fa);
   }
 
@@ -112,11 +111,16 @@ export const styles = css`
     outline-offset: 2px;
   }
 
-  .dcx-navbar__item-btn:disabled {
-    background: transparent;
-    color: var(--text-disabled, #696e75);
-    opacity: 0.6;
-    cursor: not-allowed;
+  .dcx-navbar__item-btn--vertical {
+    display: block;
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .dcx-navbar__item-btn {
+      display: block;
+      width: 100%;
+    }
   }
 
   .dcx-navbar__item-icon {
@@ -139,8 +143,9 @@ export const styles = css`
   }
 
   .dcx-navbar__item-btn.is-active {
-    border-bottom: 2px solid
-      var(--background-primary, #0058ab);
+    --text-dark: var(--background-primary, #0058ab);
+    --fw-medium: var(--fw-semibold, 600);
+    border-bottom: 2px solid var(--background-primary, #0058ab);
   }
 
   .dcx-navbar__actions {
@@ -151,7 +156,6 @@ export const styles = css`
     flex-shrink: 0;
   }
 
-  /* Toggle native button */
   .dcx-navbar__toggle {
     display: inline-flex;
     align-items: center;
@@ -166,9 +170,7 @@ export const styles = css`
     color: var(--text-body, #2a2e33);
   }
 
-  .dcx-navbar__toggle:hover {
-    background: var(--bg-hover, #f7f8fa);
-  }
+  
 
   .dcx-navbar__toggle:focus-visible {
     outline: 2px solid var(--border-focus, #1db8f2);

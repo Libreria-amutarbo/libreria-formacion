@@ -58,9 +58,14 @@ export class DcxWebPageNavbar extends LitElement {
       icon: 'grid',
     },
     {
-      label: 'Bloqueado',
-      value: 'blocked',
+      label: 'Deshabilitado',
+      value: 'disabled',
       disabled: true,
+    },
+    {
+      label: 'Recursos',
+      value: 'resources',
+      icon: 'box',
     },
   ];
 
@@ -222,6 +227,7 @@ export class DcxWebPageNavbar extends LitElement {
 
           <div class="demo-section__body">
             <dcx-web-navbar
+              aria-label="Navegación principal — ejemplo default"
               .brand=${this.brand}
               .items=${this.navItems}
             >
@@ -239,6 +245,7 @@ export class DcxWebPageNavbar extends LitElement {
 
           <div class="demo-section__body">
             <dcx-web-navbar
+              aria-label="Navegación principal — ejemplo con logo"
               .brand=${this.brandWithLogo}
               .items=${this.navItems}
             >
@@ -262,6 +269,7 @@ export class DcxWebPageNavbar extends LitElement {
 
           <div class="demo-section__body">
             <dcx-web-navbar
+              aria-label="Navegación principal — ejemplo con item activo"
               .brand=${this.brandWithLogo}
               .items=${this.navItems}
               .activeValue=${this.activeValue}
@@ -286,6 +294,7 @@ export class DcxWebPageNavbar extends LitElement {
 
           <div class="demo-section__body">
             <dcx-web-navbar
+              aria-label="Navegación principal — ejemplo con item deshabilitado"
               .brand=${this.brand}
               .items=${this.navItemsWithDisabled}
               .activeValue=${this.activeValue}
@@ -311,6 +320,7 @@ export class DcxWebPageNavbar extends LitElement {
 
           <div class="demo-section__body">
             <dcx-web-navbar
+              aria-label="Navegación principal — ejemplo con acciones"
               .brand=${this.brandWithLogo}
               .items=${this.navItems}
               .activeValue=${this.activeValue}
@@ -348,7 +358,7 @@ export class DcxWebPageNavbar extends LitElement {
                 .items=${this.navItems}
                 .activeValue=${this.activeValue}
                 .vertical=${true}
-                aria-label="Navegación principal"
+                aria-label="Navegación principal — ejemplo vertical"
                 @itemClick=${this.onItemClick}
               >
                 <dcx-web-button

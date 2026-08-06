@@ -51,7 +51,7 @@ export const template = (host: DcxWebNavbar) => html`
               size="s"
               ?disabled="${item.disabled ?? false}"
               aria-current="${host.activeValue === item.value ? 'page' : nothing}"
-              @buttonClick="${() => host.onItemClick(item.value)}"
+              @click="${() => host.onItemClick(item.value)}"
             >
             </dcx-web-button>
           </li>
@@ -73,6 +73,7 @@ export const template = (host: DcxWebNavbar) => html`
       aria-expanded="${String(host.isMenuOpen)}"
       aria-controls="dcx-navbar-items"
       @buttonClick="${host.toggleMenu}"
+      @keydown="${host.onToggleKeydown}"
     >
     </dcx-web-button>
   </nav>
