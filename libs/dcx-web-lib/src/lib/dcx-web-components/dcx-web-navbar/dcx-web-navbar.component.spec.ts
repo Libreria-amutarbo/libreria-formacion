@@ -32,7 +32,9 @@ describe('DcxWebNavbar', () => {
   });
 
   afterEach(() => {
-    document.body.removeChild(element);
+    if (document.body.contains(element)) {
+      document.body.removeChild(element);
+    }
   });
 
   it('should be defined', () => {
@@ -71,7 +73,8 @@ describe('DcxWebNavbar', () => {
 
       element.onItemClick('home');
 
-      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy.mock.calls[0][0].detail).toBe('home');
     });
 
     it('should emit brandClick', () => {
@@ -81,13 +84,21 @@ describe('DcxWebNavbar', () => {
 
       element.onBrandClick();
 
-      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should close menu after item click', () => {
       element.isMenuOpen = true;
 
       element.onItemClick('home');
+
+      expect(element.isMenuOpen).toBe(false);
+    });
+
+    it('should close menu', () => {
+      element.isMenuOpen = true;
+
+      element.closeMenu();
 
       expect(element.isMenuOpen).toBe(false);
     });
@@ -115,6 +126,12 @@ describe('DcxWebNavbar', () => {
 
       expect(list?.getAttribute('role')).toBe('list');
     });
+
+    it('should render list id', () => {
+      const list = element.shadowRoot?.querySelector('.dcx-navbar__items');
+
+      expect(list?.id).toBeTruthy();
+    });
   });
 
   describe('Rendering', () => {
@@ -125,13 +142,48 @@ describe('DcxWebNavbar', () => {
 
       await element.updateComplete;
 
-      expect(element.shadowRoot?.textContent).toContain('Mi App');
+      const title = element.shadowRoot?.querySelector(
+        '.dcx-navbar__brand-title',
+      );
+
+      expect(title?.textContent).toContain('Mi App');
+    });
+
+    it('should render brand logo when provided', async () => {
+      element.brand = {
+        title: 'Mi App',
+        logo: '/cap-logo.svg',
+      };
+
+      await element.updateComplete;
+
+      const img = element.shadowRoot?.querySelector(
+        '.dcx-navbar__brand-logo',
+      ) as HTMLImageElement | null;
+
+      expect(img).toBeTruthy();
+
+      if (img) {
+        expect(img.src).toContain('/cap-logo.svg');
+
+        expect(img.alt).toBe('Mi App');
+      }
     });
 
     it('should render nav items', () => {
       const items = element.shadowRoot?.querySelectorAll('.dcx-navbar__item');
 
       expect(items?.length).toBe(3);
+    });
+
+    it('should render active item class', async () => {
+      element.activeValue = 'home';
+
+      await element.updateComplete;
+
+      const activeButton = element.shadowRoot?.querySelector('.is-active');
+
+      expect(activeButton).toBeTruthy();
     });
 
     it('should apply vertical modifier', async () => {
@@ -142,6 +194,25 @@ describe('DcxWebNavbar', () => {
       const nav = element.shadowRoot?.querySelector('.dcx-navbar');
 
       expect(nav?.classList.contains('dcx-navbar--vertical')).toBe(true);
+    });
+  });
+
+  describe('Menu behaviour', () => {
+    it('should keep menu closed by default', () => {
+      expect(element.isMenuOpen).toBe(false);
+    });
+
+    it('should open menu', () => {
+      element.toggleMenu();
+
+      expect(element.isMenuOpen).toBe(true);
+    });
+
+    it('should close menu after multiple toggles', () => {
+      element.toggleMenu();
+      element.toggleMenu();
+
+      expect(element.isMenuOpen).toBe(false);
     });
   });
 });
