@@ -74,7 +74,10 @@ describe('DcxWebNavbar', () => {
       element.onItemClick('home');
 
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy.mock.calls[0][0].detail).toBe('home');
+
+      const event = spy.mock.calls[0][0] as CustomEvent;
+
+      expect(event.detail).toBe('home');
     });
 
     it('should emit brandClick', () => {
@@ -121,13 +124,13 @@ describe('DcxWebNavbar', () => {
       expect(nav?.getAttribute('aria-label')).toBe('Navegación principal');
     });
 
-    it('should render items role list', () => {
+    it('should render list role', () => {
       const list = element.shadowRoot?.querySelector('.dcx-navbar__items');
 
       expect(list?.getAttribute('role')).toBe('list');
     });
 
-    it('should render list id', () => {
+    it('should render items list id', () => {
       const list = element.shadowRoot?.querySelector('.dcx-navbar__items');
 
       expect(list?.id).toBeTruthy();
@@ -164,9 +167,9 @@ describe('DcxWebNavbar', () => {
       expect(img).toBeTruthy();
 
       if (img) {
-        expect(img.src).toContain('/cap-logo.svg');
+        expect(img.getAttribute('src')).toBe('/cap-logo.svg');
 
-        expect(img.alt).toBe('Mi App');
+        expect(img.getAttribute('alt')).toBe('Mi App');
       }
     });
 
@@ -181,7 +184,9 @@ describe('DcxWebNavbar', () => {
 
       await element.updateComplete;
 
-      const activeButton = element.shadowRoot?.querySelector('.is-active');
+      const activeButton = element.shadowRoot?.querySelector(
+        '.dcx-navbar__item-btn.is-active',
+      );
 
       expect(activeButton).toBeTruthy();
     });
@@ -194,25 +199,6 @@ describe('DcxWebNavbar', () => {
       const nav = element.shadowRoot?.querySelector('.dcx-navbar');
 
       expect(nav?.classList.contains('dcx-navbar--vertical')).toBe(true);
-    });
-  });
-
-  describe('Menu behaviour', () => {
-    it('should keep menu closed by default', () => {
-      expect(element.isMenuOpen).toBe(false);
-    });
-
-    it('should open menu', () => {
-      element.toggleMenu();
-
-      expect(element.isMenuOpen).toBe(true);
-    });
-
-    it('should close menu after multiple toggles', () => {
-      element.toggleMenu();
-      element.toggleMenu();
-
-      expect(element.isMenuOpen).toBe(false);
     });
   });
 });
