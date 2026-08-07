@@ -31,6 +31,11 @@ describe('DcxWebNavbar', () => {
     await element.updateComplete;
   });
 
+  if (typeof window !== 'undefined') {
+    window.scrollTo = jest.fn();
+    HTMLElement.prototype.scrollTo = jest.fn();
+  }
+
   afterEach(() => {
     document.body.removeChild(element);
   });
