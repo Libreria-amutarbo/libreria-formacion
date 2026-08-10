@@ -170,8 +170,6 @@ export const styles = css`
     color: var(--text-body, #2a2e33);
   }
 
-  
-
   .dcx-navbar__toggle:focus-visible {
     outline: 2px solid var(--border-focus, #1db8f2);
     outline-offset: 2px;

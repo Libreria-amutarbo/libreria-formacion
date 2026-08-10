@@ -37,8 +37,6 @@ export class DcxWebNavbar extends LitElement {
   @state()
   accessor isMenuOpen = false;
 
-  private readonly itemsListId = `dcx-navbar-items-${Math.random().toString(36).slice(2, 10)}`;
-
   static override styles = styles;
 
   private _onDocKeydown = (e: KeyboardEvent) => {
@@ -114,18 +112,9 @@ export class DcxWebNavbar extends LitElement {
 
     this.closeMenu();
 
-    const toggleHost = this.shadowRoot?.querySelector(
+    const toggleHost = this.shadowRoot?.querySelector<HTMLElement>(
       '.dcx-navbar__toggle',
-    ) as HTMLElement | null;
-
-    const inner = (toggleHost as any)?.shadowRoot?.querySelector(
-      'button',
-    ) as HTMLButtonElement | null;
-
-    if (inner) {
-      inner.focus();
-      return;
-    }
+    );
 
     toggleHost?.focus();
   }
