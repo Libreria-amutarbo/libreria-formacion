@@ -4,8 +4,6 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { template } from './dcx-web-navbar.component.html';
 import { styles } from './dcx-web-navbar.component.styles';
 
-import '../dcx-web-button/dcx-web-button.component';
-
 import type { DcxNavbarBrand, DcxNavItem } from '../../core/interfaces/navbar';
 
 @customElement('dcx-web-navbar')
