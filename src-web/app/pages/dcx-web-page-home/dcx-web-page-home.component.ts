@@ -101,6 +101,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['input'],
     },
     {
+      route: 'scroll-top-down',
+      name: 'Scroll Top Down',
+      icon: ROUTE_ICONS['scroll-top-down'],
+    },
+    {
       route: 'select',
       name: 'Select',
       icon: ROUTE_ICONS['select'],
