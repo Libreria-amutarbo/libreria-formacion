@@ -10,3 +10,11 @@ export const DCX_TOOLTIP_ARROW_ALIGNMENTS: TooltipArrowAlignment[] = [
 ];
 
 export const DCX_TOOLTIP_VARIANTS: TooltipVariant[] = ['default', 'primary'];
+
+export const DCX_TOOLTIP_INTERACTIVE_TAGS: string[] = [
+  'a',
+  'button',
+  'input',
+  'select',
+  'textarea',
+];

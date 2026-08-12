@@ -10,7 +10,7 @@ import type {
   DcxPosition,
 } from '../../core/interfaces';
 
-const INTERACTIVE_TAGS = ['a', 'button', 'input', 'select', 'textarea'];
+import { DCX_TOOLTIP_INTERACTIVE_TAGS } from '../../core/defaults/tooltip';
 
 @customElement('dcx-web-tooltip')
 export class DcxWebTooltip extends LitElement {
@@ -96,7 +96,7 @@ export class DcxWebTooltip extends LitElement {
 
     const doc = new DOMParser().parseFromString(html, 'text/html');
 
-    INTERACTIVE_TAGS.forEach(tag => {
+    DCX_TOOLTIP_INTERACTIVE_TAGS.forEach(tag => {
       doc.body.querySelectorAll(tag).forEach(element => {
         element.replaceWith(...Array.from(element.childNodes));
       });

@@ -55,10 +55,6 @@ export const styles = css`
     animation: fade-in linear 0.2s;
   }
 
-  /* =====================================
-   * POSITIONING
-   * ===================================== */
-
   .dcx-ng-tooltip--top {
     bottom: calc(100% + 8px);
     left: 50%;
@@ -83,20 +79,12 @@ export const styles = css`
     transform: translateY(-50%);
   }
 
-  /* =====================================
-   * PRIMARY VARIANT
-   * ===================================== */
-
   .dcx-ng-tooltip--primary {
     background-color: var(
       --bg-primary,
       #0058ab
     );
   }
-
-  /* =====================================
-   * ARROW BASE
-   * ===================================== */
 
   .tooltip-arrow {
     position: absolute;
@@ -106,10 +94,6 @@ export const styles = css`
     content: '';
     display: block;
   }
-
-  /* =====================================
-   * TOP
-   * ===================================== */
 
   .dcx-ng-tooltip--top .tooltip-arrow {
     bottom: -3px;
@@ -148,10 +132,6 @@ export const styles = css`
     transform: none;
   }
 
-  /* =====================================
-   * BOTTOM
-   * ===================================== */
-
   .dcx-ng-tooltip--bottom .tooltip-arrow {
     top: -3px;
     left: 50%;
@@ -189,10 +169,6 @@ export const styles = css`
     transform: none;
   }
 
-  /* =====================================
-   * LEFT
-   * ===================================== */
-
   .dcx-ng-tooltip--left .tooltip-arrow {
     right: -3px;
     top: 50%;
@@ -211,10 +187,6 @@ export const styles = css`
       var(--background-secondary, #1c1f23);
   }
 
-  /* =====================================
-   * RIGHT
-   * ===================================== */
-
   .dcx-ng-tooltip--right .tooltip-arrow {
     left: -3px;
     top: 50%;
@@ -232,10 +204,6 @@ export const styles = css`
       transparent
       transparent;
   }
-
-  /* =====================================
-   * PRIMARY ARROWS
-   * ===================================== */
 
   .dcx-ng-tooltip--primary.dcx-ng-tooltip--top
     .tooltip-arrow {
