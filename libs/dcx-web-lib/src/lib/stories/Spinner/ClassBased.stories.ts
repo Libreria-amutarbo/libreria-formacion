@@ -5,6 +5,8 @@ import '../../../index';
 
 import '../../dcx-web-components/dcx-web-spinner/dcx-web-spinner.component';
 
+import { DCX_SPINNER_SIZES } from '../../core/defaults';
+
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/Spinner',
   component: 'dcx-web-spinner',
@@ -19,7 +21,7 @@ const meta: Meta = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['s', 'm', 'l', 'xl'],
+      options: DCX_SPINNER_SIZES,
       description: 'Tamaño del spinner',
       table: {
         category: 'Atributos',
@@ -120,7 +122,7 @@ export const Sizes: Story = {
       style="
         display:flex;
         align-items:center;
-        gap:32px;
+        gap: var(--sp-8, 32px);
         flex-wrap:wrap;
       "
     >
@@ -159,7 +161,7 @@ export const CustomColor: Story = {
       style="
         display:flex;
         align-items:center;
-        gap:32px;
+        gap: var(--sp-8, 32px);
       "
     >
       <dcx-web-spinner
@@ -185,9 +187,9 @@ export const WithText: Story = {
     <div
       style="
         display:flex;
-        gap:64px;
+        gap: var(--sp-16, 64px);
         flex-wrap:wrap;
-        padding:24px;
+        padding: var(--sp-6, 24px);
       "
     >
       <dcx-web-spinner
@@ -252,7 +254,7 @@ export const SpinnerWrapperShowcase: Story = {
       style="
         display:flex;
         justify-content:center;
-        padding:24px;
+        padding: var(--sp-6, 24px);
       "
     >
       <div
@@ -272,7 +274,7 @@ export const SpinnerWrapperShowcase: Story = {
         >
           <div
             style="
-              padding:16px;
+              padding:var(--sp-4, 16px);
             "
           >
             <h4>Contenido</h4>

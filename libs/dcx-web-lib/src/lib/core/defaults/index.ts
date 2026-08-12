@@ -10,4 +10,4 @@ export * from './slider';
 export * from './select';
 export * from './radio';
 export * from './editor';
-
+export * from './spinner';
