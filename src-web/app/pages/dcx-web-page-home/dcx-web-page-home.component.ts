@@ -111,6 +111,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['stepper'],
     },
     {
+      route: 'skeleton',
+      name: 'Skeleton',
+      icon: ROUTE_ICONS['skeleton'],
+    },
+    {
       route: 'toggle',
       name: 'Toggle',
       icon: ROUTE_ICONS['toggle'],
