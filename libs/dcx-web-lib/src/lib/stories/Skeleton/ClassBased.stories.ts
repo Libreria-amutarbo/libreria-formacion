@@ -6,6 +6,11 @@ import '../../../index';
 import '../../dcx-web-components/dcx-web-skeleton/dcx-web-skeleton.component';
 import '../../dcx-web-components/dcx-web-card/dcx-web-card.component';
 
+import {
+  DCX_SKELETON_SHAPES,
+  DCX_SKELETON_ANIMATIONS,
+} from '../../core/defaults';
+
 import type {
   DcxSkeletonAnimation,
   DcxSkeletonShape,
@@ -25,7 +30,7 @@ const meta: Meta = {
   argTypes: {
     shape: {
       control: 'select',
-      options: ['rectangle', 'circle'],
+      options: DCX_SKELETON_SHAPES,
       description: 'Forma visual del placeholder.',
       table: {
         category: 'Atributos',
@@ -66,7 +71,7 @@ const meta: Meta = {
 
     animation: {
       control: 'select',
-      options: ['wave', 'none'],
+      options: DCX_SKELETON_ANIMATIONS,
       description: 'Animación visual del placeholder.',
       table: {
         category: 'Atributos',
