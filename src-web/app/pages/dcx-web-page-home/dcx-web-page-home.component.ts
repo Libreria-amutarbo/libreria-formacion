@@ -81,6 +81,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['chip'],
     },
     {
+      route: 'list',
+      name: 'List',
+      icon: ROUTE_ICONS['list'],
+    },
+    {
       route: 'icon',
       name: 'Icon',
       icon: ROUTE_ICONS['icon'],

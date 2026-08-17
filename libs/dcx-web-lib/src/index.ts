@@ -22,6 +22,7 @@ export * from './lib/dcx-web-components/dcx-web-toggle/dcx-web-toggle.component'
 export * from './lib/dcx-web-components/dcx-web-progressbar/dcx-web-progressbar.component';
 export * from './lib/dcx-web-components/dcx-web-radio/dcx-web-radio.component';
 export * from './lib/dcx-web-components/dcx-web-tooltip/dcx-web-tooltip.component';
+export * from './lib/dcx-web-components/dcx-web-list/dcx-web-list.component';
 
 export * from './lib/dcx-web-components/dcx-web-editor/dcx-web-editor.component';
 export * from './lib/core/interfaces';

@@ -19,4 +19,5 @@ export * from './stepper';
 export * from './progressbar';
 export * from './radio';
 export * from './tooltip';
+export * from './list';
 export * from './editor';
