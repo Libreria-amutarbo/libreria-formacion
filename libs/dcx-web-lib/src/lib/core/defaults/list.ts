@@ -117,3 +117,22 @@ export const MULTI_SELECT_LIST_ITEMS = [
   { text: 'Java', icon: 'cup-hot' },
   { text: 'C++', icon: 'cpu' },
 ];
+
+export const DANGER_LIST_ITEMS: DcxListItem[] = [
+  {
+    id: 'edit',
+    text: 'Editar',
+    icon: 'pencil',
+  },
+  {
+    id: 'duplicate',
+    text: 'Duplicar',
+    icon: 'files',
+  },
+  {
+    id: 'delete',
+    text: 'Eliminar',
+    icon: 'trash',
+    variant: 'danger',
+  },
+];

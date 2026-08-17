@@ -14,30 +14,10 @@ import {
   MULTI_SELECT_LIST_ITEMS,
   SELECTABLE_LIST_ITEMS,
   SIMPLE_LIST_ITEMS,
+  DANGER_LIST_ITEMS,
 } from '../../core/defaults/list';
 
-import type {
-  DcxListItem,
-} from '../../core/interfaces/list';
-
-const DANGER_LIST_ITEMS: DcxListItem[] = [
-  {
-    id: 'edit',
-    text: 'Editar',
-    icon: 'pencil',
-  },
-  {
-    id: 'duplicate',
-    text: 'Duplicar',
-    icon: 'files',
-  },
-  {
-    id: 'delete',
-    text: 'Eliminar',
-    icon: 'trash',
-    variant: 'danger',
-  },
-];
+import type { DcxListItem } from '../../core/interfaces/list';
 
 const meta: Meta = {
   title: 'DCXLibrary/WebComponents/List',
@@ -53,8 +33,7 @@ const meta: Meta = {
   argTypes: {
     items: {
       control: 'object',
-      description:
-        'Array de elementos renderizados por la lista.',
+      description: 'Array de elementos renderizados por la lista.',
       table: {
         category: 'Atributos',
       },
@@ -62,8 +41,7 @@ const meta: Meta = {
 
     selectable: {
       control: 'boolean',
-      description:
-        'Permite seleccionar elementos.',
+      description: 'Permite seleccionar elementos.',
       table: {
         category: 'Atributos',
       },
@@ -71,8 +49,7 @@ const meta: Meta = {
 
     multiSelect: {
       control: 'boolean',
-      description:
-        'Permite selección múltiple.',
+      description: 'Permite selección múltiple.',
       table: {
         category: 'Atributos',
       },
@@ -80,8 +57,7 @@ const meta: Meta = {
 
     showChildrenIndicator: {
       control: 'boolean',
-      description:
-        'Muestra indicador visual para elementos hijos.',
+      description: 'Muestra indicador visual para elementos hijos.',
       table: {
         category: 'Atributos',
       },
@@ -89,8 +65,7 @@ const meta: Meta = {
 
     renderChildren: {
       control: 'boolean',
-      description:
-        'Renderiza listas anidadas.',
+      description: 'Renderiza listas anidadas.',
       table: {
         category: 'Atributos',
       },
@@ -98,8 +73,7 @@ const meta: Meta = {
 
     externalSelection: {
       control: 'boolean',
-      description:
-        'La selección es gestionada externamente.',
+      description: 'La selección es gestionada externamente.',
       table: {
         category: 'Atributos',
       },
@@ -107,8 +81,7 @@ const meta: Meta = {
 
     ariaLabel: {
       control: 'text',
-      description:
-        'Nombre accesible del contenedor.',
+      description: 'Nombre accesible del contenedor.',
       table: {
         category: 'Atributos',
       },
@@ -116,8 +89,7 @@ const meta: Meta = {
 
     itemSelected: {
       action: 'itemSelected',
-      description:
-        'Emitido al seleccionar un elemento.',
+      description: 'Emitido al seleccionar un elemento.',
       table: {
         category: 'Eventos',
       },
@@ -125,8 +97,7 @@ const meta: Meta = {
 
     itemDeselected: {
       action: 'itemDeselected',
-      description:
-        'Emitido al deseleccionar un elemento.',
+      description: 'Emitido al deseleccionar un elemento.',
       table: {
         category: 'Eventos',
       },
@@ -172,8 +143,7 @@ export const WithIcons: Story = {
 
 export const WithDescription: Story = {
   args: {
-    items:
-      LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION,
+    items: LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION,
     selectable: true,
   },
 };
@@ -189,9 +159,12 @@ export const WithSubLists: Story = {
 export const Selectable: Story = {
   render: () => {
     const updateStatus = (e: Event) => {
-      const { item, index } = (e as CustomEvent<{ item: DcxListItem; index: number }>).detail;
+      const { item, index } = (
+        e as CustomEvent<{ item: DcxListItem; index: number }>
+      ).detail;
       const el = document.getElementById('selectable-status');
-      if (el) el.textContent = `Seleccionado: ${item.text ?? item.label} (index: ${index})`;
+      if (el)
+        el.textContent = `Seleccionado: ${item.text ?? item.label} (index: ${index})`;
     };
 
     return html`
@@ -209,8 +182,8 @@ export const Selectable: Story = {
             color: #374151;
             font-family: 'Inter', sans-serif;
             padding: 8px 12px;
-            background: #f3f4f6;
-            border-radius: 6px;
+            background: var(--background-color, #f3f4f6);
+            border-radius: var(--r-md, 6px);
             border-left: 3px solid #0058ab;
           "
         >
@@ -226,7 +199,9 @@ export const MultiSelectable: Story = {
     const selected = new Map<number, string>();
 
     const onSelected = (e: Event) => {
-      const { item, index } = (e as CustomEvent<{ item: DcxListItem; index: number }>).detail;
+      const { item, index } = (
+        e as CustomEvent<{ item: DcxListItem; index: number }>
+      ).detail;
       selected.set(index, item.text ?? item.label ?? '');
       updateStatus();
     };
@@ -265,7 +240,7 @@ export const MultiSelectable: Story = {
             color: #374151;
             font-family: 'Inter', sans-serif;
             padding: 8px 12px;
-            background: #f3f4f6;
+            background: var(--bg-disabled, #f3f4f6);
             border-radius: 6px;
             border-left: 3px solid #0058ab;
           "
@@ -300,7 +275,8 @@ export const Danger: Story = {
 export const ExternalControl: Story = {
   render: () => {
     const updateStatus = (e: Event) => {
-      const { index } = (e as CustomEvent<{ item: DcxListItem; index: number }>).detail;
+      const { index } = (e as CustomEvent<{ item: DcxListItem; index: number }>)
+        .detail;
       const el = document.getElementById('external-status');
       if (el) el.textContent = `Índice emitido: ${index}`;
     };
@@ -321,8 +297,8 @@ export const ExternalControl: Story = {
             color: #374151;
             font-family: 'Inter', sans-serif;
             padding: 8px 12px;
-            background: #f3f4f6;
-            border-radius: 6px;
+            background: var(--bg-disabled, #f3f4f6);
+            border-radius: var(--r-mdm, 6px);
             border-left: 3px solid #0058ab;
           "
         >
@@ -339,48 +315,50 @@ export const CustomTemplate: Story = {
       .items=${LIST_ITEMS_WITH_ICONS_AND_DESCRIPTION}
       .selectable=${true}
       .itemTemplate=${({
-    item,
-    selected,
-  }: {
-    item: DcxListItem;
-    selected: boolean;
-  }) => html`
+        item,
+        selected,
+      }: {
+        item: DcxListItem;
+        selected: boolean;
+      }) => html`
         <div
           style="
             display:flex;
             align-items:center;
-            gap:12px;
+            gap: var(--sp-3, 12px);
             padding:12px 16px;
           "
         >
           <span
-            style="font-weight:600;"
+            style="font-weight: var(--fw-semibold, 600);"
           >
             ${item.text}
           </span>
 
           <span
             style="
-              font-size:11px;
+              font-size: var(--fs-xs, 11px);
               color:#64748b;
             "
           >
             ${item.description}
           </span>
 
-          ${selected
-      ? html`
+          ${
+            selected
+              ? html`
                 <span
                   style="
                     margin-left:auto;
                     color:#0369a1;
-                    font-weight:700;
+                    font-weight: var(--fw-bold, 700);
                   "
                 >
                   ✓
                 </span>
               `
-      : ''}
+              : ''
+          }
         </div>
       `}
     >
