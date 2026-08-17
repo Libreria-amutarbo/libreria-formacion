@@ -21,6 +21,7 @@ import './pages/dcx-web-page-stepper/dcx-web-page-stepper.component';
 import './pages/dcx-web-page-toggle/dcx-web-page-toggle.component';
 import './pages/dcx-web-page-message/dcx-web-page-message.component';
 import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
+import './pages/dcx-web-page-textarea/dcx-web-page-textarea.component';
 
 
 @customElement('dcx-web-root')
@@ -114,6 +115,10 @@ export class DcxWebRoot extends LitElement {
 
       case '#stepper':
         content = html`<dcx-web-page-stepper></dcx-web-page-stepper>`;
+        break;
+
+      case '#textarea':
+        content = html`<dcx-web-page-textarea></dcx-web-page-textarea>`;
         break;
 
       case '#toggle':
