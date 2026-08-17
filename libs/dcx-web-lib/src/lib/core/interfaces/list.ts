@@ -1,17 +1,14 @@
-import type {
-  DcxListVariant,
-} from './list';
+export type DcxListVariant = 'default' | 'danger';
 
-export interface DcxContextMenuItem {
-  id?: string;
+export interface DcxListItem {
+  id?: string | number;
   text?: string;
   label?: string;
   description?: string;
   icon?: string;
   disabled?: boolean;
   divider?: boolean;
-  children?: DcxContextMenuItem[];
+  children?: DcxListItem[];
   variant?: DcxListVariant;
-  action?: () => void;
   [key: string]: unknown;
 }
