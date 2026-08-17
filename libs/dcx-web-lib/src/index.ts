@@ -23,6 +23,7 @@ export * from './lib/dcx-web-components/dcx-web-progressbar/dcx-web-progressbar.
 export * from './lib/dcx-web-components/dcx-web-radio/dcx-web-radio.component';
 export * from './lib/dcx-web-components/dcx-web-list/dcx-web-list.component';
 
+export * from './lib/dcx-web-components/dcx-web-editor/dcx-web-editor.component';
 export * from './lib/core/interfaces';
 export * from './lib/core/fixtures';
 export * from './lib/core/defaults';
