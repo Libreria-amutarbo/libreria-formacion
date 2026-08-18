@@ -1,0 +1,62 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as SpinnerStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Spinner/Documentation" />
+
+# Spinner
+
+`dcx-web-spinner` es un indicador de carga circular accesible y personalizable.
+
+Puede utilizarse:
+
+- de forma independiente
+- con título y descripción
+- con retraso configurable
+- como overlay mediante `wrapper`
+- con contenido proyectado mediante slot
+
+---
+
+## Uso básico
+
+<Canvas of={SpinnerStories.Default} />
+
+---
+
+## Tamaños
+
+<Canvas of={SpinnerStories.Sizes} />
+
+---
+
+## Color personalizado
+
+<Canvas of={SpinnerStories.CustomColor} />
+
+---
+
+## Con título y descripción
+
+<Canvas of={SpinnerStories.WithText} />
+
+---
+
+## Con delay
+
+<Canvas of={SpinnerStories.SpinnerDelayShowcase} />
+
+---
+
+## Modo wrapper (overlay)
+
+<Canvas of={SpinnerStories.SpinnerWrapperShowcase} />
+
+```html
+<dcx-web-spinner
+  .wrapper="${true}"
+  title="Cargando datos..."
+>
+  <div class="content">
+    <!-- contenido -->
+  </div>
+</dcx-web-spinner>
