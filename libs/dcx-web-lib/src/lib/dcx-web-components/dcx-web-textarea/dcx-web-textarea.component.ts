@@ -198,21 +198,21 @@ export class DcxWebTextarea extends LitElement {
     ) as HTMLTextAreaElement | null;
 
     if (!textarea) {
-      console.log('NO TEXTAREA');
       return;
     }
 
-    console.log('SYNC');
+    if (!this.autoResize) {
+      this._autoHeight = '';
+      return;
+    }
 
-    console.log('AUTORESIZE', this.autoResize);
+    textarea.style.height = 'auto';
 
-    console.log('SCROLLHEIGHT', textarea.scrollHeight);
+    const minHeight = parseFloat(getComputedStyle(textarea).minHeight);
 
-    const h = `${textarea.scrollHeight}px`;
+    const nextHeight = Math.max(textarea.scrollHeight, minHeight);
 
-    console.log('HEIGHT', h);
-
-    this._autoHeight = h;
+    this._autoHeight = `${nextHeight}px`;
   }
 
   override render() {

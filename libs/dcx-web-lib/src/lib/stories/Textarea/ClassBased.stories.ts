@@ -221,6 +221,15 @@ export const AutoResize: Story = {
     autoResize: true,
     value: 'Añade más líneas para ver cómo crece.',
   },
+
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'La propiedad autoResize permite que el textarea ajuste su altura automáticamente según el contenido.',
+      },
+    },
+  },
 };
 
 export const FloatLabelVariants: Story = {
@@ -228,7 +237,7 @@ export const FloatLabelVariants: Story = {
     <div
       style="
         display:flex;
-        gap:32px;
+        gap: var(--sp-8, 32px);
         flex-wrap:wrap;
       "
     >
@@ -258,6 +267,14 @@ export const IftaLabel: Story = {
     floatLabel: 'ifta',
     label: 'Description',
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'El estilo IFTA (In-Field Text Area) es una variante de etiqueta flotante que se muestra dentro del área de texto cuando el campo está vacío.',
+      },
+    },
+  },
 };
 
 export const Sizes: Story = {
@@ -265,7 +282,7 @@ export const Sizes: Story = {
     <div
       style="
         display:flex;
-        gap:32px;
+        gap: var(--sp-8, 32px);
         flex-wrap:wrap;
       "
     >
@@ -293,7 +310,15 @@ export const Fluid: Story = {
   args: {
     fluid: true,
     label: 'Descripción',
-    placeholder: 'Textarea que ocupa todo el ancho',
+    placeholder: 'Fluid textarea',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'La propiedad fluid hace que el textarea ocupe el 100% del ancho de su contenedor, adaptándose a diferentes tamaños de pantalla y diseños.',
+      },
+    },
   },
 };
 
@@ -302,12 +327,28 @@ export const Filled: Story = {
     filled: true,
     placeholder: 'Filled textarea',
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'El estilo filled se activa con la propiedad filled, que aplica un fondo relleno al textarea para diferenciarlo visualmente.',
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
     placeholder: 'Disabled textarea',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'El estado deshabilitado se aplica usando la propiedad disabled, que bloquea la interacción y aplica estilos visuales para indicar que el textarea no está activo.',
+      },
+    },
   },
 };
 
@@ -318,6 +359,14 @@ export const Invalid: Story = {
     invalid: true,
     errorMessage: 'Este campo es obligatorio',
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'El estado inválido se activa con la propiedad invalid, que aplica estilos de error al textarea y al label, y muestra el asterisco de campo obligatorio si required es true. El mensaje de error se anuncia con role="alert".',
+      },
+    },
+  },
 };
 
 export const WithHint: Story = {
@@ -326,5 +375,13 @@ export const WithHint: Story = {
     filled: true,
     hint: 'Max. 500 caracteres',
     maxLength: 500,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'La propiedad hint muestra un texto de ayuda bajo el campo (se oculta automáticamente si hay un error visible). maxLength aplica el atributo maxlength nativo.',
+      },
+    },
   },
 };
