@@ -18,5 +18,6 @@ export * from './inputOtp';
 export * from './stepper';
 export * from './progressbar';
 export * from './radio';
+export * from './list';
 export * from './editor';
 export * from './textarea';
