@@ -21,6 +21,7 @@ import './pages/dcx-web-page-stepper/dcx-web-page-stepper.component';
 import './pages/dcx-web-page-toggle/dcx-web-page-toggle.component';
 import './pages/dcx-web-page-message/dcx-web-page-message.component';
 import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
+import './pages/dcx-web-page-tooltip/dcx-web-page-tooltip.component';
 import './pages/dcx-web-page-list/dcx-web-page-list.component';
 
 
@@ -123,6 +124,10 @@ export class DcxWebRoot extends LitElement {
 
       case '#toggle':
         content = html`<dcx-web-page-toggle></dcx-web-page-toggle>`;
+        break;
+
+      case '#tooltip':
+        content = html`<dcx-web-page-tooltip></dcx-web-page-tooltip>`;
         break;
 
       default:
