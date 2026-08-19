@@ -22,6 +22,11 @@ import './pages/dcx-web-page-toggle/dcx-web-page-toggle.component';
 import './pages/dcx-web-page-message/dcx-web-page-message.component';
 import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
 import './pages/dcx-web-page-navbar/dcx-web-page-navbar.component';
+import './pages/dcx-web-page-spinner/dcx-web-page-spinner.component';
+import './pages/dcx-web-page-tooltip/dcx-web-page-tooltip.component';
+import './pages/dcx-web-page-list/dcx-web-page-list.component';
+
+
 
 @customElement('dcx-web-root')
 export class DcxWebRoot extends LitElement {
@@ -91,6 +96,9 @@ export class DcxWebRoot extends LitElement {
       case '#chip':
         content = html`<dcx-web-page-chip></dcx-web-page-chip>`;
         break;
+      case '#list':
+        content = html`<dcx-web-page-list></dcx-web-page-list>`;
+        break;
       case '#select':
         content = html`<dcx-web-page-select></dcx-web-page-select>`;
         break;
@@ -121,8 +129,16 @@ export class DcxWebRoot extends LitElement {
         content = html`<dcx-web-page-stepper></dcx-web-page-stepper>`;
         break;
 
+      case '#spinner':
+        content = html`<dcx-web-page-spinner></dcx-web-page-spinner>`;
+        break;
+
       case '#toggle':
         content = html`<dcx-web-page-toggle></dcx-web-page-toggle>`;
+        break;
+
+      case '#tooltip':
+        content = html`<dcx-web-page-tooltip></dcx-web-page-tooltip>`;
         break;
 
       default:

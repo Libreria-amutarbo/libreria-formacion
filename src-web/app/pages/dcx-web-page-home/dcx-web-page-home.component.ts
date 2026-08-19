@@ -81,6 +81,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['chip'],
     },
     {
+      route: 'list',
+      name: 'List',
+      icon: ROUTE_ICONS['list'],
+    },
+    {
       route: 'icon',
       name: 'Icon',
       icon: ROUTE_ICONS['icon'],
@@ -116,9 +121,19 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['stepper'],
     },
     {
+      route: 'spinner',
+      name: 'Spinner',
+      icon: ROUTE_ICONS['spinner'],
+    },
+    {
       route: 'toggle',
       name: 'Toggle',
       icon: ROUTE_ICONS['toggle'],
+    },
+    {
+      route: 'tooltip',
+      name: 'Tooltip',
+      icon: ROUTE_ICONS['tooltip'],
     },
     {
       route: 'progressbar',
