@@ -1,0 +1,172 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/WebComponents/List/Documentation" />
+
+# List
+
+El componente `dcx-web-list` permite renderizar listas simples o jerárquicas con soporte para:
+
+- selección individual
+- selección múltiple
+- elementos deshabilitados
+- iconos
+- descripciones
+- divisores
+- sublistas anidadas
+- variantes danger
+- accesibilidad WCAG AA
+- renderizado personalizado mediante `itemTemplate`
+
+---
+
+## Cuándo usarlo
+
+- Menús de navegación
+- Sidebars
+- Selectores de opciones
+- Menús contextuales
+- Árboles jerárquicos
+- Listados configurables
+- Acciones destructivas
+
+---
+
+## API
+
+| Propiedad | Tipo | Default | Descripción |
+|------------|------------|------------|------------|
+| items | DcxListItem[] | [] | Elementos renderizados |
+| selectable | boolean | false | Permite selección |
+| multiSelect | boolean | false | Permite selección múltiple |
+| showChildrenIndicator | boolean | false | Indicador visual de hijos |
+| renderChildren | boolean | true | Renderiza sublistas |
+| externalSelection | boolean | false | Selección gestionada externamente |
+| ariaLabel | string | Lista de elementos | Nombre accesible |
+| itemTemplate | Render Function | null | Renderizado personalizado |
+
+---
+
+## DcxListItem
+
+```ts
+interface DcxListItem {
+  id?: string | number;
+  text?: string;
+  label?: string;
+  description?: string;
+  icon?: string;
+  disabled?: boolean;
+  divider?: boolean;
+  children?: DcxListItem[];
+  variant?: 'default' | 'danger';
+}
+```
+
+---
+
+## Eventos
+
+| Evento | Detail | Descripción |
+|----------|----------|----------|
+| itemSelected | { item, index } | Elemento seleccionado |
+| itemDeselected | { item, index } | Elemento deseleccionado |
+
+---
+
+## Accesibilidad
+
+El componente soporta:
+
+- navegación por teclado
+- Enter
+- Space
+- ArrowRight
+- ArrowLeft
+- roles ARIA configurables
+- aria-selected
+- aria-disabled
+- aria-label
+- aria-multiselectable
+
+Compatible con WCAG AA.
+
+---
+
+## Item Template
+
+El renderizado personalizado puede realizarse mediante `itemTemplate`.
+
+```ts
+({
+  item,
+  index,
+  selected,
+}) => html`...`
+```
+
+Permite sustituir completamente el contenido visual de cada elemento.
+
+---
+
+## Uso básico
+
+```html
+<dcx-web-list
+  .items=${items}
+></dcx-web-list>
+```
+
+---
+
+## Selección
+
+```html
+<dcx-web-list
+  .items=${items}
+  .selectable=${true}
+></dcx-web-list>
+```
+
+---
+
+## Multi selección
+
+```html
+<dcx-web-list
+  .items=${items}
+  .selectable=${true}
+  .multiSelect=${true}
+></dcx-web-list>
+```
+
+---
+
+## Listas anidadas
+
+```html
+<dcx-web-list
+  .items=${items}
+  .showChildrenIndicator=${true}
+></dcx-web-list>
+```
+
+---
+
+## Variante Danger
+
+```html
+{
+  text: 'Eliminar',
+  icon: 'trash',
+  variant: 'danger',
+}
+```
+
+---
+
+## Slots
+
+El componente no expone slots públicos.
+
+La personalización avanzada se realiza mediante `itemTemplate`.
+`
