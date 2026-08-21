@@ -21,6 +21,7 @@ import './pages/dcx-web-page-stepper/dcx-web-page-stepper.component';
 import './pages/dcx-web-page-toggle/dcx-web-page-toggle.component';
 import './pages/dcx-web-page-message/dcx-web-page-message.component';
 import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
+import './pages/dcx-web-page-scroll-top-down/dcx-web-page-scroll-top-down.component';
 import './pages/dcx-web-page-navbar/dcx-web-page-navbar.component';
 import './pages/dcx-web-page-spinner/dcx-web-page-spinner.component';
 import './pages/dcx-web-page-tooltip/dcx-web-page-tooltip.component';
@@ -123,6 +124,10 @@ export class DcxWebRoot extends LitElement {
 
       case '#progressbar':
         content = html`<dcx-web-page-progressbar></dcx-web-page-progressbar>`;
+        break;
+
+      case '#scroll-top-down':
+        content = html`<dcx-web-page-scroll-top-down></dcx-web-page-scroll-top-down>`;
         break;
 
       case '#stepper':
