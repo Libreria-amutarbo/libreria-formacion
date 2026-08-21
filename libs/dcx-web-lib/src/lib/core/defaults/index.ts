@@ -3,6 +3,7 @@ export * from './card';
 export * from './contextMenu';
 export * from './accordion';
 export * from './breadcrumb';
+export * from './button';
 export * from './carousel';
 export * from './input';
 export * from './inputOtp';
