@@ -245,6 +245,8 @@ describe('DcxWebPopover', () => {
       await element.updateComplete;
       jest.runAllTimers();
 
+      await Promise.resolve();
+
       const activeEl = document.activeElement;
       expect(
         panel()?.contains(activeEl) ||
