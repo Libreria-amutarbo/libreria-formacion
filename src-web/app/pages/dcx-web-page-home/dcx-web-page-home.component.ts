@@ -131,6 +131,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['spinner'],
     },
     {
+      route: 'tabs',
+      name: 'Tabs',
+      icon: ROUTE_ICONS['tabs'],
+    },
+    {
       route: 'toggle',
       name: 'Toggle',
       icon: ROUTE_ICONS['toggle'],
