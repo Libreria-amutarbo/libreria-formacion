@@ -23,3 +23,4 @@ export * from './list';
 export * from './editor';
 export * from './navbar';
 export * from './spinner';
+export * from './tabs';
