@@ -115,7 +115,7 @@ describe(
     });
 
     it('should update selected content tab', () => {
-      element'select',
+      element.onTabChange('select');
       ;
 
       expect(
