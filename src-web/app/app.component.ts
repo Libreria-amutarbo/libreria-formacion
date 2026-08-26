@@ -21,6 +21,8 @@ import './pages/dcx-web-page-stepper/dcx-web-page-stepper.component';
 import './pages/dcx-web-page-toggle/dcx-web-page-toggle.component';
 import './pages/dcx-web-page-message/dcx-web-page-message.component';
 import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
+import './pages/dcx-web-page-textarea/dcx-web-page-textarea.component';
+import './pages/dcx-web-page-skeleton/dcx-web-page-skeleton.component';
 import './pages/dcx-web-page-scroll-top-down/dcx-web-page-scroll-top-down.component';
 import './pages/dcx-web-page-navbar/dcx-web-page-navbar.component';
 import './pages/dcx-web-page-spinner/dcx-web-page-spinner.component';
@@ -139,6 +141,12 @@ export class DcxWebRoot extends LitElement {
         content = html`<dcx-web-page-stepper></dcx-web-page-stepper>`;
         break;
 
+      case '#textarea':
+        content = html`<dcx-web-page-textarea></dcx-web-page-textarea>`;
+        break;
+      case '#skeleton':
+        content = html`<dcx-web-page-skeleton></dcx-web-page-skeleton>`;
+        break;
       case '#spinner':
         content = html`<dcx-web-page-spinner></dcx-web-page-spinner>`;
         break;
