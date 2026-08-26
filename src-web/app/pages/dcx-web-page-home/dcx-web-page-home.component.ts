@@ -101,9 +101,19 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['message'],
     },
     {
+      route: 'navbar',
+      name: 'Navbar',
+      icon: ROUTE_ICONS['navbar'],
+    },
+    {
       route: 'input',
       name: 'Input',
       icon: ROUTE_ICONS['input'],
+    },
+    {
+      route: 'scroll-top-down',
+      name: 'Scroll Top Down',
+      icon: ROUTE_ICONS['scroll-top-down'],
     },
     {
       route: 'select',
@@ -121,9 +131,24 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['textarea'],
     },
     {
+      route: 'skeleton',
+      name: 'Skeleton',
+      icon: ROUTE_ICONS['skeleton'],
+    },
+    {
+      route: 'spinner',
+      name: 'Spinner',
+      icon: ROUTE_ICONS['spinner'],
+    },
+    {
       route: 'toggle',
       name: 'Toggle',
       icon: ROUTE_ICONS['toggle'],
+    },
+    {
+      route: 'tooltip',
+      name: 'Tooltip',
+      icon: ROUTE_ICONS['tooltip'],
     },
     {
       route: 'progressbar',

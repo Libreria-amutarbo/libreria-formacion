@@ -1,0 +1,98 @@
+import { Meta } from '@storybook/blocks';
+import * as NavbarStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Navbar/Documentation" />
+
+# Navbar
+
+El componente `dcx-web-navbar` es la barra de navegación principal. Admite:
+
+- Brand con logo opcional.
+- Items con icono y estado activo.
+- Items deshabilitados.
+- Slot de acciones para botones u otros controles.
+- Modo vertical tipo sidebar.
+- Menú móvil responsive con `aria-expanded` y `aria-controls`.
+
+---
+
+## Demo
+
+<Canvas of={NavbarStories.Default} />
+
+---
+
+## Con logo
+
+<Canvas of={NavbarStories.ConLogo} />
+
+---
+
+## Con item activo
+
+<Canvas of={NavbarStories.ConItemActivo} />
+
+---
+
+## Con item deshabilitado
+
+<Canvas of={NavbarStories.ConItemDeshabilitado} />
+
+---
+
+## Con acciones en el slot
+
+<Canvas of={NavbarStories.ConAcciones} />
+
+---
+
+## Modo vertical (sidebar)
+
+<Canvas of={NavbarStories.Vertical} />
+
+---
+
+## Menú móvil abierto
+
+<Canvas of={NavbarStories.MenuMovilAbierto} />
+
+---
+
+## Props
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `brand` | `DcxNavbarBrand` | `{ title: 'DCX Library' }` | Título y logo opcional del brand |
+| `items` | `DcxNavItem[]` | `[]` | Lista de items de navegación |
+| `activeValue` | `string \| null` | `null` | Item activo controlado desde fuera |
+| `ariaLabel` | `string \| null` | `null` | Etiqueta accesible para el `<nav>` |
+| `vertical` | `boolean` | `false` | Activa modo sidebar vertical |
+
+## Eventos
+
+| Evento | Tipo | Descripción |
+|--------|------|-------------|
+| `itemClick` | `string` | Emite el `value` del item clickado |
+| `brandClick` | `void` | Se emite al activar el brand |
+
+## Accesibilidad
+
+- El item activo recibe `aria-current="page"`.
+- El toggle mobile usa `aria-expanded` y `aria-controls`.
+- El `<nav>` acepta `ariaLabel` para distinguir landmarks.
+
+## Interfaces
+
+```ts
+interface DcxNavbarBrand {
+  title: string;
+  logo?: string;
+}
+
+interface DcxNavItem {
+  label: string;
+  value: string;
+  icon?: string;
+  disabled?: boolean;
+}
+```
