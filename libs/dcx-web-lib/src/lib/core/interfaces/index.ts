@@ -21,5 +21,6 @@ export * from './radio';
 export * from './tooltip';
 export * from './list';
 export * from './editor';
+export * from './skeleton';
 export * from './navbar';
 export * from './spinner';
