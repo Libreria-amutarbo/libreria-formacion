@@ -126,6 +126,16 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['stepper'],
     },
     {
+      route: 'textarea',
+      name: 'Textarea',
+      icon: ROUTE_ICONS['textarea'],
+    },
+    {
+      route: 'skeleton',
+      name: 'Skeleton',
+      icon: ROUTE_ICONS['skeleton'],
+    },
+    {
       route: 'spinner',
       name: 'Spinner',
       icon: ROUTE_ICONS['spinner'],

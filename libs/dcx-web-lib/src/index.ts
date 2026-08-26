@@ -14,6 +14,7 @@ export * from './lib/dcx-web-components/dcx-web-carousel/dcx-web-carousel.compon
 export * from './lib/dcx-web-components/dcx-web-datepicker/dcx-web-datepicker.component';
 export * from './lib/dcx-web-components/dcx-web-input/dcx-web-input.component';
 export * from './lib/dcx-web-components/dcx-web-input-otp/dcx-web-input-otp.component';
+export * from './lib/dcx-web-components/dcx-web-skeleton/dcx-web-skeleton.component';
 export * from './lib/dcx-web-components/dcx-web-slider/dcx-web-slider.component';
 export * from './lib/dcx-web-components/dcx-web-select/dcx-web-select.component';
 export * from './lib/dcx-web-components/dcx-web-stepper/dcx-web-stepper.component';
@@ -25,6 +26,7 @@ export * from './lib/dcx-web-components/dcx-web-tooltip/dcx-web-tooltip.componen
 export * from './lib/dcx-web-components/dcx-web-list/dcx-web-list.component';
 
 export * from './lib/dcx-web-components/dcx-web-editor/dcx-web-editor.component';
+export * from './lib/dcx-web-components/dcx-web-textarea/dcx-web-textarea.component';
 export * from './lib/dcx-web-components/dcx-web-scroll-top-down/dcx-web-scroll-top-down.component';
 export * from './lib/dcx-web-components/dcx-web-spinner/dcx-web-spinner.component';
 export * from './lib/core/interfaces';
