@@ -11,5 +11,6 @@ export * from './select';
 export * from './radio';
 export * from './list';
 export * from './editor';
+export * from './textarea';
 export * from './skeleton';
 export * from './spinner';
