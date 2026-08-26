@@ -1,4 +1,5 @@
 import { html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import type { DcxWebPaginator } from './dcx-web-paginator.component';
 
 export const template = (host: DcxWebPaginator) => {
@@ -72,45 +73,50 @@ export const template = (host: DcxWebPaginator) => {
           >
           </dcx-web-button>
 
-          ${pages.map((page, index) =>
-            host.isEllipsis(page)
-              ? html`
-                    <dcx-web-button
-                      class="dcx-paginator__ellipsis"
-                      label="..."
-                      size="m"
-                      variant="text"
-                      ariaLabel="${
-                        host.getEllipsisDirection(index, pages) < 0
-                          ? 'Saltar páginas hacia atrás'
-                          : 'Saltar páginas hacia adelante'
-                      }"
-                      @buttonClick="${() =>
-                        host.goToPageRelative(
-                          host.getEllipsisDirection(index, pages),
+          ${repeat(
+            pages,
+            (page, index) =>
+              typeof page === 'number' ? page : `ellipsis-${index}`,
+            (page, index) =>
+              host.isEllipsis(page)
+                ? html`
+                      <dcx-web-button
+                        class="dcx-paginator__ellipsis"
+                        label="..."
+                        size="m"
+                        variant="text"
+                        ariaLabel="${
+                          host.getEllipsisDirection(index, pages) < 0
+                            ? 'Saltar páginas hacia atrás'
+                            : 'Saltar páginas hacia adelante'
+                        }"
+                        @buttonClick="${() =>
+                          host.goToPageRelative(
+                            host.getEllipsisDirection(index, pages),
+                          )}"
+                      >
+                      </dcx-web-button>
+                    `
+                : html`
+                      <dcx-web-button
+                        class="${host.getPageButtonClasses(page)}"
+                        size="m"
+                        variant="${host.getButtonVariant(
+                          host.getPageNumber(page),
                         )}"
-                    >
-                    </dcx-web-button>
-                  `
-              : html`
-                    <dcx-web-button
-                      class="${host.getPageButtonClasses(page)}"
-                      size="m"
-                      variant="${host.getButtonVariant(
-                        host.getPageNumber(page),
-                      )}"
-                      ariaLabel="${host.getPageAriaLabel(
-                        host.getPageNumber(page),
-                      )}"
-                      ariaCurrent="${
-                        host.getPageAriaCurrent(host.getPageNumber(page)) ?? ''
-                      }"
-                      label="${host.getButtonLabel(host.getPageNumber(page))}"
-                      @buttonClick="${() =>
-                        host.goToPage(host.getPageNumber(page))}"
-                    >
-                    </dcx-web-button>
-                  `,
+                        ariaLabel="${host.getPageAriaLabel(
+                          host.getPageNumber(page),
+                        )}"
+                        ariaCurrent="${
+                          host.getPageAriaCurrent(host.getPageNumber(page)) ??
+                          ''
+                        }"
+                        label="${host.getButtonLabel(host.getPageNumber(page))}"
+                        @buttonClick="${() =>
+                          host.goToPage(host.getPageNumber(page))}"
+                      >
+                      </dcx-web-button>
+                    `,
           )}
 
           <dcx-web-button

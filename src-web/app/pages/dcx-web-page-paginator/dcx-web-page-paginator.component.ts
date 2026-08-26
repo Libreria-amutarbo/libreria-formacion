@@ -193,6 +193,14 @@ export class DcxWebPagePaginator extends LitElement {
     };
   }
 
+    private updateSelectItemsPerPage(itemsPerPage: number) {
+    this.selectPerPage = {
+        ...this.selectPerPage,
+        itemsPerPage,
+        currentPage: 1,
+    };
+  }
+
     private updateLimitedPaginator(page: number) {
     this.limitedPaginator = {
         ...this.limitedPaginator,
@@ -280,6 +288,8 @@ export class DcxWebPagePaginator extends LitElement {
                 .showItemsPerPageInfo=${true}
                 @pageChange=${(e: CustomEvent<number>) =>
                     this.updateSelectPaginator(e.detail)}
+                @itemsPerPageChange=${(e: CustomEvent<number>) =>
+                    this.updateSelectItemsPerPage(e.detail)}
                 >
             </dcx-web-paginator>
           </div>

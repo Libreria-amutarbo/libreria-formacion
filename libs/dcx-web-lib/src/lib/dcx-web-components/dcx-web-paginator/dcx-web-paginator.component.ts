@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { LitElement, type PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { styles } from './dcx-web-paginator.component.styles';
@@ -38,15 +38,24 @@ export class DcxWebPaginator extends LitElement {
 
   static override styles = styles;
 
-  protected override willUpdate(): void {
-    this.selectedItemsPerPage = this.paginator.itemsPerPage;
+  /**
+   * Mirrors Angular's effect() semantics: only sync internal state from
+   * the paginator input when it actually changes, not on every render.
+   * This prevents willUpdate from overwriting local state (currentPage,
+   * selectedItemsPerPage) that was set by user interactions (goToPage,
+   * onItemsPerPageChange) before the parent can feed back the new prop.
+   */
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    if (changedProperties.has('paginator')) {
+      this.selectedItemsPerPage = this.paginator.itemsPerPage;
 
-    const validPage = Math.max(
-      1,
-      Math.min(this.paginator.currentPage, this.totalPages),
-    );
+      const validPage = Math.max(
+        1,
+        Math.min(this.paginator.currentPage, this.totalPages),
+      );
 
-    this.currentPage = validPage;
+      this.currentPage = validPage;
+    }
 
     this.emit('totalPagesChange', this.totalPages);
   }
@@ -211,6 +220,7 @@ export class DcxWebPaginator extends LitElement {
       this.emit('pageChange', validPage);
     }
 
+    this.emit('itemsPerPageChange', parsed);
     this.emit('totalPagesChange', this.totalPages);
   }
 
