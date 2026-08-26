@@ -26,6 +26,7 @@ export * from './lib/dcx-web-components/dcx-web-tooltip/dcx-web-tooltip.componen
 export * from './lib/dcx-web-components/dcx-web-list/dcx-web-list.component';
 
 export * from './lib/dcx-web-components/dcx-web-editor/dcx-web-editor.component';
+export * from './lib/dcx-web-components/dcx-web-textarea/dcx-web-textarea.component';
 export * from './lib/dcx-web-components/dcx-web-scroll-top-down/dcx-web-scroll-top-down.component';
 export * from './lib/dcx-web-components/dcx-web-spinner/dcx-web-spinner.component';
 export * from './lib/core/interfaces';
