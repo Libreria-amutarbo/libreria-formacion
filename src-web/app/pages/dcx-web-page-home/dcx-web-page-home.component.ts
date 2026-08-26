@@ -141,6 +141,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['tooltip'],
     },
     {
+      route: 'paginator',
+      name: 'Paginator',
+      icon: ROUTE_ICONS['paginator'],
+    },
+    {
       route: 'progressbar',
       name: 'Progress Bar',
       icon: ROUTE_ICONS['progressbar'],

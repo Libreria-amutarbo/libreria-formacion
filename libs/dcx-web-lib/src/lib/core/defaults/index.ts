@@ -12,3 +12,4 @@ export * from './radio';
 export * from './list';
 export * from './editor';
 export * from './spinner';
+export * from './paginator';
