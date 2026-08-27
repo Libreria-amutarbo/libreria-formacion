@@ -2,23 +2,12 @@ import './dcx-web-tabs.component';
 
 import { DcxWebTabs } from './dcx-web-tabs.component';
 
+import { DcxTabItemDefault } from '../../core/defaults/tabs';
+
 describe('DcxWebTabs', () => {
   let element: DcxWebTabs;
 
-  const tabs = [
-    {
-      id: 'tab1',
-      label: 'Tab 1',
-    },
-    {
-      id: 'tab2',
-      label: 'Tab 2',
-    },
-    {
-      id: 'tab3',
-      label: 'Tab 3',
-    },
-  ];
+  const tabs = DcxTabItemDefault;
 
   beforeEach(async () => {
     Element.prototype.scrollIntoView = jest.fn();
