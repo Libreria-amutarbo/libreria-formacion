@@ -7,7 +7,6 @@ import { template } from './dcx-web-paginator.component.html';
 import '../dcx-web-button/dcx-web-button.component';
 
 import type { DcxPaginator } from '../../core/interfaces/paginator';
-// Ajustar ruta según estructura real del proyecto
 
 @customElement('dcx-web-paginator')
 export class DcxWebPaginator extends LitElement {
@@ -38,13 +37,6 @@ export class DcxWebPaginator extends LitElement {
 
   static override styles = styles;
 
-  /**
-   * Mirrors Angular's effect() semantics: only sync internal state from
-   * the paginator input when it actually changes, not on every render.
-   * This prevents willUpdate from overwriting local state (currentPage,
-   * selectedItemsPerPage) that was set by user interactions (goToPage,
-   * onItemsPerPageChange) before the parent can feed back the new prop.
-   */
   protected override willUpdate(changedProperties: PropertyValues): void {
     if (changedProperties.has('paginator')) {
       this.selectedItemsPerPage = this.paginator.itemsPerPage;
@@ -85,13 +77,13 @@ export class DcxWebPaginator extends LitElement {
   get prevNavClasses(): string {
     return this.hasPrevious
       ? 'dcx-paginator__button'
-      : 'dcx-paginator__button dcx-paginator__button--disabled';
+      : 'dcx-paginator__button--disabled';
   }
 
   get nextNavClasses(): string {
     return this.hasNext
       ? 'dcx-paginator__button'
-      : 'dcx-paginator__button dcx-paginator__button--disabled';
+      : 'dcx-paginator__button--disabled';
   }
 
   get firstItem(): number {
@@ -157,7 +149,7 @@ export class DcxWebPaginator extends LitElement {
     const pageNumber = this.getPageNumber(page);
 
     return this.getCurrentPage(pageNumber)
-      ? 'dcx-paginator__page dcx-paginator__page--current'
+      ? 'dcx-paginator__page--current'
       : 'dcx-paginator__page';
   }
 

@@ -12,8 +12,7 @@ import {
 import '../../../../libs/dcx-web-lib/src/lib/dcx-web-components/dcx-web-paginator/dcx-web-paginator.component';
 
 import type { DcxPaginator }
-from '../../../../libs/dcx-web-lib/src/lib/core/interfaces/paginator';
-// Ajustar ruta según estructura real del proyecto
+  from '../../../../libs/dcx-web-lib/src/lib/core/interfaces/paginator';
 
 @customElement('dcx-web-page-paginator')
 export class DcxWebPagePaginator extends LitElement {
@@ -25,50 +24,50 @@ export class DcxWebPagePaginator extends LitElement {
   accessor knowPageSelected: DcxPaginator = {
     totalItems: 100,
     itemsPerPage: 10,
-    currentPage: 2,
+    currentPage: 1,
   };
 
   @state()
-    accessor defaultPaginator: DcxPaginator = {
+  accessor defaultPaginator: DcxPaginator = {
     totalItems: 100,
     itemsPerPage: 10,
-    currentPage: 2,
+    currentPage: 1,
   };
 
-    @state()
-    accessor selectPerPage: DcxPaginator = {
+  @state()
+  accessor selectPerPage: DcxPaginator = {
     totalItems: 21,
     itemsPerPage: 5,
     currentPage: 1,
   };
 
-    @state()
-    accessor limitedPaginator: DcxPaginator = {
+  @state()
+  accessor limitedPaginator: DcxPaginator = {
     totalItems: 100,
     itemsPerPage: 10,
-    currentPage: 2,
+    currentPage: 1,
   };
 
-    @state()
-    accessor firstPageState: DcxPaginator = {
+  @state()
+  accessor firstPageState: DcxPaginator = {
     totalItems: 120,
     itemsPerPage: 10,
     currentPage: 1,
   };
 
-    @state()
-    accessor middleWithEllipsis: DcxPaginator = {
+  @state()
+  accessor middleWithEllipsis: DcxPaginator = {
     totalItems: 300,
     itemsPerPage: 10,
     currentPage: 12,
   };
 
-    @state()
-    accessor lastPageState: DcxPaginator = {
+  @state()
+  accessor lastPageState: DcxPaginator = {
     totalItems: 120,
     itemsPerPage: 10,
     currentPage: 12,
-    };
+  };
 
   static override styles = css`
     :host {
@@ -181,51 +180,51 @@ export class DcxWebPagePaginator extends LitElement {
 
   private updateDefaultPaginator(page: number) {
     this.defaultPaginator = {
-        ...this.defaultPaginator,
-        currentPage: page,
+      ...this.defaultPaginator,
+      currentPage: page,
     };
   }
 
-    private updateSelectPaginator(page: number) {
+  private updateSelectPaginator(page: number) {
     this.selectPerPage = {
-        ...this.selectPerPage,
-        currentPage: page,
+      ...this.selectPerPage,
+      currentPage: page,
     };
   }
 
-    private updateSelectItemsPerPage(itemsPerPage: number) {
+  private updateSelectItemsPerPage(itemsPerPage: number) {
     this.selectPerPage = {
-        ...this.selectPerPage,
-        itemsPerPage,
-        currentPage: 1,
+      ...this.selectPerPage,
+      itemsPerPage,
+      currentPage: 1,
     };
   }
 
-    private updateLimitedPaginator(page: number) {
+  private updateLimitedPaginator(page: number) {
     this.limitedPaginator = {
-        ...this.limitedPaginator,
-        currentPage: page,
+      ...this.limitedPaginator,
+      currentPage: page,
     };
   }
 
-    private updateFirstPageState(page: number) {
+  private updateFirstPageState(page: number) {
     this.firstPageState = {
-        ...this.firstPageState,
-        currentPage: page,
+      ...this.firstPageState,
+      currentPage: page,
     };
   }
 
-    private updateMiddleWithEllipsis(page: number) {
+  private updateMiddleWithEllipsis(page: number) {
     this.middleWithEllipsis = {
-        ...this.middleWithEllipsis,
-        currentPage: page,
+      ...this.middleWithEllipsis,
+      currentPage: page,
     };
   }
 
-    private updateLastPageState(page: number) {
+  private updateLastPageState(page: number) {
     this.lastPageState = {
-        ...this.lastPageState,
-        currentPage: page,
+      ...this.lastPageState,
+      currentPage: page,
     };
   }
 
@@ -262,7 +261,7 @@ export class DcxWebPagePaginator extends LitElement {
           <dcx-web-paginator
             .paginator=${this.defaultPaginator}
             @pageChange=${(e: CustomEvent<number>) =>
-                this.updateDefaultPaginator(e.detail)}
+        this.updateDefaultPaginator(e.detail)}
             >
           </dcx-web-paginator>
           </div>
@@ -287,9 +286,9 @@ export class DcxWebPagePaginator extends LitElement {
                 .paginator=${this.selectPerPage}
                 .showItemsPerPageInfo=${true}
                 @pageChange=${(e: CustomEvent<number>) =>
-                    this.updateSelectPaginator(e.detail)}
+                this.updateSelectPaginator(e.detail)}
                 @itemsPerPageChange=${(e: CustomEvent<number>) =>
-                    this.updateSelectItemsPerPage(e.detail)}
+                this.updateSelectItemsPerPage(e.detail)}
                 >
             </dcx-web-paginator>
           </div>
@@ -313,7 +312,7 @@ export class DcxWebPagePaginator extends LitElement {
                 .paginator=${this.limitedPaginator}
                 .limitedButtons=${true}
                 @pageChange=${(e: CustomEvent<number>) =>
-                    this.updateLimitedPaginator(e.detail)}
+                this.updateLimitedPaginator(e.detail)}
                 >
             </dcx-web-paginator>
           </div>
@@ -336,9 +335,9 @@ export class DcxWebPagePaginator extends LitElement {
               .showPageInfo=${true}
               .paginator=${this.knowPageSelected}
               @pageChange=${(e: CustomEvent<number>) =>
-                this.onPageChange(e.detail)}
+        this.onPageChange(e.detail)}
               @totalPagesChange=${(e: CustomEvent<number>) =>
-                this.onTotalPagesChange(e.detail)}
+        this.onTotalPagesChange(e.detail)}
             >
             </dcx-web-paginator>
 
@@ -367,7 +366,7 @@ export class DcxWebPagePaginator extends LitElement {
                 .paginator=${this.firstPageState}
                 .limitedButtons=${true}
                 @pageChange=${(e: CustomEvent<number>) =>
-                    this.updateFirstPageState(e.detail)}
+        this.updateFirstPageState(e.detail)}
                 >
             </dcx-web-paginator>
 
@@ -391,7 +390,7 @@ export class DcxWebPagePaginator extends LitElement {
                 .paginator=${this.middleWithEllipsis}
                 .limitedButtons=${true}
                 @pageChange=${(e: CustomEvent<number>) =>
-                    this.updateMiddleWithEllipsis(e.detail)}
+        this.updateMiddleWithEllipsis(e.detail)}
                 >
             </dcx-web-paginator>
           </div>
@@ -415,7 +414,7 @@ export class DcxWebPagePaginator extends LitElement {
                 .paginator=${this.lastPageState}
                 .limitedButtons=${true}
                 @pageChange=${(e: CustomEvent<number>) =>
-                    this.updateLastPageState(e.detail)}
+        this.updateLastPageState(e.detail)}
                 >
             </dcx-web-paginator>
 

@@ -52,7 +52,7 @@ export const template = (host: DcxWebPaginator) => {
                   .icon="${true}"
                   icon-name="chevron-double-left"
                   icon-size="m"
-                  ariaLabel="Primera página"
+                  aria-label="Primera página"
                   ?disabled="${!host.hasPrevious}"
                   @buttonClick="${host.goToStart}"
                 >
@@ -67,7 +67,7 @@ export const template = (host: DcxWebPaginator) => {
             .icon="${true}"
             icon-name="arrow-left"
             icon-size="m"
-            ariaLabel="Página anterior"
+            aria-label="Página anterior"
             ?disabled="${!host.hasPrevious}"
             @buttonClick="${host.goToPrevious}"
           >
@@ -76,7 +76,11 @@ export const template = (host: DcxWebPaginator) => {
           ${repeat(
             pages,
             (page, index) =>
-              typeof page === 'number' ? page : `ellipsis-${index}`,
+              typeof page === 'number'
+                ? page
+                : index === 1
+                  ? 'ellipsis-left'
+                  : 'ellipsis-right',
             (page, index) =>
               host.isEllipsis(page)
                 ? html`
@@ -85,7 +89,7 @@ export const template = (host: DcxWebPaginator) => {
                         label="..."
                         size="m"
                         variant="text"
-                        ariaLabel="${
+                        aria-label="${
                           host.getEllipsisDirection(index, pages) < 0
                             ? 'Saltar páginas hacia atrás'
                             : 'Saltar páginas hacia adelante'
@@ -101,16 +105,12 @@ export const template = (host: DcxWebPaginator) => {
                       <dcx-web-button
                         class="${host.getPageButtonClasses(page)}"
                         size="m"
-                        variant="${host.getButtonVariant(
+                        .variant="${host.getButtonVariant(
                           host.getPageNumber(page),
                         )}"
-                        ariaLabel="${host.getPageAriaLabel(
+                        aria-label="${host.getPageAriaLabel(
                           host.getPageNumber(page),
                         )}"
-                        ariaCurrent="${
-                          host.getPageAriaCurrent(host.getPageNumber(page)) ??
-                          ''
-                        }"
                         label="${host.getButtonLabel(host.getPageNumber(page))}"
                         @buttonClick="${() =>
                           host.goToPage(host.getPageNumber(page))}"
@@ -125,7 +125,7 @@ export const template = (host: DcxWebPaginator) => {
             .icon="${true}"
             icon-name="arrow-right"
             icon-size="m"
-            ariaLabel="Página siguiente"
+            aria-label="Página siguiente"
             ?disabled="${!host.hasNext}"
             @buttonClick="${host.goToNext}"
           >
@@ -140,7 +140,7 @@ export const template = (host: DcxWebPaginator) => {
                   .icon="${true}"
                   icon-name="chevron-double-right"
                   icon-size="m"
-                  ariaLabel="Última página"
+                  aria-label="Última página"
                   ?disabled="${!host.hasNext}"
                   @buttonClick="${host.goToEnd}"
                 >
