@@ -1,0 +1,203 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/WebComponents/Textarea/Documentation" />
+
+# Textarea
+
+El componente `dcx-web-textarea` permite capturar texto multilínea manteniendo accesibilidad WCAG AA, estados visuales consistentes, validación accesible y soporte para etiquetas flotantes.
+
+---
+
+## Cuándo usarlo
+
+- Formularios corporativos
+- Comentarios y feedback
+- Descripciones extensas
+- Notas internas
+- Mensajes
+- Contenido de longitud variable
+
+---
+
+## API
+
+| Propiedad | Tipo | Default |
+| ---------- | ---------- | ---------- |
+| value | string | '' |
+| rows | number | 5 |
+| cols | number | 30 |
+| placeholder | string | '' |
+| disabled | boolean | false |
+| readonly | boolean | false |
+| autoResize | boolean | false |
+| floatLabel | over \| in \| on \| ifta | undefined |
+| label | string | '' |
+| size | small \| normal \| large | normal |
+| fluid | boolean | false |
+| filled | boolean | false |
+| invalid | boolean | false |
+| errorMessage | string | '' |
+| required | boolean | false |
+| hint | string | '' |
+| maxLength | number \| null | null |
+| resizable | boolean | true |
+
+---
+
+## Eventos
+
+| Evento | Detail |
+|----------|----------|
+| valueChange | string |
+
+---
+
+## Variantes de etiqueta flotante
+
+### over
+
+```html
+<dcx-web-textarea
+  floatLabel="over"
+  label="Descripción"
+>
+</dcx-web-textarea>
+```
+
+### in
+
+```html
+<dcx-web-textarea
+  floatLabel="in"
+  label="Descripción"
+>
+</dcx-web-textarea>
+```
+
+### on
+
+```html
+<dcx-web-textarea
+  floatLabel="on"
+  label="Descripción"
+>
+</dcx-web-textarea>
+```
+
+### ifta
+
+```html
+<dcx-web-textarea
+  floatLabel="ifta"
+  label="Descripción"
+>
+</dcx-web-textarea>
+```
+
+---
+
+## AutoResize
+
+```html
+<dcx-web-textarea
+  autoResize
+>
+</dcx-web-textarea>
+```
+
+Ajusta automáticamente la altura del textarea según el contenido introducido por el usuario.
+
+---
+
+## Tamaños
+
+```html
+<dcx-web-textarea size="small"></dcx-web-textarea>
+
+<dcx-web-textarea size="normal"></dcx-web-textarea>
+
+<dcx-web-textarea size="large"></dcx-web-textarea>
+```
+
+---
+
+## Hint
+
+```html
+<dcx-web-textarea
+  label="Notas"
+  hint="Máximo 500 caracteres"
+>
+</dcx-web-textarea>
+```
+
+El hint se asocia mediante `aria-describedby`.
+
+---
+
+## Error
+
+```html
+<dcx-web-textarea
+  invalid
+  errorMessage="Campo obligatorio"
+>
+</dcx-web-textarea>
+```
+
+El mensaje se anuncia mediante `role="alert"`.
+
+---
+
+## Accesibilidad
+
+- Soporte para `label` asociado mediante `for/id`
+- Soporte para `aria-label`
+- Soporte para `aria-describedby`
+- Soporte para `aria-required`
+- Soporte para `aria-invalid`
+- Mensajes de error accesibles mediante `role="alert"`
+- Compatible con WCAG AA
+
+---
+
+## Slots
+
+Este componente no expone slots públicos.
+
+---
+
+## Ejemplos
+
+### Básico
+
+```html
+<dcx-web-textarea
+  label="Comentarios"
+  placeholder="Escribe aquí..."
+>
+</dcx-web-textarea>
+```
+
+### Con error
+
+```html
+<dcx-web-textarea
+  label="Descripción"
+  required
+  invalid
+  errorMessage="Campo obligatorio"
+>
+</dcx-web-textarea>
+```
+
+### Fluid + Filled
+
+```html
+<dcx-web-textarea
+  fluid
+  filled
+  label="Descripción"
+>
+</dcx-web-textarea>
+```

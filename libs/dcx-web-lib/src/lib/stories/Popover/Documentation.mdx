@@ -1,0 +1,124 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as PopoverStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Popover/Documentation" />
+
+# Popover
+
+El componente `dcx-web-popover` es un overlay interactivo que muestra contenido contextual al hacer clic en un elemento trigger. Es ideal para mostrar información adicional, menús de acciones o formularios compactos sin navegar a otra página.
+
+---
+
+## Características
+
+### 🎯 **Funcionalidad Principal**
+
+- **Toggle**: Abre/cierra con un solo clic en el elemento trigger
+- **Posicionamiento Dinámico**: Se coloca automáticamente debajo del trigger
+- **Ajuste de Bordes**: Se reposiciona si se sale del viewport por la derecha
+- **Content Projection**: Acepta cualquier contenido HTML o Web Components mediante slots
+
+### 🔒 **Comportamiento de Cierre**
+
+- **Click Outside**: Se cierra al hacer clic fuera del popover
+- **Escape Key**: Se cierra al pulsar la tecla Escape
+- **Programático**: Métodos `show()` y `hide()` para control manual
+
+### 🎨 **Estilos**
+
+- **Tokens CSS**: Totalmente personalizable mediante variables CSS
+- **BEM Methodology**: Nomenclatura `.dcx-popover` y `.dcx-popover__content`
+- **Sombra y Borde**: Diseño limpio con borde en color primario
+
+---
+
+## API
+
+### Métodos Públicos
+
+| Método | Parámetros | Descripción |
+|--------|------------|-------------|
+| `toggle(event, targetElement?)` | `event: any`, `targetElement?: HTMLElement` | Alterna entre abrir y cerrar |
+| `show(event?, targetElement?)` | `event?: any`, `targetElement?: HTMLElement` | Abre el popover |
+| `hide(options?)` | `options?: { returnFocus?: boolean }` | Cierra el popover |
+
+### Atributos / Propiedades
+
+| Atributo | Tipo | Default | Descripción |
+|----------|------|---------|-------------|
+| `role` | `dialog \| menu` | `dialog` | Rol ARIA del panel |
+| `ariaLabel` | `string` | `''` | Etiqueta accesible |
+| `ariaLabelledby` | `string \| null` | `null` | Referencia a elemento etiqueta |
+| `autoFocus` | `boolean` | `true` | Mueve el foco al contenido al abrir |
+| `returnFocus` | `boolean` | `true` | Devuelve el foco al disparador al cerrar |
+
+### Eventos
+
+| Evento | Detail | Descripción |
+|--------|--------|-------------|
+| `opened` | `void` | Se emite cuando el popover se abre |
+| `closed` | `void` | Se emite cuando el popover se cierra |
+
+---
+
+## Ejemplos
+
+### Uso Básico
+
+```html
+<div id="buttonContainer">
+  <dcx-web-button 
+    label="Abrir Popover" 
+    onclick="document.getElementById('myPopover').toggle(event, document.getElementById('buttonContainer'))">
+  </dcx-web-button>
+</div>
+
+<dcx-web-popover id="myPopover">
+  <h3>Título</h3>
+  <p>Contenido del popover</p>
+</dcx-web-popover>
+```
+
+<Canvas of={PopoverStories.Default} />
+
+### Contenido Enriquecido
+
+Puedes incluir cualquier contenido dentro del popover: texto, imágenes, listas, formularios, etc.
+
+<Canvas of={PopoverStories.WithRichContent} />
+
+### Lista de Acciones
+
+El popover puede usarse como un menú contextual ligero con una lista de acciones.
+
+<Canvas of={PopoverStories.WithActions} />
+
+---
+
+## Control Programático
+
+Puedes controlar el popover desde tu código usando referencias al elemento DOM:
+
+```typescript
+const popover = document.querySelector('dcx-web-popover');
+
+openPopover(event: Event, target: HTMLElement) {
+  popover.show(event, target);
+}
+
+closePopover() {
+  popover.hide();
+}
+
+checkIfOpen() {
+  return popover.isOpen;
+}
+```
+
+---
+
+## Accesibilidad
+
+- El popover se cierra con la tecla **Escape** para usuarios de teclado
+- El contenido proyectado mantiene su accesibilidad nativa
+- Se recomienda añadir `aria-haspopup="dialog"` al elemento trigger
