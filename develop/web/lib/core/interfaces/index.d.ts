@@ -25,3 +25,4 @@ export * from './textarea';
 export * from './skeleton';
 export * from './navbar';
 export * from './spinner';
+export * from './tabs';
