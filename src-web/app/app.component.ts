@@ -28,6 +28,7 @@ import './pages/dcx-web-page-navbar/dcx-web-page-navbar.component';
 import './pages/dcx-web-page-spinner/dcx-web-page-spinner.component';
 import './pages/dcx-web-page-tooltip/dcx-web-page-tooltip.component';
 import './pages/dcx-web-page-list/dcx-web-page-list.component';
+import './pages/dcx-web-page-paginator/dcx-web-page-paginator.component';
 import './pages/dcx-web-page-tabs/dcx-web-page-tabs.component';
 import './pages/dcx-web-page-popover/dcx-web-page-popover.component';
 
@@ -106,6 +107,9 @@ export class DcxWebRoot extends LitElement {
         break;
       case '#select':
         content = html`<dcx-web-page-select></dcx-web-page-select>`;
+        break;
+      case '#paginator':
+        content = html`<dcx-web-page-paginator></dcx-web-page-paginator>`;
         break;
       case '#icon':
         content = html`<dcx-web-page-icon></dcx-web-page-icon>`;
