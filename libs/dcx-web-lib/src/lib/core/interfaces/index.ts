@@ -26,3 +26,4 @@ export * from './skeleton';
 export * from './navbar';
 export * from './spinner';
 export * from './paginator';
+export * from './tabs';

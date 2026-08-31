@@ -16,3 +16,4 @@ export * from './textarea';
 export * from './skeleton';
 export * from './spinner';
 export * from './paginator';
+export * from './tabs';
