@@ -169,6 +169,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'popover',
       name: 'Popover',
       icon: ROUTE_ICONS['popover'],
+    },
+    {
+      route: 'file-upload',
+      name: 'File Upload',
+      icon: ROUTE_ICONS['file-upload'],
     }
 
   ];
