@@ -15,3 +15,4 @@ export * from './editor';
 export * from './textarea';
 export * from './skeleton';
 export * from './spinner';
+export * from './fileUpload';

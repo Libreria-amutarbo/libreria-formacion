@@ -29,7 +29,7 @@ import './pages/dcx-web-page-spinner/dcx-web-page-spinner.component';
 import './pages/dcx-web-page-tooltip/dcx-web-page-tooltip.component';
 import './pages/dcx-web-page-list/dcx-web-page-list.component';
 import './pages/dcx-web-page-popover/dcx-web-page-popover.component';
-
+import './pages/dcx-web-page-file-upload/dcx-web-page-file-upload.component';
 
 
 @customElement('dcx-web-root')
@@ -132,7 +132,7 @@ export class DcxWebRoot extends LitElement {
       case '#popover':
         content = html`<dcx-web-page-popover></dcx-web-page-popover>`;
         break;
-        
+
       case '#scroll-top-down':
         content = html`<dcx-web-page-scroll-top-down></dcx-web-page-scroll-top-down>`;
         break;
@@ -157,6 +157,10 @@ export class DcxWebRoot extends LitElement {
 
       case '#tooltip':
         content = html`<dcx-web-page-tooltip></dcx-web-page-tooltip>`;
+        break;
+
+      case '#file-upload':
+        content = html`<dcx-web-page-file-upload></dcx-web-page-file-upload>`;
         break;
 
       default:
