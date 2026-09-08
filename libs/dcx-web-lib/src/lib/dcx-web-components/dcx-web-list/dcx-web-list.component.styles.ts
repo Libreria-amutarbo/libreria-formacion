@@ -6,8 +6,9 @@ export const styles = css`
     font-family: var(--ff-base, 'Inter', sans-serif);
     color: var(--text-dark, #2a2e33);
     --list-bg-hover: var(--bg-hover, #f7f8fa);
-    --list-bg-selected: var(--bg-primary, #0058ab);
-    --list-text-selected: var(--text-white, #ffffff);
+    --list-bg-selected: var(--color-info-bg, #eff6ff);
+    --list-text-selected: var(--color-info, #0058ab);
+    --list-border-selected: rgba(0, 88, 171, 0.2);
     --list-border-radius: var(--r-md, 6px);
     --list-spacing: var(--sp-3, 12px);
     --list-item-gap: var(--sp-4, 16px);
@@ -16,6 +17,11 @@ export const styles = css`
     --list-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --list-divider-color: var(--bg-pressed, #e1e3e6);
     --list-icon-bg: var(--bg-hover, #f3f4f6);
+  }
+
+  :host(.dcx-picklist-list) {
+    --list-bg-selected: var(--dcx-picklist-selected-bg, #eff6ff);
+    --list-text-selected: var(--dcx-picklist-selected-color, #0058ab);
   }
 
   .dcx-list-container {
@@ -74,17 +80,18 @@ export const styles = css`
   }
 
   .dcx-list-item.selected {
-    background-color: var(--color-info-bg, #eff6ff);
+    background-color: var(--list-bg-selected, #eff6ff);
+    border: 1px solid var(--list-border-selected, rgba(0, 88, 171, 0.2));
     box-shadow: inset 3px 0 0 var(--bg-primary, #0058ab);
   }
 
   .dcx-list-item.selected .dcx-list-text {
-    color: var(--bg-primary, #0058ab);
+    color: var(--list-text-selected, #0058ab);
     font-weight: var(--fw-semibold, 600);
   }
 
   .dcx-list-item.selected .dcx-list-description {
-    color: var(--bg-primary, #0058ab);
+    color: var(--list-text-selected, #0058ab);
     opacity: 0.75;
   }
 
@@ -104,6 +111,13 @@ export const styles = css`
 
   .dcx-list-item.selected .dcx-list-children-indicator {
     color: var(--bg-primary, #0058ab) !important;
+  }
+
+  .dcx-list-item.selected .dcx-list-selected-icon {
+    color: var(--bg-primary, #0058ab);
+    flex-shrink: 0;
+    margin-left: auto;
+    font-size: 1.1rem;
   }
 
   .dcx-list-item.selected.selectable:hover:not(.disabled) {

@@ -9,42 +9,49 @@ export const template = (host: DcxWebList) => html`
     role="${host.listRole}"
     aria-label="${host.ariaLabel}"
     aria-multiselectable="${host.multiselectable ?? nothing}"
+    @dragover="${(e: DragEvent) => host._onDragOver(e)}"
+    @drop="${(e: DragEvent) => host._onDrop(e)}"
   >
-    ${host.items.map(
-  (item: DcxListItem, index: number) => {
-    const selected = host.resolveAriaSelected(item, index) === true;
+    ${host.items.map((item: DcxListItem, index: number) => {
+      const selected = host.resolveAriaSelected(item, index) === true;
 
-    return item.divider
-      ? html`
+      return item.divider
+        ? html`
               <li
                 class="dcx-list-divider"
                 role="separator"
               ></li>
             `
-      : html`
+        : html`
               <li
-                class="${host.getItemClasses(item, index)}"
-                @click="${() => host.onItemClick(item, index)}"
-                @keydown="${(e: KeyboardEvent) =>
-          host.onKeydown(e, item, index)}"
-                tabindex="${host.selectable && !item.disabled ? '0' : '-1'}"
-                role="${host.itemRole}"
-                aria-selected="${host.resolveAriaSelected(item, index) ?? nothing}"
-                aria-disabled="${item.disabled || nothing}"
-                aria-haspopup="${host.getChildren(item).length > 0
-          ? 'menu'
-          : nothing}"
+                  class="${host.getItemClasses(item, index)}"
+                  data-index="${index}"
+                  draggable="${host.dragEnabled && !host.cdkDragDisabled(item) ? 'true' : 'false'}"
+                  @dragstart="${(e: DragEvent) => host._onDragStart(e, item, index)}"
+                  @dragend="${() => host._onDragEnd()}"
+                  @click="${() => host.onItemClick(item, index)}"
+                  @keydown="${(e: KeyboardEvent) =>
+                    host.onKeydown(e, item, index)}"
+                  tabindex="${host.selectable && !item.disabled ? '0' : '-1'}"
+                  role="${host.itemRole}"
+                  aria-selected="${host.resolveAriaSelected(item, index) ?? nothing}"
+                  aria-disabled="${item.disabled || nothing}"
+                  aria-haspopup="${
+                    host.getChildren(item).length > 0 ? 'menu' : nothing
+                  }"
               >
-                ${host.itemTemplate
-          ? host.itemTemplate({
-            item,
-            index,
-            selected,
-          })
-          : html`
+                ${
+                  host.itemTemplate
+                    ? host.itemTemplate({
+                        item,
+                        index,
+                        selected,
+                      })
+                    : html`
                       <div class="dcx-list-item-content">
-                        ${item.icon
-              ? html`
+                        ${
+                          item.icon
+                            ? html`
                               <div class="dcx-list-icon-container">
                                 <dcx-web-icon
                                   class="dcx-list-icon"
@@ -52,41 +59,55 @@ export const template = (host: DcxWebList) => html`
                                 ></dcx-web-icon>
                               </div>
                             `
-              : nothing}
+                            : nothing
+                        }
 
                         <div class="dcx-list-text-container">
-                          ${item.label || item.text
-              ? html`
+                          ${
+                            item.label || item.text
+                              ? html`
                                 <span class="dcx-list-text">
                                   ${item.label || item.text}
                                 </span>
                               `
-              : nothing}
+                              : nothing
+                          }
 
-                          ${item.description
-              ? html`
+                          ${
+                            item.description
+                              ? html`
                                 <span class="dcx-list-description">
                                   ${item.description}
                                 </span>
                               `
-              : nothing}
+                              : nothing
+                          }
                         </div>
 
-                        ${host.showChildrenIndicator &&
-              host.getChildren(item).length > 0
-              ? html`
+                        ${
+                          selected
+                            ? html`<dcx-web-icon class="dcx-list-selected-icon" name="check-lg" aria-label="Seleccionado"></dcx-web-icon>`
+                            : nothing
+                        }
+
+                        ${
+                          host.showChildrenIndicator &&
+                          host.getChildren(item).length > 0
+                            ? html`
                               <dcx-web-icon
                                 class="dcx-list-children-indicator"
                                 name="chevron-right"
                               ></dcx-web-icon>
                             `
-              : nothing}
+                            : nothing
+                        }
                       </div>
-                    `}
+                    `
+                }
 
-                ${host.renderChildren &&
-          host.getChildren(item).length > 0
-          ? html`
+                ${
+                  host.renderChildren && host.getChildren(item).length > 0
+                    ? html`
                       <dcx-web-list
                         class="dcx-list-nested ${host.isSelected(index) ? 'parent-selected' : ''}"
                         .items="${host.getChildren(item)}"
@@ -102,19 +123,31 @@ export const template = (host: DcxWebList) => html`
                         .ariaLabel="${host.ariaLabel}"
                         @click="${(e: Event) => e.stopPropagation()}"
                         @itemSelected="${(e: Event) => {
-              e.stopPropagation();
-              host.dispatchEvent(new CustomEvent('itemSelected', { detail: (e as CustomEvent).detail, bubbles: true, composed: true }));
-            }}"
+                          e.stopPropagation();
+                          host.dispatchEvent(
+                            new CustomEvent('itemSelected', {
+                              detail: (e as CustomEvent).detail,
+                              bubbles: true,
+                              composed: true,
+                            }),
+                          );
+                        }}"
                         @itemDeselected="${(e: Event) => {
-              e.stopPropagation();
-              host.dispatchEvent(new CustomEvent('itemDeselected', { detail: (e as CustomEvent).detail, bubbles: true, composed: true }));
-            }}"
+                          e.stopPropagation();
+                          host.dispatchEvent(
+                            new CustomEvent('itemDeselected', {
+                              detail: (e as CustomEvent).detail,
+                              bubbles: true,
+                              composed: true,
+                            }),
+                          );
+                        }}"
                       ></dcx-web-list>
                     `
-          : nothing}
+                    : nothing
+                }
               </li>
             `;
-  },
-)}
+    })}
   </ul>
 `;

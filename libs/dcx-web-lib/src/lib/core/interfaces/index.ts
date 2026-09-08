@@ -20,6 +20,7 @@ export * from './progressbar';
 export * from './radio';
 export * from './tooltip';
 export * from './list';
+export * from './picklist';
 export * from './editor';
 export * from './textarea';
 export * from './skeleton';
