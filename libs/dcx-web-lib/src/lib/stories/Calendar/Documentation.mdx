@@ -1,0 +1,177 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as CalendarStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Calendar/Documentation" />
+
+# Calendar
+
+El componente `dcx-web-calendar` proporciona capacidades completas de agenda, planificación y selección de fechas mediante Web Components nativos y Lit.
+
+Mantiene una migración 1:1 respecto al componente Angular original, incluyendo vistas, eventos, selección de rango y operaciones CRUD sobre eventos.
+
+---
+
+## Características principales
+
+- Vista mensual (`month`)
+- Vista semanal (`week`)
+- Vista anual (`year`)
+- Vista mini (`mini`)
+- Navegación temporal
+- Selección simple
+- Selección por rango
+- Eventos diarios y horarios
+- Vista rápida de evento
+- Creación de eventos
+- Edición de eventos
+- Eliminación de eventos
+- Compatibilidad WCAG AA
+- Estilos basados en BEM (`dcx-calendar`)
+- Uso de tokens corporativos Capgemini / DCX
+
+---
+
+## Demo principal
+
+<Canvas of={CalendarStories.Month} />
+
+---
+
+## API
+
+### Inputs
+
+| Propiedad | Tipo | Default | Descripción |
+|------------|------------|------------|------------|
+| view | `'month' \| 'week' \| 'year' \| 'mini'` | `'month'` | Vista activa |
+| activeDate | `Date` | `new Date()` | Fecha visible |
+| events | `DcxCalendarEvent[]` | `[]` | Eventos renderizados |
+| selectionMode | `'none' \| 'single' \| 'range'` | `'none'` | Tipo de selección |
+| selectedDate | `Date \| null` | `null` | Fecha seleccionada |
+| rangeStart | `Date \| null` | `null` | Inicio de rango |
+| rangeEnd | `Date \| null` | `null` | Fin de rango |
+| disabled | `boolean` | `false` | Bloquea interacción |
+| allowCreate | `boolean` | `true` | Permite crear eventos |
+| allowEdit | `boolean` | `true` | Permite editar eventos |
+| allowDelete | `boolean` | `true` | Permite eliminar eventos |
+| dayMaxVisibleEvents | `number` | `3` | Máximo visible por día |
+| weekStartHour | `number` | `8` | Hora inicial semana |
+| weekEndHour | `number` | `18` | Hora final semana |
+| showFooter | `boolean` | `true` | Mostrar footer |
+| ariaLabel | `string` | `'Calendar'` | Etiqueta accesible |
+
+---
+
+## Eventos
+
+| Evento | Detail | Descripción |
+|----------|----------|----------|
+| viewChange | DcxCalendarView | Cambio de vista |
+| activeDateChange | Date | Navegación temporal |
+| dateSelect | Date | Selección de día |
+| rangeChange | { start: Date \| null; end: Date \| null } | Cambio de rango |
+| eventSelect | DcxCalendarEvent | Apertura de evento |
+| eventCreate | DcxCalendarEventDraft | Creación de evento |
+| eventUpdate | DcxCalendarEvent | Actualización |
+| eventDelete | DcxCalendarDeleteRequest | Eliminación |
+
+---
+
+## Variantes
+
+### Modo rango
+
+<Canvas of={CalendarStories.Range} />
+
+### Vista semanal
+
+<Canvas of={CalendarStories.Week} />
+
+### Vista anual
+
+<Canvas of={CalendarStories.Year} />
+
+### Vista mini
+
+<Canvas of={CalendarStories.Mini} />
+
+---
+
+## CRUD deshabilitado
+
+<Canvas of={CalendarStories.WithoutCrud} />
+
+---
+
+## Estado deshabilitado
+
+<Canvas of={CalendarStories.Disabled} />
+
+---
+
+## Horario extendido
+
+<Canvas of={CalendarStories.WeekExtendedHours} />
+
+---
+
+## Interfaces principales
+
+```ts
+DcxCalendarEvent
+DcxCalendarEventDraft
+DcxCalendarDeleteRequest
+DcxCalendarDayCell
+DcxCalendarWeekDay
+DcxCalendarMonthSummary
+```
+
+---
+
+## Slots
+
+El componente no expone slots públicos.
+
+Todo el contenido se genera internamente para mantener la compatibilidad 1:1 con la implementación Angular.
+
+---
+
+## Accesibilidad WCAG AA
+
+El componente incorpora:
+
+- `aria-label`
+- `role="dialog"`
+- `aria-modal="true"`
+- `aria-labelledby`
+- Botones de navegación etiquetados
+- Botones de acciones CRUD etiquetados
+- Gestión de foco en diálogos
+- Estados visuales de selección
+- Indicadores de hoy
+- Compatibilidad con navegación por teclado
+
+---
+
+## Tokens utilizados
+
+Los estilos utilizan tokens corporativos definidos en:
+
+```css
+capgemini-tokens.css
+```
+
+Ejemplos:
+
+```css
+var(--bg-primary)
+var(--color-success)
+var(--color-error)
+var(--sp-4)
+var(--fs-base)
+var(--r-xl)
+var(--shadow-lg)
+```
+
+No se introducen tokens alternativos ni valores visuales fuera del sistema de diseño DCX.
+``

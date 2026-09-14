@@ -31,6 +31,7 @@ import './pages/dcx-web-page-list/dcx-web-page-list.component';
 import './pages/dcx-web-page-paginator/dcx-web-page-paginator.component';
 import './pages/dcx-web-page-tabs/dcx-web-page-tabs.component';
 import './pages/dcx-web-page-popover/dcx-web-page-popover.component';
+import './pages/dcx-web-page-calendar/dcx-web-page-calendar.component';
 
 
 
@@ -87,6 +88,10 @@ export class DcxWebRoot extends LitElement {
       case '#breadcrumb':
         content = html`<dcx-web-page-breadcrumb></dcx-web-page-breadcrumb>`;
         break;
+      case '#calendar':
+        content = html`<dcx-web-page-calendar></dcx-web-page-calendar>`;
+        break;
+
       case '#context-menu':
         content = html`<dcx-web-page-context-menu></dcx-web-page-context-menu>`;
         break;
