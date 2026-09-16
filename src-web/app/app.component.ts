@@ -31,6 +31,7 @@ import './pages/dcx-web-page-list/dcx-web-page-list.component';
 import './pages/dcx-web-page-paginator/dcx-web-page-paginator.component';
 import './pages/dcx-web-page-tabs/dcx-web-page-tabs.component';
 import './pages/dcx-web-page-popover/dcx-web-page-popover.component';
+import './pages/dcx-web-page-toast/dcx-web-page-toast.component';
 
 
 
@@ -167,6 +168,10 @@ export class DcxWebRoot extends LitElement {
       case '#tooltip':
         content = html`<dcx-web-page-tooltip></dcx-web-page-tooltip>`;
         break;
+
+      case '#toast':
+         content = html`<dcx-web-page-toast></dcx-web-page-toast>`;
+         break;
 
       default:
         content = html`<dcx-web-page-home></dcx-web-page-home>`;

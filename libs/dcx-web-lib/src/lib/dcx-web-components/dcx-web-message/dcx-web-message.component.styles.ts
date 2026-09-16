@@ -13,13 +13,12 @@ export const styles = css`
 
   .dcx-message {
     display: flex;
-    align-items: flex-start;
-    gap: var(--sp-3, 12px);
-    padding: var(--sp-3, 12px)
-      var(--sp-4, 16px);
-    border-radius: var(--r-md, 6px);
-    border-left: 4px solid transparent;
-    margin-bottom: var(--sp-3, 12px);
+    align-items: var(--dcx-message-align-items, flex-start);
+    gap: var(--dcx-message-gap, var(--sp-3, 12px));
+    padding: var(--dcx-message-padding, var(--sp-3, 12px) var(--sp-4, 16px));
+    border-radius: var(--dcx-message-border-radius, var(--r-md, 6px));
+    border-left: var(--dcx-message-border-left, 4px solid transparent);
+    margin-bottom: var(--dcx-message-margin-bottom, var(--sp-3, 12px));
     font-size: var(--fs-base, 14px);
     line-height: 1.5;
   }
@@ -42,6 +41,7 @@ export const styles = css`
     font-size: var(--fs-base, 14px);
     line-height: 1.5;
     opacity: 0.85;
+    color: inherit;
   }
 
   .dcx-message__link {
@@ -79,49 +79,49 @@ export const styles = css`
 
   .notification {
     background: var(
-      --color-info-bg,
-      #eff6ff
+      --dcx-message-bg,
+      var(--color-info-bg, #eff6ff)
     );
     border-left-color: var(
       --color-info,
       #0058ab
     );
-    color: #1e3a5f;
+    color: var(--dcx-message-color, #1e3a5f);
   }
 
   .warning {
     background: var(
-      --color-warning-bg,
-      #fffbeb
+      --dcx-message-bg,
+      var(--color-warning-bg, #fffbeb)
     );
     border-left-color: var(
       --color-warning,
       #d97706
     );
-    color: #78350f;
+    color: var(--dcx-message-color, #78350f);
   }
 
   .error {
     background: var(
-      --color-error-bg,
-      #fef2f2
+      --dcx-message-bg,
+      var(--color-error-bg, #fef2f2)
     );
     border-left-color: var(
       --color-error,
       #dc2626
     );
-    color: #7f1d1d;
+    color: var(--dcx-message-color, #7f1d1d);
   }
 
   .success {
     background: var(
-      --color-success-bg,
-      #f0fdf4
+      --dcx-message-bg,
+      var(--color-success-bg, #f0fdf4)
     );
     border-left-color: var(
       --color-success,
       #16a34a
     );
-    color: #14532d;
+    color: var(--dcx-message-color, #14532d);
   }
 `;
