@@ -10,6 +10,7 @@ import '../dcx-web-input/dcx-web-input.component';
 import '../dcx-web-spinner/dcx-web-spinner.component';
 
 import type {
+  DcxFileUploadValue,
   DcxFileUploadDropzoneSize,
   DcxFileUploadItem,
 } from '../../core/interfaces';
@@ -107,38 +108,53 @@ export class DcxWebFileUpload extends LitElement {
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
-  openFilePicker = (): void => {
-    if (this.isDisabled) return;
+  private getNativeFileInput(): HTMLInputElement | null {
     const webInput = this.shadowRoot?.querySelector('dcx-web-input');
-    if (webInput) {
-      const nativeInput =
-        webInput.shadowRoot?.querySelector<HTMLInputElement>(
-          'input[type="file"]',
-        ) || webInput.querySelector<HTMLInputElement>('input[type="file"]');
-      if (nativeInput) {
-        if (this.accept) {
-          nativeInput.setAttribute('accept', this.accept);
-        } else {
-          nativeInput.removeAttribute('accept');
-        }
-        this.attachNativeInputListener();
-        nativeInput.click();
-      }
+
+    if (!webInput) {
+      return null;
     }
+
+    return (
+      webInput.shadowRoot?.querySelector<HTMLInputElement>(
+        'input[type="file"]',
+      ) ||
+      webInput.querySelector<HTMLInputElement>('input[type="file"]') ||
+      null
+    );
+  }
+
+  openFilePicker = (): void => {
+    if (this.isDisabled) {
+      return;
+    }
+
+    const nativeInput = this.getNativeFileInput();
+
+    if (!nativeInput) {
+      return;
+    }
+
+    if (this.accept) {
+      nativeInput.setAttribute('accept', this.accept);
+    } else {
+      nativeInput.removeAttribute('accept');
+    }
+
+    this.attachNativeInputListener();
+    nativeInput.click();
   };
 
   private attachNativeInputListener(): void {
-    const webInput = this.shadowRoot?.querySelector('dcx-web-input');
-    if (!webInput) return;
+    const nativeInput = this.getNativeFileInput();
 
-    const nativeInput =
-      webInput.shadowRoot?.querySelector<HTMLInputElement>(
-        'input[type="file"]',
-      ) || webInput.querySelector<HTMLInputElement>('input[type="file"]');
+    if (!nativeInput) {
+      return;
+    }
 
-    if (!nativeInput) return;
-
-    if (this._attachedNativeInput === nativeInput) return;
+    if (this._attachedNativeInput === nativeInput) {
+      return;
+    }
 
     if (this._attachedNativeInput) {
       this._attachedNativeInput.removeEventListener(
@@ -275,23 +291,21 @@ export class DcxWebFileUpload extends LitElement {
   };
 
   private setSelectedFiles = (files: File[]): void => {
-    const webInput = this.shadowRoot?.querySelector('dcx-web-input');
-    if (webInput) {
-      const nativeInput =
-        webInput.shadowRoot?.querySelector<HTMLInputElement>(
-          'input[type="file"]',
-        ) || webInput.querySelector<HTMLInputElement>('input[type="file"]');
-      if (nativeInput) {
-        nativeInput.value = '';
-      }
+    const nativeInput = this.getNativeFileInput();
+
+    if (nativeInput) {
+      nativeInput.value = '';
     }
 
     this.selectedFiles = files;
     this.selectedFile = files[0] ?? null;
 
-    const payload = this.multiple ? files : (files[0] ?? null);
+    const payload: DcxFileUploadValue = this.multiple
+      ? files
+      : (files[0] ?? null);
+
     this.dispatchEvent(
-      new CustomEvent('fileSelected', {
+      new CustomEvent<DcxFileUploadValue>('fileSelected', {
         detail: payload,
         bubbles: true,
         composed: true,
@@ -305,12 +319,13 @@ export class DcxWebFileUpload extends LitElement {
       !this.validationError
     ) {
       this.dispatchEvent(
-        new CustomEvent('uploadClicked', {
+        new CustomEvent<DcxFileUploadValue>('uploadClicked', {
           detail: payload,
           bubbles: true,
           composed: true,
         }),
       );
+
       this.setSelectedFiles([]);
     }
   };
@@ -320,7 +335,7 @@ export class DcxWebFileUpload extends LitElement {
       return;
     }
 
-    const payload = this.multiple
+    const payload: DcxFileUploadValue = this.multiple
       ? this.selectedFiles
       : (this.selectedFiles[0] ?? null);
 

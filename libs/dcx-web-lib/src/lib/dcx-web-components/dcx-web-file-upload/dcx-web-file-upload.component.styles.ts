@@ -40,9 +40,9 @@ export const styles = css`
     align-items: center;
     gap: 10px;
     border: 1px solid var(--border-default, #d1d5db);
-    border-radius: 6px;
+    border-radius: var(--r-md, 6px);
     background: var(--bg-default, #ffffff);
-    padding: 8px 10px;
+    padding: var(--sp-2, 8px) 10px;
     cursor: pointer;
     transition: border-color 0.12s, background 0.12s;
     width: 100%;
@@ -96,7 +96,7 @@ export const styles = css`
     align-items: center;
     gap: 10px;
     min-height: var(--sp-8, 32px);
-    padding: 8px 10px;
+    padding: var(--sp-2, 8px) 10px;
     border: 1px dashed var(--border-light, #d1d5db);
     border-radius: var(--r-md, 6px);
     background: var(--bg-default, #ffffff);

@@ -106,6 +106,15 @@ const meta: Meta = {
         category: 'Eventos',
       },
     },
+
+    loading: {
+      control: 'boolean',
+      description:
+        'Muestra el estado de carga y deshabilita las acciones del componente.',
+      table: {
+        category: 'Atributos',
+      },
+    },
   },
 
   args: {
@@ -117,6 +126,7 @@ const meta: Meta = {
     multiple: false,
     autoUpload: false,
     placeholder: 'No file selected',
+    loading: false,
   },
 
   render: args => html`
@@ -127,8 +137,10 @@ const meta: Meta = {
       .dropzoneSize=${args.dropzoneSize}
       .dragAndDrop=${args.dragAndDrop}
       .autoUpload=${args.autoUpload}
+      .loading=${args.loading}
       ?disabled=${args.disabled}
       ?multiple=${args.multiple}
+
     >
     </dcx-web-file-upload>
   `,
@@ -253,6 +265,23 @@ export const WithValidationError: Story = {
       description: {
         story:
           'Para ver el error de validación, arrastra o selecciona un archivo con formato no permitido (por ejemplo un PDF). El componente rechaza el archivo y muestra el mensaje de error.',
+      },
+    },
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    label: 'Choose file',
+    dragAndDrop: false,
+  },
+
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Muestra el estado de carga mientras se procesa o sube un archivo.',
       },
     },
   },
