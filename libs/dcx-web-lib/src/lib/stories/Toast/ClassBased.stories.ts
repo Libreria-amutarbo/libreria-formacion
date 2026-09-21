@@ -41,109 +41,135 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-const defaultToastService = new DcxWebToastService();
+// Mapeo débil para asignar una instancia aislada de DcxWebToastService por historia.
+// Evita colisiones entre historias en Storybook Docs sin romper el renderizado de Babel.
+const serviceMap = new WeakMap<object, DcxWebToastService>();
+
+function getService(args: object): DcxWebToastService {
+  let service = serviceMap.get(args);
+  if (!service) {
+    service = new DcxWebToastService();
+    serviceMap.set(args, service);
+  }
+  return service;
+}
 
 export const Default: Story = {
   args: {
     position: 'top-right',
   },
-  render: args => html`
-    <section style="padding: var(--sp-4, 16px); border-radius: var(--r-lg, 8px); background: var(--bg-primary, #0058ab); min-width: 640px; position: relative; min-height: 160px;">
-      <h3 style="margin: 0; color: var(--text-white, #ffffff);">Toast (con DcxWebToastService)</h3>
-      <p style="margin: var(--sp-1, 4px) 0 var(--sp-4, 16px); color: var(--text-white, #ffffff); opacity: .92;">
-        Los botones llaman al servicio; dcx-web-toast (montado una sola vez) hace de contenedor y renderiza los toasts activos.
-      </p>
+  render: args => {
+    const toastService = getService(args);
+    return html`
+      <section style="padding: var(--sp-4, 16px); border-radius: var(--r-lg, 8px); background: var(--bg-primary, #0058ab); min-width: 640px; position: relative; min-height: 160px;">
+        <h3 style="margin: 0; color: var(--text-white, #ffffff);">Toast (con DcxWebToastService)</h3>
+        <p style="margin: var(--sp-1, 4px) 0 var(--sp-4, 16px); color: var(--text-white, #ffffff); opacity: .92;">
+          Los botones llaman al servicio; dcx-web-toast (montado una sola vez) hace de contenedor y renderiza los toasts activos.
+        </p>
 
-      <div style="display:flex; flex-wrap:wrap; gap: var(--sp-2, 8px);" aria-label="Controles de demo de toast">
-        <dcx-web-button
-          label="Mostrar info"
-          variant="secondary"
-          @buttonClick=${() => defaultToastService.info('Informacion actualizada correctamente')}
-        ></dcx-web-button>
-        <dcx-web-button
-          label="Mostrar exito"
-          variant="secondary"
-          @buttonClick=${() => defaultToastService.success('Archivo exportado con exito', { actionLabel: 'Ver detalle' })}
-        ></dcx-web-button>
-        <dcx-web-button
-          label="Mostrar warning"
-          variant="secondary"
-          @buttonClick=${() => defaultToastService.show(DCX_TOAST_WARNING_DEMO)}
-        ></dcx-web-button>
-        <dcx-web-button
-          label="Mostrar error"
-          variant="danger"
-          @buttonClick=${() => defaultToastService.show(DCX_TOAST_ERROR_DEMO)}
-        ></dcx-web-button>
-        <dcx-web-button
-          label="Limpiar"
-          variant="secondary"
-          @buttonClick=${() => defaultToastService.clear()}
-        ></dcx-web-button>
-      </div>
+        <div style="display:flex; flex-wrap:wrap; gap: var(--sp-2, 8px);" aria-label="Controles de demo de toast">
+          <dcx-web-button
+            label="Mostrar info"
+            variant="secondary"
+            @buttonClick=${() => toastService.info('Informacion actualizada correctamente')}
+          ></dcx-web-button>
+          <dcx-web-button
+            label="Mostrar exito"
+            variant="secondary"
+            @buttonClick=${() => toastService.success('Archivo exportado con exito', { actionLabel: 'Ver detalle' })}
+          ></dcx-web-button>
+          <dcx-web-button
+            label="Mostrar warning"
+            variant="secondary"
+            @buttonClick=${() => toastService.show(DCX_TOAST_WARNING_DEMO)}
+          ></dcx-web-button>
+          <dcx-web-button
+            label="Mostrar error"
+            variant="danger"
+            @buttonClick=${() => toastService.show(DCX_TOAST_ERROR_DEMO)}
+          ></dcx-web-button>
+          <dcx-web-button
+            label="Limpiar"
+            variant="secondary"
+            @buttonClick=${() => toastService.clear()}
+          ></dcx-web-button>
+        </div>
 
-      <dcx-web-toast .service=${defaultToastService} position=${args['position'] || 'top-right'}></dcx-web-toast>
-    </section>
-  `,
+        <dcx-web-toast .service=${toastService} position=${args['position'] || 'top-right'}></dcx-web-toast>
+      </section>
+    `;
+  },
 };
 
-const customActionTextService = new DcxWebToastService();
 export const CustomActionText: Story = {
-  render: () => html`
-    <section style="padding: var(--sp-4, 16px); min-width: 480px; position: relative; min-height: 120px;">
-      <dcx-web-button
-        label="Mostrar éxito con acción"
-        variant="secondary"
-        @buttonClick=${() => customActionTextService.show(DCX_TOAST_SUCCESS_WITH_ACTION)}
-      ></dcx-web-button>
-      <dcx-web-toast .service=${customActionTextService} position="top-right"></dcx-web-toast>
-    </section>
-  `,
+  args: {},
+  render: args => {
+    const toastService = getService(args);
+    return html`
+      <section style="padding: var(--sp-4, 16px); min-width: 480px; position: relative; min-height: 120px;">
+        <dcx-web-button
+          label="Mostrar éxito con acción"
+          variant="secondary"
+          @buttonClick=${() => toastService.show(DCX_TOAST_SUCCESS_WITH_ACTION)}
+        ></dcx-web-button>
+        <dcx-web-toast .service=${toastService} position="top-right"></dcx-web-toast>
+      </section>
+    `;
+  },
 };
 
-const customActionWithIconService = new DcxWebToastService();
 export const CustomActionWithIcon: Story = {
-  render: () => html`
-    <section style="padding: var(--sp-4, 16px); min-width: 480px; position: relative; min-height: 120px;">
-      <dcx-web-button
-        label="Mostrar con icono + texto"
-        variant="secondary"
-        @buttonClick=${() => customActionWithIconService.show(DCX_TOAST_WITH_ICON_ACTION)}
-      ></dcx-web-button>
-      <dcx-web-toast .service=${customActionWithIconService} position="top-right"></dcx-web-toast>
-    </section>
-  `,
+  args: {},
+  render: args => {
+    const toastService = getService(args);
+    return html`
+      <section style="padding: var(--sp-4, 16px); min-width: 480px; position: relative; min-height: 120px;">
+        <dcx-web-button
+          label="Mostrar con icono + texto"
+          variant="secondary"
+          @buttonClick=${() => toastService.show(DCX_TOAST_WITH_ICON_ACTION)}
+        ></dcx-web-button>
+        <dcx-web-toast .service=${toastService} position="top-right"></dcx-web-toast>
+      </section>
+    `;
+  },
 };
 
-const iconOnlyActionService = new DcxWebToastService();
 export const IconOnlyAction: Story = {
-  render: () => html`
-    <section style="padding: var(--sp-4, 16px); min-width: 480px; position: relative; min-height: 120px;">
-      <dcx-web-button
-        label="Mostrar acción solo icono"
-        variant="secondary"
-        @buttonClick=${() => iconOnlyActionService.show(DCX_TOAST_ICON_ONLY_ACTION)}
-      ></dcx-web-button>
-      <dcx-web-toast .service=${iconOnlyActionService} position="top-right"></dcx-web-toast>
-    </section>
-  `,
+  args: {},
+  render: args => {
+    const toastService = getService(args);
+    return html`
+      <section style="padding: var(--sp-4, 16px); min-width: 480px; position: relative; min-height: 120px;">
+        <dcx-web-button
+          label="Mostrar acción solo icono"
+          variant="secondary"
+          @buttonClick=${() => toastService.show(DCX_TOAST_ICON_ONLY_ACTION)}
+        ></dcx-web-button>
+        <dcx-web-toast .service=${toastService} position="top-right"></dcx-web-toast>
+      </section>
+    `;
+  },
 };
 
-const notDismissibleService = new DcxWebToastService();
 export const NotDismissible: Story = {
-  render: () => html`
-    <section style="padding: var(--sp-4, 16px); min-width: 480px; position: relative; min-height: 120px;">
-      <dcx-web-button
-        label="Mostrar sin cierre"
-        variant="secondary"
-        @buttonClick=${() =>
-          notDismissibleService.show({
-            message: 'Este toast no se puede cerrar manualmente',
-            type: 'info',
-            dismissible: false,
-          })}
-      ></dcx-web-button>
-      <dcx-web-toast .service=${notDismissibleService} position="top-right"></dcx-web-toast>
-    </section>
-  `,
+  args: {},
+  render: args => {
+    const toastService = getService(args);
+    return html`
+      <section style="padding: var(--sp-4, 16px); min-width: 480px; position: relative; min-height: 120px;">
+        <dcx-web-button
+          label="Mostrar sin cierre"
+          variant="secondary"
+          @buttonClick=${() =>
+            toastService.show({
+              message: 'Este toast no se puede cerrar manualmente',
+              type: 'info',
+              dismissible: false,
+            })}
+        ></dcx-web-button>
+        <dcx-web-toast .service=${toastService} position="top-right"></dcx-web-toast>
+      </section>
+    `;
+  },
 };

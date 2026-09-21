@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { template } from './dcx-web-toast.component.html';
@@ -52,6 +52,21 @@ export class DcxWebToast extends LitElement {
     this.toasts = this.activeService.toasts;
 
     this.activeService.subscribe(this.handleToastChange);
+  }
+
+  override willUpdate(changedProperties: PropertyValues) {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('service')) {
+      const oldService = changedProperties.get('service') as
+        | DcxWebToastService
+        | undefined;
+      const prev = oldService ?? DcxWebToastService.default;
+      prev.unsubscribe(this.handleToastChange);
+
+      this.toasts = this.activeService.toasts;
+      this.activeService.subscribe(this.handleToastChange);
+    }
   }
 
   override disconnectedCallback() {
