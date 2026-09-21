@@ -151,6 +151,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['toggle'],
     },
     {
+      route: 'toast',
+      name: 'Toast',
+      icon: ROUTE_ICONS['toast'],
+    },
+    {
       route: 'tooltip',
       name: 'Tooltip',
       icon: ROUTE_ICONS['tooltip'],
