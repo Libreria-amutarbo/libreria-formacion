@@ -14,10 +14,8 @@ import type {
 } from '../../core/interfaces/toast';
 
 import type { DcxMessageType } from '../../core/interfaces/message';
-
-import { DCX_TOAST_ICON_BY_TYPE } from '../../core/interfaces/toast';
-
 import { DcxWebToastService } from './dcx-web-toast.service';
+import { DCX_TOAST_ICON_BY_TYPE } from '../../core/interfaces/toast';
 
 const MESSAGE_TYPE_BY_TOAST_TYPE: Record<DcxToastType, DcxMessageType> = {
   info: 'notification',
@@ -31,6 +29,9 @@ export class DcxWebToast extends LitElement {
   @property({ type: String })
   accessor position: DcxToastPosition = 'top-right';
 
+  @property({ attribute: false })
+  accessor service: DcxWebToastService | undefined = undefined;
+
   @state()
   accessor toasts: DcxToastInstance[] = [];
 
@@ -41,18 +42,22 @@ export class DcxWebToast extends LitElement {
 
   static override styles = styles;
 
+  private get activeService(): DcxWebToastService {
+    return this.service ?? DcxWebToastService.default;
+  }
+
   override connectedCallback() {
     super.connectedCallback();
 
-    this.toasts = DcxWebToastService.toasts;
+    this.toasts = this.activeService.toasts;
 
-    DcxWebToastService.subscribe(this.handleToastChange);
+    this.activeService.subscribe(this.handleToastChange);
   }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
 
-    DcxWebToastService.unsubscribe(this.handleToastChange);
+    this.activeService.unsubscribe(this.handleToastChange);
 
     this.timeouts.forEach(timeout => clearTimeout(timeout));
 
@@ -174,7 +179,7 @@ export class DcxWebToast extends LitElement {
   }
 
   dismiss(id: string): void {
-    DcxWebToastService.dismiss(id);
+    this.activeService.dismiss(id);
   }
 
   override render() {

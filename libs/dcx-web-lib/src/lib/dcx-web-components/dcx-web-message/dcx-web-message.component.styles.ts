@@ -41,7 +41,6 @@ export const styles = css`
     font-size: var(--fs-base, 14px);
     line-height: 1.5;
     opacity: 0.85;
-    color: inherit;
   }
 
   .dcx-message__link {
@@ -83,8 +82,8 @@ export const styles = css`
       var(--color-info-bg, #eff6ff)
     );
     border-left-color: var(
-      --color-info,
-      #0058ab
+      --dcx-message-border-left-color,
+      var(--color-info, #0058ab)
     );
     color: var(--dcx-message-color, #1e3a5f);
   }
@@ -95,8 +94,8 @@ export const styles = css`
       var(--color-warning-bg, #fffbeb)
     );
     border-left-color: var(
-      --color-warning,
-      #d97706
+      --dcx-message-border-left-color,
+      var(--color-warning, #d97706)
     );
     color: var(--dcx-message-color, #78350f);
   }
@@ -107,8 +106,8 @@ export const styles = css`
       var(--color-error-bg, #fef2f2)
     );
     border-left-color: var(
-      --color-error,
-      #dc2626
+      --dcx-message-border-left-color,
+      var(--color-error, #dc2626)
     );
     color: var(--dcx-message-color, #7f1d1d);
   }
@@ -119,8 +118,8 @@ export const styles = css`
       var(--color-success-bg, #f0fdf4)
     );
     border-left-color: var(
-      --color-success,
-      #16a34a
+      --dcx-message-border-left-color,
+      var(--color-success, #16a34a)
     );
     color: var(--dcx-message-color, #14532d);
   }

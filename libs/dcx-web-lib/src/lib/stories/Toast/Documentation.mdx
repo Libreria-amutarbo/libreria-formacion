@@ -1,0 +1,86 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ToastClassBasedStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Toast/Documentation" />
+
+# Toast
+
+`dcx-web-toast` muestra un aviso breve (info/éxito/advertencia/error) con icono, mensaje, un botón de acción opcional y un botón de cierre. Para mostrar toasts de forma imperativa desde cualquier parte de la aplicación (sin gestionar tú mismo un array de toasts activos), usa `DcxWebToastService` junto con `<dcx-web-toast>`.
+
+---
+
+## Uso básico (con `DcxWebToastService`)
+
+<Canvas of={ToastClassBasedStories.Default} />
+
+## Con acción personalizada
+
+<Canvas of={ToastClassBasedStories.CustomActionText} />
+<Canvas of={ToastClassBasedStories.CustomActionWithIcon} />
+<Canvas of={ToastClassBasedStories.IconOnlyAction} />
+
+## Sin botón de cierre
+
+<Canvas of={ToastClassBasedStories.NotDismissible} />
+
+---
+
+## Uso recomendado: `DcxWebToastService` + `<dcx-web-toast>`
+
+1. Monta `<dcx-web-toast>` **una sola vez**, normalmente en el componente raíz de la app:
+
+```html
+<!-- index.html / app-root -->
+<dcx-web-toast position="top-right"></dcx-web-toast>
+```
+
+2. Importa `DcxWebToastService` en cualquier componente/servicio y llama a sus métodos:
+
+```typescript
+import { DcxWebToastService } from '@dcx-web-components/dcx-web-lib';
+
+export class MiComponente {
+  guardar(): void {
+    DcxWebToastService.success('Cambios guardados correctamente');
+  }
+
+  onError(): void {
+    DcxWebToastService.error('No se pudo completar la operación', {
+      autoDismiss: true,
+      durationMs: 8000,
+    });
+  }
+}
+```
+
+El servicio expone `show(options)`, `success(message, options?)`, `error(message, options?)`, `warning(message, options?)`, `info(message, options?)`, `dismiss(id)` y `clear()`. `<dcx-web-toast>` se suscribe al estado del servicio y apila los toasts activos automáticamente — no hace falta gestionar ningún array ni contador de id a mano.
+
+---
+
+## Propiedades de `dcx-web-toast`
+
+| Propiedad | Tipo | Por defecto | Descripción |
+|---|---|---|---|
+| `position` | `'top-right' \| 'top-left' \| 'bottom-right' \| 'bottom-left'` | `'top-right'` | Esquina de la pantalla donde se apilan los toasts activos. |
+
+## Opciones del Toast (`DcxToastOptions`)
+
+| Propiedad | Tipo | Por defecto | Descripción |
+|---|---|---|---|
+| `message` | `string` (obligatorio) | — | Texto principal del aviso. |
+| `type` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Variante visual y severidad del toast. |
+| `iconName` | `string` | `''` | Icono a mostrar; si se omite, usa el icono por defecto del `type`. |
+| `autoDismiss` | `boolean` | `false` | Si es `true`, se cierra automáticamente tras `durationMs`. |
+| `durationMs` | `number` | `5000` | Duración del auto-cierre. Se pausa mientras el ratón o el foco están sobre el toast (WCAG 2.2.1). |
+| `dismissible` | `boolean` | `true` | Muestra un botón de cierre real (WCAG 2.2.1). |
+| `actionLabel` / `actionIconName` / `actionAriaLabel` | `string` | — | CTA u opción de acción del toast. |
+
+---
+
+## Accesibilidad
+
+- Cada toast usa `role="status"` (info/éxito) o `role="alert"` (advertencia/error) con `aria-live` correspondiente.
+- `<dcx-web-toast>` aporta un contenedor **persistente** con `aria-live="polite"` — la técnica recomendada, en vez de crear y destruir una región viva con cada toast (lo que algunos lectores de pantalla pueden no anunciar de forma fiable).
+- El temporizador de auto-cierre se pausa al pasar el ratón o el foco por encima, y se reinicia con la duración completa al salir — un usuario no puede perder el mensaje mientras lo está leyendo (WCAG 2.2.1).
+- El botón de cierre es un `<button>` real con `aria-label="Cerrar"`.
+- El color no es el único diferenciador de severidad: cada `type` tiene su propio icono (círculo con "i", check, triángulo de aviso, X).

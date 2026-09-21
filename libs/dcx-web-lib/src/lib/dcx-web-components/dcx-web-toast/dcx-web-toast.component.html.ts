@@ -31,7 +31,7 @@ export const template = (host: DcxWebToast) => html`
             host.hasAction(toast)
               ? html`
                 <dcx-web-button
-                  class="dcx-toast__action"
+                  class="dcx-toast__action dcx-button--toast"
                   .label="${toast.actionLabel || ''}"
                   .icon="${!!toast.actionIconName?.trim()}"
                   .iconName="${toast.actionIconName || ''}"

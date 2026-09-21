@@ -8,9 +8,11 @@ export const styles = css`
   .dcx-toast-outlet {
     position: fixed;
     z-index: 1000;
+
     display: flex;
     flex-direction: column;
     gap: var(--sp-3, 12px);
+
     pointer-events: none;
   }
 
@@ -21,25 +23,35 @@ export const styles = css`
   .dcx-toast-outlet--top-right {
     top: var(--sp-4, 16px);
     right: var(--sp-4, 16px);
+    bottom: auto;
+    left: auto;
     align-items: flex-end;
+    flex-direction: column;
   }
 
   .dcx-toast-outlet--top-left {
     top: var(--sp-4, 16px);
     left: var(--sp-4, 16px);
+    bottom: auto;
+    right: auto;
     align-items: flex-start;
+    flex-direction: column;
   }
 
   .dcx-toast-outlet--bottom-right {
-    bottom: var(--sp-4, 16px);
     right: var(--sp-4, 16px);
+    bottom: var(--sp-4, 16px);
+    top: auto;
+    left: auto;
     align-items: flex-end;
     flex-direction: column-reverse;
   }
 
   .dcx-toast-outlet--bottom-left {
-    bottom: var(--sp-4, 16px);
     left: var(--sp-4, 16px);
+    bottom: var(--sp-4, 16px);
+    top: auto;
+    right: auto;
     align-items: flex-start;
     flex-direction: column-reverse;
   }
@@ -53,34 +65,37 @@ export const styles = css`
 
     display: flex;
     align-items: center;
-
     gap: var(--sp-3, 12px);
 
     min-width: 280px;
     max-width: 440px;
 
-    padding: 12px 14px;
+    padding: var(--sp-3, 12px) 14px;
+
     border-radius: var(--r-lg, 8px);
 
-    background: var(
-      --dcx-toast-bg
-    );
-
+    background: var(--dcx-toast-bg);
     color: var(
       --text-white,
       #ffffff
     );
 
-    box-shadow: var(
-      --shadow-md,
-      0 4px 12px rgba(0,0,0,.08)
-    );
+    box-shadow:
+      0 4px 12px
+      rgba(0, 0, 0, 0.12);
 
     font-family: var(
       --ff-base,
+      var(
+        --font-family-primary,
         'Inter',
         sans-serif
+      )
     );
+
+    font-size: 13px;
+    font-weight: var(--fw-medium, 500);
+    line-height: 1.4;
   }
 
   .dcx-toast--info {
@@ -111,21 +126,16 @@ export const styles = css`
     min-width: 0;
 
     --dcx-message-align-items: center;
+    --dcx-message-gap: var(--sp-3, 12px);
+
     --dcx-message-bg: transparent;
     --dcx-message-border-left: none;
     --dcx-message-border-radius: 0;
+
     --dcx-message-padding: 0;
     --dcx-message-margin-bottom: 0;
-    --dcx-message-gap: 12px;
-    --dcx-message-color: var(--text-white, #ffffff);
-    --dcx-message-paragraph-color: var(
-      --text-white,
-      #ffffff
-    );
-    --dcx-message-paragraph-font-size: 13px;
-    --dcx-message-paragraph-font-weight: 500;
-    --dcx-message-paragraph-opacity: 1;
-    --dcx-message-icon-color: var(
+
+    --dcx-message-color: var(
       --text-white,
       #ffffff
     );
@@ -133,12 +143,18 @@ export const styles = css`
 
   .dcx-toast__action {
     margin-left: auto;
+    color: var(
+      --dcx-toast-action-color
+    );
   }
 
   .dcx-toast__close {
     flex-shrink: 0;
+
     opacity: 0.65;
-    transition: opacity 0.15s ease;
+
+    transition:
+      opacity 0.15s ease;
   }
 
   .dcx-toast__close:hover,

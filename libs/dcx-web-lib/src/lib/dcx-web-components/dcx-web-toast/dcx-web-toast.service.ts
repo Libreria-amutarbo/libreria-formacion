@@ -4,29 +4,29 @@ import type {
 } from '../../core/interfaces/toast';
 
 export class DcxWebToastService {
-  private static listeners = new Set<(toasts: DcxToastInstance[]) => void>();
+  private listeners = new Set<(toasts: DcxToastInstance[]) => void>();
 
-  private static _toasts: DcxToastInstance[] = [];
+  private _toasts: DcxToastInstance[] = [];
 
-  static get toasts(): DcxToastInstance[] {
+  get toasts(): DcxToastInstance[] {
     return [...this._toasts];
   }
 
-  private static notify() {
+  private notify() {
     const current = [...this._toasts];
 
     this.listeners.forEach(listener => listener(current));
   }
 
-  static subscribe(callback: (toasts: DcxToastInstance[]) => void) {
+  subscribe(callback: (toasts: DcxToastInstance[]) => void) {
     this.listeners.add(callback);
   }
 
-  static unsubscribe(callback: (toasts: DcxToastInstance[]) => void) {
+  unsubscribe(callback: (toasts: DcxToastInstance[]) => void) {
     this.listeners.delete(callback);
   }
 
-  static show(options: DcxToastOptions): string {
+  show(options: DcxToastOptions): string {
     const id = `dcx-toast-${Math.random().toString(36).substring(2, 9)}`;
 
     this._toasts = [
@@ -42,7 +42,7 @@ export class DcxWebToastService {
     return id;
   }
 
-  static success(
+  success(
     message: string,
     options?: Omit<DcxToastOptions, 'message' | 'type'>,
   ): string {
@@ -53,7 +53,7 @@ export class DcxWebToastService {
     });
   }
 
-  static error(
+  error(
     message: string,
     options?: Omit<DcxToastOptions, 'message' | 'type'>,
   ): string {
@@ -64,7 +64,7 @@ export class DcxWebToastService {
     });
   }
 
-  static warning(
+  warning(
     message: string,
     options?: Omit<DcxToastOptions, 'message' | 'type'>,
   ): string {
@@ -75,7 +75,7 @@ export class DcxWebToastService {
     });
   }
 
-  static info(
+  info(
     message: string,
     options?: Omit<DcxToastOptions, 'message' | 'type'>,
   ): string {
@@ -86,15 +86,73 @@ export class DcxWebToastService {
     });
   }
 
-  static dismiss(id: string): void {
+  dismiss(id: string): void {
     this._toasts = this._toasts.filter(toast => toast.id !== id);
 
     this.notify();
   }
 
-  static clear(): void {
+  clear(): void {
     this._toasts = [];
 
     this.notify();
+  }
+
+  private static defaultInstance = new DcxWebToastService();
+
+  static get default(): DcxWebToastService {
+    return DcxWebToastService.defaultInstance;
+  }
+
+  static get toasts(): DcxToastInstance[] {
+    return DcxWebToastService.defaultInstance.toasts;
+  }
+
+  static subscribe(callback: (toasts: DcxToastInstance[]) => void) {
+    DcxWebToastService.defaultInstance.subscribe(callback);
+  }
+
+  static unsubscribe(callback: (toasts: DcxToastInstance[]) => void) {
+    DcxWebToastService.defaultInstance.unsubscribe(callback);
+  }
+
+  static show(options: DcxToastOptions): string {
+    return DcxWebToastService.defaultInstance.show(options);
+  }
+
+  static success(
+    message: string,
+    options?: Omit<DcxToastOptions, 'message' | 'type'>,
+  ): string {
+    return DcxWebToastService.defaultInstance.success(message, options);
+  }
+
+  static error(
+    message: string,
+    options?: Omit<DcxToastOptions, 'message' | 'type'>,
+  ): string {
+    return DcxWebToastService.defaultInstance.error(message, options);
+  }
+
+  static warning(
+    message: string,
+    options?: Omit<DcxToastOptions, 'message' | 'type'>,
+  ): string {
+    return DcxWebToastService.defaultInstance.warning(message, options);
+  }
+
+  static info(
+    message: string,
+    options?: Omit<DcxToastOptions, 'message' | 'type'>,
+  ): string {
+    return DcxWebToastService.defaultInstance.info(message, options);
+  }
+
+  static dismiss(id: string): void {
+    DcxWebToastService.defaultInstance.dismiss(id);
+  }
+
+  static clear(): void {
+    DcxWebToastService.defaultInstance.clear();
   }
 }

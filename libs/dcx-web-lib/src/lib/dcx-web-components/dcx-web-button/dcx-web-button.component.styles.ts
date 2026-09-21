@@ -230,4 +230,40 @@ export const styles = css`
   .dcx-button--icon-only.dcx-button--m { width: 2.5rem; height: 2.5rem; }
   .dcx-button--icon-only.dcx-button--l { width: 3rem; height: 3rem; }
   .dcx-button--icon-only.dcx-button--xl { width: 3.5rem; height: 3.5rem; }
-`;
+
+  .dcx-button--toast {
+    padding: 0 var(--sp-1, 4px);
+
+    background-color: transparent;
+    border-color: transparent;
+    color: inherit;
+
+    font-size: var(--fs-sm, 12px);
+    font-weight: var(--fw-semibold, 600);
+
+    box-shadow: none;
+  }
+
+  .dcx-button--toast:hover:not(:disabled),
+  .dcx-button--toast.dcx-button--hover:not(:disabled) {
+    background-color: transparent;
+    border-color: transparent;
+    color: inherit;
+  }
+
+  .dcx-button--toast:active:not(:disabled),
+  .dcx-button--toast.dcx-button--pressed:not(:disabled) {
+    background-color: transparent;
+    border-color: transparent;
+    color: inherit;
+  }
+
+  .dcx-button--toast:focus-visible,
+  .dcx-button--toast.dcx-button--focused {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    background-color: transparent;
+    color: inherit;
+  }
+  `;
