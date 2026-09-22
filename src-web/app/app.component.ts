@@ -21,9 +21,16 @@ import './pages/dcx-web-page-stepper/dcx-web-page-stepper.component';
 import './pages/dcx-web-page-toggle/dcx-web-page-toggle.component';
 import './pages/dcx-web-page-message/dcx-web-page-message.component';
 import './pages/dcx-web-page-progressbar/dcx-web-page-progressbar.component';
+import './pages/dcx-web-page-textarea/dcx-web-page-textarea.component';
+import './pages/dcx-web-page-skeleton/dcx-web-page-skeleton.component';
+import './pages/dcx-web-page-scroll-top-down/dcx-web-page-scroll-top-down.component';
+import './pages/dcx-web-page-navbar/dcx-web-page-navbar.component';
 import './pages/dcx-web-page-spinner/dcx-web-page-spinner.component';
 import './pages/dcx-web-page-tooltip/dcx-web-page-tooltip.component';
 import './pages/dcx-web-page-list/dcx-web-page-list.component';
+import './pages/dcx-web-page-paginator/dcx-web-page-paginator.component';
+import './pages/dcx-web-page-tabs/dcx-web-page-tabs.component';
+import './pages/dcx-web-page-popover/dcx-web-page-popover.component';
 
 
 
@@ -101,6 +108,9 @@ export class DcxWebRoot extends LitElement {
       case '#select':
         content = html`<dcx-web-page-select></dcx-web-page-select>`;
         break;
+      case '#paginator':
+        content = html`<dcx-web-page-paginator></dcx-web-page-paginator>`;
+        break;
       case '#icon':
         content = html`<dcx-web-page-icon></dcx-web-page-icon>`;
         break;
@@ -115,16 +125,39 @@ export class DcxWebRoot extends LitElement {
       case '#message':
         content = html`<dcx-web-page-message></dcx-web-page-message>`;
         break;
+
+      case '#navbar':
+        content = html`<dcx-web-page-navbar></dcx-web-page-navbar>`;
+        break;
+
       case '#progressbar':
         content = html`<dcx-web-page-progressbar></dcx-web-page-progressbar>`;
+        break;
+
+      case '#popover':
+        content = html`<dcx-web-page-popover></dcx-web-page-popover>`;
+        break;
+        
+      case '#scroll-top-down':
+        content = html`<dcx-web-page-scroll-top-down></dcx-web-page-scroll-top-down>`;
         break;
 
       case '#stepper':
         content = html`<dcx-web-page-stepper></dcx-web-page-stepper>`;
         break;
 
+      case '#textarea':
+        content = html`<dcx-web-page-textarea></dcx-web-page-textarea>`;
+        break;
+      case '#skeleton':
+        content = html`<dcx-web-page-skeleton></dcx-web-page-skeleton>`;
+        break;
       case '#spinner':
         content = html`<dcx-web-page-spinner></dcx-web-page-spinner>`;
+        break;
+
+      case '#tabs':
+        content = html`<dcx-web-page-tabs></dcx-web-page-tabs>`;
         break;
 
       case '#toggle':

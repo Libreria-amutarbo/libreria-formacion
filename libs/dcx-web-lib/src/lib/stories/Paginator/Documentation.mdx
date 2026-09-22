@@ -1,0 +1,49 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as PaginatorStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Paginator/Documentation" />
+
+# Paginator
+
+El componente `dcx-web-paginator` proporciona una navegación accesible entre páginas de resultados, incluyendo navegación anterior/siguiente, selector de elementos por página, estado actual, soporte para elipsis y navegación rápida a primera y última página.
+
+---
+
+## Ejemplo funcional
+
+<Canvas of={PaginatorStories.Default} />
+
+---
+
+## Cuándo usarlo
+
+- Listados de resultados
+- Tablas paginadas
+- Búsquedas
+- Directorios
+- Historiales
+- Dashboards
+- Vistas con grandes cantidades de datos
+
+---
+
+## API
+
+| Propiedad | Tipo | Default | Descripción |
+|------------|------------|------------|------------|
+| paginator | DcxPaginator | { totalItems:100, itemsPerPage:10, currentPage:1 } | Configuración principal del paginador |
+| limitedButtons | boolean | false | Muestra primera y última página |
+| showItemsPerPageInfo | boolean | false | Muestra selector de items por página |
+| showPageInfo | boolean | false | Muestra "Página X de Y" |
+| pageSizeOptions | number[] | [5,10,20] | Opciones disponibles en el selector |
+
+---
+
+## Interface DcxPaginator
+
+```ts
+interface DcxPaginator {
+  totalItems: number;
+  itemsPerPage: number;
+  currentPage: number;
+}

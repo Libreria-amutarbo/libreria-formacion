@@ -1,0 +1,77 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as ScrollTopDownStories from './ClassBased.stories';
+
+<Meta
+  of={ScrollTopDownStories}
+  title="DCXLibrary/WebComponents/ScrollTopDown/Documentation"
+/>
+
+# Scroll Top Down
+
+El componente `dcx-web-scroll-top-down` proporciona controles flotantes para desplazar un documento o un contenedor scrollable al inicio o al final del contenido.
+
+Está diseñado para mantener compatibilidad WCAG AA mediante botones nativos, etiquetas accesibles y soporte para `prefers-reduced-motion`.
+
+---
+
+## Cuándo usarlo
+
+- Listados largos
+- Documentación extensa
+- Páginas corporativas
+- Sidebars con scroll
+- Contenedores scrollables
+- Experiencias mobile y desktop
+
+---
+
+## Características
+
+- Scroll superior
+- Scroll inferior
+- Soporte para ventana global
+- Soporte para contenedores personalizados
+- Scroll suave opcional
+- Respeto de `prefers-reduced-motion`
+- Tamaños S, M, L y XL
+- Accesibilidad WCAG AA
+
+---
+
+## API
+
+| Atributo | Tipo | Default | Descripción |
+|-----------|-----------|-----------|-----------|
+| container | HTMLElement \| null | null | Contenedor scrollable |
+| smooth | boolean | true | Activa scroll suave |
+| size | s \| m \| l \| xl | m | Tamaño visual |
+| iconSize | s \| m \| l \| xl | s | Tamaño de iconos |
+| showTop | boolean | true | Muestra acción superior |
+| showBottom | boolean | true | Muestra acción inferior |
+| topLabel | string | Ir arriba | Etiqueta accesible superior |
+| bottomLabel | string | Ir abajo | Etiqueta accesible inferior |
+| topIcon | string | chevron-up | Icono superior |
+| bottomIcon | string | chevron-down | Icono inferior |
+| groupLabel | string | Controles de desplazamiento | Etiqueta del grupo |
+
+---
+
+## Eventos
+
+El componente no expone eventos públicos.
+
+---
+
+## Slots
+
+El componente no utiliza slots.
+
+---
+
+## Accesibilidad
+
+### Grupo
+
+```html
+role="group"
+aria-label="Controles de desplazamiento"

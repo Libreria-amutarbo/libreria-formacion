@@ -101,9 +101,19 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['message'],
     },
     {
+      route: 'navbar',
+      name: 'Navbar',
+      icon: ROUTE_ICONS['navbar'],
+    },
+    {
       route: 'input',
       name: 'Input',
       icon: ROUTE_ICONS['input'],
+    },
+    {
+      route: 'scroll-top-down',
+      name: 'Scroll Top Down',
+      icon: ROUTE_ICONS['scroll-top-down'],
     },
     {
       route: 'select',
@@ -116,9 +126,24 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['stepper'],
     },
     {
+      route: 'textarea',
+      name: 'Textarea',
+      icon: ROUTE_ICONS['textarea'],
+    },
+    {
+      route: 'skeleton',
+      name: 'Skeleton',
+      icon: ROUTE_ICONS['skeleton'],
+    },
+    {
       route: 'spinner',
       name: 'Spinner',
       icon: ROUTE_ICONS['spinner'],
+    },
+    {
+      route: 'tabs',
+      name: 'Tabs',
+      icon: ROUTE_ICONS['tabs'],
     },
     {
       route: 'toggle',
@@ -131,10 +156,21 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['tooltip'],
     },
     {
+      route: 'paginator',
+      name: 'Paginator',
+      icon: ROUTE_ICONS['paginator'],
+    },
+    {
       route: 'progressbar',
       name: 'Progress Bar',
       icon: ROUTE_ICONS['progressbar'],
     },
+    {
+      route: 'popover',
+      name: 'Popover',
+      icon: ROUTE_ICONS['popover'],
+    }
+
   ];
 
   static override styles = css`

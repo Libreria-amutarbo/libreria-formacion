@@ -1,0 +1,53 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as TabsStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Tabs/Documentation" />
+
+# Tabs
+
+`dcx-web-tabs` permite navegar entre diferentes áreas de contenido siguiendo el patrón ARIA de Tabs (`tablist` / `tab` / `tabpanel`) con soporte para navegación mediante teclado, variantes visuales, badges, iconos, scroll horizontal y contenido proyectado.
+
+---
+
+## Cuándo usarlo
+
+- Navegación entre secciones
+- Agrupación de contenido relacionado
+- Pantallas multipaso
+- Área de configuración
+- Dashboards
+- Gestión de módulos
+- Navegación secundaria
+
+---
+
+## API
+
+| Propiedad | Tipo | Default | Descripción |
+|------------|------------|------------|------------|
+| tabs | DcxTabItem[] | [] | Colección de pestañas |
+| activeTabId | string | '' | Pestaña activa |
+| variant | line \| pill \| brand \| subtle | line | Variante visual |
+| hasControls | boolean | false | Controles numerados |
+| ariaLabel | string \| null | null | Nombre accesible del tablist |
+
+---
+
+## Eventos
+
+| Evento | Detail | Descripción |
+|----------|----------|----------|
+| tabChange | string | Identificador de la pestaña seleccionada |
+
+---
+
+## Interface DcxTabItem
+
+```ts
+export interface DcxTabItem {
+  id: string;
+  label: string;
+  disabled?: boolean;
+  icon?: string;
+  badge?: string | number;
+}

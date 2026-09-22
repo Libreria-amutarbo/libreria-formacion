@@ -1,0 +1,98 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as SkeletonStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/Skeleton/Documentation" />
+
+# Skeleton
+
+`dcx-web-skeleton` muestra un placeholder decorativo mientras el contenido real se encuentra cargando.
+
+Está inspirado en PrimeNG Skeleton y mantiene una API simple para definir forma, dimensiones y animación.
+
+---
+
+## Default
+
+<Canvas of={SkeletonStories.Default} />
+
+---
+
+## Shapes
+
+<Canvas of={SkeletonStories.Shapes} />
+
+---
+
+## Líneas de texto
+
+<Canvas of={SkeletonStories.TextLines} />
+
+---
+
+## Avatar
+
+<Canvas of={SkeletonStories.Avatar} />
+
+---
+
+## Card Placeholder
+
+<Canvas of={SkeletonStories.CardPlaceholder} />
+
+---
+
+## List Placeholder
+
+<Canvas of={SkeletonStories.ListPlaceholder} />
+
+---
+
+## No Animation
+
+<Canvas of={SkeletonStories.NoAnimation} />
+
+---
+
+## API
+
+| Propiedad | Tipo | Default | Descripción |
+|------------|------------|------------|------------|
+| shape | 'rectangle' \| 'circle' | rectangle | Forma visual |
+| width | string | 100% | Ancho CSS |
+| height | string | 1rem | Alto CSS |
+| size | string \| null | null | Tamaño único para ancho y alto |
+| borderRadius | string \| null | null | Radio CSS para rectángulos |
+| animation | 'wave' \| 'none' | wave | Animación visual |
+
+---
+
+## Eventos
+
+Este componente no expone eventos públicos.
+
+---
+
+## Slots
+
+Este componente no utiliza slots.
+
+---
+
+## Uso
+
+```html
+<dcx-web-skeleton></dcx-web-skeleton>
+
+<dcx-web-skeleton
+  width="10rem"
+  height="4rem">
+</dcx-web-skeleton>
+
+<dcx-web-skeleton
+  shape="circle"
+  size="3rem">
+</dcx-web-skeleton>
+
+<dcx-web-skeleton
+  animation="none">
+</dcx-web-skeleton>
