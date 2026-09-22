@@ -8,7 +8,9 @@ export default {
   moduleNameMapper: {
     '^.+\\.css\\?inline$': '<rootDir>/src/lib/testing/mock-css.ts',
   },
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$|lit|@lit|lit-html|lit-element)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!.*\\.mjs$|lit|@lit|lit-html|lit-element)',
+  ],
   moduleFileExtensions: ['ts', 'js', 'html', 'mjs'],
   coverageDirectory: '../../coverage/libs/dcx-web-lib',
 };

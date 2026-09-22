@@ -71,6 +71,9 @@ Default URL: `http://localhost:4200`
 ```bash
 npm start
 npm test
+npm run test:coverage
+npm run test:web
+npm run test:ng
 npm run start-storybook
 npm run lint
 npm run lint-fix
