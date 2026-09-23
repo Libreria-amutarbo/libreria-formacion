@@ -69,13 +69,8 @@ export class DcxWebPicklist extends LitElement {
       }) => unknown)
     | null = null;
 
-  get listScrollHeight(): string {
-    return (
-      this.getAttribute('scrollHeight') ||
-      this.getAttribute('scroll-height') ||
-      '14rem'
-    );
-  }
+  @property({ type: String, attribute: 'scroll-height' })
+  accessor listScrollHeight = '14rem';
 
   @property({ type: Boolean })
   accessor responsive = true;
@@ -158,7 +153,7 @@ export class DcxWebPicklist extends LitElement {
     const searchFields = fields.length ? fields : ['label', 'description'];
     return items.filter(item =>
       searchFields.some(f =>
-        String((item as any)[f] ?? '')
+        String(item[f as keyof DcxPickListItem] ?? '')
           .toLocaleLowerCase()
           .includes(normalizedQuery),
       ),
@@ -174,7 +169,7 @@ export class DcxWebPicklist extends LitElement {
   }
 
   private isSelected(item: DcxPickListItem, side: DcxPickListSide) {
-    if (!item.id) return false;
+    if (item.id == null) return false;
     return side === 'source'
       ? this.selectedSourceIds.includes(item.id)
       : this.selectedTargetIds.includes(item.id);
@@ -185,17 +180,25 @@ export class DcxWebPicklist extends LitElement {
   }
 
   onWebListSelect(e: CustomEvent, side: DcxPickListSide) {
-    const { item, index } = e.detail;
+    const { item } = e.detail;
     this.toggleItem(item, side, e);
   }
 
   onWebListDeselect(e: CustomEvent, side: DcxPickListSide) {
-    const { item, index } = e.detail;
+    const { item } = e.detail;
     this.toggleItem(item, side, e);
   }
 
-  onWebListDrop(e: CustomEvent, side: DcxPickListSide) {
-    const ev = e.detail as any;
+  onWebListDrop(
+    e: CustomEvent<{
+      previousContainer: { id: string; data: DcxPickListItem[] };
+      container: { id: string; data: DcxPickListItem[] };
+      previousIndex: number;
+      currentIndex: number;
+    }>,
+    side: DcxPickListSide,
+  ) {
+    const ev = e.detail;
     const prevId = ev.previousContainer?.id;
     const prevSide: DcxPickListSide =
       prevId === this.targetListId ? 'target' : 'source';
@@ -223,7 +226,7 @@ export class DcxWebPicklist extends LitElement {
 
     const previousSide: DcxPickListSide = prevSide;
     const nextSource = this.getList(previousSide).filter(
-      (it: any) => it.id !== draggedItem.id,
+      it => it.id !== draggedItem.id,
     );
     const nextTarget = this.insertVisibleDrop(
       this.getList(side),
@@ -243,8 +246,9 @@ export class DcxWebPicklist extends LitElement {
     side: DcxPickListSide,
     originalEvent?: Event,
   ) {
-    if (this.disabled || this.isItemDisabled(item) || !item.id) return;
-
+    if (this.disabled || this.isItemDisabled(item) || item.id == null) {
+      return;
+    }
     const selectedIds =
       side === 'source' ? this.selectedSourceIds : this.selectedTargetIds;
     const exists = selectedIds.includes(item.id);

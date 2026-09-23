@@ -161,6 +161,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['paginator'],
     },
     {
+      route: 'picklist',
+      name: 'Picklist',
+      icon: ROUTE_ICONS['picklist'],
+    },
+    {
       route: 'progressbar',
       name: 'Progress Bar',
       icon: ROUTE_ICONS['progressbar'],

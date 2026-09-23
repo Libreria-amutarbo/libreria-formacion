@@ -26,7 +26,7 @@ export const template = (host: DcxWebList) => html`
               <li
                   class="${host.getItemClasses(item, index)}"
                   data-index="${index}"
-                  draggable="${host.dragEnabled && !host.cdkDragDisabled(item) ? 'true' : 'false'}"
+                  draggable="${host.dragEnabled && !host.dragDisabled(item) ? 'true' : 'false'}"
                   @dragstart="${(e: DragEvent) => host._onDragStart(e, item, index)}"
                   @dragend="${() => host._onDragEnd()}"
                   @click="${() => host.onItemClick(item, index)}"

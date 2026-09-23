@@ -58,22 +58,22 @@ export class DcxWebList extends LitElement {
     | null = null;
 
   @property({ type: Boolean })
-  accessor cdkDropList = false;
+  accessor dropList = false;
 
   @property({ attribute: false })
-  accessor cdkDropListData: DcxListItem[] = [];
+  accessor dropListData: DcxListItem[] = [];
 
   @property({ attribute: false })
-  accessor cdkDropListConnectedTo: string | string[] | null = null;
+  accessor dropListConnectedTo: string | string[] | null = null;
 
   @property({ type: Boolean })
-  accessor cdkDropListDisabled = false;
+  accessor dropListDisabled = false;
 
   @property({ type: Boolean })
   accessor dragEnabled = false;
 
   @property({ attribute: false })
-  accessor cdkDragDisabled = (_item: DcxListItem) => false;
+  accessor dragDisabled = (_item: DcxListItem) => false;
 
   @state()
   accessor selectedIndices: number[] = [];
@@ -128,7 +128,7 @@ export class DcxWebList extends LitElement {
         JSON.stringify(payload),
       );
     } catch {
-      // Ignorar errores de setData en navegadores que no permiten ciertos tipos de datos
+      // Ignore errors if dataTransfer.setData fails in constrained environments
     }
     e.dataTransfer.effectAllowed = 'move';
     this.emit('dragStart', { item, index, listId: this._listId });
@@ -183,7 +183,7 @@ export class DcxWebList extends LitElement {
       currentIndex,
     };
 
-    this.emit('cdkDropListDropped', event);
+    this.emit('dropListDropped', event);
     this._dragPayload = null;
   }
 

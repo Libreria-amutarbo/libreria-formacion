@@ -44,10 +44,10 @@ export const template = (host: DcxWebPicklist) => html`
               : null
           }"
           .dragEnabled="${host.dragdrop}"
-          .cdkDropListData="${host.sourceItems}"
+          .dropListData="${host.sourceItems}"
           @itemSelected="${(e: Event) => host.onWebListSelect(e as CustomEvent, 'source')}"
           @itemDeselected="${(e: Event) => host.onWebListDeselect(e as CustomEvent, 'source')}"
-          @cdkDropListDropped="${(e: Event) => host.onWebListDrop(e as CustomEvent, 'source')}"
+          @dropListDropped="${(e: Event) => host.onWebListDrop(e as CustomEvent, 'source')}"
         ></dcx-web-list>
 
         ${host.visibleSourceItems.length === 0 ? html`<p class="dcx-picklist__empty">${host.sourceQuery ? 'Sin resultados' : 'No hay elementos disponibles'}</p>` : nothing}
@@ -89,10 +89,10 @@ export const template = (host: DcxWebPicklist) => html`
               : null
           }"
           .dragEnabled="${host.dragdrop}"
-          .cdkDropListData="${host.targetItems}"
+          .dropListData="${host.targetItems}"
           @itemSelected="${(e: Event) => host.onWebListSelect(e as CustomEvent, 'target')}"
           @itemDeselected="${(e: Event) => host.onWebListDeselect(e as CustomEvent, 'target')}"
-          @cdkDropListDropped="${(e: Event) => host.onWebListDrop(e as CustomEvent, 'target')}"
+          @dropListDropped="${(e: Event) => host.onWebListDrop(e as CustomEvent, 'target')}"
         ></dcx-web-list>
 
         ${host.visibleTargetItems.length === 0 ? html`<p class="dcx-picklist__empty">${host.targetQuery ? 'Sin resultados' : 'No hay elementos seleccionados'}</p>` : nothing}
