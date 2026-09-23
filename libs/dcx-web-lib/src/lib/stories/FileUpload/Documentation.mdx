@@ -1,0 +1,104 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as FileUploadStories from './ClassBased.stories';
+
+<Meta title="DCXLibrary/WebComponents/FileUpload/Documentation" />
+
+# File Upload
+
+El componente `dcx-web-file-upload` permite a los usuarios seleccionar, arrastrar y soltar uno o varios archivos para subirlos. Incluye soporte para validación de tipos permitidos, selección múltiple, auto upload y distintos tamaños de dropzone.
+
+---
+
+## Ejemplo básico
+
+<Canvas of={FileUploadStories.Default} />
+
+---
+
+## Variantes
+
+### Drag & Drop
+
+<Canvas of={FileUploadStories.DragAndDrop} />
+
+### Zona grande
+
+<Canvas of={FileUploadStories.LargeDropzone} />
+
+### Múltiples archivos
+
+<Canvas of={FileUploadStories.MultipleFiles} />
+
+### Auto Upload
+
+<Canvas of={FileUploadStories.AutoUpload} />
+
+---
+
+## Accesibilidad
+
+El componente implementa:
+
+- Botones accesibles mediante teclado.
+- Etiquetas descriptivas para acciones de selección y borrado.
+- Soporte para navegación mediante Tab.
+- Mensajes de error visibles y accesibles.
+- Región identificada para drag and drop mediante `aria-label`.
+
+---
+
+## Slots
+
+Actualmente el componente no expone slots públicos.
+
+---
+
+## Atributos principales
+
+| Propiedad | Tipo | Default |
+|------------|------------|------------|
+| label | string | Choose file |
+| accept | string | '' |
+| disabled | boolean | false |
+| placeholder | string | No file selected |
+| dragAndDrop | boolean | false |
+| dropzoneSize | small \| large | small |
+| multiple | boolean | false |
+| autoUpload | boolean | false |
+
+---
+
+## Eventos
+
+| Evento | Detail | Descripción |
+|----------|----------|----------|
+| fileSelected | File \| File[] \| null | Selección o limpieza de archivo(s) |
+| uploadClicked | File \| File[] \| null | Acción de subida manual o automática |
+
+---
+
+## Estados soportados
+
+- Estado normal
+- Estado disabled
+- Estado drag-and-drop
+- Estado drag-over
+- Estado validación de error
+- Estado selección múltiple
+- Estado auto upload
+- Dropzone pequeña
+- Dropzone grande
+
+---
+
+## Ejemplo de uso
+
+```html
+<dcx-web-file-upload
+  label="Select files"
+  accept="image/*"
+  drag-and-drop
+  dropzone-size="large"
+  multiple
+>
+</dcx-web-file-upload>
