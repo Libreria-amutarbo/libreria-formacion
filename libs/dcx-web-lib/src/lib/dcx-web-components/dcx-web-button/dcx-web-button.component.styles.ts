@@ -186,6 +186,10 @@ export const styles = css`
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    min-width: 1em;
+    min-height: 1em;
     background-color: currentColor;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;

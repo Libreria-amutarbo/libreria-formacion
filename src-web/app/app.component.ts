@@ -31,6 +31,8 @@ import './pages/dcx-web-page-list/dcx-web-page-list.component';
 import './pages/dcx-web-page-paginator/dcx-web-page-paginator.component';
 import './pages/dcx-web-page-tabs/dcx-web-page-tabs.component';
 import './pages/dcx-web-page-popover/dcx-web-page-popover.component';
+import './pages/dcx-web-page-picklist/dcx-web-page-picklist.component';
+
 import './pages/dcx-web-page-file-upload/dcx-web-page-file-upload.component';
 
 
@@ -111,6 +113,10 @@ export class DcxWebRoot extends LitElement {
       case '#paginator':
         content = html`<dcx-web-page-paginator></dcx-web-page-paginator>`;
         break;
+      case '#picklist':
+        content = html`<dcx-web-page-picklist></dcx-web-page-picklist>`;
+        break;
+
       case '#icon':
         content = html`<dcx-web-page-icon></dcx-web-page-icon>`;
         break;
