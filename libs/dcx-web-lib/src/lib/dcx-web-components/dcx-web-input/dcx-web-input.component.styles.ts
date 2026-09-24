@@ -107,6 +107,11 @@ export const styles = css`
     padding-right: var(--sp-10, 40px);
   }
 
+  .dcx-input__wrapper,
+  .dcx-input__field {
+    width: 100%;
+  }
+
   .dcx-input__hint {
     margin-top: var(--sp-1, 4px);
     color: var(--text-muted, #696e75);

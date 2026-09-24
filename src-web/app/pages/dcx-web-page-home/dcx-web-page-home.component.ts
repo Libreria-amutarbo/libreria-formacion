@@ -166,6 +166,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['paginator'],
     },
     {
+      route: 'picklist',
+      name: 'Picklist',
+      icon: ROUTE_ICONS['picklist'],
+    },
+    {
       route: 'progressbar',
       name: 'Progress Bar',
       icon: ROUTE_ICONS['progressbar'],
@@ -174,6 +179,11 @@ export class DcxWebPageHome extends LitElement {
       route: 'popover',
       name: 'Popover',
       icon: ROUTE_ICONS['popover'],
+    },
+    {
+      route: 'file-upload',
+      name: 'File Upload',
+      icon: ROUTE_ICONS['file-upload'],
     }
 
   ];

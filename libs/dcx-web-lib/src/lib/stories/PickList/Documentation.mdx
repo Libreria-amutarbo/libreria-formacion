@@ -1,0 +1,121 @@
+import { Meta, Canvas, Story, Source } from '@storybook/blocks';
+
+<Meta title="DCXLibrary/WebComponents/PickList/Documentation" />
+
+# PickList
+
+`dcx-web-picklist` permite mover elementos entre dos listas, reordenarlos y filtrarlos. Está pensado para transferir opciones entre un panel origen y un panel destino, manteniendo una experiencia clara y accesible.
+
+## Uso básico
+
+```html
+<dcx-web-picklist
+  sourceHeader="Disponibles"
+  targetHeader="Seleccionados"
+></dcx-web-picklist>
+```
+
+```js
+const source = [
+  { id: 1, label: 'Angular', description: 'Framework' },
+  { id: 2, label: 'React', description: 'Library' },
+  { id: 3, label: 'Vue', description: 'Framework' },
+];
+
+const target = [
+  { id: 4, label: 'Lit', description: 'Web components' },
+];
+
+const picklist = document.querySelector('dcx-web-picklist');
+picklist.source = source;
+picklist.target = target;
+
+picklist.addEventListener('sourceChange', event => {
+  picklist.source = event.detail;
+});
+
+picklist.addEventListener('targetChange', event => {
+  picklist.target = event.detail;
+});
+```
+
+## Filtros
+
+```html
+<dcx-web-picklist
+  sourceHeader="Cursos disponibles"
+  targetHeader="Plan formativo"
+  filterBy="label,description,category"
+  showSourceFilter
+  showTargetFilter
+  sourceFilterPlaceholder="Buscar cursos"
+  targetFilterPlaceholder="Buscar seleccionados"
+></dcx-web-picklist>
+```
+
+## Custom template
+
+```html
+<dcx-web-picklist
+  sourceHeader="Cursos disponibles"
+  targetHeader="Plan formativo"
+  filterBy="label,description,category"
+  dragdrop
+>
+</dcx-web-picklist>
+<script type="module">
+  const picklist = document.querySelector('dcx-web-picklist');
+  picklist.itemTemplate = ({ item, selected }) => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.alignItems = 'center';
+    container.style.gap = '0.75rem';
+    container.style.width = '100%';
+    container.style.padding = '0.5rem 0.75rem';
+
+    const initial = document.createElement('span');
+    initial.textContent = String(item.label ?? '').charAt(0).toUpperCase();
+    initial.style.display = 'inline-flex';
+    initial.style.width = '2.25rem';
+    initial.style.height = '2.25rem';
+    initial.style.borderRadius = '6px';
+    initial.style.alignItems = 'center';
+    initial.style.justifyContent = 'center';
+    initial.style.background = 'var(--color-info-bg, #eff6ff)';
+    initial.style.color = 'var(--bg-primary, #0058ab)';
+    initial.style.fontWeight = '700';
+
+    const text = document.createElement('span');
+    text.style.display = 'flex';
+    text.style.flex = '1';
+    text.style.flexDirection = 'column';
+    text.innerHTML = `
+      <strong>${item.label}</strong>
+      <small>${item.description ?? ''}</small>
+    `;
+
+    container.append(initial, text);
+    return container;
+  };
+</script>
+```
+
+## Accesibilidad
+
+- Usa listas accesibles con texto y estados de selección semánticos.
+- Los controles de edición y traslado ofrecen etiquetas descriptivas.
+- Los filtros usados en el panel permiten buscar opciones sin perder el contexto del contenido.
+- La interacción de selección y movimiento es compatible con el patrón de uso del componente y puede integrarse en aplicaciones con navegación por teclado y controles accesibles.
+
+<Canvas>
+  <Story id="dcxlibrary-webcomponents-picklist--default" />
+</Canvas>
+
+<Source
+  code={`
+<dcx-web-picklist
+  sourceHeader="Disponibles"
+  targetHeader="Seleccionados"
+></dcx-web-picklist>
+`}
+/>

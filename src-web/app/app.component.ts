@@ -32,7 +32,9 @@ import './pages/dcx-web-page-paginator/dcx-web-page-paginator.component';
 import './pages/dcx-web-page-tabs/dcx-web-page-tabs.component';
 import './pages/dcx-web-page-popover/dcx-web-page-popover.component';
 import './pages/dcx-web-page-calendar/dcx-web-page-calendar.component';
+import './pages/dcx-web-page-picklist/dcx-web-page-picklist.component';
 
+import './pages/dcx-web-page-file-upload/dcx-web-page-file-upload.component';
 
 
 @customElement('dcx-web-root')
@@ -116,6 +118,10 @@ export class DcxWebRoot extends LitElement {
       case '#paginator':
         content = html`<dcx-web-page-paginator></dcx-web-page-paginator>`;
         break;
+      case '#picklist':
+        content = html`<dcx-web-page-picklist></dcx-web-page-picklist>`;
+        break;
+
       case '#icon':
         content = html`<dcx-web-page-icon></dcx-web-page-icon>`;
         break;
@@ -142,7 +148,7 @@ export class DcxWebRoot extends LitElement {
       case '#popover':
         content = html`<dcx-web-page-popover></dcx-web-page-popover>`;
         break;
-        
+
       case '#scroll-top-down':
         content = html`<dcx-web-page-scroll-top-down></dcx-web-page-scroll-top-down>`;
         break;
@@ -171,6 +177,10 @@ export class DcxWebRoot extends LitElement {
 
       case '#tooltip':
         content = html`<dcx-web-page-tooltip></dcx-web-page-tooltip>`;
+        break;
+
+      case '#file-upload':
+        content = html`<dcx-web-page-file-upload></dcx-web-page-file-upload>`;
         break;
 
       default:
