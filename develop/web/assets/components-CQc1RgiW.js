@@ -1,0 +1,1 @@
+import{s as e}from"./DocsRenderer-CFRXHY34-D3PYgi-9.js";export{e as createCopyToClipboardFunction};
