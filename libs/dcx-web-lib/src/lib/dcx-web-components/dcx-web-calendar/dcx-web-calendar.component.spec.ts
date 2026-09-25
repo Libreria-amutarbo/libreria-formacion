@@ -339,4 +339,55 @@ describe('DcxWebCalendar', () => {
     expect(element.localActiveDate).toEqual(new Date(2026, 5, 18));
     expect(element.localSelectedDate).toEqual(new Date(2026, 5, 18));
   });
+
+  it('should trap focus inside modal dialog on Tab from last element', async () => {
+    element.openCreateModal(new Date(2026, 5, 21));
+    await element.updateComplete;
+
+    const dialog = element.shadowRoot?.querySelector(
+      '.dcx-calendar-dialog',
+    ) as HTMLElement;
+    expect(dialog).toBeTruthy();
+
+    const focusable = (element as any).getFocusableElements(dialog);
+    const lastEl = focusable[focusable.length - 1];
+    (element as any).focusElement(lastEl);
+
+    const tabEvent = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      bubbles: true,
+      cancelable: true,
+    });
+    const spyPreventDefault = jest.spyOn(tabEvent, 'preventDefault');
+
+    document.dispatchEvent(tabEvent);
+
+    expect(spyPreventDefault).toHaveBeenCalled();
+  });
+
+  it('should trap focus inside modal dialog on Shift+Tab from first element', async () => {
+    element.openCreateModal(new Date(2026, 5, 21));
+    await element.updateComplete;
+
+    const dialog = element.shadowRoot?.querySelector(
+      '.dcx-calendar-dialog',
+    ) as HTMLElement;
+    expect(dialog).toBeTruthy();
+
+    const focusable = (element as any).getFocusableElements(dialog);
+    const firstEl = focusable[0];
+    (element as any).focusElement(firstEl);
+
+    const shiftTabEvent = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      shiftKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    const spyPreventDefault = jest.spyOn(shiftTabEvent, 'preventDefault');
+
+    document.dispatchEvent(shiftTabEvent);
+
+    expect(spyPreventDefault).toHaveBeenCalled();
+  });
 });

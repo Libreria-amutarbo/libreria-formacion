@@ -2,6 +2,7 @@ import { html } from 'lit';
 import type {
   DcxCalendarDayCell,
   DcxCalendarEvent,
+  DcxCalendarRecurrence,
 } from '../../core/interfaces/calendar';
 import type { DcxWebCalendar } from './dcx-web-calendar.component';
 
@@ -539,8 +540,10 @@ function renderDeleteModal(host: DcxWebCalendar) {
             .value=${host.deleteScope}
             @valueChange=${(e: CustomEvent<string>) => host.setDeleteScope(e.detail)}
             @change=${(e: Event) => {
-              const val = (e.target as any).value;
-              if (val) host.setDeleteScope(val);
+              const val = (e.target as HTMLInputElement).value;
+              if (val) {
+                host.setDeleteScope(val);
+              }
             }}
           ></dcx-web-radio>
         </div>
@@ -751,8 +754,9 @@ function renderEventFormModal(host: DcxWebCalendar) {
             .value=${host.eventForm.recurrence}
             @change=${(e: Event) => {
               host.eventForm.recurrence = (e.target as HTMLSelectElement)
-                .value as any;
+                .value as DcxCalendarRecurrence;
             }}
+
           >
             ${host.recurrenceOptions.map(
               option => html`

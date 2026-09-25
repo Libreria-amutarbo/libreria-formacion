@@ -87,9 +87,11 @@ export class DcxWebCalendar extends LitElement {
   accessor showFooter = true;
 
   @property({ type: String, attribute: 'aria-label' })
-  override accessor ariaLabel = 'Calendar';
+  override accessor ariaLabel = 'Calendario';
 
-  readonly today = this.startOfDay(new Date());
+  get today(): Date {
+    return this.startOfDay(new Date());
+  }
 
   @state()
   accessor localActiveDate: Date = this.startOfDay(new Date());
@@ -118,6 +120,7 @@ export class DcxWebCalendar extends LitElement {
   @state()
   accessor formError = '';
 
+  @state()
   accessor eventForm: CalendarFormModel = this.createEmptyForm(this.today);
 
   private lastFocusedBeforeModal: HTMLElement | null = null;
@@ -592,8 +595,96 @@ export class DcxWebCalendar extends LitElement {
   private handleDocumentKeydown = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       this.handleEscape();
+      return;
+    }
+
+    if (event.key === 'Tab' && this.modalMode !== null) {
+      this.handleModalTab(event);
     }
   };
+
+  private handleModalTab(event: KeyboardEvent): void {
+    const dialog = this.shadowRoot?.querySelector<HTMLElement>(
+      '.dcx-calendar-dialog',
+    );
+    if (!dialog) {
+      return;
+    }
+
+    const focusableElements = this.getFocusableElements(dialog);
+    if (focusableElements.length === 0) {
+      event.preventDefault();
+      dialog.focus();
+      return;
+    }
+
+    const activeElement = this.shadowRoot?.activeElement as HTMLElement | null;
+    const isInsideDialog = activeElement && dialog.contains(activeElement);
+    const activeIndex = isInsideDialog
+      ? focusableElements.indexOf(activeElement)
+      : -1;
+
+    if (event.shiftKey) {
+      if (activeIndex <= 0) {
+        event.preventDefault();
+        this.focusElement(focusableElements[focusableElements.length - 1]);
+      }
+    } else {
+      if (activeIndex === -1 || activeIndex === focusableElements.length - 1) {
+        event.preventDefault();
+        this.focusElement(focusableElements[0]);
+      }
+    }
+  }
+
+  private getFocusableElements(container: HTMLElement): HTMLElement[] {
+    const selector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+      'dcx-web-button',
+      'dcx-web-radio',
+    ].join(', ');
+
+    const candidates = Array.from(
+      container.querySelectorAll<HTMLElement>(selector),
+    );
+
+    return candidates.filter(el => {
+      if (el.getAttribute('tabindex') === '-1' || el.hasAttribute('disabled')) {
+        return false;
+      }
+
+      if ('disabled' in el && (el as any).disabled) {
+        return false;
+      }
+
+      const style = window.getComputedStyle(el);
+      return style.display !== 'none' && style.visibility !== 'hidden';
+    });
+  }
+
+  private focusElement(element: HTMLElement): void {
+    if (!element) return;
+
+    if (element.shadowRoot) {
+      const innerFocusable =
+        element.shadowRoot.querySelector<HTMLElement>('input:checked') ||
+        element.shadowRoot.querySelector<HTMLElement>(
+          'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+
+      if (innerFocusable) {
+        innerFocusable.focus();
+        return;
+      }
+    }
+
+    element.focus();
+  }
 
   private emitEventCreate(draft: DcxCalendarEventDraft) {
     this.dispatchEvent(
