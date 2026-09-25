@@ -41,6 +41,11 @@ export class DcxWebPageHome extends LitElement {
       icon: ROUTE_ICONS['card'],
     },
     {
+      route: 'calendar',
+      name: 'Calendar',
+      icon: ROUTE_ICONS['calendar'],
+    },
+    {
       route: 'divider',
       name: 'Divider',
       icon: ROUTE_ICONS['divider'],

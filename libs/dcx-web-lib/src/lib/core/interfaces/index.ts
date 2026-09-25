@@ -29,3 +29,4 @@ export * from './spinner';
 export * from './fileUpload';
 export * from './paginator';
 export * from './tabs';
+export * from './calendar';
