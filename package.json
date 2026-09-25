@@ -14,6 +14,8 @@
     "build-storybook": "nx build-storybook dcx-ng-lib",
     "build-storybook:web": "nx build-storybook dcx-web-lib",
     "test": "nx run-many -t test --coverage --coverageDirectory='coverage/libs'",
+    "test:web": "nx test dcx-web-lib --coverage",
+    "test:ng": "nx test dcx-ng-lib --coverage",
     "lint": "nx run-many -t lint",
     "lint:fix": "nx run-many -t lint --fix",
     "lint-fix": "npm run lint:fix",
